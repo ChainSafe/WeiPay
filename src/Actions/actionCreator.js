@@ -1,4 +1,6 @@
 import { incrementCounter, decrementCounter, addTokenSetup } from "./actionTypes";
+import * as actionTypes from './actionTypes';
+
 
 const incrementAction = () => ({
   type: incrementCounter
@@ -11,9 +13,10 @@ function AddToken(paylaod) {
   }
 }
 
-export function addTokenToSetup(tokenName) {
+export function addTokenToSetup(tokenId) {
+
   return dispatch => {
-    dispatch({ type: addTokenSetup, payload: tokenName })
+    dispatch({ type: actionTypes.ADD_TOKEN_SETUP, payload: tokenId })
   }
 }
 
@@ -26,3 +29,17 @@ export function addTokenToSetup(tokenName) {
 //     .catch(err => { dispatch({type: LOGIN_FAILED, payload: null}) })
 //   }
 // }
+
+
+export function newWalletCreation() {
+  return dispatch => {
+    dispatch({ type: actionTypes.CREATING_NEW_WALLET,
+              payload: true })
+  }
+}
+
+export function newWalletNameEntry(name) {
+  return dispatch => {
+    dispatch({ type: actionTypes.NEW_WALLET_NAME, payload: name})
+  }
+}

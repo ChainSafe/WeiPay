@@ -6,7 +6,7 @@ import { Terms } from './terms';
 import { Button } from 'react-native-elements';
 //import { BtnSubmit } from '../../Components/Buttons/BtnSubmit';
 //import { incrementAction, decrementAction } from "../Actions/actionCreator";
-
+import { newWalletCreation } from '../../Actions/actionCreator';
 
 class CreateOrRestore extends Component {
     static navigationOptions = {
@@ -18,6 +18,7 @@ class CreateOrRestore extends Component {
             routeName: "createWalletName",
             params: { name: "Shubhnik" }
         });
+        this.props.newWalletCreation();
         this.props.navigation.dispatch(navigateToWalletName);
     };
 
@@ -106,5 +107,5 @@ const styles = StyleSheet.create({
 })
 
 
-
-export default CreateOrRestore;
+export default connect(null, { newWalletCreation })(CreateOrRestore);
+//export default CreateOrRestore;
