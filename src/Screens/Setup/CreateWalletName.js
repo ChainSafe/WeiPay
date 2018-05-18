@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { Terms } from './terms';
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import { Input } from '../../Components/common/Input';
-
+import { newWalletNameEntry } from '../../Actions/actionCreator';
 
 class CreateWalletName extends Component {
     static navigationOptions = {
@@ -20,12 +20,19 @@ class CreateWalletName extends Component {
         this.props.navigation.dispatch(navigateToPassphrase);
     };
 
+    getWalletName(name) {
+      this.props.newWalletNameEntry(name);
+    }
+
+
     render() {
         return (
             <View style={styles.mainContainer}>
               <View style={styles.contentContainer} >
                 <FormLabel> Enter wallet name </FormLabel>
-                <FormInput style={styles.formInputElement} placeholder={"Family wallet, Work Fund.."} />
+                <FormInput style={styles.formInputElement} placeholder={"Family wallet, Work Fund.."}
+                  onChangeText={this.getWalletName.bind(this)}
+                />
 
                 <View style={styles.btnContainer} >
                   <Button
@@ -61,5 +68,5 @@ const styles = StyleSheet.create({
 })
 
 
-
-export default CreateWalletName;
+export default connect(null, { newWalletNameEntry })(CreateWalletName);
+//export default CreateWalletName;

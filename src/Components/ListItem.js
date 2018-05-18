@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { CardSection } from './common/CardSection';
+import { Card } from './common/Card';
 import { CheckBox } from 'react-native-elements'
 import { connect } from 'react-redux';
 import { addTokenToSetup } from '../Actions/actionCreator';
@@ -11,24 +12,21 @@ class ListItem extends Component {
         const { title } = styles;
         //console.log(this.props);
         return (
-            <TouchableOpacity
-                key={coin.id}
-                onPress={() => this.props.addTokenToSetup(coin.id)}
-            >
-                <CardSection>
-                    <CheckBox center
-                        title={coin.title}
-                        iconLeft
-                        iconType='material'
-                        checkedIcon='clear'
-                        uncheckedIcon='add'
-                        checkedColor='red'
-                        style={title}
 
+            <Card>
+                <CheckBox center
+                    title={coin.title}
+                    iconLeft
+                    iconType='material'
+                    checkedIcon='clear'
+                    uncheckedIcon='add'
+                    checkedColor='red'
+                    style={title}
+                    onPress={() => this.props.addTokenToSetup(coin.id)}
 
-                    />
-                </CardSection>
-            </TouchableOpacity >
+                />
+            </Card>
+
         )
     }
 }
