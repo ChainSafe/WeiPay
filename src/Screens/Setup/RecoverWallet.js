@@ -3,6 +3,7 @@ import { View, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput, Image 
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
+import { recoveryKey } from '../../Actions/actionCreator';
 
 
 class RecoverWallet extends Component {
@@ -11,12 +12,18 @@ class RecoverWallet extends Component {
     };
 
     navigate = () => {
+
         const navigateToTokens = NavigationActions.navigate({
             routeName: "enableTokens",
             params: { name: "Shubhnik" }
         });
+
         this.props.navigation.dispatch(navigateToTokens);
     };
+
+    renderRecoveryKey(key) {
+      this.props.recoveryKey(key);
+    }
 
     render() {
         return (
@@ -24,7 +31,9 @@ class RecoverWallet extends Component {
               <View style={styles.contentContainer} >
 
                 <FormLabel> Enter passphrase to recover </FormLabel>
-                <FormInput />
+                <FormInput
+                  onChangeText={this.renderRecoveryKey.bind(this)}
+                />
                 <View style={styles.btnContainer} >
                   <Button
                     title='Restore'
@@ -56,5 +65,5 @@ const styles = StyleSheet.create({
 })
 
 
-
-export default RecoverWallet;
+export default connect(null, { recoveryKey })(RecoverWallet);
+//export default RecoverWallet;

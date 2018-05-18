@@ -43,3 +43,15 @@ export function newWalletNameEntry(name) {
     dispatch({ type: actionTypes.NEW_WALLET_NAME, payload: name})
   }
 }
+
+export function restoreWallet() {
+  return dispatch => {
+    dispatch({ type: actionTypes.RESTORE_WALLET })
+  }
+}
+
+export function recoveryKey(key) {
+  return dispatch => {
+    dispatch({type: actionTypes.RESTORE_RECOVERY_KEY, paylaod: key})
+  }
+}

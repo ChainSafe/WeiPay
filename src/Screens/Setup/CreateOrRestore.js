@@ -6,7 +6,7 @@ import { Terms } from './terms';
 import { Button } from 'react-native-elements';
 //import { BtnSubmit } from '../../Components/Buttons/BtnSubmit';
 //import { incrementAction, decrementAction } from "../Actions/actionCreator";
-import { newWalletCreation } from '../../Actions/actionCreator';
+import { newWalletCreation, restoreWallet } from '../../Actions/actionCreator';
 
 class CreateOrRestore extends Component {
     static navigationOptions = {
@@ -28,6 +28,7 @@ class CreateOrRestore extends Component {
             routeName: "recoverWallet",
             params: { name: "Shubhnik" }
         });
+        this.props.restoreWallet();
         this.props.navigation.dispatch(navigateToRecover);
     };
 
@@ -107,5 +108,5 @@ const styles = StyleSheet.create({
 })
 
 
-export default connect(null, { newWalletCreation })(CreateOrRestore);
+export default connect(null, { newWalletCreation, restoreWallet })(CreateOrRestore);
 //export default CreateOrRestore;
