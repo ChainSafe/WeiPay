@@ -1,0 +1,74 @@
+[
+    {
+        "id": 0,
+        "title": "Ether"
+    },
+    {
+        "id": 1,
+        "title": "Sub"
+    },
+    {
+        "id": 2,
+        "title": "Shyft"
+    },
+    {
+        "id": 3,
+        "title": "BTC"
+    },
+    {
+        "id": 4,
+        "title": "NEO"
+    },
+    {
+        "id": 5,
+        "title": "GAS"
+    },
+    {
+        "id": 6,
+        "title": "EOS"
+    },
+    {
+        "id": 7,
+        "title": "REP"
+    },
+    {
+        "id": 8,
+        "title": "OMG"
+    },
+    {
+        "id": 9,
+        "title": "DGD"
+    },
+    {
+        "id": 10,
+        "title": "RPX"
+    },
+    {
+        "id": 11,
+        "title": "Litcoin"
+    },
+    {
+        "id": 12,
+        "title": "Dash"
+    },
+    {
+        "id": 13,
+        "title": "Zcash"
+    },
+    {
+        "id": 14,
+        "title": "XRP"
+    },
+    {
+        "id": 15,
+        "title": "Dogecoin"
+    },
+    {
+        "id": 16,
+        "title": "Monero"
+    },
+    {
+        "id": 17,
+        "title": "REQ"
+    }
+]

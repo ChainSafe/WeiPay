@@ -1,0 +1,20 @@
+[
+    {
+        "title": "Password Change",
+    },
+    {
+        "title": "Language Change",
+    },
+    {
+        "title": "Currency Change",
+    },
+    {
+        "title": "Wallet Name Change",
+    },
+    {
+        "title": "Export Activity Transaction",
+    },
+    {
+        "title": "Remove Wallet",
+    }
+]
