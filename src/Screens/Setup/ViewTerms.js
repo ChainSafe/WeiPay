@@ -25,7 +25,7 @@ class ViewTerms extends Component {
         return (
             <View style={styles.mainContainer}>
                 <View style={styles.termsContainer}>
-                    <ScrollView>
+                    <ScrollView style={styles.list}>
                         <Text>{Terms}</Text>
                     </ScrollView>
                     <View style={styles.btnContainer}>
@@ -58,6 +58,8 @@ const styles = StyleSheet.create({
     },
     btnContainer: {
         paddingTop: 25
+    }, list: {
+        backgroundColor: 'white', padding: 10
     }
 })
 

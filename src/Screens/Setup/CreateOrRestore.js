@@ -4,8 +4,7 @@ import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Terms } from './terms';
 import { Button } from 'react-native-elements';
-//import { BtnSubmit } from '../../Components/Buttons/BtnSubmit';
-//import { incrementAction, decrementAction } from "../Actions/actionCreator";
+
 import { newWalletCreation, restoreWallet } from '../../Actions/actionCreator';
 
 class CreateOrRestore extends Component {
@@ -23,7 +22,6 @@ class CreateOrRestore extends Component {
     };
 
     navigateRestore = () => {
-        console.log("wtf");
         const navigateToRecover = NavigationActions.navigate({
             routeName: "recoverWallet",
             params: { name: "Shubhnik" }
@@ -35,34 +33,37 @@ class CreateOrRestore extends Component {
     render() {
         return (
             <View style={styles.mainContainer}>
-              <View style={styles.contentContainer} >
-                <Text style={styles.pageTitle} > WeiPay </Text>
-                <Text style={styles.pageDescription} > First digital offline crypto wallet </Text>
-                <Image style={styles.logo} source={require('../../Assets/images/eth.png')} />
+                <View style={styles.contentContainer} >
 
-                <View style={styles.btnContainer} >
-                  <Button
-                    title='Create Wallet'
-                    icon={{ size: 28 }}
-                    buttonStyle={{
-                      backgroundColor: 'blue', borderRadius: 10, width: 250, height: 40, alignItems: 'center',
-                      justifyContent: 'center', marginBottom: 3.5, marginTop: 3.5
-                    }}
-                    textStyle={{ textAlign: 'center' }}
-                    onPress={this.navigateCreate}
-                  />
-                  <Button
-                    title='Restore Wallet'
-                    icon={{ size: 28 }}
-                    buttonStyle={{
-                      backgroundColor: 'blue', borderRadius: 10, width: 250, height: 40, alignItems: 'center',
-                      justifyContent: 'center', marginBottom: 3.5, marginTop: 5.5
-                    }}
-                    textStyle={{ textAlign: 'center' }}
-                    onPress={this.navigateRestore}
-                  />
+                    <View style={styles.companyDisplayContainer} >
+                        <Image style={styles.logo} source={require('../../Assets/images/eth.png')} />
+                        <Text style={styles.pageTitle} > WeiPay </Text>
+                        <Text style={styles.pageDescription} > First digital offline crypto wallet </Text>
+                    </View>
+
+                    <View style={styles.btnContainer} >
+                        <Button
+                            title='Create Wallet'
+                            icon={{ size: 28 }}
+                            buttonStyle={{
+                                backgroundColor: 'blue', borderRadius: 10, width: 250, height: 40, alignItems: 'center',
+                                justifyContent: 'center', marginBottom: 3.5, marginTop: 3.5
+                            }}
+                            textStyle={{ textAlign: 'center' }}
+                            onPress={this.navigateCreate}
+                        />
+                        <Button
+                            title='Restore Wallet'
+                            icon={{ size: 28 }}
+                            buttonStyle={{
+                                backgroundColor: 'blue', borderRadius: 10, width: 250, height: 40, alignItems: 'center',
+                                justifyContent: 'center', marginBottom: 3.5, marginTop: 5.5
+                            }}
+                            textStyle={{ textAlign: 'center' }}
+                            onPress={this.navigateRestore}
+                        />
+                    </View>
                 </View>
-              </View>
             </View>
         );
     }
@@ -76,35 +77,26 @@ const styles = StyleSheet.create({
         marginTop: 25, flex: 1, alignItems: 'center'
     },
     pageTitle: {
-        paddingBottom: 7, alignItems: 'center', fontSize: 22
+        paddingBottom: 7, alignItems: 'center', fontSize: 25, textAlign: 'center', fontWeight: '200'
     },
     pageDescription: {
-        alignItems: 'center', fontSize: 15
+        alignItems: 'center', fontSize: 18, textAlign: 'center', fontWeight: '100'
     },
-    termsContainer: {
-        flex: 1,
-        marginTop: 20,
-        marginLeft: 10,
-        marginRight: 10,
-        marginBottom: 30
+    companyDisplayContainer: {
+        marginTop: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     logo: {
-        width: 130,
-        height: 220,
+        width: 65,
+        height: 110,
         marginTop: 25,
         marginBottom: 25,
+
     },
     btnContainer: {
         marginTop: 20
     },
-    btn: {
-        width: 225,
-        height: 40,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 2.5,
-        marginTop: 2.5,
-    }
 })
 
 

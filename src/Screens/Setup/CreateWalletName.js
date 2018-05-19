@@ -21,32 +21,33 @@ class CreateWalletName extends Component {
     };
 
     getWalletName(name) {
-      this.props.newWalletNameEntry(name);
+        this.props.newWalletNameEntry(name);
     }
 
 
     render() {
         return (
             <View style={styles.mainContainer}>
-              <View style={styles.contentContainer} >
-                <FormLabel> Enter wallet name </FormLabel>
-                <FormInput style={styles.formInputElement} placeholder={"Family wallet, Work Fund.."}
-                  onChangeText={this.getWalletName.bind(this)}
-                />
-
-                <View style={styles.btnContainer} >
-                  <Button
-                    title='Next'
-                    icon={{ size: 28 }}
-                    buttonStyle={{
-                      backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-                      justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
-                    }}
-                    textStyle={{ textAlign: 'center' }}
-                    onPress={this.navigate}
-                  />
+                <View style={styles.contentContainer} >
+                    <View style={styles.form} >
+                        <FormLabel>Enter wallet name </FormLabel>
+                        <FormInput style={styles.formInputElement} placeholder={"Family wallet, Work Fund.."}
+                            onChangeText={this.getWalletName.bind(this)}
+                        />
+                    </View>
+                    <View style={styles.btnContainer} >
+                        <Button
+                            title='Next'
+                            icon={{ size: 28 }}
+                            buttonStyle={{
+                                backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
+                                justifyContent: 'center', marginBottom: 30, marginTop: 5.5
+                            }}
+                            textStyle={{ textAlign: 'center' }}
+                            onPress={this.navigate}
+                        />
+                    </View>
                 </View>
-              </View>
             </View>
         );
     }
@@ -57,14 +58,14 @@ const styles = StyleSheet.create({
         flex: 1, alignItems: 'center', justifyContent: 'flex-start'
     },
     contentContainer: {
-        marginTop: 25,
+        marginTop: 25
+    },
+    form: {
+        width: 340
     },
     btnContainer: {
         flex: 1, justifyContent: 'flex-end', alignItems: 'center'
     },
-    formInputElement: {
-
-    }
 })
 
 
