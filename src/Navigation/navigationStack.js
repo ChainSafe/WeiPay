@@ -98,7 +98,7 @@ const navigator = StackNavigator({
       Contacts: {
         screen: Contacts
       },
-      settings: {
+      Settings: {
 
         //  screen: Settings,
         screen: StackNavigator({
