@@ -21,7 +21,8 @@ export default CoinActivity
 
 const styles = StyleSheet.create({
   container: {
-    top: 20,
-    alignItems: 'center'
+    // top: 20,
+    // alignItems: 'center'
+    flex: 1, justifyContent: 'center', alignItems: 'center'
   }
 })

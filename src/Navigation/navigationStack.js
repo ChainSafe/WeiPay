@@ -75,19 +75,27 @@ const navigator = StackNavigator({
           coinsend: { screen: CoinSend },
           coinactivity: { screen: CoinActivity },
           coinrecive: { screen: CoinReceive }
-        })
+        }, {
+            tabBarPosition: 'top',
+          }, {
+            headerTitleStyle: { textAlign: 'center', alignSelf: 'center', fontWeight: 'normal', fontSize: 20, color: '#606060' }
+          })
       },
       PortfolioToken: {
         screen: TabNavigator({
           tokensend: { screen: TokenSend },
           tokenreceive: { screen: TokenReceive }
-        })
+        }, {
+            tabBarPosition: 'top',
+          })
       },
       AddToken: {
         screen: TabNavigator({
           coins: { screen: Coins },
           tokens: { screen: Tokens }
-        })
+        }, {
+            tabBarPosition: 'top',
+          })
       },
       backupPhrase: {
         screen: BackupPhrase
