@@ -11,27 +11,58 @@ class CoinSend extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <FormLabel> Send To </FormLabel>
-        <FormInput />
-        <FormLabel> Amount </FormLabel>
-        <FormInput />
-        <Text style={styles.transactionFee}>
-          Transaction Fee
-          Total  0 BTC 0 USD
-        </Text>
+      <View style={styles.mainContainer}>
+        <View style={styles.contentContainer} >
+          <View style={styles.form} >
+            <FormLabel> Send To </FormLabel>
+            <FormInput style={styles.formInputElement} />
+            <FormLabel> Amount </FormLabel>
+            <FormInput style={styles.formInputElement} />
+            <FormLabel>
+              Transaction Fee
+              Total  0 BTC 0 USD
+            </FormLabel>
+          </View>
+          <View style={styles.btnContainer} >
+            <Button
+              title='Reset'
+              icon={{ size: 28 }}
+              buttonStyle={{
+                backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
+                justifyContent: 'center', marginBottom: 5, marginTop: 5.5
+              }}
+              textStyle={{ textAlign: 'center' }}
+              onPress={console.log('sdf')} />
+            <Button
+              title='Next'
+              icon={{ size: 28 }}
+              buttonStyle={{
+                backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
+                justifyContent: 'center', marginBottom: 30, marginTop: 5.5
+              }}
+              textStyle={{ textAlign: 'center' }}
+
+            />
+          </View>
+        </View>
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center'
+  mainContainer: {
+    flex: 1, alignItems: 'center', justifyContent: 'flex-start'
   },
-  transactionFee: {
-    top: 4
-  }
+  contentContainer: {
+    marginTop: 25
+  },
+  form: {
+    width: 340
+  },
+  btnContainer: {
+    flex: 1, justifyContent: 'flex-end', alignItems: 'center'
+  },
 })
 
 export default CoinSend
