@@ -42,13 +42,9 @@ class EnableTokens extends Component {
 }
 
 const styles = StyleSheet.create({
-    mainContainer: {
-        flex: 1,
-        flexGrow: 1
-    },
     btnContainer: {
         alignItems: 'center', height: 60, paddingTop: 10, paddingBottom: 10, justifyContent: "center"
-    },
+    }
 })
 
 
