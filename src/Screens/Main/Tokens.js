@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
-import { Icon } from 'react-native-elements';
+import { Icon, Button } from 'react-native-elements';
 import CoinList from '../../Components/CoinList';
 
 class CustomButton extends Component {
@@ -28,16 +28,27 @@ class Tokens extends Component {
       title: 'Enable Tokens',
       tabBarLabel: 'Tokens',
       headerLeft: (
-        <CustomButton navigation={navigation}/>
+        <CustomButton navigation={navigation} />
       )
     }
   }
 
   render() {
     return (
-      <View>
-        <Icon name="add" onPress={() => alert('Would Like to Access the Camera to Scan barcodes')} />
+      <View style={{ flex: 1 }} >
         <CoinList />
+        <View style={styles.btnContainer} >
+          <Button
+            title='Add'
+            icon={{ size: 28 }}
+            buttonStyle={{
+              backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
+              justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
+            }}
+            textStyle={{ textAlign: 'center' }}
+            onPress={() => alert('Would Like to Access the Camera to Scan barcodes')}
+          />
+        </View>
       </View>
     )
   }
@@ -48,6 +59,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     padding: '5%'
+  },
+  btnContainer: {
+    alignItems: 'center', height: 60, paddingTop: 10, paddingBottom: 10, justifyContent: "center"
   }
 })
 
