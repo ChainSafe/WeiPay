@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import { Icon, Button } from 'react-native-elements';
-import CoinList from '../../Components/CoinList';
+import CoinList from '../../../Components/CoinList';
 
 class CustomButton extends Component {
   render() {
@@ -27,7 +27,7 @@ class Tokens extends Component {
     return {
       title: 'Enable Tokens',
       tabBarLabel: 'Tokens',
-      headerLeft: (
+      headerRight: (
         <CustomButton navigation={navigation} />
       )
     }
