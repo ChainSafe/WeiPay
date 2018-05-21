@@ -8,7 +8,10 @@ import { BtnSubmit } from '../../Components/Buttons/BtnSubmit';
 
 class ViewTerms extends Component {
     static navigationOptions = {
-        title: "Terms and Conditions"
+        title: "Terms and Conditions",
+        headerStyle: {
+          borderBottomWidth: 0,
+        }
     };
 
     navigate = () => {
