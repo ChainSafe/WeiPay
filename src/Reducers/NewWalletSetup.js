@@ -15,8 +15,16 @@ export default (state = INITIAL_STATE, action) => {
 
     case actions.ADD_TOKEN_SETUP:
       var current = state.tokens;
-      current.push(action.payload);
-      console.log(current);
+      if (current.indexOf(action.payload) == -1){
+        //add the selected coin to the token list
+        current.push(action.payload);
+      }else {
+        //Delete the selected coin from the token list
+        index = current.indexOf(action.payload);
+        current.splice(index,1);
+        console.log("Item removed");
+      }
+
       return { ...state, tokens: current };
     default:
       return state;
