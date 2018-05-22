@@ -8,7 +8,6 @@ class Portfolio extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Portfolio',
-      headerLeft: null,
       headerLeft: (
         <Icon
           name="menu"
