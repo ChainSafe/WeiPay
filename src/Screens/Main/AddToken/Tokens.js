@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import { Icon, Button } from 'react-native-elements';
-import CoinList from '../../../Components/CoinList';
+import TokenList from '../../../Components/TokenList';
 
 class CustomButton extends Component {
   render() {
@@ -36,7 +36,7 @@ class Tokens extends Component {
   render() {
     return (
       <View style={{ flex: 1 }} >
-        <CoinList />
+        <TokenList />
         <View style={styles.btnContainer} >
           <Button
             title='Add'
