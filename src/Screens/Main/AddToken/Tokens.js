@@ -4,13 +4,13 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import { Icon, Button } from 'react-native-elements';
-<<<<<<< HEAD
+
 import TokenList from '../../../Components/TokenList';
-=======
-import CoinList from '../../../Components/CoinList';
+
+// import CoinList from '../../../Components/CoinList';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import Layout from '../../../constants/Layout'
->>>>>>> minkee-reformat
+
 
 class CustomButton extends Component {
   render() {

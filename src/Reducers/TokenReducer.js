@@ -1,3 +1,3 @@
-import data from '../Reducers/json/TokenList.json';
+import data from './json/TokenList.json';
 
 export default () => data;

@@ -18,7 +18,7 @@ export default (state = INITIAL_STATE, action) => {
       if (current.indexOf(action.payload) == -1){
         //add the selected coin to the token list
         current.push(action.payload);
-      }else {
+      } else {
         //Delete the selected coin from the token list
         index = current.indexOf(action.payload);
         current.splice(index,1);

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { StackNavigator, DrawerNavigator, TabNavigator } from 'react-navigation';
-import { List, ListItem, Icon, Button } from 'react-native-elements'
+import { List, ListItem, Icon, Button } from 'react-native-elements';
+import { connect } from 'react-redux';
 import Coins from './Coins'
 
 class Portfolio extends Component {
@@ -21,44 +22,11 @@ class Portfolio extends Component {
 
   render() {
 
-    const list = [
-      {
-        name: 'Bitcoin',
-        type: 'PortfolioCoin',
-        avatar_url: '../../Assets/images/btc.png'
-      },
-      {
-        name: 'Ethereum',
-        type: 'PortfolioCoin',
-        avatar_url: '../../Assets/images/btc.png'
-      },
-      {
-        name: 'Neo',
-        type: 'PortfolioCoin',
-        avatar_url: '../../Assets/images/btc.png'
-      },
-      {
-        name: 'EOS',
-        type: 'PortfolioCoin',
-        avatar_url: '../../Assets/images/btc.png'
-      },
-      {
-        name: 'ACAT',
-        type: 'PortfolioToken',
-        avatar_url: '../../Assets/images/btc.png'
-      },
-      {
-        name: 'Bitcoin Forks',
-        type: 'PortfolioToken',
-        avatar_url: '../../Assets/images/btc.png'
-      },
-    ];
-
     return (
       <View style={{ flex: 1 }} >
         <List>
           {
-            list.map((l, i) => (
+            this.props.PortfolioCoins.map((l, i) => (
               <ListItem
                 roundAvatar
                 avatar={{ uri: l.avatar_url }}
@@ -98,4 +66,9 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Portfolio;
+function mapStateToProps({PortfolioCoins}) {
+  return { PortfolioCoins }
+}
+
+
+export default connect(mapStateToProps)(Portfolio);

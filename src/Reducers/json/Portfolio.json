@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Bitcoin",
+    "type": "PortfolioCoin",
+    "avatar_url": "../../Assets/images/btc.png"
+  },
+  {
+    "name": "Ethereum",
+    "type": "PortfolioCoin",
+    "avatar_url": "../../Assets/images/btc.png"
+  },
+  {
+    "name": "Neo",
+    "type": "PortfolioCoin",
+    "avatar_url": "../../Assets/images/btc.png"
+  },
+  {
+    "name": "EOS",
+    "type": "PortfolioCoin",
+    "avatar_url": "../../Assets/images/btc.png"
+  },
+  {
+    "name": "ACAT",
+    "type": "PortfolioToken",
+    "avatar_url": "../../Assets/images/btc.png"
+  },
+  {
+    "name": "Bitcoin Forks",
+    "type": "PortfolioToken",
+    "avatar_url": "../../Assets/images/btc.png"
+  },
+];
