@@ -23,3 +23,5 @@ const counterReducer = (state = initialState, action) => {
 };
 
 export default counterReducer;
+
+//is not used anywhere
