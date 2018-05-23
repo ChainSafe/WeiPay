@@ -31,7 +31,7 @@ class CreateWalletName extends Component {
                 <View style={styles.contentContainer} >
                     <View style={styles.form} >
                         <FormLabel>Enter wallet name </FormLabel>
-                        <FormInput style={styles.formInputElement} placeholder={"Family wallet, Work Fund.."}
+                        <FormInput placeholder={"Family wallet, Work Fund.."}
                             onChangeText={this.getWalletName.bind(this)}
                         />
                     </View>
