@@ -1,22 +1,26 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, ScrollView, StyleSheet, TextInput, Image } from "react-native";
+import { View, TouchableOpacity, ScrollView, StyleSheet, TextInput, Image, AsyncStorage } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Terms } from './terms';
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import { Input } from '../../Components/common/Input';
-import { newWalletNameEntry } from '../../Actions/actionCreator';
+import { newWalletCreation, newWalletNameEntry } from '../../Actions/actionCreator';
+const ethers = require('ethers');
+
+var walletItem;
 
 class CreateWalletName extends Component {
+
     static navigationOptions = {
         title: "Create Wallet Name"
     };
 
     navigate = () => {
-        const navigateToPassphrase = NavigationActions.navigate({
-            routeName: "generatePassphrase",
-            params: { name: "Shubhnik" }
-        });
+        //Creating the wallet by random, pass the object to the next screen
+        var wallet = ethers.Wallet.createRandom();
+        this.props.newWalletCreation(wallet);
+        const navigateToPassphrase = NavigationActions.navigate({ routeName: "generatePassphrase" });
         this.props.navigation.dispatch(navigateToPassphrase);
     };
 
@@ -26,6 +30,36 @@ class CreateWalletName extends Component {
 
 
     render() {
+
+        // const storeWallet = async () => {
+        //     console.log("store call");
+        //     try {
+        //         await AsyncStorage.setItem('@MySuperStore:key', 'I like to save it.');
+        //     } catch (error) {
+        //         // Error saving data
+        //     }
+        // }
+
+        // const getWallet = async () => {
+        //     console.log("get wallet call");
+        //     try {
+        //         const value = await AsyncStorage.getItem('@MySuperStore:key');
+        //         if (value !== null) {
+        //             // We have data!!
+        //             console.log("Retrieved Value " + value);
+        //         } else {
+        //             console.log("value is empty");
+        //         }
+        //     } catch (error) {
+        //         // Error retrieving data
+        //     }
+        // }
+
+        // storeWallet();
+        // getWallet();
+
+
+
         return (
             <View style={styles.mainContainer}>
                 <View style={styles.contentContainer} >
@@ -37,6 +71,7 @@ class CreateWalletName extends Component {
                     </View>
                     <View style={styles.btnContainer} >
                         <Button
+                            disabled={this.props.walletName === ""}
                             title='Next'
                             icon={{ size: 28 }}
                             buttonStyle={{
@@ -68,6 +103,11 @@ const styles = StyleSheet.create({
     },
 })
 
+const mapStateToProps = ({ newWallet }) => {
+    const { walletName } = newWallet;
+    return { walletName }
+}
 
-export default connect(null, { newWalletNameEntry })(CreateWalletName);
+
+export default connect(mapStateToProps, { newWalletNameEntry, newWalletCreation })(CreateWalletName);
 //export default CreateWalletName;

@@ -31,16 +31,18 @@ export function addTokenToSetup(tokenId) {
 // }
 
 
-export function newWalletCreation() {
+export function newWalletCreation(wallet) {
   return dispatch => {
-    dispatch({ type: actionTypes.CREATING_NEW_WALLET,
-              payload: true })
+    dispatch({
+      type: actionTypes.CREATING_NEW_WALLET,
+      payload: wallet
+    })
   }
 }
 
 export function newWalletNameEntry(name) {
   return dispatch => {
-    dispatch({ type: actionTypes.NEW_WALLET_NAME, payload: name})
+    dispatch({ type: actionTypes.NEW_WALLET_NAME, payload: name })
   }
 }
 
@@ -52,6 +54,6 @@ export function restoreWallet() {
 
 export function recoveryKey(key) {
   return dispatch => {
-    dispatch({type: actionTypes.RESTORE_RECOVERY_KEY, paylaod: key})
+    dispatch({ type: actionTypes.RESTORE_RECOVERY_KEY, paylaod: key })
   }
 }

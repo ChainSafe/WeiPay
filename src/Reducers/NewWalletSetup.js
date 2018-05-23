@@ -1,27 +1,29 @@
 import * as actions from '../Actions/actionTypes';
 
-const INITIAL_STATE = { newWallet: false,
-                        walletName: '',
-                        tokens: []
-                        };
+const INITIAL_STATE = {
+  newWallet: false,
+  walletName: '',
+  tokens: [],
+  wallet: null
+};
 
 export default (state = INITIAL_STATE, action) => {
   //console.log(action);
   switch (action.type) {
     case actions.CREATING_NEW_WALLET:
-      return { ...state, newWallet: action.payload };
+      return { ...state, newWallet: true, wallet: action.payload };
     case actions.NEW_WALLET_NAME:
       return { ...state, walletName: action.payload };
 
     case actions.ADD_TOKEN_SETUP:
       var current = state.tokens;
-      if (current.indexOf(action.payload) == -1){
+      if (current.indexOf(action.payload) == -1) {
         //add the selected coin to the token list
         current.push(action.payload);
-      }else {
+      } else {
         //Delete the selected coin from the token list
         index = current.indexOf(action.payload);
-        current.splice(index,1);
+        current.splice(index, 1);
         console.log("Item removed");
       }
 

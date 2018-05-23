@@ -2,39 +2,44 @@ import React, { Component } from "react";
 import { View, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput, Image } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
-import { Terms } from './terms';
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import { Input } from '../../Components/common/Input';
 import { CardSection } from '../../Components/common/CardSection';
 
-class GeneratePassphrase extends Component {
-
+class ConfirmPassphrase extends Component {
 
     static navigationOptions = {
-        title: "Generate Passphrase"
+        title: "Confirm Passphrase"
     };
 
     navigate = () => {
         const navigateToEnableTokens = NavigationActions.navigate({
-            routeName: "confirmPassphrase",
-            params: { wallet: this.props.navigation.state.wallet }
+            routeName: "enableTokens",
+            params: { name: "Shubhnik" }
         });
         this.props.navigation.dispatch(navigateToEnableTokens);
     };
 
     render() {
-        const { walletInfo } = this.props;
+
+
+        // const { params } = this.props.navigation.state;
+        // console.log("----");
+        // console.log(params.wallet.mnemonic);
+
         return (
             <View style={styles.mainContainer}>
                 <View style={styles.contentContainer} >
 
                     <View style={styles.content} >
                         <CardSection>
-                            <Text style={styles.headerText} >{walletInfo.walletName}</Text>
-                            <Text style={styles.headerText} >Please save this passphrase as you will need it to recover your crypto. </Text>
+                            <Text style={styles.headerText} >Please assemble your passphrase in the correct order </Text>
                         </CardSection>
                         <CardSection>
-                            <Text style={styles.passphrase}> {walletInfo.wallet.mnemonic} </Text>
+                            <Text style={styles.headerText} ></Text>
+                        </CardSection>
+                        <CardSection>
+                            <Text style={styles.passphrase}></Text>
                         </CardSection>
                     </View>
 
@@ -79,8 +84,5 @@ const styles = StyleSheet.create({
     }
 })
 
-const mapStateToProps = ({ newWallet }) => {
-    return { walletInfo: newWallet }
-}
 
-export default connect(mapStateToProps, null)(GeneratePassphrase)
+export default ConfirmPassphrase;
