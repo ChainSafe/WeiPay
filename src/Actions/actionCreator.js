@@ -6,17 +6,17 @@ const incrementAction = () => ({
   type: incrementCounter
 });
 
-function AddToken(paylaod) {
+function AddToken(payload) {
   return {
     type: addTokenSetup,
-    paylaod
+    payload
   }
 }
 
-export function addTokenToSetup(tokenId) {
+export function addTokenToSetup(coin) {
 
   return dispatch => {
-    dispatch({ type: actionTypes.ADD_TOKEN_SETUP, payload: tokenId })
+    dispatch({ type: actionTypes.ADD_TOKEN_SETUP, payload: coin })
   }
 }
 
@@ -54,4 +54,8 @@ export function recoveryKey(key) {
   return dispatch => {
     dispatch({type: actionTypes.RESTORE_RECOVERY_KEY, paylaod: key})
   }
+}
+
+export const switchLanguage = language => dispatch => {
+  dispatch({ type: actionTypes.SWITCH_LANGUAGE, payload: language })
 }

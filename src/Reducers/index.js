@@ -6,6 +6,7 @@ import TokenReducer from './TokenReducer';
 import CoinSelectionReducer from './CoinSelectionReducer';
 import NewWalletSetup from './NewWalletSetup';
 import Portfolio from './PortfolioReducer';
+import language from './languageReducer'
 
 const AppReducer = combineReducers({
   CounterReducer,
@@ -14,8 +15,8 @@ const AppReducer = combineReducers({
   tokens: TokenReducer,
   PortfolioCoins: Portfolio,
   selectedCoins: CoinSelectionReducer,
-  newWallet: NewWalletSetup
-
+  newWallet: NewWalletSetup,
+  language
 });
 
 export default AppReducer;

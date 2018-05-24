@@ -1,74 +1,182 @@
 [
     {
         "id": 0,
+        "type": "PortfolioCoin",
         "title": "Ether"
     },
     {
         "id": 1,
+        "type": "PortfolioCoin",
         "title": "Sub"
     },
     {
         "id": 2,
+        "type": "PortfolioCoin",
         "title": "Shyft"
     },
     {
         "id": 3,
+        "type": "PortfolioCoin",
         "title": "BTC"
     },
     {
         "id": 4,
+        "type": "PortfolioCoin",
         "title": "NEO"
     },
     {
         "id": 5,
+        "type": "PortfolioCoin",
         "title": "GAS"
     },
     {
         "id": 6,
+        "type": "PortfolioCoin",
         "title": "EOS"
     },
     {
         "id": 7,
+        "type": "PortfolioCoin",
         "title": "REP"
     },
     {
         "id": 8,
+        "type": "PortfolioCoin",
         "title": "OMG"
     },
     {
         "id": 9,
+        "type": "PortfolioCoin",
         "title": "DGD"
     },
     {
         "id": 10,
+        "type": "PortfolioCoin",
         "title": "RPX"
     },
     {
         "id": 11,
+        "type": "PortfolioCoin",
         "title": "Litcoin"
     },
     {
         "id": 12,
+        "type": "PortfolioCoin",
         "title": "Dash"
     },
     {
         "id": 13,
+        "type": "PortfolioCoin",
         "title": "Zcash"
     },
     {
         "id": 14,
+        "type": "PortfolioCoin",
         "title": "XRP"
     },
     {
         "id": 15,
+        "type": "PortfolioCoin",
         "title": "Dogecoin"
     },
     {
         "id": 16,
+        "type": "PortfolioCoin",
         "title": "Monero"
     },
     {
         "id": 17,
+        "type": "PortfolioCoin",
         "title": "REQ"
+    },
+    {
+        "id": 18,
+        "type": "PortfolioToken",
+        "title": "OMG"
+    },
+    {
+        "id": 19,
+        "type": "PortfolioToken",
+        "title": "EOS"
+    },
+    {
+        "id": 20,
+        "type": "PortfolioToken",
+        "title": "REP"
+    },
+    {
+        "id": 21,
+        "type": "PortfolioToken",
+        "title": "PAY"
+    },
+    {
+        "id": 22,
+        "type": "PortfolioToken",
+        "title": "PPT"
+    },
+    {
+        "id": 23,
+        "type": "PortfolioToken",
+        "title": "GNT"
+    },
+    {
+        "id": 24,
+        "type": "PortfolioToken",
+        "title": "BNB"
+    },
+    {
+        "id": 25,
+        "type": "PortfolioToken",
+        "title": "TRX"
+    },
+    {
+        "id": 26,
+        "type": "PortfolioToken",
+        "title": "BAT"
+    },
+    {
+        "id": 27,
+        "type": "PortfolioToken",
+        "title": "SALT"
+    },
+    {
+        "id": 28,
+        "type": "PortfolioToken",
+        "title": "KNC"
+    },
+    {
+        "id": 29,
+        "type": "PortfolioToken",
+        "title": "DGD"
+    },
+    {
+        "id": 30,
+        "type": "PortfolioToken",
+        "title": "WTC"
+    },
+    {
+        "id": 31,
+        "type": "PortfolioToken",
+        "title": "SNGLS"
+    },
+    {
+        "id": 32,
+        "type": "PortfolioToken",
+        "title": "VERI"
+    },
+    {
+        "id": 33,
+        "type": "PortfolioToken",
+        "title": "RPX"
+    },
+    {
+        "id": 34,
+        "type": "PortfolioToken",
+        "title": "ONT"
+    },
+    {
+        "id": 35,
+        "type": "PortfolioToken",
+        "title": "DBC"
     }
 ]

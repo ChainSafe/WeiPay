@@ -3,10 +3,9 @@ import { View, TouchableOpacity, ScrollView, StyleSheet, TextInput, Image } from
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, Icon, List, ListItem } from 'react-native-elements';
+import { switchLanguage } from '../../../Actions/actionCreator';
 
-
-
-class ChangePassword extends Component {
+class LanguageChange extends Component {
     static navigationOptions = {
         title: "Change Language"
     };
@@ -17,6 +16,8 @@ class ChangePassword extends Component {
         //     params: { name: "Shubhnik" }
         // });
         // this.props.navigation.dispatch(navigateToPassphrase);
+      // if(this.props.language != )
+      debugger
     };
 
     render() {
@@ -43,38 +44,37 @@ class ChangePassword extends Component {
 
         return (
             <View style={styles.mainContainer}>
-                <View style={styles.contentContainer} >
+              <View style={styles.contentContainer} >
 
-                    <List style={styles.list} >
-                        {
-                            list.map((item, i) => (
-                                <TouchableOpacity
-                                    key={item.id}
-                                    onPress={() => this.navigate}
-                                >
-                                    <ListItem
-                                        key={i}
-                                        title={item.title}
-                                        leftIcon={{ name: item.icon }}
-                                    />
-                                </TouchableOpacity>
-                            ))
-                        }
-                    </List>
-
-                    <View style={styles.btnContainer} >
-                        <Button
-                            title='Update'
-                            icon={{ size: 28 }}
-                            buttonStyle={{
-                                backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-                                justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
-                            }}
-                            textStyle={{ textAlign: 'center' }}
-                            onPress={this.navigate}
+                <List style={styles.list} >
+                  {
+                    list.map((item, i) => (
+                      <TouchableOpacity
+                        key={item.id}
+                        onPress={() => this.navigate}
+                      >
+                        <ListItem
+                          key={i}
+                          title={item.title}
+                          leftIcon={{ name: item.icon }}
                         />
-                    </View>
-                </View>
+                      </TouchableOpacity>
+                    ))
+                  }
+                  <View style={styles.btnContainer} >
+                    <Button
+                      title='Update'
+                      icon={{ size: 28 }}
+                      buttonStyle={{
+                        backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
+                        justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
+                      }}
+                      textStyle={{ textAlign: 'center' }}
+                      onPress={() => this.navigate(arg)}
+                    />
+                  </View>
+                </List>
+              </View>
             </View>
         );
     }
@@ -97,6 +97,8 @@ const styles = StyleSheet.create({
     }
 })
 
+function mapStateToProps({ language }) {
+  return { language }
+}
 
-
-export default ChangePassword;
+export default connect(mapStateToProps, {switchLanguage})(LanguageChange);

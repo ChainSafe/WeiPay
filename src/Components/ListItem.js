@@ -19,8 +19,8 @@ class ListItem extends Component {
     };
   }
 
-    renderPress (id){
-      this.props.addTokenToSetup(id);
+    renderPress(coin) {
+      this.props.addTokenToSetup(coin);
       this.setState({
         checked: !(this.state.checked)
       })
@@ -50,15 +50,15 @@ class ListItem extends Component {
                   style={[styles.check , (this.props.tokenList.indexOf(coin.id) != -1) ? styles.valid : styles.invalid]}
                 >
                   <CheckBox center
-                      title={coin.title}
-                      iconLeft
-                      iconType='material'
-                      checkedIcon='clear'
-                      uncheckedIcon='add'
-                      checkedColor='red'
-                      checked={checked}
-                      containerStyle={[title, checked ? styles.valid : styles.invalid]}
-                      onPress={() => this.renderPress(coin.id)}
+                    title={coin.title}
+                    iconLeft
+                    iconType='material'
+                    checkedIcon='clear'
+                    uncheckedIcon='add'
+                    checkedColor='red'
+                    checked={checked}
+                    containerStyle={[title, checked ? styles.valid : styles.invalid]}
+                    onPress={() => this.renderPress(coin)}
                   />
                 </Card>
 

@@ -21,17 +21,16 @@ class Portfolio extends Component {
   }
 
   render() {
-
     return (
       <View style={{ flex: 1 }} >
         <List>
           {
-            this.props.PortfolioCoins.map((l, i) => (
+            this.props.newWallet.tokens.map((l, i) => (
               <ListItem
                 roundAvatar
                 avatar={{ uri: l.avatar_url }}
                 key={i}
-                title={l.name}
+                title={l.title}
                 onPress={() => this.props.navigation.navigate(l.type)}
               />
             ))
@@ -66,9 +65,8 @@ const styles = StyleSheet.create({
   },
 })
 
-function mapStateToProps({PortfolioCoins}) {
-  return { PortfolioCoins }
+function mapStateToProps({ newWallet }) {
+  return { newWallet }
 }
-
 
 export default connect(mapStateToProps)(Portfolio);
