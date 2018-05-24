@@ -4,7 +4,8 @@ const INITIAL_STATE = {
   newWallet: false,
   walletName: '',
   tokens: [],
-  wallet: null
+  wallet: null,
+  backupPassphrase: ""
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -12,6 +13,7 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case actions.CREATING_NEW_WALLET:
       return { ...state, newWallet: true, wallet: action.payload };
+
     case actions.NEW_WALLET_NAME:
       return { ...state, walletName: action.payload };
 
@@ -26,8 +28,11 @@ export default (state = INITIAL_STATE, action) => {
         current.splice(index, 1);
         console.log("Item removed");
       }
-
       return { ...state, tokens: current };
+
+    case actions.RESTORE_RECOVERY_PASSPHRASE:
+      return { ...state, backupPassphrase: action.payload };
+
     default:
       return state;
   }

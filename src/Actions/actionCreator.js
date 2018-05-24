@@ -14,7 +14,6 @@ function AddToken(paylaod) {
 }
 
 export function addTokenToSetup(tokenId) {
-
   return dispatch => {
     dispatch({ type: actionTypes.ADD_TOKEN_SETUP, payload: tokenId })
   }
@@ -54,6 +53,12 @@ export function restoreWallet() {
 
 export function recoveryKey(key) {
   return dispatch => {
-    dispatch({ type: actionTypes.RESTORE_RECOVERY_KEY, paylaod: key })
+    dispatch({ type: actionTypes.RESTORE_RECOVERY_KEY, payload: key })
+  }
+}
+
+export function recoverPassphrase(passphrase) {
+  return dispatch => {
+    dispatch({ type: actionTypes.RESTORE_RECOVERY_PASSPHRASE, payload: passphrase })
   }
 }
