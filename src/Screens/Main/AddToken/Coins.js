@@ -26,14 +26,14 @@ class Coins extends Component {
           ]}
           renderItem={({ item }) =>
             <Text
-              onPress={() => this.props.navigation.navigate('PortfolioCoins')}
-              style={styles.item}>
-              {item.key}
+          onPress={() => this.props.navigation.navigate('PortfolioCoins')}
+          style={styles.item}>
+          {item.key}
             </Text>
           }
         /> */}
 
-        <CoinList />
+        <CoinList type={'coins'}/>
 
         <View style={styles.btnContainer} >
           <Button

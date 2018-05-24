@@ -1,3 +1,4 @@
+import { AsyncStorage } from 'react-native';
 import { incrementCounter, decrementCounter, addTokenSetup } from "./actionTypes";
 import * as actionTypes from './actionTypes';
 
@@ -52,7 +53,7 @@ export function restoreWallet() {
 
 export function recoveryKey(key) {
   return dispatch => {
-    dispatch({type: actionTypes.RESTORE_RECOVERY_KEY, paylaod: key})
+    dispatch({type: actionTypes.RESTORE_RECOVERY_KEY, payload: key})
   }
 }
 

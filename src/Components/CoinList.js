@@ -6,12 +6,20 @@ import ListItem from './ListItem';
 class CoinList extends Component {
 
     componentWillMount() {
+        let data = this.props.coins
+
+        if (this.props.type === 'coins') {
+          data = this.props.coins.filter( coin => coin.type === 'PortfolioCoin' )
+        } else if (this.props.type === 'tokens') {
+          data = this.props.coins.filter( coin => coin.type === 'PortfolioToken' )
+        }
+
         const ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
         });
 
         //this passes in the CoinList.json file via reducer -> state -> connect -> mapstatetoprops
-        this.dataSource = ds.cloneWithRows(this.props.coins);
+        this.dataSource = ds.cloneWithRows(data);
     }
 
     renderRow(coin) {
@@ -21,14 +29,13 @@ class CoinList extends Component {
 
     render() {
         return (
-            <ListView dataSource={this.dataSource} renderRow={this.renderRow} />
+            <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false} />
         );
     }
 }
 
 /* Object return will show up to props */
 const mapStateToProps = ({ coins }) => {
-    
     return { coins }
 }
 

@@ -1,3 +1,4 @@
+import { AsyncStorage } from 'react-native';
 import * as actions from '../Actions/actionTypes';
 
 const INITIAL_STATE = { newWallet: false,
@@ -22,7 +23,7 @@ export default (state = INITIAL_STATE, action) => {
       } else {
         //Delete the selected coin from the token list
         current.splice(index,1);
-      
+
       }
 
       return { ...state, tokens: current };
