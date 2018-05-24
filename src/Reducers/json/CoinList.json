@@ -2,181 +2,217 @@
     {
         "id": 0,
         "type": "PortfolioCoin",
-        "title": "Ether"
+        "title": "Ether",
+        "selected": false
     },
     {
         "id": 1,
         "type": "PortfolioCoin",
-        "title": "Sub"
+        "title": "Sub",
+        "selected": false
     },
     {
         "id": 2,
         "type": "PortfolioCoin",
-        "title": "Shyft"
+        "title": "Shyft",
+        "selected": false
     },
     {
         "id": 3,
         "type": "PortfolioCoin",
-        "title": "BTC"
+        "title": "BTC",
+        "selected": false
     },
     {
         "id": 4,
         "type": "PortfolioCoin",
-        "title": "NEO"
+        "title": "NEO",
+        "selected": false
     },
     {
         "id": 5,
         "type": "PortfolioCoin",
-        "title": "GAS"
+        "title": "GAS",
+        "selected": false
     },
     {
         "id": 6,
         "type": "PortfolioCoin",
-        "title": "EOS"
+        "title": "EOS",
+        "selected": false
     },
     {
         "id": 7,
         "type": "PortfolioCoin",
-        "title": "REP"
+        "title": "REP",
+        "selected": false
     },
     {
         "id": 8,
         "type": "PortfolioCoin",
-        "title": "OMG"
+        "title": "OMG",
+        "selected": false
     },
     {
         "id": 9,
         "type": "PortfolioCoin",
-        "title": "DGD"
+        "title": "DGD",
+        "selected": false
     },
     {
         "id": 10,
         "type": "PortfolioCoin",
-        "title": "RPX"
+        "title": "RPX",
+        "selected": false
     },
     {
         "id": 11,
         "type": "PortfolioCoin",
-        "title": "Litcoin"
+        "title": "Litcoin",
+        "selected": false
     },
     {
         "id": 12,
         "type": "PortfolioCoin",
-        "title": "Dash"
+        "title": "Dash",
+        "selected": false
     },
     {
         "id": 13,
         "type": "PortfolioCoin",
-        "title": "Zcash"
+        "title": "Zcash",
+        "selected": false
     },
     {
         "id": 14,
         "type": "PortfolioCoin",
-        "title": "XRP"
+        "title": "XRP",
+        "selected": false
     },
     {
         "id": 15,
         "type": "PortfolioCoin",
-        "title": "Dogecoin"
+        "title": "Dogecoin",
+        "selected": false
     },
     {
         "id": 16,
         "type": "PortfolioCoin",
-        "title": "Monero"
+        "title": "Monero",
+        "selected": false
     },
     {
         "id": 17,
         "type": "PortfolioCoin",
-        "title": "REQ"
+        "title": "REQ",
+        "selected": false
     },
     {
         "id": 18,
         "type": "PortfolioToken",
-        "title": "OMG"
+        "title": "OMG",
+        "selected": false
     },
     {
         "id": 19,
         "type": "PortfolioToken",
-        "title": "EOS"
+        "title": "EOS",
+        "selected": false
     },
     {
         "id": 20,
         "type": "PortfolioToken",
-        "title": "REP"
+        "title": "REP",
+        "selected": false
     },
     {
         "id": 21,
         "type": "PortfolioToken",
-        "title": "PAY"
+        "title": "PAY",
+        "selected": false
     },
     {
         "id": 22,
         "type": "PortfolioToken",
-        "title": "PPT"
+        "title": "PPT",
+        "selected": false
     },
     {
         "id": 23,
         "type": "PortfolioToken",
-        "title": "GNT"
+        "title": "GNT",
+        "selected": false
     },
     {
         "id": 24,
         "type": "PortfolioToken",
-        "title": "BNB"
+        "title": "BNB",
+        "selected": false
     },
     {
         "id": 25,
         "type": "PortfolioToken",
-        "title": "TRX"
+        "title": "TRX",
+        "selected": false
     },
     {
         "id": 26,
         "type": "PortfolioToken",
-        "title": "BAT"
+        "title": "BAT",
+        "selected": false
     },
     {
         "id": 27,
         "type": "PortfolioToken",
-        "title": "SALT"
+        "title": "SALT",
+        "selected": false
     },
     {
         "id": 28,
         "type": "PortfolioToken",
-        "title": "KNC"
+        "title": "KNC",
+        "selected": false
     },
     {
         "id": 29,
         "type": "PortfolioToken",
-        "title": "DGD"
+        "title": "DGD",
+        "selected": false
     },
     {
         "id": 30,
         "type": "PortfolioToken",
-        "title": "WTC"
+        "title": "WTC",
+        "selected": false
     },
     {
         "id": 31,
         "type": "PortfolioToken",
-        "title": "SNGLS"
+        "title": "SNGLS",
+        "selected": false
     },
     {
         "id": 32,
         "type": "PortfolioToken",
-        "title": "VERI"
+        "title": "VERI",
+        "selected": false
     },
     {
         "id": 33,
         "type": "PortfolioToken",
-        "title": "RPX"
+        "title": "RPX",
+        "selected": false
     },
     {
         "id": 34,
         "type": "PortfolioToken",
-        "title": "ONT"
+        "title": "ONT",
+        "selected": false
     },
     {
         "id": 35,
         "type": "PortfolioToken",
-        "title": "DBC"
+        "title": "DBC",
+        "selected": false
     }
 ]

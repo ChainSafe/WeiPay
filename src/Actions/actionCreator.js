@@ -14,8 +14,8 @@ function AddToken(payload) {
 }
 
 export function addTokenToSetup(coin) {
-
   return dispatch => {
+    coin.selected = !coin.selected
     dispatch({ type: actionTypes.ADD_TOKEN_SETUP, payload: coin })
   }
 }

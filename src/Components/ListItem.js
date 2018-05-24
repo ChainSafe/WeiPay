@@ -42,31 +42,25 @@ class ListItem extends Component {
 
         const { checked } = this.state
         //console.log(this.props);
+
         return (
-
-
-              <View>
-                <Card
-                  style={[styles.check , (this.props.tokenList.indexOf(coin.id) != -1) ? styles.valid : styles.invalid]}
-                >
-                  <CheckBox center
-                    title={coin.title}
-                    iconLeft
-                    iconType='material'
-                    checkedIcon='clear'
-                    uncheckedIcon='add'
-                    checkedColor='red'
-                    checked={checked}
-                    containerStyle={[title, checked ? styles.valid : styles.invalid]}
-                    onPress={() => this.renderPress(coin)}
-                  />
-                </Card>
-
-              </View>
-
-
-
-
+          <View>
+            <Card
+              style={[styles.check , coin.selected ? styles.valid : styles.invalid]}
+            >
+              <CheckBox center
+                title={coin.title}
+                iconLeft
+                iconType='material'
+                checkedIcon='clear'
+                uncheckedIcon='add'
+                checkedColor='red'
+                checked={coin.selected}
+                containerStyle={[title, coin.selected ? styles.valid : styles.invalid]}
+                onPress={() => this.renderPress(coin)}
+              />
+            </Card>
+          </View>
         )
     }
 }
@@ -89,8 +83,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-      tokenList: state.newWallet.tokens
-  };
+      tokenList: state.newWallet.tokens,
+  }
 };
 
 export default connect(mapStateToProps, { addTokenToSetup })(ListItem)

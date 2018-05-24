@@ -3,7 +3,7 @@ import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { StackNavigator, DrawerNavigator, TabNavigator } from 'react-navigation';
 import { List, ListItem, Icon, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import Coins from './Coins'
+
 
 class Portfolio extends Component {
   static navigationOptions = ({ navigation }) => {

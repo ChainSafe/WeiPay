@@ -22,7 +22,7 @@ export default (state = INITIAL_STATE, action) => {
       } else {
         //Delete the selected coin from the token list
         current.splice(index,1);
-        console.log("Item removed");
+      
       }
 
       return { ...state, tokens: current };

@@ -28,6 +28,7 @@ class CoinList extends Component {
 
 /* Object return will show up to props */
 const mapStateToProps = ({ coins }) => {
+    
     return { coins }
 }
 

@@ -3,7 +3,7 @@ import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { TabNavigator } from 'react-navigation';
 import { Icon, Button } from 'react-native-elements';
 
-import CoinList from '../../Components/CoinList';
+import CoinList from '../../../Components/CoinList';
 
 class Coins extends Component {
   static navigationOptions = ({ navigation }) => {
