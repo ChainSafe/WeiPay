@@ -1,39 +1,65 @@
 import React, { Component } from 'react';
-import { ListView } from 'react-native';
+import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import CurrencyListItem from './CurrencyListItem';
+import RadioGroup from 'react-native-radio-buttons-group';
+import { CardSection } from './common/CardSection';
+import { Card } from './common/Card';
+import { selectWalletCurrency } from '../Actions/actionCreator';
 
-class CurrencyList extends Component {
 
-    componentWillMount() {
-        const ds = new ListView.DataSource({
-            rowHasChanged: (r1, r2) => r1 !== r2
-        });
+class Test extends Component {
 
-        //this passes in the CoinList.json file via reducer -> state -> connect -> mapstatetoprops
-        this.dataSource = ds.cloneWithRows(this.props.currency);
+    state = {
+        data: this.props.currency
+    };
+
+    // update state
+    onPress = data => this.setState({ data });
+
+    renderSelect(data) {
+      let selectedcurrency = this.state.data.find(e => e.selected == true);
+      selectedcurrency = selectedcurrency ? selectedcurrency.value : this.state.data[0].label;
+      this.props.selectWalletCurrency(selectedcurrency);
+      this.setState ({ data });
     }
 
-    renderRow(currency) {
-        //return instance of listitem
-        return <CurrencyListItem coin={currency} />;
-    }
+
 
     render() {
+        // let selectedButton = this.state.data.find(e => e.selected == true);
+        // selectedButton = selectedButton ? selectedButton.value : this.state.data[0].label;
         return (
-            <ListView dataSource={this.dataSource} renderRow={this.renderRow} />
+
+                  <ScrollView contentContainerstyle={styles.container}>
+                        <CardSection>
+                          <RadioGroup radioButtons={this.state.data} onPress={this.renderSelect.bind(this)} />
+                        </CardSection>
+                  </ScrollView>
+
+
+
 
         );
     }
 }
 
-/* Object return will show up to props */
+const styles = StyleSheet.create({
+
+    container: {
+        flex: 1,
+        justifyContent: 'space-between',
+        marginBottom: 100
+    }
+
+});
+
+
 const mapStateToProps = state => {
-    return {
-      currency: state.currency
-     }
+  return {
+    currency: state.currency
+  }
 }
 
-export default connect(mapStateToProps, null)(CurrencyList);
 
-/* Going to wrap the library list with the connect function, this will allow us to get state data to put in our props  */
+export default connect(mapStateToProps, { selectWalletCurrency })(Test);
+//export default Test;

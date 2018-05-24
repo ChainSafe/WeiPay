@@ -4,7 +4,6 @@ import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, Icon, List, ListItem } from 'react-native-elements';
 import CurrencyList from '../../../Components/CurrencyList';
-import Test from '../../../Components/Test';
 
 
 
@@ -23,31 +22,11 @@ class ChangeCurrency extends Component {
 
     render() {
 
-        const list = [
-            {
-                "title": "USD",
-                "id": "usd"
-            },
-            {
-                "title": "JPY",
-                "id": "jpy"
-            },
-            {
-                "title": "CNY",
-                "id": "cny"
-            },
-            {
-                "title": "EURO",
-                "id": "euro"
-            },
-        ];
-
-
         return (
           <View style={styles.mainContainer}>
               <View style={styles.contentContainer} >
-                    
-                    <Test />
+
+                    <CurrencyList />
 
                     <View style={styles.btnContainer} >
                         <Button
@@ -72,6 +51,7 @@ const styles = StyleSheet.create({
         flex: 1, alignItems: 'center', justifyContent: 'flex-start'
     },
     contentContainer: {
+        flex: 1,
         marginTop: 25,
     },
     btnContainer: {

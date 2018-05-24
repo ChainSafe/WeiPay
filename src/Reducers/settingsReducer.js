@@ -5,9 +5,9 @@ const INITIAL_STATE = {
 }
 
 export default (state = INITIAL_STATE, action) => {
-
+  console.log(action.payload);
   switch (action.type) {
-    case actions.SELECT_WALLET_LANGUAGE:
+    case actions.SELECT_WALLET_CURRENCY:
         return { ...state, language: action.payload }
 
     default:

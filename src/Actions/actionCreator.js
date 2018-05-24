@@ -56,8 +56,8 @@ export function recoveryKey(key) {
   }
 }
 
-export function selectWalletLanguage(language) {
+export function selectWalletCurrency(currency) {
   return dispatch => {
-    dispatch({type: actionTypes.SELECT_WALLET_LANGUAGE, payload: language})
+    dispatch({type: actionTypes.SELECT_WALLET_CURRENCY, payload: currency})
   }
 }
