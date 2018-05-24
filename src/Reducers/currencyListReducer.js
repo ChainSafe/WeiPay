@@ -1,3 +1,3 @@
-import data from './json/currencyList.json';
+import data from './json/CurrencyList.json';
 
 export default () => data;

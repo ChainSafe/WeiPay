@@ -52,6 +52,12 @@ export function restoreWallet() {
 
 export function recoveryKey(key) {
   return dispatch => {
-    dispatch({type: actionTypes.RESTORE_RECOVERY_KEY, paylaod: key})
+    dispatch({type: actionTypes.RESTORE_RECOVERY_KEY, payload: key})
+  }
+}
+
+export function selectWalletLanguage(language) {
+  return dispatch => {
+    dispatch({type: actionTypes.SELECT_WALLET_LANGUAGE, payload: language})
   }
 }

@@ -3,7 +3,9 @@ import { View, TouchableOpacity, ScrollView, StyleSheet, TextInput, Image } from
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, Icon, List, ListItem } from 'react-native-elements';
-import currencyList from '../../../Components/currencyList';
+import CurrencyList from '../../../Components/CurrencyList';
+import Test from '../../../Components/Test';
+
 
 
 class ChangeCurrency extends Component {
@@ -21,47 +23,32 @@ class ChangeCurrency extends Component {
 
     render() {
 
-        // const list = [
-        //     {
-        //         "title": "USD",
-        //         "id": "usd"
-        //     },
-        //     {
-        //         "title": "JPY",
-        //         "id": "jpy"
-        //     },
-        //     {
-        //         "title": "CNY",
-        //         "id": "cny"
-        //     },
-        //     {
-        //         "title": "EURO",
-        //         "id": "euro"
-        //     },
-        // ];
+        const list = [
+            {
+                "title": "USD",
+                "id": "usd"
+            },
+            {
+                "title": "JPY",
+                "id": "jpy"
+            },
+            {
+                "title": "CNY",
+                "id": "cny"
+            },
+            {
+                "title": "EURO",
+                "id": "euro"
+            },
+        ];
 
 
         return (
-            <View style={styles.mainContainer}>
+          <View style={styles.mainContainer}>
+              <View style={styles.contentContainer} >
+                    
+                    <Test />
 
-                <View style={styles.contentContainer} >
-                    <currencyList />
-                    // <List style={styles.list} >
-                    //     {
-                    //         list.map((item, i) => (
-                    //             <TouchableOpacity
-                    //                 key={item.id}
-                    //                 onPress={() => this.navigate}
-                    //             >
-                    //                 <ListItem
-                    //                     key={i}
-                    //                     title={item.title}
-                    //                     leftIcon={{ name: item.icon }}
-                    //                 />
-                    //             </TouchableOpacity>
-                    //         ))
-                    //     }
-                    // </List>
                     <View style={styles.btnContainer} >
                         <Button
                             title='Update'
@@ -72,10 +59,10 @@ class ChangeCurrency extends Component {
                             }}
                             textStyle={{ textAlign: 'center' }}
                             onPress={this.navigate}
-                            />
-                      </View>
+                        />
+                    </View>
                 </View>
-            </View>
+              </View>
         );
     }
 }
@@ -96,6 +83,23 @@ const styles = StyleSheet.create({
         flex: 1, flexGrow: 1
     }
 })
+
+// <List style={styles.list} >
+//     {
+//         list.map((item, i) => (
+//             <TouchableOpacity
+//                 key={item.id}
+//                 onPress={() => this.navigate}
+//             >
+//                 <ListItem
+//                     key={i}
+//                     title={item.title}
+//                     leftIcon={{ name: item.icon }}
+//                 />
+//             </TouchableOpacity>
+//         ))
+//     }
+// </List>
 
 
 

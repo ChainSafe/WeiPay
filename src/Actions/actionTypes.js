@@ -8,3 +8,4 @@ export const CREATING_NEW_WALLET = 'creating_new_wallet';
 export const NEW_WALLET_NAME = 'new_wallet_name';
 export const RESTORE_WALLET = 'restore_wallet';
 export const RESTORE_RECOVERY_KEY = 'restore_recovery_key';
+export const SELECT_WALLET_LANGUAGE = 'select_wallet_language';

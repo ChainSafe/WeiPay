@@ -5,6 +5,7 @@ import CoinReducer from './CoinReducer';
 import CoinSelectionReducer from './CoinSelectionReducer';
 import NewWalletSetup from './NewWalletSetup';
 import currencyListReducer from './currencyListReducer';
+import settingsReducer from './settingsReducer';
 
 const AppReducer = combineReducers({
   CounterReducer,
@@ -12,7 +13,8 @@ const AppReducer = combineReducers({
   coins: CoinReducer,
   selectedCoins: CoinSelectionReducer,
   newWallet: NewWalletSetup,
-  currency: currencyListReducer
+  currency: currencyListReducer,
+  settings: settingsReducer
 
 });
 
