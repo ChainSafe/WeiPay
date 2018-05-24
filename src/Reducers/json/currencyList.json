@@ -1,0 +1,27 @@
+[
+    {
+        "exchange": "USD",
+        "rate": 0.1
+    },
+
+    {
+        "exchange": "CAD",
+        "rate": 0.2
+    },
+
+    {
+        "exchange": "EUR",
+        "rate": 0.3
+    },
+
+    {
+        "exchange": "JPY",
+        "rate": 0.4
+    },
+
+    {
+        "exchange": "AUD",
+        "rate": 0.5
+    },
+
+]
