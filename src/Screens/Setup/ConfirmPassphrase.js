@@ -7,6 +7,8 @@ import { Input } from '../../Components/common/Input';
 import { CardSection } from '../../Components/common/CardSection';
 var shuffle = require('shuffle-array'); //to randomize order
 
+var chosenTags = [];
+
 class ConfirmPassphrase extends Component {
 
     constructor(props) {
@@ -25,8 +27,28 @@ class ConfirmPassphrase extends Component {
         this.props.navigation.dispatch(navigateToEnableTokens);
     };
 
-    placeTag(i) {
-        console.log(i);
+
+
+    placeTag(tagItem) {
+        chosenTags.push(tagItem);
+        console.log(tagItem);
+        this.displayNewTags();
+    }
+
+    displayNewTags() {
+        console.log(chosenTags.length);
+
+        var x = [];
+        x.push(chosenTags.map(n =>
+            <TouchableOpacity
+                key={n.index}
+                onPress={() => this.placeTag(this)}
+                style={styles.tag}
+            >
+                <Text> {n.word} </Text>
+            </TouchableOpacity>
+        ))
+        return x
     }
 
     generateMnemonic = () => {
@@ -44,44 +66,13 @@ class ConfirmPassphrase extends Component {
         ar.push(wordsObjArray.map(n =>
             <TouchableOpacity
                 key={n.index}
-                onPress={() => this.placeTag(n.index)}
+                onPress={() => this.placeTag(this)}
                 style={styles.tag}
             >
                 <Text> {n.word} </Text>
             </TouchableOpacity>
         ))
         return ar
-    }
-
-    // <Button
-    //     title={n.word}
-    //     icon={{ size: 28 }}
-    //     order={n.index}
-    //     buttonStyle={{
-    //         alignItems: 'center',
-    //         justifyContent: 'center'
-    //     }}
-    //     textStyle={{ textAlign: 'center' }}
-    //     onPress={() => this.touch}
-    // />
-
-    // return (
-    //     <Button
-    //         key={wordsObjArray[0].index}
-    //         title={wordsObjArray[0].word}
-    //         order={wordsObjArray[0].index}
-    //         onPress={console.log("BAR")}
-    //     />
-    // )
-
-    check = () => {
-        return (
-            <Button title="hello button" onPress={() => { console.log("in check function") }} />
-        )
-    }
-
-    touch() {
-        console.log('tough')
     }
 
     render() {
@@ -96,12 +87,14 @@ class ConfirmPassphrase extends Component {
                         </CardSection>
 
                         <CardSection>
-
+                            {/* {this.displayNewTags()} */}
                         </CardSection>
 
                         <View style={styles.tagContainer} >
                             {this.generateMnemonic()}
                         </View>
+
+
                     </View>
 
                     <View style={styles.btnContainer} >

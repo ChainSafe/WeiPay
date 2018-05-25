@@ -5,7 +5,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native'
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import { Icon, Button } from 'react-native-elements';
 import TokenList from '../../../Components/TokenList';
-import QRCodeScanner from 'react-native-qrcode-scanner';
+// import QRCodeScanner from 'react-native-qrcode-scanner';
 import Layout from '../../../constants/Layout'
 
 class CustomButton extends Component {
