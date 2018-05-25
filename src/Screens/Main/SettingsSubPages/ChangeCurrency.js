@@ -64,22 +64,6 @@ const styles = StyleSheet.create({
     }
 })
 
-// <List style={styles.list} >
-//     {
-//         list.map((item, i) => (
-//             <TouchableOpacity
-//                 key={item.id}
-//                 onPress={() => this.navigate}
-//             >
-//                 <ListItem
-//                     key={i}
-//                     title={item.title}
-//                     leftIcon={{ name: item.icon }}
-//                 />
-//             </TouchableOpacity>
-//         ))
-//     }
-// </List>
 
 
 

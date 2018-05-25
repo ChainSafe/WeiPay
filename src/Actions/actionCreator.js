@@ -61,3 +61,9 @@ export function selectWalletCurrency(currency) {
     dispatch({type: actionTypes.SELECT_WALLET_CURRENCY, payload: currency})
   }
 }
+
+export function selectWalletLanguage(language) {
+  return dispatch => {
+    dispatch({type: actionTypes.SELECT_WALLET_LANGUAGE, payload: language})
+  }
+}

@@ -3,6 +3,8 @@ import { View, TouchableOpacity, ScrollView, StyleSheet, TextInput, Image } from
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, Icon, List, ListItem } from 'react-native-elements';
+import LanguageList from '../../../Components/LanguageList';
+
 
 
 
@@ -44,23 +46,8 @@ class ChangePassword extends Component {
         return (
             <View style={styles.mainContainer}>
                 <View style={styles.contentContainer} >
+                    <LanguageList />
 
-                    <List style={styles.list} >
-                        {
-                            list.map((item, i) => (
-                                <TouchableOpacity
-                                    key={item.id}
-                                    onPress={() => this.navigate}
-                                >
-                                    <ListItem
-                                        key={i}
-                                        title={item.title}
-                                        leftIcon={{ name: item.icon }}
-                                    />
-                                </TouchableOpacity>
-                            ))
-                        }
-                    </List>
 
                     <View style={styles.btnContainer} >
                         <Button
@@ -96,7 +83,6 @@ const styles = StyleSheet.create({
         flex: 1, flexGrow: 1
     }
 })
-
 
 
 export default ChangePassword;
