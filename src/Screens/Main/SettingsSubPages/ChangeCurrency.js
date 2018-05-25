@@ -8,7 +8,7 @@ import { Button, Icon, List, ListItem } from 'react-native-elements';
 
 class ChangeCurrency extends Component {
     static navigationOptions = {
-        title: "Change Language"
+        title: "Change Currency"
     };
 
     navigate = () => {
