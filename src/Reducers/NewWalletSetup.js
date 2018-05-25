@@ -1,16 +1,20 @@
 import { AsyncStorage } from 'react-native';
 import * as actions from '../Actions/actionTypes';
 
-const INITIAL_STATE = { newWallet: false,
-                        walletName: '',
-                        tokens: []
-                        };
+const INITIAL_STATE = {
+  newWallet: false,
+  walletName: '',
+  tokens: [],
+  wallet: null,
+  backupPassphrase: ""
+};
 
 export default (state = INITIAL_STATE, action) => {
   //console.log(action);
   switch (action.type) {
     case actions.CREATING_NEW_WALLET:
-      return { ...state, newWallet: action.payload };
+      return { ...state, newWallet: true, wallet: action.payload };
+
     case actions.NEW_WALLET_NAME:
       return { ...state, walletName: action.payload };
 
@@ -22,13 +26,13 @@ export default (state = INITIAL_STATE, action) => {
         current.push(action.payload);
       } else {
         //Delete the selected coin from the token list
+
         current.splice(index,1);
 
       }
       // await AsyncStorage.setItem('wallet', { ...state, tokens: current } )
       return { ...state, tokens: current };
-    case actions.CURRENT_WALLET:
-      return action.payload
+    
     default:
       return state;
   }

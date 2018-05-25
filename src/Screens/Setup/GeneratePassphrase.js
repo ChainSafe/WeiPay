@@ -8,29 +8,33 @@ import { Input } from '../../Components/common/Input';
 import { CardSection } from '../../Components/common/CardSection';
 
 class GeneratePassphrase extends Component {
+
+
     static navigationOptions = {
         title: "Generate Passphrase"
     };
 
     navigate = () => {
         const navigateToEnableTokens = NavigationActions.navigate({
-            routeName: "enableTokens",
-            params: { name: "Shubhnik" }
+            routeName: "confirmPassphrase",
+            params: { wallet: this.props.navigation.state.wallet }
         });
         this.props.navigation.dispatch(navigateToEnableTokens);
     };
 
     render() {
+        const { walletInfo } = this.props;
         return (
             <View style={styles.mainContainer}>
                 <View style={styles.contentContainer} >
 
                     <View style={styles.content} >
                         <CardSection>
+                            <Text style={styles.headerText} >{walletInfo.walletName}</Text>
                             <Text style={styles.headerText} >Please save this passphrase as you will need it to recover your crypto. </Text>
                         </CardSection>
                         <CardSection>
-                            <Text style={styles.passphrase}>Cat Hat Trap That Passphrase Hockey Game Johnny Crypto Car Rat play </Text>
+                            <Text style={styles.passphrase}> {walletInfo.wallet.mnemonic} </Text>
                         </CardSection>
                     </View>
 
@@ -75,6 +79,8 @@ const styles = StyleSheet.create({
     }
 })
 
+const mapStateToProps = ({ newWallet }) => {
+    return { walletInfo: newWallet }
+}
 
-
-export default GeneratePassphrase;
+export default connect(mapStateToProps, null)(GeneratePassphrase)

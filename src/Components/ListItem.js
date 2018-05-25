@@ -39,7 +39,7 @@ class ListItem extends Component {
 
         const { checked } = this.state
         console.log(coin)
-    
+
         return (
           <View>
             <Card
@@ -63,17 +63,19 @@ class ListItem extends Component {
 }
 
 const styles = StyleSheet.create({
-    title: {
-      paddingLeft: 15
-    },
+  title: {
+    paddingLeft: 15, alignItems: 'flex-start',
+  },
 
-    invalid: {
-      borderColor: 'red'
-    },
+  invalid: {
+    // borderColor: 'red',
+    alignItems: 'flex-start',
+  },
 
-    valid: {
-      borderColor: 'green'
-    }
+  valid: {
+    // borderColor: 'green',
+    alignItems: 'flex-start',
+  }
 })
 
 
