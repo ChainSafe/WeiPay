@@ -48,10 +48,6 @@ class Settings extends Component {
         "id": "changeWalletName"
       },
       {
-        "title": "Export Activity Transaction",
-        "id": "activity"
-      },
-      {
         "title": "Remove Wallet",
         "id": "removeWallet"
       }

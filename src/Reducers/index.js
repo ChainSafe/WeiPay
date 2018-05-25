@@ -4,7 +4,10 @@ import NavigationReducer from "./navigationReducer";
 import CoinReducer from './CoinReducer';
 import CoinSelectionReducer from './CoinSelectionReducer';
 import NewWalletSetup from './NewWalletSetup';
-import language from './languageReducer'
+import currencyListReducer from './currencyListReducer';
+import languageListReducer from './languageListReducer';
+import settingsReducer from './settingsReducer';
+
 
 const AppReducer = combineReducers({
   CounterReducer,
@@ -12,7 +15,10 @@ const AppReducer = combineReducers({
   coins: CoinReducer,
   selectedCoins: CoinSelectionReducer,
   newWallet: NewWalletSetup,
-  language
+  currency: currencyListReducer,
+  language: languageListReducer,
+  settings: settingsReducer
+
 });
 
 export default AppReducer;

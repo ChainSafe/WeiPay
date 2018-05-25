@@ -3,7 +3,8 @@ import { View, TouchableOpacity, ScrollView, StyleSheet, TextInput, Image } from
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, Icon, List, ListItem } from 'react-native-elements';
-import { switchLanguage } from '../../../Actions/actionCreator';
+import LanguageList from '../../../Components/LanguageList';
+
 
 class LanguageChange extends Component {
     static navigationOptions = {
@@ -44,7 +45,9 @@ class LanguageChange extends Component {
 
         return (
             <View style={styles.mainContainer}>
-              <View style={styles.contentContainer} >
+                <View style={styles.contentContainer} >
+                    <LanguageList />
+
 
                 <List style={styles.list} >
                   {
@@ -101,4 +104,4 @@ function mapStateToProps({ language }) {
   return { language }
 }
 
-export default connect(mapStateToProps, {switchLanguage})(LanguageChange);
+export default ChangePassword;
