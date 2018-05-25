@@ -14,6 +14,12 @@ function AddToken(payload) {
   }
 }
 
+// export async function getCurrentWallet() {
+//   let wallet = await AsyncStorage.getItem('wallet')
+//
+//   return ({ type: actionTypes.CURRENT_WALLET, payload: wallet })
+// }
+
 export function addTokenToSetup(coin) {
   return dispatch => {
     coin.selected = !coin.selected

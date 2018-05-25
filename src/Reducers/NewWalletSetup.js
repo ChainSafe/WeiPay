@@ -25,8 +25,10 @@ export default (state = INITIAL_STATE, action) => {
         current.splice(index,1);
 
       }
-
+      // await AsyncStorage.setItem('wallet', { ...state, tokens: current } )
       return { ...state, tokens: current };
+    case actions.CURRENT_WALLET:
+      return action.payload
     default:
       return state;
   }
