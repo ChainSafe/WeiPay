@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Button, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput, Image, Dimensions } from "react-native";
+import { View, Button, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput, Image, Dimensions, Alert } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
@@ -76,31 +76,42 @@ class ConfirmPassphrase extends Component {
     }
 
     validatePassphrase = () => {
+
         const { scrambledTags, selectedTags } = this.state;
         var passphraseIncomplete = true;
         var count = 0;
+
         //check if all the tags have been selected 
         if (scrambledTags.length == 0) {
             console.log("all selected");
             for (var i = 0; i < selectedTags.length; i++) {
-
-                console.log(selectedTags[i].index + " - " + i);
-
-                //console.log(selectedTags[i]);
                 //need to use i as the selected order and compare to index of the word to check if they are equal
                 if (selectedTags[i].index == i) {
                     count++;
-                    //console.log(selectedTags[i].index + " - " + i);
                     passphraseIncomplete = false;
                 }
             }
-
             if (count == selectedTags.length) {
                 this.navigate();
+            } else {
+                Alert.alert(
+                    'Passphrase Error',
+                    'You did not enter the right passphrase in the correct order. Please try again.',
+                    [
+                        { text: 'OK', onPress: () => console.log('OK Pressed') },
+                    ],
+                    { cancelable: false }
+                )
             }
-            //console.log("passphrase status is not validated " + passphraseIncomplete + " count : " + count);
         } else {
-            console.log("need to select all tags");
+            Alert.alert(
+                'Passphrase Error',
+                'You must select all words.',
+                [
+                    { text: 'OK', onPress: () => console.log('OK Pressed') },
+                ],
+                { cancelable: false }
+            )
         }
         console.log(this.state);
     }
@@ -143,7 +154,7 @@ class ConfirmPassphrase extends Component {
 
                     <View style={styles.btnContainer} >
                         <Button
-                            title='Validate'
+                            title='Next'
                             icon={{ size: 28 }}
                             buttonStyle={{
                                 backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
@@ -153,16 +164,6 @@ class ConfirmPassphrase extends Component {
                             onPress={this.validatePassphrase}
                         />
 
-                        <Button
-                            title='Next'
-                            icon={{ size: 28 }}
-                            buttonStyle={{
-                                backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-                                justifyContent: 'center', marginBottom: 30, marginTop: 5.5
-                            }}
-                            textStyle={{ textAlign: 'center' }}
-                            onPress={this.navigate}
-                        />
                     </View>
                 </View>
             </View>
@@ -180,7 +181,6 @@ const styles = StyleSheet.create({
         marginTop: 25
     },
     tagContainer: {
-        // backgroundColor: 'red',
         flexDirection: 'row',
         flexWrap: 'wrap',
         padding: 2
@@ -212,10 +212,8 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = ({ newWallet }) => {
-    console.log("---");
     const mnemonic = newWallet.wallet.mnemonic;
     return { mnemonic }
 }
 
-//export default ConfirmPassphrase;
 export default connect(mapStateToProps, null)(ConfirmPassphrase)
