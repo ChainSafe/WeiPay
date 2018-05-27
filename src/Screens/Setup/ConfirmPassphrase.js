@@ -7,13 +7,37 @@ import { Input } from '../../Components/common/Input';
 import { CardSection } from '../../Components/common/CardSection';
 var shuffle = require('shuffle-array'); //to randomize order
 
-var chosenTags = [];
-
 class ConfirmPassphrase extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            selectedTags: [],
+            scrambledTags: []
+        }
     }
+
+    componentDidMount() {
+
+        const state = this.state;
+        const words = this.props.mnemonic.split(' ');
+        var orderArray = [];
+
+        for (var i = 0; i < words.length; i++) {
+            orderArray.push({ "word": words[i], "index": i });
+        }
+
+        console.log(shuffle(orderArray));
+
+        for (var i = 0; i < words.length; i++) {
+            state.scrambledTags.push(orderArray[i]);
+        }
+
+        this.setState(state)
+        console.log(state);
+    }
+
 
     static navigationOptions = {
         title: "Confirm Passphrase"
@@ -27,57 +51,49 @@ class ConfirmPassphrase extends Component {
         this.props.navigation.dispatch(navigateToEnableTokens);
     };
 
+    addTag(tagItem, action, x) {
 
+        console.log("unique index is : " + x);
+        const state = this.state;
+        console.log(action + " " + tagItem.index);
 
-    placeTag(tagItem) {
-        chosenTags.push(tagItem);
-        console.log(tagItem);
-        this.displayNewTags();
-    }
-
-    displayNewTags() {
-        console.log(chosenTags.length);
-
-        var x = [];
-        x.push(chosenTags.map(n =>
-            <TouchableOpacity
-                key={n.index}
-                onPress={() => this.placeTag(this)}
-                style={styles.tag}
-            >
-                <Text> {n.word} </Text>
-            </TouchableOpacity>
-        ))
-        return x
-    }
-
-    generateMnemonic = () => {
-        const words = this.props.mnemonic.split(' ');
-        const mnemonicLength = words.length; //just to bed safe
-        var wordsObjArray = [], scrambledArray = [];
-
-        for (var i = 0; i < mnemonicLength; i++) {
-            var obj = { "word": words[i], "index": i }
-            wordsObjArray.push(obj);
+        if (action == "init") {
+            console.log("in action init");
+            this.swapTag(tagItem, "selectedTags", x);
+        } else if (action == "revert") {
+            this.swapTag(tagItem, "scrambledTags", x);
+        } else {
+            console.log("fuck in the add");
         }
-
-        console.log(shuffle(wordsObjArray));
-        let ar = [];
-        ar.push(wordsObjArray.map(n =>
-            <TouchableOpacity
-                key={n.index}
-                onPress={() => this.placeTag(this)}
-                style={styles.tag}
-            >
-                <Text> {n.word} </Text>
-            </TouchableOpacity>
-        ))
-        return ar
     }
+
+    /* Pass in index and remove it out of whatever state -> just removed an item from any state, pass in state and index */
+    swapTag(tagItem, currentStateVariable, currenIndex) {
+        const state = this.state;
+
+        if (currentStateVariable == "scrambledTags") {
+            console.log("in swap tag function in the scrambled tags statement");
+            state.scrambledTags.push(tagItem);
+            state.selectedTags.splice(currenIndex, 1);
+            this.setState(state)
+        } else if (currentStateVariable == "selectedTags") {
+            console.log("in swap tag function in the selected tags statement");
+            state.selectedTags.push(tagItem);
+            state.scrambledTags.splice(currenIndex, 1);
+            this.setState(state)
+        } else {
+            console.log("fuck in the swap");
+        }
+        console.log(state);
+    }
+
 
     render() {
 
+        const { selectedTags, scrambledTags } = this.state;
+
         return (
+
             <View style={styles.mainContainer}>
                 <View style={styles.contentContainer} >
 
@@ -87,14 +103,22 @@ class ConfirmPassphrase extends Component {
                         </CardSection>
 
                         <CardSection>
-                            {/* {this.displayNewTags()} */}
+                            <View style={styles.tagContainer} >
+                                {
+                                    selectedTags.map((item, index) => {
+                                        return <Button style={styles.tag} title={item.word} key={item.index} onPress={() => this.addTag(item, "revert", index)} />
+                                    })
+                                }
+                            </View>
                         </CardSection>
 
                         <View style={styles.tagContainer} >
-                            {this.generateMnemonic()}
+                            {
+                                scrambledTags.map((item, index) => {
+                                    return <Button title={item.word} key={item.index} onPress={() => this.addTag(item, "init", index)} />
+                                })
+                            }
                         </View>
-
-
                     </View>
 
                     <View style={styles.btnContainer} >
@@ -125,7 +149,7 @@ const styles = StyleSheet.create({
         marginTop: 25
     },
     tagContainer: {
-        backgroundColor: 'red',
+        // backgroundColor: 'red',
         flexDirection: 'row',
         flexWrap: 'wrap',
         padding: 2
@@ -142,7 +166,9 @@ const styles = StyleSheet.create({
         width: 350
     },
     btnContainer: {
-        flex: 1, justifyContent: 'flex-end', alignItems: 'center'
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'center'
     },
     headerText: {
         fontSize: 15,
