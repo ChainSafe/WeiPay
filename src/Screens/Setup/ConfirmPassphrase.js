@@ -18,30 +18,23 @@ class ConfirmPassphrase extends Component {
         }
     }
 
-    componentDidMount() {
-
-        const state = this.state;
-        const words = this.props.mnemonic.split(' ');
-        var orderArray = [];
-
-        for (var i = 0; i < words.length; i++) {
-            orderArray.push({ "word": words[i], "index": i });
-        }
-
-        console.log(shuffle(orderArray));
-
-        for (var i = 0; i < words.length; i++) {
-            state.scrambledTags.push(orderArray[i]);
-        }
-
-        this.setState(state)
-        console.log(state);
-    }
-
-
     static navigationOptions = {
         title: "Confirm Passphrase"
     };
+
+    componentDidMount() {
+        const state = this.state;
+        const words = this.props.mnemonic.split(' ');
+        var orderArray = [];
+        for (var i = 0; i < words.length; i++) {
+            orderArray.push({ "word": words[i], "index": i });
+        }
+        shuffle(orderArray);
+        for (var i = 0; i < words.length; i++) {
+            state.scrambledTags.push(orderArray[i]);
+        }
+        this.setState(state)
+    }
 
     navigate = () => {
         const navigateToEnableTokens = NavigationActions.navigate({
@@ -53,7 +46,6 @@ class ConfirmPassphrase extends Component {
 
     addTag(tagItem, action, x) {
         const state = this.state;
-
         if (action == "init") {
             console.log("in action init");
             this.swapTag(tagItem, "selectedTags", x);
@@ -67,7 +59,6 @@ class ConfirmPassphrase extends Component {
     /* Pass in index and remove it out of whatever state -> just removed an item from any state, pass in state and index */
     swapTag(tagItem, currentStateVariable, currenIndex) {
         const state = this.state;
-
         if (currentStateVariable == "scrambledTags") {
             console.log("in swap tag function in the scrambled tags statement");
             state.scrambledTags.push(tagItem);
@@ -82,6 +73,36 @@ class ConfirmPassphrase extends Component {
             console.log("problems in the swap");
         }
         console.log(state);
+    }
+
+    validatePassphrase = () => {
+        const { scrambledTags, selectedTags } = this.state;
+        var passphraseIncomplete = true;
+        var count = 0;
+        //check if all the tags have been selected 
+        if (scrambledTags.length == 0) {
+            console.log("all selected");
+            for (var i = 0; i < selectedTags.length; i++) {
+
+                console.log(selectedTags[i].index + " - " + i);
+
+                //console.log(selectedTags[i]);
+                //need to use i as the selected order and compare to index of the word to check if they are equal
+                if (selectedTags[i].index == i) {
+                    count++;
+                    //console.log(selectedTags[i].index + " - " + i);
+                    passphraseIncomplete = false;
+                }
+            }
+
+            if (count == selectedTags.length) {
+                this.navigate();
+            }
+            //console.log("passphrase status is not validated " + passphraseIncomplete + " count : " + count);
+        } else {
+            console.log("need to select all tags");
+        }
+        console.log(this.state);
     }
 
 
@@ -109,13 +130,15 @@ class ConfirmPassphrase extends Component {
                             </View>
                         </CardSection>
 
-                        <View style={styles.tagContainer} >
-                            {
-                                scrambledTags.map((item, index) => {
-                                    return <Button title={item.word} key={item.index} onPress={() => this.addTag(item, "init", index)} />
-                                })
-                            }
-                        </View>
+                        <CardSection>
+                            <View style={styles.tagContainer} >
+                                {
+                                    scrambledTags.map((item, index) => {
+                                        return <Button title={item.word} key={item.index} onPress={() => this.addTag(item, "init", index)} />
+                                    })
+                                }
+                            </View>
+                        </CardSection>
                     </View>
 
                     <View style={styles.btnContainer} >
