@@ -52,10 +52,7 @@ class ConfirmPassphrase extends Component {
     };
 
     addTag(tagItem, action, x) {
-
-        console.log("unique index is : " + x);
         const state = this.state;
-        console.log(action + " " + tagItem.index);
 
         if (action == "init") {
             console.log("in action init");
@@ -63,7 +60,7 @@ class ConfirmPassphrase extends Component {
         } else if (action == "revert") {
             this.swapTag(tagItem, "scrambledTags", x);
         } else {
-            console.log("fuck in the add");
+            console.log("problems in the add");
         }
     }
 
@@ -82,7 +79,7 @@ class ConfirmPassphrase extends Component {
             state.scrambledTags.splice(currenIndex, 1);
             this.setState(state)
         } else {
-            console.log("fuck in the swap");
+            console.log("problems in the swap");
         }
         console.log(state);
     }
@@ -122,6 +119,17 @@ class ConfirmPassphrase extends Component {
                     </View>
 
                     <View style={styles.btnContainer} >
+                        <Button
+                            title='Validate'
+                            icon={{ size: 28 }}
+                            buttonStyle={{
+                                backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
+                                justifyContent: 'center', marginBottom: 30, marginTop: 5.5
+                            }}
+                            textStyle={{ textAlign: 'center' }}
+                            onPress={this.validatePassphrase}
+                        />
+
                         <Button
                             title='Next'
                             icon={{ size: 28 }}
