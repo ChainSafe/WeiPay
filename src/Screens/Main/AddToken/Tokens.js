@@ -8,7 +8,6 @@ import { Icon, Button } from 'react-native-elements';
 import TokenList from '../../../Components/TokenList';
 
 import CoinList from '../../../Components/CoinList';
-import QRCodeScanner from 'react-native-qrcode-scanner';
 import Layout from '../../../constants/Layout'
 
 
@@ -50,7 +49,7 @@ class Tokens extends Component {
   render() {
     return (
       <View style={{ flex: 1 }} >
-        <CoinList type={'tokens'}/>
+        <CoinList type={'tokens'} />
         <View style={styles.btnContainer} >
           <Button
             title='Add'

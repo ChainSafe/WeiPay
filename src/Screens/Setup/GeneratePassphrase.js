@@ -29,12 +29,15 @@ class GeneratePassphrase extends Component {
                 <View style={styles.contentContainer} >
 
                     <View style={styles.content} >
+
                         <CardSection>
-                            <Text style={styles.headerText} >{walletInfo.walletName}</Text>
-                            <Text style={styles.headerText} >Please save this passphrase as you will need it to recover your crypto. </Text>
+                            <Text style={styles.walletName} >Wallet Name: {walletInfo.walletName}</Text>
                         </CardSection>
                         <CardSection>
-                            <Text style={styles.passphrase}> {walletInfo.wallet.mnemonic} </Text>
+                            <Text style={styles.headerText} >Please save this passphrase as you will need it to recover your crypto.</Text>
+                        </CardSection>
+                        <CardSection>
+                            <Text style={styles.passphrase}>{walletInfo.wallet.mnemonic}</Text>
                         </CardSection>
                     </View>
 
@@ -64,10 +67,15 @@ const styles = StyleSheet.create({
         marginTop: 25
     },
     content: {
-        width: 350
+        width: 350,
     },
     btnContainer: {
         flex: 1, justifyContent: 'flex-end', alignItems: 'center'
+    },
+    walletName: {
+        fontSize: 15,
+        fontWeight: 'bold',
+        padding: 15,
     },
     headerText: {
         fontSize: 15,
@@ -75,7 +83,7 @@ const styles = StyleSheet.create({
         padding: 20
     },
     passphrase: {
-        padding: 20
+        padding: 15
     }
 })
 

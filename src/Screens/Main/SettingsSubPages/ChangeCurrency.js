@@ -9,7 +9,7 @@ import CurrencyList from '../../../Components/CurrencyList';
 
 class ChangeCurrency extends Component {
     static navigationOptions = {
-        title: "Change Language"
+        title: "Change Currency"
     };
 
     navigate = () => {
