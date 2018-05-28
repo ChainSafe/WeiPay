@@ -23,61 +23,23 @@ class LanguageChange extends Component {
 
     render() {
 
-        const list = [
-            {
-                "title": "English",
-                "id": "changePassword"
-            },
-            {
-                "title": "Spanish",
-                "id": "language"
-            },
-            {
-                "title": "Mandarin",
-                "id": "currency"
-            },
-            {
-                "title": "German",
-                "id": "walletame"
-            },
-        ];
-
 
         return (
             <View style={styles.mainContainer}>
-                <View style={styles.contentContainer} >
-                    <LanguageList />
-
-
-                <List style={styles.list} >
-                  {
-                    list.map((item, i) => (
-                      <TouchableOpacity
-                        key={item.id}
-                        onPress={() => this.navigate}
-                      >
-                        <ListItem
-                          key={i}
-                          title={item.title}
-                          leftIcon={{ name: item.icon }}
-                        />
-                      </TouchableOpacity>
-                    ))
-                  }
-                  <View style={styles.btnContainer} >
-                    <Button
-                      title='Update'
-                      icon={{ size: 28 }}
-                      buttonStyle={{
-                        backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-                        justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
-                      }}
-                      textStyle={{ textAlign: 'center' }}
-                      onPress={() => this.navigate(arg)}
-                    />
-                  </View>
-                </List>
+              <View style={styles.contentContainer} >
+                <LanguageList />
+                <Button
+                  title='Update'
+                  icon={{ size: 28 }}
+                  buttonStyle={{
+                    backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
+                    justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
+                  }}
+                  textStyle={{ textAlign: 'center' }}
+                  onPress={() => this.props.navigation.navigate('Drawer')}
+                />
               </View>
+
             </View>
         );
     }
@@ -104,4 +66,42 @@ function mapStateToProps({ language }) {
   return { language }
 }
 
-export default ChangePassword;
+export default LanguageChange;
+
+
+                {/* <List style={styles.list} >
+                  {
+                    list.map((item, i) => (
+                  <TouchableOpacity
+                  key={item.id}
+                  onPress={() => this.navigate}
+                  >
+                  <ListItem
+                  key={i}
+                  title={item.title}
+                  leftIcon={{ name: item.icon }}
+                  />
+                  </TouchableOpacity>
+                    ))
+                  }
+
+                </List> */}
+        //
+        // const list = [
+        //     {
+        //         "title": "English",
+        //         "id": "changePassword"
+        //     },
+        //     {
+        //         "title": "Spanish",
+        //         "id": "language"
+        //     },
+        //     {
+        //         "title": "Mandarin",
+        //         "id": "currency"
+        //     },
+        //     {
+        //         "title": "German",
+        //         "id": "walletame"
+        //     },
+        // ];
