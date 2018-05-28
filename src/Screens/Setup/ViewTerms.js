@@ -32,7 +32,6 @@ class ViewTerms extends Component {
         walletRandom.provider = provider;
         console.log("Address: " + walletRandom.address);
 
-
         var amount = ethers.utils.parseEther('10.0');
         var sendPromise = wallet.send(walletRandom.address, amount);
 
@@ -40,42 +39,17 @@ class ViewTerms extends Component {
             console.log(transactionHash);
 
             provider.getBalance(wallet.address).then(function (balance) {
-
-                // balance is a BigNumber (in wei); format is as a sting (in ether)
                 var etherString = utils.formatEther(balance);
-
                 console.log("first Balance: " + etherString);
             });
 
-
             provider.getBalance(walletRandom.address).then(function (balance) {
-
-                // balance is a BigNumber (in wei); format is as a sting (in ether)
                 var etherString = utils.formatEther(balance);
-
                 console.log("random Balance: " + etherString);
             });
 
 
         });
-
-
-        // // These will query the network for appropriate values
-        // var options = {
-        //     //gasLimit: 21000
-        //     //gasPrice: utils.bigNumberify("20000000000")
-        // };
-
-        // var promiseSend = wallet.send(address, amount, options);
-
-        // promiseSend.then(function(transaction) {
-        //     console.log(transaction);
-        // });
-
-
-
-
-
     }
 
     navigate = () => {
