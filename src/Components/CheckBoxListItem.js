@@ -10,7 +10,7 @@ import { addTokenToSetup } from '../Actions/actionCreator';
 
 var touched = false;
 
-class ListItem extends Component {
+class CheckBoxListItem extends Component {
   constructor() {
     super();
 
@@ -20,10 +20,13 @@ class ListItem extends Component {
   }
 
     renderPress(coin) {
-      this.props.addTokenToSetup(coin);
+      this.props.addItem(coin);
       this.setState({
         checked: !(this.state.checked)
       })
+
+      // console.log(this.props.tokenList);
+
     }
 
     //isMember ? "$2.00" : "$10.00"
@@ -34,56 +37,54 @@ class ListItem extends Component {
     //onPress={() => this.props.addTokenToSetup(coin.id)}
       //containerStyle={[title , !(this.props.tokenList.indexOf(coin.id) == -1) ? styles.invalid : styles.valid]}
     render() {
+      
         const { coin } = this.props;
         const { title } = styles;
 
         const { checked } = this.state
-        console.log(coin)
-
+        //console.log(this.props);
         return (
-          <View>
-            <Card
-              style={[styles.check , coin.selected ? styles.valid : styles.invalid]}
-            >
-              <CheckBox center
-                title={coin.title}
-                iconLeft
-                iconType='material'
-                checkedIcon='clear'
-                uncheckedIcon='add'
-                checkedColor='red'
-                checked={coin.selected}
-                containerStyle={[title, coin.selected ? styles.valid : styles.invalid]}
-                onPress={() => this.renderPress(coin)}
-              />
-            </Card>
-          </View>
+
+
+              <View>
+                <Card
+                  style={[styles.check , (this.props.selectedItems.indexOf(coin.id) != -1) ? styles.valid : styles.invalid]}
+                >
+                  <CheckBox center
+                    title={coin.title}
+                    iconLeft
+                    iconType='material'
+                    checkedIcon='clear'
+                    uncheckedIcon='add'
+                    checkedColor='red'
+                    checked={checked}
+                    containerStyle={[title, checked ? styles.valid : styles.invalid]}
+                    onPress={() => this.renderPress(coin)}
+                  />
+                </Card>
+
+              </View>
+
+
+
+
         )
     }
 }
 
 const styles = StyleSheet.create({
-  title: {
-    paddingLeft: 15, alignItems: 'flex-start',
-  },
+    title: {
+      paddingLeft: 15
+    },
 
-  invalid: {
-    // borderColor: 'red',
-    alignItems: 'flex-start',
-  },
+    invalid: {
+      borderColor: 'red'
+    },
 
-  valid: {
-    // borderColor: 'green',
-    alignItems: 'flex-start',
-  }
+    valid: {
+      borderColor: 'green'
+    }
 })
 
 
-
-const mapStateToProps = state => {
-  return {
-      tokenList: state.newWallet.tokens,
-  }
-};
-
-export default connect(mapStateToProps, { addTokenToSetup })(ListItem)
+export default CheckBoxListItem

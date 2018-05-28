@@ -3,7 +3,7 @@ import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { TabNavigator } from 'react-navigation';
 import { Icon, Button } from 'react-native-elements';
 
-import CoinList from '../../Components/CoinList';
+import CoinList from '../../../Components/CoinList';
 
 class Coins extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -26,14 +26,14 @@ class Coins extends Component {
           ]}
           renderItem={({ item }) =>
             <Text
-              onPress={() => this.props.navigation.navigate('PortfolioCoins')}
-              style={styles.item}>
-              {item.key}
+          onPress={() => this.props.navigation.navigate('PortfolioCoins')}
+          style={styles.item}>
+          {item.key}
             </Text>
           }
         /> */}
 
-        <CoinList />
+        <CoinList type={'coins'}/>
 
         <View style={styles.btnContainer} >
           <Button

@@ -1,6 +1,6 @@
 import { TabNavigator } from 'react-navigation';
 
-import Coins from '../Coins'
+import Coins from './Coins'
 import Tokens from './Tokens'
 
 export default TabNavigator({

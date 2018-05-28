@@ -4,9 +4,12 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import { Icon, Button } from 'react-native-elements';
+
 import TokenList from '../../../Components/TokenList';
-// import QRCodeScanner from 'react-native-qrcode-scanner';
+
+import CoinList from '../../../Components/CoinList';
 import Layout from '../../../constants/Layout'
+
 
 class CustomButton extends Component {
   render() {
@@ -46,7 +49,7 @@ class Tokens extends Component {
   render() {
     return (
       <View style={{ flex: 1 }} >
-        <TokenList />
+        <CoinList type={'tokens'} />
         <View style={styles.btnContainer} >
           <Button
             title='Add'
@@ -59,20 +62,20 @@ class Tokens extends Component {
             onPress={() => alert('Would Like to Access the Camera to Scan barcodes')}
           />
         </View>
-        {/* <QRCodeScanner
+        <QRCodeScanner
           style={styles.scanner}
           onRead={this.onSuccess.bind(this)}
           topContent={
             <Text style={styles.centerText}>
-          Go to <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on your computer and scan the QR code.
+              Go to <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on your computer and scan the QR code.
             </Text>
           }
           bottomContent={
             <TouchableOpacity style={styles.buttonTouchable}>
-          <Text style={styles.buttonText}>OK. Got it!</Text>
+              <Text style={styles.buttonText}>OK. Got it!</Text>
             </TouchableOpacity>
           }
-        /> */}
+        />
       </View>
     )
   }
