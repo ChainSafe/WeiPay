@@ -2,9 +2,6 @@ import React from 'react';
 import { StackNavigator, DrawerNavigator, TabNavigator, DrawerItems } from 'react-navigation';
 import { View } from 'react-native'
 
-
-import Screen1 from '../Screens/screen1';
-import Screen2 from '../Screens/screen2';
 import TermsScreen from '../Screens/Setup/ViewTerms';
 import CreateOrRestore from '../Screens/Setup/CreateOrRestore';
 import CreateWalletName from '../Screens/Setup/CreateWalletName';
@@ -20,12 +17,6 @@ import AddToken from '../Screens/Main/AddToken'
 
 
 const navigator = StackNavigator({
-  screen1: {
-    screen: Screen1
-  },
-  screen2: {
-    screen: Screen2
-  },
   terms: {
     screen: TermsScreen
   },

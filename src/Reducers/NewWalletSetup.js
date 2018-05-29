@@ -20,19 +20,17 @@ export default (state = INITIAL_STATE, action) => {
 
     case actions.ADD_TOKEN_SETUP:
       var current = state.tokens;
-      let index = current.map( token => token.id ).indexOf(action.payload.id)
-      if (index === -1){
+      let index = current.map(token => token.id).indexOf(action.payload.id)
+      if (index === -1) {
         //add the selected coin to the token list
         current.push(action.payload);
       } else {
         //Delete the selected coin from the token list
-
-        current.splice(index,1);
-
+        current.splice(index, 1);
       }
       // await AsyncStorage.setItem('wallet', { ...state, tokens: current } )
       return { ...state, tokens: current };
-    
+
     default:
       return state;
   }

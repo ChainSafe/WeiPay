@@ -4,7 +4,7 @@ import { NavigationActions } from "react-navigation";
 //import { connect } from "react-redux";
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 const ethers = require('ethers');
-import Provider from '../../constants/Providers';
+import Provider from '../../constants/Providers'; //this gives us access to the local test rpc network to test
 
 
 class RecoverWallet extends Component {
@@ -13,21 +13,21 @@ class RecoverWallet extends Component {
     };
 
     navigate = () => {
+        /* 
+           Need to save this information to redux -> commented out for errors, but use the testrpc passphrase for this to work
 
-        console.log(this.state.mnemonic);
-        var mnemonic = this.state.mnemonic;
-        var wallet = ethers.Wallet.fromMnemonic(mnemonic);
-        console.log("Address: " + wallet.address);
+           console.log(this.state.mnemonic);
+           var mnemonic = this.state.mnemonic;
+           var wallet = ethers.Wallet.fromMnemonic(mnemonic);
+           console.log("Address: from newly recovered passphrase is " + wallet.address);   
+       */
 
+        const navigateToTokens = NavigationActions.navigate({
+            routeName: "enableTokens",
+            params: { name: "Shubhnik" }
+        });
 
-        //console.log(this.state.mnemonic);
-
-        // const navigateToTokens = NavigationActions.navigate({
-        //     routeName: "enableTokens",
-        //     params: { name: "Shubhnik" }
-        // });
-
-        // this.props.navigation.dispatch(navigateToTokens);
+        this.props.navigation.dispatch(navigateToTokens);
     };
 
     constructor(props) {
@@ -37,11 +37,9 @@ class RecoverWallet extends Component {
         }
     }
 
-
     renderRecoveryKey(mnemonicInput) {
         this.setState({ mnemonic: mnemonicInput });
     }
-
 
     render() {
         return (
