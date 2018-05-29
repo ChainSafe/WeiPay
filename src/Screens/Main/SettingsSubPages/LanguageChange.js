@@ -25,20 +25,23 @@ class LanguageChange extends Component {
 
 
         return (
-            <View style={styles.mainContainer}>
-              <View style={styles.contentContainer} >
+
+            <View style={{ flex: 1 }}>
+
                 <LanguageList />
-                <Button
-                  title='Update'
-                  icon={{ size: 28 }}
-                  buttonStyle={{
-                    backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-                    justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
-                  }}
-                  textStyle={{ textAlign: 'center' }}
-                  onPress={() => this.props.navigation.navigate('Drawer')}
-                />
-              </View>
+
+                <View style={styles.btnContainer} >
+                    <Button
+                        title='Update'
+                        icon={{ size: 28 }}
+                        buttonStyle={{
+                            backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
+                            justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
+                        }}
+                        textStyle={{ textAlign: 'center' }}
+                        onPress={this.navigate}
+                    />
+                </View>
 
             </View>
         );
@@ -46,20 +49,25 @@ class LanguageChange extends Component {
 }
 
 const styles = StyleSheet.create({
-    mainContainer: {
-        flex: 1, alignItems: 'center', justifyContent: 'flex-start'
-    },
-    contentContainer: {
-        marginTop: 25,
-    },
+    // mainContainer: {
+    //     flex: 1, alignItems: 'center', justifyContent: 'flex-start'
+    // },
+    // contentContainer: {
+    //     marginTop: 25,
+    // },
+    // btnContainer: {
+    //     flex: 1, justifyContent: 'flex-end', alignItems: 'center'
+    // },
+    // formInputElement: {
+    // },
+    // list: {
+    //     flex: 1, flexGrow: 1
+    // }
+
     btnContainer: {
-        flex: 1, justifyContent: 'flex-end', alignItems: 'center'
-    },
-    formInputElement: {
-    },
-    list: {
-        flex: 1, flexGrow: 1
+        alignItems: 'center', height: 60, paddingTop: 10, paddingBottom: 10, justifyContent: "center"
     }
+
 })
 
 function mapStateToProps({ language }) {
