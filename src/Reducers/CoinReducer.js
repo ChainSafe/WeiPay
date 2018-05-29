@@ -1,3 +1,3 @@
 import data from '../Reducers/json/CoinList.json';
 
-export default () => data; 
+export default () => data

@@ -1,3 +1,4 @@
+import { AsyncStorage } from 'react-native';
 import { incrementCounter, decrementCounter, addTokenSetup } from "./actionTypes";
 import * as actionTypes from './actionTypes';
 
@@ -6,17 +7,23 @@ const incrementAction = () => ({
   type: incrementCounter
 });
 
-function AddToken(paylaod) {
+function AddToken(payload) {
   return {
     type: addTokenSetup,
-    paylaod
+    payload
   }
 }
 
-export function addTokenToSetup(tokenId) {
+// export async function getCurrentWallet() {
+//   let wallet = await AsyncStorage.getItem('wallet')
+//
+//   return ({ type: actionTypes.CURRENT_WALLET, payload: wallet })
+// }
 
+export function addTokenToSetup(coin) {
   return dispatch => {
-    dispatch({ type: actionTypes.ADD_TOKEN_SETUP, payload: tokenId })
+    coin.selected = !coin.selected
+    dispatch({ type: actionTypes.ADD_TOKEN_SETUP, payload: coin })
   }
 }
 
@@ -31,18 +38,21 @@ export function addTokenToSetup(tokenId) {
 // }
 
 
-export function newWalletCreation() {
+export function newWalletCreation(wallet) {
   return dispatch => {
-    dispatch({ type: actionTypes.CREATING_NEW_WALLET,
-              payload: true })
+    dispatch({
+      type: actionTypes.CREATING_NEW_WALLET,
+      payload: wallet
+    })
   }
 }
 
 export function newWalletNameEntry(name) {
   return dispatch => {
-    dispatch({ type: actionTypes.NEW_WALLET_NAME, payload: name})
+    dispatch({ type: actionTypes.NEW_WALLET_NAME, payload: name })
   }
 }
+
 
 export function restoreWallet() {
   return dispatch => {
@@ -50,20 +60,33 @@ export function restoreWallet() {
   }
 }
 
+
 export function recoveryKey(key) {
   return dispatch => {
-    dispatch({type: actionTypes.RESTORE_RECOVERY_KEY, payload: key})
+    dispatch({ type: actionTypes.RESTORE_RECOVERY_KEY, payload: key })
   }
 }
 
 export function selectWalletCurrency(currency) {
   return dispatch => {
-    dispatch({type: actionTypes.SELECT_WALLET_CURRENCY, payload: currency})
+    dispatch({ type: actionTypes.SELECT_WALLET_CURRENCY, payload: currency })
   }
 }
 
 export function selectWalletLanguage(language) {
   return dispatch => {
-    dispatch({type: actionTypes.SELECT_WALLET_LANGUAGE, payload: language})
+    dispatch({ type: actionTypes.SELECT_WALLET_LANGUAGE, payload: language })
   }
+}
+
+/* Using this action type in recover wallet page, not restore */
+
+export function recoverPassphrase(passphrase) {
+  return dispatch => {
+    dispatch({ type: actionTypes.RESTORE_RECOVERY_PASSPHRASE, payload: passphrase })
+  }
+}
+
+export const switchLanguage = language => dispatch => {
+  dispatch({ type: actionTypes.SWITCH_LANGUAGE, payload: language })
 }

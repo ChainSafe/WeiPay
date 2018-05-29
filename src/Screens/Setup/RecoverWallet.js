@@ -3,8 +3,9 @@ import { View, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput, Image 
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-import { recoveryKey } from '../../Actions/actionCreator';
-
+const ethers = require('ethers');
+import Provider from '../../constants/Providers'; //this gives us access to the local test rpc network to test
+import { recoverPassphrase } from '../../Actions/actionCreator'; //gonna save this passphrase to state
 
 class RecoverWallet extends Component {
     static navigationOptions = {
@@ -12,17 +13,36 @@ class RecoverWallet extends Component {
     };
 
     navigate = () => {
+        /* 
+           Need to save this information to redux -> commented out for errors, but use the testrpc passphrase for this to work
+
+           console.log(this.state.mnemonic);
+           var mnemonic = this.state.mnemonic;
+           var wallet = ethers.Wallet.fromMnemonic(mnemonic);
+           console.log("Address: from newly recovered passphrase is " + wallet.address);   
+       */
+
+        this.props.recoverPassphrase(this.state.mnemonic); //pass state to redux to save it
 
         const navigateToTokens = NavigationActions.navigate({
             routeName: "enableTokens",
             params: { name: "Shubhnik" }
         });
 
+        console.log(" -- - - - - - ");
+        console.log(this.props.state);
         this.props.navigation.dispatch(navigateToTokens);
     };
 
-    renderRecoveryKey(key) {
-        this.props.recoveryKey(key);
+    constructor(props) {
+        super(props)
+        this.state = {
+            mnemonic: ""
+        }
+    }
+
+    renderRecoveryKey(mnemonicInput) {
+        this.setState({ mnemonic: mnemonicInput });
     }
 
     render() {
@@ -35,6 +55,7 @@ class RecoverWallet extends Component {
                     </View>
                     <View style={styles.btnContainer} >
                         <Button
+                            disabled={this.state.mnemonic === ""}
                             title='Restore'
                             icon={{ size: 28 }}
                             buttonStyle={{
@@ -66,6 +87,11 @@ const styles = StyleSheet.create({
     },
 })
 
+// const mapStateToProps = ({ mnemonic }) => {
+//     const { passphrase } = mnemonic;
+//     return { passphrase }
+// }
 
-export default connect(null, { recoveryKey })(RecoverWallet);
+export default connect(null, { recoverPassphrase })(RecoverWallet);
+//change the state with the 
 //export default RecoverWallet;

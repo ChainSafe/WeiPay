@@ -29,28 +29,21 @@ class LanguageList extends Component {
         // let selectedButton = this.state.data.find(e => e.selected == true);
         // selectedButton = selectedButton ? selectedButton.value : this.state.data[0].label;
         return (
-
-                  <ScrollView contentContainerstyle={styles.container}>
-                        <CardSection>
-                          <RadioGroup radioButtons={this.state.data} onPress={this.renderSelect.bind(this)} />
-                        </CardSection>
-                  </ScrollView>
-
-
-
-
+          <ScrollView contentContainerstyle={styles.container}>
+            <CardSection>
+              <RadioGroup radioButtons={this.state.data} onPress={this.renderSelect.bind(this)} />
+            </CardSection>
+          </ScrollView>
         );
     }
 }
 
 const styles = StyleSheet.create({
-
-    container: {
-        flex: 1,
-        justifyContent: 'space-between',
-        marginBottom: 100
-    }
-
+  container: {
+      flex: 1,
+      justifyContent: 'space-between',
+      marginBottom: 100
+  }
 });
 
 
@@ -59,7 +52,6 @@ const mapStateToProps = state => {
     language: state.language
   }
 }
-
 
 export default connect(mapStateToProps, { selectWalletLanguage })(LanguageList);
 //export default Test;
