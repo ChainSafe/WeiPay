@@ -5,7 +5,10 @@ import { connect } from "react-redux";
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 const ethers = require('ethers');
 import Provider from '../../constants/Providers'; //this gives us access to the local test rpc network to test
-import { recoverPassphrase } from '../../Actions/actionCreator'; //gonna save this passphrase to state
+//import { recoverPassphrase } from '../../Actions/actionCreator'; //gonna save this passphrase to state
+import { newWalletCreation } from '../../Actions/actionCreator'; //gonna save this passphrase to state
+
+
 
 class RecoverWallet extends Component {
     static navigationOptions = {
@@ -13,16 +16,14 @@ class RecoverWallet extends Component {
     };
 
     navigate = () => {
-        /* 
-           Need to save this information to redux -> commented out for errors, but use the testrpc passphrase for this to work
+        //    Need to save this information to redux -> commented out for errors, but use the testrpc passphrase for this to work
 
-           console.log(this.state.mnemonic);
-           var mnemonic = this.state.mnemonic;
-           var wallet = ethers.Wallet.fromMnemonic(mnemonic);
-           console.log("Address: from newly recovered passphrase is " + wallet.address);   
-       */
+        console.log(this.state.mnemonic);
+        var mnemonic = this.state.mnemonic;
+        var wallet = ethers.Wallet.fromMnemonic(mnemonic);
+        console.log("Address: from newly recovered passphrase is " + wallet.address);
 
-        this.props.recoverPassphrase(this.state.mnemonic); //pass state to redux to save it
+        this.props.newWalletCreation(wallet); //pass state to redux to save it
 
         const navigateToTokens = NavigationActions.navigate({
             routeName: "enableTokens",
@@ -30,7 +31,7 @@ class RecoverWallet extends Component {
         });
 
         console.log(" -- - - - - - ");
-        console.log(this.props.state);
+        console.log(this.state);
         this.props.navigation.dispatch(navigateToTokens);
     };
 
@@ -92,6 +93,6 @@ const styles = StyleSheet.create({
 //     return { passphrase }
 // }
 
-export default connect(null, { recoverPassphrase })(RecoverWallet);
+export default connect(null, { newWalletCreation })(RecoverWallet);
 //change the state with the 
 //export default RecoverWallet;
