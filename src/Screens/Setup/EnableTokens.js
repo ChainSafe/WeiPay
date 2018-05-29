@@ -23,7 +23,7 @@ class EnableTokens extends Component {
         return (
 
             <View style={{ flex: 1 }}>
-                <CoinList />
+              <CoinList />
                 <View style={styles.btnContainer} >
                     <Button
                         title='Add'

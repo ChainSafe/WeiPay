@@ -1,12 +1,39 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { FormInput, FormLabel, Button } from 'react-native-elements';
+const ethers = require('ethers');
+import Provider from '../../../constants/Providers'; //this gives us access to the local test rpc network to test
 
+//import { recoverPassphrase } from '../../Actions/actionCreator';
+
+/* 
+  THE ASSUMPTION IS THAT WE ARE using the 
+*/
 class CoinSend extends Component {
+
   static navigationOptions = ({ navigation }) => {
     return {
       tabBarLabel: 'SEND'
     }
+  }
+
+  renderAddress(addressInput) {
+    console.log(addressInput)
+  }
+
+  renderValue(valueInput) {
+
+    if (!isNaN(valueInput)) {
+      console.log("is a number " + valueInput)
+      //is a number 
+    } else {
+      //not a number
+      console.log("not a number " + valueInput)
+    }
+  }
+
+  check = () => {
+    console.log("hello");
   }
 
   render() {
@@ -15,9 +42,13 @@ class CoinSend extends Component {
         <View style={styles.contentContainer} >
           <View style={styles.form} >
             <FormLabel> Send To </FormLabel>
-            <FormInput style={styles.formInputElement} />
+            <FormInput style={styles.formInputElement}
+              onChangeText={this.renderAddress.bind(this)}
+            />
             <FormLabel> Amount </FormLabel>
-            <FormInput style={styles.formInputElement} />
+            <FormInput style={styles.formInputElement}
+              onChangeText={this.renderValue.bind(this)}
+            />
             <FormLabel>
               Transaction Fee
               Total  0 BTC 0 USD
@@ -41,6 +72,7 @@ class CoinSend extends Component {
                 justifyContent: 'center', marginBottom: 30, marginTop: 5.5
               }}
               textStyle={{ textAlign: 'center' }}
+              onPress={this.check()}
 
             />
           </View>
@@ -65,4 +97,8 @@ const styles = StyleSheet.create({
   },
 })
 
-export default CoinSend
+
+//should return the passphrase from redux
+//export default connect(null, { recoverPassphrase })(CoinSend);
+
+export default CoinSend;

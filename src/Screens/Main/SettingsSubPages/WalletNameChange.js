@@ -24,8 +24,10 @@ class WalletNameChange extends Component {
         return (
             <View style={styles.mainContainer}>
                 <View style={styles.contentContainer} >
-                    <FormLabel> Wallet name </FormLabel>
-                    <FormInput style={styles.formInputElement} placeholder={"wallet name"} />
+                    <View style={styles.form} >
+                        <FormLabel>Wallet name </FormLabel>
+                        <FormInput placeholder={"Wallet name"} />
+                    </View>
                     <View style={styles.btnContainer} >
                         <Button
                             title='Update'
@@ -54,10 +56,10 @@ const styles = StyleSheet.create({
     btnContainer: {
         flex: 1, justifyContent: 'flex-end', alignItems: 'center'
     },
-    formInputElement: {
-    },
-    list: {
-        flex: 1, flexGrow: 1
+    form: {
+        width: 340,
+        paddingTop: 15,
+        paddingBottom: 15
     }
 })
 

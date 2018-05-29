@@ -23,22 +23,25 @@ class ChangePassword extends Component {
         return (
             <View style={styles.mainContainer}>
                 <View style={styles.contentContainer} >
-                    <FormLabel> Current Password </FormLabel>
-                    <FormInput style={styles.formInputElement} placeholder={"Current Password"} />
-
-                    <FormLabel> Enter New Password </FormLabel>
-                    <FormInput style={styles.formInputElement} placeholder={"Enter New Password"} />
-
-                    <FormLabel> Confirm New Password </FormLabel>
-                    <FormInput style={styles.formInputElement} placeholder={"Family wallet, Work Fund.."} />
-
+                    <View style={styles.form} >
+                        <FormLabel >Current Password </FormLabel>
+                        <FormInput placeholder={"Current Password"} />
+                    </View>
+                    <View style={styles.form} >
+                        <FormLabel >Enter New Password </FormLabel>
+                        <FormInput placeholder={"Enter New Password"} />
+                    </View>
+                    <View style={styles.form} >
+                        <FormLabel>Confirm New Password </FormLabel>
+                        <FormInput placeholder={"Family wallet, Work Fund.."} />
+                    </View>
                     <View style={styles.btnContainer} >
                         <Button
                             title='Update'
                             icon={{ size: 28 }}
                             buttonStyle={{
                                 backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-                                justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
+                                justifyContent: 'center', marginBottom: 30, marginTop: 5.5
                             }}
                             textStyle={{ textAlign: 'center' }}
                             onPress={this.navigate}
@@ -60,9 +63,11 @@ const styles = StyleSheet.create({
     btnContainer: {
         flex: 1, justifyContent: 'flex-end', alignItems: 'center'
     },
-    formInputElement: {
-
-    }
+    form: {
+        width: 340,
+        paddingTop: 15,
+        paddingBottom: 15
+    },
 })
 
 

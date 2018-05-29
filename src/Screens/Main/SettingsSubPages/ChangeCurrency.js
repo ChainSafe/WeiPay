@@ -3,12 +3,13 @@ import { View, TouchableOpacity, ScrollView, StyleSheet, TextInput, Image } from
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, Icon, List, ListItem } from 'react-native-elements';
+import CurrencyList from '../../../Components/CurrencyList';
 
 
 
 class ChangeCurrency extends Component {
     static navigationOptions = {
-        title: "Change Language"
+        title: "Change Currency"
     };
 
     navigate = () => {
@@ -21,46 +22,11 @@ class ChangeCurrency extends Component {
 
     render() {
 
-        const list = [
-            {
-                "title": "USD",
-                "id": "usd"
-            },
-            {
-                "title": "JPY",
-                "id": "jpy"
-            },
-            {
-                "title": "CNY",
-                "id": "cny"
-            },
-            {
-                "title": "EURO",
-                "id": "euro"
-            },
-        ];
-
-
         return (
-            <View style={styles.mainContainer}>
-                <View style={styles.contentContainer} >
+          <View style={styles.mainContainer}>
+              <View style={styles.contentContainer} >
 
-                    <List style={styles.list} >
-                        {
-                            list.map((item, i) => (
-                                <TouchableOpacity
-                                    key={item.id}
-                                    onPress={() => this.navigate}
-                                >
-                                    <ListItem
-                                        key={i}
-                                        title={item.title}
-                                        leftIcon={{ name: item.icon }}
-                                    />
-                                </TouchableOpacity>
-                            ))
-                        }
-                    </List>
+                    <CurrencyList />
 
                     <View style={styles.btnContainer} >
                         <Button
@@ -75,7 +41,7 @@ class ChangeCurrency extends Component {
                         />
                     </View>
                 </View>
-            </View>
+              </View>
         );
     }
 }
@@ -85,6 +51,7 @@ const styles = StyleSheet.create({
         flex: 1, alignItems: 'center', justifyContent: 'flex-start'
     },
     contentContainer: {
+        flex: 1,
         marginTop: 25,
     },
     btnContainer: {
@@ -96,6 +63,7 @@ const styles = StyleSheet.create({
         flex: 1, flexGrow: 1
     }
 })
+
 
 
 

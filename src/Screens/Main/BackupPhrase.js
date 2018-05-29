@@ -35,7 +35,7 @@ class BackupPhrase extends Component {
     if (this.state.isPhraseSelected) {
       return (
         <CardSection>
-          <Text> cat  </Text>
+          <Text> cat Ten Other words gucci fam love some new words hello world </Text>
         </CardSection>
       )
     }
@@ -51,7 +51,6 @@ class BackupPhrase extends Component {
           <Text style={styles.title} > Your Wallet is secure now  </Text>
           <Text style={styles.description} > To view your backup passphrase, continue.</Text>
           {this.renderPassphrase()}
-
 
           <View style={styles.btnContainer} >
             <Button
@@ -82,10 +81,10 @@ const styles = StyleSheet.create({
     flex: 1, justifyContent: 'flex-end', alignItems: 'center'
   },
   title: {
-    alignSelf: "center"
+    alignSelf: "center", fontWeight: '200'
   },
   description: {
-    alignSelf: "center"
+    alignSelf: "center", fontWeight: '100', paddingBottom: 15
   }
 })
 
