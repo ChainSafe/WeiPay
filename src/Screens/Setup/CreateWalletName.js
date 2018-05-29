@@ -28,7 +28,6 @@ class CreateWalletName extends Component {
         this.props.newWalletNameEntry(name);
     }
 
-
     render() {
 
         // const storeWallet = async () => {

@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { FormInput, FormLabel, Button } from 'react-native-elements';
+const ethers = require('ethers');
+import Provider from '../../../constants/Providers'; //this gives us access to the local test rpc network to test
 
+//import { recoverPassphrase } from '../../Actions/actionCreator';
+
+/* 
+  THE ASSUMPTION IS THAT WE ARE using the 
+*/
 class CoinSend extends Component {
 
   static navigationOptions = ({ navigation }) => {
@@ -23,8 +30,6 @@ class CoinSend extends Component {
       //not a number
       console.log("not a number " + valueInput)
     }
-
-
   }
 
   check = () => {
@@ -92,4 +97,8 @@ const styles = StyleSheet.create({
   },
 })
 
-export default CoinSend
+
+//should return the passphrase from redux
+//export default connect(null, { recoverPassphrase })(CoinSend);
+
+export default CoinSend;

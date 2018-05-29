@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { View, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput, Image } from "react-native";
 import { NavigationActions } from "react-navigation";
-//import { connect } from "react-redux";
+import { connect } from "react-redux";
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 const ethers = require('ethers');
 import Provider from '../../constants/Providers'; //this gives us access to the local test rpc network to test
-
+import { recoverPassphrase } from '../../Actions/actionCreator'; //gonna save this passphrase to state
 
 class RecoverWallet extends Component {
     static navigationOptions = {
@@ -22,11 +22,15 @@ class RecoverWallet extends Component {
            console.log("Address: from newly recovered passphrase is " + wallet.address);   
        */
 
+        this.props.recoverPassphrase(this.state.mnemonic); //pass state to redux to save it
+
         const navigateToTokens = NavigationActions.navigate({
             routeName: "enableTokens",
             params: { name: "Shubhnik" }
         });
 
+        console.log(" -- - - - - - ");
+        console.log(this.props.state);
         this.props.navigation.dispatch(navigateToTokens);
     };
 
@@ -83,4 +87,11 @@ const styles = StyleSheet.create({
     },
 })
 
-export default RecoverWallet;
+// const mapStateToProps = ({ mnemonic }) => {
+//     const { passphrase } = mnemonic;
+//     return { passphrase }
+// }
+
+export default connect(null, { recoverPassphrase })(RecoverWallet);
+//change the state with the 
+//export default RecoverWallet;

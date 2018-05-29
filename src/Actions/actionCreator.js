@@ -53,29 +53,33 @@ export function newWalletNameEntry(name) {
   }
 }
 
+
 export function restoreWallet() {
   return dispatch => {
     dispatch({ type: actionTypes.RESTORE_WALLET })
   }
 }
 
+
 export function recoveryKey(key) {
   return dispatch => {
-    dispatch({type: actionTypes.RESTORE_RECOVERY_KEY, payload: key})
+    dispatch({ type: actionTypes.RESTORE_RECOVERY_KEY, payload: key })
   }
 }
 
 export function selectWalletCurrency(currency) {
   return dispatch => {
-    dispatch({type: actionTypes.SELECT_WALLET_CURRENCY, payload: currency})
+    dispatch({ type: actionTypes.SELECT_WALLET_CURRENCY, payload: currency })
   }
 }
 
 export function selectWalletLanguage(language) {
   return dispatch => {
-    dispatch({type: actionTypes.SELECT_WALLET_LANGUAGE, payload: language})
+    dispatch({ type: actionTypes.SELECT_WALLET_LANGUAGE, payload: language })
   }
 }
+
+/* Using this action type in recover wallet page, not restore */
 
 export function recoverPassphrase(passphrase) {
   return dispatch => {
