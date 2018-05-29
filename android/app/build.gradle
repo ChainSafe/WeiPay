@@ -136,7 +136,8 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-camera')
+    api project(':react-native-vector-icons')
+    api project(':react-native-camera')
     api project(':react-native-camera')
     api project(':react-native-vector-icons')
     api fileTree(dir: "libs", include: ["*.jar"])
