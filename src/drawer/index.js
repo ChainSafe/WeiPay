@@ -62,5 +62,6 @@ export default DrawerNavigator({
     screen: Search
   }
 }, {
-    contentComponent: CustomDrawerContentComponent
+    contentComponent: CustomDrawerContentComponent,
+
   })

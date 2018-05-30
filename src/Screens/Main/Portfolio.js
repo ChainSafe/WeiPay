@@ -9,7 +9,8 @@ class Portfolio extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Portfolio',
-      headerLeft: (
+      headerLeft: null,
+      headerRight: (
         <Icon
           name="menu"
           onPress={() => navigation.navigate('DrawerOpen')}

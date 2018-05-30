@@ -14,7 +14,7 @@ class BackupPhrase extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Backup Phrase',
-      headerLeft: (
+      headerRight: (
         <Icon
           name="menu"
           onPress={() => navigation.navigate('DrawerOpen')}

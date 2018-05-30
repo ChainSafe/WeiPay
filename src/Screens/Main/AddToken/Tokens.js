@@ -9,9 +9,18 @@ import TokenList from '../../../Components/TokenList';
 
 import CoinList from '../../../Components/CoinList';
 import Layout from '../../../constants/Layout'
+import { NavigationActions } from "react-navigation";
 
 
 class CustomButton extends Component {
+  navigate = () => {
+      const navigateToPassphrase = NavigationActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({ routeName: 'DrawerOpen' })]
+      });
+      this.props.navigation.dispatch(navigateToPassphrase);
+  };
+
   render() {
     return (
       <View style={styles.NavBarButton}>
@@ -29,16 +38,26 @@ class CustomButton extends Component {
   }
 }
 
+
 class Tokens extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Enable Tokens',
       tabBarLabel: 'Tokens',
+      headerLeft: <Button onPress={() => navigation.navigate('DrawerOpen')}/>,
       headerRight: (
         <CustomButton navigation={navigation} />
       )
     }
   }
+
+  navigate = () => {
+      const navigateToPassphrase = NavigationActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
+      });
+      this.props.navigation.dispatch(navigateToPassphrase);
+  };
 
   onSuccess(e) {
     Linking
@@ -50,18 +69,18 @@ class Tokens extends Component {
     return (
       <View style={{ flex: 1 }} >
         <CoinList type={'tokens'} />
-        <View style={styles.btnContainer} >
+        {/* <View style={styles.btnContainer} >
           <Button
             title='Add'
             icon={{ size: 28 }}
             buttonStyle={{
-              backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-              justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
+          backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
+          justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
             }}
             textStyle={{ textAlign: 'center' }}
-            onPress={() => alert('Would Like to Access the Camera to Scan barcodes')}
+            onPress={() => this.navigate()}
           />
-        </View>
+        </View> */}
         {/* <QRCodeScanner
           style={styles.scanner}
           onRead={this.onSuccess.bind(this)}

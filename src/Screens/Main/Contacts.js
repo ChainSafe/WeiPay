@@ -7,7 +7,7 @@ class Contacts extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Contacts',
-      headerLeft: (
+      headerRight: (
         <Icon
           name="menu"
           onPress={() => navigation.navigate('DrawerOpen')}

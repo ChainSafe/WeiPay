@@ -8,13 +8,14 @@ import CoinList from '../../Components/CoinList';
 
 class EnableTokens extends Component {
     static navigationOptions = {
-        title: "Enable Tokens Page"
+        title: "Enable Tokens Page",
+        headerLeft: null
     };
 
     navigate = () => {
-        const navigateToPassphrase = NavigationActions.navigate({
-            routeName: "Drawer",
-            params: { name: "Shubhnik" }
+        const navigateToPassphrase = NavigationActions.reset({
+          index: 0,
+          actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
         });
         this.props.navigation.dispatch(navigateToPassphrase);
     };
@@ -24,17 +25,17 @@ class EnableTokens extends Component {
 
             <View style={{ flex: 1 }}>
               <CoinList />
-                <View style={styles.btnContainer} >
-                    <Button
-                        title='Add'
-                        icon={{ size: 28 }}
-                        buttonStyle={{
-                            backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-                            justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
-                        }}
-                        textStyle={{ textAlign: 'center' }}
-                        onPress={this.navigate}
-                    />
+              <View style={styles.btnContainer} >
+                <Button
+                  title='Add'
+                  icon={{ size: 28 }}
+                  buttonStyle={{
+                    backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
+                    justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
+                  }}
+                  textStyle={{ textAlign: 'center' }}
+                  onPress={this.navigate}
+                />
                 </View>
             </View>
         );

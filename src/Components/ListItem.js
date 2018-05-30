@@ -38,7 +38,7 @@ class ListItem extends Component {
         const { title } = styles;
 
         const { checked } = this.state
-        console.log(coin)
+      
 
         return (
           <View>

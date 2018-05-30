@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { TabNavigator } from 'react-navigation';
 import { Icon, Button } from 'react-native-elements';
+import { NavigationActions } from "react-navigation";
 
 import CoinList from '../../../Components/CoinList';
 
@@ -12,6 +13,16 @@ class Coins extends Component {
       tabBarLabel: 'Coins'
     }
   }
+
+    navigate = () => {
+        const navigateToPassphrase = NavigationActions.reset({
+          index: 0,
+          actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
+        });
+        this.props.navigation.dispatch(navigateToPassphrase);
+    };
+
+
 
   render() {
     return (
@@ -35,18 +46,18 @@ class Coins extends Component {
 
         <CoinList type={'coins'}/>
 
-        <View style={styles.btnContainer} >
+        {/* <View style={styles.btnContainer} >
           <Button
             title='Add'
             icon={{ size: 28 }}
             buttonStyle={{
-              backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-              justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
+          backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
+          justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
             }}
             textStyle={{ textAlign: 'center' }}
             onPress={this.navigate}
           />
-        </View>
+        </View> */}
 
 
       </View>
