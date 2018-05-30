@@ -17,9 +17,8 @@ class RecoverWallet extends Component {
 
     navigate = () => {
         //    Need to save this information to redux -> commented out for errors, but use the testrpc passphrase for this to work
-
-        console.log(this.state.mnemonic);
-        var mnemonic = this.state.mnemonic;
+        var mnemonic = this.state.mnemonic.trim();
+        console.log(mnemonic);
         var wallet = ethers.Wallet.fromMnemonic(mnemonic);
         console.log("Address: from newly recovered passphrase is " + wallet.address);
 

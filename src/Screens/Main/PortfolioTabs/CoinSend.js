@@ -6,9 +6,6 @@ const ethers = require('ethers');
 var utils = ethers.utils;
 import provider from '../../../constants/Providers'; //this gives us access to the local test rpc network to test
 
-/* 
-  THE ASSUMPTION IS THAT WE ARE using the 
-*/
 class CoinSend extends Component {
 
   static navigationOptions = ({ navigation }) => {
@@ -42,56 +39,36 @@ class CoinSend extends Component {
     }
   }
 
-  check = () => {
 
-    var privateKey = "0x9436a5c70623f162df33b93ca29f9430e55202d157b0355b7cd4761b121c3c4f";
-    var wallet = new Wallet(privateKey);
-    wallet.provider = provider;
+  sendTransaction = () => {
 
-    console.log(wallet);
-
-    var walletRandom = Wallet.createRandom();
+    /* Create Fake account to send ether too just for testrpc purposes */
+    var walletRandom = ethers.Wallet.createRandom();
     walletRandom.provider = provider;
     console.log("Address: " + walletRandom.address);
 
-    var amount = ethers.utils.parseEther('10.0');
-    var sendPromise = wallet.send(walletRandom.address, amount);
+    //amount using the state input as a string 
+    var amount = ethers.utils.parseEther(this.state.value.toString());
+
+    // current wallet stuff
+    const currentWallet = this.props.wallet;
+    currentWallet.provider = provider;
+
+    var sendPromise = currentWallet.send(walletRandom.address, amount);
 
     sendPromise.then(function (transactionHash) {
       console.log(transactionHash);
 
-      provider.getBalance(wallet.address).then(function (balance) {
+      provider.getBalance(currentWallet.address).then(function (balance) {
         var etherString = utils.formatEther(balance);
-        console.log("first Balance: " + etherString);
+        console.log("currentWallet Balance: " + etherString);
       });
 
       provider.getBalance(walletRandom.address).then(function (balance) {
         var etherString = utils.formatEther(balance);
-        console.log("random Balance: " + etherString);
+        console.log("wallet random Balance: " + etherString);
       });
     });
-
-    //console.log(this.props.wallet);
-    //const currentWallet = this.props.wallet;
-    //const currentWalletPublicKey = this.props.wallet.address;
-    //const currentWAlletPrivateKey = this.props.privateKey;
-    //console.log("current address: " + currentWalletPublicKey + " sending addres is : " + this.state.toAddress);
-    //console.log(provider);
-    // currentWallet.provider = provider;
-    // var amount = ethers.utils.parseEther('5.0');
-    // var address = "0x21eb2b8aafb2d1b5538e00eef8bdb8a197d8973e";
-    // var sendPromise = currentWallet.send(address, amount);
-    // sendPromise.then(function (transactionHash) {
-    //   console.log(transactionHash);
-    //   provider.getBalance(currentWallet.address).then(function (balance) {
-    //     var etherString = utils.formatEther(balance);
-    //     console.log("current Balance: " + etherString);
-    //   });
-    //   provider.getBalance(address).then(function (balance) {
-    //     var etherString = utils.formatEther(balance);
-    //     console.log("reciving Balance: " + etherString);
-    //   });
-    // });
 
   }
 
@@ -131,7 +108,7 @@ class CoinSend extends Component {
                 justifyContent: 'center', marginBottom: 30, marginTop: 5.5
               }}
               textStyle={{ textAlign: 'center' }}
-              onPress={this.check()}
+              onPress={() => this.sendTransaction()}
             />
           </View>
         </View>
