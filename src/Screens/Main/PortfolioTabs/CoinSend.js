@@ -74,16 +74,24 @@ class CoinSend extends Component {
 
   renderValue(valueInput) {
     if (!isNaN(valueInput)) {
-      console.log("is a number " + valueInput)
-      this.setState({ value: valueInput });
-      //is a number 
+      if (valueInput < 0) {
+        Alert.alert(
+          'Invalid Ether Amount',
+          'Please enter an amount greater than 0.',
+          [
+            { text: 'OK', onPress: () => console.log('OK Pressed') },
+          ],
+          { cancelable: false }
+        )
+      } else {
+        console.log("is a number " + valueInput)
+        this.setState({ value: valueInput });
+      }
     } else {
-      //not a number
       console.log("not a number " + valueInput)
       this.setState({ value: 0 });
     }
   }
-
 
   sendTransaction = () => {
     /* 
@@ -137,6 +145,7 @@ class CoinSend extends Component {
           <View style={styles.btnContainer} >
             <Button
               title='Reset'
+              disabled={this.state.toAddress === "" && this.state.value == 0}
               icon={{ size: 28 }}
               buttonStyle={{
                 backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
@@ -146,6 +155,7 @@ class CoinSend extends Component {
               onPress={console.log('sdf')} />
             <Button
               title='Next'
+              disabled={this.state.toAddress === "" || this.state.value == 0}
               icon={{ size: 28 }}
               buttonStyle={{
                 backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
