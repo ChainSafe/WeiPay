@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { FormInput, FormLabel, Button } from 'react-native-elements';
 const ethers = require('ethers');
@@ -20,11 +20,56 @@ class CoinSend extends Component {
       toAddress: "",
       value: 0
     }
+
+
+    provider.getBalance(this.props.wallet.address).then(function (balance) {
+      var etherString = utils.formatEther(balance);
+      console.log("Current Wallet Balance" + etherString);
+
+      if (etherString == 0) {
+        Alert.alert(
+          'No Ether Alert',
+          'You need to uncomment the code in the constructor and change the private key to one from your local testrpc to fund this account.',
+          [
+            { text: 'OK', onPress: () => console.log('OK Pressed') },
+          ],
+          { cancelable: false }
+        )
+      }
+    });
+
+    /* 
+      Send money from testrpc to current wallet just to make sure there are funds for transactions.
+      If you have no money in your current wallet then you need to uncomment this and adjust privat key
+    */
+
+    // const privateKey = "0x1e1a9de3455f77edf5aaa0342766c9bcb65e8d6b6e868bda0f34fac118d1419f";
+    // const walletToFundCurrentWallet = new ethers.Wallet(privateKey);
+    // const currentWallet = this.props.wallet;
+
+    // walletToFundCurrentWallet.provider = provider;
+    // currentWallet.provider = provider;
+
+    // var amount = ethers.utils.parseEther('5.0');
+    // var sendPromise = walletToFundCurrentWallet.send(currentWallet.address, amount);
+
+    // sendPromise.then(function (transactionHash) {
+    //   console.log(transactionHash);
+    //   provider.getBalance(walletToFundCurrentWallet.address).then(function (balance) {
+    //     var etherString = utils.formatEther(balance);
+    //     console.log("walletToFundCurrentWallet Balance: " + etherString);
+    //   });
+    //   provider.getBalance(currentWallet.address).then(function (balance) {
+    //     var etherString = utils.formatEther(balance);
+    //     console.log("currentWallet Balance: " + etherString);
+    //   });
+    // });
   }
 
   renderAddress(addressInput) {
-    console.log(addressInput)
-    this.setState({ toAddress: addressInput });
+    var add = addressInput.trim();
+    console.log(add)
+    this.setState({ toAddress: add });
   }
 
   renderValue(valueInput) {
@@ -41,20 +86,19 @@ class CoinSend extends Component {
 
 
   sendTransaction = () => {
+    /* 
+      this.props.wallet is either the recovered wallet or new wallet, in either case we have sent 5 ether in the constructor 
+      to this wallet by using a testrpc private key. If we are recvoering a wallet, this does nothing, but if we are creating 
+      a new wallet, we will never have funds in our test environemnt, so this is just a test setup.  
+    */
+    const amountString = '' + this.state.value + '';
+    const receivingAddress = this.state.toAddress;
+    //var amount = ethers.utils.parseEther('2.0');
+    var amount = ethers.utils.parseEther(amountString);
 
-    /* Create Fake account to send ether too just for testrpc purposes */
-    var walletRandom = ethers.Wallet.createRandom();
-    walletRandom.provider = provider;
-    console.log("Address: " + walletRandom.address);
-
-    //amount using the state input as a string 
-    var amount = ethers.utils.parseEther(this.state.value.toString());
-
-    // current wallet stuff
     const currentWallet = this.props.wallet;
     currentWallet.provider = provider;
-
-    var sendPromise = currentWallet.send(walletRandom.address, amount);
+    var sendPromise = currentWallet.send(receivingAddress, amount);
 
     sendPromise.then(function (transactionHash) {
       console.log(transactionHash);
@@ -64,12 +108,12 @@ class CoinSend extends Component {
         console.log("currentWallet Balance: " + etherString);
       });
 
-      provider.getBalance(walletRandom.address).then(function (balance) {
+      provider.getBalance(receivingAddress).then(function (balance) {
         var etherString = utils.formatEther(balance);
-        console.log("wallet random Balance: " + etherString);
+        console.log("receiving account Balance: " + etherString);
       });
-    });
 
+    });
   }
 
   render() {
