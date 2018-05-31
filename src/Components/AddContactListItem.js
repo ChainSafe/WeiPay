@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, TouchableHighlight, TextInput } from 'react-native';
 import { CardSection } from './common/CardSection';
 import { Card } from './common/Card';
+import { Input } from './common/Input';
 import { CheckBox } from 'react-native-elements'
 import { Button } from 'react-native-elements';
-import { connect } from 'react-redux';
+import { connect } from 'react-native-elements';
 
 
 class AddContactListItem extends Component {
@@ -13,30 +14,41 @@ class AddContactListItem extends Component {
         const { coin } = this.props;
 
         return (
-            <Card
-                style={[styles.check, coin.selected ? styles.valid : styles.invalid]}
-            >
-                <Text>{coin.title}</Text>
-            </Card>
+            <View style={styles.componentStyle}>
+                <CardSection>
+
+                    <View style={styles.section}>
+                        <Text style={styles.title}>{coin.title} 's Address</Text>
+                        <Card
+                        >
+                            <TextInput placeholder="Enter or Paste Address here" />
+                        </Card>
+                    </View>
+                </CardSection>
+
+            </ View>
         );
     }
 }
 
 const styles = StyleSheet.create({
     title: {
-        paddingLeft: 15, alignItems: 'flex-start',
+        fontWeight: "bold",
+        fontSize: 13,
+        color: "black",
+        textShadowRadius: 3
+    },
+    section: {
+        flex: 1,
+        flexDirection: 'column',
     },
 
-    invalid: {
-        // borderColor: 'red',
-        alignItems: 'flex-start',
-    },
-
-    valid: {
-        // borderColor: 'green',
-        alignItems: 'flex-start',
+    componentStyle: {
+        paddingTop: 3,
+        paddingLeft: 2,
+        paddingRight: 2
     }
-})
+});
 
 
 
@@ -46,4 +58,5 @@ const mapStateToProps = state => {
     }
 };
 
-export default connect(mapStateToProps, null)(AddContactListItem)
+//export default connect(mapStateToProps, null)(AddContactListItem)
+export default AddContactListItem;

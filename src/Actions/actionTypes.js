@@ -19,3 +19,6 @@ export const CURRENT_WALLET = 'current_wallet';
 
 export const SELECT_WALLET_CURRENCY = 'select_wallet_currency';
 export const SELECT_WALLET_LANGUAGE = 'select_wallet_language';
+
+
+export const ADD_CONTACT = 'adding_contact';

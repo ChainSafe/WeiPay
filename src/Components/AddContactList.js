@@ -33,6 +33,7 @@ class AddContactList extends Component {
     render() {
         return (
             <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false} />
+
         );
     }
 }
