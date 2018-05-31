@@ -2,24 +2,20 @@
 
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
-import { StackNavigator, DrawerNavigator } from 'react-navigation';
+
 import { Icon, Button } from 'react-native-elements';
 
 import TokenList from '../../../Components/TokenList';
 
 import CoinList from '../../../Components/CoinList';
 import Layout from '../../../constants/Layout'
-import { NavigationActions } from "react-navigation";
+import { NavigationActions, DrawerActions } from "react-navigation";
 
 
 class CustomButton extends Component {
   navigate = () => {
-      const navigateToPassphrase = NavigationActions.reset({
-        index: 0,
-        actions: [NavigationActions.navigate({ routeName: 'DrawerOpen' })]
-      });
-      this.props.navigation.dispatch(navigateToPassphrase);
-  };
+    this.props.navigation.navigate('DrawerOpen')
+  }
 
   render() {
     return (
@@ -30,7 +26,7 @@ class CustomButton extends Component {
         />
         <Icon
           name="menu"
-          onPress={() => this.props.navigation.navigate('DrawerOpen')}
+          onPress={() => this.navigate()}
           title="SideMenu"
         />
       </View>
@@ -44,7 +40,14 @@ class Tokens extends Component {
     return {
       title: 'Enable Tokens',
       tabBarLabel: 'Tokens',
-      headerLeft: <Button onPress={() => navigation.navigate('DrawerOpen')}/>,
+      headerLeft:
+        <Icon
+          name='chevron-left'
+          size={35}
+          color='#007AFF'
+          onPress={() => navigation.navigate('Drawer')}
+        />
+      ,
       headerRight: (
         <CustomButton navigation={navigation} />
       )

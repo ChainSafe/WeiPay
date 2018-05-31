@@ -1,12 +1,14 @@
 import { AsyncStorage } from 'react-native';
 import * as actions from '../Actions/actionTypes';
+import data from '../Reducers/json/CoinList.json';
 
 const INITIAL_STATE = {
   newWallet: false,
   walletName: '',
   tokens: [],
   wallet: null,
-  backupPassphrase: ""
+  backupPassphrase: "",
+  coinData: data
 };
 
 export default (state = INITIAL_STATE, action) => {

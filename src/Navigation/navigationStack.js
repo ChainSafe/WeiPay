@@ -46,9 +46,6 @@ const navigator = StackNavigator({
   },
   PortfolioToken: {
     screen: PortfolioToken
-  },
-  AddToken: {
-    screen: AddToken
   }
 }, {
     headerStyle: {
