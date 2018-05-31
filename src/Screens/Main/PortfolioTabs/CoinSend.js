@@ -22,6 +22,7 @@ class CoinSend extends Component {
       resetInput: false
     }
 
+    //console.log(this.props.walletName);
 
     provider.getBalance(this.props.wallet.address).then(function (balance) {
       var etherString = utils.formatEther(balance);
