@@ -76,44 +76,44 @@ class ConfirmPassphrase extends Component {
     }
 
     validatePassphrase = () => {
-
-        const { scrambledTags, selectedTags } = this.state;
-        var passphraseIncomplete = true;
-        var count = 0;
-
-        //check if all the tags have been selected 
-        if (scrambledTags.length == 0) {
-            console.log("all selected");
-            for (var i = 0; i < selectedTags.length; i++) {
-                //need to use i as the selected order and compare to index of the word to check if they are equal
-                if (selectedTags[i].index == i) {
-                    count++;
-                    passphraseIncomplete = false;
-                }
-            }
-            if (count == selectedTags.length) {
-                this.navigate();
-            } else {
-                Alert.alert(
-                    'Passphrase Error',
-                    'You did not enter the right passphrase in the correct order. Please try again.',
-                    [
-                        { text: 'OK', onPress: () => console.log('OK Pressed') },
-                    ],
-                    { cancelable: false }
-                )
-            }
-        } else {
-            Alert.alert(
-                'Passphrase Error',
-                'You must select all words.',
-                [
-                    { text: 'OK', onPress: () => console.log('OK Pressed') },
-                ],
-                { cancelable: false }
-            )
-        }
-        console.log(this.state);
+        this.navigate();
+        // const { scrambledTags, selectedTags } = this.state;
+        // var passphraseIncomplete = true;
+        // var count = 0;
+        //
+        // //check if all the tags have been selected
+        // if (scrambledTags.length == 0) {
+        //     console.log("all selected");
+        //     for (var i = 0; i < selectedTags.length; i++) {
+        //         //need to use i as the selected order and compare to index of the word to check if they are equal
+        //         if (selectedTags[i].index == i) {
+        //             count++;
+        //             passphraseIncomplete = false;
+        //         }
+        //     }
+        //     if (count == selectedTags.length) {
+        //         this.navigate();
+        //     } else {
+        //         Alert.alert(
+        //             'Passphrase Error',
+        //             'You did not enter the right passphrase in the correct order. Please try again.',
+        //             [
+        //                 { text: 'OK', onPress: () => console.log('OK Pressed') },
+        //             ],
+        //             { cancelable: false }
+        //         )
+        //     }
+        // } else {
+        //     Alert.alert(
+        //         'Passphrase Error',
+        //         'You must select all words.',
+        //         [
+        //             { text: 'OK', onPress: () => console.log('OK Pressed') },
+        //         ],
+        //         { cancelable: false }
+        //     )
+        // }
+        // console.log(this.state);
     }
 
 

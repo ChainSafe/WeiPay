@@ -17,20 +17,20 @@ class RecoverWallet extends Component {
 
     navigate = () => {
         //    Need to save this information to redux -> commented out for errors, but use the testrpc passphrase for this to work
-        var mnemonic = this.state.mnemonic.trim();
-        console.log(mnemonic);
-        var wallet = ethers.Wallet.fromMnemonic(mnemonic);
-        console.log("Address: from newly recovered passphrase is " + wallet.address);
+        // var mnemonic = this.state.mnemonic.trim();
+        // console.log(mnemonic);
+        // var wallet = ethers.Wallet.fromMnemonic(mnemonic);
+        // console.log("Address: from newly recovered passphrase is " + wallet.address);
 
-        this.props.newWalletCreation(wallet); //pass state to redux to save it
+        // this.props.newWalletCreation(wallet); //pass state to redux to save it
 
         const navigateToTokens = NavigationActions.navigate({
             routeName: "enableTokens",
             params: { name: "Shubhnik" }
         });
 
-        console.log(" -- - - - - - ");
-        console.log(this.state);
+        // console.log(" -- - - - - - ");
+        // console.log(this.state);
         this.props.navigation.dispatch(navigateToTokens);
     };
 

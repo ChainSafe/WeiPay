@@ -5,6 +5,8 @@ import Portfolio from '../Screens/Main/Portfolio';
 import BackupPhrase from '../Screens/Main/BackupPhrase';
 import AddWallet from '../Screens/Main/AddWallet';
 import Contacts from '../Screens/Main/Contacts';
+import addContact from '../Screens/Main/SettingsSubPages/addContact';
+
 import Settings from '../Screens/Main/Settings';
 
 import Search from '../Screens/Main/Search';
@@ -42,7 +44,12 @@ export default DrawerNavigator({
     screen: AddWallet
   },
   Contacts: {
-    screen: Contacts
+    screen: TabNavigator({
+      contacts: { screen : Contacts },
+      addContact: { screen: addContact }
+
+    })
+
   },
   AddToken: {
     screen: AddToken
