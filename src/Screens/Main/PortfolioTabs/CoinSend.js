@@ -18,7 +18,8 @@ class CoinSend extends Component {
     super(props);
     this.state = {
       toAddress: "",
-      value: 0
+      value: 0,
+      resetInput: false
     }
 
 
@@ -93,17 +94,15 @@ class CoinSend extends Component {
     }
   }
 
+  /* 
+     this.props.wallet is either the recovered wallet or new wallet, in either case we have sent 5 ether in the constructor 
+     to this wallet by using a testrpc private key. If we are recvoering a wallet, this does nothing, but if we are creating 
+     a new wallet, we will never have funds in our test environemnt, so this is just a test setup.  
+   */
   sendTransaction = () => {
-    /* 
-      this.props.wallet is either the recovered wallet or new wallet, in either case we have sent 5 ether in the constructor 
-      to this wallet by using a testrpc private key. If we are recvoering a wallet, this does nothing, but if we are creating 
-      a new wallet, we will never have funds in our test environemnt, so this is just a test setup.  
-    */
     const amountString = '' + this.state.value + '';
     const receivingAddress = this.state.toAddress;
-    //var amount = ethers.utils.parseEther('2.0');
     var amount = ethers.utils.parseEther(amountString);
-
     const currentWallet = this.props.wallet;
     currentWallet.provider = provider;
     var sendPromise = currentWallet.send(receivingAddress, amount);
@@ -124,6 +123,12 @@ class CoinSend extends Component {
     });
   }
 
+  resetFields = () => {
+    console.log("logged");
+    this.inputAddress.clearText();
+    this.inputAmount.clearText();
+  }
+
   render() {
     return (
       <View style={styles.mainContainer}>
@@ -132,14 +137,16 @@ class CoinSend extends Component {
             <FormLabel> Send To </FormLabel>
             <FormInput style={styles.formInputElement}
               onChangeText={this.renderAddress.bind(this)}
+              ref={ref => this.inputAddress = ref}
             />
             <FormLabel> Amount </FormLabel>
             <FormInput style={styles.formInputElement}
               onChangeText={this.renderValue.bind(this)}
+              ref={ref => this.inputAmount = ref}
             />
             <FormLabel>
               Transaction Fee
-              Total  0 BTC 0 USD
+              Total  {this.state.value} ETH 0 USD
             </FormLabel>
           </View>
           <View style={styles.btnContainer} >
@@ -152,7 +159,7 @@ class CoinSend extends Component {
                 justifyContent: 'center', marginBottom: 5, marginTop: 5.5
               }}
               textStyle={{ textAlign: 'center' }}
-              onPress={console.log('sdf')} />
+              onPress={() => this.resetFields()} />
             <Button
               title='Next'
               disabled={this.state.toAddress === "" || this.state.value == 0}
