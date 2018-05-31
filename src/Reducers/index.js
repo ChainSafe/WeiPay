@@ -6,6 +6,8 @@ import NewWalletSetup from './NewWalletSetup';
 import currencyListReducer from './currencyListReducer';
 import languageListReducer from './languageListReducer';
 import settingsReducer from './settingsReducer';
+import ContactReducer from './ContactsReducer';
+import ContactsReducer from "./ContactsReducer";
 
 
 const AppReducer = combineReducers({
@@ -15,7 +17,8 @@ const AppReducer = combineReducers({
   newWallet: NewWalletSetup,
   currency: currencyListReducer,
   language: languageListReducer,
-  settings: settingsReducer
+  settings: settingsReducer,
+  contacts: ContactsReducer
 
 });
 

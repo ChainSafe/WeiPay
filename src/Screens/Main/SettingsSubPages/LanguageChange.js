@@ -17,8 +17,8 @@ class LanguageChange extends Component {
         //     params: { name: "Shubhnik" }
         // });
         // this.props.navigation.dispatch(navigateToPassphrase);
-      // if(this.props.language != )
-      debugger
+        // if(this.props.language != )
+        debugger
     };
 
     render() {
@@ -71,13 +71,13 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps({ language }) {
-  return { language }
+    return { language }
 }
 
 export default LanguageChange;
 
 
-                {/* <List style={styles.list} >
+{/* <List style={styles.list} >
                   {
                     list.map((item, i) => (
                   <TouchableOpacity
