@@ -136,10 +136,11 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-vector-icons')
+    compile project(':react-native-camera')
     api project(':react-native-vector-icons')
     api project(':react-native-camera')
-    api project(':react-native-camera')
-    api project(':react-native-vector-icons')
+
     api fileTree(dir: "libs", include: ["*.jar"])
     api "com.android.support:appcompat-v7:27.1.0"
     api "com.facebook.react:react-native:+"  // From node_modules
