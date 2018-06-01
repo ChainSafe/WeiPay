@@ -10,6 +10,7 @@ export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
 
         case actions.ADD_CONTACT:
+
             var contact = state.contacts;
             contact.push(action.payload);
             return { ...state, contacts: contact }

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 import { Button } from 'react-native-elements';
+import { connect } from 'react-redux';
 import AddContactList from '../../../Components/AddContactList';
+import addContactAction from '../../../Actions/actionCreator';
 import { Card } from '../../../Components/common/Card';
 import { CardSection } from '../../../Components/common/CardSection';
 
@@ -10,12 +12,33 @@ import { CardSection } from '../../../Components/common/CardSection';
 
 class addContact extends Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      name: ""
+    }
+  }
+
+  renderName(name) {
+
+    var contact = { name: name };
+
+    this.props.addContact(contact);
+    this.props.
+
+      this.setState({ name: name })
+  }
+
   render() {
     return (
       <View style={{ flex: 1, paddingTop: 3 }}>
-        <TextInput textAlign={'center'} placeholder="Enter Contact Name" style={styles.NameInputStyle} />
+        <TextInput textAlign={'center'} placeholder="Enter Contact Name"
+          style={styles.NameInputStyle} onChangeText={this.renderName.bind(this)} />
 
-        <AddContactList />
+        <View pointerEvents={this.state.name !== "" ? 'auto' : 'none'}>
+          <AddContactList />
+        </View>
+
         <View style={styles.btnContainer} >
           <View style={{ flexDirection: 'row' }}>
             <Button
@@ -66,4 +89,6 @@ const styles = StyleSheet.create({
 
 });
 
-export default addContact;
+
+export default connect(null, { addContact })(addContact);
+//export default addContact;
