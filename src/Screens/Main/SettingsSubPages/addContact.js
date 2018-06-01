@@ -17,16 +17,28 @@ class addContact extends Component {
 
         <AddContactList />
         <View style={styles.btnContainer} >
-          <Button
-            title='Add Contact'
-            icon={{ size: 28 }}
-            buttonStyle={{
-              backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-              justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
-            }}
-            textStyle={{ textAlign: 'center' }}
-            onPress={this.navigate}
-          />
+          <View style={{ flexDirection: 'row' }}>
+            <Button
+              title='Add Contact'
+              icon={{ size: 20 }}
+              buttonStyle={{
+                backgroundColor: 'blue', flex: 1, width: 150, borderRadius: 10, height: 40,
+                justifyContent: 'center', alignItems: 'center', marginBottom: 5.5, marginTop: 5.5
+              }}
+              textStyle={{ textAlign: 'center' }}
+              onPress={this.navigate}
+            />
+            <Button
+              title='Clear'
+              icon={{ size: 20 }}
+              buttonStyle={{
+                backgroundColor: 'blue', flex: 1, width: 150, borderRadius: 10, height: 40,
+                justifyContent: 'center', alignItems: 'center', marginBottom: 5.5, marginTop: 5.5
+              }}
+              textStyle={{ textAlign: 'center' }}
+              onPress={this.navigate}
+            />
+          </View>
         </View>
       </View>
 

@@ -5,7 +5,7 @@ import { Card } from './common/Card';
 import { Input } from './common/Input';
 import { CheckBox } from 'react-native-elements'
 import { Button } from 'react-native-elements';
-import { connect } from 'react-native-elements';
+import { connect } from 'react-redux';
 import addContact from '../Actions/actionCreator';
 
 
@@ -56,9 +56,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        tokenList: state.newWallet.tokens,
+        contacts: state.contacts.contacts
     }
 };
 
-//export default connect(mapStateToProps, { addContact })(AddContactListItem)
-export default AddContactListItem;
+export default connect(mapStateToProps, { addContact })(AddContactListItem)
+//export default AddContactListItem;
