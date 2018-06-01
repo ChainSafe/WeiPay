@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TextInput } from 'react-native';
 import { Button } from 'react-native-elements';
 import AddContactList from '../../../Components/AddContactList';
-import { Card } from '../../../Components/Common/Card';
-import { CardSection } from '../../../Components/Common/CardSection';
+import { Card } from '../../../Components/common/Card';
+import { CardSection } from '../../../Components/common/CardSection';
 
 
 
@@ -12,14 +12,8 @@ class addContact extends Component {
 
   render() {
     return (
-      <View>
-        <CardSection>
-          <Card
-          >
-            <TextInput placeholder="Enter Name" />
-          </Card>
-
-        </CardSection>
+      <View style={{ flex: 1, paddingTop: 3 }}>
+        <TextInput textAlign={'center'} placeholder="Enter Contact Name" style={styles.NameInputStyle} />
 
         <AddContactList />
         <View style={styles.btnContainer} >
@@ -42,11 +36,20 @@ class addContact extends Component {
 
 const styles = StyleSheet.create({
   section: {
-    flex: 1,
     flexDirection: 'column',
+    backgroundColor: 'red'
   },
   btnContainer: {
     alignItems: 'center', height: 60, paddingTop: 10, paddingBottom: 10, justifyContent: "center"
+  },
+
+  NameInputStyle: {
+    paddingTop: 10,
+    paddingLeft: 2,
+    paddingRight: 2,
+    fontWeight: 'bold',
+    fontSize: 15,
+    width: '100 %', backgroundColor: 'white'
   }
 
 });

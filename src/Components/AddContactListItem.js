@@ -6,6 +6,7 @@ import { Input } from './common/Input';
 import { CheckBox } from 'react-native-elements'
 import { Button } from 'react-native-elements';
 import { connect } from 'react-native-elements';
+import addContact from '../Actions/actionCreator';
 
 
 class AddContactListItem extends Component {
@@ -38,9 +39,10 @@ const styles = StyleSheet.create({
         color: "black",
         textShadowRadius: 3
     },
+
     section: {
         flex: 1,
-        flexDirection: 'column',
+        flexDirection: 'column'
     },
 
     componentStyle: {
@@ -58,5 +60,5 @@ const mapStateToProps = state => {
     }
 };
 
-//export default connect(mapStateToProps, null)(AddContactListItem)
+//export default connect(mapStateToProps, { addContact })(AddContactListItem)
 export default AddContactListItem;
