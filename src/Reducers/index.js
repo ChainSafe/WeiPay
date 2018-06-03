@@ -15,7 +15,6 @@ const AppReducer = combineReducers({
   language: languageListReducer,
   settings: settingsReducer,
   contacts: ContactsReducer
-
 });
 
 export default AppReducer;

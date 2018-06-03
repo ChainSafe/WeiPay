@@ -55,9 +55,11 @@ const navigator = StackNavigator({
     screen: PortfolioToken
   }
 }, {
+
     headerStyle: {
       borderBottomWidth: 0
-    }
+    },
+    lazy: true
   });
 
 

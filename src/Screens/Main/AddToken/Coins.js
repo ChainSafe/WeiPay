@@ -6,6 +6,7 @@ import { NavigationActions } from 'react-navigation';
 
 import CoinList from '../../../Components/CoinList';
 
+
 class CustomButton extends Component {
   navigate = () => {
     this.props.navigation.navigate('DrawerOpen')
@@ -28,22 +29,33 @@ class CustomButton extends Component {
   }
 }
 
+class BackButton extends Component {
+  navigate = () => {
+      debugger
+      const navigateToPassphrase = NavigationActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
+      });
+      this.props.navigation.dispatch(navigateToPassphrase);
+  };
+
+  render() {
+    return (
+        <Icon
+          name='chevron-left'
+          size={35}
+          color='#007AFF'
+          onPress={() => this.props.navigate('Drawer')}
+        />
+    )
+  }
+}
+{/* <BackButton navigation={navigation} /> */}
 class Coins extends Component {
-    // navigate = () => {
-    //     const navigateToPassphrase = NavigationActions.reset({
-    //       index: 0,
-    //       actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
-    //     });
-    //     this.props.navigation.dispatch(navigateToPassphrase);
-    // };
+
 
   static navigationOptions = ({ navigation }) => {
 
-    const navigateToPassphrase = NavigationActions.reset({
-      index: 0,
-      actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
-    });
-    debugger
     console.log('Navigation ACtions', NavigationActions)
     return {
       title: 'Enable Tokens',
@@ -52,7 +64,7 @@ class Coins extends Component {
           name='chevron-left'
           size={35}
           color='#007AFF'
-          onPress={() => navigation.navigate(navigateToPassphrase)}
+          onPress={() => navigation.navigate('Drawer')}
         />
       ,
       headerRight: (
@@ -75,39 +87,8 @@ class Coins extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        {/* <FlatList
-          data={[
-            { key: 'Bitcoin' },
-            { key: 'Ethereum' },
-            { key: 'Neo' },
-            { key: 'Gas' },
-            { key: 'EOX' }
-          ]}
-          renderItem={({ item }) =>
-            <Text
-          onPress={() => this.props.navigation.navigate('PortfolioCoins')}
-          style={styles.item}>
-          {item.key}
-            </Text>
-          }
-        /> */}
 
         <CoinList type={'coins'}/>
-
-        {/* <View style={styles.btnContainer} >
-          <Button
-            title='Add'
-            icon={{ size: 28 }}
-            buttonStyle={{
-          backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-          justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
-            }}
-            textStyle={{ textAlign: 'center' }}
-            onPress={this.navigate}
-          />
-        </View> */}
-
-
       </View>
     )
   }

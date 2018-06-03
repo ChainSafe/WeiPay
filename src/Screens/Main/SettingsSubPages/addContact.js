@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
 import AddContactList from '../../../Components/AddContactList';
-import { Card } from '../../../Components/Common/Card';
-import { CardSection } from '../../../Components/Common/CardSection';
-
-
+import { Card } from '../../../Components/common/Card';
+import { CardSection } from '../../../Components/common/CardSection';
 
 
 class addContact extends Component {

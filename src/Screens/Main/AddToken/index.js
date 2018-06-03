@@ -12,7 +12,8 @@ export default TabNavigator({
         borderBottomWidth: 0
       }
   },
-    headerLeft: null, 
+    
+    headerLeft: null,
     tabBarPosition: 'top',
     tabBarOptions: {
       labelStyle: { fontSize: 16, marginBottom: 13 },

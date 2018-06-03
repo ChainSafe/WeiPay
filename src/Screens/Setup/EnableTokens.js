@@ -7,6 +7,12 @@ import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-nativ
 import CoinList from '../../Components/CoinList';
 
 class EnableTokens extends Component {
+    state = {
+      tokenList: this.props.tokenList,
+      changeState: true
+    }
+
+
     static navigationOptions = {
         title: "Enable Tokens Page",
         headerLeft: null
@@ -20,13 +26,14 @@ class EnableTokens extends Component {
         this.props.navigation.dispatch(navigateToPassphrase);
     };
 
-    render() {
-        return (
 
+        render() {
+          return (
             <View style={{ flex: 1 }}>
               <CoinList />
               <View style={styles.btnContainer} >
                 <Button
+                  disabled={this.props.tokenList.length === 0}
                   title='Add'
                   icon={{ size: 28 }}
                   buttonStyle={{
@@ -48,5 +55,10 @@ const styles = StyleSheet.create({
     }
 })
 
+const mapStateToProps = state => {
+  return {
+      tokenList: state.newWallet.tokens,
+  }
+};
 
-export default EnableTokens;
+export default connect(mapStateToProps)(EnableTokens);

@@ -74,5 +74,6 @@ export default DrawerNavigator({
   }
 }, {
     contentComponent: CustomDrawerContentComponent,
-
+    headerMode: 'none',
+    header: false
   })
