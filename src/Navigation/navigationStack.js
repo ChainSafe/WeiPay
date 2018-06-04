@@ -7,6 +7,7 @@ import CreateOrRestore from '../Screens/Setup/CreateOrRestore';
 import CreateWalletName from '../Screens/Setup/CreateWalletName';
 import GeneratePassphrase from '../Screens/Setup/GeneratePassphrase';
 import ConfirmPassphrase from '../Screens/Setup/ConfirmPassphrase';
+import CreateWalletNameRecovered from '../Screens/Setup/CreateWalletNameRecovered';
 import RecoverWallet from '../Screens/Setup/RecoverWallet';
 import EnableTokens from '../Screens/Setup/EnableTokens';
 
@@ -38,6 +39,9 @@ const navigator = StackNavigator({
   },
   confirmPassphrase: {
     screen: ConfirmPassphrase
+  },
+  createWalletNameRecovered: {
+    screen: CreateWalletNameRecovered
   },
   recoverWallet: {
     screen: RecoverWallet

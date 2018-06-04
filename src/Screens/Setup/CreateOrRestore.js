@@ -22,7 +22,7 @@ class CreateOrRestore extends Component {
 
     navigateRestore = () => {
         const navigateToRecover = NavigationActions.navigate({
-            routeName: "recoverWallet",
+            routeName: "createWalletNameRecovered",
             params: { name: "Shubhnik" }
         });
         this.props.restoreWallet();

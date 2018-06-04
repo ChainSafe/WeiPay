@@ -85,7 +85,8 @@ const styles = StyleSheet.create({
     height: 44,
   },
   btnContainer: {
-    marginBottom: 5.5, alignItems: 'center', height: 60, paddingTop: 10, paddingBottom: 10, justifyContent: "center"
+    // marginBottom: 5.5, alignItems: 'center', height: 60, paddingTop: 10, paddingBottom: 10, justifyContent: "center"
+    alignItems: 'center', height: 60, paddingTop: 10, paddingBottom: 10, justifyContent: "center"
   },
 })
 

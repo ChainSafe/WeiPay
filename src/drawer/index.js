@@ -24,6 +24,7 @@ import TokenReceive from '../Screens/Main/PortfolioTabs/TokenReceive';
 import TokenSend from '../Screens/Main/PortfolioTabs/TokenSend';
 import AddToken from '../Screens/Main/AddToken'
 
+
 const CustomDrawerContentComponent = props => (
   <View style={{ flex: 1 }}>
     <View style={{ marginLeft: 10 }}>
@@ -39,9 +40,6 @@ export default DrawerNavigator({
 
   backupPhrase: {
     screen: BackupPhrase
-  },
-  addWallet: {
-    screen: AddWallet
   },
   Contacts: {
     screen: TabNavigator({
