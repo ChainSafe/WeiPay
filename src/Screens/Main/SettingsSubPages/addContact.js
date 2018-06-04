@@ -8,7 +8,14 @@ import { Card } from '../../../Components/common/Card';
 import { CardSection } from '../../../Components/common/CardSection';
 
 
+/*
+State convention
+  Get the user to write the contact name
+  -> Enable address fields
+  -> The user should be able to add the contact
 
+
+*/
 
 class addContact extends Component {
 
