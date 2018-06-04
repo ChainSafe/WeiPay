@@ -200,7 +200,6 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => {
-  debugger
   return {
     wallet: state.newWallet.wallet
   }
