@@ -41,7 +41,7 @@ class EnableTokens extends Component {
                     justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
                   }}
                   textStyle={{ textAlign: 'center' }}
-                  onPress={this.navigate}
+                  onPress={() => this.props.navigation.navigate('Drawer')}
                 />
                 </View>
             </View>

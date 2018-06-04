@@ -38,7 +38,7 @@ class CoinSend extends Component {
       }
     });
 
-    /* 
+    /*
       Send money from testrpc to current wallet just to make sure there are funds for transactions.
       If you have no money in your current wallet then you need to uncomment this and adjust privat key
     */
@@ -76,7 +76,7 @@ class CoinSend extends Component {
     if (!isNaN(valueInput)) {
       console.log("is a number " + valueInput)
       this.setState({ value: valueInput });
-      //is a number 
+      //is a number
     } else {
       //not a number
       console.log("not a number " + valueInput)
@@ -86,10 +86,10 @@ class CoinSend extends Component {
 
 
   sendTransaction = () => {
-    /* 
-      this.props.wallet is either the recovered wallet or new wallet, in either case we have sent 5 ether in the constructor 
-      to this wallet by using a testrpc private key. If we are recvoering a wallet, this does nothing, but if we are creating 
-      a new wallet, we will never have funds in our test environemnt, so this is just a test setup.  
+    /*
+      this.props.wallet is either the recovered wallet or new wallet, in either case we have sent 5 ether in the constructor
+      to this wallet by using a testrpc private key. If we are recvoering a wallet, this does nothing, but if we are creating
+      a new wallet, we will never have funds in our test environemnt, so this is just a test setup.
     */
     const amountString = '' + this.state.value + '';
     const receivingAddress = this.state.toAddress;
@@ -177,6 +177,7 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => {
+  debugger
   return {
     wallet: state.newWallet.wallet
   }

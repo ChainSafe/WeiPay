@@ -31,8 +31,7 @@ class Portfolio extends Component {
     this.dataSource = ds.cloneWithRows(data);
   }
 
-  renderRow(token) {
-
+  renderRow = (token) => {
     return (
        <ListItem
          roundAvatar
