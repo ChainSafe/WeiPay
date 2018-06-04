@@ -21,6 +21,7 @@ import CoinActivity from '../Screens/Main/PortfolioTabs/CoinActivity';
 import TokenReceive from '../Screens/Main/PortfolioTabs/TokenReceive';
 import TokenSend from '../Screens/Main/PortfolioTabs/TokenSend';
 
+
 const CustomDrawerContentComponent = props => (
   <View style={{ flex: 1 }}>
     <View style={{ marginLeft: 10 }}>
@@ -36,9 +37,6 @@ export default DrawerNavigator({
 
   backupPhrase: {
     screen: BackupPhrase
-  },
-  addWallet: {
-    screen: AddWallet
   },
   Contacts: {
     screen: Contacts

@@ -135,7 +135,12 @@ class ConfirmPassphrase extends Component {
                             <View style={styles.tagContainer} >
                                 {
                                     selectedTags.map((item, index) => {
-                                        return <Button style={styles.tag} title={item.word} key={item.index} onPress={() => this.addTag(item, "revert", index)} />
+                                        return <Button
+                                            // buttonStyle={{
+                                            //     backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
+                                            //     justifyContent: 'center', marginBottom: 30, marginTop: 5.5
+                                            // }}
+                                            style={styles.tag} title={item.word} key={item.index} onPress={() => this.addTag(item, "revert", index)} />
                                     })
                                 }
                             </View>
@@ -153,17 +158,15 @@ class ConfirmPassphrase extends Component {
                     </View>
 
                     <View style={styles.btnContainer} >
-                        <Button
-                            title='Next'
-                            icon={{ size: 28 }}
-                            buttonStyle={{
-                                backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-                                justifyContent: 'center', marginBottom: 30, marginTop: 5.5
-                            }}
-                            textStyle={{ textAlign: 'center' }}
-                            onPress={this.validatePassphrase}
-                        />
-
+                        <TouchableOpacity style={styles.btn} onPress={this.validatePassphrase}>
+                            <Text style={styles.btnText}> Next</Text>
+                            {/* <Button
+                                title='Next'
+                                icon={{ size: 28 }}
+                               
+                                style={{ fontSize: 30 }}
+                            /> */}
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
@@ -191,7 +194,14 @@ const styles = StyleSheet.create({
         height: 40,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#ADD1C7'
+        // backgroundColor: '#ADD1C7'
+    },
+    btn: {
+        backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
+        justifyContent: 'center', marginBottom: 30, marginTop: 5.5
+    },
+    btnText: {
+        color: 'white', fontSize: 20
     },
     content: {
         width: 350

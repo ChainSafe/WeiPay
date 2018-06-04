@@ -65,8 +65,8 @@ const styles = StyleSheet.create({
     },
     form: {
         width: 340,
-        paddingTop: 15,
-        paddingBottom: 15
+        paddingTop: 10,
+        paddingBottom: 10
     },
 })
 
