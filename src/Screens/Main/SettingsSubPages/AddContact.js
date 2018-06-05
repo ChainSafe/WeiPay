@@ -10,33 +10,16 @@ import { CardSection } from '../../../Components/common/CardSection';
 
 class AddContact extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: ""
-    }
-  }
-
-  renderName(name) {
-
-    var contact = { ContactName: name };
-
-    this.props.addContactAction(contact);
-
-    this.setState({ name: name })
-  }
 
   render() {
     console.log(this.props);
 
     return (
       <View style={{ flex: 1, paddingTop: 3 }}>
-        <TextInput textAlign={'center'} placeholder="Enter Contact Name"
-          style={styles.NameInputStyle} onChangeText={this.renderName.bind(this)} />
 
-        <View pointerEvents={this.state.name !== "" ? 'auto' : 'none'}>
-          <AddContactList />
-        </View>
+
+        <AddContactList />
+
 
         <View style={styles.btnContainer} >
           <View style={{ flexDirection: 'row' }}>
@@ -89,5 +72,5 @@ const styles = StyleSheet.create({
 });
 
 
-export default connect(null, { addContactAction })(AddContact);
-//export default addContact;
+
+export default AddContact;

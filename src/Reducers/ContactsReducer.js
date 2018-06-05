@@ -2,7 +2,8 @@ import * as actions from '../Actions/actionTypes';
 
 const INITIAL_STATE = {
 
-    contacts: []
+    contacts: [],
+    name: ""
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -14,6 +15,9 @@ export default (state = INITIAL_STATE, action) => {
             var contact = state.contacts;
             contact.push(action.payload);
             return { ...state, contacts: contact }
+
+        case actions.ADDING_CONTACT:
+            return { ...state, name: action.payload }
 
         default:
             return state;

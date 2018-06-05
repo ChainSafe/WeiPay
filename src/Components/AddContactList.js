@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { CardSection } from './common/CardSection';
 import { Card } from './common/Card';
 import ListItem from './ListItem';
+import addContactAction from '../Actions/actionCreator';
+import addingContact from '../Actions/actionCreator';
 import AddContactListItem from './AddContactListItem';
 
 class AddContactList extends Component {
@@ -25,22 +27,56 @@ class AddContactList extends Component {
         this.dataSource = ds.cloneWithRows(data);
     }
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: ""
+        }
+    }
+
     renderRow(coin) {
 
         return <AddContactListItem coin={coin} />;
 
     }
 
+    renderName(name) {
+        console.log(name);
+        this.props.addingContact(name)
+        this.setState({ name: name })
+
+    }
+
     render() {
         return (
-            <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false} />
+            <View>
+                <TextInput textAlign={'center'} placeholder="Enter Contact Name"
+                    style={styles.NameInputStyle} onChangeText={(text) => this.renderName(text)} />
+                <View >
+                    <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false} />
+                </View>
+            </View>
 
         );
     }
 }
 
+{/* <View pointerEvents={this.state.name !== "" ? 'auto' : 'none'}>
+    <AddContactList />
+</View> */}
 
 
+const styles = StyleSheet.create({
+    NameInputStyle: {
+        paddingTop: 10,
+        paddingLeft: 2,
+        paddingRight: 2,
+        fontWeight: 'bold',
+        backgroundColor: 'red',
+        fontSize: 15,
+        width: '100 %', backgroundColor: 'white'
+    }
+});
 
 /* Object return will show up to props */
 const mapStateToProps = state => {
@@ -49,6 +85,5 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, null)(AddContactList);
+export default connect(mapStateToProps, { addingContact })(AddContactList);
 
-/* Going to wrap the library list with the connect function, this will allow us to get state data to put in our props  */

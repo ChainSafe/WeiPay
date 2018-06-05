@@ -21,4 +21,5 @@ export const SELECT_WALLET_CURRENCY = 'select_wallet_currency';
 export const SELECT_WALLET_LANGUAGE = 'select_wallet_language';
 
 
-export const ADD_CONTACT = 'adding_contact';
+export const ADD_CONTACT = 'adding_contacts';
+export const ADDING_CONTACT = 'adding_contact';

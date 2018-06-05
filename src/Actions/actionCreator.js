@@ -87,9 +87,16 @@ export function recoverPassphrase(passphrase) {
   }
 }
 
+export function addingContact(contact) {
+  return dispatch => {
+    dispatch({ type: actionTypes.ADDING_CONTACT, payload: contact })
+  }
+}
+
 
 export function addContactAction(contact) {
   return dispatch => {
     dispatch({ type: actionTypes.ADD_CONTACT, payload: contact })
   }
 }
+
