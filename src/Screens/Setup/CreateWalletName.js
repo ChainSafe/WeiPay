@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, ScrollView, StyleSheet, TextInput, Image, AsyncStorage } from "react-native";
+import { View, TouchableOpacity, ScrollView, StyleSheet, TextInput, Image, AsyncStorage, Dimensions } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Terms } from './terms';
@@ -17,7 +17,6 @@ class CreateWalletName extends Component {
     };
 
     navigate = () => {
-        //Creating the wallet by random, pass the object to the next screen
         var wallet = ethers.Wallet.createRandom();
         this.props.newWalletCreation(wallet);
         const navigateToPassphrase = NavigationActions.navigate({ routeName: "generatePassphrase" });
@@ -29,35 +28,6 @@ class CreateWalletName extends Component {
     }
 
     render() {
-
-        // const storeWallet = async () => {
-        //     console.log("store call");
-        //     try {
-        //         await AsyncStorage.setItem('@MySuperStore:key', 'I like to save it.');
-        //     } catch (error) {
-        //         // Error saving data
-        //     }
-        // }
-
-        // const getWallet = async () => {
-        //     console.log("get wallet call");
-        //     try {
-        //         const value = await AsyncStorage.getItem('@MySuperStore:key');
-        //         if (value !== null) {
-        //             // We have data!!
-        //             console.log("Retrieved Value " + value);
-        //         } else {
-        //             console.log("value is empty");
-        //         }
-        //     } catch (error) {
-        //         // Error retrieving data
-        //     }
-        // }
-
-        // storeWallet();
-        // getWallet();
-
-
 
         return (
             <View style={styles.mainContainer}>
@@ -95,7 +65,7 @@ const styles = StyleSheet.create({
         marginTop: 25
     },
     form: {
-        width: 340
+        width: Dimensions.get('window').width - 10,
     },
     btnContainer: {
         flex: 1, justifyContent: 'flex-end', alignItems: 'center'

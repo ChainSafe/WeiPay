@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput, Image, Alert } from "react-native";
+import { View, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput, Image, Alert, Dimensions } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
@@ -59,6 +59,8 @@ class RecoverWallet extends Component {
                     <View style={styles.form} >
                         <FormLabel> Enter passphrase to recover </FormLabel>
                         <FormInput
+                            multiline={true}
+                            numberOfLines={3}
                             onChangeText={this.renderRecoveryKey.bind(this)}
                             ref={ref => this.inputMnemonic = ref} />
                     </View>
@@ -91,7 +93,7 @@ const styles = StyleSheet.create({
         marginTop: 25
     },
     form: {
-        width: '90%'
+        width: Dimensions.get('window').width - 10,
     },
     btnContainer: {
         flex: 1,
