@@ -1,12 +1,14 @@
 import { AsyncStorage } from 'react-native';
 import * as actions from '../Actions/actionTypes';
+import data from '../Reducers/json/CoinList.json';
 
 const INITIAL_STATE = {
   newWallet: false,
   walletName: '',
   tokens: [],
   wallet: null,
-  backupPassphrase: ""
+  backupPassphrase: "",
+  coinData: data
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -23,16 +25,23 @@ export default (state = INITIAL_STATE, action) => {
 
     case actions.ADD_TOKEN_SETUP:
       var current = state.tokens;
+      let newTokens = []
       let index = current.map(token => token.id).indexOf(action.payload.id)
       if (index === -1) {
         //add the selected coin to the token list
-        current.push(action.payload);
+        newTokens = [...current, action.payload];
+
       } else {
         //Delete the selected coin from the token list
-        current.splice(index, 1);
+        newTokens = [...current.slice(0 ,index), ...current.slice(index + 1)]
+        // current
+        //   .slice(0, index)
+        //   .concat(current.slice(index + 1))
       }
+      console.log(current);
+
       // await AsyncStorage.setItem('wallet', { ...state, tokens: current } )
-      return { ...state, tokens: current };
+      return { ...state, tokens: newTokens};
 
     default:
       return state;

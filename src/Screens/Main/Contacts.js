@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
+import { NavigationActions } from "react-navigation";
 import { Icon, Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 
 class Contacts extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Contacts',
-      headerLeft: (
+      headerRight: (
         <Icon
           name="menu"
           onPress={() => navigation.navigate('DrawerOpen')}
@@ -17,6 +18,7 @@ class Contacts extends Component {
     }
   }
 
+
   render() {
     return (
       <View style={styles.mainContainer}>
@@ -24,26 +26,6 @@ class Contacts extends Component {
           <View style={styles.form} >
             <FormLabel>Full Name</FormLabel>
             <FormInput style={styles.formInputElement} placeholder={"Full Name"}
-            />
-          </View>
-          <View style={styles.btnContainer} >
-            <Button
-              title='Cancel'
-              icon={{ size: 28 }}
-              buttonStyle={{
-                backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-                justifyContent: 'center', marginBottom: 30, marginTop: 5.5
-              }}
-              textStyle={{ textAlign: 'center' }}
-            />
-            <Button
-              title='Done'
-              icon={{ size: 28 }}
-              buttonStyle={{
-                backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-                justifyContent: 'center', marginBottom: 30, marginTop: 5.5
-              }}
-              textStyle={{ textAlign: 'center' }}
             />
           </View>
         </View>

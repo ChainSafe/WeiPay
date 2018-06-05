@@ -11,7 +11,8 @@ class GeneratePassphrase extends Component {
 
 
     static navigationOptions = {
-        title: "Generate Passphrase"
+        title: "Generate Passphrase",
+        headerLeft: null
     };
 
     navigate = () => {

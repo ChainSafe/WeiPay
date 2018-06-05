@@ -1,26 +1,46 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
-import { StackNavigator, DrawerNavigator } from 'react-navigation';
+import { NavigationActions } from 'react-navigation';
 import { Icon, Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import { CardSection } from '../../Components/common/CardSection';
+
+const navigate = () => {
+    const navigateToPassphrase = NavigationActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
+    });
+    this.props.navigation.dispatch(navigateToPassphrase);
+};
+
 
 class BackupPhrase extends Component {
 
   constructor(props) {
     super(props);
     this.state = { isPhraseSelected: false };
+
   }
 
-  static navigationOptions = ({ navigation }) => {
+  static navigationOptions = ({ navigation, NavigationActions }) => {
+
+    const navigate = () => {
+        const navigateToPassphrase = NavigationActions.reset({
+          index: 0,
+          actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
+        });
+        this.props.navigation.dispatch(navigateToPassphrase);
+    };
+
+
     return {
       title: 'Backup Phrase',
-      headerLeft: (
+      headerLeft:
         <Icon
-          name="menu"
-          onPress={() => navigation.navigate('DrawerOpen')}
-          title="SideMenu"
+          name='chevron-left'
+          size={35}
+          color='#007AFF'
+          onPress={() => navigation.navigate('Drawer')}
         />
-      )
     }
   }
 

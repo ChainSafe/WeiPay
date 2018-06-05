@@ -79,6 +79,19 @@ class RecoverWallet extends Component {
                         />
                     </View>
                 </View>
+                <View style={styles.btnContainer} >
+                    <Button
+                        disabled={this.state.mnemonic === ""}
+                        title='Restore'
+                        icon={{ size: 28 }}
+                        buttonStyle={{
+                            backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
+                            justifyContent: 'center', marginBottom: 30, marginTop: 5.5
+                        }}
+                        textStyle={{ textAlign: 'center' }}
+                        onPress={this.navigate}
+                    />
+                </View>
             </View>
         );
     }
@@ -104,4 +117,9 @@ const styles = StyleSheet.create({
 })
 
 export default connect(null, { newWalletCreation })(RecoverWallet);
+<<<<<<< HEAD
 
+=======
+//change the state with the
+//export default RecoverWallet;
+>>>>>>> bf63d0d9d9d4e1d05b4dbb59cb63ebc5fb0820c4
