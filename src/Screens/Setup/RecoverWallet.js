@@ -11,6 +11,7 @@ import { newWalletCreation } from '../../Actions/actionCreator'; //gonna save th
 
 
 class RecoverWallet extends Component {
+
     static navigationOptions = {
         title: "Restore"
     };
@@ -57,7 +58,7 @@ class RecoverWallet extends Component {
             <View style={styles.mainContainer}>
                 <View style={styles.contentContainer} >
                     <View style={styles.form} >
-                        <FormLabel> Enter passphrase to recover </FormLabel>
+                        <FormLabel>Enter passphrase to recover </FormLabel>
                         <FormInput
                             multiline={true}
                             numberOfLines={3}
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
         marginTop: 25
     },
     form: {
-        width: Dimensions.get('window').width - 10,
+        width: Dimensions.get('window').width - 20,
     },
     btnContainer: {
         flex: 1,
