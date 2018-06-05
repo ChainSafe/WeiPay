@@ -5,7 +5,7 @@ import { CardSection } from './common/CardSection';
 import { Card } from './common/Card';
 import ListItem from './ListItem';
 import addContactAction from '../Actions/actionCreator';
-import addingContact from '../Actions/actionCreator';
+import *  as actions from '../Actions/actionCreator.js';
 import AddContactListItem from './AddContactListItem';
 
 class AddContactList extends Component {
@@ -32,6 +32,7 @@ class AddContactList extends Component {
         this.state = {
             name: ""
         }
+        this.renderName = this.renderName.bind(this);
     }
 
     renderRow(coin) {
@@ -42,7 +43,8 @@ class AddContactList extends Component {
 
     renderName(name) {
         console.log(name);
-        this.props.addingContact(name)
+        var contact = { Contact_Name: name }
+        this.props.addingContact(contact)
         this.setState({ name: name })
 
     }
@@ -85,5 +87,5 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { addingContact })(AddContactList);
+export default connect(mapStateToProps, { addingContact: actions.addingContact })(AddContactList);
 

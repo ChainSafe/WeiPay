@@ -93,10 +93,9 @@ export function addingContact(contact) {
   }
 }
 
-
-export function addContactAction(contact) {
+export function addingContactCompleteCheck() {
   return dispatch => {
-    dispatch({ type: actionTypes.ADD_CONTACT, payload: contact })
+    dispatch({ type: actionTypes.ADDING_CONTACT_CHECK, payload })
   }
-}
 
+}
