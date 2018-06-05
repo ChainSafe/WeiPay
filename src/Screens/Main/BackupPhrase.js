@@ -58,7 +58,7 @@ class BackupPhrase extends Component {
               icon={{ size: 28 }}
               buttonStyle={{
                 backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-                justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
+                justifyContent: 'center', marginBottom: 30, marginTop: 5.5
               }}
               textStyle={{ textAlign: 'center' }}
               onPress={this.displayPassphrase.bind(this)}

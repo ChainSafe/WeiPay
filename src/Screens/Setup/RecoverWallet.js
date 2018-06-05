@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput, Image } from "react-native";
+import { View, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput, Image, Alert } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
@@ -16,22 +16,29 @@ class RecoverWallet extends Component {
     };
 
     navigate = () => {
-        //    Need to save this information to redux -> commented out for errors, but use the testrpc passphrase for this to work
-        var mnemonic = this.state.mnemonic.trim();
-        console.log(mnemonic);
-        var wallet = ethers.Wallet.fromMnemonic(mnemonic);
-        console.log("Address: from newly recovered passphrase is " + wallet.address);
-
-        this.props.newWalletCreation(wallet); //pass state to redux to save it
 
         const navigateToTokens = NavigationActions.navigate({
             routeName: "enableTokens",
             params: { name: "Shubhnik" }
         });
 
-        console.log(" -- - - - - - ");
-        console.log(this.state);
-        this.props.navigation.dispatch(navigateToTokens);
+        var mnemonic, wallet;
+        try {
+            mnemonic = this.state.mnemonic.trim();
+            wallet = ethers.Wallet.fromMnemonic(mnemonic);
+            this.props.newWalletCreation(wallet); //pass state to redux to save it
+            this.props.navigation.dispatch(navigateToTokens);
+        }
+        catch (err) {
+            Alert.alert(
+                'Mnemonic Error',
+                'Your mnemonic was invalid, please re-enter.',
+                [
+                    { text: 'OK', onPress: () => this.inputMnemonic.clearText() },
+                ],
+                { cancelable: false }
+            )
+        }
     };
 
     constructor(props) {
@@ -51,7 +58,9 @@ class RecoverWallet extends Component {
                 <View style={styles.contentContainer} >
                     <View style={styles.form} >
                         <FormLabel> Enter passphrase to recover </FormLabel>
-                        <FormInput onChangeText={this.renderRecoveryKey.bind(this)} />
+                        <FormInput
+                            onChangeText={this.renderRecoveryKey.bind(this)}
+                            ref={ref => this.inputMnemonic = ref} />
                     </View>
                     <View style={styles.btnContainer} >
                         <Button
@@ -74,24 +83,22 @@ class RecoverWallet extends Component {
 
 const styles = StyleSheet.create({
     mainContainer: {
-        flex: 1, alignItems: 'center', justifyContent: 'flex-start'
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'flex-start'
     },
     contentContainer: {
         marginTop: 25
     },
     form: {
-        width: 340
+        width: '90%'
     },
     btnContainer: {
-        flex: 1, justifyContent: 'flex-end', alignItems: 'center'
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'center'
     },
 })
 
-// const mapStateToProps = ({ mnemonic }) => {
-//     const { passphrase } = mnemonic;
-//     return { passphrase }
-// }
-
 export default connect(null, { newWalletCreation })(RecoverWallet);
-//change the state with the 
-//export default RecoverWallet;
+

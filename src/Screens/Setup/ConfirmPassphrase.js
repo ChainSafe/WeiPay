@@ -160,12 +160,6 @@ class ConfirmPassphrase extends Component {
                     <View style={styles.btnContainer} >
                         <TouchableOpacity style={styles.btn} onPress={this.validatePassphrase}>
                             <Text style={styles.btnText}> Next</Text>
-                            {/* <Button
-                                title='Next'
-                                icon={{ size: 28 }}
-                               
-                                style={{ fontSize: 30 }}
-                            /> */}
                         </TouchableOpacity>
                     </View>
                 </View>
