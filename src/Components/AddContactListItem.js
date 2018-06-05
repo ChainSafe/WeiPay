@@ -6,10 +6,20 @@ import { Input } from './common/Input';
 import { CheckBox } from 'react-native-elements'
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import addContactAction from '../Actions/actionCreator';
+import *  as actions from '../Actions/actionCreator.js';
 
 
 class AddContactListItem extends Component {
+
+
+    renderAddress(address, coinName) {
+        var check = this.props.coin.title
+        console.log("From AddContactListItem: " + coinName);
+
+        var coinAddress = {}
+        coinAddress[coinName] = address
+        this.props.addingContact(coinAddress)
+    }
 
     render() {
         const { coin } = this.props;
@@ -22,7 +32,9 @@ class AddContactListItem extends Component {
                         <Text style={styles.title}>{coin.title} 's Address</Text>
                         <Card
                         >
-                            <TextInput placeholder="Enter or Paste Address here" />
+                            <TextInput placeholder="Enter or Paste Address here"
+                                onChangeText={(text) => this.renderAddress(text, coin.title)}
+                            />
                         </Card>
                     </View>
                 </CardSection>
@@ -60,5 +72,5 @@ const mapStateToProps = state => {
     }
 };
 
-export default connect(mapStateToProps, { addContactAction })(AddContactListItem)
+export default connect(mapStateToProps, { addingContact: actions.addingContact })(AddContactListItem)
 //export default AddContactListItem;

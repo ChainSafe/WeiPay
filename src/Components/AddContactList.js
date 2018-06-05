@@ -43,7 +43,7 @@ class AddContactList extends Component {
 
     renderName(name) {
         console.log(name);
-        var contact = { Contact_Name: name }
+        var contact = { name: name }
         this.props.addingContact(contact)
         this.setState({ name: name })
 

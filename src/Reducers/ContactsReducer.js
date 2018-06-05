@@ -3,29 +3,34 @@ import * as actions from '../Actions/actionTypes';
 const INITIAL_STATE = {
 
     contacts: [],
+    currentContact: {},
     addingContact: true,
-    name: ""
+
 }
 
 export default (state = INITIAL_STATE, action) => {
+    console.log("Action Payload:");
     console.log(action.payload);
     switch (action.type) {
-
-        case actions.ADD_CONTACT:
-
-            var contact = state.contacts;
-            contact.push(action.payload);
-            return { ...state, contacts: contact }
-
         case actions.ADDING_CONTACT:
-            var contact = state.contacts;
-            if (state.addingContact) {
+            var contact = state.currentContact;
+            //Object.keys(contact)[0]
 
+            const actionKey = Object.keys(action.payload)[0]
+            const actionKeyValue = action.payload[Object.keys(action.payload)[0]]
+
+            if (actionKey in contact) {
+                contact[actionKey] = actionKeyValue
+            } else {
+                contact[actionKey] = actionKeyValue
             }
-            contact.push(action.payload);
+
+            console.log("Contact Details: ");
             console.log(contact);
 
-            return { ...state, contacts: contact }
+
+
+            return { ...state, currentContact: contact }
 
         default:
             return state;
