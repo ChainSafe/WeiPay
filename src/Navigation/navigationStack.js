@@ -14,15 +14,15 @@ import Drawer from '../drawer';
 import PortfolioCoin from '../Screens/Main/PortfolioTabs/PortfolioCoin';
 import PortfolioToken from '../Screens/Main/PortfolioTabs/PortfolioToken';
 import AddToken from '../Screens/Main/AddToken';
-import addContact from '../Screens/Main/SettingsSubPages/addContact';
+import AddContact from '../Screens/Main/SettingsSubPages/AddContact';
 import contacts from '../Screens/Main/Contacts';
 
 const navigator = StackNavigator({
   terms: {
     screen: TermsScreen
   },
-  addContact: {
-    screen: addContact
+  AddContact: {
+    screen: AddContact
   },
   contacts: {
     screen: contacts

@@ -8,19 +8,10 @@ import { Card } from '../../../Components/common/Card';
 import { CardSection } from '../../../Components/common/CardSection';
 
 
-/*
-State convention
-  Get the user to write the contact name
-  -> Enable address fields
-  -> The user should be able to add the contact
-
-
-*/
-
-class addContact extends Component {
+class AddContact extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       name: ""
     }
@@ -28,15 +19,16 @@ class addContact extends Component {
 
   renderName(name) {
 
-    var contact = { name: name };
+    var contact = { ContactName: name };
 
-    this.props.addContact(contact);
-    this.props.
+    this.props.addContactAction(contact);
 
-      this.setState({ name: name })
+    this.setState({ name: name })
   }
 
   render() {
+    console.log(this.props);
+
     return (
       <View style={{ flex: 1, paddingTop: 3 }}>
         <TextInput textAlign={'center'} placeholder="Enter Contact Name"
@@ -97,5 +89,5 @@ const styles = StyleSheet.create({
 });
 
 
-export default connect(null, { addContact })(addContact);
+export default connect(null, { addContactAction })(AddContact);
 //export default addContact;

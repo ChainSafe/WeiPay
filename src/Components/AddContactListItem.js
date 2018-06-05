@@ -6,7 +6,7 @@ import { Input } from './common/Input';
 import { CheckBox } from 'react-native-elements'
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import addContact from '../Actions/actionCreator';
+import addContactAction from '../Actions/actionCreator';
 
 
 class AddContactListItem extends Component {
@@ -60,5 +60,5 @@ const mapStateToProps = state => {
     }
 };
 
-export default connect(mapStateToProps, { addContact })(AddContactListItem)
+export default connect(mapStateToProps, { addContactAction })(AddContactListItem)
 //export default AddContactListItem;
