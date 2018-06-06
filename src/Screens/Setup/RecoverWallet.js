@@ -1,14 +1,11 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput, Image, Alert, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Alert, Dimensions } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-const ethers = require('ethers');
-import Provider from '../../constants/Providers'; //this gives us access to the local test rpc network to test
-//import { recoverPassphrase } from '../../Actions/actionCreator'; //gonna save this passphrase to state
 import { newWalletCreation } from '../../Actions/actionCreator'; //gonna save this passphrase to state
 
-
+const ethers = require('ethers');
 
 class RecoverWallet extends Component {
 

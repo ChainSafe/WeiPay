@@ -80,7 +80,7 @@ class ConfirmPassphrase extends Component {
         // const { scrambledTags, selectedTags } = this.state;
         // var passphraseIncomplete = true;
         // var count = 0;
-        //
+
         // //check if all the tags have been selected
         // if (scrambledTags.length == 0) {
         //     console.log("all selected");

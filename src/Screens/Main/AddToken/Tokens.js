@@ -20,15 +20,17 @@ class CustomButton extends Component {
   render() {
     return (
       <View style={styles.NavBarButton}>
-        <Icon
-          name="search"
-          onPress={() => this.props.navigation.navigate('search')}
-        />
-        <Icon
+        <View style={{ paddingRight: 5 }}>
+          <Icon
+            name="search"
+            onPress={() => this.props.navigation.navigate('search')}
+          />
+        </View>
+        {/* <Icon
           name="menu"
           onPress={() => this.navigate()}
           title="SideMenu"
-        />
+        /> */}
       </View>
     )
   }
@@ -55,11 +57,11 @@ class Tokens extends Component {
   }
 
   navigate = () => {
-      const navigateToPassphrase = NavigationActions.reset({
-        index: 0,
-        actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
-      });
-      this.props.navigation.dispatch(navigateToPassphrase);
+    const navigateToPassphrase = NavigationActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
+    });
+    this.props.navigation.dispatch(navigateToPassphrase);
   };
 
   onSuccess(e) {
@@ -94,7 +96,7 @@ const styles = StyleSheet.create({
   NavBarButton: {
     flex: 1,
     flexDirection: 'row',
-    padding: '5%'
+    padding: 10
   },
   btnContainer: {
     alignItems: 'center', height: 60, paddingTop: 10, paddingBottom: 10, justifyContent: "center"

@@ -11,12 +11,14 @@ class Portfolio extends Component {
       title: 'Portfolio',
       headerLeft: null,
       headerRight: (
-        <Icon
-          name="menu"
-          onPress={() => navigation.navigate('DrawerOpen')}
-          title="SideMenu"
-          style={{ paddingLeft: 20 }}
-        />
+        <View style={{ paddingRight: 15 }}>
+          <Icon
+            name="menu"
+            onPress={() => navigation.navigate('DrawerOpen')}
+            title="SideMenu"
+            style={{ paddingLeft: 20 }}
+          />
+        </View>
       )
     }
   }
@@ -33,13 +35,13 @@ class Portfolio extends Component {
 
   renderRow = (token) => {
     return (
-       <ListItem
-         roundAvatar
-         avatar={{ uri: token.avatar_url }}
-         key={token.id}
-         title={token.title}
-         onPress={() => this.props.navigation.navigate(token.type)}
-       />
+      <ListItem
+        roundAvatar
+        avatar={{ uri: token.avatar_url }}
+        key={token.id}
+        title={token.title}
+        onPress={() => this.props.navigation.navigate(token.type)}
+      />
     )
   }
 
@@ -66,7 +68,7 @@ class Portfolio extends Component {
             icon={{ size: 28 }}
             buttonStyle={{
               backgroundColor: 'blue', borderRadius: 10, width: 250, height: 40, alignItems: 'center',
-              justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
+              justifyContent: 'center', marginBottom: 30, marginTop: 5.5
             }}
             textStyle={{ textAlign: 'center' }}
             onPress={() => this.props.navigation.navigate('AddToken')}
@@ -86,7 +88,8 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     // marginBottom: 5.5, alignItems: 'center', height: 60, paddingTop: 10, paddingBottom: 10, justifyContent: "center"
-    alignItems: 'center', height: 60, paddingTop: 10, paddingBottom: 10, justifyContent: "center"
+    //alignItems: 'center', height: 60, paddingTop: 10, paddingBottom: 10, justifyContent: "center"
+    alignItems: 'center', height: 70, paddingTop: 30, paddingBottom: 10, justifyContent: "center"
   },
 })
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Button, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { StackNavigator, DrawerNavigator, NavigationActions } from 'react-navigation';
 import { Icon, List, ListItem } from 'react-native-elements';
 
@@ -8,7 +8,7 @@ class Settings extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Settings',
-      headerLeft: null, 
+      headerLeft: null,
       headerRight: (
         <Icon
           name="menu"
@@ -54,11 +54,9 @@ class Settings extends Component {
       }
     ];
 
-
-
     return (
-      <View>
-        <List style={styles.list} >
+      <View style={styles.pageContainer}>
+        <List style={styles.list} containerStyle={{ marginTop: 0, borderTopWidth: 0, borderBottomWidth: 0 }} >
           {
             list.map((item, i) => (
               <TouchableOpacity
@@ -80,8 +78,19 @@ class Settings extends Component {
 }
 
 const styles = StyleSheet.create({
+  pageContainer: {
+    // backgroundColor: 'white',
+    // height: Dimensions.get("window").height
+  },
   list: {
-    flex: 1, flexGrow: 1
+    flex: 1,
+    flexGrow: 1,
+    // top: 0,
+    // position: 'absolute',
+    // backgroundColor: 'yellow',
+    // left: 0,
+    // right: 0,
+    // marginTop: 0
   }
 })
 

@@ -27,21 +27,21 @@ class ChangeCurrency extends Component {
 
         return (
 
-          <View style={{ flex: 1 }}>
-              <CurrencyList />
-              <View style={styles.btnContainer} >
-                  <Button
-                      title='Update'
-                      icon={{ size: 28 }}
-                      buttonStyle={{
-                          backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-                          justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
-                      }}
-                      textStyle={{ textAlign: 'center' }}
-                      onPress={this.navigate}
-                  />
-              </View>
-          </View>
+            <View style={{ flex: 1 }}>
+                <CurrencyList />
+                <View style={styles.btnContainer} >
+                    <Button
+                        title='Update'
+                        icon={{ size: 28 }}
+                        buttonStyle={{
+                            backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
+                            justifyContent: 'center', marginBottom: 30, marginTop: 5.5
+                        }}
+                        textStyle={{ textAlign: 'center' }}
+                        onPress={this.navigate}
+                    />
+                </View>
+            </View>
 
 
         );

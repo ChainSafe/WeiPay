@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, ScrollView, StyleSheet, TextInput, Image } from "react-native";
+import { View, TouchableOpacity, ScrollView, StyleSheet, TextInput, Image, Dimensions } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
         flex: 1, justifyContent: 'flex-end', alignItems: 'center'
     },
     form: {
-        width: 340,
+        width: Dimensions.get('window').width - 20,
         paddingTop: 10,
         paddingBottom: 10
     },
