@@ -117,9 +117,3 @@ const styles = StyleSheet.create({
 })
 
 export default connect(null, { newWalletCreation })(RecoverWallet);
-<<<<<<< HEAD
-
-=======
-//change the state with the
-//export default RecoverWallet;
->>>>>>> bf63d0d9d9d4e1d05b4dbb59cb63ebc5fb0820c4
