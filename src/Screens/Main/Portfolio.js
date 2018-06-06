@@ -48,19 +48,6 @@ class Portfolio extends Component {
   render() {
     return (
       <View style={{ flex: 1 }} >
-        {/* <List>
-          {
-            this.props.newWallet.tokens.map((l, i) => (
-          <ListItem
-          roundAvatar
-          avatar={{ uri: l.avatar_url }}
-          key={i}
-          title={l.title}
-          onPress={() => this.props.navigation.navigate(l.type)}
-          />
-            ))
-          }
-        </List> */}
         <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false} />
         <View style={styles.btnContainer} >
           <Button
@@ -68,13 +55,12 @@ class Portfolio extends Component {
             icon={{ size: 28 }}
             buttonStyle={{
               backgroundColor: 'blue', borderRadius: 10, width: 250, height: 40, alignItems: 'center',
-              justifyContent: 'center', marginBottom: 30, marginTop: 5.5
+              justifyContent: 'center', marginBottom: 25, marginTop: 5.5
             }}
             textStyle={{ textAlign: 'center' }}
             onPress={() => this.props.navigation.navigate('AddToken')}
           />
         </View>
-        {/* <Icon name="add" onPress={() => this.props.navigation.navigate('AddToken')} /> */}
       </View>
     )
   }
@@ -87,9 +73,11 @@ const styles = StyleSheet.create({
     height: 44,
   },
   btnContainer: {
-    // marginBottom: 5.5, alignItems: 'center', height: 60, paddingTop: 10, paddingBottom: 10, justifyContent: "center"
-    //alignItems: 'center', height: 60, paddingTop: 10, paddingBottom: 10, justifyContent: "center"
-    alignItems: 'center', height: 70, paddingTop: 30, paddingBottom: 10, justifyContent: "center"
+    alignItems: 'center',
+    height: 80,
+    paddingTop: 30,
+    paddingBottom: 10,
+    justifyContent: "center"
   },
 })
 

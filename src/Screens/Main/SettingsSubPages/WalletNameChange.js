@@ -11,6 +11,20 @@ class WalletNameChange extends Component {
         title: "Change Wallet Name"
     };
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            nameChange: "",
+        }
+    }
+
+
+    renderNameChange(nameInput) {
+        var add = nameInput.trim();
+        this.setState({ nameChange: add });
+        console.log(add)
+    }
+
     navigate = () => {
         // const navigateToPassphrase = NavigationActions.navigate({
         //     routeName: "generatePassphrase",
@@ -26,10 +40,14 @@ class WalletNameChange extends Component {
                 <View style={styles.contentContainer} >
                     <View style={styles.form} >
                         <FormLabel>Wallet name </FormLabel>
-                        <FormInput placeholder={"Wallet name"} />
+                        <FormInput
+                            onChangeText={this.renderNameChange.bind(this)}
+                            placeholder={"Wallet name"}
+                        />
                     </View>
                     <View style={styles.btnContainer} >
                         <Button
+                            disabled={this.state.nameChange === ""}
                             title='Update'
                             icon={{ size: 28 }}
                             buttonStyle={{

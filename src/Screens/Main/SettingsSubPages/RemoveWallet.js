@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, ScrollView, StyleSheet, TextInput, Image, Text } from "react-native";
+import { View, TouchableOpacity, ScrollView, StyleSheet, TextInput, Image, Text, Dimensions } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, Icon, List, ListItem, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
@@ -39,7 +39,7 @@ class RemoveWallet extends Component {
                             icon={{ size: 28 }}
                             buttonStyle={{
                                 backgroundColor: 'red', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-                                justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
+                                justifyContent: 'center', marginBottom: 30, marginTop: 5.5
                             }}
                             textStyle={{ textAlign: 'center' }}
                             onPress={this.navigate}
@@ -65,11 +65,13 @@ const styles = StyleSheet.create({
         color: 'red',
         alignItems: 'center',
         fontSize: 18,
-        textAlign: 'center',
+        // textAlign: 'center',
     },
     description: {
         alignItems: 'center',
-        textAlign: 'center'
+        // textAlign: 'center',
+        paddingTop: 20,
+        width: Dimensions.get('window').width - 80,
 
     }
 })

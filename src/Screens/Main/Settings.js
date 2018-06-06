@@ -8,14 +8,14 @@ class Settings extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Settings',
-      headerLeft: null,
-      headerRight: (
-        <Icon
-          name="menu"
-          onPress={() => navigation.navigate('DrawerOpen')}
-          title="SideMenu"
-        />
-      )
+      //headerLeft: null,
+      // headerRight: (
+      //   <Icon
+      //     name="menu"
+      //     onPress={() => navigation.navigate('DrawerOpen')}
+      //     title="SideMenu"
+      //   />
+      // )
     }
   }
 

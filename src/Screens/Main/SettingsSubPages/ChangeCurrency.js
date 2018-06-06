@@ -20,14 +20,9 @@ class ChangeCurrency extends Component {
         // this.props.navigation.dispatch(navigateToPassphrase);
     };
 
-
-
-
     render() {
-
         return (
-
-            <View style={{ flex: 1 }}>
+            <View style={styles.pageContainer} >
                 <CurrencyList />
                 <View style={styles.btnContainer} >
                     <Button
@@ -35,23 +30,24 @@ class ChangeCurrency extends Component {
                         icon={{ size: 28 }}
                         buttonStyle={{
                             backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-                            justifyContent: 'center', marginBottom: 30, marginTop: 5.5
+                            justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
                         }}
                         textStyle={{ textAlign: 'center' }}
                         onPress={this.navigate}
                     />
                 </View>
             </View>
-
-
         );
     }
 }
 
 const styles = StyleSheet.create({
-
+    pageContainer: {
+        flex: 1,
+        backgroundColor: 'white'
+    },
     btnContainer: {
-        alignItems: 'center', height: 60, paddingTop: 10, paddingBottom: 10, justifyContent: "center"
+        alignItems: 'center', height: 80, paddingTop: 10, paddingBottom: 10, justifyContent: "center"
     }
 })
 

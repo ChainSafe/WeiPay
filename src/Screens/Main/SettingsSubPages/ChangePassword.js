@@ -11,6 +11,15 @@ class ChangePassword extends Component {
         title: "Change Password"
     };
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            current: "",
+            new: "",
+            confirm: ""
+        }
+    }
+
     navigate = () => {
         const navigateToPassphrase = NavigationActions.navigate({
             routeName: "generatePassphrase",
@@ -19,24 +28,63 @@ class ChangePassword extends Component {
         this.props.navigation.dispatch(navigateToPassphrase);
     };
 
+    renderCurrent(currentPassword) {
+        var add = currentPassword.trim();
+        this.setState({ current: add });
+        console.log(add)
+    }
+
+    renderNew(newPassword) {
+        var add = newPassword.trim();
+        this.setState({ new: add });
+        console.log(add)
+    }
+
+    renderConfirm(confirmedPassword) {
+        var add = confirmedPassword.trim();
+        this.setState({ confirm: add });
+        console.log(add)
+    }
+
+    checkPassword() {
+        if (this.state.new == this.state.confirm) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     render() {
         return (
             <View style={styles.mainContainer}>
                 <View style={styles.contentContainer} >
                     <View style={styles.form} >
                         <FormLabel >Current Password </FormLabel>
-                        <FormInput placeholder={"Current Password"} />
+                        <FormInput
+                            onChangeText={this.renderCurrent.bind(this)}
+                            placeholder={"Current Password"}
+                            secureTextEntry={true}
+                        />
                     </View>
                     <View style={styles.form} >
                         <FormLabel >Enter New Password </FormLabel>
-                        <FormInput placeholder={"Enter New Password"} />
+                        <FormInput
+                            onChangeText={this.renderNew.bind(this)}
+                            placeholder={"Enter New Password"}
+                            secureTextEntry={true}
+                        />
                     </View>
                     <View style={styles.form} >
                         <FormLabel>Confirm New Password </FormLabel>
-                        <FormInput placeholder={"Family wallet, Work Fund.."} />
+                        <FormInput
+                            onChangeText={this.renderConfirm.bind(this)}
+                            placeholder={"Family wallet, Work Fund.."}
+                            secureTextEntry={true}
+                        />
                     </View>
                     <View style={styles.btnContainer} >
                         <Button
+                            disabled={this.state.current === "" || this.state.new == "" || this.state.confirm == "" || this.checkPassword() == false}
                             title='Update'
                             icon={{ size: 28 }}
                             buttonStyle={{
