@@ -11,15 +11,22 @@ import CreateWalletNameRecovered from '../Screens/Setup/CreateWalletNameRecovere
 import RecoverWallet from '../Screens/Setup/RecoverWallet';
 import EnableTokens from '../Screens/Setup/EnableTokens';
 
-import Drawer from '../drawer'
-import PortfolioCoin from '../Screens/Main/PortfolioTabs/PortfolioCoin'
-import PortfolioToken from '../Screens/Main/PortfolioTabs/PortfolioToken'
-import AddToken from '../Screens/Main/AddToken'
-
+import Drawer from '../drawer';
+import PortfolioCoin from '../Screens/Main/PortfolioTabs/PortfolioCoin';
+import PortfolioToken from '../Screens/Main/PortfolioTabs/PortfolioToken';
+import AddToken from '../Screens/Main/AddToken';
+import AddContact from '../Screens/Main/SettingsSubPages/AddContact';
+import contacts from '../Screens/Main/Contacts';
 
 const navigator = StackNavigator({
   terms: {
     screen: TermsScreen
+  },
+  AddContact: {
+    screen: AddContact
+  },
+  contacts: {
+    screen: contacts
   },
   createOrRestore: {
     screen: CreateOrRestore

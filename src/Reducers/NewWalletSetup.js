@@ -31,6 +31,8 @@ export default (state = INITIAL_STATE, action) => {
         //Delete the selected coin from the token list
         current.splice(index, 1);
       }
+      console.log(current);
+
       // await AsyncStorage.setItem('wallet', { ...state, tokens: current } )
       return { ...state, tokens: current };
 

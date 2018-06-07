@@ -87,6 +87,14 @@ export function recoverPassphrase(passphrase) {
   }
 }
 
-export const switchLanguage = language => dispatch => {
-  dispatch({ type: actionTypes.SWITCH_LANGUAGE, payload: language })
+export function addingContact(contact) {
+  return dispatch => {
+    dispatch({ type: actionTypes.ADDING_CONTACT, payload: contact })
+  }
+}
+
+export function completeContact() {
+  return dispatch => {
+    dispatch({ type: actionTypes.COMPLETE_CONTACT, payload: {} })
+  }
 }
