@@ -9,8 +9,6 @@ const INITIAL_STATE = {
 }
 
 export default (state = INITIAL_STATE, action) => {
-    console.log("Action Payload:");
-    console.log(action.payload);
     switch (action.type) {
         case actions.ADDING_CONTACT:
             var contact = state.currentContact;
@@ -28,12 +26,23 @@ export default (state = INITIAL_STATE, action) => {
             console.log("Contact Details: ");
             console.log(contact);
 
-
-
             return { ...state, currentContact: contact }
+
+        case actions.COMPLETE_CONTACT:
+            var old = state.contacts
+            old.push(state.currentContact)
+
+            return { ...state, currentContact: action.payload, contacts: old }
 
         default:
             return state;
     }
+    console.log("Total Contacts: ");
+    console.log(state.contacts);
+    console.log("Currenct Contact: ");
+    console.log(state.currentContact);
+
+
+
 
 }

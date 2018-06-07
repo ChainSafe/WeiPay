@@ -12,13 +12,27 @@ import *  as actions from '../Actions/actionCreator.js';
 class AddContactListItem extends Component {
 
 
+    constructor() {
+        super()
+        this.state = {
+            addressInput: ""
+        }
+    }
+
     renderAddress(address, coinName) {
         var check = this.props.coin.title
         console.log("From AddContactListItem: " + coinName);
 
         var coinAddress = {}
         coinAddress[coinName] = address
-        this.props.addingContact(coinAddress)
+        if (!(Object.keys(this.props.current).length === 0)) {
+            console.log("This is from AddContactListItem: ");
+            this.setState({ addressInput: address })
+            this.props.addingContact(coinAddress)
+        } else {
+            this.setState({ addressInput: "" })
+        }
+
     }
 
     render() {
@@ -34,6 +48,9 @@ class AddContactListItem extends Component {
                         >
                             <TextInput placeholder="Enter or Paste Address here"
                                 onChangeText={(text) => this.renderAddress(text, coin.title)}
+                                ref={ref => this.state.addressInput = ref}
+
+
                             />
                         </Card>
                     </View>
@@ -68,7 +85,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        contacts: state.contacts.contacts
+        current: state.contacts.currentContact
     }
 };
 

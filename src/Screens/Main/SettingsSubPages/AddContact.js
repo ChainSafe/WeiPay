@@ -6,9 +6,19 @@ import AddContactList from '../../../Components/AddContactList';
 import addContactAction from '../../../Actions/actionCreator';
 import { Card } from '../../../Components/common/Card';
 import { CardSection } from '../../../Components/common/CardSection';
-
+import * as action from '../../../Actions/actionCreator';
 
 class AddContact extends Component {
+
+  constructor(props) {
+    super(props);
+    this.renderAddContact = this.renderAddContact.bind(this);
+  }
+
+
+  renderAddContact() {
+    this.props.completeContact();
+  }
 
 
   render() {
@@ -31,7 +41,7 @@ class AddContact extends Component {
                 justifyContent: 'center', alignItems: 'center', marginBottom: 5.5, marginTop: 5.5
               }}
               textStyle={{ textAlign: 'center' }}
-              onPress={this.navigate}
+              onPress={() => this.renderAddContact()}
             />
             <Button
               title='Clear'
@@ -71,6 +81,11 @@ const styles = StyleSheet.create({
 
 });
 
+const mapStateToProps = state => {
+  return {
+    currenctContact: state.contacts.currenctContact
+  }
+}
 
-
-export default AddContact;
+export default connect(mapStateToProps, { completeContact: action.completeContact })(AddContact)
+//export default AddContact;

@@ -83,7 +83,8 @@ const styles = StyleSheet.create({
 /* Object return will show up to props */
 const mapStateToProps = state => {
     return {
-        tokens: state.newWallet.tokens
+        tokens: state.newWallet.tokens,
+        currentContact: state.contacts.currentContact
     }
 }
 

@@ -93,3 +93,8 @@ export function addingContact(contact) {
   }
 }
 
+export function completeContact() {
+  return dispatch => {
+    dispatch({ type: actionTypes.COMPLETE_CONTACT, payload: {} })
+  }
+}
