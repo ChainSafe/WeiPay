@@ -5,18 +5,19 @@ import { Icon, List, ListItem } from 'react-native-elements';
 
 
 class Settings extends Component {
-  // static navigationOptions = ({ navigation }) => {
-  //   return {
-  //     title: 'Settings',
-  //     headerLeft: (
-  //       <Icon
-  //         name="menu"
-  //         onPress={() => navigation.navigate('DrawerOpen')}
-  //         title="SideMenu"
-  //       />
-  //     )
-  //   }
-  // }
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Settings',
+      headerLeft: null, 
+      headerRight: (
+        <Icon
+          name="menu"
+          onPress={() => navigation.navigate('DrawerOpen')}
+          title="SideMenu"
+        />
+      )
+    }
+  }
 
   navigateToSubSetting = (listId) => {
 

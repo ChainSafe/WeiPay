@@ -2,16 +2,21 @@
 
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
-import { StackNavigator, DrawerNavigator } from 'react-navigation';
+
 import { Icon, Button } from 'react-native-elements';
 
 import TokenList from '../../../Components/TokenList';
 
 import CoinList from '../../../Components/CoinList';
 import Layout from '../../../constants/Layout'
+import { NavigationActions, DrawerActions } from "react-navigation";
 
 
 class CustomButton extends Component {
+  navigate = () => {
+    this.props.navigation.navigate('DrawerOpen')
+  }
+
   render() {
     return (
       <View style={styles.NavBarButton}>
@@ -21,7 +26,7 @@ class CustomButton extends Component {
         />
         <Icon
           name="menu"
-          onPress={() => this.props.navigation.navigate('DrawerOpen')}
+          onPress={() => this.navigate()}
           title="SideMenu"
         />
       </View>
@@ -29,16 +34,33 @@ class CustomButton extends Component {
   }
 }
 
+
 class Tokens extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Enable Tokens',
       tabBarLabel: 'Tokens',
+      headerLeft:
+        <Icon
+          name='chevron-left'
+          size={35}
+          color='#007AFF'
+          onPress={() => navigation.navigate('Drawer')}
+        />
+      ,
       headerRight: (
         <CustomButton navigation={navigation} />
       )
     }
   }
+
+  navigate = () => {
+      const navigateToPassphrase = NavigationActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
+      });
+      this.props.navigation.dispatch(navigateToPassphrase);
+  };
 
   onSuccess(e) {
     Linking
@@ -50,18 +72,18 @@ class Tokens extends Component {
     return (
       <View style={{ flex: 1 }} >
         <CoinList type={'tokens'} />
-        <View style={styles.btnContainer} >
+        {/* <View style={styles.btnContainer} >
           <Button
             title='Add'
             icon={{ size: 28 }}
             buttonStyle={{
-              backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-              justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
+          backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
+          justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
             }}
             textStyle={{ textAlign: 'center' }}
-            onPress={() => alert('Would Like to Access the Camera to Scan barcodes')}
+            onPress={() => this.navigate()}
           />
-        </View>
+        </View> */}
       </View>
     )
   }

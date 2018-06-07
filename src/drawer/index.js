@@ -5,6 +5,8 @@ import Portfolio from '../Screens/Main/Portfolio';
 import BackupPhrase from '../Screens/Main/BackupPhrase';
 import AddWallet from '../Screens/Main/AddWallet';
 import Contacts from '../Screens/Main/Contacts';
+import addContact from '../Screens/Main/SettingsSubPages/addContact';
+
 import Settings from '../Screens/Main/Settings';
 
 import Search from '../Screens/Main/Search';
@@ -20,6 +22,7 @@ import CoinReceive from '../Screens/Main/PortfolioTabs/CoinReceive';
 import CoinActivity from '../Screens/Main/PortfolioTabs/CoinActivity';
 import TokenReceive from '../Screens/Main/PortfolioTabs/TokenReceive';
 import TokenSend from '../Screens/Main/PortfolioTabs/TokenSend';
+import AddToken from '../Screens/Main/AddToken'
 
 
 const CustomDrawerContentComponent = props => (
@@ -39,7 +42,15 @@ export default DrawerNavigator({
     screen: BackupPhrase
   },
   Contacts: {
-    screen: Contacts
+    screen: TabNavigator({
+      contacts: { screen : Contacts },
+      addContact: { screen: addContact }
+
+    })
+
+  },
+  AddToken: {
+    screen: AddToken
   },
   Settings: {
 
@@ -60,5 +71,7 @@ export default DrawerNavigator({
     screen: Search
   }
 }, {
-    contentComponent: CustomDrawerContentComponent
+    contentComponent: CustomDrawerContentComponent,
+    headerMode: 'none',
+    header: false
   })

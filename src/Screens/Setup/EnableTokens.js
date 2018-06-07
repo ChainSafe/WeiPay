@@ -7,34 +7,42 @@ import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-nativ
 import CoinList from '../../Components/CoinList';
 
 class EnableTokens extends Component {
+    state = {
+      tokenList: this.props.tokenList,
+      changeState: true
+    }
+
+
     static navigationOptions = {
-        title: "Enable Tokens Page"
+        title: "Enable Tokens Page",
+        headerLeft: null
     };
 
     navigate = () => {
-        const navigateToPassphrase = NavigationActions.navigate({
-            routeName: "Drawer",
-            params: { name: "Shubhnik" }
+        const navigateToPassphrase = NavigationActions.reset({
+          index: 0,
+          actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
         });
         this.props.navigation.dispatch(navigateToPassphrase);
     };
 
-    render() {
-        return (
 
+        render() {
+          return (
             <View style={{ flex: 1 }}>
               <CoinList />
-                <View style={styles.btnContainer} >
-                    <Button
-                        title='Add'
-                        icon={{ size: 28 }}
-                        buttonStyle={{
-                            backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-                            justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
-                        }}
-                        textStyle={{ textAlign: 'center' }}
-                        onPress={this.navigate}
-                    />
+              <View style={styles.btnContainer} >
+                <Button
+                  disabled={this.props.tokenList.length === 0}
+                  title='Add'
+                  icon={{ size: 28 }}
+                  buttonStyle={{
+                    backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
+                    justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
+                  }}
+                  textStyle={{ textAlign: 'center' }}
+                  onPress={() => this.props.navigation.navigate('Drawer')}
+                />
                 </View>
             </View>
         );
@@ -47,5 +55,10 @@ const styles = StyleSheet.create({
     }
 })
 
+const mapStateToProps = state => {
+  return {
+      tokenList: state.newWallet.tokens,
+  }
+};
 
-export default EnableTokens;
+export default connect(mapStateToProps)(EnableTokens);
