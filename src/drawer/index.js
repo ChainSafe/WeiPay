@@ -22,6 +22,7 @@ import CoinReceive from '../Screens/Main/PortfolioTabs/CoinReceive';
 import CoinActivity from '../Screens/Main/PortfolioTabs/CoinActivity';
 import TokenReceive from '../Screens/Main/PortfolioTabs/TokenReceive';
 import TokenSend from '../Screens/Main/PortfolioTabs/TokenSend';
+import AddToken from '../Screens/Main/AddToken'
 
 
 const CustomDrawerContentComponent = props => (
@@ -48,6 +49,9 @@ export default DrawerNavigator({
     })
 
   },
+  AddToken: {
+    screen: AddToken
+  },
   Settings: {
 
     //  screen: Settings,
@@ -67,5 +71,7 @@ export default DrawerNavigator({
     screen: Search
   }
 }, {
-    contentComponent: CustomDrawerContentComponent
+    contentComponent: CustomDrawerContentComponent,
+    headerMode: 'none',
+    header: false
   })

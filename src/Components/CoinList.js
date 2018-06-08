@@ -35,8 +35,8 @@ class CoinList extends Component {
 }
 
 /* Object return will show up to props */
-const mapStateToProps = ({ coins }) => {
-    return { coins }
+const mapStateToProps = ({ newWallet }) => {
+    return { coins: newWallet.coinData }
 }
 
 export default connect(mapStateToProps, null)(CoinList);

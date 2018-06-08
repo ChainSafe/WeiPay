@@ -29,7 +29,7 @@ class CreateWalletName extends Component {
     }
 
     render() {
-
+        
         // const storeWallet = async () => {
         //     console.log("store call");
         //     try {
@@ -61,27 +61,27 @@ class CreateWalletName extends Component {
 
         return (
             <View style={styles.mainContainer}>
-                <View style={styles.contentContainer} >
-                    <View style={styles.form} >
-                        <FormLabel>Enter wallet name </FormLabel>
-                        <FormInput placeholder={"Family wallet, Work Fund.."}
-                            onChangeText={this.getWalletName.bind(this)}
-                        />
-                    </View>
-                    <View style={styles.btnContainer} >
-                        <Button
-                            disabled={this.props.walletName === ""}
-                            title='Next'
-                            icon={{ size: 28 }}
-                            buttonStyle={{
-                                backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-                                justifyContent: 'center', marginBottom: 30, marginTop: 5.5
-                            }}
-                            textStyle={{ textAlign: 'center' }}
-                            onPress={this.navigate}
-                        />
-                    </View>
+              <View style={styles.contentContainer} >
+                <View style={styles.form} >
+                  <FormLabel>Enter wallet name </FormLabel>
+                  <FormInput placeholder={"Family wallet, Work Fund.."}
+                    onChangeText={this.getWalletName.bind(this)}
+                  />
                 </View>
+                <View style={styles.btnContainer} >
+                  <Button
+                    disabled={this.props.walletName === ""}
+                    title='Next'
+                    icon={{ size: 28 }}
+                    buttonStyle={{
+                      backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
+                      justifyContent: 'center', marginBottom: 30, marginTop: 5.5
+                    }}
+                    textStyle={{ textAlign: 'center' }}
+                    onPress={this.navigate}
+                  />
+                </View>
+              </View>
             </View>
         );
     }

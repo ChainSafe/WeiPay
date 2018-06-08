@@ -8,7 +8,7 @@ class AddWallet extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Add Wallet',
-      headerLeft: (
+      headerRight: (
         <Icon
           name="menu"
           onPress={() => navigation.navigate('DrawerOpen')}

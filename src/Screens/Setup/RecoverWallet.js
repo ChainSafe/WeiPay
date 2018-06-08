@@ -48,25 +48,25 @@ class RecoverWallet extends Component {
     render() {
         return (
             <View style={styles.mainContainer}>
-                <View style={styles.contentContainer} >
-                    <View style={styles.form} >
-                        <FormLabel> Enter passphrase to recover </FormLabel>
-                        <FormInput onChangeText={this.renderRecoveryKey.bind(this)} />
-                    </View>
-                    <View style={styles.btnContainer} >
-                        <Button
-                            disabled={this.state.mnemonic === ""}
-                            title='Restore'
-                            icon={{ size: 28 }}
-                            buttonStyle={{
-                                backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-                                justifyContent: 'center', marginBottom: 30, marginTop: 5.5
-                            }}
-                            textStyle={{ textAlign: 'center' }}
-                            onPress={this.navigate}
-                        />
-                    </View>
+              <View style={styles.contentContainer} >
+                <View style={styles.form} >
+                  <FormLabel> Enter passphrase to recover </FormLabel>
+                  <FormInput onChangeText={this.renderRecoveryKey.bind(this)} />
                 </View>
+                <View style={styles.btnContainer} >
+                  <Button
+                    disabled={this.state.mnemonic === ""}
+                    title='Restore'
+                    icon={{ size: 28 }}
+                    buttonStyle={{
+                      backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
+                      justifyContent: 'center', marginBottom: 30, marginTop: 5.5
+                    }}
+                    textStyle={{ textAlign: 'center' }}
+                    onPress={this.navigate}
+                  />
+                </View>
+              </View>
             </View>
         );
     }
@@ -93,5 +93,5 @@ const styles = StyleSheet.create({
 // }
 
 export default connect(null, { newWalletCreation })(RecoverWallet);
-//change the state with the 
+//change the state with the
 //export default RecoverWallet;

@@ -57,14 +57,13 @@ const navigator = StackNavigator({
   },
   PortfolioToken: {
     screen: PortfolioToken
-  },
-  AddToken: {
-    screen: AddToken
   }
 }, {
+
     headerStyle: {
       borderBottomWidth: 0
-    }
+    },
+    lazy: true
   });
 
 
