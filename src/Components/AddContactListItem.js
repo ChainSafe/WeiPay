@@ -15,14 +15,22 @@ class AddContactListItem extends Component {
     constructor() {
         super()
         this.state = {
-            addressInput: ""
+            addressInput: "",
+            value: ""
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.clearInput) {
+          this.setState({ value: "" })
         }
     }
 
     renderAddress(address, coinName) {
+
         var check = this.props.coin.title
         console.log("From AddContactListItem: " + coinName);
-
+        this.setState({value: address})
         var coinAddress = {}
         coinAddress[coinName] = address
         if (!(Object.keys(this.props.current).length === 0)) {
@@ -40,23 +48,22 @@ class AddContactListItem extends Component {
 
         return (
             <View style={styles.componentStyle}>
-                <CardSection>
+              <CardSection>
 
-                    <View style={styles.section}>
-                        <Text style={styles.title}>{coin.title} 's Address</Text>
-                        <Card
-                        >
-                            <TextInput placeholder="Enter or Paste Address here"
-                                onChangeText={(text) => this.renderAddress(text, coin.title)}
-                                ref={ref => this.state.addressInput = ref}
+                <View style={styles.section}>
+                  <Text style={styles.title}>{coin.title} 's Address</Text>
+                  <Card
+                  >
+                    <TextInput placeholder="Enter or Paste Address here"
+                      onChangeText={(text) => this.renderAddress(text, coin.title)}
+                      ref={ref => this.state.addressInput = ref}
+                      value={this.state.value}
+                    />
+                  </Card>
+                </View>
+              </CardSection>
 
-
-                            />
-                        </Card>
-                    </View>
-                </CardSection>
-
-            </ View>
+            </View>
         );
     }
 }
@@ -85,7 +92,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        current: state.contacts.currentContact
+        current: state.contacts.currentContact,
+        contacts: state.contacts.contacts,
+        clearInput: state.contacts.clearInput
     }
 };
 

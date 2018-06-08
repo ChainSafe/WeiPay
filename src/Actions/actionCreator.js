@@ -98,3 +98,9 @@ export function completeContact() {
     dispatch({ type: actionTypes.COMPLETE_CONTACT, payload: {} })
   }
 }
+
+export function clearInput() {
+  return dispatch => {
+    dispatch({ type: actionTypes.CLEAR_INPUT })
+  }
+}

@@ -30,19 +30,25 @@ class AddContactList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: ""
+            name: "",
+            value: ""
         }
         this.renderName = this.renderName.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.clearInput) {
+          this.setState({ value: "" })
+        }
+    }
+
     renderRow(coin) {
-
-        return <AddContactListItem coin={coin} />;
-
+      return <AddContactListItem coin={coin} />;
     }
 
     renderName(name) {
         console.log(name);
+        this.setState({value: name})
         var contact = { name: name }
         this.props.addingContact(contact)
         this.setState({ name: name })
@@ -50,13 +56,19 @@ class AddContactList extends Component {
     }
 
     render() {
+
         return (
             <View>
-                <TextInput textAlign={'center'} placeholder="Enter Contact Name"
-                    style={styles.NameInputStyle} onChangeText={(text) => this.renderName(text)} />
-                <View >
-                    <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false} />
-                </View>
+              <TextInput
+                textAlign={'center'}
+                placeholder="Enter Contact Name"
+                style={styles.NameInputStyle}
+                onChangeText={(text) => this.renderName(text)}
+                value={this.state.value}
+              />
+              <View >
+                <ListView dataSource={this.dataSource} renderRow={this.renderRow.bind(this)} removeClippedSubviews={false} />
+              </View>
             </View>
 
         );
@@ -84,9 +96,9 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
     return {
         tokens: state.newWallet.tokens,
-        currentContact: state.contacts.currentContact
+        currentContact: state.contacts.currentContact,
+        clearInput: state.contacts.clearInput
     }
 }
 
 export default connect(mapStateToProps, { addingContact: actions.addingContact })(AddContactList);
-

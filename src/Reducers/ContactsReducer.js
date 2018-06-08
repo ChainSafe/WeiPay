@@ -1,17 +1,17 @@
 import * as actions from '../Actions/actionTypes';
 
 const INITIAL_STATE = {
-
-    contacts: [],
-    currentContact: {},
-    addingContact: true,
-
+  contacts: [],
+  currentContact: {},
+  addingContact: true,
+  clearInput: false
 }
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case actions.ADDING_CONTACT:
             var contact = state.currentContact;
+
             //Object.keys(contact)[0]
 
             const actionKey = Object.keys(action.payload)[0]
@@ -30,9 +30,13 @@ export default (state = INITIAL_STATE, action) => {
 
         case actions.COMPLETE_CONTACT:
             var old = state.contacts
-            old.push(state.currentContact)
 
-            return { ...state, currentContact: action.payload, contacts: old }
+            // old.push(state.currentContact)
+            // [...old, state.currentContact]
+
+            return { ...state, currentContact: action.payload, contacts: [...old, state.currentContact], clearInput: true}
+        case actions.CLEAR_INPUT:
+          return { ...state, clearInput: true }
 
         default:
             return state;

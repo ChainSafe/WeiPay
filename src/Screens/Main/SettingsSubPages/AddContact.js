@@ -6,7 +6,7 @@ import AddContactList from '../../../Components/AddContactList';
 import addContactAction from '../../../Actions/actionCreator';
 import { Card } from '../../../Components/common/Card';
 import { CardSection } from '../../../Components/common/CardSection';
-import * as action from '../../../Actions/actionCreator';
+import * as actions from '../../../Actions/actionCreator';
 
 class AddContact extends Component {
 
@@ -20,6 +20,10 @@ class AddContact extends Component {
     this.props.completeContact();
   }
 
+  clear() {
+    this.props.clearInput()
+  }
+
 
   render() {
     console.log(this.props);
@@ -28,7 +32,7 @@ class AddContact extends Component {
       <View style={{ flex: 1, paddingTop: 3 }}>
 
 
-        <AddContactList />
+        <AddContactList value={this.value}/>
 
 
         <View style={styles.btnContainer} >
@@ -51,7 +55,7 @@ class AddContact extends Component {
                 justifyContent: 'center', alignItems: 'center', marginBottom: 5.5, marginTop: 5.5
               }}
               textStyle={{ textAlign: 'center' }}
-              onPress={this.navigate}
+              onPress={() => this.clear()}
             />
           </View>
         </View>
@@ -87,5 +91,5 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { completeContact: action.completeContact })(AddContact)
+export default connect(mapStateToProps, actions)(AddContact)
 //export default AddContact;

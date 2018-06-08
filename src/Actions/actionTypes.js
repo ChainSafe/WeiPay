@@ -24,3 +24,4 @@ export const SELECT_WALLET_LANGUAGE = 'select_wallet_language';
 export const ADD_CONTACT = 'adding_contacts';
 export const ADDING_CONTACT = 'adding_contact';
 export const COMPLETE_CONTACT = 'complete_contact';
+export const CLEAR_INPUT = 'clear_input'
