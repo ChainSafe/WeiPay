@@ -24,7 +24,7 @@ class LanguageList extends Component {
   }
 
   renderName(name) {
-    console.log(name);
+    // console.log(name);
 
   }
 

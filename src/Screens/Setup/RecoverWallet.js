@@ -37,12 +37,14 @@ class RecoverWallet extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            mnemonic: ""
+            mnemonic: "",
+            value: ""
         }
     }
 
     renderRecoveryKey(mnemonicInput) {
-        this.setState({ mnemonic: mnemonicInput });
+        this.setState({ value: mnemonicInput.toLowerCase() })
+        this.setState({ mnemonic: mnemonicInput.toLowerCase() });
     }
 
     render() {
@@ -51,7 +53,10 @@ class RecoverWallet extends Component {
               <View style={styles.contentContainer} >
                 <View style={styles.form} >
                   <FormLabel> Enter passphrase to recover </FormLabel>
-                  <FormInput onChangeText={this.renderRecoveryKey.bind(this)} />
+                  <FormInput
+                    onChangeText={this.renderRecoveryKey.bind(this)}
+                    value={this.state.value}
+                  />
                 </View>
                 <View style={styles.btnContainer} >
                   <Button

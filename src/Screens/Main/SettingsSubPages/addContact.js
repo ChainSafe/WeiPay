@@ -13,6 +13,9 @@ class AddContact extends Component {
   constructor(props) {
     super(props);
     this.renderAddContact = this.renderAddContact.bind(this);
+    this.state = {
+      disabled: true
+    }
   }
 
 
@@ -26,18 +29,16 @@ class AddContact extends Component {
 
 
   render() {
-    console.log(this.props);
 
+
+    console.log("DIASABLLEEDDDD", this.state.disabled)
     return (
       <View style={{ flex: 1, paddingTop: 3 }}>
-
-
-        <AddContactList value={this.value}/>
-
-
+        <AddContactList value={this.value} disableFalse={() => this.setState({ disabled: false })}/>
         <View style={styles.btnContainer} >
           <View style={{ flexDirection: 'row' }}>
             <Button
+              disabled={this.state.disabled}
               title='Add Contact'
               icon={{ size: 20 }}
               buttonStyle={{

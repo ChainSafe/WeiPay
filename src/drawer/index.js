@@ -5,7 +5,7 @@ import Portfolio from '../Screens/Main/Portfolio';
 import BackupPhrase from '../Screens/Main/BackupPhrase';
 import AddWallet from '../Screens/Main/AddWallet';
 import Contacts from '../Screens/Main/Contacts';
-import AddContact from '../Screens/Main/SettingsSubPages/AddContact';
+import addContact from '../Screens/Main/SettingsSubPages/addContact';
 
 import Settings from '../Screens/Main/Settings';
 
@@ -44,8 +44,21 @@ export default DrawerNavigator({
   Contacts: {
     screen: TabNavigator({
       contacts: { screen: Contacts },
-      AddContact: { screen: AddContact }
+      AddContact: { screen: addContact }
 
+    },{
+      navigationOptions: {
+        headerStyle: {
+          borderBottomWidth: 0,
+        }
+      },
+      tabBarPosition: 'top',
+      tabBarOptions: {
+        labelStyle: { fontSize: 16, marginBottom: 13 },
+        style: {
+          borderTopColor: 'transparent'
+        }
+      }
     })
 
   },

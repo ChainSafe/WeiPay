@@ -32,36 +32,36 @@ class CreateOrRestore extends Component {
     render() {
         return (
             <View style={styles.mainContainer}>
-                <View style={styles.contentContainer} >
+              <View style={styles.contentContainer} >
 
-                    <View style={styles.companyDisplayContainer} >
-                        <Image style={styles.logo} source={require('../../Assets/images/eth.png')} />
-                        <Text style={styles.pageTitle} > WeiPay </Text>
-                        <Text style={styles.pageDescription} > First digital offline crypto wallet </Text>
-                    </View>
+                <View style={styles.companyDisplayContainer} >
+                  <Image style={styles.logo} source={require('../../Assets/images/eth.png')} />
+                  <Text style={styles.pageTitle} > WeiPay </Text>
+                  <Text style={styles.pageDescription} > First digital offline crypto wallet </Text>
+                </View>
 
-                    <View style={styles.btnContainer} >
-                        <Button
-                            title='Create Wallet'
-                            icon={{ size: 28 }}
-                            buttonStyle={{
-                                backgroundColor: 'blue', borderRadius: 10, width: 250, height: 40, alignItems: 'center',
-                                justifyContent: 'center', marginBottom: 3.5, marginTop: 3.5
-                            }}
-                            textStyle={{ textAlign: 'center' }}
-                            onPress={this.navigateCreate}
-                        />
-                        <Button
-                            title='Restore Wallet'
-                            icon={{ size: 28 }}
-                            buttonStyle={{
-                                backgroundColor: 'blue', borderRadius: 10, width: 250, height: 40, alignItems: 'center',
-                                justifyContent: 'center', marginBottom: 3.5, marginTop: 5.5
-                            }}
-                            textStyle={{ textAlign: 'center' }}
-                            onPress={this.navigateRestore}
-                        />
-                    </View>
+                <View style={styles.btnContainer} >
+                  <Button
+                    title='Create Wallet'
+                    icon={{ size: 28 }}
+                    buttonStyle={{
+                      backgroundColor: 'blue', borderRadius: 10, width: 250, height: 40, alignItems: 'center',
+                      justifyContent: 'center', marginBottom: 3.5, marginTop: 3.5
+                    }}
+                    textStyle={{ textAlign: 'center' }}
+                    onPress={this.navigateCreate}
+                  />
+                  <Button
+                    title='Restore Wallet'
+                    icon={{ size: 28 }}
+                    buttonStyle={{
+                      backgroundColor: 'blue', borderRadius: 10, width: 250, height: 40, alignItems: 'center',
+                      justifyContent: 'center', marginBottom: 3.5, marginTop: 5.5
+                    }}
+                    textStyle={{ textAlign: 'center' }}
+                    onPress={this.navigateRestore}
+                  />
+                </View>
                 </View>
             </View>
         );

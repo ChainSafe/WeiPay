@@ -1,40 +1,43 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, TouchableHighlight, TextInput } from 'react-native';
-import { CardSection } from './common/CardSection';
-import { Card } from './common/Card';
+import CardSection from './common/CardSection';
+import Card from './common/Card';
 import { Input } from './common/Input';
 import { CheckBox } from 'react-native-elements'
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import *  as actions from '../Actions/actionCreator.js';
+import *  as actions from '../Actions/actionCreator';
 
 
 class AddContactListItem extends Component {
-
 
     constructor() {
         super()
         this.state = {
             addressInput: "",
-            value: ""
+            value: "",
+
         }
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log('NEXT PROPS!!!!', nextProps)
         if (nextProps.clearInput) {
           this.setState({ value: "" })
         }
     }
 
+
+
     renderAddress(address, coinName) {
 
         var check = this.props.coin.title
-        console.log("From AddContactListItem: " + coinName);
+        // console.log("From AddContactListItem: " + coinName);
         this.setState({value: address})
         var coinAddress = {}
         coinAddress[coinName] = address
         if (!(Object.keys(this.props.current).length === 0)) {
-            console.log("This is from AddContactListItem: ");
+            // console.log("This is from AddContactListItem: ");
             this.setState({ addressInput: address })
             this.props.addingContact(coinAddress)
         } else {

@@ -8,43 +8,43 @@ const INITIAL_STATE = {
 }
 
 export default (state = INITIAL_STATE, action) => {
-    switch (action.type) {
-        case actions.ADDING_CONTACT:
-            var contact = state.currentContact;
+  switch (action.type) {
+    case actions.ADDING_CONTACT:
+      var contact = state.currentContact;
 
-            //Object.keys(contact)[0]
+      //Object.keys(contact)[0]
 
-            const actionKey = Object.keys(action.payload)[0]
-            const actionKeyValue = action.payload[Object.keys(action.payload)[0]]
+      const actionKey = Object.keys(action.payload)[0]
+      const actionKeyValue = action.payload[Object.keys(action.payload)[0]]
 
-            if (actionKey in contact) {
-                contact[actionKey] = actionKeyValue
-            } else {
-                contact[actionKey] = actionKeyValue
-            }
+      if (actionKey in contact) {
+          contact[actionKey] = actionKeyValue
+      } else {
+          contact[actionKey] = actionKeyValue
+      }
 
-            console.log("Contact Details: ");
-            console.log(contact);
+      // console.log("Contact Details: ");
+      // console.log(contact);
 
-            return { ...state, currentContact: contact }
+      return { ...state, currentContact: contact }
 
-        case actions.COMPLETE_CONTACT:
-            var old = state.contacts
+  case actions.COMPLETE_CONTACT:
+      var old = state.contacts
 
-            // old.push(state.currentContact)
-            // [...old, state.currentContact]
+      // old.push(state.currentContact)
+      // [...old, state.currentContact]
 
-            return { ...state, currentContact: action.payload, contacts: [...old, state.currentContact], clearInput: true}
-        case actions.CLEAR_INPUT:
-          return { ...state, clearInput: true }
+      return { ...state, currentContact: action.payload, contacts: [...old, state.currentContact], clearInput: true}
+  case actions.CLEAR_INPUT:
+    return { ...state, clearInput: true }
 
-        default:
-            return state;
-    }
-    console.log("Total Contacts: ");
-    console.log(state.contacts);
-    console.log("Currenct Contact: ");
-    console.log(state.currentContact);
+  default:
+      return state;
+  }
+    // console.log("Total Contacts: ");
+    // console.log(state.contacts);
+    // console.log("Currenct Contact: ");
+    // console.log(state.currentContact);
 
 
 

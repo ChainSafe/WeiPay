@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { ListView, StyleSheet, View, Text, TextInput } from 'react-native';
 import { connect } from 'react-redux';
-import { CardSection } from './common/CardSection';
-import { Card } from './common/Card';
+import CardSection from './common/CardSection';
+import Card from './common/Card';
 import ListItem from './ListItem';
 import addContactAction from '../Actions/actionCreator';
 import *  as actions from '../Actions/actionCreator.js';
@@ -43,27 +43,24 @@ class AddContactList extends Component {
     }
 
     renderRow(coin) {
-      return <AddContactListItem coin={coin} />;
+      return <AddContactListItem coin={coin} parentValue={this.state.value}/>;
     }
 
     renderName(name) {
-        console.log(name);
         this.setState({value: name})
         var contact = { name: name }
         this.props.addingContact(contact)
         this.setState({ name: name })
-
     }
 
     render() {
-
         return (
             <View>
               <TextInput
                 textAlign={'center'}
                 placeholder="Enter Contact Name"
                 style={styles.NameInputStyle}
-                onChangeText={(text) => this.renderName(text)}
+                onChangeText={text => this.renderName(text)}
                 value={this.state.value}
               />
               <View >

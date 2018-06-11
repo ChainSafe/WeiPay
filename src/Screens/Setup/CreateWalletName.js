@@ -29,7 +29,7 @@ class CreateWalletName extends Component {
     }
 
     render() {
-        
+
         // const storeWallet = async () => {
         //     console.log("store call");
         //     try {
