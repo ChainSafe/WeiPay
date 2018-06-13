@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { ListView, View, Text, StyleSheet, TextInput } from 'react-native';
 import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import AddContactList from '../../../Components/AddContactList';
@@ -12,33 +12,71 @@ class AddContact extends Component {
 
   constructor(props) {
     super(props);
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    const data = this.props.tokens.map(token => {
+                  token.value = ""
+                  return token
+                })
     this.renderAddContact = this.renderAddContact.bind(this);
     this.state = {
-      disabled: true
+      disabled: true,
+      clear: false,
+      contactName: "",
+      contactAddress: "",
+      dataSource: ds.cloneWithRows(data)
     }
   }
 
 
   renderAddContact() {
     this.props.completeContact();
+    this.setState({ contactName: "" })
+    this.setState({ contactAddress: "" })
   }
 
   clear() {
-    this.props.clearInput()
+    this.setState({ contactName: "" })
+    this.setState({ contactAddress: "" })
   }
 
+  renderName(name) {
+      this.setState({contactName: name})
+      var contact = { name: name }
+      this.props.addingContact(contact)
+  }
 
+  renderAddress(address, coinName, coin) {
+    // const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    //
+    // const data =
+    //   this.props.tokens.map(token => {
+    //     if ( coinName === token.title ) {
+    //       token.value = address
+    //     }
+    //     return token
+    //   })
+    // this.setState({ dataSource: ds.cloneWithRows(data) })
+    this.setState({ contactAddress: address })
+    var coinAddress = {}
+    coinAddress[coinName] = address
+    this.props.addingContact(coinAddress)
+  }
+
+// clear button, types into inputs, that value should be passed to the parent, clear in parent state to null
   render() {
-
-
-    console.log("DIASABLLEEDDDD", this.state.disabled)
     return (
       <View style={{ flex: 1, paddingTop: 3 }}>
-        <AddContactList value={this.value} disableFalse={() => this.setState({ disabled: false })}/>
+        <AddContactList
+          contactName={this.state.contactName}
+          dataSource={this.state.dataSource}
+          contactAddress={this.state.contactAddress}
+          renderAddress={this.renderAddress.bind(this)}
+          renderName={this.renderName.bind(this)}
+        />
         <View style={styles.btnContainer} >
           <View style={{ flexDirection: 'row' }}>
             <Button
-              disabled={this.state.disabled}
+              disabled={this.state.contactName === "" || this.state.contactAddress === ""}
               title='Add Contact'
               icon={{ size: 20 }}
               buttonStyle={{
@@ -88,7 +126,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    currenctContact: state.contacts.currenctContact
+    tokens: state.newWallet.tokens,
+    currenctContact: state.contacts.currenctContact,
+    current: state.contacts.currentContact,
   }
 }
 

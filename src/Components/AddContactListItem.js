@@ -58,9 +58,9 @@ class AddContactListItem extends Component {
                   <Card
                   >
                     <TextInput placeholder="Enter or Paste Address here"
-                      onChangeText={(text) => this.renderAddress(text, coin.title)}
+                      onChangeText={(text) => this.props.createContactAddresses(text, coin.title)}
                       ref={ref => this.state.addressInput = ref}
-                      value={this.state.value}
+                      value={this.props.contactAddress}
                     />
                   </Card>
                 </View>
@@ -97,9 +97,10 @@ const mapStateToProps = state => {
     return {
         current: state.contacts.currentContact,
         contacts: state.contacts.contacts,
-        clearInput: state.contacts.clearInput
+        clearInput: state.contacts.clearInput,
+        contactAddress: state.contacts.contactAddress
     }
 };
 
-export default connect(mapStateToProps, { addingContact: actions.addingContact })(AddContactListItem)
+export default connect(mapStateToProps, actions)(AddContactListItem)
 //export default AddContactListItem;

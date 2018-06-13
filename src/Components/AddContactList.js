@@ -10,61 +10,90 @@ import AddContactListItem from './AddContactListItem';
 
 class AddContactList extends Component {
 
-    componentWillMount() {
-        let data = this.props.tokens
-
-        if (this.props.type === 'tokens') {
-            data = this.props.tokens.filter(coin => coin.type === 'PortfolioCoin')
-        } else if (this.props.type === 'tokens') {
-            data = this.props.tokens.filter(coin => coin.type === 'PortfolioToken')
-        }
-
-        const ds = new ListView.DataSource({
-            rowHasChanged: (r1, r2) => r1 !== r2
-        });
-
-        //this passes in the AddContactList.json file via reducer -> state -> connect -> mapstatetoprops
-        this.dataSource = ds.cloneWithRows(data);
-    }
-
     constructor(props) {
         super(props);
+
+        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
         this.state = {
             name: "",
-            value: ""
+            nameValue: "",
+            coinValue: "",
+            dataSource: ds.cloneWithRows(this.props.tokens),
+
         }
-        this.renderName = this.renderName.bind(this);
+
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.clearInput) {
-          this.setState({ value: "" })
-        }
+    componentDidMount() {
+      let copyTokens = this.props.tokens.slice(0).map(token => { return {...token, value: ""}})
+      this.props.createContactAddresses(copyTokens)
     }
+
+    // componentWillReceiveProps(nextProps) {
+    //
+    //   if (nextProps.contactName === "" && nextProps.contactAddress === "") {
+    //
+    //     let data = nextProps.tokens.map(token => {
+    //                   token.value = ""
+    //                   return token
+    //                 })
+    //
+    //     const ds = new ListView.DataSource({
+    //         rowHasChanged: (r1, r2) => r1 !== r2
+    //     });
+    //
+    //     //this passes in the AddContactList.json file via reducer -> state -> connect -> mapstatetoprops
+    //     this.dataSource = ds.cloneWithRows(data);
+    //     this.setState({ dataSource: this.dataSource});
+    //   }
+    // }
+
 
     renderRow(coin) {
-      return <AddContactListItem coin={coin} parentValue={this.state.value}/>;
+
+      return (
+          <View style={styles.componentStyle}>
+            <CardSection>
+              <View style={styles.section}>
+                <Text style={styles.title}>{coin.title} 's Address</Text>
+                <Card
+                >
+                  <TextInput
+                    placeholder="Enter or Paste Address here"
+                    onChangeText={(text) => this.props.renderAddress(text, coin.title, coin)}
+                    ref={ref => this.props.contactAddress = ref}
+                    value={this.props.contactAddress}
+                    key={this.props.contactAddress}
+                  />
+                </Card>
+              </View>
+            </CardSection>
+
+          </View>
+      )
     }
 
-    renderName(name) {
-        this.setState({value: name})
-        var contact = { name: name }
-        this.props.addingContact(contact)
-        this.setState({ name: name })
-    }
+
 
     render() {
+
         return (
             <View>
               <TextInput
                 textAlign={'center'}
                 placeholder="Enter Contact Name"
                 style={styles.NameInputStyle}
-                onChangeText={text => this.renderName(text)}
-                value={this.state.value}
+                onChangeText={text => this.props.renderName(text)} //this.props.upDateContactName
+                value={this.props.contactName} //this.props.contactName
               />
               <View >
-                <ListView dataSource={this.dataSource} renderRow={this.renderRow.bind(this)} removeClippedSubviews={false} />
+                <ListView
+                  contactAddress={this.props.contactAddress}
+                  dataSource={this.state.dataSource}
+                  renderRow={this.renderRow.bind(this)}
+                  removeClippedSubviews={false}
+                />
               </View>
             </View>
 
@@ -86,6 +115,23 @@ const styles = StyleSheet.create({
         backgroundColor: 'red',
         fontSize: 15,
         width: '100 %', backgroundColor: 'white'
+    },
+    title: {
+        fontWeight: "bold",
+        fontSize: 13,
+        color: "black",
+        textShadowRadius: 3
+    },
+
+    section: {
+        flex: 1,
+        flexDirection: 'column'
+    },
+
+    componentStyle: {
+        paddingTop: 3,
+        paddingLeft: 2,
+        paddingRight: 2
     }
 });
 
@@ -94,8 +140,10 @@ const mapStateToProps = state => {
     return {
         tokens: state.newWallet.tokens,
         currentContact: state.contacts.currentContact,
-        clearInput: state.contacts.clearInput
+        clearInput: state.contacts.clearInput,
+        current: state.contacts.currentContact,
+
     }
 }
 
-export default connect(mapStateToProps, { addingContact: actions.addingContact })(AddContactList);
+export default connect(mapStateToProps, actions)(AddContactList);

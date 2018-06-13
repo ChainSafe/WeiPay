@@ -4,7 +4,9 @@ const INITIAL_STATE = {
   contacts: [],
   currentContact: {},
   addingContact: true,
-  clearInput: false
+  clearInput: false,
+  contactName: "",
+  contactAddress: {}
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -27,7 +29,10 @@ export default (state = INITIAL_STATE, action) => {
       // console.log(contact);
 
       return { ...state, currentContact: contact }
-
+  case actions.CONTACT_NAME:
+    return { ...state, contactName: action.payload }
+  case actions.CONTACT_ADDRESS:
+    return { ...state, contactAddress: action.payload }
   case actions.COMPLETE_CONTACT:
       var old = state.contacts
 
@@ -36,7 +41,7 @@ export default (state = INITIAL_STATE, action) => {
 
       return { ...state, currentContact: action.payload, contacts: [...old, state.currentContact], clearInput: true}
   case actions.CLEAR_INPUT:
-    return { ...state, clearInput: true }
+    return { ...state, contactName: "", contactAddress: "" }
 
   default:
       return state;

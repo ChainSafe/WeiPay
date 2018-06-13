@@ -104,3 +104,16 @@ export function clearInput() {
     dispatch({ type: actionTypes.CLEAR_INPUT })
   }
 }
+
+export function createContactName(name) {
+  return dispatch => {
+    dispatch({ type: actionTypes.CONTACT_NAME, payload: name})
+  }
+}
+
+export function createContactAddresses(addresses, coinType) {
+
+  return dispatch => {
+    dispatch({ type: actionTypes.CONTACT_ADDRESS, payload: addresses})
+  }
+}
