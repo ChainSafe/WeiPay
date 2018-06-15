@@ -80,7 +80,7 @@ class ConfirmPassphrase extends Component {
         // const { scrambledTags, selectedTags } = this.state;
         // var passphraseIncomplete = true;
         // var count = 0;
-        //
+
         // //check if all the tags have been selected
         // if (scrambledTags.length == 0) {
         //     console.log("all selected");
@@ -160,12 +160,6 @@ class ConfirmPassphrase extends Component {
                     <View style={styles.btnContainer} >
                         <TouchableOpacity style={styles.btn} onPress={this.validatePassphrase}>
                             <Text style={styles.btnText}> Next</Text>
-                            {/* <Button
-                                title='Next'
-                                icon={{ size: 28 }}
-                               
-                                style={{ fontSize: 30 }}
-                            /> */}
                         </TouchableOpacity>
                     </View>
                 </View>
