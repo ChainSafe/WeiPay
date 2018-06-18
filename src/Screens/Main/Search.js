@@ -7,11 +7,13 @@ class Search extends Component {
     return {
       title: 'Search',
       headerRight: (
-        <Icon
-          name="menu"
-          onPress={() => navigation.navigate('DrawerOpen')}
-          title="SideMenu"
-        />
+        <View style={{ paddingRight: 15 }}>
+          <Icon
+            name="menu"
+            onPress={() => navigation.navigate('DrawerOpen')}
+            title="SideMenu"
+          />
+        </View>
       )
     }
   }

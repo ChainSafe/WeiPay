@@ -15,15 +15,18 @@ class CustomButton extends Component {
   render() {
     return (
       <View style={styles.NavBarButton}>
-        <Icon
-          name="search"
-          onPress={() => this.props.navigation.navigate('search')}
-        />
+        <View style={{ paddingRight: 5 }}>
+          <Icon
+            name="search"
+            onPress={() => this.props.navigation.navigate('search')}
+          />
+        </View>
+        {/*
         <Icon
           name="menu"
           onPress={() => this.navigate()}
           title="SideMenu"
-        />
+        /> */}
       </View>
     )
   }
@@ -31,26 +34,26 @@ class CustomButton extends Component {
 
 class BackButton extends Component {
   navigate = () => {
-      debugger
-      const navigateToPassphrase = NavigationActions.reset({
-        index: 0,
-        actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
-      });
-      this.props.navigation.dispatch(navigateToPassphrase);
+    debugger
+    const navigateToPassphrase = NavigationActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
+    });
+    this.props.navigation.dispatch(navigateToPassphrase);
   };
 
   render() {
     return (
-        <Icon
-          name='chevron-left'
-          size={35}
-          color='#007AFF'
-          onPress={() => this.props.navigate('Drawer')}
-        />
+      <Icon
+        name='chevron-left'
+        size={35}
+        color='#007AFF'
+        onPress={() => this.props.navigate('Drawer')}
+      />
     )
   }
 }
-{/* <BackButton navigation={navigation} /> */}
+{/* <BackButton navigation={navigation} /> */ }
 class Coins extends Component {
 
 
@@ -74,21 +77,20 @@ class Coins extends Component {
     }
   }
 
-    navigate = () => {
-        const navigateToPassphrase = NavigationActions.reset({
-          index: 0,
-          actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
-        });
-        this.props.navigation.dispatch(navigateToPassphrase);
-    };
+  navigate = () => {
+    const navigateToPassphrase = NavigationActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
+    });
+    this.props.navigation.dispatch(navigateToPassphrase);
+  };
 
 
 
   render() {
     return (
       <View style={{ flex: 1 }}>
-
-        <CoinList type={'coins'}/>
+        <CoinList type={'coins'} />
       </View>
     )
   }
@@ -98,7 +100,7 @@ const styles = StyleSheet.create({
   NavBarButton: {
     flex: 1,
     flexDirection: 'row',
-    padding: '5%'
+    padding: 10
   },
   item: {
     padding: 10,

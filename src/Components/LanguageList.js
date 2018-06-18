@@ -23,17 +23,11 @@ class LanguageList extends Component {
     this.setState({ data });
   }
 
-  renderName(name) {
-    // console.log(name);
-
-  }
-
   render() {
     // let selectedButton = this.state.data.find(e => e.selected == true);
     // selectedButton = selectedButton ? selectedButton.value : this.state.data[0].label;
     return (
-
-      <ScrollView contentContainerstyle={styles.container}>
+      <ScrollView contentContainerstyle={styles.container} >
         <CardSection>
           <RadioGroup radioButtons={this.state.data} onPress={this.renderSelect.bind(this)} />
         </CardSection>
@@ -46,7 +40,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between',
-    marginBottom: 100
+    marginBottom: 100,
+    //backgroundColor: '#E9E9EF',
   }
 });
 

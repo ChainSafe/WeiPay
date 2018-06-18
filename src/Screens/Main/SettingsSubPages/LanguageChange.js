@@ -22,14 +22,9 @@ class LanguageChange extends Component {
     };
 
     render() {
-
-
         return (
-
-            <View style={{ flex: 1 }}>
-
-                <LanguageList />
-
+            <View style={styles.pageContainer} >
+                <LanguageList noBorder />
                 <View style={styles.btnContainer} >
                     <Button
                         title='Update'
@@ -42,32 +37,19 @@ class LanguageChange extends Component {
                         onPress={this.navigate}
                     />
                 </View>
-
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    // mainContainer: {
-    //     flex: 1, alignItems: 'center', justifyContent: 'flex-start'
-    // },
-    // contentContainer: {
-    //     marginTop: 25,
-    // },
-    // btnContainer: {
-    //     flex: 1, justifyContent: 'flex-end', alignItems: 'center'
-    // },
-    // formInputElement: {
-    // },
-    // list: {
-    //     flex: 1, flexGrow: 1
-    // }
-
+    pageContainer: {
+        flex: 1,
+        backgroundColor: 'white'
+    },
     btnContainer: {
-        alignItems: 'center', height: 60, paddingTop: 10, paddingBottom: 10, justifyContent: "center"
+        alignItems: 'center', height: 80, paddingTop: 10, paddingBottom: 10, justifyContent: "center"
     }
-
 })
 
 function mapStateToProps({ language }) {
@@ -75,41 +57,3 @@ function mapStateToProps({ language }) {
 }
 
 export default LanguageChange;
-
-
-{/* <List style={styles.list} >
-                  {
-                    list.map((item, i) => (
-                  <TouchableOpacity
-                  key={item.id}
-                  onPress={() => this.navigate}
-                  >
-                  <ListItem
-                  key={i}
-                  title={item.title}
-                  leftIcon={{ name: item.icon }}
-                  />
-                  </TouchableOpacity>
-                    ))
-                  }
-
-                </List> */}
-        //
-        // const list = [
-        //     {
-        //         "title": "English",
-        //         "id": "changePassword"
-        //     },
-        //     {
-        //         "title": "Spanish",
-        //         "id": "language"
-        //     },
-        //     {
-        //         "title": "Mandarin",
-        //         "id": "currency"
-        //     },
-        //     {
-        //         "title": "German",
-        //         "id": "walletame"
-        //     },
-        // ];
