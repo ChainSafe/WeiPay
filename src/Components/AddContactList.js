@@ -77,7 +77,7 @@ class AddContactList extends Component {
 
 
     render() {
-
+        console.log(this.props.key)
         return (
             <View>
               <TextInput
@@ -89,6 +89,7 @@ class AddContactList extends Component {
               />
               <View >
                 <ListView
+                  // key={this.props.key}
                   contactAddress={this.props.contactAddress}
                   dataSource={this.state.dataSource}
                   renderRow={this.renderRow.bind(this)}

@@ -18,23 +18,29 @@ class AddContact extends Component {
                   return token
                 })
     this.renderAddContact = this.renderAddContact.bind(this);
+    let key = Math.random()
     this.state = {
       disabled: true,
       clear: false,
       contactName: "",
       contactAddress: "",
-      dataSource: ds.cloneWithRows(data)
+      dataSource: ds.cloneWithRows(data),
+      key
     }
   }
 
 
   renderAddContact() {
     this.props.completeContact();
+    let key = Math.random()
+    this.setState({ key })
     this.setState({ contactName: "" })
     this.setState({ contactAddress: "" })
   }
 
   clear() {
+    let key = Math.random()
+    this.setState({ key })
     this.setState({ contactName: "" })
     this.setState({ contactAddress: "" })
   }
@@ -67,6 +73,7 @@ class AddContact extends Component {
     return (
       <View style={{ flex: 1, paddingTop: 3 }}>
         <AddContactList
+          key={this.state.key}
           contactName={this.state.contactName}
           dataSource={this.state.dataSource}
           contactAddress={this.state.contactAddress}

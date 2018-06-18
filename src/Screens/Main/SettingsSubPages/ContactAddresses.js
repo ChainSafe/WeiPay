@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput, ListView, StyleSheet, Button } from 'react-native';
+import { Text, View, TextInput, ListView, StyleSheet } from 'react-native';
 import CardSection from '../../../Components/common/Card';
 import Card from '../../../Components/common/Card';
+import { Button } from 'react-native-elements'
 import { NavigationActions } from 'react-navigation';
 
 class ContactAddresses extends Component {
@@ -27,7 +28,7 @@ class ContactAddresses extends Component {
         routeName: 'PortfolioCoin',
         params: { address }
     });
-      
+
     this.props.navigation.dispatch(navigateToCreateOrRestore);
   };
 
@@ -35,15 +36,20 @@ class ContactAddresses extends Component {
     return (
       <View>
         <CardSection>
-          <Text style={styles.title}>{Object.keys(address)[0]}'s Address</Text>
-          <Card>
-
-            <TextInput
-              placeholder="Enter or Paste Address here"
-              onChangeText={(text) => this.renderAddress(text)}
-              value={address[Object.keys(address)[0]]}
+          <View style={styles.address}>
+            <Text style={styles.title}>{Object.keys(address)[0]}'s Address</Text>
+            <Button
+              title="Send"
+              titleStyle={{fontWeight: '700', color: 'black', fontSize: 5}}
+              buttonStyle={{backgroundColor: 'blue', borderColor: 'blue', borderWidth: 0, borderRadius: 10, height: 15}}
+              containerStyle={{width: 130}}
+              onPress={() => this.navigate(address[Object.keys(address)[0]])}
             />
-            <Button title="Send" onPress={() => this.navigate(address[Object.keys(address)[0]])}/>
+          </View>
+          <Card>
+            <Text>
+              {address[Object.keys(address)[0]]}
+            </Text>
           </Card>
         </CardSection>
       </View>
@@ -61,10 +67,14 @@ class ContactAddresses extends Component {
 
 const styles = StyleSheet.create({
   title: {
-      fontWeight: "bold",
-      fontSize: 13,
-      color: "black",
-      textShadowRadius: 3
+    fontWeight: "bold",
+    fontSize: 13,
+    color: "black",
+    textShadowRadius: 3
+  },
+  address: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   }
 })
 
