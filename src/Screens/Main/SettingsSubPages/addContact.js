@@ -83,6 +83,7 @@ class AddContact extends Component {
         <View style={styles.btnContainer} >
           <View style={{ flexDirection: 'row' }}>
             <Button
+              small
               disabled={this.state.contactName === "" || this.state.contactAddress === ""}
               title='Add Contact'
               icon={{ size: 20 }}
@@ -94,6 +95,7 @@ class AddContact extends Component {
               onPress={() => this.renderAddContact()}
             />
             <Button
+              small
               title='Clear'
               icon={{ size: 20 }}
               buttonStyle={{
