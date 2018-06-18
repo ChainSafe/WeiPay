@@ -15,7 +15,7 @@ import Drawer from '../drawer';
 import PortfolioCoin from '../Screens/Main/PortfolioTabs/PortfolioCoin';
 import PortfolioToken from '../Screens/Main/PortfolioTabs/PortfolioToken';
 import AddToken from '../Screens/Main/AddToken';
-import addContact from '../Screens/Main/SettingsSubPages/addContact';
+import ContactAdd from '../Screens/Main/SettingsSubPages/ContactAdd';
 import contacts from '../Screens/Main/Contacts';
 import ContactAddresses from '../Screens/Main/SettingsSubPages/ContactAddresses';
 
@@ -23,8 +23,8 @@ const navigator = StackNavigator({
   terms: {
     screen: TermsScreen
   },
-  AddContact: {
-    screen: addContact
+  contactAdd: {
+    screen: ContactAdd
   },
   contacts: {
     screen: contacts
