@@ -18,8 +18,10 @@ import PortfolioToken from '../Screens/Main/PortfolioTabs/PortfolioToken';
 import AddToken from '../Screens/Main/AddToken';
 import addContact from '../Screens/Main/SettingsSubPages/addContact';
 import contacts from '../Screens/Main/Contacts';
+import ContactAddresses from '../Screens/Main/SettingsSubPages/ContactAddresses';
 import QrCodeScanner from '../Screens/Main/PortfolioTabs/QrCodeScanner';
 import CoinSend from '../Screens/Main/PortfolioTabs/CoinSend'
+
 
 const navigator = StackNavigator({
   terms: {
@@ -61,6 +63,9 @@ const navigator = StackNavigator({
   PortfolioToken: {
     screen: PortfolioToken
   },
+  contactAddresses: {
+    screen: ContactAddresses
+
   QCodeScanner: {
     screen: QrCodeScanner
   },
