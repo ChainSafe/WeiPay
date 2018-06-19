@@ -19,7 +19,8 @@ class CoinSend extends Component {
     this.state = {
       toAddress: "",
       value: 0,
-      resetInput: false
+      resetInput: false,
+      inputValue: ""
     }
 
     //console.log(this.props.walletName);
@@ -67,10 +68,19 @@ class CoinSend extends Component {
     //   });
     // });
   }
+  componentWillMount() {
+
+    let contactAddress = this.props.navigation.state.params.address
+    if ( contactAddress ) {
+      this.setState({ inputValue: contactAddress })
+    }
+
+  }
 
   renderAddress(addressInput) {
     var add = addressInput.trim();
     console.log(add)
+    this.setState({ inputValue: add })
     this.setState({ toAddress: add });
   }
 
@@ -144,6 +154,7 @@ class CoinSend extends Component {
             <FormInput style={styles.formInputElement}
               onChangeText={this.renderAddress.bind(this)}
               ref={ref => this.inputAddress = ref}
+              value={this.state.inputValue}
             />
             <FormLabel> Amount </FormLabel>
             <FormInput style={styles.formInputElement}

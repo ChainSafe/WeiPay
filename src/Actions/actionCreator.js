@@ -87,9 +87,33 @@ export function recoverPassphrase(passphrase) {
   }
 }
 
-
-export function addContact(contact) {
+export function addingContact(contact) {
   return dispatch => {
-    dispatch({ type: actionTypes.ADD_CONTACT, payload: contact })
+    dispatch({ type: actionTypes.ADDING_CONTACT, payload: contact })
+  }
+}
+
+export function completeContact() {
+  return dispatch => {
+    dispatch({ type: actionTypes.COMPLETE_CONTACT, payload: {} })
+  }
+}
+
+export function clearInput() {
+  return dispatch => {
+    dispatch({ type: actionTypes.CLEAR_INPUT })
+  }
+}
+
+export function createContactName(name) {
+  return dispatch => {
+    dispatch({ type: actionTypes.CONTACT_NAME, payload: name})
+  }
+}
+
+export function createContactAddresses(addresses, coinType) {
+
+  return dispatch => {
+    dispatch({ type: actionTypes.CONTACT_ADDRESS, payload: addresses})
   }
 }

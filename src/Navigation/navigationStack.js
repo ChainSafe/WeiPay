@@ -17,6 +17,7 @@ import PortfolioToken from '../Screens/Main/PortfolioTabs/PortfolioToken';
 import AddToken from '../Screens/Main/AddToken';
 import addContact from '../Screens/Main/SettingsSubPages/addContact';
 import contacts from '../Screens/Main/Contacts';
+import ContactAddresses from '../Screens/Main/SettingsSubPages/ContactAddresses';
 
 const navigator = StackNavigator({
   terms: {
@@ -57,6 +58,9 @@ const navigator = StackNavigator({
   },
   PortfolioToken: {
     screen: PortfolioToken
+  },
+  contactAddresses: {
+    screen: ContactAddresses
   }
 }, {
 
