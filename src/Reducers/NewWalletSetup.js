@@ -8,12 +8,18 @@ const INITIAL_STATE = {
   tokens: [],
   wallet: null,
   backupPassphrase: "",
-  coinData: data
+  coinData: data,
+  QrData: ""
 };
 
 export default (state = INITIAL_STATE, action) => {
   //console.log(action);
   switch (action.type) {
+
+    case actions.QRSCANNER_DATA:
+      console.log(action.payload);
+
+      return { ...state, QrData: action.payload }
 
     case actions.CREATING_NEW_WALLET:
       console.log("wallet reducer: ");
@@ -33,7 +39,7 @@ export default (state = INITIAL_STATE, action) => {
 
       } else {
         //Delete the selected coin from the token list
-        newTokens = [...current.slice(0 ,index), ...current.slice(index + 1)]
+        newTokens = [...current.slice(0, index), ...current.slice(index + 1)]
         // current
         //   .slice(0, index)
         //   .concat(current.slice(index + 1))
@@ -41,7 +47,7 @@ export default (state = INITIAL_STATE, action) => {
       console.log(current);
 
       // await AsyncStorage.setItem('wallet', { ...state, tokens: current } )
-      return { ...state, tokens: newTokens};
+      return { ...state, tokens: newTokens };
 
     default:
       return state;
