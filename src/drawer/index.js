@@ -70,14 +70,7 @@ export default DrawerNavigator({
   },
   search: {
     screen: Search
-  },
-
-  QrCode: {
-    screen: { AddWallet }
   }
-
-
-
 }, {
     contentComponent: CustomDrawerContentComponent,
     headerMode: 'none',
