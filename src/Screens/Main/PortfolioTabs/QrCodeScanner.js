@@ -3,15 +3,10 @@ import { View, Text, StyleSheet, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { FormInput, FormLabel, Button } from 'react-native-elements';
 import Camera from 'react-native-camera';
+import { NavigationActions } from "react-navigation";
 import { getQRCodeData } from '../../../Actions/actionCreator'
 
 class QrCodeScanner extends Component {
-
-    static navigationOptions = ({ navigation }) => {
-        return {
-            tabBarLabel: 'SEND'
-        }
-    }
 
     constructor(props) {
         super(props);
@@ -29,6 +24,18 @@ class QrCodeScanner extends Component {
         this.props.getQRCodeData(e.data)
     };
 
+    renderDataConfirm() {
+        console.log("Button was clicked");
+
+    }
+
+    navigate = () => {
+        const navigateToEnableTokens = NavigationActions.navigate({
+            routeName: "PortfolioCoin",
+            params: { name: "Shubhnik" }
+        });
+        this.props.navigation.dispatch(navigateToEnableTokens);
+    };
 
 
     render() {
@@ -45,6 +52,12 @@ class QrCodeScanner extends Component {
                     }}
 
                     >{this.state.qrcode}</Text>
+
+                    <Button
+                        title='Next'
+                        style={styles.buttonStyle}
+                        onPress={() => this.navigate()}
+                    />
                 </Camera>
             </View>
         )
@@ -66,6 +79,11 @@ const styles = StyleSheet.create({
     },
     btnContainer: {
         flex: 1, justifyContent: 'flex-end', alignItems: 'center'
+    },
+
+    buttonStyle: {
+        backgroundColor: "blue",
+        padding: 10
     },
 
     container: {

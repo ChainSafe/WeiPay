@@ -8,156 +8,6 @@ var utils = ethers.utils;
 import provider from '../../../constants/Providers'; //this gives us access to the local test rpc network to test
 
 
-// class CoinSend extends Component {
-
-//   static navigationOptions = ({ navigation }) => {
-//     return {
-//       tabBarLabel: 'SEND'
-//     }
-//   }
-
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       toAddress: "",
-//       value: 0,
-//       resetInput: false,
-//       qrcode: ''
-//     }
-
-//   }
-
-
-
-//   renderAddress(addressInput) {
-//     var add = addressInput.trim();
-//     console.log(add)
-//     this.setState({ toAddress: add });
-//   }
-
-//   renderValue(valueInput) {
-//     if (!isNaN(valueInput)) {
-//       if (valueInput < 0) {
-//         Alert.alert(
-//           'Invalid Ether Amount',
-//           'Please enter an amount greater than 0.',
-//           [
-//             { text: 'OK', onPress: () => console.log('OK Pressed') },
-//           ],
-//           { cancelable: false }
-//         )
-//       } else {
-//         console.log("is a number " + valueInput)
-//         this.setState({ value: valueInput });
-//       }
-//     } else {
-//       console.log("not a number " + valueInput)
-//       this.setState({ value: 0 });
-//     }
-//   }
-
-
-
-//   /*
-//      this.props.wallet is either the recovered wallet or new wallet, in either case we have sent 5 ether in the constructor
-//      to this wallet by using a testrpc private key. If we are recvoering a wallet, this does nothing, but if we are creating
-//      a new wallet, we will never have funds in our test environemnt, so this is just a test setup.
-//    */
-//   sendTransaction = () => {
-//     /*
-//       this.props.wallet is either the recovered wallet or new wallet, in either case we have sent 5 ether in the constructor
-//       to this wallet by using a testrpc private key. If we are recvoering a wallet, this does nothing, but if we are creating
-//       a new wallet, we will never have funds in our test environemnt, so this is just a test setup.
-//     */
-//     const amountString = '' + this.state.value + '';
-//     const receivingAddress = this.state.toAddress;
-//     var amount = ethers.utils.parseEther(amountString);
-//     const currentWallet = this.props.wallet;
-//     currentWallet.provider = provider;
-//     var sendPromise = currentWallet.send(receivingAddress, amount);
-
-//     sendPromise.then(function (transactionHash) {
-//       console.log(transactionHash);
-
-//       provider.getBalance(currentWallet.address).then(function (balance) {
-//         var etherString = utils.formatEther(balance);
-//         console.log("currentWallet Balance: " + etherString);
-//       });
-
-//       provider.getBalance(receivingAddress).then(function (balance) {
-//         var etherString = utils.formatEther(balance);
-//         console.log("receiving account Balance: " + etherString);
-//       });
-
-//     });
-//   }
-
-//   resetFields = () => {
-//     console.log("logged");
-//     this.inputAddress.clearText();
-//     this.inputAmount.clearText();
-//   }
-
-
-
-//   onBarCodeRead = (e) => this.setState({ qrcode: e.data });
-
-
-//   render() {
-//     return (
-//       <View style={styles.container}>
-//         <Camera
-//           style={styles.preview}
-//           onBarCodeRead={this.onBarCodeRead}
-//           ref={cam => this.camera = cam}
-//           aspect={Camera.constants.Aspect.fill}
-//         >
-//           <Text style={{
-//             backgroundColor: 'white'
-//           }}>{this.state.qrcode}</Text>
-//         </Camera>
-//       </View>
-//     )
-//   }
-
-// }
-
-
-
-// const styles = StyleSheet.create({
-//   mainContainer: {
-//     flex: 1, alignItems: 'center', justifyContent: 'flex-start'
-//   },
-//   contentContainer: {
-//     marginTop: 25
-//   },
-//   form: {
-//     width: 340
-//   },
-//   btnContainer: {
-//     flex: 1, justifyContent: 'flex-end', alignItems: 'center'
-//   },
-
-//   container: {
-//     flex: 1,
-//     flexDirection: 'row',
-//   },
-//   preview: {
-//     flex: 1,
-//     justifyContent: 'flex-end',
-//     alignItems: 'center'
-//   }
-// })
-
-// const mapStateToProps = state => {
-//   return {
-//     wallet: state.newWallet.wallet
-//   }
-// }
-
-// export default connect(mapStateToProps, null)(CoinSend);
-
-
 
 class CoinSend extends Component {
 
@@ -312,6 +162,7 @@ class CoinSend extends Component {
               />
               <FormInput style={styles.formInputElement}
                 onChangeText={this.renderAddress.bind(this)}
+                value={this.props.addressData}
                 ref={ref => this.inputAddress = ref}
               />
             </View>
@@ -371,7 +222,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    wallet: state.newWallet.wallet
+    wallet: state.newWallet.wallet,
+    addressData: state.newWallet.QrData
   }
 }
 

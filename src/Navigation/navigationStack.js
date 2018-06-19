@@ -19,6 +19,7 @@ import AddToken from '../Screens/Main/AddToken';
 import addContact from '../Screens/Main/SettingsSubPages/addContact';
 import contacts from '../Screens/Main/Contacts';
 import QrCodeScanner from '../Screens/Main/PortfolioTabs/QrCodeScanner';
+import CoinSend from '../Screens/Main/PortfolioTabs/CoinSend'
 
 const navigator = StackNavigator({
   terms: {
@@ -62,6 +63,9 @@ const navigator = StackNavigator({
   },
   QCodeScanner: {
     screen: QrCodeScanner
+  },
+  CoinSend: {
+    screen: CoinSend
   }
 }, {
 
