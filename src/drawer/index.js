@@ -43,7 +43,7 @@ export default DrawerNavigator({
   },
   Contacts: {
     screen: TabNavigator({
-      contacts: { screen : Contacts },
+      contacts: { screen: Contacts },
       addContact: { screen: addContact }
 
     },{
@@ -74,7 +74,8 @@ export default DrawerNavigator({
       languageChange: { screen: LanguageChange },
       changeCurrency: { screen: ChangeCurrency },
       changeWalletName: { screen: WalletNameChange },
-      removeWallet: { screen: RemoveWallet }
+      removeWallet: { screen: RemoveWallet },
+
     },
       {
         headerMode: 'none'

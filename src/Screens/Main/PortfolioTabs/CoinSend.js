@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { FormInput, FormLabel, Button } from 'react-native-elements';
+import { NavigationActions } from "react-navigation";
 const ethers = require('ethers');
 var utils = ethers.utils;
 import provider from '../../../constants/Providers'; //this gives us access to the local test rpc network to test
+
+
 
 class CoinSend extends Component {
 
@@ -145,17 +148,34 @@ class CoinSend extends Component {
     this.inputAmount.clearText();
   }
 
+  navigate = () => {
+    const navigateToEnableTokens = NavigationActions.navigate({
+      routeName: "QCodeScanner",
+      params: { name: "Shubhnik" }
+    });
+    this.props.navigation.dispatch(navigateToEnableTokens);
+  };
+
+
   render() {
     return (
       <View style={styles.mainContainer}>
         <View style={styles.contentContainer} >
           <View style={styles.form} >
+
             <FormLabel> Send To </FormLabel>
-            <FormInput style={styles.formInputElement}
-              onChangeText={this.renderAddress.bind(this)}
-              ref={ref => this.inputAddress = ref}
-              value={this.state.inputValue}
-            />
+
+            <View style={{ flexDirection: 'row' }}>
+              <Button
+                title='QR'
+                onPress={() => this.navigate()}
+              />
+              <FormInput style={styles.formInputElement}
+                onChangeText={this.renderAddress.bind(this)}
+                value={this.props.addressData}
+                ref={ref => this.inputAddress = ref}
+              />
+            </View>
             <FormLabel> Amount </FormLabel>
             <FormInput style={styles.formInputElement}
               onChangeText={this.renderValue.bind(this)}
@@ -190,7 +210,7 @@ class CoinSend extends Component {
             />
           </View>
         </View>
-      </View>
+      </View >
     )
   }
 }
@@ -212,7 +232,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    wallet: state.newWallet.wallet
+    wallet: state.newWallet.wallet,
+    addressData: state.newWallet.QrData
   }
 }
 

@@ -117,3 +117,9 @@ export function createContactAddresses(addresses, coinType) {
     dispatch({ type: actionTypes.CONTACT_ADDRESS, payload: addresses})
   }
 }
+
+export function getQRCodeData(data) {
+  return dispatch => {
+    dispatch({ type: actionTypes.QRSCANNER_DATA, payload: data })
+  }
+}

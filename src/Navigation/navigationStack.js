@@ -10,6 +10,7 @@ import ConfirmPassphrase from '../Screens/Setup/ConfirmPassphrase';
 import CreateWalletNameRecovered from '../Screens/Setup/CreateWalletNameRecovered';
 import RecoverWallet from '../Screens/Setup/RecoverWallet';
 import EnableTokens from '../Screens/Setup/EnableTokens';
+import QrScannerWindow from '../Screens/Main/PortfolioTabs/QrCodeScanner';
 
 import Drawer from '../drawer';
 import PortfolioCoin from '../Screens/Main/PortfolioTabs/PortfolioCoin';
@@ -18,6 +19,9 @@ import AddToken from '../Screens/Main/AddToken';
 import addContact from '../Screens/Main/SettingsSubPages/addContact';
 import contacts from '../Screens/Main/Contacts';
 import ContactAddresses from '../Screens/Main/SettingsSubPages/ContactAddresses';
+import QrCodeScanner from '../Screens/Main/PortfolioTabs/QrCodeScanner';
+import CoinSend from '../Screens/Main/PortfolioTabs/CoinSend'
+
 
 const navigator = StackNavigator({
   terms: {
@@ -61,6 +65,12 @@ const navigator = StackNavigator({
   },
   contactAddresses: {
     screen: ContactAddresses
+
+  QCodeScanner: {
+    screen: QrCodeScanner
+  },
+  CoinSend: {
+    screen: CoinSend
   }
 }, {
 
