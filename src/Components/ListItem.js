@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, TouchableHighlight } from 'react-native';
-import { CardSection } from './common/CardSection';
-import { Card } from './common/Card';
+import CardSection from './common/CardSection';
+import Card from './common/Card';
 import { CheckBox } from 'react-native-elements'
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -38,7 +38,7 @@ class ListItem extends Component {
         const { title } = styles;
 
         const { checked } = this.state
-      
+
 
         return (
           <View>

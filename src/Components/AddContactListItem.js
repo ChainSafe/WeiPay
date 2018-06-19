@@ -1,32 +1,72 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, TouchableHighlight, TextInput } from 'react-native';
-import { CardSection } from './common/CardSection';
-import { Card } from './common/Card';
+import CardSection from './common/CardSection';
+import Card from './common/Card';
 import { Input } from './common/Input';
 import { CheckBox } from 'react-native-elements'
 import { Button } from 'react-native-elements';
-import { connect } from 'react-native-elements';
+import { connect } from 'react-redux';
+import *  as actions from '../Actions/actionCreator';
 
 
 class AddContactListItem extends Component {
+
+    constructor() {
+        super()
+        this.state = {
+            addressInput: "",
+            value: "",
+
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log('NEXT PROPS!!!!', nextProps)
+        if (nextProps.clearInput) {
+          this.setState({ value: "" })
+        }
+    }
+
+
+
+    renderAddress(address, coinName) {
+
+        var check = this.props.coin.title
+        // console.log("From AddContactListItem: " + coinName);
+        this.setState({value: address})
+        var coinAddress = {}
+        coinAddress[coinName] = address
+        if (!(Object.keys(this.props.current).length === 0)) {
+            // console.log("This is from AddContactListItem: ");
+            this.setState({ addressInput: address })
+            this.props.addingContact(coinAddress)
+        } else {
+            this.setState({ addressInput: "" })
+        }
+
+    }
 
     render() {
         const { coin } = this.props;
 
         return (
             <View style={styles.componentStyle}>
-                <CardSection>
+              <CardSection>
 
-                    <View style={styles.section}>
-                        <Text style={styles.title}>{coin.title} 's Address</Text>
-                        <Card
-                        >
-                            <TextInput placeholder="Enter or Paste Address here" />
-                        </Card>
-                    </View>
-                </CardSection>
+                <View style={styles.section}>
+                  <Text style={styles.title}>{coin.title} 's Address</Text>
+                  <Card
+                  >
+                    <TextInput placeholder="Enter or Paste Address here"
+                      onChangeText={(text) => this.props.createContactAddresses(text, coin.title)}
+                      ref={ref => this.state.addressInput = ref}
+                      value={this.props.contactAddress}
+                    />
+                  </Card>
+                </View>
+              </CardSection>
 
-            </ View>
+            </View>
         );
     }
 }
@@ -38,9 +78,10 @@ const styles = StyleSheet.create({
         color: "black",
         textShadowRadius: 3
     },
+
     section: {
         flex: 1,
-        flexDirection: 'column',
+        flexDirection: 'column'
     },
 
     componentStyle: {
@@ -54,9 +95,12 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        tokenList: state.newWallet.tokens,
+        current: state.contacts.currentContact,
+        contacts: state.contacts.contacts,
+        clearInput: state.contacts.clearInput,
+        contactAddress: state.contacts.contactAddress
     }
 };
 
-//export default connect(mapStateToProps, null)(AddContactListItem)
-export default AddContactListItem;
+export default connect(mapStateToProps, actions)(AddContactListItem)
+//export default AddContactListItem;

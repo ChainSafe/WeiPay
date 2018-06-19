@@ -24,20 +24,20 @@ class ViewTerms extends Component {
         const { counterCount, incrementAction, decrementAction } = this.props;
         return (
             <View style={styles.mainContainer}>
-                <View style={styles.termsContainer}>
-                    <ScrollView style={styles.list}>
-                        <Text>{Terms}</Text>
-                    </ScrollView>
-                    <View style={styles.btnContainer}>
-                        <Button
-                            title='SUBMIT'
-                            icon={{ size: 28 }}
-                            buttonStyle={{ backgroundColor: 'blue', borderRadius: 10 }}
-                            textStyle={{ textAlign: 'center' }}
-                            onPress={this.navigate}
-                        />
-                    </View>
+              <View style={styles.termsContainer}>
+                <ScrollView style={styles.list}>
+                  <Text>{Terms}</Text>
+                </ScrollView>
+                <View style={styles.btnContainer}>
+                  <Button
+                    title='SUBMIT'
+                    icon={{ size: 28 }}
+                    buttonStyle={{ backgroundColor: 'blue', borderRadius: 10 }}
+                    textStyle={{ textAlign: 'center' }}
+                    onPress={this.navigate}
+                  />
                 </View>
+              </View>
             </View>
         );
     }

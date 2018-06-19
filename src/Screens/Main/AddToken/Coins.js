@@ -59,7 +59,7 @@ class Coins extends Component {
 
   static navigationOptions = ({ navigation }) => {
 
-    console.log('Navigation ACtions', NavigationActions)
+
     return {
       title: 'Enable Tokens',
       headerLeft:

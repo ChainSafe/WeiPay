@@ -104,4 +104,3 @@ const styles = StyleSheet.create({
 })
 
 export default connect(null, { restoreWallet })(CreateOrRestore);
-

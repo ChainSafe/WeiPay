@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, ScrollView, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import RadioGroup from 'react-native-radio-buttons-group';
 import { CardSection } from './common/CardSection';

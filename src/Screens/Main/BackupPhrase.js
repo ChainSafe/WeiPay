@@ -45,7 +45,7 @@ class BackupPhrase extends Component {
   }
 
   displayPassphrase() {
-    console.log("display checked");
+
     this.setState({
       isPhraseSelected: true
     });

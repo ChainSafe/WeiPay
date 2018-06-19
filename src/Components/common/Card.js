@@ -27,4 +27,4 @@ const styles = {
   }
 };
 
-export { Card };
+export default Card 
