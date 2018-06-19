@@ -22,3 +22,4 @@ export const SELECT_WALLET_LANGUAGE = 'select_wallet_language';
 
 
 export const ADD_CONTACT = 'adding_contact';
+export const QRSCANNER_DATA = "qrscanner_data";

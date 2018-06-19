@@ -93,3 +93,9 @@ export function addContact(contact) {
     dispatch({ type: actionTypes.ADD_CONTACT, payload: contact })
   }
 }
+
+export function getQRCodeData(data) {
+  return dispatch => {
+    dispatch({ type: actionTypes.QRSCANNER_DATA, payload: data })
+  }
+}
