@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { FormInput, FormLabel, Button } from 'react-native-elements';
+import QRCode from 'react-native-qrcode';
+import { connect } from 'react-redux'
 
 class CoinReceive extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -16,7 +18,13 @@ class CoinReceive extends Component {
         <View style={styles.contentContainer} >
           <View style={styles.form} >
             <View style={styles.imageContainer}>
-              <Image style={styles.barcode} source={require('../../../Assets/images/QR-CODE.png')} />
+
+
+              <QRCode
+                value={this.props.walletAddress}
+                size={200}
+                bgColor='black'
+                fgColor='white' />
             </View>
 
             <FormLabel> My Address </FormLabel>
@@ -26,7 +34,7 @@ class CoinReceive extends Component {
           </View>
           <View style={styles.btnContainer} >
             <Button
-              title='Next'
+ A             title='Next'
               icon={{ size: 28 }}
               buttonStyle={{
                 backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
@@ -68,5 +76,11 @@ const styles = StyleSheet.create({
   }
 })
 
+const mapStateToProps = state => {
+  return {
+    walletAddress: state.newWallet.wallet.address,
+  }
+}
 
-export default CoinReceive
+export default connect(mapStateToProps, null)(CoinReceive)
+
