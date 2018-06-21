@@ -21,7 +21,7 @@ class CoinReceive extends Component {
 
 
               <QRCode
-                value={this.props.wallet}
+                value={this.props.walletAddress}
                 size={200}
                 bgColor='black'
                 fgColor='white' />
@@ -34,7 +34,7 @@ class CoinReceive extends Component {
           </View>
           <View style={styles.btnContainer} >
             <Button
-              title='Next'
+ A             title='Next'
               icon={{ size: 28 }}
               buttonStyle={{
                 backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    wallet: state.newWallet.wallet.address,
+    walletAddress: state.newWallet.wallet.address,
   }
 }
 
