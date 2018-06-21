@@ -62,9 +62,9 @@ class AddContactList extends Component {
                   <TextInput
                     placeholder="Enter or Paste Address here"
                     onChangeText={(text) => this.props.renderAddress(text, coin.title, coin)}
-                    ref={ref => this.props.contactAddress = ref}
+                    // ref={ref => this.props.contactAddress = ref}
                     value={this.props.contactAddress}
-                    key={this.props.contactAddress}
+                    // key={this.props.contactAddress}
                   />
                 </Card>
               </View>
@@ -77,7 +77,7 @@ class AddContactList extends Component {
 
 
     render() {
-        console.log(this.props.key)
+        console.log(this.props.renderAddress)
         return (
             <View>
               <TextInput
