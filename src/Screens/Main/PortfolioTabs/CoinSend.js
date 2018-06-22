@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { FormInput, FormLabel, Button } from 'react-native-elements';
 import { NavigationActions } from "react-navigation";
+import { getQRCodeData } from '../../../Actions/actionCreator'
 const ethers = require('ethers');
 var utils = ethers.utils;
 import provider from '../../../constants/Providers'; //this gives us access to the local test rpc network to test
@@ -22,11 +23,11 @@ class CoinSend extends Component {
     this.state = {
       toAddress: "",
       value: 0,
-      resetInput: false
+      resetInput: false,
+      inputValue: ""
     }
 
     //console.log(this.props.walletName);
-
     provider.getBalance(this.props.wallet.address).then(function (balance) {
       var etherString = utils.formatEther(balance);
       console.log("Current Wallet Balance" + etherString);
@@ -70,10 +71,21 @@ class CoinSend extends Component {
     //   });
     // });
   }
+  componentWillMount() {
+
+    if (this.props.navigation.state.params) {
+      let contactAddress = this.props.navigation.state.params.address
+      if (contactAddress) {
+        this.setState({ inputValue: contactAddress })
+      }
+    }
+
+  }
 
   renderAddress(addressInput) {
     var add = addressInput.trim();
     console.log(add)
+    this.setState({ inputValue: add })
     this.setState({ toAddress: add });
   }
 
@@ -227,4 +239,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, null)(CoinSend);
+export default connect(mapStateToProps, { getQRCodeData })(CoinSend);
