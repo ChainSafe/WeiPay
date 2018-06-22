@@ -4,6 +4,9 @@ import { CardSection } from '../../../Components/common/CardSection';
 import { Card } from '../../../Components/common/Card';
 import { Button } from 'react-native-elements'
 import { NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux'
+import { getQRCodeData } from '../../../Actions/actionCreator'
+
 
 class ContactAddresses extends Component {
   componentWillMount() {
@@ -11,24 +14,26 @@ class ContactAddresses extends Component {
     let data = []
 
     for (const key of Object.keys(addresses)) {
-        address = { [key]: addresses[key]}
-        data.push(address)
+      address = { [key]: addresses[key] }
+      data.push(address)
     }
 
     const ds = new ListView.DataSource({
-        rowHasChanged: (r1, r2) => r1 !== r2
+      rowHasChanged: (r1, r2) => r1 !== r2
     });
 
     this.dataSource = ds.cloneWithRows(data);
   }
 
   navigate = address => {
-  
-    const navigateToCreateOrRestore = NavigationActions.navigate({
-        routeName: 'PortfolioCoin',
-        params: { address }
-    });
 
+    const navigateToCreateOrRestore = NavigationActions.navigate({
+      routeName: 'PortfolioCoin',
+      params: { address }
+    });
+    console.log(address);
+
+    //this.props.getQRCodeData(address)
     this.props.navigation.dispatch(navigateToCreateOrRestore);
   };
 
@@ -44,9 +49,9 @@ class ContactAddresses extends Component {
             <Text style={styles.title}>{Object.keys(address)[0]}'s Address</Text>
             <Button
               title="Send"
-              titleStyle={{fontWeight: '700', color: 'black', fontSize: 5}}
-              buttonStyle={{backgroundColor: 'blue', borderColor: 'blue', borderWidth: 0, borderRadius: 10, height: 15}}
-              containerStyle={{width: 130}}
+              titleStyle={{ fontWeight: '700', color: 'black', fontSize: 5 }}
+              buttonStyle={{ backgroundColor: 'blue', borderColor: 'blue', borderWidth: 0, borderRadius: 10, height: 15 }}
+              containerStyle={{ width: 130 }}
               onPress={() => this.navigate(address[Object.keys(address)[0]])}
             />
           </View>
@@ -81,4 +86,5 @@ const styles = StyleSheet.create({
   }
 })
 
-export default ContactAddresses
+export default connect(null, { getQRCodeData })(ContactAddresses)
+//export default ContactAddresses

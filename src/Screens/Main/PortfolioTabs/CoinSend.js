@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { FormInput, FormLabel, Button } from 'react-native-elements';
 import { NavigationActions } from "react-navigation";
+import { getQRCodeData } from '../../../Actions/actionCreator'
 const ethers = require('ethers');
 var utils = ethers.utils;
 import provider from '../../../constants/Providers'; //this gives us access to the local test rpc network to test
@@ -74,8 +75,12 @@ class CoinSend extends Component {
   componentWillMount() {
 
     let contactAddress = this.props.navigation.state.params.address
-    if ( contactAddress ) {
+    console.log(contactAddress);
+
+    if (contactAddress) {
       this.setState({ inputValue: contactAddress })
+      //this.props.addressData = contactAddress
+      this.props.getQRCodeData(contactAddress)
     }
 
   }
@@ -237,4 +242,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, null)(CoinSend);
+export default connect(mapStateToProps, { getQRCodeData })(CoinSend);
