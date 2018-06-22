@@ -23,7 +23,6 @@ class AddContact extends Component {
       disabled: true,
       clear: false,
       contactName: "",
-      key,
       contactAddress
     }
   }
