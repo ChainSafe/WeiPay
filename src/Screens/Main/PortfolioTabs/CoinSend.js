@@ -8,8 +8,6 @@ const ethers = require('ethers');
 var utils = ethers.utils;
 import provider from '../../../constants/Providers'; //this gives us access to the local test rpc network to test
 
-
-
 class CoinSend extends Component {
 
   static navigationOptions = ({ navigation }) => {
@@ -27,7 +25,7 @@ class CoinSend extends Component {
       inputValue: ""
     }
 
-    //console.log(this.props.walletName);
+
     provider.getBalance(this.props.wallet.address).then(function (balance) {
       var etherString = utils.formatEther(balance);
       console.log("Current Wallet Balance" + etherString);

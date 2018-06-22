@@ -8,7 +8,7 @@ import { Input } from '../../Components/common/Input';
 import { newWalletCreation, newWalletNameEntry } from '../../Actions/actionCreator';
 const ethers = require('ethers');
 
-var walletItem;
+import provider from '../../constants/Providers';
 
 class CreateWalletName extends Component {
 
@@ -17,8 +17,6 @@ class CreateWalletName extends Component {
     };
 
     navigate = () => {
-        var wallet = ethers.Wallet.createRandom();
-        this.props.newWalletCreation(wallet);
         const navigateToPassphrase = NavigationActions.navigate({ routeName: "recoverWallet" });
         this.props.navigation.dispatch(navigateToPassphrase);
     };
@@ -36,20 +34,21 @@ class CreateWalletName extends Component {
                         <FormInput placeholder={"Family wallet, Work Fund.."}
                             onChangeText={this.getWalletName.bind(this)}
                         />
+                        <View style={styles.btnContainer} >
+                            <Button
+                                disabled={this.props.walletName === ""}
+                                title='Next'
+                                icon={{ size: 28 }}
+                                buttonStyle={{
+                                    backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
+                                    justifyContent: 'center', marginBottom: 30, marginTop: 5.5
+                                }}
+                                textStyle={{ textAlign: 'center' }}
+                                onPress={this.navigate}
+                            />
+                        </View>
                     </View>
-                    <View style={styles.btnContainer} >
-                        <Button
-                            disabled={this.props.walletName === ""}
-                            title='Next'
-                            icon={{ size: 28 }}
-                            buttonStyle={{
-                                backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-                                justifyContent: 'center', marginBottom: 30, marginTop: 5.5
-                            }}
-                            textStyle={{ textAlign: 'center' }}
-                            onPress={this.navigate}
-                        />
-                    </View>
+
                 </View>
             </View>
         );
@@ -67,7 +66,10 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width - 10,
     },
     btnContainer: {
-        flex: 1, justifyContent: 'flex-end', alignItems: 'center'
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        paddingTop: 25
     },
 })
 
