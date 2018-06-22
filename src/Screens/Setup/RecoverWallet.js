@@ -42,53 +42,56 @@ class RecoverWallet extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            mnemonic: ""
+            mnemonic: "",
+            value: ""
         }
     }
 
     renderRecoveryKey(mnemonicInput) {
-        this.setState({ mnemonic: mnemonicInput });
+        this.setState({ value: mnemonicInput.toLowerCase() })
+        this.setState({ mnemonic: mnemonicInput.toLowerCase() });
     }
 
     render() {
         return (
             <View style={styles.mainContainer}>
-                <View style={styles.contentContainer} >
-                    <View style={styles.form} >
-                        <FormLabel>Enter passphrase to recover </FormLabel>
-                        <FormInput
-                            multiline={true}
-                            numberOfLines={3}
-                            onChangeText={this.renderRecoveryKey.bind(this)}
-                            ref={ref => this.inputMnemonic = ref} />
-                    </View>
-                    <View style={styles.btnContainer} >
-                        <Button
-                            disabled={this.state.mnemonic === ""}
-                            title='Restore'
-                            icon={{ size: 28 }}
-                            buttonStyle={{
-                                backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-                                justifyContent: 'center', marginBottom: 30, marginTop: 5.5
-                            }}
-                            textStyle={{ textAlign: 'center' }}
-                            onPress={this.navigate}
-                        />
-                    </View>
+              <View style={styles.contentContainer} >
+                <View style={styles.form} >
+                  <FormLabel>Enter passphrase to recover </FormLabel>
+                  <FormInput
+                    value={this.state.value}
+                    multiline={true}
+                    numberOfLines={3}
+                    onChangeText={this.renderRecoveryKey.bind(this)}
+                    ref={ref => this.inputMnemonic = ref} />
                 </View>
                 <View style={styles.btnContainer} >
-                    <Button
-                        disabled={this.state.mnemonic === ""}
-                        title='Restore'
-                        icon={{ size: 28 }}
-                        buttonStyle={{
-                            backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-                            justifyContent: 'center', marginBottom: 30, marginTop: 5.5
-                        }}
-                        textStyle={{ textAlign: 'center' }}
-                        onPress={this.navigate}
-                    />
+                  <Button
+                    disabled={this.state.mnemonic === ""}
+                    title='Restore'
+                    icon={{ size: 28 }}
+                    buttonStyle={{
+                      backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
+                      justifyContent: 'center', marginBottom: 30, marginTop: 5.5
+                    }}
+                    textStyle={{ textAlign: 'center' }}
+                    onPress={this.navigate}
+                  />
                 </View>
+              </View>
+              <View style={styles.btnContainer} >
+                <Button
+                  disabled={this.state.mnemonic === ""}
+                  title='Restore'
+                  icon={{ size: 28 }}
+                  buttonStyle={{
+                    backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
+                    justifyContent: 'center', marginBottom: 30, marginTop: 5.5
+                  }}
+                  textStyle={{ textAlign: 'center' }}
+                  onPress={this.navigate}
+                />
+              </View>
             </View>
         );
     }
