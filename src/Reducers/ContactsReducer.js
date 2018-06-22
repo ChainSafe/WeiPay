@@ -39,7 +39,10 @@ export default (state = INITIAL_STATE, action) => {
       // old.push(state.currentContact)
       // [...old, state.currentContact]
 
-      return { ...state, currentContact: action.payload, contacts: [...old, state.currentContact], clearInput: true}
+      // return { ...state, currentContact: action.payload, contacts: [...old, state.currentContact], clearInput: true}
+      let newContact = [...state.contacts, action.payload]
+      return {...state, contacts: newContact}
+
   case actions.CLEAR_INPUT:
     return { ...state, contactName: "", contactAddress: "" }
 

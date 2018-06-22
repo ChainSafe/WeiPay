@@ -93,9 +93,13 @@ export function addingContact(contact) {
   }
 }
 
-export function completeContact() {
+export function completeContact(contactName, contactAddress) {
+  let contact = {}
+  contact.name = contactName
+  contact.contactAddress = contactAddress
+
   return dispatch => {
-    dispatch({ type: actionTypes.COMPLETE_CONTACT, payload: {} })
+    dispatch({ type: actionTypes.COMPLETE_CONTACT, payload: contact })
   }
 }
 

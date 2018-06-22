@@ -41,7 +41,8 @@ class Contacts extends Component {
   }
 
   navigate = (user) => {
-    let addresses = _.omit(user, ['name'])
+    
+    let addresses = user.contactAddress
 
     const navigateToCreateOrRestore = NavigationActions.navigate({
         routeName: 'contactAddresses',
@@ -88,6 +89,7 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps({contacts}) {
+
   return { contacts: contacts.contacts }
 }
 

@@ -29,6 +29,7 @@ class AddContact extends Component {
 
 
   renderAddContact() {
+  
     this.props.completeContact(this.state.contactName, this.state.contactAddress);
 
     this.setState({ contactName: "" })
@@ -38,8 +39,6 @@ class AddContact extends Component {
   }
 
   clear() {
-    // let key = Math.random()
-    // this.setState({ key })
     this.setState({ contactName: "" })
     let newcontactAddress = {}
     this.props.tokens.map(token => newcontactAddress[token.title] = "" )

@@ -23,7 +23,7 @@ class ContactAddresses extends Component {
   }
 
   navigate = address => {
-
+  
     const navigateToCreateOrRestore = NavigationActions.navigate({
         routeName: 'PortfolioCoin',
         params: { address }
@@ -54,7 +54,7 @@ class ContactAddresses extends Component {
             {address[Object.keys(address)[0]]}
           </Text>
         </Card>
-        
+
       </View>
     )
   }
