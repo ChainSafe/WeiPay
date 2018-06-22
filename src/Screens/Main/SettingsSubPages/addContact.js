@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { ListView, View, Text, StyleSheet, TextInput } from 'react-native';
-import { Button } from 'react-native-elements';
+import { ListView, View, Text, StyleSheet, TextInput, ScrollView } from 'react-native';
+import { Button, List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import AddContactList from '../../../Components/AddContactList';
 import addContactAction from '../../../Actions/actionCreator';
@@ -13,36 +13,38 @@ class AddContact extends Component {
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    const data = this.props.tokens.map(token => {
-                  token.value = ""
-                  return token
-                })
+    let contactAddress = {}
+    this.props.tokens.map(token => contactAddress[token.title] = "" )
+
+
     this.renderAddContact = this.renderAddContact.bind(this);
-    let key = Math.random()
+
     this.state = {
       disabled: true,
       clear: false,
       contactName: "",
-      contactAddress: "",
-      dataSource: ds.cloneWithRows(data),
-      key
+      key,
+      contactAddress
     }
   }
 
 
   renderAddContact() {
-    this.props.completeContact();
-    let key = Math.random()
-    this.setState({ key })
+    this.props.completeContact(this.state.contactName, this.state.contactAddress);
+
     this.setState({ contactName: "" })
-    this.setState({ contactAddress: "" })
+    let newcontactAddress = {}
+    this.props.tokens.map(token => newcontactAddress[token.title] = "" )
+    this.setState({ contactAddress: newcontactAddress })
   }
 
   clear() {
-    let key = Math.random()
-    this.setState({ key })
+    // let key = Math.random()
+    // this.setState({ key })
     this.setState({ contactName: "" })
-    this.setState({ contactAddress: "" })
+    let newcontactAddress = {}
+    this.props.tokens.map(token => newcontactAddress[token.title] = "" )
+    this.setState({ contactAddress: newcontactAddress })
   }
 
   renderName(name) {
@@ -52,61 +54,64 @@ class AddContact extends Component {
   }
 
   renderAddress(address, coinName, coin) {
-    // const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    //
-    // const data =
-    //   this.props.tokens.map(token => {
-    //     if ( coinName === token.title ) {
-    //       token.value = address
-    //     }
-    //     return token
-    //   })
-    // this.setState({ dataSource: ds.cloneWithRows(data) })
-    this.setState({ contactAddress: address })
+
+    let copy = Object.assign({}, this.state.contactAddress)
+    copy[coinName] = address
+    this.setState({ contactAddress: copy })
+
     var coinAddress = {}
     coinAddress[coinName] = address
     this.props.addingContact(coinAddress)
+
+  }
+
+  isEmptyObject(o) {
+    return Object.keys(o).every(function(x) {
+        return o[x]===''||o[x]===null;
+    });
   }
 
 // clear button, types into inputs, that value should be passed to the parent, clear in parent state to null
   render() {
+
     return (
       <View style={{ flex: 1, paddingTop: 3 }}>
-        <AddContactList
-          key={this.state.key}
-          contactName={this.state.contactName}
-          dataSource={this.state.dataSource}
-          contactAddress={this.state.contactAddress}
-          renderAddress={this.renderAddress.bind(this)}
-          renderName={this.renderName.bind(this)}
-        />
-        <View style={styles.btnContainer} >
-          <View style={{ flexDirection: 'row' }}>
-            <Button
-              small
-              disabled={this.state.contactName === "" || this.state.contactAddress === ""}
-              title='Add Contact'
-              icon={{ size: 20 }}
-              buttonStyle={{
-                backgroundColor: 'blue', flex: 1, width: 150, borderRadius: 10, height: 40,
-                justifyContent: 'center', alignItems: 'center', marginBottom: 5.5, marginTop: 5.5
-              }}
-              textStyle={{ textAlign: 'center' }}
-              onPress={() => this.renderAddContact()}
-            />
-            <Button
-              small
-              title='Clear'
-              icon={{ size: 20 }}
-              buttonStyle={{
-                backgroundColor: 'blue', flex: 1, width: 150, borderRadius: 10, height: 40,
-                justifyContent: 'center', alignItems: 'center', marginBottom: 5.5, marginTop: 5.5
-              }}
-              textStyle={{ textAlign: 'center' }}
-              onPress={() => this.clear()}
-            />
+        <ScrollView>
+          <AddContactList
+            contactName={this.state.contactName}
+            dataSource={this.state.dataSource}
+            renderAddress={this.renderAddress.bind(this)}
+            renderName={this.renderName.bind(this)}
+            contactAddress={this.state.contactAddress}
+          />
+          <View style={styles.btnContainer} >
+            <View style={{ flexDirection: 'row' }}>
+              <Button
+                small
+                disabled={this.state.contactName === "" || this.isEmptyObject(this.state.contactAddress)}
+                title='Add Contact'
+                icon={{ size: 20 }}
+                buttonStyle={{
+                  backgroundColor: 'blue', flex: 1, width: 150, borderRadius: 10, height: 40,
+                  justifyContent: 'center', alignItems: 'center', marginBottom: 5.5, marginTop: 5.5
+                }}
+                textStyle={{ textAlign: 'center' }}
+                onPress={() => this.renderAddContact()}
+              />
+              <Button
+                small
+                title='Clear'
+                icon={{ size: 20 }}
+                buttonStyle={{
+                  backgroundColor: 'blue', flex: 1, width: 150, borderRadius: 10, height: 40,
+                  justifyContent: 'center', alignItems: 'center', marginBottom: 5.5, marginTop: 5.5
+                }}
+                textStyle={{ textAlign: 'center' }}
+                onPress={() => this.clear()}
+              />
+            </View>
           </View>
-        </View>
+        </ScrollView>
       </View>
 
     );
