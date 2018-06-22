@@ -39,8 +39,7 @@ class ContactAddresses extends Component {
 
   renderRow(address) {
     // debugger
-    console.log(Card)
-    console.log("CARD SECTION", CardSection)
+
     return (
       <View>
 

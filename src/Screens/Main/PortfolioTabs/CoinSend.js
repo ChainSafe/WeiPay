@@ -28,7 +28,7 @@ class CoinSend extends Component {
     }
 
     //console.log(this.props.walletName);
-
+    debugger
     provider.getBalance(this.props.wallet.address).then(function (balance) {
       var etherString = utils.formatEther(balance);
       console.log("Current Wallet Balance" + etherString);
@@ -73,14 +73,12 @@ class CoinSend extends Component {
     // });
   }
   componentWillMount() {
-
-    let contactAddress = this.props.navigation.state.params.address
-    console.log(contactAddress);
-
-    if (contactAddress) {
-      this.setState({ inputValue: contactAddress })
-      //this.props.addressData = contactAddress
-      this.props.getQRCodeData(contactAddress)
+  
+    if (this.props.navigation.state.params) {
+      let contactAddress = this.props.navigation.state.params.address
+      if ( contactAddress ) {
+        this.setState({ inputValue: contactAddress })
+      }
     }
 
   }
