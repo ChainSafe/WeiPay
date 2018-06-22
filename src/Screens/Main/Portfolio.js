@@ -34,6 +34,7 @@ class Portfolio extends Component {
   }
 
   renderRow = (token) => {
+  
     return (
       <ListItem
         roundAvatar
