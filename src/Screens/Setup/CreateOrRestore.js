@@ -32,28 +32,28 @@ class CreateOrRestore extends Component {
                 <View style={styles.contentContainer} >
                     <View style={styles.companyDisplayContainer} >
                         <Image style={styles.logo} source={require('../../Assets/images/eth.png')} />
-                        <Text style={styles.pageTitle} > WeiPay </Text>
-                        <Text style={styles.pageDescription} > First digital offline crypto wallet </Text>
+                        <Text style={styles.pageTitle} > App Title </Text>
+                        <Text style={styles.pageDescription} > Some App Description here </Text>
                     </View>
                     <View style={styles.btnContainer} >
                         <Button
                             title='Create Wallet'
                             icon={{ size: 28 }}
                             buttonStyle={{
-                                backgroundColor: 'white', borderColor: '#2a2a2a', borderWidth: 2, borderRadius: 10, width: 300,
-                                height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginTop: 5.5
+                                backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100, width: 300,
+                                height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginTop: 10
                             }}
-                            textStyle={{ textAlign: 'center', color: '#2a2a2a' }}
+                            textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
                             onPress={this.navigateCreate}
                         />
                         <Button
                             title='Restore Wallet'
                             icon={{ size: 28 }}
                             buttonStyle={{
-                                backgroundColor: 'white', borderColor: '#2a2a2a', borderWidth: 2, borderRadius: 10, width: 300,
-                                height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginTop: 5.5
+                                backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100, width: 300,
+                                height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginTop: 10
                             }}
-                            textStyle={{ textAlign: 'center', color: '#2a2a2a' }}
+                            textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
                             onPress={this.navigateRestore}
                         />
                     </View>
@@ -81,8 +81,9 @@ const styles = StyleSheet.create({
     },
     pageTitle: {
         paddingBottom: 7,
+        paddingTop: 10,
         alignItems: 'center',
-        fontSize: 25,
+        fontSize: 30,
         textAlign: 'center',
         fontWeight: '200'
     },
@@ -99,7 +100,8 @@ const styles = StyleSheet.create({
         marginBottom: 25,
     },
     btnContainer: {
-        marginTop: 20
+        marginTop: 20,
+        justifyContent: 'flex-end'
     },
 })
 
