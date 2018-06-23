@@ -163,7 +163,7 @@ class CoinSend extends Component {
         <View style={styles.contentContainer} >
           <View style={styles.form} >
 
-            <FormLabel> Send To </FormLabel>
+            <FormLabel>Send To </FormLabel>
 
             <View style={{ flexDirection: 'row' }}>
               <Button
@@ -176,7 +176,7 @@ class CoinSend extends Component {
                 ref={ref => this.inputAddress = ref}
               />
             </View>
-            <FormLabel> Amount </FormLabel>
+            <FormLabel>Amount </FormLabel>
             <FormInput style={styles.formInputElement}
               onChangeText={this.renderValue.bind(this)}
               ref={ref => this.inputAmount = ref}
