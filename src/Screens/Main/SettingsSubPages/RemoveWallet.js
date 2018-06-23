@@ -38,10 +38,10 @@ class RemoveWallet extends Component {
                             title='Remove Wallet'
                             icon={{ size: 28 }}
                             buttonStyle={{
-                                backgroundColor: 'red', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-                                justifyContent: 'center', marginBottom: 30, marginTop: 5.5
+                                backgroundColor: 'white', borderColor: '#2a2a2a', borderWidth: 2, borderRadius: 10, width: 300,
+                                height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginTop: 5.5
                             }}
-                            textStyle={{ textAlign: 'center' }}
+                            textStyle={{ textAlign: 'center', color: '#2a2a2a' }}
                             onPress={this.navigate}
                         />
                     </View>
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
         marginTop: 25,
     },
     btnContainer: {
-        flex: 1, justifyContent: 'flex-end', alignItems: 'center'
+        flex: 1, justifyContent: 'flex-end', alignItems: 'center', paddingBottom: 20
     },
     header: {
         color: 'red',

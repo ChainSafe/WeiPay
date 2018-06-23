@@ -11,11 +11,13 @@ class Contacts extends Component {
     return {
       title: 'Contacts',
       headerRight: (
-        <Icon
-          name="menu"
-          onPress={() => navigation.navigate('DrawerOpen')}
-          title="SideMenu"
-        />
+        <View style={{ paddingRight: 15 }}>
+          <Icon
+            name="menu"
+            onPress={() => navigation.navigate('DrawerOpen')}
+            title="SideMenu"
+          />
+        </View>
       )
     }
   }
@@ -41,31 +43,31 @@ class Contacts extends Component {
   }
 
   navigate = (user) => {
-    
+
     let addresses = user.contactAddress
 
     const navigateToCreateOrRestore = NavigationActions.navigate({
-        routeName: 'contactAddresses',
-        params: { addresses }
+      routeName: 'contactAddresses',
+      params: { addresses }
     });
     this.props.navigation.dispatch(navigateToCreateOrRestore);
   };
 
   renderRow = (user) => {
     return (
-       <ListItem
-         key={user.name}
-         title={user.name}
-         onPress={() => this.navigate(user)}
-       />
+      <ListItem
+        key={user.name}
+        title={user.name}
+        onPress={() => this.navigate(user)}
+      />
     )
   }
 
   render() {
     const show = this.props.contacts.length === 0 ?
-      <AddFirstContact navigate={this.props.navigation.navigate}/>
+      <AddFirstContact navigate={this.props.navigation.navigate} />
       :
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false} />
       </View>
 
@@ -88,17 +90,9 @@ const styles = StyleSheet.create({
   },
 })
 
-function mapStateToProps({contacts}) {
-
+function mapStateToProps({ contacts }) {
   return { contacts: contacts.contacts }
 }
 
 export default connect(mapStateToProps)(Contacts);
-        //
-        // <View style={styles.contentContainer} >
-        //   <View style={styles.form} >
-        //     <FormLabel>Full Name</FormLabel>
-        //     <FormInput style={styles.formInputElement} placeholder={"Full Name"}
-        //     />
-        //   </View>
-        // </View>
+

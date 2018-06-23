@@ -49,8 +49,11 @@ class ContactAddresses extends Component {
             <Button
               title="Send"
               titleStyle={{ fontWeight: '700', color: 'black', fontSize: 5 }}
-              buttonStyle={{ backgroundColor: 'blue', borderColor: 'blue', borderWidth: 0, borderRadius: 10, height: 15 }}
-              containerStyle={{ width: 130 }}
+              buttonStyle={{
+                backgroundColor: 'white', borderColor: '#2a2a2a', borderWidth: 2, borderRadius: 10, width: 300,
+                height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginTop: 5.5
+              }}
+              textStyle={{ textAlign: 'center', color: '#2a2a2a' }}
               onPress={() => this.navigate(address[Object.keys(address)[0]])}
             />
           </View>

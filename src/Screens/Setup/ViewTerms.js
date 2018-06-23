@@ -32,8 +32,11 @@ class ViewTerms extends Component {
                         <Button
                             title='SUBMIT'
                             icon={{ size: 28 }}
-                            buttonStyle={{ backgroundColor: 'blue', borderRadius: 10 }}
-                            textStyle={{ textAlign: 'center' }}
+                            buttonStyle={{
+                                backgroundColor: 'white', borderColor: '#2a2a2a', borderWidth: 2, borderRadius: 10, width: 300,
+                                height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginTop: 5.5
+                            }}
+                            textStyle={{ textAlign: 'center', color: '#2a2a2a' }}
                             onPress={this.navigate}
                         />
                     </View>
@@ -47,17 +50,21 @@ const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
+        width: '100%'
     },
     termsContainer: {
         flex: 1,
         marginTop: 20,
         marginLeft: 10,
         marginRight: 10,
-        marginBottom: 30
+        marginBottom: 20,
+        width: '100%'
     },
     btnContainer: {
-        paddingTop: 25
+        paddingTop: 10,
+        alignItems: 'center',
+        width: '100%',
     },
     list: {
         backgroundColor: 'white',

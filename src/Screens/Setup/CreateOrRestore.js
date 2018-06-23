@@ -40,20 +40,20 @@ class CreateOrRestore extends Component {
                             title='Create Wallet'
                             icon={{ size: 28 }}
                             buttonStyle={{
-                                backgroundColor: 'blue', borderRadius: 10, width: 250, height: 40, alignItems: 'center',
-                                justifyContent: 'center', marginBottom: 3.5, marginTop: 3.5
+                                backgroundColor: 'white', borderColor: '#2a2a2a', borderWidth: 2, borderRadius: 10, width: 300,
+                                height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginTop: 5.5
                             }}
-                            textStyle={{ textAlign: 'center' }}
+                            textStyle={{ textAlign: 'center', color: '#2a2a2a' }}
                             onPress={this.navigateCreate}
                         />
                         <Button
                             title='Restore Wallet'
                             icon={{ size: 28 }}
                             buttonStyle={{
-                                backgroundColor: 'blue', borderRadius: 10, width: 250, height: 40, alignItems: 'center',
-                                justifyContent: 'center', marginBottom: 3.5, marginTop: 5.5
+                                backgroundColor: 'white', borderColor: '#2a2a2a', borderWidth: 2, borderRadius: 10, width: 300,
+                                height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginTop: 5.5
                             }}
-                            textStyle={{ textAlign: 'center' }}
+                            textStyle={{ textAlign: 'center', color: '#2a2a2a' }}
                             onPress={this.navigateRestore}
                         />
                     </View>
@@ -88,8 +88,8 @@ const styles = StyleSheet.create({
     },
     pageDescription: {
         alignItems: 'center',
-        fontSize: 18, textAlign:
-            'center',
+        fontSize: 18,
+        textAlign: 'center',
         fontWeight: '100'
     },
     logo: {

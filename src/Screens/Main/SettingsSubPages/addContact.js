@@ -12,9 +12,9 @@ class AddContact extends Component {
 
   constructor(props) {
     super(props);
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     let contactAddress = {}
-    this.props.tokens.map(token => contactAddress[token.title] = "" )
+    this.props.tokens.map(token => contactAddress[token.title] = "")
 
 
     this.renderAddContact = this.renderAddContact.bind(this);
@@ -29,26 +29,26 @@ class AddContact extends Component {
 
 
   renderAddContact() {
-  
+
     this.props.completeContact(this.state.contactName, this.state.contactAddress);
 
     this.setState({ contactName: "" })
     let newcontactAddress = {}
-    this.props.tokens.map(token => newcontactAddress[token.title] = "" )
+    this.props.tokens.map(token => newcontactAddress[token.title] = "")
     this.setState({ contactAddress: newcontactAddress })
   }
 
   clear() {
     this.setState({ contactName: "" })
     let newcontactAddress = {}
-    this.props.tokens.map(token => newcontactAddress[token.title] = "" )
+    this.props.tokens.map(token => newcontactAddress[token.title] = "")
     this.setState({ contactAddress: newcontactAddress })
   }
 
   renderName(name) {
-      this.setState({contactName: name})
-      var contact = { name: name }
-      this.props.addingContact(contact)
+    this.setState({ contactName: name })
+    var contact = { name: name }
+    this.props.addingContact(contact)
   }
 
   renderAddress(address, coinName, coin) {
@@ -64,12 +64,12 @@ class AddContact extends Component {
   }
 
   isEmptyObject(o) {
-    return Object.keys(o).every(function(x) {
-        return o[x]===''||o[x]===null;
+    return Object.keys(o).every(function (x) {
+      return o[x] === '' || o[x] === null;
     });
   }
 
-// clear button, types into inputs, that value should be passed to the parent, clear in parent state to null
+  // clear button, types into inputs, that value should be passed to the parent, clear in parent state to null
   render() {
 
     return (
@@ -82,34 +82,36 @@ class AddContact extends Component {
             renderName={this.renderName.bind(this)}
             contactAddress={this.state.contactAddress}
           />
-          <View style={styles.btnContainer} >
-            <View style={{ flexDirection: 'row' }}>
-              <Button
-                small
-                disabled={this.state.contactName === "" || this.isEmptyObject(this.state.contactAddress)}
-                title='Add Contact'
-                icon={{ size: 20 }}
-                buttonStyle={{
-                  backgroundColor: 'blue', flex: 1, width: 150, borderRadius: 10, height: 40,
-                  justifyContent: 'center', alignItems: 'center', marginBottom: 5.5, marginTop: 5.5
-                }}
-                textStyle={{ textAlign: 'center' }}
-                onPress={() => this.renderAddContact()}
-              />
-              <Button
-                small
-                title='Clear'
-                icon={{ size: 20 }}
-                buttonStyle={{
-                  backgroundColor: 'blue', flex: 1, width: 150, borderRadius: 10, height: 40,
-                  justifyContent: 'center', alignItems: 'center', marginBottom: 5.5, marginTop: 5.5
-                }}
-                textStyle={{ textAlign: 'center' }}
-                onPress={() => this.clear()}
-              />
-            </View>
-          </View>
         </ScrollView>
+        <View style={styles.btnContainer} >
+          <View>
+            <Button
+              small
+              disabled={this.state.contactName === "" || this.isEmptyObject(this.state.contactAddress)}
+              title='Add Contact'
+              icon={{ size: 20 }}
+              buttonStyle={{
+                backgroundColor: 'white', borderColor: '#2a2a2a', borderWidth: 2, borderRadius: 10,
+                width: 300, height: 50, padding: 10, alignItems: 'center',
+                justifyContent: 'center', marginBottom: 5, marginTop: 5.5
+              }}
+              textStyle={{ textAlign: 'center', color: '#2a2a2a' }}
+              onPress={() => this.renderAddContact()}
+            />
+            <Button
+              small
+              title='Clear'
+              icon={{ size: 20 }}
+              buttonStyle={{
+                backgroundColor: 'white', borderColor: '#2a2a2a', borderWidth: 2, borderRadius: 10,
+                width: 300, height: 50, padding: 10, alignItems: 'center',
+                justifyContent: 'center', marginBottom: 5, marginTop: 5.5
+              }}
+              textStyle={{ textAlign: 'center', color: '#2a2a2a' }}
+              onPress={() => this.clear()}
+            />
+          </View>
+        </View>
       </View>
 
     );
@@ -122,9 +124,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'red'
   },
   btnContainer: {
-    alignItems: 'center', height: 60, paddingTop: 10, paddingBottom: 10, justifyContent: "center"
+    alignItems: 'center',
+    height: 60,
+    // paddingTop: 30,
+    // paddingBottom: 10,
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginBottom: 10
   },
-
   NameInputStyle: {
     paddingTop: 10,
     paddingLeft: 2,

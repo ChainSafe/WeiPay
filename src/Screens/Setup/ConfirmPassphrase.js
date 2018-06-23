@@ -191,11 +191,12 @@ const styles = StyleSheet.create({
         // backgroundColor: '#ADD1C7'
     },
     btn: {
-        backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
+        backgroundColor: 'white', borderColor: '#2a2a2a', borderWidth: 2, borderRadius: 10, width: 300,
+        height: 50, alignItems: 'center',
         justifyContent: 'center', marginBottom: 30, marginTop: 5.5
     },
     btnText: {
-        color: 'white', fontSize: 20
+        color: '#2a2a2a', fontSize: 20
     },
     content: {
         width: 350
