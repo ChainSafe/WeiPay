@@ -64,7 +64,6 @@ class Contacts extends Component {
       <View style={{ flex: 1 }}>
         <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false} />
       </View>
-
     return show
   }
 }

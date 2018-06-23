@@ -46,20 +46,20 @@ export default DrawerNavigator({
       contacts: { screen: Contacts },
       addContact: { screen: addContact }
 
-    },{
-      navigationOptions: {
-        headerStyle: {
-          borderBottomWidth: 0,
+    }, {
+        navigationOptions: {
+          headerStyle: {
+            borderBottomWidth: 0,
+          }
+        },
+        tabBarPosition: 'top',
+        tabBarOptions: {
+          labelStyle: { fontSize: 16, marginBottom: 13 },
+          style: {
+            borderTopColor: 'transparent'
+          }
         }
-      },
-      tabBarPosition: 'top',
-      tabBarOptions: {
-        labelStyle: { fontSize: 16, marginBottom: 13 },
-        style: {
-          borderTopColor: 'transparent'
-        }
-      }
-    })
+      })
 
   },
   AddToken: {
