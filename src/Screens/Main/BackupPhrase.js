@@ -18,7 +18,6 @@ class BackupPhrase extends Component {
   constructor(props) {
     super(props);
     this.state = { isPhraseSelected: false };
-
   }
 
   static navigationOptions = ({ navigation, NavigationActions }) => {
@@ -30,7 +29,6 @@ class BackupPhrase extends Component {
       });
       this.props.navigation.dispatch(navigateToPassphrase);
     };
-
 
     return {
       title: 'Backup Phrase',
@@ -65,7 +63,6 @@ class BackupPhrase extends Component {
 
   render() {
     return (
-
       <View style={styles.mainContainer}>
         <View style={styles.contentContainer} >
           <Text style={styles.title} > Your Wallet is secure now  </Text>
@@ -77,11 +74,10 @@ class BackupPhrase extends Component {
               title='Show Backup Passphrase'
               icon={{ size: 28 }}
               buttonStyle={{
-                backgroundColor: 'white', borderColor: '#2a2a2a', borderWidth: 2, borderRadius: 10,
-                width: 300, height: 50, padding: 10, alignItems: 'center',
-                justifyContent: 'center', marginBottom: 20, marginTop: 5.5
+                backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100, width: 300,
+                height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginBottom: 20, marginTop: 5.5
               }}
-              textStyle={{ textAlign: 'center', color: '#2a2a2a' }}
+              textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
               onPress={this.displayPassphrase.bind(this)}
             />
           </View>

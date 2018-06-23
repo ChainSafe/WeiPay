@@ -24,28 +24,22 @@ class Contacts extends Component {
 
   componentWillMount() {
     let data = this.props.contacts
-
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     })
-
     this.dataSource = ds.cloneWithRows(data);
   }
 
   componentWillReceiveProps(nextProps) {
     let data = nextProps.contacts
-
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     })
-
     this.dataSource = ds.cloneWithRows(data);
   }
 
   navigate = (user) => {
-
     let addresses = user.contactAddress
-
     const navigateToCreateOrRestore = NavigationActions.navigate({
       routeName: 'contactAddresses',
       params: { addresses }
