@@ -68,31 +68,32 @@ class RecoverWallet extends Component {
 
     render() {
         return (
+
             <View style={styles.mainContainer}>
                 <View style={styles.contentContainer} >
                     <View style={styles.form} >
-                        <FormLabel>Enter passphrase to recover </FormLabel>
+                        <Text style={styles.walletName}>Enter Passphrase to Recover </Text>
                         <FormInput
-                            value={this.state.value}
+                            placeholder={"Ex. Cat Fish Hello Man Women Etc."}
+                            onChangeText={this.renderRecoveryKey.bind(this)}
+                            inputStyle={{ width: 300 }}
                             multiline={true}
                             numberOfLines={3}
-                            onChangeText={this.renderRecoveryKey.bind(this)}
-                            ref={ref => this.inputMnemonic = ref} />
+                        />
                         <View style={styles.btnContainer} >
                             <Button
                                 // disabled={this.state.mnemonic === ""}
                                 title='Restore'
                                 icon={{ size: 28 }}
                                 buttonStyle={{
-                                    backgroundColor: 'white', borderColor: '#2a2a2a', borderWidth: 2, borderRadius: 10, width: 300,
-                                    height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginBottom: 30, marginTop: 5.5
+                                    backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100, width: 300,
+                                    height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginTop: 30
                                 }}
-                                textStyle={{ textAlign: 'center', color: '#2a2a2a' }}
+                                textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
                                 onPress={this.navigate}
                             />
                         </View>
                     </View>
-
                 </View>
             </View>
         );
@@ -101,21 +102,22 @@ class RecoverWallet extends Component {
 
 const styles = StyleSheet.create({
     mainContainer: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'flex-start'
+        flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: -100
     },
-    contentContainer: {
-        marginTop: 25
+    walletName: {
+        fontSize: 20,
+        paddingTop: 20,
+        paddingBottom: 25,
+    },
+    formInput: {
+        width: 300
     },
     form: {
-        width: Dimensions.get('window').width - 20,
+        width: Dimensions.get('window').width - 10,
+        alignItems: 'center'
     },
     btnContainer: {
-        flex: 1,
-        justifyContent: 'flex-end',
         alignItems: 'center',
-        paddingTop: 25
     },
 })
 

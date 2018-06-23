@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput, Image } from "react-native";
+import { View, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput, Image, Dimensions } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Terms } from './terms';
@@ -28,32 +28,26 @@ class GeneratePassphrase extends Component {
         return (
             <View style={styles.mainContainer}>
                 <View style={styles.contentContainer} >
-
-                    <View style={styles.content} >
-
-                        <CardSection>
-                            <Text style={styles.walletName} >Wallet Name: {walletInfo.walletName}</Text>
-                        </CardSection>
-                        <CardSection>
-                            <Text style={styles.headerText} >Please save this passphrase as you will need it to recover your crypto.</Text>
-                        </CardSection>
+                    <View style={styles.form} >
+                        <Text style={styles.walletName}>Wallet Name: {walletInfo.walletName}</Text>
+                        <Text style={styles.passphraseHeading}> Passphrase </Text>
                         <CardSection>
                             <Text style={styles.passphrase}>{walletInfo.wallet.mnemonic}</Text>
                         </CardSection>
-                    </View>
 
-                    <View style={styles.btnContainer} >
-                        <Button
-                            title='Next'
-                            icon={{ size: 28 }}
-                            buttonStyle={{
-                                backgroundColor: 'white', borderColor: '#2a2a2a', borderWidth: 2, borderRadius: 10,
-                                width: 300, height: 50, padding: 10, alignItems: 'center',
-                                justifyContent: 'center', marginBottom: 30, marginTop: 5.5
-                            }}
-                            textStyle={{ textAlign: 'center', color: '#2a2a2a' }}
-                            onPress={this.navigate}
-                        />
+                        <View style={styles.btnContainer} >
+                            <Button
+                                // disabled={this.props.walletName === ""}
+                                title='Next'
+                                icon={{ size: 28 }}
+                                buttonStyle={{
+                                    backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100, width: 300,
+                                    height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginTop: 30
+                                }}
+                                textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
+                                onPress={this.navigate}
+                            />
+                        </View>
                     </View>
                 </View>
             </View>
@@ -63,30 +57,38 @@ class GeneratePassphrase extends Component {
 
 const styles = StyleSheet.create({
     mainContainer: {
-        flex: 1, alignItems: 'center', justifyContent: 'flex-start'
-    },
-    contentContainer: {
-        marginTop: 25
-    },
-    content: {
-        width: 350,
-    },
-    btnContainer: {
-        flex: 1, justifyContent: 'flex-end', alignItems: 'center'
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: -100
     },
     walletName: {
-        fontSize: 15,
-        fontWeight: 'bold',
-        padding: 15,
+        fontSize: 20,
+        paddingTop: 20,
+        paddingBottom: 5,
     },
-    headerText: {
-        fontSize: 15,
-        fontWeight: 'bold',
-        padding: 20
+    passphraseHeading: {
+        fontSize: 18,
+        paddingTop: 15,
+        paddingBottom: 10
     },
     passphrase: {
-        padding: 15
-    }
+        padding: 15,
+        fontSize: 18,
+        fontWeight: '400',
+        alignItems: 'center',
+        width: 330,
+    },
+    formInput: {
+        width: 300
+    },
+    form: {
+        width: Dimensions.get('window').width - 10,
+        alignItems: 'center'
+    },
+    btnContainer: {
+        alignItems: 'center',
+    },
 })
 
 const mapStateToProps = ({ newWallet }) => {

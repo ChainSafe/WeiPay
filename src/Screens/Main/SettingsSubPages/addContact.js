@@ -16,7 +16,6 @@ class AddContact extends Component {
     let contactAddress = {}
     this.props.tokens.map(token => contactAddress[token.title] = "")
 
-
     this.renderAddContact = this.renderAddContact.bind(this);
 
     this.state = {
@@ -27,11 +26,8 @@ class AddContact extends Component {
     }
   }
 
-
   renderAddContact() {
-
     this.props.completeContact(this.state.contactName, this.state.contactAddress);
-
     this.setState({ contactName: "" })
     let newcontactAddress = {}
     this.props.tokens.map(token => newcontactAddress[token.title] = "")
