@@ -68,7 +68,10 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width - 10,
     },
     btnContainer: {
-        flex: 1, justifyContent: 'flex-end', alignItems: 'center'
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        paddingTop: 25
     },
 })
 
