@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, ScrollView, StyleSheet } from "react-native";
+import { Text, View, ScrollView, StyleSheet, Dimensions } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { Terms } from './terms';
 import { Button } from 'react-native-elements';
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
         marginBottom: 20,
-        width: '100%'
+        width: Dimensions.get('window').width - 20,
     },
     btnContainer: {
         paddingTop: 10,

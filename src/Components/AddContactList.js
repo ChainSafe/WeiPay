@@ -7,7 +7,7 @@ import _ from 'lodash'
 import addContactAction from '../Actions/actionCreator';
 import *  as actions from '../Actions/actionCreator.js';
 import AddContactListItem from './AddContactListItem';
-import { List, ListItem } from 'react-native-elements'
+import { List, ListItem, Button } from 'react-native-elements'
 
 class AddContactList extends Component {
 
@@ -70,18 +70,20 @@ class AddContactList extends Component {
             <View style={styles.section}>
               <Text style={styles.title}>{coin.title} 's Address</Text>
               <Card>
-
-                <Button
-                  title='QR'
-                  onPress={() => this.navigate()}
-                />
-
-                <TextInput
-                  placeholder="Enter or Paste Address here"
-                  onChangeText={(text) => this.props.renderAddress(text, coin.title, coin)}
-                  ref={ref => this.props.contactAddress = ref}
-                  value={this.props.contactAddress[coin.title]}
-                />
+                <View style={styles.card}>
+                  <Button
+                    title='QR'
+                    onPress={() => this.navigate()}
+                    style={styles.qrButton}
+                  />
+                  <TextInput
+                    placeholder="Enter or Paste Address here"
+                    onChangeText={(text) => this.props.renderAddress(text, coin.title, coin)}
+                    ref={ref => this.props.contactAddress = ref}
+                    value={this.props.contactAddress[coin.title]}
+                    style={styles.addressInput}
+                  />
+                </View>
               </Card>
             </View>
           </CardSection>
@@ -96,7 +98,7 @@ class AddContactList extends Component {
         <TextInput
           textAlign={'center'}
           placeholder="Enter Contact Name"
-          style={styles.NameInputStyle}
+          style={styles.nameInputStyle}
           onChangeText={text => this.props.renderName(text)} //this.props.upDateContactName
           value={this.props.contactName} //this.props.contactName
         />
@@ -109,7 +111,7 @@ class AddContactList extends Component {
 }
 
 const styles = StyleSheet.create({
-  NameInputStyle: {
+  nameInputStyle: {
     paddingTop: 10,
     paddingLeft: 2,
     paddingRight: 2,
@@ -120,21 +122,31 @@ const styles = StyleSheet.create({
     width: '100 %',
     backgroundColor: 'white'
   },
+  qrButton: {
+    width: 50,
+    height: 50
+  },
+  addressInput: {
+    width: 150,
+    marginLeft: 0
+  },
+  card: {
+    flexDirection: 'row',
+    paddingLeft: 5,
+    paddingTop: 7,
+    paddingBottom: 7
+  },
   title: {
     fontWeight: "bold",
-    fontSize: 13,
+    fontSize: 15,
     color: "black",
-    textShadowRadius: 3
+    textShadowRadius: 3,
+    paddingLeft: 5
   },
   section: {
     flex: 1,
     flexDirection: 'column'
   },
-  componentStyle: {
-    paddingTop: 3,
-    paddingLeft: 2,
-    paddingRight: 2
-  }
 });
 
 const mapStateToProps = state => {

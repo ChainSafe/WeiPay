@@ -15,7 +15,6 @@ class AddContact extends Component {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     let contactAddress = {}
     this.props.tokens.map(token => contactAddress[token.title] = "")
-
     this.renderAddContact = this.renderAddContact.bind(this);
 
     this.state = {
@@ -48,15 +47,12 @@ class AddContact extends Component {
   }
 
   renderAddress(address, coinName, coin) {
-
     let copy = Object.assign({}, this.state.contactAddress)
     copy[coinName] = address
     this.setState({ contactAddress: copy })
-
     var coinAddress = {}
     coinAddress[coinName] = address
     this.props.addingContact(coinAddress)
-
   }
 
   isEmptyObject(o) {
@@ -67,10 +63,9 @@ class AddContact extends Component {
 
   // clear button, types into inputs, that value should be passed to the parent, clear in parent state to null
   render() {
-
     return (
       <View style={{ flex: 1, paddingTop: 3 }}>
-        <ScrollView>
+        <ScrollView style={{ height: '75%' }} >
           <AddContactList
             contactName={this.state.contactName}
             dataSource={this.state.dataSource}
@@ -79,64 +74,56 @@ class AddContact extends Component {
             contactAddress={this.state.contactAddress}
           />
         </ScrollView>
-        <View style={styles.btnContainer} >
-          <View>
+
+        <View style={styles.container}>
+          <View style={styles.buttonContainer}>
             <Button
               small
               disabled={this.state.contactName === "" || this.isEmptyObject(this.state.contactAddress)}
               title='Add Contact'
               icon={{ size: 20 }}
               buttonStyle={{
-                backgroundColor: 'white', borderColor: '#2a2a2a', borderWidth: 2, borderRadius: 10,
-                width: 300, height: 50, padding: 10, alignItems: 'center',
-                justifyContent: 'center', marginBottom: 5, marginTop: 5.5
+                backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100,
+                height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginBottom: 5, marginTop: 5.5
               }}
-              textStyle={{ textAlign: 'center', color: '#2a2a2a' }}
+              textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
               onPress={() => this.renderAddContact()}
             />
+          </View>
+          <View style={styles.buttonContainer}>
             <Button
               small
               title='Clear'
               icon={{ size: 20 }}
               buttonStyle={{
-                backgroundColor: 'white', borderColor: '#2a2a2a', borderWidth: 2, borderRadius: 10,
-                width: 300, height: 50, padding: 10, alignItems: 'center',
-                justifyContent: 'center', marginBottom: 5, marginTop: 5.5
+                backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100,
+                height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginBottom: 5, marginTop: 5.5
               }}
-              textStyle={{ textAlign: 'center', color: '#2a2a2a' }}
+              textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
               onPress={() => this.clear()}
             />
           </View>
         </View>
       </View>
-
     );
   }
 }
 
 const styles = StyleSheet.create({
+
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonContainer: {
+    flex: 1,
+  },
   section: {
     flexDirection: 'column',
     backgroundColor: 'red'
   },
-  btnContainer: {
-    alignItems: 'center',
-    height: 60,
-    // paddingTop: 30,
-    // paddingBottom: 10,
-    flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: 10
-  },
-  NameInputStyle: {
-    paddingTop: 10,
-    paddingLeft: 2,
-    paddingRight: 2,
-    fontWeight: 'bold',
-    fontSize: 15,
-    width: '100 %', backgroundColor: 'white'
-  }
-
 });
 
 const mapStateToProps = state => {

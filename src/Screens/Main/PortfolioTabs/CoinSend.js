@@ -188,22 +188,20 @@ class CoinSend extends Component {
               disabled={this.state.toAddress === "" && this.state.value == 0}
               icon={{ size: 28 }}
               buttonStyle={{
-                backgroundColor: 'white', borderColor: '#2a2a2a', borderWidth: 2, borderRadius: 10,
-                width: 300, height: 50, padding: 10, alignItems: 'center',
-                justifyContent: 'center', marginBottom: 5, marginTop: 5.5
+                backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100, width: 300,
+                height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginBottom: 5, marginTop: 5.5
               }}
-              textStyle={{ textAlign: 'center', color: '#2a2a2a' }}
+              textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
               onPress={() => this.resetFields()} />
             <Button
               title='Next'
               disabled={this.state.toAddress === "" || this.state.value == 0}
               icon={{ size: 28 }}
               buttonStyle={{
-                backgroundColor: 'white', borderColor: '#2a2a2a', borderWidth: 2, borderRadius: 10,
-                width: 300, height: 50, padding: 10, alignItems: 'center',
-                justifyContent: 'center', marginBottom: 30, marginTop: 5.5
+                backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100, width: 300,
+                height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginBottom: 30, marginTop: 5.5
               }}
-              textStyle={{ textAlign: 'center', color: '#2a2a2a' }}
+              textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
               onPress={() => this.sendTransaction()}
             />
           </View>
