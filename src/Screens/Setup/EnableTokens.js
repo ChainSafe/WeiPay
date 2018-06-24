@@ -37,11 +37,10 @@ class EnableTokens extends Component {
                         title='Add'
                         icon={{ size: 28 }}
                         buttonStyle={{
-                            backgroundColor: 'white', borderColor: '#2a2a2a', borderWidth: 2, borderRadius: 10,
-                            width: 300, height: 50, alignItems: 'center', justifyContent: 'center', marginBottom: 20,
-                            marginTop: 5.5
+                            backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100, width: 300,
+                            height: 50, padding: 10, alignItems: 'center', justifyContent: 'center'
                         }}
-                        textStyle={{ textAlign: 'center', color: '#2a2a2a' }}
+                        textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
                         onPress={() => this.props.navigation.navigate('Drawer')}
                     />
                 </View>
@@ -52,7 +51,7 @@ class EnableTokens extends Component {
 
 const styles = StyleSheet.create({
     btnContainer: {
-        alignItems: 'center', height: 60, paddingTop: 20, paddingBottom: 20, justifyContent: "center"
+        alignItems: 'center', height: 80, paddingTop: 20, paddingBottom: 20, justifyContent: "center"
     }
 })
 

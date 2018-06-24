@@ -25,7 +25,6 @@ class CoinSend extends Component {
       inputValue: ""
     }
 
-
     provider.getBalance(this.props.wallet.address).then(function (balance) {
       var etherString = utils.formatEther(balance);
       console.log("Current Wallet Balance" + etherString);
@@ -77,7 +76,6 @@ class CoinSend extends Component {
         this.setState({ inputValue: contactAddress })
       }
     }
-
   }
 
   renderAddress(addressInput) {
@@ -138,7 +136,6 @@ class CoinSend extends Component {
         var etherString = utils.formatEther(balance);
         console.log("receiving account Balance: " + etherString);
       });
-
     });
   }
 
@@ -149,13 +146,12 @@ class CoinSend extends Component {
   }
 
   navigate = () => {
-    const navigateToEnableTokens = NavigationActions.navigate({
+    const navigateToQRScanner = NavigationActions.navigate({
       routeName: "QCodeScanner",
       params: { name: "Shubhnik" }
     });
-    this.props.navigation.dispatch(navigateToEnableTokens);
+    this.props.navigation.dispatch(navigateToQRScanner);
   };
-
 
   render() {
     return (
@@ -163,7 +159,7 @@ class CoinSend extends Component {
         <View style={styles.contentContainer} >
           <View style={styles.form} >
 
-            <FormLabel> Send To </FormLabel>
+            <FormLabel>Send To </FormLabel>
 
             <View style={{ flexDirection: 'row' }}>
               <Button
@@ -176,7 +172,7 @@ class CoinSend extends Component {
                 ref={ref => this.inputAddress = ref}
               />
             </View>
-            <FormLabel> Amount </FormLabel>
+            <FormLabel>Amount </FormLabel>
             <FormInput style={styles.formInputElement}
               onChangeText={this.renderValue.bind(this)}
               ref={ref => this.inputAmount = ref}
