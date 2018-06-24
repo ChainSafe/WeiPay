@@ -29,10 +29,10 @@ class ChangeCurrency extends Component {
                         title='Update'
                         icon={{ size: 28 }}
                         buttonStyle={{
-                            backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-                            justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
+                            backgroundColor: 'white', borderColor: '#2a2a2a', borderWidth: 2, borderRadius: 10, width: 300,
+                            height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginTop: 5.5
                         }}
-                        textStyle={{ textAlign: 'center' }}
+                        textStyle={{ textAlign: 'center', color: '#2a2a2a' }}
                         onPress={this.navigate}
                     />
                 </View>

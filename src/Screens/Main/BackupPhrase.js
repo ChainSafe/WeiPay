@@ -70,20 +70,18 @@ class BackupPhrase extends Component {
         <View style={styles.contentContainer} >
           <Text style={styles.title} > Your Wallet is secure now  </Text>
           <Text style={styles.description} > To view your backup passphrase, continue.</Text>
-
-
           {this.renderPassphrase()}
-
           <View style={styles.btnContainer} >
             <Button
               disabled={this.state.isPhraseSelected}
               title='Show Backup Passphrase'
               icon={{ size: 28 }}
               buttonStyle={{
-                backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-                justifyContent: 'center', marginBottom: 30, marginTop: 5.5
+                backgroundColor: 'white', borderColor: '#2a2a2a', borderWidth: 2, borderRadius: 10,
+                width: 300, height: 50, padding: 10, alignItems: 'center',
+                justifyContent: 'center', marginBottom: 20, marginTop: 5.5
               }}
-              textStyle={{ textAlign: 'center' }}
+              textStyle={{ textAlign: 'center', color: '#2a2a2a' }}
               onPress={this.displayPassphrase.bind(this)}
             />
           </View>
@@ -118,6 +116,7 @@ const styles = StyleSheet.create({
   },
   recovered: {
     width: Dimensions.get('window').width - 80,
+    padding: 10
   }
 })
 
