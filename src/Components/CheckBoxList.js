@@ -3,6 +3,9 @@ import { ListView } from 'react-native';
 import { connect } from 'react-redux';
 import CheckBoxListItem from './CheckBoxListItem';
 
+/**
+ * This Class is not being used anywhere
+ */
 class CheckBoxList extends Component {
 
     componentWillMount() {
@@ -14,7 +17,7 @@ class CheckBoxList extends Component {
     }
 
     renderRow(coin) {
-      
+
         return (<CheckBoxListItem coin={coin} addItem={this.props.addItem} selectedItems={this.props.selectedItems.tokens} />)
     }
 

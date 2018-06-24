@@ -6,16 +6,30 @@ import { CardSection } from './common/CardSection';
 import { Card } from './common/Card';
 import { selectWalletLanguage } from '../Actions/actionCreator';
 
-
+/**
+ * React Component
+ * Contains a radio list of all languages from which
+ * the user select from.
+ * 
+ */
 class LanguageList extends Component {
 
   state = {
     data: this.props.language
   };
 
-  // update state
+  /**
+   * Updates this.state.data everytime a new language from 
+   * the list is selected.
+   */
   onPress = data => this.setState({ data });
 
+  /**
+  * Executes the action "selectWalletLanguage" to update the selected language in the
+  * state variable
+  * updates this.state.data to the selected language
+  * @param {String} data 
+  */
   renderSelect(data) {
     let selectedlanguage = this.state.data.find(e => e.selected == true);
     selectedlanguage = selectedlanguage ? selectedlanguage.value : this.state.data[0].label;

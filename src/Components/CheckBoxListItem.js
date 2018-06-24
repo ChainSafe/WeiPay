@@ -10,6 +10,11 @@ import { addTokenToSetup } from '../Actions/actionCreator';
 
 var touched = false;
 
+/**
+ * This class is a sub-component of the CheckBoxList component
+ * However the main component is not being used anywhere in the project
+ * therefore considering this component to also be useless 
+ */
 class CheckBoxListItem extends Component {
   constructor() {
     super();
@@ -19,71 +24,71 @@ class CheckBoxListItem extends Component {
     };
   }
 
-    renderPress(coin) {
-      this.props.addItem(coin);
-      this.setState({
-        checked: !(this.state.checked)
-      })
+  renderPress(coin) {
+    this.props.addItem(coin);
+    this.setState({
+      checked: !(this.state.checked)
+    })
 
-      // console.log(this.props.tokenList);
+    // console.log(this.props.tokenList);
 
-    }
+  }
 
-    //isMember ? "$2.00" : "$10.00"
-    //condition ? --then-- : --else--
-
-
-    //onPress={this.renderSelect(coin.id)}
-    //onPress={() => this.props.addTokenToSetup(coin.id)}
-      //containerStyle={[title , !(this.props.tokenList.indexOf(coin.id) == -1) ? styles.invalid : styles.valid]}
-    render() {
-      
-        const { coin } = this.props;
-        const { title } = styles;
-
-        const { checked } = this.state
-        //console.log(this.props);
-        return (
+  //isMember ? "$2.00" : "$10.00"
+  //condition ? --then-- : --else--
 
 
-              <View>
-                <Card
-                  style={[styles.check , (this.props.selectedItems.indexOf(coin.id) != -1) ? styles.valid : styles.invalid]}
-                >
-                  <CheckBox center
-                    title={coin.title}
-                    iconLeft
-                    iconType='material'
-                    checkedIcon='clear'
-                    uncheckedIcon='add'
-                    checkedColor='red'
-                    checked={checked}
-                    containerStyle={[title, checked ? styles.valid : styles.invalid]}
-                    onPress={() => this.renderPress(coin)}
-                  />
-                </Card>
+  //onPress={this.renderSelect(coin.id)}
+  //onPress={() => this.props.addTokenToSetup(coin.id)}
+  //containerStyle={[title , !(this.props.tokenList.indexOf(coin.id) == -1) ? styles.invalid : styles.valid]}
+  render() {
 
-              </View>
+    const { coin } = this.props;
+    const { title } = styles;
+
+    const { checked } = this.state
+    //console.log(this.props);
+    return (
 
 
+      <View>
+        <Card
+          style={[styles.check, (this.props.selectedItems.indexOf(coin.id) != -1) ? styles.valid : styles.invalid]}
+        >
+          <CheckBox center
+            title={coin.title}
+            iconLeft
+            iconType='material'
+            checkedIcon='clear'
+            uncheckedIcon='add'
+            checkedColor='red'
+            checked={checked}
+            containerStyle={[title, checked ? styles.valid : styles.invalid]}
+            onPress={() => this.renderPress(coin)}
+          />
+        </Card>
+
+      </View>
 
 
-        )
-    }
+
+
+    )
+  }
 }
 
 const styles = StyleSheet.create({
-    title: {
-      paddingLeft: 15
-    },
+  title: {
+    paddingLeft: 15
+  },
 
-    invalid: {
-      borderColor: 'red'
-    },
+  invalid: {
+    borderColor: 'red'
+  },
 
-    valid: {
-      borderColor: 'green'
-    }
+  valid: {
+    borderColor: 'green'
+  }
 })
 
 

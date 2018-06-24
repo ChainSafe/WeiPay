@@ -8,11 +8,12 @@ import { Button } from 'react-native-elements';
 import { connect } from 'react-native-elements';
 
 
+/**
+ * This component is not being used anywhere
+ */
 class AddContactListItem extends Component {
-
     render() {
         const { coin } = this.props;
-
         return (
             <View style={styles.componentStyle}>
                 <CardSection>
