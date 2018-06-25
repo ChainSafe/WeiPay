@@ -8,7 +8,7 @@ import { selectWalletLanguage } from '../Actions/actionCreator';
 
 /**
  * React Component
- * Contains a radio list of all languages from which
+ * a radio list of all languages from which
  * the user select from.
  * 
  */
@@ -37,6 +37,9 @@ class LanguageList extends Component {
     this.setState({ data });
   }
 
+  /**
+   * Returns a Scrollable radio list of languages that the user can select from
+   */
   render() {
     // let selectedButton = this.state.data.find(e => e.selected == true);
     // selectedButton = selectedButton ? selectedButton.value : this.state.data[0].label;
@@ -49,7 +52,9 @@ class LanguageList extends Component {
     );
   }
 }
-
+/**
+ * Styles used within the component
+ */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -59,7 +64,11 @@ const styles = StyleSheet.create({
   }
 });
 
-
+/**
+ * extracts the current language that the state is pointing to
+ * and returns an object containing this information
+ * @param {Object} state 
+ */
 const mapStateToProps = state => {
   return {
     language: state.language
@@ -67,4 +76,3 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, { selectWalletLanguage })(LanguageList);
-//export default Test;
