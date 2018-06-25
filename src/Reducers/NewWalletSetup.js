@@ -12,6 +12,12 @@ const INITIAL_STATE = {
   QrData: ""
 };
 
+/**
+ * Reducer used to handle all actions occuring during the process of creating a wallet.
+ * 
+ * Also handles the action invoked by using the QrScanner Component
+ */
+
 export default (state = INITIAL_STATE, action) => {
   //console.log(action);
   switch (action.type) {

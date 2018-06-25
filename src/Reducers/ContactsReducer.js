@@ -9,6 +9,10 @@ const INITIAL_STATE = {
   contactAddress: {}
 }
 
+/**
+ * Reducer used to handle all actions occured during the process of 
+ * adding a new contact. Each case represents an Action
+ */
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case actions.ADDING_CONTACT:
@@ -20,20 +24,20 @@ export default (state = INITIAL_STATE, action) => {
       const actionKeyValue = action.payload[Object.keys(action.payload)[0]]
 
       if (actionKey in contact) {
-          contact[actionKey] = actionKeyValue
+        contact[actionKey] = actionKeyValue
       } else {
-          contact[actionKey] = actionKeyValue
+        contact[actionKey] = actionKeyValue
       }
 
       // console.log("Contact Details: ");
       // console.log(contact);
 
       return { ...state, currentContact: contact }
-  case actions.CONTACT_NAME:
-    return { ...state, contactName: action.payload }
-  case actions.CONTACT_ADDRESS:
-    return { ...state, contactAddress: action.payload }
-  case actions.COMPLETE_CONTACT:
+    case actions.CONTACT_NAME:
+      return { ...state, contactName: action.payload }
+    case actions.CONTACT_ADDRESS:
+      return { ...state, contactAddress: action.payload }
+    case actions.COMPLETE_CONTACT:
       var old = state.contacts
 
       // old.push(state.currentContact)
@@ -41,20 +45,17 @@ export default (state = INITIAL_STATE, action) => {
 
       // return { ...state, currentContact: action.payload, contacts: [...old, state.currentContact], clearInput: true}
       let newContact = [...state.contacts, action.payload]
-      return {...state, contacts: newContact}
+      return { ...state, contacts: newContact }
 
-  case actions.CLEAR_INPUT:
-    return { ...state, contactName: "", contactAddress: "" }
+    case actions.CLEAR_INPUT:
+      return { ...state, contactName: "", contactAddress: "" }
 
-  default:
+    default:
       return state;
   }
-    // console.log("Total Contacts: ");
-    // console.log(state.contacts);
-    // console.log("Currenct Contact: ");
-    // console.log(state.currentContact);
-
-
-
+  // console.log("Total Contacts: ");
+  // console.log(state.contacts);
+  // console.log("Currenct Contact: ");
+  // console.log(state.currentContact);
 
 }
