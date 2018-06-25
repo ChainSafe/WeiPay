@@ -10,7 +10,7 @@ const INITIAL_STATE = {
 }
 
 /**
- * Reducer used to handle all actions occured during the process of 
+ * Reducer used to handle all actions occurring during the process of 
  * adding a new contact. Each case represents an Action
  */
 export default (state = INITIAL_STATE, action) => {
