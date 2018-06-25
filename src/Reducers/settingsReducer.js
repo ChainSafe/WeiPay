@@ -5,6 +5,11 @@ const INITIAL_STATE = {
     language: "English"
 }
 
+
+/**
+ * Reducer handles all the actions invoked during the process of
+ * selecting an different currency/language for the wallet
+ */
 export default (state = INITIAL_STATE, action) => {
     console.log(action.payload);
     switch (action.type) {

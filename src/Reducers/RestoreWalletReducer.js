@@ -6,7 +6,7 @@ const INITIAL_STATE = {
 };
 /**
  * Reducer handles all actions invoked when going through the process of
- * recoverying a pre
+ * recoverying a previous wallet
  */
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
