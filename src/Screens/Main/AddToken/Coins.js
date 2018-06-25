@@ -6,7 +6,11 @@ import { NavigationActions } from 'react-navigation';
 
 import CoinList from '../../../Components/CoinList';
 
-
+/**
+ * React Component
+ * Creates a button like component that can be used
+ * to initiate a search on list
+ */
 class CustomButton extends Component {
   navigate = () => {
     this.props.navigation.navigate('DrawerOpen')
@@ -31,7 +35,10 @@ class CustomButton extends Component {
     )
   }
 }
-
+/**
+ * React-Component
+ * This component is not being used anywhere
+ */
 class BackButton extends Component {
   navigate = () => {
     debugger
@@ -54,11 +61,22 @@ class BackButton extends Component {
   }
 }
 {/* <BackButton navigation={navigation} /> */ }
+
+
+
+/**
+ * React Screen Component
+ * Screen to add more coins to the portfolio
+ */
+
 class Coins extends Component {
 
-
+  /**
+   * Opens up the Drawer Navigator that allows you to navigate and select
+   * new coins to add
+   * 
+   */
   static navigationOptions = ({ navigation }) => {
-
     console.log('Navigation ACtions', NavigationActions)
     return {
       title: 'Enable Tokens',
@@ -77,6 +95,9 @@ class Coins extends Component {
     }
   }
 
+  /**
+   * Allows you to navigate to the navigation drawer
+   */
   navigate = () => {
     const navigateToPassphrase = NavigationActions.reset({
       index: 0,
@@ -86,7 +107,9 @@ class Coins extends Component {
   };
 
 
-
+  /**
+   * Contains tha CoinList Component
+   */
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -96,6 +119,9 @@ class Coins extends Component {
   }
 }
 
+/**
+ * Styles
+ */
 const styles = StyleSheet.create({
   NavBarButton: {
     flex: 1,
