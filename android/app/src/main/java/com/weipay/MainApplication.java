@@ -1,4 +1,4 @@
-package com.reactnavigationdemo;
+package com.chainsafe.weipay;
 
 import android.app.Application;
 
