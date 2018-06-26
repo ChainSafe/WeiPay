@@ -1,4 +1,4 @@
-package com.chainsafe.weipay;
+package com.weipay;
 
 import com.facebook.react.ReactActivity;
 
