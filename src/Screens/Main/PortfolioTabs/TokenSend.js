@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Button, FormLabel, FormInput } from 'react-native-elements';
 
+/**
+ * Class is not being used anywhere
+ */
 class TokenSend extends Component {
   static navigationOptions = ({ navigation }) => {
     return {

@@ -183,7 +183,7 @@ class CoinSend extends Component {
 
   /**
    * Navigator
-   * Is used 
+   * Is used to navigate to the Qr-Code scanner
    */
   navigate = () => {
     const navigateToQRScanner = NavigationActions.navigate({
@@ -193,6 +193,10 @@ class CoinSend extends Component {
     this.props.navigation.dispatch(navigateToQRScanner);
   };
 
+  /**
+   * Main Component Function
+   * Returns the complete form required to send a transaction
+   */
   render() {
     return (
       <View style={styles.mainContainer}>
@@ -251,6 +255,9 @@ class CoinSend extends Component {
   }
 }
 
+/**
+ * Styles for CoinSend screen
+ */
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1, alignItems: 'center', justifyContent: 'flex-start'
@@ -266,6 +273,13 @@ const styles = StyleSheet.create({
   },
 })
 
+/**
+ * Reterives the wallet created/reterived during the initial
+ * process, and the Data collected from the QrCode component.
+ * 
+ * Returns the wallet and the data as an object
+ * @param {Object} state 
+ */
 const mapStateToProps = state => {
   return {
     wallet: state.newWallet.wallet,

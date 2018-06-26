@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { FormInput, FormLabel, Button } from 'react-native-elements';
 
+/**
+ * Class is not used anythere
+ */
 class TokenReceive extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -11,8 +14,6 @@ class TokenReceive extends Component {
 
   render() {
     return (
-
-
       <View style={styles.mainContainer}>
         <View style={styles.contentContainer} >
           <View style={styles.form} >
