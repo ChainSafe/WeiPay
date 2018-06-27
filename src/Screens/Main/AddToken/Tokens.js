@@ -12,6 +12,11 @@ import Layout from '../../../constants/Layout'
 import { NavigationActions, DrawerActions } from "react-navigation";
 
 
+/**
+ * React Component
+ * Creates a button like component that can be used
+ * to initiate a search on list
+ */
 class CustomButton extends Component {
   navigate = () => {
     this.props.navigation.navigate('DrawerOpen')
@@ -36,8 +41,17 @@ class CustomButton extends Component {
   }
 }
 
-
+/**
+ * React Screen Component
+ * Screen to add more tokens to the portfolio
+ */
 class Tokens extends Component {
+
+  /**
+  * Opens up the Drawer Navigator that allows you to navigate and select
+  * new coins to add
+  * 
+  */
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Enable Tokens',
@@ -56,6 +70,9 @@ class Tokens extends Component {
     }
   }
 
+  /**
+  * Allows you to navigate to the navigation drawer
+  */
   navigate = () => {
     const navigateToPassphrase = NavigationActions.reset({
       index: 0,

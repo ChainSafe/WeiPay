@@ -22,6 +22,10 @@ import ContactAddresses from '../Screens/Main/SettingsSubPages/ContactAddresses'
 import QrCodeScanner from '../Screens/Main/PortfolioTabs/QrCodeScanner';
 import CoinSend from '../Screens/Main/PortfolioTabs/CoinSend'
 
+/**
+ * Constant contains all the screens that can be navigated to using the 
+ * navigate method from any class
+ */
 const navigator = StackNavigator({
   terms: {
     screen: TermsScreen

@@ -5,12 +5,21 @@ import { connect } from "react-redux";
 import { Button, Icon, List, ListItem } from 'react-native-elements';
 import LanguageList from '../../../Components/LanguageList';
 
-
+/**
+ * Screen used to change the language to be used in the wallet
+ */
 class LanguageChange extends Component {
+
+    /**
+     * Changes screen title to "Change Language"
+     */
     static navigationOptions = {
         title: "Change Language"
     };
 
+    /**
+     * Empty method
+     */
     navigate = () => {
         // const navigateToPassphrase = NavigationActions.navigate({
         //     routeName: "generatePassphrase",
@@ -21,6 +30,12 @@ class LanguageChange extends Component {
         debugger
     };
 
+    /**
+     * Returns a scrollable view containing all the languages available for the 
+     * user to select from.
+     * 
+     * Also contains an update button.
+     */
     render() {
         return (
             <View style={styles.pageContainer} >
@@ -42,6 +57,9 @@ class LanguageChange extends Component {
     }
 }
 
+/**
+ * Styles used in the change language screen display
+ */
 const styles = StyleSheet.create({
     pageContainer: {
         flex: 1,
@@ -52,6 +70,10 @@ const styles = StyleSheet.create({
     }
 })
 
+/**
+ * Not Defined correctly. Not being used
+ * @param {Object} param0 
+ */
 function mapStateToProps({ language }) {
     return { language }
 }

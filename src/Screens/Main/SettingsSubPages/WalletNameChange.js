@@ -5,12 +5,22 @@ import { connect } from "react-redux";
 import { Button, Icon, List, ListItem, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 
 
-
+/**
+ * Screen is used to the change the name of the wallet
+ */
 class WalletNameChange extends Component {
+
+    /**
+     * Sets the screen title to "Change Wallet Name"
+     */
     static navigationOptions = {
         title: "Change Wallet Name"
     };
 
+    /**
+     * Sets the local state variable to keep track of the name
+     * @param {Object} props 
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -18,13 +28,20 @@ class WalletNameChange extends Component {
         }
     }
 
-
+    /**
+     * Updates the local state with the text that was entered into the 
+     * input field
+     * @param {String} nameInput 
+     */
     renderNameChange(nameInput) {
         var add = nameInput.trim();
         this.setState({ nameChange: add });
         console.log(add)
     }
 
+    /**
+     * Empty method
+     */
     navigate = () => {
         // const navigateToPassphrase = NavigationActions.navigate({
         //     routeName: "generatePassphrase",
@@ -33,6 +50,10 @@ class WalletNameChange extends Component {
         // this.props.navigation.dispatch(navigateToPassphrase);
     };
 
+    /**
+     * Returns a form , which the user can use to change the name of the 
+     * wallet
+     */
     render() {
 
         return (
@@ -64,6 +85,9 @@ class WalletNameChange extends Component {
     }
 }
 
+/**
+ * Styles used in the "WalletNameChange" screen
+ */
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1, alignItems: 'center', justifyContent: 'flex-start'

@@ -7,70 +7,85 @@ import { Card } from './common/Card';
 import { selectWalletCurrency } from '../Actions/actionCreator';
 
 
+/**
+ * React Component
+ * Contains a radio list of all currencies from which
+ * the user select
+ * 
+ */
 class Test extends Component {
 
 
   state = {
-      data: this.props.currency
+    data: this.props.currency
   };
 
-  // update state
+  /**
+   * Updates this.state.data everytime a new currency from 
+   * the list is selected
+   */
   onPress = data => this.setState({ data });
 
+  /**
+   * Executes the action "selectWalletcurrency" to update the selected currency in the
+   * state variable
+   * updates this.state.data to the selected item
+   * @param {String} data 
+   */
   renderSelect(data) {
     let selectedcurrency = this.state.data.find(e => e.selected == true);
     selectedcurrency = selectedcurrency ? selectedcurrency.value : this.state.data[0].label;
     this.props.selectWalletCurrency(selectedcurrency);
-    this.setState ({ data });
+    this.setState({ data });
   }
 
 
-
+  /**
+   * Returns a Scrollable radio list of currencies that the user can select from
+   */
   render() {
-      // let selectedButton = this.state.data.find(e => e.selected == true);
-      // selectedButton = selectedButton ? selectedButton.value : this.state.data[0].label;
-      return (
+    // let selectedButton = this.state.data.find(e => e.selected == true);
+    // selectedButton = selectedButton ? selectedButton.value : this.state.data[0].label;
+    return (
 
-        <ScrollView contentContainerstyle={styles.container}>
-              <CardSection >
-                <RadioGroup style={styles.display} radioButtons={this.state.data} onPress={this.renderSelect.bind(this)} />
-              </CardSection>
-        </ScrollView>
+      <ScrollView contentContainerstyle={styles.container}>
+        <CardSection >
+          <RadioGroup style={styles.display} radioButtons={this.state.data} onPress={this.renderSelect.bind(this)} />
+        </CardSection>
+      </ScrollView>
 
-
-
-
-      );
+    );
   }
-
-
-
-
-
 }
 
 
-
+/**
+ * Styles used within the component
+ */
 const styles = StyleSheet.create({
 
-    container: {
-        flex: 1,
-        justifyContent: 'space-between',
-        marginBottom: 100,
-        maxHeight: 100,
-        width: '100%'
-    },
+  container: {
+    flex: 1,
+    justifyContent: 'space-between',
+    marginBottom: 100,
+    maxHeight: 100,
+    width: '100%'
+  },
 
-    display: {
-      flex: 1,
-      backgroundColor: 'red'
-    }
+  display: {
+    flex: 1,
+    backgroundColor: 'red'
+  }
 
 
 
 });
 
-
+/**
+ * extracts the current currency that the state is pointing to
+ * and returns an object that this information
+ * @param {Object} state 
+ */
 const mapStateToProps = state => {
   return {
     currency: state.currency

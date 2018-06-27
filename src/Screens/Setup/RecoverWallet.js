@@ -8,13 +8,22 @@ import { newWalletCreation } from '../../Actions/actionCreator'; //gonna save th
 const ethers = require('ethers');
 import provider from '../../constants/Providers';
 
-
+/**
+ * Screen used to recover a previously generated wallet
+ */
 class RecoverWallet extends Component {
 
+    /**
+     * Sets the title of the screen
+     */
     static navigationOptions = {
         title: "Restore"
     };
 
+    /**
+     * Navigates the state to view the enableTokens screen if the mnemonic entered
+     * is valid otherwise an error is displayed
+     */
     navigate = () => {
 
         const navigateToTokens = NavigationActions.navigate({
@@ -53,6 +62,10 @@ class RecoverWallet extends Component {
         }
     };
 
+    /**
+     * Set the local state to keep track of the mnemonic entered to recover the wallet
+     * @param {Object} props 
+     */
     constructor(props) {
         super(props)
         this.state = {
@@ -61,11 +74,18 @@ class RecoverWallet extends Component {
         }
     }
 
+    /**
+     * Updates the local state with the latest mnemonic that was inputted in the input field 
+     * @param {String} mnemonicInput 
+     */
     renderRecoveryKey(mnemonicInput) {
         this.setState({ value: mnemonicInput.toLowerCase() })
         this.setState({ mnemonic: mnemonicInput.toLowerCase() });
     }
 
+    /**
+     * Returns the form required to recover the wallet
+     */
     render() {
         return (
 
@@ -100,6 +120,9 @@ class RecoverWallet extends Component {
     }
 }
 
+/**
+ * Styles used in the RecoverWallet screen
+ */
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: -100

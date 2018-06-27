@@ -9,8 +9,19 @@ import *  as actions from '../Actions/actionCreator.js';
 import AddContactListItem from './AddContactListItem';
 import { List, ListItem, Button } from 'react-native-elements'
 
+/**
+ * AddContactList is a component class which is used to display
+ * a list of all the tokens that currently exists in the portfolio and 
+ * gives the option to input an address for each token.
+ * This component is used when adding a new Contact
+ */
 class AddContactList extends Component {
 
+  /**
+   * Initializing constants and the state variable to be used
+   * within the class
+   * @param {Object} props 
+   */
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
@@ -22,6 +33,10 @@ class AddContactList extends Component {
     }
   }
 
+  /**
+   * ES6 Class
+   * Used to navigate to the "QCodeScanner" page
+   */
   navigate = () => {
     const navigateToQRScanner = NavigationActions.navigate({
       routeName: "QCodeScanner",
@@ -30,11 +45,20 @@ class AddContactList extends Component {
     this.props.navigation.dispatch(navigateToQRScanner);
   };
 
+  /**
+   * LifeCycle Function: executes after the component has been mounted
+   * Executing the action "createContactAddesses" with the latest addresses inputed
+   * by the user when adding a new contact
+   */
   componentDidMount() {
     let copyTokens = this.props.tokens.slice(0).map(token => { return { ...token, value: "" } })
     this.props.createContactAddresses(copyTokens)
   }
 
+  /**
+   * Is not used anywhere
+   * @param {Object} coin 
+   */
   renderRow(coin) {
     return (
       <View style={styles.componentStyle} key={coin.title}>
@@ -56,12 +80,20 @@ class AddContactList extends Component {
     )
   }
 
+  /**
+   * Is not used anywhere
+   * @param {string} token 
+   */
   listItem(token) {
     return (
       <ListItem title='Enter Address' textInput={true} />
     )
   }
 
+  /**
+   * Returns a list of components, where each component allows the user
+   * to input the address for a specific token via text/QrCodeScanner
+   */
   renderAddressInputs = () => {
     return (
       this.props.tokens.map(coin =>
@@ -92,6 +124,11 @@ class AddContactList extends Component {
     )
   }
 
+  /**
+   * Returns the complete form that is required for the user to fill out
+   * when adding a new contact to the wallet.
+   * Contains an additional textfield to enter the name of the contact
+   */
   render() {
     return (
       <View>
@@ -110,6 +147,9 @@ class AddContactList extends Component {
   }
 }
 
+/**
+ * Object with all the different styling used in this class
+ */
 const styles = StyleSheet.create({
   nameInputStyle: {
     paddingTop: 10,
@@ -149,6 +189,18 @@ const styles = StyleSheet.create({
   },
 });
 
+/**
+ * Redux-thunk function
+ * Returns an object that contains information that currently exists within the
+ * global state variable.
+ * 
+ * Points to:
+ *  - Current list of tokens that the used has selected for thier porfolio
+ *  - currentContact is not used in this class
+ *  - clearInput is not used in this class
+ *  - current is not used in this class
+ * @param {Object} state 
+ */
 const mapStateToProps = state => {
   return {
     tokens: state.newWallet.tokens,

@@ -24,7 +24,10 @@ import TokenReceive from '../Screens/Main/PortfolioTabs/TokenReceive';
 import TokenSend from '../Screens/Main/PortfolioTabs/TokenSend';
 import AddToken from '../Screens/Main/AddToken'
 
-
+/**
+ * Creates a componet containing the Slide in DrawerNavigator
+ * @param {Object} props 
+ */
 const CustomDrawerContentComponent = props => (
   <View style={{ flex: 1 }}>
     <View style={{ marginLeft: 10 }}>
@@ -33,6 +36,10 @@ const CustomDrawerContentComponent = props => (
   </View>
 );
 
+/**
+ * Slide in Drawer Navigator setup
+ * where each property is pointing to screen
+ */
 export default DrawerNavigator({
   portfolio: {
     screen: Portfolio

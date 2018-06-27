@@ -3,6 +3,9 @@ import { ListView } from 'react-native';
 import { connect } from 'react-redux';
 import ListItem from './ListItem';
 
+/**
+ * This Class is not used anywhere
+ */
 class GenericList extends Component {
 
     componentWillMount() {

@@ -4,13 +4,25 @@ import { FormInput, FormLabel, Button } from 'react-native-elements';
 import QRCode from 'react-native-qrcode';
 import { connect } from 'react-redux'
 
+/**
+ * React Component
+ * Screen containing a QrCode which can be used to conduct a positive transction (receiving coins/tokens)
+ */
 class CoinReceive extends Component {
+
+  /**
+   * Sets the Tab header to "RECEIVE"
+   */
   static navigationOptions = ({ navigation }) => {
     return {
       tabBarLabel: 'RECEIVE'
     }
   }
 
+  /**
+   * Returns a component that be used to display the Wallet public key in a form of text
+   * and QrCode
+   */
   render() {
     return (
 
@@ -49,7 +61,9 @@ class CoinReceive extends Component {
     )
   }
 }
-
+/**
+ * Styles
+ */
 const styles = StyleSheet.create({
   barcode: {
     width: 165,
@@ -77,6 +91,11 @@ const styles = StyleSheet.create({
   }
 })
 
+/**
+ * Returns an object containing the wallet address that was 
+ * create/reterived during the initial process
+ * @param {Object} state 
+ */
 const mapStateToProps = state => {
   return {
     walletAddress: state.newWallet.wallet.address,

@@ -6,7 +6,15 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import AddFirstContact from './SettingsSubPages/AddFirstContact'
 
+/**
+ * Screen that displays all the contacts that have been added to
+ * the wallet
+ */
 class Contacts extends Component {
+
+  /**
+   * Sets the screen title to "Contacts".
+   */
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Contacts',
@@ -22,6 +30,11 @@ class Contacts extends Component {
     }
   }
 
+  /**
+   * LifeCycle method (executes before the screen has been rendered)
+   * Sets the "contacts" data reterived from the global state variable as the 
+   * data source for the list view
+   */
   componentWillMount() {
     let data = this.props.contacts
     const ds = new ListView.DataSource({
@@ -30,6 +43,11 @@ class Contacts extends Component {
     this.dataSource = ds.cloneWithRows(data);
   }
 
+  /**
+   * LifeCycle method (executes only when the state has been changed)
+   * Re-sets the "contacts" data reterived from the global state variable as the 
+   * data source for the list view
+   */
   componentWillReceiveProps(nextProps) {
     let data = nextProps.contacts
     const ds = new ListView.DataSource({
@@ -38,6 +56,12 @@ class Contacts extends Component {
     this.dataSource = ds.cloneWithRows(data);
   }
 
+  /**
+   * Method is used to navigate to a screen specific to the 
+   * properties in the "user" object parameter.
+   * 
+   * @param {Object} user
+   */
   navigate = (user) => {
     let addresses = user.contactAddress
     const navigateToCreateOrRestore = NavigationActions.navigate({
@@ -47,6 +71,12 @@ class Contacts extends Component {
     this.props.navigation.dispatch(navigateToCreateOrRestore);
   };
 
+  /**
+   * Method is used to create an interactable item for the listView specific to
+   * the name property of the "user" object
+   * 
+   * @param {Object} user
+   */
   renderRow = (user) => {
     return (
       <ListItem
@@ -57,6 +87,10 @@ class Contacts extends Component {
     )
   }
 
+  /**
+   * Returns a list of contacts if and only if the length of the contact list reterived from the global state 
+   * variable is greater than 0.
+   */
   render() {
     const show = this.props.contacts.length === 0 ?
       <AddFirstContact navigate={this.props.navigation.navigate} />
@@ -68,6 +102,9 @@ class Contacts extends Component {
   }
 }
 
+/**
+ * Styles are not being in this file
+ */
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1, alignItems: 'center', justifyContent: 'flex-start'
@@ -83,6 +120,11 @@ const styles = StyleSheet.create({
   },
 })
 
+/**
+ * Method reterives the list contacts that is stored in the global 
+ * state variable and is returns an object with that information
+ * @param {Object} param0 
+ */
 function mapStateToProps({ contacts }) {
   return { contacts: contacts.contacts }
 }

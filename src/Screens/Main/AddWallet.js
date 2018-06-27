@@ -3,6 +3,11 @@ import { View, Text, Button } from 'react-native';
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 
+/**
+ * Screen is used to add other wallets.
+ * 
+ * --------Un-confirmed feature--------
+ */
 class AddWallet extends Component {
   static navigationOptions = ({ navigation }) => {
     return {

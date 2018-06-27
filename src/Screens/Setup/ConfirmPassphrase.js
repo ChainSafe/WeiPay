@@ -7,8 +7,18 @@ import { Input } from '../../Components/common/Input';
 import { CardSection } from '../../Components/common/CardSection';
 var shuffle = require('shuffle-array'); //to randomize order
 
+/**
+ * Initial setup screen that prompts the user to re-enter the passphrase(mnemonic) using the
+ * tags. 
+ * This screen is only displayed in the process of creating a new wallet
+ */
 class ConfirmPassphrase extends Component {
 
+    /**
+     * Sets the local state to keep track of the tags which are selected and
+     * unselected 
+     * @param {Object} props 
+     */
     constructor(props) {
         super(props);
 
@@ -18,10 +28,18 @@ class ConfirmPassphrase extends Component {
         }
     }
 
+    /**
+     * Sets the screen title to "Confirm Passphrase"
+     */
     static navigationOptions = {
         title: "Confirm Passphrase"
     };
 
+    /**
+     * LifeCycle Method
+     * This method is executed after the component has been rendered.
+     * This method add each word of the mnemonic to the local state variable object
+     */
     componentDidMount() {
         const state = this.state;
         const words = this.props.mnemonic.split(' ');
@@ -36,6 +54,9 @@ class ConfirmPassphrase extends Component {
         this.setState(state)
     }
 
+    /**
+     * Method is used to navigate to the "enableTokens" screen.
+     */
     navigate = () => {
         const navigateToEnableTokens = NavigationActions.navigate({
             routeName: "enableTokens",
@@ -44,6 +65,14 @@ class ConfirmPassphrase extends Component {
         this.props.navigation.dispatch(navigateToEnableTokens);
     };
 
+    /**
+     * This method is used to when a tag has been selected from either the tag box or the input
+     * box and the tag is transfered either to the state.selectedTags list or to the state.scrambledTags list.
+     *  
+     * @param {String} tagItem 
+     * @param {String} action 
+     * @param {Number} x 
+     */
     addTag(tagItem, action, x) {
         const state = this.state;
         if (action == "init") {
@@ -57,6 +86,15 @@ class ConfirmPassphrase extends Component {
     }
 
     /* Pass in index and remove it out of whatever state -> just removed an item from any state, pass in state and index */
+    /**
+     * Helper method for the addTag method
+     * This method goes through the logic of transfering the selected tag to the "currentStateVariable"
+     * list.
+     * "currentStateVariable"  = "scrambledTags" | "selectedTags"
+     * @param {String} tagItem 
+     * @param {String} currentStateVariable 
+     * @param {Number} currenIndex 
+     */
     swapTag(tagItem, currentStateVariable, currenIndex) {
         const state = this.state;
         if (currentStateVariable == "scrambledTags") {
@@ -75,6 +113,10 @@ class ConfirmPassphrase extends Component {
         console.log(state);
     }
 
+    /**
+     * This method is used to check if the order of the tags in the input
+     * box match with the order of the passphrase list
+     */
     validatePassphrase = () => {
         this.navigate();
         // const { scrambledTags, selectedTags } = this.state;
@@ -116,7 +158,10 @@ class ConfirmPassphrase extends Component {
         // console.log(this.state);
     }
 
-
+    /**
+     * Returns the screen required for the user to go about selecting the tags
+     * in the correct order
+     */
     render() {
 
         const { selectedTags, scrambledTags } = this.state;
@@ -168,6 +213,9 @@ class ConfirmPassphrase extends Component {
     }
 }
 
+/**
+ * Styles used the "ConfirmPassphrase" screen
+ */
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
@@ -216,6 +264,11 @@ const styles = StyleSheet.create({
     }
 })
 
+/**
+ * Reterives the mnemonic passphrase of the wallet that was created
+ * and returns an object containing that information
+ * @param {Object} param0 
+ */
 const mapStateToProps = ({ newWallet }) => {
     const mnemonic = newWallet.wallet.mnemonic;
     return { mnemonic }

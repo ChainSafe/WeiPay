@@ -7,9 +7,14 @@ import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-nativ
 import { Input } from '../../Components/common/Input';
 import { CardSection } from '../../Components/common/CardSection';
 
+/**
+ * Screen used to display the passphrase (mnemonic)
+ */
 class GeneratePassphrase extends Component {
 
-
+    /**
+     * Sets the title of the screen to be "Generate Passphrase"
+     */
     static navigationOptions = {
         title: "Generate Passphrase",
         headerLeft: null

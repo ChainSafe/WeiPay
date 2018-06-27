@@ -3,14 +3,26 @@ import { View, Text, Button, StyleSheet, TouchableOpacity, Dimensions } from 're
 import { StackNavigator, DrawerNavigator, NavigationActions } from 'react-navigation';
 import { Icon, List, ListItem } from 'react-native-elements';
 
-
+/**
+ * Screen used to display all the wallet settings options that the user can select from
+ */
 class Settings extends Component {
+
+  /**
+   * Sets the title to "Settings"
+   */
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Settings',
     }
   }
 
+  /**
+   * Method is used to navigate to the specific setting represented by the 
+   * parameter "listId"
+   * 
+   * @param {String} listId
+   */
   navigateToSubSetting = (listId) => {
     const navigateToSub = NavigationActions.navigate({
       routeName: listId,
@@ -19,6 +31,9 @@ class Settings extends Component {
     this.props.navigation.dispatch(navigateToSub);
   };
 
+  /**
+   * Returns a component that shows the touchable list of all the setting options
+   */
   render() {
     const list = [
       {
@@ -66,6 +81,9 @@ class Settings extends Component {
   }
 }
 
+/**
+ * Styles used in the settings screen
+ */
 const styles = StyleSheet.create({
   list: {
     flex: 1,

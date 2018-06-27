@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { View, Text, Button } from 'react-native';
 import { SearchBar, Icon } from 'react-native-elements'
 
+/**
+ * Not being used
+ */
 class Search extends Component {
   static navigationOptions = ({ navigation }) => {
     return {

@@ -8,8 +8,20 @@ import { Card } from '../../../Components/common/Card';
 import { CardSection } from '../../../Components/common/CardSection';
 import * as actions from '../../../Actions/actionCreator';
 
+/**
+ * Is a full screen react component
+ * This screen is used to add a new contact to the wallet contact list.
+ * 
+ */
 class AddContact extends Component {
 
+  /**
+   * Initializes the current token list stored in state as the datasource 
+   * for the scrollListView.
+   * Also initializes the local state variable to keep track of the changes made to 
+   * the text fields
+   * @param {Object} props 
+   */
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
@@ -25,6 +37,11 @@ class AddContact extends Component {
     }
   }
 
+  /**
+   * Method used to add all the information inputted for the new contact into the global
+   * state variable.
+   * Also clears up the input fields.
+   */
   renderAddContact() {
     this.props.completeContact(this.state.contactName, this.state.contactAddress);
     this.setState({ contactName: "" })
@@ -33,6 +50,9 @@ class AddContact extends Component {
     this.setState({ contactAddress: newcontactAddress })
   }
 
+  /**
+   * Method deletes and clears up any entered inputs made in the inputfields.
+   */
   clear() {
     this.setState({ contactName: "" })
     let newcontactAddress = {}
@@ -40,12 +60,26 @@ class AddContact extends Component {
     this.setState({ contactAddress: newcontactAddress })
   }
 
+  /**
+   * This Method is used to update the contact name in the global
+   * and local state variable when ever the contactName inputfield changes.
+   * @param {String} name 
+   */
   renderName(name) {
     this.setState({ contactName: name })
     var contact = { name: name }
     this.props.addingContact(contact)
   }
 
+  /**
+   * This method is passed in as a prop to the AddContactList component.
+   * Creates an object with the coinName as the only key, and address as the value of 
+   * coinName.
+   * Adds this object to the local and Global state variable
+   * @param {String} address 
+   * @param {String} coinName 
+   * @param {Object} coin 
+   */
   renderAddress(address, coinName, coin) {
     let copy = Object.assign({}, this.state.contactAddress)
     copy[coinName] = address
@@ -55,6 +89,11 @@ class AddContact extends Component {
     this.props.addingContact(coinAddress)
   }
 
+  /**
+   * Checks if the contactAddress state is empty or not.
+   * Returns a boolean (true if contactAddress is empty, false if full)
+   * @param {Object} o 
+   */
   isEmptyObject(o) {
     return Object.keys(o).every(function (x) {
       return o[x] === '' || o[x] === null;
@@ -62,6 +101,9 @@ class AddContact extends Component {
   }
 
   // clear button, types into inputs, that value should be passed to the parent, clear in parent state to null
+  /**
+   * Returns the form required to add a contact 
+   */
   render() {
     return (
       <View style={{ flex: 1, paddingTop: 3 }}>
@@ -109,6 +151,9 @@ class AddContact extends Component {
   }
 }
 
+/**
+ * Styles used in addContact file
+ */
 const styles = StyleSheet.create({
 
   container: {
@@ -126,6 +171,11 @@ const styles = StyleSheet.create({
   },
 });
 
+/**
+ * Reterives the token list from the state variable
+ * Returns an object containing the token list
+ * @param {Object} state 
+ */
 const mapStateToProps = state => {
   return {
     tokens: state.newWallet.tokens,

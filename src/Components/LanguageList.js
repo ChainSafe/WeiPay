@@ -6,16 +6,30 @@ import { CardSection } from './common/CardSection';
 import { Card } from './common/Card';
 import { selectWalletLanguage } from '../Actions/actionCreator';
 
-
+/**
+ * React Component
+ * a radio list of all languages from which
+ * the user select from.
+ * 
+ */
 class LanguageList extends Component {
 
   state = {
     data: this.props.language
   };
 
-  // update state
+  /**
+   * Updates this.state.data everytime a new language from 
+   * the list is selected.
+   */
   onPress = data => this.setState({ data });
 
+  /**
+  * Executes the action "selectWalletLanguage" to update the selected language in the
+  * state variable
+  * updates this.state.data to the selected language
+  * @param {String} data 
+  */
   renderSelect(data) {
     let selectedlanguage = this.state.data.find(e => e.selected == true);
     selectedlanguage = selectedlanguage ? selectedlanguage.value : this.state.data[0].label;
@@ -23,6 +37,9 @@ class LanguageList extends Component {
     this.setState({ data });
   }
 
+  /**
+   * Returns a Scrollable radio list of languages that the user can select from
+   */
   render() {
     // let selectedButton = this.state.data.find(e => e.selected == true);
     // selectedButton = selectedButton ? selectedButton.value : this.state.data[0].label;
@@ -35,7 +52,9 @@ class LanguageList extends Component {
     );
   }
 }
-
+/**
+ * Styles used within the component
+ */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -45,7 +64,11 @@ const styles = StyleSheet.create({
   }
 });
 
-
+/**
+ * extracts the current language that the state is pointing to
+ * and returns an object containing this information
+ * @param {Object} state 
+ */
 const mapStateToProps = state => {
   return {
     language: state.language
@@ -53,4 +76,3 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, { selectWalletLanguage })(LanguageList);
-//export default Test;

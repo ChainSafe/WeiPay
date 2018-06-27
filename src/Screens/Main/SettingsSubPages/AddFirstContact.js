@@ -2,8 +2,16 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
 
+/**
+ * React-Native
+ * Temporary Screen used until a contact is added
+ */
 class AddFirstContact extends Component {
 
+  /**
+   * Returns a full screen component with a button that navigates the user
+   * to the addContact form
+   */
   render() {
     return (
       <View style={styles.container}>
@@ -25,6 +33,9 @@ class AddFirstContact extends Component {
   }
 }
 
+/**
+ * Styles used in the temporary screen used before any contact has been added
+ */
 const styles = StyleSheet.create({
   container: {
     flex: 1,

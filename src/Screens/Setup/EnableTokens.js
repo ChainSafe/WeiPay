@@ -3,21 +3,29 @@ import { View, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput, Image 
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-
 import CoinList from '../../Components/CoinList';
 
+/**
+ * Screen used to aquire the tokens/coins that the user wants to use
+ * in their portfolio
+ */
 class EnableTokens extends Component {
     state = {
         tokenList: this.props.tokenList,
         changeState: true
     }
 
-
+    /**
+     * Sets the screen title to "Enable Tokens Page"
+     */
     static navigationOptions = {
         title: "Enable Tokens Page",
         headerLeft: null
     };
 
+    /**
+     * Method used to navigate to the main portfolio Screen
+     */
     navigate = () => {
         const navigateToPassphrase = NavigationActions.reset({
             index: 0,
@@ -27,6 +35,12 @@ class EnableTokens extends Component {
     };
 
 
+    /**
+     * Main Component
+     * Contains the CoinList Component and button.
+     * Where the button is simply acting as navigating button (going from one screen to another)
+     * which stays disabled until at least one coin/token has been selected.
+     */
     render() {
         return (
             <View style={{ flex: 1 }}>
@@ -49,12 +63,20 @@ class EnableTokens extends Component {
     }
 }
 
+/**
+ * Styles used in the EnableTokens screen
+ */
 const styles = StyleSheet.create({
     btnContainer: {
         alignItems: 'center', height: 80, paddingTop: 20, paddingBottom: 20, justifyContent: "center"
     }
 })
 
+/**
+ * Reterives the list of tokens that have been selected by the user.
+ * Method returns an object which contains the token list
+ * @param {Object} state 
+ */
 const mapStateToProps = state => {
     return {
         tokenList: state.newWallet.tokens,

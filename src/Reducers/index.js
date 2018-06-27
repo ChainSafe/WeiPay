@@ -7,6 +7,10 @@ import settingsReducer from './settingsReducer';
 import ContactsReducer from './ContactsReducer';
 
 
+/**
+ * Contains a reference to all the reducers being used in the applications.
+ * This file is used to invoke all the reducers when a action occurs
+ */
 
 const AppReducer = combineReducers({
   NavigationReducer,

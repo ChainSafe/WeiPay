@@ -8,14 +8,27 @@ const ethers = require('ethers');
 var utils = ethers.utils;
 import provider from '../../../constants/Providers'; //this gives us access to the local test rpc network to test
 
+/**
+ * React Component
+ * Screen used to conduct negative transactions (sending coins/tokens)
+ */
 class CoinSend extends Component {
 
+  /**
+   * Sets the Tab header to "SEND"
+   */
   static navigationOptions = ({ navigation }) => {
     return {
       tabBarLabel: 'SEND'
     }
   }
 
+  /**
+   * Initializes State to keep track of the
+   * value that is being sent, the address the value is being sent to,
+   * and the default value.
+   * @param {Object} props 
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -25,6 +38,10 @@ class CoinSend extends Component {
       inputValue: ""
     }
 
+    /**
+     * Using the Provider (which is connected to the ethereum network) to get the wallet balance and
+     * checks if the wallet has funds available to be sent
+     */
     provider.getBalance(this.props.wallet.address).then(function (balance) {
       var etherString = utils.formatEther(balance);
       console.log("Current Wallet Balance" + etherString);
@@ -68,6 +85,13 @@ class CoinSend extends Component {
     //   });
     // });
   }
+
+
+  /**
+   * LifeCycle Method
+   * Executes before the Component has been rendered
+   * Sets the state to the hold the wallet address
+   */
   componentWillMount() {
 
     if (this.props.navigation.state.params) {
@@ -78,6 +102,10 @@ class CoinSend extends Component {
     }
   }
 
+  /**
+   * Sets the address to which the coin/tokens are being sent to
+   * @param {String} addressInput 
+   */
   renderAddress(addressInput) {
     var add = addressInput.trim();
     console.log(add)
@@ -85,6 +113,11 @@ class CoinSend extends Component {
     this.setState({ toAddress: add });
   }
 
+  /**
+   * Error checks the value inputted to be sent. Sets the Value to 0 if the value input is 
+   * either lower than 0 or is not a number
+   * @param {String} valueInput 
+   */
   renderValue(valueInput) {
     if (!isNaN(valueInput)) {
       if (valueInput < 0) {
@@ -111,12 +144,12 @@ class CoinSend extends Component {
      to this wallet by using a testrpc private key. If we are recvoering a wallet, this does nothing, but if we are creating
      a new wallet, we will never have funds in our test environemnt, so this is just a test setup.
    */
+
+  /**
+   * Conducts the transction between the two addresses
+   */
   sendTransaction = () => {
-    /*
-      this.props.wallet is either the recovered wallet or new wallet, in either case we have sent 5 ether in the constructor
-      to this wallet by using a testrpc private key. If we are recvoering a wallet, this does nothing, but if we are creating
-      a new wallet, we will never have funds in our test environemnt, so this is just a test setup.
-    */
+
     const amountString = '' + this.state.value + '';
     const receivingAddress = this.state.toAddress;
     var amount = ethers.utils.parseEther(amountString);
@@ -139,12 +172,19 @@ class CoinSend extends Component {
     });
   }
 
+  /**
+   * Is used to reset the input fields
+   */
   resetFields = () => {
     console.log("logged");
     this.inputAddress.clearText();
     this.inputAmount.clearText();
   }
 
+  /**
+   * Navigator
+   * Is used to navigate to the Qr-Code scanner
+   */
   navigate = () => {
     const navigateToQRScanner = NavigationActions.navigate({
       routeName: "QCodeScanner",
@@ -153,6 +193,10 @@ class CoinSend extends Component {
     this.props.navigation.dispatch(navigateToQRScanner);
   };
 
+  /**
+   * Main Component Function
+   * Returns the complete form required to send a transaction
+   */
   render() {
     return (
       <View style={styles.mainContainer}>
@@ -211,6 +255,9 @@ class CoinSend extends Component {
   }
 }
 
+/**
+ * Styles for CoinSend screen
+ */
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1, alignItems: 'center', justifyContent: 'flex-start'
@@ -226,6 +273,13 @@ const styles = StyleSheet.create({
   },
 })
 
+/**
+ * Reterives the wallet created/reterived during the initial
+ * process, and the Data collected from the QrCode component.
+ * 
+ * Returns the wallet and the data as an object
+ * @param {Object} state 
+ */
 const mapStateToProps = state => {
   return {
     wallet: state.newWallet.wallet,
