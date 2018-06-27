@@ -1,4 +1,4 @@
 import { AppRegistry } from 'react-native';
 import App from './App';
 
-AppRegistry.registerComponent('WeiPay', () => App);
+AppRegistry.registerComponent('reactNavigationDemo', () => App);
