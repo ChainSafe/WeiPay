@@ -32,8 +32,8 @@ class CreateOrRestore extends Component {
                 <View style={styles.contentContainer} >
                     <View style={styles.companyDisplayContainer} >
                         <Image style={styles.logo} source={require('../../Assets/images/eth.png')} />
-                        <Text style={styles.pageTitle} > WeiPay </Text>
-                        <Text style={styles.pageDescription} > Mobile Wallet  </Text>
+                        <Text style={styles.pageTitle} > App Title </Text>
+                        <Text style={styles.pageDescription} > Some App Description here </Text>
                     </View>
                     <View style={styles.btnContainer} >
                         <Button
