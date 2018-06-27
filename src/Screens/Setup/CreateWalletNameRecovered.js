@@ -10,21 +10,40 @@ const ethers = require('ethers');
 
 import provider from '../../constants/Providers';
 
+/**
+ * Initial setup screen used to allow the user to give their wallet a name after
+ * the wallet has been recovered
+ */
 class CreateWalletName extends Component {
 
+    /**
+     * Sets the title to "Create Wallet Name"
+     */
     static navigationOptions = {
         title: "Create Wallet Name"
     };
 
+    /**
+     * Method is used to navigate back to the recoverWallet screen.
+     */
     navigate = () => {
         const navigateToPassphrase = NavigationActions.navigate({ routeName: "recoverWallet" });
         this.props.navigation.dispatch(navigateToPassphrase);
     };
 
+    /**
+     * Executes the action "newWalletNameEntry" with "name" as the parameter
+     * in order to update the name of the wallet in the global state variable
+     * @param {String} name 
+     */
     getWalletName(name) {
         this.props.newWalletNameEntry(name);
     }
 
+    /**
+     * Main Component
+     * Returns the form required for the user to set the name of their wallet
+     */
     render() {
         return (
 
@@ -57,6 +76,9 @@ class CreateWalletName extends Component {
     }
 }
 
+/**
+ * Styles used in the "CreateWalletNameRecovery" screen
+ */
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: -100
@@ -78,6 +100,10 @@ const styles = StyleSheet.create({
     },
 })
 
+/**
+ * This method is not being used here
+ * @param {Object} param0 
+ */
 const mapStateToProps = ({ newWallet }) => {
     const { walletName } = newWallet;
     return { walletName }

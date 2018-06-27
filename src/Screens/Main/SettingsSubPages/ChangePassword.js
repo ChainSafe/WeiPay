@@ -4,7 +4,9 @@ import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 
-
+/**
+ * Not using this screen 
+ */
 
 class ChangePassword extends Component {
     static navigationOptions = {

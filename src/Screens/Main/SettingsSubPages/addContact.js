@@ -90,7 +90,8 @@ class AddContact extends Component {
   }
 
   /**
-   * Checks if the
+   * Checks if the contactAddress state is empty or not.
+   * Returns a boolean (true if contactAddress is empty, false if full)
    * @param {Object} o 
    */
   isEmptyObject(o) {
@@ -100,6 +101,9 @@ class AddContact extends Component {
   }
 
   // clear button, types into inputs, that value should be passed to the parent, clear in parent state to null
+  /**
+   * Returns the form required to add a contact 
+   */
   render() {
     return (
       <View style={{ flex: 1, paddingTop: 3 }}>
@@ -147,6 +151,9 @@ class AddContact extends Component {
   }
 }
 
+/**
+ * Styles used in addContact file
+ */
 const styles = StyleSheet.create({
 
   container: {
@@ -164,6 +171,11 @@ const styles = StyleSheet.create({
   },
 });
 
+/**
+ * Reterives the token list from the state variable
+ * Returns an object containing the token list
+ * @param {Object} state 
+ */
 const mapStateToProps = state => {
   return {
     tokens: state.newWallet.tokens,

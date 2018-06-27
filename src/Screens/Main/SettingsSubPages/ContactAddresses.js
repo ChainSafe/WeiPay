@@ -7,7 +7,9 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux'
 import { getQRCodeData } from '../../../Actions/actionCreator'
 
-
+/**
+ * 
+ */
 class ContactAddresses extends Component {
   componentWillMount() {
     let addresses = this.props.navigation.state.params.addresses

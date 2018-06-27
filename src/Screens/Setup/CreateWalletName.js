@@ -10,12 +10,23 @@ const ethers = require('ethers');
 
 var walletItem;
 
+/**
+ * Initial setup screen used to allow the user to give their wallet a name after
+ * a new wallet has been created
+ */
 class CreateWalletName extends Component {
 
+    /**
+     * Sets the title to "Create Wallet Name"
+     */
     static navigationOptions = {
         title: "Create Wallet Name"
     };
 
+    /**
+     * Method is used to save the newly generated wallet (via ethers.js) in the global state
+     * variable and to navigate to the "generatePassphrase" screen  
+     */
     navigate = () => {
         var wallet = ethers.Wallet.createRandom();
         this.props.newWalletCreation(wallet);
@@ -23,10 +34,19 @@ class CreateWalletName extends Component {
         this.props.navigation.dispatch(navigateToPassphrase);
     };
 
+    /**
+     * Executes the action "newWalletNameEntry" with "name" as the parameter
+     * in order to update the name of the wallet in the global state variable
+     * @param {String} name 
+     */
     getWalletName(name) {
         this.props.newWalletNameEntry(name);
     }
 
+    /**
+     * Main Component
+     * Returns the form required for the user to set the name of their wallet
+     */
     render() {
 
         return (
@@ -59,6 +79,9 @@ class CreateWalletName extends Component {
     }
 }
 
+/**
+ * Styles used in the "CreateWalletNameRecovery" screen
+ */
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: -100
@@ -87,6 +110,10 @@ const styles = StyleSheet.create({
     },
 })
 
+/**
+ * This method is not being used here
+ * @param {Object} param0 
+ */
 const mapStateToProps = ({ newWallet }) => {
     const { walletName } = newWallet;
     return { walletName }

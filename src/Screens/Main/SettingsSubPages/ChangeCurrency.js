@@ -6,12 +6,17 @@ import { Button, Icon, List, ListItem } from 'react-native-elements';
 import CurrencyList from '../../../Components/CurrencyList';
 
 
-
+/**
+ * Screen used to change the currency of the balance display
+ */
 class ChangeCurrency extends Component {
     static navigationOptions = {
         title: "Change Currency"
     };
 
+    /**
+     * Not used
+     */
     navigate = () => {
         // const navigateToPassphrase = NavigationActions.navigate({
         //     routeName: "generatePassphrase",
@@ -20,6 +25,12 @@ class ChangeCurrency extends Component {
         // this.props.navigation.dispatch(navigateToPassphrase);
     };
 
+    /**
+     * Returns a scrollable view containing all the currencies available for the 
+     * user to select from.
+     * 
+     * Also contains an update button.
+     */
     render() {
         return (
             <View style={styles.pageContainer} >
@@ -41,6 +52,9 @@ class ChangeCurrency extends Component {
     }
 }
 
+/**
+ * Styles used in the change currency screen display
+ */
 const styles = StyleSheet.create({
     pageContainer: {
         flex: 1,

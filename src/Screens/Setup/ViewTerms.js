@@ -4,8 +4,14 @@ import { NavigationActions } from "react-navigation";
 import { Terms } from './terms';
 import { Button } from 'react-native-elements';
 
-
+/**
+ * Initial terms and condition screen when the app is oppened for the first time.
+ */
 class ViewTerms extends Component {
+
+    /**
+     * Sets the Screen title to "Terms and Conditions"
+     */
     static navigationOptions = {
         title: "Terms and Conditions",
         headerStyle: {
@@ -13,6 +19,9 @@ class ViewTerms extends Component {
         }
     };
 
+    /**
+     * Method used to navigate to the "createOrRestore" screen
+     */
     navigate = () => {
         const navigateToCreateOrRestore = NavigationActions.navigate({
             routeName: "createOrRestore",
@@ -20,6 +29,9 @@ class ViewTerms extends Component {
         this.props.navigation.dispatch(navigateToCreateOrRestore);
     };
 
+    /**
+     * Returns the scrollable component that displays the terms and conditions with a submit button
+     */
     render() {
         const { counterCount, incrementAction, decrementAction } = this.props;
         return (
@@ -46,6 +58,9 @@ class ViewTerms extends Component {
     }
 }
 
+/**
+ * Styles used in the terms and condition screen
+ */
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,

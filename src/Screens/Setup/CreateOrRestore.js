@@ -5,12 +5,23 @@ import { connect } from "react-redux";
 import { Button } from 'react-native-elements';
 import { restoreWallet } from '../../Actions/actionCreator';
 
+/**
+ * Initial setup screen used to allow the user to either restore a previously
+ * generated wallet or to create a new one.
+ */
 class CreateOrRestore extends Component {
 
+    /**
+     * Sets the title to "Create or Restore Wallet"
+     */
     static navigationOptions = {
         title: "Create or Restore Wallet"
     };
 
+    /**
+     * Method is used to navigate to the "createWalletName" if and only if the 
+     * user decides to create a new wallet
+     */
     navigateCreate = () => {
         const navigateToWalletName = NavigationActions.navigate({
             routeName: "createWalletName",
@@ -18,6 +29,10 @@ class CreateOrRestore extends Component {
         this.props.navigation.dispatch(navigateToWalletName);
     };
 
+    /**
+     * Method is used to navigate to the "createWalletNameRecovered" if and only if the 
+     * user decides to recover thier wallet
+     */
     navigateRestore = () => {
         const navigateToRecover = NavigationActions.navigate({
             routeName: "createWalletNameRecovered",
@@ -26,6 +41,10 @@ class CreateOrRestore extends Component {
         this.props.navigation.dispatch(navigateToRecover);
     };
 
+    /**
+     * Returns a full screen component which presents the user with the choices in the form of
+     * buttons
+     */
     render() {
         return (
             <View style={styles.mainContainer}>
@@ -63,6 +82,9 @@ class CreateOrRestore extends Component {
     }
 }
 
+/**
+ * Styles used in the "CreateOrRestore" setup screen
+ */
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,

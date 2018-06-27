@@ -1,3 +1,7 @@
+/**
+ * File Contains the terms and condition text used to display the
+ * terms and condition on the initial setup screen
+ */
 export const Terms = `
 Terms and Conditions
 General Site Usage
