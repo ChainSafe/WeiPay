@@ -98,7 +98,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.reactnavigationdemo"
+        applicationId "com.weipay"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
