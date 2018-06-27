@@ -5,12 +5,21 @@ import { connect } from "react-redux";
 import { Button, Icon, List, ListItem, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 
 
-
+/**
+ * Screen is used to delete the current wallet and Start fresh
+ */
 class RemoveWallet extends Component {
+
+    /**
+     * Sets the screen title to "Delete Wallet"
+     */
     static navigationOptions = {
         title: "Delete Wallet"
     };
 
+    /**
+     * Empty Method
+     */
     navigate = () => {
         // const navigateToPassphrase = NavigationActions.navigate({
         //     routeName: "generatePassphrase",
@@ -19,6 +28,11 @@ class RemoveWallet extends Component {
         // this.props.navigation.dispatch(navigateToPassphrase);
     };
 
+    /**
+     * Returns a full screen component that notifies the 
+     * user about the effects of deleting the wallet and provides the
+     * user with a button in order for them to go about this process
+     */
     render() {
 
         return (
@@ -51,6 +65,9 @@ class RemoveWallet extends Component {
     }
 }
 
+/**
+ * Styles used in the "RemoveWallet" screen
+ */
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1, alignItems: 'center', justifyContent: 'flex-start'

@@ -4,8 +4,16 @@ import { StackNavigator, DrawerNavigator, TabNavigator } from 'react-navigation'
 import { List, ListItem, Icon, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 
-
+/**
+ * Screen is used to display the wallet portfolio of the user, which contains the 
+ * tokens and the balance of the wallet
+ */
 class Portfolio extends Component {
+
+  /**
+   * Sets the title of the screen to be "Portfolio", and modifies the 
+   * top bar to pull out the DrawerMenu
+   */
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Portfolio',
@@ -23,6 +31,11 @@ class Portfolio extends Component {
     }
   }
 
+  /**
+   * LifeCycle Method (executes before the component has been rendered)
+   * Sets the list of tokens reterived from the global state variable as the
+   * data source for the listView
+   */
   componentWillMount() {
     let data = this.props.newWallet.tokens
 
@@ -33,6 +46,9 @@ class Portfolio extends Component {
     this.dataSource = ds.cloneWithRows(data);
   }
 
+  /**
+   * Returns a ListItem component specific to the properties of the token parameter
+   */
   renderRow = (token) => {
 
     return (
@@ -46,6 +62,10 @@ class Portfolio extends Component {
     )
   }
 
+  /**
+   * Returns a component that displays all the tokens that the user had selected.
+   * The component also provides the option to add/delete tokens
+   */
   render() {
     return (
       <View style={{ flex: 1 }} >
@@ -67,6 +87,9 @@ class Portfolio extends Component {
   }
 }
 
+/**
+ * Styles used in the "Portfolio" screen
+ */
 const styles = StyleSheet.create({
   item: {
     padding: 10,
@@ -82,6 +105,12 @@ const styles = StyleSheet.create({
   },
 })
 
+/**
+ * Method is used  to reterive the newWallet object
+ * from the global state variable.
+ * Returns an object containing that reterived object
+ * @param {Object} param0 
+ */
 function mapStateToProps({ newWallet }) {
   return { newWallet }
 }

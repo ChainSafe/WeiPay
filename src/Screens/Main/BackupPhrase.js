@@ -13,6 +13,9 @@ const navigate = () => {
 };
 
 
+/**
+ * Screen is used to display the passphrase (mnemonic) of the wallet
+ */
 class BackupPhrase extends Component {
 
   constructor(props) {
@@ -20,6 +23,9 @@ class BackupPhrase extends Component {
     this.state = { isPhraseSelected: false };
   }
 
+  /**
+   * Method is used navigate back to the main portfolio page
+   */
   static navigationOptions = ({ navigation, NavigationActions }) => {
 
     const navigate = () => {
@@ -42,6 +48,10 @@ class BackupPhrase extends Component {
     }
   }
 
+  /**
+   * Method is used to  enable the local state variable which enable the screen
+   * to display the passphrase
+   */
   displayPassphrase() {
     console.log("display checked");
     this.setState({
@@ -49,6 +59,10 @@ class BackupPhrase extends Component {
     });
   }
 
+  /**
+   * returns a component containing the passphrase if and only if the local state is enabled to display
+   * it
+   */
   renderPassphrase = () => {
     if (this.state.isPhraseSelected) {
       return (
@@ -60,7 +74,9 @@ class BackupPhrase extends Component {
     else { return null; }
   }
 
-
+  /**
+   * Returns a component that allows the user to view the passphrase
+   */
   render() {
     return (
       <View style={styles.mainContainer}>
@@ -87,6 +103,9 @@ class BackupPhrase extends Component {
   }
 }
 
+/**
+ * Styles used in the BackupPhrase screen
+ */
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,

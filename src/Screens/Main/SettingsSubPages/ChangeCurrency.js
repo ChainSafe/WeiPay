@@ -10,12 +10,16 @@ import CurrencyList from '../../../Components/CurrencyList';
  * Screen used to change the currency of the balance display
  */
 class ChangeCurrency extends Component {
+
+    /**
+     * Changes screen title to "Change Currency"
+     */
     static navigationOptions = {
         title: "Change Currency"
     };
 
     /**
-     * Not used
+     * Empty method
      */
     navigate = () => {
         // const navigateToPassphrase = NavigationActions.navigate({
