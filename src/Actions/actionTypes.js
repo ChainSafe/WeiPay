@@ -3,11 +3,8 @@
  * File contains all the constants used in the actionCreator.js and the Reducers-folder
  */
 
-const incrementCounter = "INCREMENT_COUNTER";
-const decrementCounter = "DECREMENT_COUNTER";
-export { incrementCounter, decrementCounter };
 //----------------------------------------------------------------
-export const ADD_TOKEN_SETUP = "add_token_setup";
+export const ADD_TOKEN_SETUP = "add_token_setup"; //good
 export const CREATING_NEW_WALLET = 'creating_new_wallet';
 export const NEW_WALLET_NAME = 'new_wallet_name';
 export const RESTORE_WALLET = 'restore_wallet';

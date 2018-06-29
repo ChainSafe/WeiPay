@@ -1,11 +1,9 @@
 import { AsyncStorage } from 'react-native';
-import { incrementCounter, decrementCounter, addTokenSetup } from "./actionTypes";
+import { addTokenSetup } from "./actionTypes";
 import * as actionTypes from './actionTypes';
 
 
-const incrementAction = () => ({
-  type: incrementCounter
-});
+
 
 function AddToken(payload) {
   return {
