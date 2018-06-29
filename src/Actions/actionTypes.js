@@ -5,9 +5,9 @@
 
 //----------------------------------------------------------------
 export const ADD_TOKEN_SETUP = "add_token_setup"; //good
-export const CREATING_NEW_WALLET = 'creating_new_wallet';
-export const NEW_WALLET_NAME = 'new_wallet_name';
-export const RESTORE_WALLET = 'restore_wallet';
+export const CREATING_NEW_WALLET = 'creating_new_wallet'; //good
+export const NEW_WALLET_NAME = 'new_wallet_name'; //good
+export const RESTORE_WALLET = 'restore_wallet'; //good
 export const RESTORE_RECOVERY_KEY = 'restore_recovery_key'; //i don't think this is used
 export const RESTORE_RECOVERY_PASSPHRASE = 'restore_recovery_passphrase'; //using this
 export const SWITCH_LANGUAGE = 'switch_language';

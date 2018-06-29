@@ -79,11 +79,11 @@ export function restoreWallet() {
  * that the user wishes to restore
  * @param {String} key 
  */
-export function recoveryKey(key) {
-  return dispatch => {
-    dispatch({ type: actionTypes.RESTORE_RECOVERY_KEY, payload: key })
-  }
-}
+// export function recoveryKey(key) {
+//   return dispatch => {
+//     dispatch({ type: actionTypes.RESTORE_RECOVERY_KEY, payload: key })
+//   }
+// }
 
 /**
  * returns an action that contains the fiat currency that the user
