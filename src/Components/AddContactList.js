@@ -3,11 +3,8 @@ import { StyleSheet, View, Text, TextInput, ListView, ScrollView } from 'react-n
 import { connect } from 'react-redux';
 import { CardSection } from './common/CardSection';
 import { Card } from './common/Card';
-import _ from 'lodash'
-import addContactAction from '../Actions/actionCreator';
-import qrScannerInvoker from '../Actions/actionCreator';
-import *  as actions from '../Actions/actionCreator.js';
-import AddContactListItem from './AddContactListItem';
+import { NavigationActions } from "react-navigation";
+import { qrScannerInvoker } from '../Actions/actionCreator';
 import { List, ListItem, Button } from 'react-native-elements'
 
 /**
@@ -39,12 +36,12 @@ class AddContactList extends Component {
    * Used to navigate to the "QCodeScanner" page
    */
   navigate = () => {
-    this.props.actions.qrScannerInvoker("addContacts")
+    this.props.qrScannerInvoker("CoinSend")
     const navigateToQRScanner = NavigationActions.navigate({
-      routeName: "QCodeScanner",
+      routeName: "CoinSend",
       params: { name: "Shubhnik" }
     });
-    this.props.navigation.dispatch(navigateToQRScanner);
+    this.props.navigation.navigate(navigateToQRScanner);
   };
 
   /**
@@ -52,10 +49,11 @@ class AddContactList extends Component {
    * Executing the action "createContactAddesses" with the latest addresses inputed
    * by the user when adding a new contact
    */
-  componentDidMount() {
-    let copyTokens = this.props.tokens.slice(0).map(token => { return { ...token, value: "" } })
-    this.props.createContactAddresses(copyTokens)
-  }
+  // componentDidMount() {
+  //   let copyTokens = this.props.tokens.slice(0).map(token => { return { ...token, value: "" } })
+  //   this.props.createContactAddresses(copyTokens)
+  // }
+  //complete_contact
 
   /**
    * Is not used anywhere
@@ -212,4 +210,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { actions })(AddContactList);
+export default connect(mapStateToProps, { qrScannerInvoker })(AddContactList);

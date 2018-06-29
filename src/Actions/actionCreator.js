@@ -178,6 +178,8 @@ export function createContactName(name) {
  * that currently exists on the porfolio page.
  * This object also holds the addresses that were inputed by the user when 
  * adding a new contact
+ * 
+ * this is not being used
  * @param {Object} addresses 
  * @param {String} coinType 
  */
