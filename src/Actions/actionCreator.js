@@ -201,6 +201,6 @@ export function getQRCodeData(data) {
 
 export function qrScannerInvoker(pageName) {
   return dispatch => {
-    dispatch({})
+    dispatch({ type: actionTypes.QRSCANNER_PAGE_INVOKER, payload: pageName })
   }
 }

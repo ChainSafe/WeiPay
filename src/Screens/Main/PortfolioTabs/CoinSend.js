@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { FormInput, FormLabel, Button } from 'react-native-elements';
 import { NavigationActions } from "react-navigation";
 import { getQRCodeData } from '../../../Actions/actionCreator'
+import { qrScannerInvoker } from '../../../Actions/actionCreator'
 const ethers = require('ethers');
 var utils = ethers.utils;
 import provider from '../../../constants/Providers'; //this gives us access to the local test rpc network to test
@@ -186,6 +187,7 @@ class CoinSend extends Component {
    * Is used to navigate to the Qr-Code scanner
    */
   navigate = () => {
+    this.props.qrScannerInvoker("CoinSend")
     const navigateToQRScanner = NavigationActions.navigate({
       routeName: "QCodeScanner",
       params: { name: "Shubhnik" }
@@ -287,4 +289,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { getQRCodeData })(CoinSend);
+export default connect(mapStateToProps, { getQRCodeData, qrScannerInvoker })(CoinSend);

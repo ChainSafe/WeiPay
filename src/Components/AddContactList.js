@@ -5,6 +5,7 @@ import { CardSection } from './common/CardSection';
 import { Card } from './common/Card';
 import _ from 'lodash'
 import addContactAction from '../Actions/actionCreator';
+import qrScannerInvoker from '../Actions/actionCreator';
 import *  as actions from '../Actions/actionCreator.js';
 import AddContactListItem from './AddContactListItem';
 import { List, ListItem, Button } from 'react-native-elements'
@@ -38,6 +39,7 @@ class AddContactList extends Component {
    * Used to navigate to the "QCodeScanner" page
    */
   navigate = () => {
+    this.props.actions.qrScannerInvoker("addContacts")
     const navigateToQRScanner = NavigationActions.navigate({
       routeName: "QCodeScanner",
       params: { name: "Shubhnik" }
@@ -210,4 +212,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, actions)(AddContactList);
+export default connect(mapStateToProps, { actions })(AddContactList);

@@ -54,7 +54,7 @@ class QrCodeScanner extends Component {
      */
     navigate = () => {
         const navigateToEnableTokens = NavigationActions.navigate({
-            routeName: "PortfolioCoin",
+            routeName: this.props.Invoker,
             params: { name: "Shubhnik" }
         });
         this.props.navigation.dispatch(navigateToEnableTokens);
@@ -132,7 +132,8 @@ const styles = StyleSheet.create({
  */
 const mapStateToProps = state => {
     return {
-        QrData: state.newWallet.QrData
+        Invoker: state.newWallet.QrScannerInvoker
+
     }
 }
 
