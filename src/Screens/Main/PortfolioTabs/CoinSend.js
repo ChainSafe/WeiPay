@@ -111,6 +111,7 @@ class CoinSend extends Component {
     console.log(add)
     this.setState({ inputValue: add })
     this.setState({ toAddress: add });
+    this.props.getQRCodeData(addressInput)
   }
 
   /**
