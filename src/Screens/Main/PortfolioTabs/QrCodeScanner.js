@@ -24,7 +24,8 @@ class QrCodeScanner extends Component {
             toAddress: "",
             value: 0,
             resetInput: false,
-            qrcode: ''
+            qrcode: '',
+
         }
 
     }
@@ -66,6 +67,12 @@ class QrCodeScanner extends Component {
      * With a button to confirm the scan
      */
     render() {
+
+        //console.log(this.state.coinName);
+        const check = this.props.navigation.state.params
+        console.log(check);
+
+
         return (
             <View style={styles.container}>
                 <Camera

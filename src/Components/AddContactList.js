@@ -116,7 +116,7 @@ class AddContactList extends Component {
                 <View style={styles.card}>
                   <Button
                     title='QR'
-                    onPress={() => this.props.navigate("QCodeScanner")}
+                    onPress={() => this.props.navigate("QCodeScanner", { coinName: coin.title })}
                     style={styles.qrButton}
                   />
                   <TextInput
