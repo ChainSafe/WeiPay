@@ -90,13 +90,14 @@ class AddContact extends Component {
     this.props.addingContact(coinAddress)
   }
 
+
   navigate = () => {
-    this.props.qrScannerInvoker("addContact")
-    const navigateToQRScanner = NavigationActions.navigate({
-      routeName: "addContact",
-      params: { name: "Shubhnik" }
+
+    const navigateToQrScanner = NavigationActions.navigate({
+      routeName: 'QCodeScanner',
+      params: "addContact"
     });
-    this.props.navigation.navigate(navigateToQRScanner);
+    this.props.navigation.dispatch(navigateToQrScanner);
   };
 
   /**
@@ -124,7 +125,8 @@ class AddContact extends Component {
             renderAddress={this.renderAddress.bind(this)}
             renderName={this.renderName.bind(this)}
             contactAddress={this.state.contactAddress}
-            navigator={() => this.navigate.bind(this)}
+            navigate={this.props.navigation.navigate}
+
           />
         </ScrollView>
 

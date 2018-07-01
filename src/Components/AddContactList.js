@@ -35,14 +35,25 @@ class AddContactList extends Component {
    * ES6 Class
    * Used to navigate to the "QCodeScanner" page
    */
-  navigate = () => {
-    this.props.qrScannerInvoker("CoinSend")
-    const navigateToQRScanner = NavigationActions.navigate({
-      routeName: "CoinSend",
-      params: { name: "Shubhnik" }
-    });
-    this.props.navigation.navigate(navigateToQRScanner);
-  };
+  // navigate = () => {
+  //   this.props.qrScannerInvoker("CoinSend")
+  //   const navigateToQRScanner = NavigationActions.navigate({
+  //     routeName: "QCodeScanner",
+  //     params: { name: "Shubhnik" }
+  //   });
+  //   this.props.navigation.dispatch(navigateToQRScanner);
+  // };
+
+  //-----------------------
+
+  check() {
+    console.log("Clicked");
+
+  }
+
+  //-----------------------
+
+
 
   /**
    * LifeCycle Function: executes after the component has been mounted
@@ -105,7 +116,7 @@ class AddContactList extends Component {
                 <View style={styles.card}>
                   <Button
                     title='QR'
-                    onPress={() => this.props.navigation.navigate("QCodeScanner")}
+                    onPress={() => this.props.navigate("QCodeScanner")}
                     style={styles.qrButton}
                   />
                   <TextInput
