@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TextInput, ListView, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TextInput, ListView, ScrollView, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import { CardSection } from './common/CardSection';
 import { Card } from './common/Card';
@@ -105,7 +105,7 @@ class AddContactList extends Component {
                 <View style={styles.card}>
                   <Button
                     title='QR'
-                    onPress={() => this.navigate()}
+                    onPress={() => this.props.navigation.navigate("QCodeScanner")}
                     style={styles.qrButton}
                   />
                   <TextInput
@@ -164,7 +164,8 @@ const styles = StyleSheet.create({
   },
   qrButton: {
     width: 50,
-    height: 50
+    height: 50,
+    backgroundColor: "yellow"
   },
   addressInput: {
     width: 150,

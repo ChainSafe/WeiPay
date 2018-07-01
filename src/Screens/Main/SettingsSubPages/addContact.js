@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import AddContactList from '../../../Components/AddContactList';
 import addContactAction from '../../../Actions/actionCreator';
 import { Card } from '../../../Components/common/Card';
+import { NavigationActions } from "react-navigation";
 import { CardSection } from '../../../Components/common/CardSection';
 import * as actions from '../../../Actions/actionCreator';
 
@@ -89,6 +90,15 @@ class AddContact extends Component {
     this.props.addingContact(coinAddress)
   }
 
+  navigate = () => {
+    this.props.qrScannerInvoker("addContact")
+    const navigateToQRScanner = NavigationActions.navigate({
+      routeName: "addContact",
+      params: { name: "Shubhnik" }
+    });
+    this.props.navigation.navigate(navigateToQRScanner);
+  };
+
   /**
    * Checks if the contactAddress state is empty or not.
    * Returns a boolean (true if contactAddress is empty, false if full)
@@ -114,6 +124,7 @@ class AddContact extends Component {
             renderAddress={this.renderAddress.bind(this)}
             renderName={this.renderName.bind(this)}
             contactAddress={this.state.contactAddress}
+            navigator={() => this.navigate.bind(this)}
           />
         </ScrollView>
 
