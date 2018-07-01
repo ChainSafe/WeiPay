@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Button, FlatList, Image } from 'react-native';
+import { FormLabel } from 'react-native-elements'
 import CollapsibleList from 'react-native-collapsible-list'
 var axios = require('axios');
 var ethers = require('ethers');
@@ -63,7 +64,7 @@ class CoinActivity extends Component {
         transObj.address = json[i].to;
         transObj.uri = 'require(../../../Assets/images/sent.png)';
       } else {
-        transObj.type = 'receive'; //enum should be implemented
+        transObj.type = 'received'; //enum should be implemented
         transObj.address = json[i].from;
         transObj.uri = 'require(../../../Assets/images/receive.png)';
       }
@@ -103,34 +104,40 @@ class CoinActivity extends Component {
 
             <View style={styles.item}>
 
-
               <View>
-                <View>
-                  {item.type}
-                </View>
-                <View>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                   <Text>
-                    Address: {item.address}
+                    {item.type}
                   </Text>
-                </View>
-                <View>
-                  <Text>
-                    Amount: {item.value}
+
+                  <FormLabel> Address:</FormLabel>
+                  <Text style={{ fontSize: 12 }} >
+                    {item.address}
                   </Text>
+
+                  <FormLabel> Amount:</FormLabel>
+                  <Text style={{ fontSize: 12 }} >
+                    {item.value}
+                  </Text>
+
+                  <CollapsibleList numberOfVisibleItems={1} buttonContent={<Text>Expand/Retract Info</Text>} >
+                    <View style={styles.collapsibleItem}>
+                      <Text style={{ fontSize: 12 }}> Block Number: {item.blockNumber}</Text>
+                    </View>
+                    <View style={styles.collapsibleItem}>
+                      <Text style={{ fontSize: 12 }}> Date: {item.timeStamp}</Text>
+                    </View>
+                    <View style={styles.collapsibleItem}>
+                      <Text style={{ fontSize: 12 }}> Hash: {item.hash}</Text>
+                    </View>
+                    <View style={styles.collapsibleItem}>
+                      <Text style={{ fontSize: 12 }}> Block Hash: {item.blockHash}</Text>
+                    </View>
+                  </CollapsibleList>
+
+
                 </View>
               </View>
-
-              <CollapsibleList numberOfVisibleItems={1}>
-                <View style={styles.collapsibleItem}>
-                  <Text>Hello Collapsable List :)</Text>
-                </View>
-                <View style={styles.collapsibleItem}>
-                  <Text>Collapsable List Item</Text>
-                </View>
-                <View style={styles.collapsibleItem}>
-                  <Text>Collapsable List Item</Text>
-                </View>
-              </CollapsibleList>
             </View>
           } />
 
@@ -161,5 +168,8 @@ const styles = StyleSheet.create({
     marginRight: 20,
     backgroundColor: 'red',
     flex: 1
+  },
+  collapsibleItem: {
+    justifyContent: 'center', alignItems: 'center'
   }
 })
