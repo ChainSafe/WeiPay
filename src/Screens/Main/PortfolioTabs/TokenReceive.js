@@ -51,7 +51,9 @@ const styles = StyleSheet.create({
     height: 165
   },
   mainContainer: {
-    flex: 1, alignItems: 'center', justifyContent: 'flex-start'
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-start'
   },
   contentContainer: {
     marginTop: 25
@@ -60,9 +62,14 @@ const styles = StyleSheet.create({
     width: 340
   },
   btnContainer: {
-    flex: 1, justifyContent: 'flex-end', alignItems: 'center'
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center'
   },
   imageContainer: {
-    justifyContent: 'center', alignItems: 'center', paddingTop: 20, paddingBottom: 35
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 20,
+    paddingBottom: 35
   }
 })

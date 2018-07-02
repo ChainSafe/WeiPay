@@ -116,7 +116,6 @@ class AddContact extends Component {
             contactAddress={this.state.contactAddress}
           />
         </ScrollView>
-
         <View style={styles.container}>
           <View style={styles.buttonContainer}>
             <Button
@@ -185,4 +184,4 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, actions)(AddContact)
-//export default AddContact;
+

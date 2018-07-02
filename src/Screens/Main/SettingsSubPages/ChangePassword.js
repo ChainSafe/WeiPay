@@ -25,27 +25,23 @@ class ChangePassword extends Component {
     navigate = () => {
         const navigateToPassphrase = NavigationActions.navigate({
             routeName: "generatePassphrase",
-            params: { name: "Shubhnik" }
         });
         this.props.navigation.dispatch(navigateToPassphrase);
     };
 
     renderCurrent(currentPassword) {
-        var add = currentPassword.trim();
+        const add = currentPassword.trim();
         this.setState({ current: add });
-        console.log(add)
     }
 
     renderNew(newPassword) {
-        var add = newPassword.trim();
+        const add = newPassword.trim();
         this.setState({ new: add });
-        console.log(add)
     }
 
     renderConfirm(confirmedPassword) {
-        var add = confirmedPassword.trim();
+        const add = confirmedPassword.trim();
         this.setState({ confirm: add });
-        console.log(add)
     }
 
     checkPassword() {
@@ -106,13 +102,18 @@ class ChangePassword extends Component {
 
 const styles = StyleSheet.create({
     mainContainer: {
-        flex: 1, alignItems: 'center', justifyContent: 'flex-start'
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'flex-start'
     },
     contentContainer: {
         marginTop: 25,
     },
     btnContainer: {
-        flex: 1, justifyContent: 'flex-end', alignItems: 'center', paddingBottom: 20
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        paddingBottom: 20
     },
     form: {
         width: Dimensions.get('window').width - 20,
@@ -120,7 +121,5 @@ const styles = StyleSheet.create({
         paddingBottom: 10
     },
 })
-
-
 
 export default ChangePassword;
