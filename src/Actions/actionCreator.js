@@ -1,11 +1,9 @@
 import { AsyncStorage } from 'react-native';
-import { incrementCounter, decrementCounter, addTokenSetup } from "./actionTypes";
+import { addTokenSetup } from "./actionTypes";
 import * as actionTypes from './actionTypes';
 
 
-const incrementAction = () => ({
-  type: incrementCounter
-});
+
 
 function AddToken(payload) {
   return {
@@ -76,16 +74,6 @@ export function restoreWallet() {
   }
 }
 
-/**
- * returns an action that contains the mnemonic for the wallet 
- * that the user wishes to restore
- * @param {String} key 
- */
-export function recoveryKey(key) {
-  return dispatch => {
-    dispatch({ type: actionTypes.RESTORE_RECOVERY_KEY, payload: key })
-  }
-}
 
 /**
  * returns an action that contains the fiat currency that the user
@@ -110,17 +98,6 @@ export function selectWalletLanguage(language) {
   }
 }
 
-/* Using this action type in recover wallet page, not restore */
-/**
- * Action is not used anywhere.
- * 
- * @param {String} passphrase 
- */
-export function recoverPassphrase(passphrase) {
-  return dispatch => {
-    dispatch({ type: actionTypes.RESTORE_RECOVERY_PASSPHRASE, payload: passphrase })
-  }
-}
 
 /**
  * Returns an action that contains the -Name- of the new contact
@@ -151,25 +128,6 @@ export function completeContact(contactName, contactAddress) {
 
   return dispatch => {
     dispatch({ type: actionTypes.COMPLETE_CONTACT, payload: contact })
-  }
-}
-
-/**
- * This action is not used anywhere
- */
-export function clearInput() {
-  return dispatch => {
-    dispatch({ type: actionTypes.CLEAR_INPUT })
-  }
-}
-
-/**
- * This action is not used anywhere
- * @param {String} name 
- */
-export function createContactName(name) {
-  return dispatch => {
-    dispatch({ type: actionTypes.CONTACT_NAME, payload: name })
   }
 }
 

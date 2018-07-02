@@ -197,7 +197,6 @@ const styles = StyleSheet.create({
  * Points to:
  *  - Current list of tokens that the used has selected for thier porfolio
  *  - currentContact is not used in this class
- *  - clearInput is not used in this class
  *  - current is not used in this class
  * @param {Object} state 
  */
@@ -205,8 +204,7 @@ const mapStateToProps = state => {
   return {
     tokens: state.newWallet.tokens,
     currentContact: state.contacts.currentContact,
-    clearInput: state.contacts.clearInput,
-    current: state.contacts.currentContact,
+    current: state.contacts.currentContact
   }
 }
 
