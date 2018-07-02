@@ -36,10 +36,6 @@ class Settings extends Component {
   render() {
     const list = [
       {
-        "title": "Password Change",
-        "id": "changePassword"
-      },
-      {
         "title": "Language Change",
         "id": "languageChange"
       },
