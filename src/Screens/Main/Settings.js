@@ -42,14 +42,6 @@ class Settings extends Component {
       {
         "title": "Currency Change",
         "id": "changeCurrency"
-      },
-      {
-        "title": "Wallet Name Change",
-        "id": "changeWalletName"
-      },
-      {
-        "title": "Remove Wallet",
-        "id": "removeWallet"
       }
     ];
 

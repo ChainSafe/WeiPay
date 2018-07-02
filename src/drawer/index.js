@@ -10,8 +10,6 @@ import Settings from '../Screens/Main/Settings';
 import Search from '../Screens/Main/Search';
 import LanguageChange from '../Screens/Main/SettingsSubPages/LanguageChange';
 import ChangeCurrency from '../Screens/Main/SettingsSubPages/ChangeCurrency';
-import WalletNameChange from '../Screens/Main/SettingsSubPages/WalletNameChange';
-import RemoveWallet from '../Screens/Main/SettingsSubPages/RemoveWallet';
 import CoinSend from '../Screens/Main/PortfolioTabs/CoinSend';
 import CoinReceive from '../Screens/Main/PortfolioTabs/CoinReceive';
 import CoinActivity from '../Screens/Main/PortfolioTabs/CoinActivity';
@@ -39,7 +37,6 @@ export default DrawerNavigator({
   portfolio: {
     screen: Portfolio
   },
-
   backupPhrase: {
     screen: BackupPhrase
   },
@@ -47,7 +44,6 @@ export default DrawerNavigator({
     screen: TabNavigator({
       contacts: { screen: Contacts },
       addContact: { screen: addContact }
-
     }, {
         navigationOptions: {
           headerStyle: {
@@ -62,21 +58,15 @@ export default DrawerNavigator({
           }
         }
       })
-
   },
   AddToken: {
     screen: AddToken
   },
   Settings: {
-
-    //  screen: Settings,
     screen: StackNavigator({
       settingsMain: { screen: Settings },
       languageChange: { screen: LanguageChange },
       changeCurrency: { screen: ChangeCurrency },
-      changeWalletName: { screen: WalletNameChange },
-      removeWallet: { screen: RemoveWallet },
-
     },
       {
         headerMode: 'none'
