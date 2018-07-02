@@ -117,13 +117,9 @@ export default CoinActivity
  */
 const styles = StyleSheet.create({
   container: {
-    // top: 20,
-    // alignItems: 'center'
     flex: 1,
     justifyContent: 'center',
     alignItems: 'flex-start',
-    // marginTop: 25,
-    // backgroundColor: 'blue',
   },
   item: {
     padding: 5,
@@ -131,7 +127,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     marginLeft: 20,
     marginRight: 20,
-    // backgroundColor: 'red',
     flex: 1
   },
   type: {
