@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   date: {
     fontSize: 12,
     padding: 2.5,
-    paddingBottom: 5,
+    paddingBottom: 15,
     fontWeight: '400'
   },
   text: {
