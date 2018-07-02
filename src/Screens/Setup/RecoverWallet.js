@@ -27,9 +27,7 @@ class RecoverWallet extends Component {
 
         const navigateToTokens = NavigationActions.navigate({
             routeName: "enableTokens",
-            params: { name: "Shubhnik" }
         });
-
 
         try {
             /*
@@ -118,7 +116,10 @@ class RecoverWallet extends Component {
  */
 const styles = StyleSheet.create({
     mainContainer: {
-        flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: -100
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: -100
     },
     walletName: {
         fontSize: 20,

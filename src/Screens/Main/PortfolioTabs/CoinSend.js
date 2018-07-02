@@ -178,7 +178,6 @@ class CoinSend extends Component {
   navigate = () => {
     const navigateToQRScanner = NavigationActions.navigate({
       routeName: "QCodeScanner",
-      params: { name: "Shubhnik" }
     });
     this.props.navigation.dispatch(navigateToQRScanner);
   };

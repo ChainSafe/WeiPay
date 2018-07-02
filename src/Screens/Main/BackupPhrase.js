@@ -26,7 +26,6 @@ class BackupPhrase extends Component {
    * Method is used navigate back to the main portfolio page
    */
   static navigationOptions = ({ navigation, NavigationActions }) => {
-
     const navigate = () => {
       const navigateToPassphrase = NavigationActions.reset({
         index: 0,

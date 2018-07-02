@@ -26,7 +26,6 @@ class Settings extends Component {
   navigateToSubSetting = (listId) => {
     const navigateToSub = NavigationActions.navigate({
       routeName: listId,
-      params: { name: "Shubhnik" }
     });
     this.props.navigation.dispatch(navigateToSub);
   };

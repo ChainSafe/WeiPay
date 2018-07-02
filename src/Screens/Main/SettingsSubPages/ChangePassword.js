@@ -25,7 +25,6 @@ class ChangePassword extends Component {
     navigate = () => {
         const navigateToPassphrase = NavigationActions.navigate({
             routeName: "generatePassphrase",
-            params: { name: "Shubhnik" }
         });
         this.props.navigation.dispatch(navigateToPassphrase);
     };

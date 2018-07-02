@@ -40,13 +40,7 @@ class WalletNameChange extends Component {
     /**
      * Empty method
      */
-    navigate = () => {
-        // const navigateToPassphrase = NavigationActions.navigate({
-        //     routeName: "generatePassphrase",
-        //     params: { name: "Shubhnik" }
-        // });
-        // this.props.navigation.dispatch(navigateToPassphrase);
-    };
+    navigate = () => { };
 
     /**
      * Returns a form , which the user can use to change the name of the 

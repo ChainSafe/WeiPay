@@ -22,8 +22,7 @@ class ChangeCurrency extends Component {
      */
     navigate = () => {
         // const navigateToPassphrase = NavigationActions.navigate({
-        //     routeName: "generatePassphrase",
-        //     params: { name: "Shubhnik" }
+        //     routeName: "generatePassphrase",     
         // });
         // this.props.navigation.dispatch(navigateToPassphrase);
     };
