@@ -44,7 +44,6 @@ class CoinSend extends Component {
     provider.getBalance(this.props.wallet.address).then(function (balance) {
       const etherString = utils.formatEther(balance);
       console.log("Current Wallet Balance" + etherString);
-
       if (etherString == 0) {
         Alert.alert(
           'No Ether Alert',
@@ -84,7 +83,6 @@ class CoinSend extends Component {
     //   });
     // });
   }
-
 
   /**
    * LifeCycle Method
@@ -146,14 +144,12 @@ class CoinSend extends Component {
    * Conducts the transction between the two addresses
    */
   sendTransaction = () => {
-
     const amountString = '' + this.state.value + '';
     const receivingAddress = this.state.toAddress;
     const amount = ethers.utils.parseEther(amountString);
     const currentWallet = this.props.wallet;
     currentWallet.provider = provider;
     const sendPromise = currentWallet.send(receivingAddress, amount);
-
     sendPromise.then(function (transactionHash) {
       console.log(transactionHash);
       provider.getBalance(currentWallet.address).then(function (balance) {
@@ -201,11 +197,13 @@ class CoinSend extends Component {
               <Button
                 title='QR'
                 onPress={() => this.navigate()}
+                style={styles.qr}
               />
-              <FormInput style={styles.formInputElement}
+              <FormInput style={styles.formInputAddress}
                 onChangeText={this.renderAddress.bind(this)}
                 value={this.props.addressData}
                 ref={ref => this.inputAddress = ref}
+                containerStyle={{ width: "65%", marginTop: 0, marginBottom: 0 }}
               />
             </View>
             <FormLabel>Amount </FormLabel>
@@ -261,6 +259,10 @@ const styles = StyleSheet.create({
   },
   form: {
     width: 340
+  },
+  qr: {
+    marginLeft: 5,
+    marginTop: 10
   },
   btnContainer: {
     flex: 1,
