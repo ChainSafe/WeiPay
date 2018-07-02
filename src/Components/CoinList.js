@@ -3,7 +3,6 @@ import { ListView } from 'react-native';
 import { connect } from 'react-redux';
 import ListItem from './ListItem';
 
-
 /**
  * React Component Class
  * Contains a list of all the tokens that the user can select to 

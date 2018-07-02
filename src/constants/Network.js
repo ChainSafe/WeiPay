@@ -1,4 +1,3 @@
-
 /**
  * List of networks that can be used with infura
  */

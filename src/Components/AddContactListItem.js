@@ -7,7 +7,6 @@ import { CheckBox } from 'react-native-elements'
 import { Button } from 'react-native-elements';
 import { connect } from 'react-native-elements';
 
-
 /**
  * This component is not being used anywhere
  */
