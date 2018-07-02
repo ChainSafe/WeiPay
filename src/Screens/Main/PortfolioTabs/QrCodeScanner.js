@@ -26,7 +26,6 @@ class QrCodeScanner extends Component {
             resetInput: false,
             qrcode: ''
         }
-
     }
 
     /**
@@ -39,14 +38,6 @@ class QrCodeScanner extends Component {
         this.setState({ qrcode: e.data })
         this.props.getQRCodeData(e.data)
     };
-
-    /**
-     * Not Used anywhere
-     */
-    renderDataConfirm() {
-        console.log("Button was clicked");
-
-    }
 
     /**
      * Is used to Navigate to the Coin Portfolio where the user
@@ -89,16 +80,16 @@ class QrCodeScanner extends Component {
             </View>
         )
     }
-
 }
-
 
 /**
  * Styles for QrCode Scanner component
  */
 const styles = StyleSheet.create({
     mainContainer: {
-        flex: 1, alignItems: 'center', justifyContent: 'flex-start'
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'flex-start'
     },
     contentContainer: {
         marginTop: 25
@@ -107,14 +98,14 @@ const styles = StyleSheet.create({
         width: 340
     },
     btnContainer: {
-        flex: 1, justifyContent: 'flex-end', alignItems: 'center'
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'center'
     },
-
     buttonStyle: {
         backgroundColor: "blue",
         padding: 10
     },
-
     container: {
         flex: 1,
         flexDirection: 'row',

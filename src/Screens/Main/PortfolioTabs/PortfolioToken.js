@@ -19,7 +19,10 @@ export default TabNavigator({
     },
     tabBarPosition: 'top',
     tabBarOptions: {
-      labelStyle: { fontSize: 16, marginBottom: 13 },
+      labelStyle: {
+        fontSize: 16,
+        marginBottom: 13
+      },
       style: {
         borderTopColor: 'transparent'
       }

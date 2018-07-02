@@ -8,8 +8,6 @@ import { Input } from '../../Components/common/Input';
 import { newWalletCreation, newWalletNameEntry } from '../../Actions/actionCreator';
 const ethers = require('ethers');
 
-var walletItem;
-
 /**
  * Initial setup screen used to allow the user to give their wallet a name after
  * a new wallet has been created
@@ -28,7 +26,7 @@ class CreateWalletName extends Component {
      * variable and to navigate to the "generatePassphrase" screen  
      */
     navigate = () => {
-        var wallet = ethers.Wallet.createRandom();
+        const wallet = ethers.Wallet.createRandom();
         this.props.newWalletCreation(wallet);
         const navigateToPassphrase = NavigationActions.navigate({ routeName: "generatePassphrase" });
         this.props.navigation.dispatch(navigateToPassphrase);
@@ -48,10 +46,9 @@ class CreateWalletName extends Component {
      * Returns the form required for the user to set the name of their wallet
      */
     render() {
-
         return (
             <View style={styles.mainContainer}>
-                <View style={styles.contentContainer} >
+                <View >
                     <View style={styles.form} >
                         <Text style={styles.walletName}>Wallet Name </Text>
                         <FormInput
@@ -84,29 +81,25 @@ class CreateWalletName extends Component {
  */
 const styles = StyleSheet.create({
     mainContainer: {
-        flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: -100
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: -100
     },
     walletName: {
         fontSize: 20,
         paddingTop: 20,
-        // alignItems: 'flex-start',
         paddingBottom: 25,
     },
     formInput: {
         width: 300
-    },
-    contentContainer: {
-        // marginTop: 25
     },
     form: {
         width: Dimensions.get('window').width - 10,
         alignItems: 'center'
     },
     btnContainer: {
-        // flex: 1,
-        // justifyContent: 'flex-end',
         alignItems: 'center',
-        // paddingTop: 25
     },
 })
 
@@ -119,6 +112,5 @@ const mapStateToProps = ({ newWallet }) => {
     return { walletName }
 }
 
-
 export default connect(mapStateToProps, { newWalletNameEntry, newWalletCreation })(CreateWalletName);
-//export default CreateWalletName;
+

@@ -4,7 +4,6 @@ import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, Icon, List, ListItem, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 
-
 /**
  * Screen is used to the change the name of the wallet
  */
@@ -34,9 +33,8 @@ class WalletNameChange extends Component {
      * @param {String} nameInput 
      */
     renderNameChange(nameInput) {
-        var add = nameInput.trim();
+        const add = nameInput.trim();
         this.setState({ nameChange: add });
-        console.log(add)
     }
 
     /**
@@ -90,13 +88,18 @@ class WalletNameChange extends Component {
  */
 const styles = StyleSheet.create({
     mainContainer: {
-        flex: 1, alignItems: 'center', justifyContent: 'flex-start'
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'flex-start'
     },
     contentContainer: {
         marginTop: 25,
     },
     btnContainer: {
-        flex: 1, justifyContent: 'flex-end', alignItems: 'center', paddingBottom: 20
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        paddingBottom: 20
     },
     form: {
         width: Dimensions.get('window').width - 20,

@@ -21,7 +21,6 @@ class ConfirmPassphrase extends Component {
      */
     constructor(props) {
         super(props);
-
         this.state = {
             selectedTags: [],
             scrambledTags: []
@@ -44,11 +43,11 @@ class ConfirmPassphrase extends Component {
         const state = this.state;
         const words = this.props.mnemonic.split(' ');
         var orderArray = [];
-        for (var i = 0; i < words.length; i++) {
+        for (let i = 0; i < words.length; i++) {
             orderArray.push({ "word": words[i], "index": i });
         }
         shuffle(orderArray);
-        for (var i = 0; i < words.length; i++) {
+        for (let i = 0; i < words.length; i++) {
             state.scrambledTags.push(orderArray[i]);
         }
         this.setState(state)
@@ -163,34 +162,27 @@ class ConfirmPassphrase extends Component {
      * in the correct order
      */
     render() {
-
         const { selectedTags, scrambledTags } = this.state;
-
         return (
-
             <View style={styles.mainContainer}>
                 <View style={styles.contentContainer} >
-
                     <View style={styles.content} >
                         <CardSection>
                             <Text style={styles.headerText} >Please assemble your passphrase in the correct order </Text>
                         </CardSection>
-
                         <CardSection>
                             <View style={styles.tagContainer} >
                                 {
                                     selectedTags.map((item, index) => {
                                         return <Button
-                                            // buttonStyle={{
-                                            //     backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-                                            //     justifyContent: 'center', marginBottom: 30, marginTop: 5.5
-                                            // }}
-                                            style={styles.tag} title={item.word} key={item.index} onPress={() => this.addTag(item, "revert", index)} />
+                                            style={styles.tag}
+                                            title={item.word}
+                                            key={item.index}
+                                            onPress={() => this.addTag(item, "revert", index)} />
                                     })
                                 }
                             </View>
                         </CardSection>
-
                         <CardSection>
                             <View style={styles.tagContainer} >
                                 {
@@ -201,7 +193,6 @@ class ConfirmPassphrase extends Component {
                             </View>
                         </CardSection>
                     </View>
-
                     <View style={styles.btnContainer} >
                         <TouchableOpacity style={styles.btn} onPress={this.validatePassphrase}>
                             <Text style={styles.btnText}> Next</Text>
@@ -236,15 +227,22 @@ const styles = StyleSheet.create({
         height: 40,
         justifyContent: 'center',
         alignItems: 'center',
-        // backgroundColor: '#ADD1C7'
     },
     btn: {
-        backgroundColor: 'white', borderColor: '#2a2a2a', borderWidth: 2, borderRadius: 10, width: 300,
-        height: 50, alignItems: 'center',
-        justifyContent: 'center', marginBottom: 30, marginTop: 5.5
+        backgroundColor: 'white',
+        borderColor: '#2a2a2a',
+        borderWidth: 2,
+        borderRadius: 10,
+        width: 300,
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 30,
+        marginTop: 5.5
     },
     btnText: {
-        color: '#2a2a2a', fontSize: 20
+        color: '#2a2a2a',
+        fontSize: 20
     },
     content: {
         width: 350

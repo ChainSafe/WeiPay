@@ -12,7 +12,6 @@ const navigate = () => {
   this.props.navigation.dispatch(navigateToPassphrase);
 };
 
-
 /**
  * Screen is used to display the passphrase (mnemonic) of the wallet
  */
@@ -53,7 +52,6 @@ class BackupPhrase extends Component {
    * to display the passphrase
    */
   displayPassphrase() {
-    console.log("display checked");
     this.setState({
       isPhraseSelected: true
     });
