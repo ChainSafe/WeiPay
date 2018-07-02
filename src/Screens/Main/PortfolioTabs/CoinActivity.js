@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Button, FlatList, Image } from 'react-native';
-import { FormLabel } from 'react-native-elements'
-import CollapsibleList from 'react-native-collapsible-list'
+import { FormLabel } from 'react-native-elements';
+import { CardSection } from '../../../Components/common/CardSection';
 var axios = require('axios');
 var ethers = require('ethers');
+var moment = require('moment');
 var utils = ethers.utils;
 
 /**
@@ -15,18 +16,16 @@ class CoinActivity extends Component {
 
   /**
    * Sets the Tab header to "ACTIVITY"
-   */
+  */
 
   constructor(props) {
     super(props)
-
     this.state = {
       balance: "",
       loaded: false,
       data: [],
       address: '0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a'
     }
-
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -43,34 +42,27 @@ class CoinActivity extends Component {
     var url = 'https://api.etherscan.io/api?module=account&action=txlist&address=' + address + '&page=1&offset=10&sort=asc&apikey=YJ1TRXBKAH9QZWINVFT83JMFBQI15X7UPR';
     axios.get(url).then(response => {
       this.parseData(response.data.result);
-      //console.log(response.data);
-
-      // this.setState({
-      //   data: response.data.result
-      // })
     });
   }
 
   parseData = (json) => {
-    //console.log(json);
-
     var transactions = [];
 
     for (var i = 0; i < json.length; i++) {
       var transObj = {}
 
       if (json[i].from == this.state.address) {
-        transObj.type = 'sent'; //enum should be implemented
+        transObj.type = 'Sent'; //enum should be implemented
         transObj.address = json[i].to;
         transObj.uri = 'require(../../../Assets/images/sent.png)';
       } else {
-        transObj.type = 'received'; //enum should be implemented
+        transObj.type = 'Received'; //enum should be implemented
         transObj.address = json[i].from;
         transObj.uri = 'require(../../../Assets/images/receive.png)';
       }
       transObj.value = utils.formatEther(json[i].value);
       transObj.blockNumber = json[i].blockNumber;
-      transObj.timeStamp = json[i].timeStamp;
+      transObj.timeStamp = moment.unix(json[i].timeStamp).format('MMMM Do YYYY, h:mm:ss a');
       transObj.hash = json[i].hash;
       transObj.blockHash = json[i].blockHash;
       transactions.push(transObj);
@@ -79,20 +71,13 @@ class CoinActivity extends Component {
     this.setState({
       data: transactions
     })
-
-    //console.log(this.state.data);
-
   }
 
 
   /**
-   * Returns a component holding a list of transactions that have been occured
+  * Returns a component holding a list of transactions that have been occured
    */
   render() {
-
-    const list = this.state.data;
-    console.log(list);
-
     return (
       <View style={styles.container}>
 
@@ -102,53 +87,32 @@ class CoinActivity extends Component {
           style={{ flex: 1, width: '100%' }}
           renderItem={({ item }) =>
 
-            <View style={styles.item}>
-
-              <View>
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                  <Text>
-                    {item.type}
-                  </Text>
-
-                  <FormLabel> Address:</FormLabel>
-                  <Text style={{ fontSize: 12 }} >
-                    {item.address}
-                  </Text>
-
-                  <FormLabel> Amount:</FormLabel>
-                  <Text style={{ fontSize: 12 }} >
-                    {item.value}
-                  </Text>
-
-                  <CollapsibleList numberOfVisibleItems={1} buttonContent={<Text>Expand/Retract Info</Text>} >
-                    <View style={styles.collapsibleItem}>
-                      <Text style={{ fontSize: 12 }}> Block Number: {item.blockNumber}</Text>
-                    </View>
-                    <View style={styles.collapsibleItem}>
-                      <Text style={{ fontSize: 12 }}> Date: {item.timeStamp}</Text>
-                    </View>
-                    <View style={styles.collapsibleItem}>
-                      <Text style={{ fontSize: 12 }}> Hash: {item.hash}</Text>
-                    </View>
-                    <View style={styles.collapsibleItem}>
-                      <Text style={{ fontSize: 12 }}> Block Hash: {item.blockHash}</Text>
-                    </View>
-                  </CollapsibleList>
-
-
+            <CardSection>
+              <View style={styles.item}>
+                <View>
+                  <View style={{}}>
+                    <Text style={styles.type}>
+                      {item.type}
+                    </Text>
+                    <Text style={styles.date} >{item.timeStamp}</Text>
+                    <Text style={styles.text} >Address:</Text>
+                    <Text style={styles.text} >
+                      {item.address}
+                    </Text>
+                    <Text style={styles.text}>Amount: {item.value} Ether</Text>
+                  </View>
                 </View>
               </View>
-            </View>
+            </CardSection>
           } />
-
-      </View>
+      </View >
     )
   }
 }
 
 export default CoinActivity
 
-/**
+/**      
  * Style
  */
 const styles = StyleSheet.create({
@@ -158,18 +122,32 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'flex-start',
-    marginTop: 25,
-    backgroundColor: 'blue',
+    // marginTop: 25,
+    // backgroundColor: 'blue',
   },
   item: {
-    marginTop: 2.5,
-    marginBottom: 2.5,
+    padding: 5,
+    marginTop: 5,
+    marginBottom: 5,
     marginLeft: 20,
     marginRight: 20,
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
     flex: 1
   },
-  collapsibleItem: {
-    justifyContent: 'center', alignItems: 'center'
+  type: {
+    fontSize: 16,
+    padding: 3,
+    fontWeight: '500'
+  },
+  date: {
+    fontSize: 12,
+    padding: 2.5,
+    paddingBottom: 5,
+    fontWeight: '400'
+  },
+  text: {
+    fontSize: 12,
+    padding: 2.5,
+    fontWeight: '300'
   }
 })
