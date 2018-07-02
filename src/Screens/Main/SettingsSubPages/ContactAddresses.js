@@ -14,37 +14,27 @@ class ContactAddresses extends Component {
   componentWillMount() {
     let addresses = this.props.navigation.state.params.addresses
     let data = []
-
-    for (const key of Object.keys(addresses)) {
+    for (let key of Object.keys(addresses)) {
       address = { [key]: addresses[key] }
       data.push(address)
     }
-
-    const ds = new ListView.DataSource({
+    let ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
-
     this.dataSource = ds.cloneWithRows(data);
   }
 
   navigate = address => {
-
     const navigateToCreateOrRestore = NavigationActions.navigate({
       routeName: 'PortfolioCoin',
       params: { address }
     });
-    console.log(address);
-
-    //this.props.getQRCodeData(address)
     this.props.navigation.dispatch(navigateToCreateOrRestore);
   };
 
   renderRow(address) {
-    // debugger
-
     return (
       <View>
-
         <Card>
           <View style={styles.address}>
             <Text style={styles.title}>{Object.keys(address)[0]}'s Address</Text>
@@ -63,7 +53,6 @@ class ContactAddresses extends Component {
             {address[Object.keys(address)[0]]}
           </Text>
         </Card>
-
       </View>
     )
   }
@@ -91,4 +80,4 @@ const styles = StyleSheet.create({
 })
 
 export default connect(null, { getQRCodeData })(ContactAddresses)
-//export default ContactAddresses
+

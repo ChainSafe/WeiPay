@@ -27,5 +27,11 @@ export default TabNavigator({
     }
   },
   {
-    headerTitleStyle: { textAlign: 'center', alignSelf: 'center', fontWeight: 'normal', fontSize: 100, color: '#606060' }
+    headerTitleStyle: {
+      textAlign: 'center',
+      alignSelf: 'center',
+      fontWeight: 'normal',
+      fontSize: 100,
+      color: '#606060'
+    }
   })
