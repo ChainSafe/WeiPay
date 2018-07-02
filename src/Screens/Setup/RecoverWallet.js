@@ -4,9 +4,8 @@ import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import { newWalletCreation } from '../../Actions/actionCreator'; //gonna save this passphrase to state
-
-const ethers = require('ethers');
 import provider from '../../constants/Providers';
+const ethers = require('ethers');
 
 /**
  * Screen used to recover a previously generated wallet
@@ -39,14 +38,8 @@ class RecoverWallet extends Component {
                 mnemonic = this.state.mnemonic.trim();
                 wallet = ethers.Wallet.fromMnemonic(mnemonic);
             */
-            var wallet = new ethers.Wallet("0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5");
+            const wallet = new ethers.Wallet("0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5");
             wallet.provider = provider;
-
-            console.log(wallet.address);
-            console.log(wallet.mnemonic);
-            console.log(wallet.privateKey);
-            console.log(wallet.balance);
-
             this.props.newWalletCreation(wallet); //pass state to redux to save it
             this.props.navigation.dispatch(navigateToTokens);
         }

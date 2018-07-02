@@ -3,17 +3,16 @@ import { View, Text, StyleSheet, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { FormInput, FormLabel, Button } from 'react-native-elements';
 import { NavigationActions } from "react-navigation";
-import { getQRCodeData } from '../../../Actions/actionCreator'
+import { getQRCodeData } from '../../../Actions/actionCreator';
+import provider from '../../../constants/Providers';
 const ethers = require('ethers');
-var utils = ethers.utils;
-import provider from '../../../constants/Providers'; //this gives us access to the local test rpc network to test
+const utils = ethers.utils;
 
 /**
  * React Component
  * Screen used to conduct negative transactions (sending coins/tokens)
  */
 class CoinSend extends Component {
-
   /**
    * Sets the Tab header to "SEND"
    */
@@ -43,7 +42,7 @@ class CoinSend extends Component {
      * checks if the wallet has funds available to be sent
      */
     provider.getBalance(this.props.wallet.address).then(function (balance) {
-      var etherString = utils.formatEther(balance);
+      const etherString = utils.formatEther(balance);
       console.log("Current Wallet Balance" + etherString);
 
       if (etherString == 0) {
@@ -93,7 +92,6 @@ class CoinSend extends Component {
    * Sets the state to the hold the wallet address
    */
   componentWillMount() {
-
     if (this.props.navigation.state.params) {
       let contactAddress = this.props.navigation.state.params.address
       if (contactAddress) {
@@ -107,8 +105,7 @@ class CoinSend extends Component {
    * @param {String} addressInput 
    */
   renderAddress(addressInput) {
-    var add = addressInput.trim();
-    console.log(add)
+    const add = addressInput.trim();
     this.setState({ inputValue: add })
     this.setState({ toAddress: add });
   }
@@ -152,21 +149,19 @@ class CoinSend extends Component {
 
     const amountString = '' + this.state.value + '';
     const receivingAddress = this.state.toAddress;
-    var amount = ethers.utils.parseEther(amountString);
+    const amount = ethers.utils.parseEther(amountString);
     const currentWallet = this.props.wallet;
     currentWallet.provider = provider;
-    var sendPromise = currentWallet.send(receivingAddress, amount);
+    const sendPromise = currentWallet.send(receivingAddress, amount);
 
     sendPromise.then(function (transactionHash) {
       console.log(transactionHash);
-
       provider.getBalance(currentWallet.address).then(function (balance) {
-        var etherString = utils.formatEther(balance);
+        const etherString = utils.formatEther(balance);
         console.log("currentWallet Balance: " + etherString);
       });
-
       provider.getBalance(receivingAddress).then(function (balance) {
-        var etherString = utils.formatEther(balance);
+        const etherString = utils.formatEther(balance);
         console.log("receiving account Balance: " + etherString);
       });
     });
@@ -176,7 +171,6 @@ class CoinSend extends Component {
    * Is used to reset the input fields
    */
   resetFields = () => {
-    console.log("logged");
     this.inputAddress.clearText();
     this.inputAmount.clearText();
   }
@@ -202,9 +196,7 @@ class CoinSend extends Component {
       <View style={styles.mainContainer}>
         <View style={styles.contentContainer} >
           <View style={styles.form} >
-
             <FormLabel>Send To </FormLabel>
-
             <View style={{ flexDirection: 'row' }}>
               <Button
                 title='QR'
@@ -260,7 +252,9 @@ class CoinSend extends Component {
  */
 const styles = StyleSheet.create({
   mainContainer: {
-    flex: 1, alignItems: 'center', justifyContent: 'flex-start'
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-start'
   },
   contentContainer: {
     marginTop: 25
@@ -269,7 +263,9 @@ const styles = StyleSheet.create({
     width: 340
   },
   btnContainer: {
-    flex: 1, justifyContent: 'flex-end', alignItems: 'center'
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center'
   },
 })
 
