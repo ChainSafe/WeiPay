@@ -2,15 +2,11 @@
 
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
-
 import { Icon, Button } from 'react-native-elements';
-
 import TokenList from '../../../Components/TokenList';
-
 import CoinList from '../../../Components/CoinList';
 import Layout from '../../../constants/Layout'
 import { NavigationActions, DrawerActions } from "react-navigation";
-
 
 /**
  * React Component
@@ -31,11 +27,6 @@ class CustomButton extends Component {
             onPress={() => this.props.navigation.navigate('search')}
           />
         </View>
-        {/* <Icon
-          name="menu"
-          onPress={() => this.navigate()}
-          title="SideMenu"
-        /> */}
       </View>
     )
   }
@@ -46,7 +37,6 @@ class CustomButton extends Component {
  * Screen to add more tokens to the portfolio
  */
 class Tokens extends Component {
-
   /**
   * Opens up the Drawer Navigator that allows you to navigate and select
   * new coins to add
@@ -91,18 +81,6 @@ class Tokens extends Component {
     return (
       <View style={{ flex: 1 }} >
         <CoinList type={'tokens'} />
-        {/* <View style={styles.btnContainer} >
-          <Button
-            title='Add'
-            icon={{ size: 28 }}
-            buttonStyle={{
-          backgroundColor: 'blue', borderRadius: 10, width: 225, height: 40, alignItems: 'center',
-          justifyContent: 'center', marginBottom: 5.5, marginTop: 5.5
-            }}
-            textStyle={{ textAlign: 'center' }}
-            onPress={() => this.navigate()}
-          />
-        </View> */}
       </View>
     )
   }
@@ -116,7 +94,11 @@ const styles = StyleSheet.create({
     padding: 10
   },
   btnContainer: {
-    alignItems: 'center', height: 60, paddingTop: 10, paddingBottom: 10, justifyContent: "center"
+    alignItems: 'center',
+    height: 60,
+    paddingTop: 10,
+    paddingBottom: 10,
+    justifyContent: "center"
   },
   centerText: {
     flex: 1,

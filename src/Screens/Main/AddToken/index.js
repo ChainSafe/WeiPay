@@ -1,5 +1,4 @@
 import { TabNavigator } from 'react-navigation';
-
 import Coins from './Coins'
 import Tokens from './Tokens'
 
@@ -19,7 +18,10 @@ export default TabNavigator({
     headerLeft: null,
     tabBarPosition: 'top',
     tabBarOptions: {
-      labelStyle: { fontSize: 16, marginBottom: 13 },
+      labelStyle: {
+        fontSize: 16,
+        marginBottom: 13
+      },
       style: {
         borderTopColor: 'transparent'
       }

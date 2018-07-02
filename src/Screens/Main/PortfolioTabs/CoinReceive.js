@@ -25,20 +25,16 @@ class CoinReceive extends Component {
    */
   render() {
     return (
-
       <View style={styles.mainContainer}>
         <View style={styles.contentContainer} >
           <View style={styles.form} >
             <View style={styles.imageContainer}>
-
-
               <QRCode
                 value={this.props.walletAddress}
                 size={200}
                 bgColor='black'
                 fgColor='white' />
             </View>
-
             <FormLabel> My Address </FormLabel>
             <FormInput style={styles.formInputElement} />
             <FormLabel> Request Amount </FormLabel>
@@ -48,7 +44,6 @@ class CoinReceive extends Component {
             <Button
               A title='Next'
               icon={{ size: 28 }}
-
               buttonStyle={{
                 backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100, width: 300,
                 height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginBottom: 30, marginTop: 5.5
@@ -72,7 +67,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   mainContainer: {
-    flex: 1, alignItems: 'center', justifyContent: 'flex-start'
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-start'
   },
   contentContainer: {
     marginTop: 25,
@@ -84,10 +81,15 @@ const styles = StyleSheet.create({
     flex: 1
   },
   btnContainer: {
-    flex: 1, justifyContent: 'flex-end', alignItems: 'center'
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center'
   },
   imageContainer: {
-    justifyContent: 'center', alignItems: 'center', paddingTop: 20, paddingBottom: 35
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 20,
+    paddingBottom: 35
   }
 })
 

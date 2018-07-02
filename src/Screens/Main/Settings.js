@@ -26,7 +26,6 @@ class Settings extends Component {
   navigateToSubSetting = (listId) => {
     const navigateToSub = NavigationActions.navigate({
       routeName: listId,
-      params: { name: "Shubhnik" }
     });
     this.props.navigation.dispatch(navigateToSub);
   };
@@ -36,10 +35,6 @@ class Settings extends Component {
    */
   render() {
     const list = [
-      {
-        "title": "Password Change",
-        "id": "changePassword"
-      },
       {
         "title": "Language Change",
         "id": "languageChange"
