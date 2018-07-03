@@ -103,9 +103,11 @@ class CoinSend extends Component {
    * @param {String} addressInput 
    */
   renderAddress(addressInput) {
-    const add = addressInput.trim();
-    this.setState({ inputValue: add })
-    this.setState({ toAddress: add });
+    var add = addressInput.trim();
+    console.log(add)
+    this.setState({ inputValue: add, toAddress: add })
+    //this.setState({ toAddress: add });
+    this.props.getQRCodeData(addressInput)
   }
 
   /**
