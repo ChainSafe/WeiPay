@@ -6,9 +6,8 @@ import { Terms } from './terms';
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import { Input } from '../../Components/common/Input';
 import { newWalletCreation, newWalletNameEntry } from '../../Actions/actionCreator';
-const ethers = require('ethers');
-
 import provider from '../../constants/Providers';
+const ethers = require('ethers');
 
 /**
  * Initial setup screen used to allow the user to give their wallet a name after
@@ -46,7 +45,6 @@ class CreateWalletName extends Component {
      */
     render() {
         return (
-
             <View style={styles.mainContainer}>
                 <View style={styles.contentContainer} >
                     <View style={styles.form} >
@@ -81,7 +79,10 @@ class CreateWalletName extends Component {
  */
 const styles = StyleSheet.create({
     mainContainer: {
-        flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: -100
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: -100
     },
     walletName: {
         fontSize: 20,

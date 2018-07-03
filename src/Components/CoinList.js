@@ -3,7 +3,6 @@ import { ListView } from 'react-native';
 import { connect } from 'react-redux';
 import ListItem from './ListItem';
 
-
 /**
  * React Component Class
  * Contains a list of all the tokens that the user can select to 
@@ -18,17 +17,14 @@ class CoinList extends Component {
      */
     componentWillMount() {
         let data = this.props.coins
-
         if (this.props.type === 'coins') {
             data = this.props.coins.filter(coin => coin.type === 'PortfolioCoin')
         } else if (this.props.type === 'tokens') {
             data = this.props.coins.filter(coin => coin.type === 'PortfolioToken')
         }
-
         const ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
         });
-
         //this passes in the CoinList.json file via reducer -> state -> connect -> mapstatetoprops
         this.dataSource = ds.cloneWithRows(data);
     }

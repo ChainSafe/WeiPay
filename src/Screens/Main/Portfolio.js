@@ -38,11 +38,9 @@ class Portfolio extends Component {
    */
   componentWillMount() {
     let data = this.props.newWallet.tokens
-
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     })
-
     this.dataSource = ds.cloneWithRows(data);
   }
 

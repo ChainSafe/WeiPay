@@ -3,7 +3,6 @@ import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { TabNavigator } from 'react-navigation';
 import { Icon, Button } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
-
 import CoinList from '../../../Components/CoinList';
 
 /**
@@ -25,12 +24,6 @@ class CustomButton extends Component {
             onPress={() => this.props.navigation.navigate('search')}
           />
         </View>
-        {/*
-        <Icon
-          name="menu"
-          onPress={() => this.navigate()}
-          title="SideMenu"
-        /> */}
       </View>
     )
   }
@@ -60,24 +53,18 @@ class BackButton extends Component {
     )
   }
 }
-{/* <BackButton navigation={navigation} /> */ }
-
-
 
 /**
  * React Screen Component
  * Screen to add more coins to the portfolio
  */
-
 class Coins extends Component {
-
   /**
    * Opens up the Drawer Navigator that allows you to navigate and select
    * new coins to add
    * 
    */
   static navigationOptions = ({ navigation }) => {
-    console.log('Navigation ACtions', NavigationActions)
     return {
       title: 'Enable Tokens',
       headerLeft:
@@ -106,7 +93,6 @@ class Coins extends Component {
     this.props.navigation.dispatch(navigateToPassphrase);
   };
 
-
   /**
    * Contains tha CoinList Component
    */
@@ -134,7 +120,11 @@ const styles = StyleSheet.create({
     height: 44,
   },
   btnContainer: {
-    alignItems: 'center', height: 60, paddingTop: 10, paddingBottom: 10, justifyContent: "center"
+    alignItems: 'center',
+    height: 60,
+    paddingTop: 10,
+    paddingBottom: 10,
+    justifyContent: "center"
   }
 })
 

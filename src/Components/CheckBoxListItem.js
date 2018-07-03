@@ -8,8 +8,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import { addTokenToSetup } from '../Actions/actionCreator';
 
-var touched = false;
-
 /**
  * This class is a sub-component of the CheckBoxList component
  * However the main component is not being used anywhere in the project
@@ -18,7 +16,6 @@ var touched = false;
 class CheckBoxListItem extends Component {
   constructor() {
     super();
-
     this.state = {
       checked: false
     };
@@ -29,28 +26,14 @@ class CheckBoxListItem extends Component {
     this.setState({
       checked: !(this.state.checked)
     })
-
-    // console.log(this.props.tokenList);
-
   }
 
-  //isMember ? "$2.00" : "$10.00"
-  //condition ? --then-- : --else--
-
-
-  //onPress={this.renderSelect(coin.id)}
-  //onPress={() => this.props.addTokenToSetup(coin.id)}
-  //containerStyle={[title , !(this.props.tokenList.indexOf(coin.id) == -1) ? styles.invalid : styles.valid]}
   render() {
-
     const { coin } = this.props;
     const { title } = styles;
-
     const { checked } = this.state
-    //console.log(this.props);
+
     return (
-
-
       <View>
         <Card
           style={[styles.check, (this.props.selectedItems.indexOf(coin.id) != -1) ? styles.valid : styles.invalid]}
@@ -67,12 +50,7 @@ class CheckBoxListItem extends Component {
             onPress={() => this.renderPress(coin)}
           />
         </Card>
-
       </View>
-
-
-
-
     )
   }
 }
@@ -81,15 +59,12 @@ const styles = StyleSheet.create({
   title: {
     paddingLeft: 15
   },
-
   invalid: {
     borderColor: 'red'
   },
-
   valid: {
     borderColor: 'green'
   }
 })
-
 
 export default CheckBoxListItem
