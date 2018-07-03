@@ -66,7 +66,11 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     btnContainer: {
-        alignItems: 'center', height: 80, paddingTop: 10, paddingBottom: 10, justifyContent: "center"
+        alignItems: 'center',
+        height: 80,
+        paddingTop: 10,
+        paddingBottom: 10,
+        justifyContent: "center"
     }
 })
 

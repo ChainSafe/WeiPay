@@ -34,7 +34,6 @@ class EnableTokens extends Component {
         this.props.navigation.dispatch(navigateToPassphrase);
     };
 
-
     /**
      * Main Component
      * Contains the CoinList Component and button.
@@ -68,7 +67,11 @@ class EnableTokens extends Component {
  */
 const styles = StyleSheet.create({
     btnContainer: {
-        alignItems: 'center', height: 80, paddingTop: 20, paddingBottom: 20, justifyContent: "center"
+        alignItems: 'center',
+        height: 80,
+        paddingTop: 20,
+        paddingBottom: 20,
+        justifyContent: "center"
     }
 })
 

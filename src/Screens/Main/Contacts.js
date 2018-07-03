@@ -107,7 +107,9 @@ class Contacts extends Component {
  */
 const styles = StyleSheet.create({
   mainContainer: {
-    flex: 1, alignItems: 'center', justifyContent: 'flex-start'
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-start'
   },
   contentContainer: {
     marginTop: 25
@@ -116,7 +118,9 @@ const styles = StyleSheet.create({
     width: 340
   },
   btnContainer: {
-    flex: 1, justifyContent: 'flex-end', alignItems: 'center'
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center'
   },
 })
 

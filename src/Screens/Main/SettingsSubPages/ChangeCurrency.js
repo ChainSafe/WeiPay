@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { Button, Icon, List, ListItem } from 'react-native-elements';
 import CurrencyList from '../../../Components/CurrencyList';
 
-
 /**
  * Screen used to change the currency of the balance display
  */
@@ -23,8 +22,7 @@ class ChangeCurrency extends Component {
      */
     navigate = () => {
         // const navigateToPassphrase = NavigationActions.navigate({
-        //     routeName: "generatePassphrase",
-        //     params: { name: "Shubhnik" }
+        //     routeName: "generatePassphrase",     
         // });
         // this.props.navigation.dispatch(navigateToPassphrase);
     };
@@ -65,11 +63,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     btnContainer: {
-        alignItems: 'center', height: 80, paddingTop: 10, paddingBottom: 10, justifyContent: "center"
+        alignItems: 'center',
+        height: 80,
+        paddingTop: 10,
+        paddingBottom: 10,
+        justifyContent: "center"
     }
 })
-
-
-
 
 export default ChangeCurrency;
