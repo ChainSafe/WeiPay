@@ -25,6 +25,7 @@ class QrCodeScanner extends Component {
             value: 0,
             resetInput: false,
             qrcode: '',
+            invoker: this.props.navigation.state.params.invoker
 
         }
 
@@ -38,16 +39,16 @@ class QrCodeScanner extends Component {
      */
     onBarCodeRead = (e) => {
         this.setState({ qrcode: e.data })
-        this.props.getQRCodeData(e.data)
+        if (this.state.invoker == "CoinSend") {
+            this.props.getQRCodeData(e.data)
+        } else {
+            //Execute other action
+        }
     };
 
-    /**
-     * Not Used anywhere
-     */
-    renderDataConfirm() {
-        console.log("Button was clicked");
 
-    }
+
+
 
     /**
      * Is used to Navigate to the Coin Portfolio where the user
@@ -55,22 +56,27 @@ class QrCodeScanner extends Component {
      */
     navigate = () => {
         const navigateToEnableTokens = NavigationActions.navigate({
-            routeName: this.props.Invoker,
-            params: { name: "Shubhnik" }
+            routeName: this.state.invoker,
+            params: { name: "Shubhnik", coinName: this.props.navigation.state.params.coinName, address: this.state.qrcode }
         });
         this.props.navigation.dispatch(navigateToEnableTokens);
     };
 
-    /**
-     * Main Qr Code scanner.
-     * Full screen camera
-     * With a button to confirm the scan
-     */
+    //-------------
+    // [{…}, {…}]
+    // 0: {name: "Hello", contactAddress: {…}}
+    // 1: {name: "Jshzhzh", contactAddress: {…}}
+    //-----------------
+
+    testing() {
+
+        this.props.navigation.goBack()
+    }
+
     render() {
 
-        //console.log(this.state.coinName);
-        const check = this.props.navigation.state.params
-        console.log(check);
+
+        console.log(this.state.invoker);
 
 
         return (

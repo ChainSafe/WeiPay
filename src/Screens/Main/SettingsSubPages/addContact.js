@@ -116,6 +116,10 @@ class AddContact extends Component {
    * Returns the form required to add a contact 
    */
   render() {
+    console.log("In addContact");
+    console.log(this.props.navigation.state.params);
+
+
     return (
       <View style={{ flex: 1, paddingTop: 3 }}>
         <ScrollView style={{ height: '75%' }} >

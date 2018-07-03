@@ -190,7 +190,7 @@ class CoinSend extends Component {
     this.props.qrScannerInvoker("CoinSend")
     const navigateToQRScanner = NavigationActions.navigate({
       routeName: "QCodeScanner",
-      params: { name: "Shubhnik" }
+      params: { name: "Shubhnik", invoker: "CoinSend" }
     });
     this.props.navigation.dispatch(navigateToQRScanner);
   };

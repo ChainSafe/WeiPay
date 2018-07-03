@@ -45,6 +45,8 @@ export default (state = INITIAL_STATE, action) => {
 
       // return { ...state, currentContact: action.payload, contacts: [...old, state.currentContact], clearInput: true}
       let newContact = [...state.contacts, action.payload]
+      console.log(newContact);
+
       return { ...state, contacts: newContact }
 
     case actions.CLEAR_INPUT:

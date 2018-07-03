@@ -44,15 +44,6 @@ class AddContactList extends Component {
   //   this.props.navigation.dispatch(navigateToQRScanner);
   // };
 
-  //-----------------------
-
-  check() {
-    console.log("Clicked");
-
-  }
-
-  //-----------------------
-
 
 
   /**
@@ -116,7 +107,7 @@ class AddContactList extends Component {
                 <View style={styles.card}>
                   <Button
                     title='QR'
-                    onPress={() => this.props.navigate("QCodeScanner", { coinName: coin.title })}
+                    onPress={() => this.props.navigate("QCodeScanner", { coinName: coin.title, invoker: "addContact" })}
                     style={styles.qrButton}
                   />
                   <TextInput
