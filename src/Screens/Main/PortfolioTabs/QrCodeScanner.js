@@ -46,7 +46,6 @@ class QrCodeScanner extends Component {
     navigate = () => {
         const navigateToEnableTokens = NavigationActions.navigate({
             routeName: "PortfolioCoin",
-            params: { name: "Shubhnik" }
         });
         this.props.navigation.dispatch(navigateToEnableTokens);
     };
