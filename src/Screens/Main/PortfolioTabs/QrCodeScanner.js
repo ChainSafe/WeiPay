@@ -5,6 +5,8 @@ import { FormInput, FormLabel, Button } from 'react-native-elements';
 import Camera from 'react-native-camera';
 import { NavigationActions } from "react-navigation";
 import { getQRCodeData } from '../../../Actions/actionCreator'
+import { saveAddContactInputs } from '../../../Actions/actionCreator'
+import ContactAddresses from '../SettingsSubPages/ContactAddresses';
 
 /**
  * React Component
@@ -21,11 +23,12 @@ class QrCodeScanner extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            toAddress: "",
-            value: 0,
-            resetInput: false,
             qrcode: '',
-            invoker: this.props.navigation.state.params.invoker
+            invoker: this.props.navigation.state.params.invoker,
+            currentContactName: this.props.navigation.state.params.contactName,
+            previousInputs: this.props.navigation.state.params.allAddressInputs,
+            coinInvoker: this.props.navigation.state.params.coinName
+
 
         }
 
@@ -42,7 +45,13 @@ class QrCodeScanner extends Component {
         if (this.state.invoker == "CoinSend") {
             this.props.getQRCodeData(e.data)
         } else {
-            //Execute other action
+            let oldInputs = this.state.previousInputs
+            oldInputs[this.state.coinInvoker] = e.data
+            let contactInputs = {}
+            contactInputs["name"] = this.state.currentContactName
+            contactInputs["ContactAddresses"] = oldInputs
+
+            this.props.saveAddContactInputs(contactInputs)
         }
     };
 
@@ -74,9 +83,6 @@ class QrCodeScanner extends Component {
     }
 
     render() {
-
-
-        console.log(this.state.invoker);
 
 
         return (
@@ -150,4 +156,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { getQRCodeData })(QrCodeScanner);
+export default connect(mapStateToProps, { getQRCodeData, saveAddContactInputs })(QrCodeScanner);

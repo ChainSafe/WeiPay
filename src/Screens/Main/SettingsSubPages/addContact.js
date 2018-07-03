@@ -26,15 +26,27 @@ class AddContact extends Component {
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-    let contactAddress = {}
-    this.props.tokens.map(token => contactAddress[token.title] = "")
-    this.renderAddContact = this.renderAddContact.bind(this);
+
+    if ("contactAddressess" in this.props.currentContact) {
+
+      let contactAddress = this.props.currentContact.contactAddressess
+      let contactName = this.props.currentContact.name
+      //this.renderAddContact = this.renderAddContact.bind(this);
+
+    } else {
+      let contactAddress = {}
+      this.props.tokens.map(token => contactAddress[token.title] = "")
+      this.renderAddContact = this.renderAddContact.bind(this);
+      let contactName = ""
+    }
+
+
 
     this.state = {
       disabled: true,
       clear: false,
-      contactName: "",
-      contactAddress
+      contactName: contactName,
+      contactAddress = contactAddress
     }
   }
 
@@ -116,8 +128,10 @@ class AddContact extends Component {
    * Returns the form required to add a contact 
    */
   render() {
-    console.log("In addContact");
-    console.log(this.props.navigation.state.params);
+
+    console.log("Back from QrScanner");
+    console.log(this.props.currentContact);
+
 
 
     return (
@@ -196,7 +210,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     tokens: state.newWallet.tokens,
-    currenctContact: state.contacts.currenctContact,
+    currentContact: state.contacts.currentContact,
     current: state.contacts.currentContact,
   }
 }
