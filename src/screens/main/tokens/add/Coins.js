@@ -1,11 +1,8 @@
-'use strict';
-
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { Icon, Button } from 'react-native-elements';
-import CoinList from '../../../components/CoinList';
-import Layout from '../../../constants/Layout'
-import { NavigationActions, DrawerActions } from "react-navigation";
+import { NavigationActions } from 'react-navigation';
+import CoinList from '../../../../components/CoinList';
 
 /**
  * React Component
@@ -30,21 +27,45 @@ class CustomButton extends Component {
     )
   }
 }
+/**
+ * React-Component
+ * This component is not being used anywhere
+ */
+class BackButton extends Component {
+  navigate = () => {
+    debugger
+    const navigateToPassphrase = NavigationActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
+    });
+    this.props.navigation.dispatch(navigateToPassphrase);
+  };
+
+  render() {
+    return (
+      <Icon
+        name='chevron-left'
+        size={35}
+        color='#007AFF'
+        onPress={() => this.props.navigate('Drawer')}
+      />
+    )
+  }
+}
 
 /**
  * React Screen Component
- * Screen to add more tokens to the portfolio
+ * Screen to add more coins to the portfolio
  */
-class Tokens extends Component {
+class Coins extends Component {
   /**
-  * Opens up the Drawer Navigator that allows you to navigate and select
-  * new coins to add
-  * 
-  */
+   * Opens up the Drawer Navigator that allows you to navigate and select
+   * new coins to add
+   * 
+   */
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Enable Tokens',
-      tabBarLabel: 'Tokens',
       headerLeft:
         <Icon
           name='chevron-left'
@@ -55,13 +76,14 @@ class Tokens extends Component {
       ,
       headerRight: (
         <CustomButton navigation={navigation} />
-      )
+      ),
+      tabBarLabel: 'Coins'
     }
   }
 
   /**
-  * Allows you to navigate to the navigation drawer
-  */
+   * Allows you to navigate to the navigation drawer
+   */
   navigate = () => {
     const navigateToPassphrase = NavigationActions.reset({
       index: 0,
@@ -70,27 +92,31 @@ class Tokens extends Component {
     this.props.navigation.dispatch(navigateToPassphrase);
   };
 
-  onSuccess(e) {
-    Linking
-      .openURL(e.data)
-      .catch(err => console.error('An error occured', err));
-  }
-
+  /**
+   * Contains tha CoinList Component
+   */
   render() {
     return (
-      <View style={{ flex: 1 }} >
-        <CoinList type={'tokens'} />
+      <View style={{ flex: 1 }}>
+        <CoinList type={'coins'} />
       </View>
     )
   }
 }
 
-const scannerSize = Layout.window.width - 60
+/**
+ * Styles
+ */
 const styles = StyleSheet.create({
   NavBarButton: {
     flex: 1,
     flexDirection: 'row',
     padding: 10
+  },
+  item: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
   },
   btnContainer: {
     alignItems: 'center',
@@ -98,28 +124,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     justifyContent: "center"
-  },
-  centerText: {
-    flex: 1,
-    fontSize: 18,
-    padding: 32,
-    color: '#777',
-  },
-  textBold: {
-    fontWeight: '500',
-    color: '#000',
-  },
-  buttonText: {
-    fontSize: 21,
-    color: 'rgb(0,122,255)',
-  },
-  buttonTouchable: {
-    padding: 16,
-  },
-  scanner: {
-    height: scannerSize,
-    width: scannerSize
   }
 })
 
-export default Tokens
+export default Coins

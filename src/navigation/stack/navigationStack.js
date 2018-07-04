@@ -14,21 +14,24 @@ import CreateWalletNameRecovered from '../../screens/setup/recover/CreateWalletN
 import RecoverWallet from '../../screens/setup/recover/RecoverWallet';
 
 import EnableTokens from '../../screens/setup/crypto/EnableTokens';
-import QrScannerWindow from '../../screens/main/PortfolioTabs/QrCodeScanner';
 
 import Drawer from '../drawer';
-import PortfolioCoin from '../../screens/main/PortfolioTabs/PortfolioCoin';
-import PortfolioToken from '../../screens/main/PortfolioTabs/PortfolioToken';
-import AddToken from '../../screens/main/AddToken';
+
+import PortfolioCoin from '../../screens/main/portfolio/tabs/PortfolioCoin';
+import PortfolioToken from '../../screens/main//portfolio/tabs/PortfolioToken';
+
+import AddToken from '../../screens/main/tokens/add/index';
 
 import addContact from '../../screens/main/SettingsSubPages/addContact';
 
-// import contacts from '../../screens/main/menu/contacts/index';
 import contacts from '../../screens/main/menu/contacts/index';
 
 import ContactAddresses from '../../screens/main/SettingsSubPages/ContactAddresses';
-import QrCodeScanner from '../../screens/main/PortfolioTabs/QrCodeScanner';
-import CoinSend from '../../screens/main/PortfolioTabs/CoinSend'
+
+
+import QrCodeScanner from '../../screens/main/qr/QrCodeScanner';
+
+import CoinSend from '../../screens/main/tokens/send/CoinSend'
 
 /**
  * Constant contains all the screens that can be navigated to using the 

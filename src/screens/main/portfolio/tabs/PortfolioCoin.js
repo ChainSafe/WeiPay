@@ -1,7 +1,7 @@
-import { TabNavigator } from 'react-navigation'
-import CoinSend from './CoinSend'
-import CoinActivity from './CoinActivity'
-import CoinReceive from './CoinReceive'
+import { TabNavigator } from 'react-navigation';
+import CoinSend from '../../tokens/send/CoinSend';
+import CoinActivity from '../../tokens/history/CoinActivity';
+import CoinReceive from '../../tokens/receive/CoinReceive';
 
 /**
  * Creates a Tabbed navigation system to easily switch between

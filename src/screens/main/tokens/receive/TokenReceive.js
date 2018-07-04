@@ -18,7 +18,7 @@ class TokenReceive extends Component {
         <View style={styles.contentContainer} >
           <View style={styles.form} >
             <View style={styles.imageContainer}>
-              <Image style={styles.barcode} source={require('../../../assets/images/QR-CODE.png')} />
+              <Image style={styles.barcode} source={require('../../../../assets/images/QR-CODE.png')} />
             </View>
             <FormLabel> My Address </FormLabel>
             <FormInput style={styles.formInputElement} />

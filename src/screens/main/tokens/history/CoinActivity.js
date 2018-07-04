@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
-import { CardSection } from '../../../components/common/CardSection';
+import { CardSection } from '../../../../components/common/CardSection';
 const axios = require('axios');
 const ethers = require('ethers');
 const moment = require('moment');

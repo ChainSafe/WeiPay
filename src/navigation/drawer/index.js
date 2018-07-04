@@ -7,11 +7,7 @@ import Portfolio from '../../screens/main/portfolio/index';
 import BackupPhrase from '../../screens/main/menu/settings/BackupPhrase';
 
 
-// import Contacts from '../../screens/main/menu/contacts/index';
 import Contacts from '../../screens/main/menu/contacts/index';
-
-
-
 
 
 import addContact from '../../screens/main/SettingsSubPages/addContact';
@@ -22,12 +18,14 @@ import Search from '../../screens/main/menu/settings/Search';
 
 import LanguageChange from '../../screens/main/SettingsSubPages/LanguageChange';
 import ChangeCurrency from '../../screens/main/SettingsSubPages/ChangeCurrency';
-import CoinSend from '../../screens/main/PortfolioTabs/CoinSend';
-import CoinReceive from '../../screens/main/PortfolioTabs/CoinReceive';
-import CoinActivity from '../../screens/main/PortfolioTabs/CoinActivity';
-import TokenReceive from '../../screens/main/PortfolioTabs/TokenReceive';
-import TokenSend from '../../screens/main/PortfolioTabs/TokenSend';
-import AddToken from '../../screens/main/AddToken'
+
+import CoinSend from '../../screens/main/tokens/send/CoinSend';
+
+import CoinReceive from '../../screens/main/tokens/receive/CoinReceive';
+import CoinActivity from '../../screens/main/tokens/history/CoinActivity';
+import TokenReceive from '../../screens/main/tokens/receive/TokenReceive';
+import TokenSend from '../../screens/main/tokens/send/TokenSend';
+import AddToken from '../../screens/main/tokens/add/index';
 
 /**
  * Creates a componet containing the Slide in DrawerNavigator

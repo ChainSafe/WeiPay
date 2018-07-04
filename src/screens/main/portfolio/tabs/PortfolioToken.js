@@ -1,6 +1,6 @@
 import { TabNavigator } from 'react-navigation';
-import TokenSend from './TokenSend';
-import TokenReceive from './TokenReceive';
+import TokenSend from '../../tokens/send/TokenSend';
+import TokenReceive from '../../tokens/receive/TokenReceive';
 
 /**
  * Creates a navigation system to switch between
