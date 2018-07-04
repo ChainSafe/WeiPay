@@ -26,10 +26,12 @@ class QrCodeScanner extends Component {
         super(props);
         this.state = {
             qrcode: '',
-            invoker: this.props.navigation.state.params.invoker,
-            currentContactName: this.props.navigation.state.params.contactName,
-            previousInputs: this.props.navigation.state.params.allAddressInputs,
-            coinInvoker: this.props.navigation.state.params.coinName
+            invoker: this.props.invoker,
+            currentContactName: this.props.data.contactName,
+            previousInputs: this.props.data.allAddressInputs,
+            coinInvoker: this.props.data.coinName
+
+
 
         }
     }
@@ -130,8 +132,9 @@ const styles = StyleSheet.create({
  */
 const mapStateToProps = state => {
     return {
-        Invoker: state.newWallet.QrScannerInvoker
-
+        Invoker: state.newWallet.QrScannerInvoker,
+        invoker: state.QrScanner.invoker,
+        data: state.QrScanner.data
     }
 }
 

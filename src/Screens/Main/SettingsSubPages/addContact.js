@@ -217,11 +217,19 @@ const styles = StyleSheet.create({
  * Returns an object containing the token list
  * @param {Object} state 
  */
-const mapStateToProps = state => {
+// const mapStateToProps = state => {
+//   return {
+//     tokens: state.newWallet.tokens,
+//     currentContact: state.contacts.currentContact,
+//     current: state.contacts.currentContact,
+//   }
+// }
+
+const mapStateToProps = ({ contacts, newWallet }) => {
   return {
-    tokens: state.newWallet.tokens,
-    currentContact: state.contacts.currentContact,
-    current: state.contacts.currentContact,
+    tokens: newWallet.tokens,
+    currentContact: contacts.currentContact,
+    current: contacts.currentContact,
   }
 }
 

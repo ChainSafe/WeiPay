@@ -50,6 +50,7 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, contactName: "", contactAddress: "" }
 
     case actions.SAVING_ADDCONTACT_INPUTS:
+
       return { ...state, currentContact: action.payload }
 
     default:

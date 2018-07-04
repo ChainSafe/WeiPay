@@ -5,6 +5,7 @@ import { CardSection } from './common/CardSection';
 import { Card } from './common/Card';
 import { NavigationActions } from "react-navigation";
 import { qrScannerInvoker } from '../Actions/actionCreator';
+import { saveAddContactInputs } from '../Actions/actionCreator'
 import { List, ListItem, Button } from 'react-native-elements'
 
 /**
@@ -93,6 +94,23 @@ class AddContactList extends Component {
   }
 
   /**
+   * Navigates to QCodeScanner screen with inputs made by the user
+   * @param {String} coinName 
+   */
+  navigateToQRScanner(coinName) {
+    const data = {
+      coinName: coinName,
+      contactName: this.props.contactName,
+      allAddressInputs: this.props.contactAddress
+    }
+
+    this.props.qrScannerInvoker("addContact")
+    this.props.saveAddContactInputs(data)
+
+    this.props.navigate("QCodeScanner", data)
+  }
+
+  /**
    * Returns a list of components, where each component allows the user
    * to input the address for a specific token via text/QrCodeScanner
    */
@@ -107,11 +125,7 @@ class AddContactList extends Component {
                 <View style={styles.card}>
                   <Button
                     title='QR'
-                    onPress={() => this.props.navigate("QCodeScanner", {
-                      coinName: coin.title, invoker: "addContact",
-                      contactName: this.props.contactName,
-                      allAddressInputs: this.props.contactAddress
-                    })}
+                    onPress={() => this.navigateToQRScanner(coin.title)}
                     style={styles.qrButton}
                   />
                   <TextInput
@@ -215,4 +229,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { qrScannerInvoker })(AddContactList);
+export default connect(mapStateToProps, { qrScannerInvoker, saveAddContactInputs })(AddContactList);
