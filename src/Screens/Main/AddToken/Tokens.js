@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 import { Icon, Button } from 'react-native-elements';
-import CoinList from '../../../Components/CoinList';
+import CoinList from '../../../components/CoinList';
 import Layout from '../../../constants/Layout'
 import { NavigationActions, DrawerActions } from "react-navigation";
 

@@ -3,7 +3,7 @@ import { View, TouchableOpacity, ScrollView, StyleSheet, Text, TextInput, Image,
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-import { Input } from '../../../Components/common/Input';
+import { Input } from '../../../components/common/Input';
 import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCreator';
 import provider from '../../../constants/Providers';
 const ethers = require('ethers');

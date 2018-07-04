@@ -3,7 +3,6 @@
  * File contains all the constants used in the actionCreator.js and the Reducers-folder
  */
 
-//----------------------------------------------------------------
 export const ADD_TOKEN_SETUP = "add_token_setup"; //good
 export const CREATING_NEW_WALLET = 'creating_new_wallet'; //good
 export const NEW_WALLET_NAME = 'new_wallet_name'; //good

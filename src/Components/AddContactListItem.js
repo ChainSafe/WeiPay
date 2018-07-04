@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, TouchableHighlight, TextInput } from 'react-native';
+import { CheckBox, Button } from 'react-native-elements'
 import { CardSection } from './common/CardSection';
 import { Card } from './common/Card';
 import { Input } from './common/Input';
-import { CheckBox } from 'react-native-elements'
-import { Button } from 'react-native-elements';
-import { connect } from 'react-native-elements';
 
 /**
  * This component is not being used anywhere
@@ -42,7 +40,6 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
     },
-
     componentStyle: {
         paddingTop: 3,
         paddingLeft: 2,
@@ -50,13 +47,10 @@ const styles = StyleSheet.create({
     }
 });
 
-
-
 const mapStateToProps = state => {
     return {
         tokenList: state.newWallet.tokens,
     }
 };
 
-//export default connect(mapStateToProps, null)(AddContactListItem)
 export default AddContactListItem;

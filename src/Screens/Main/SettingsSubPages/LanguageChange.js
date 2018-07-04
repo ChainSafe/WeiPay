@@ -3,7 +3,7 @@ import { View, TouchableOpacity, ScrollView, StyleSheet, TextInput, Image } from
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, Icon, List, ListItem } from 'react-native-elements';
-import LanguageList from '../../../Components/LanguageList';
+import LanguageList from '../../../components/LanguageList';
 
 /**
  * Screen used to change the language to be used in the wallet

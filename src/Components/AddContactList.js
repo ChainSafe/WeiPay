@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TextInput, ListView, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
+import { List, ListItem, Button } from 'react-native-elements'
+import _ from 'lodash'
 import { CardSection } from './common/CardSection';
 import { Card } from './common/Card';
-import _ from 'lodash'
 import addContactAction from '../actions/ActionCreator';
 import *  as actions from '../actions/ActionCreator.js';
 import AddContactListItem from './AddContactListItem';
-import { List, ListItem, Button } from 'react-native-elements'
 
 /**
  * AddContactList is a component class which is used to display
@@ -40,7 +40,6 @@ class AddContactList extends Component {
   navigate = () => {
     const navigateToQRScanner = NavigationActions.navigate({
       routeName: "QCodeScanner",
-      params: { name: "Shubhnik" }
     });
     this.props.navigation.dispatch(navigateToQRScanner);
   };

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
-import { CardSection } from '../../../Components/common/CardSection';
+import { CardSection } from '../../../components/common/CardSection';
 const axios = require('axios');
 const ethers = require('ethers');
 const moment = require('moment');
@@ -50,11 +50,11 @@ class CoinActivity extends Component {
       if (json[i].from == this.state.address) {
         transObj.type = 'Sent'; //enum should be implemented
         transObj.address = json[i].to;
-        transObj.uri = 'require(../../../Assets/images/sent.png)';
+        transObj.uri = 'require(../../../assets/images/sent.png)';
       } else {
         transObj.type = 'Received'; //enum should be implemented
         transObj.address = json[i].from;
-        transObj.uri = 'require(../../../Assets/images/receive.png)';
+        transObj.uri = 'require(../../../assets/images/receive.png)';
       }
       transObj.value = utils.formatEther(json[i].value);
       transObj.blockNumber = json[i].blockNumber;

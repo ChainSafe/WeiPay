@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, TouchableHighlight } from 'react-native';
 import { CardSection } from './common/CardSection';
 import { Card } from './common/Card';
-import { CheckBox } from 'react-native-elements'
-import { Button } from 'react-native-elements';
+import { CheckBox, Button } from 'react-native-elements'
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import { addTokenToSetup } from '../actions/ActionCreator';

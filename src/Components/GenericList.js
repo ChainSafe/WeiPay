@@ -12,10 +12,8 @@ class GenericList extends Component {
         const ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
         });
-
         //this passes in the CoinList.json file via reducer -> state -> connect -> mapstatetoprops
         this.dataSource = ds.cloneWithRows(this.props.coins);
-
     }
 
     renderRow(coin) {

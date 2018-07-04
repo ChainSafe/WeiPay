@@ -1,13 +1,19 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { StackNavigator, DrawerNavigator, TabNavigator, DrawerItems } from 'react-navigation';
-import Portfolio from '../../screens/main/Portfolio';
-import BackupPhrase from '../../screens/main/BackupPhrase';
+
+import Portfolio from '../../screens/main/portfolio/index';
+
+import BackupPhrase from '../../screens/main/menu/settings/BackupPhrase';
+
 import AddWallet from '../../screens/main/AddWallet';
 import Contacts from '../../screens/main/Contacts';
 import addContact from '../../screens/main/SettingsSubPages/addContact';
-import Settings from '../../screens/main/Settings';
-import Search from '../../screens/main/Search';
+
+import Settings from '../../screens/main/menu/settings/index';
+
+import Search from '../../screens/main/menu/settings/Search';
+
 import LanguageChange from '../../screens/main/SettingsSubPages/LanguageChange';
 import ChangeCurrency from '../../screens/main/SettingsSubPages/ChangeCurrency';
 import CoinSend from '../../screens/main/PortfolioTabs/CoinSend';

@@ -3,8 +3,8 @@ import { View, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput, Image,
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-import { Input } from '../../../Components/common/Input';
-import { CardSection } from '../../../Components/common/CardSection';
+import { Input } from '../../../components/common/Input';
+import { CardSection } from '../../../components/common/CardSection';
 
 /**
  * Screen used to display the passphrase (mnemonic)

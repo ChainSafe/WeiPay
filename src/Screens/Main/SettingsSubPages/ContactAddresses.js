@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, ListView, StyleSheet } from 'react-native';
-import { CardSection } from '../../../Components/common/CardSection';
-import { Card } from '../../../Components/common/Card';
+import { CardSection } from '../../../components/common/CardSection';
+import { Card } from '../../../components/common/Card';
 import { Button } from 'react-native-elements'
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux'

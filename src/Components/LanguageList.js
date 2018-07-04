@@ -41,8 +41,6 @@ class LanguageList extends Component {
    * Returns a Scrollable radio list of languages that the user can select from
    */
   render() {
-    // let selectedButton = this.state.data.find(e => e.selected == true);
-    // selectedButton = selectedButton ? selectedButton.value : this.state.data[0].label;
     return (
       <ScrollView contentContainerstyle={styles.container} >
         <CardSection>
@@ -60,7 +58,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     marginBottom: 100,
-    //backgroundColor: '#E9E9EF',
   }
 });
 

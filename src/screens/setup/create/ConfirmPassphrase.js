@@ -3,8 +3,8 @@ import { View, Button, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-import { Input } from '../../../Components/common/Input';
-import { CardSection } from '../../../Components/common/CardSection';
+import { Input } from '../../../components/common/Input';
+import { CardSection } from '../../../components/common/CardSection';
 var shuffle = require('shuffle-array'); //to randomize order
 
 /**

@@ -3,7 +3,7 @@ import { View, TouchableOpacity, ScrollView, StyleSheet, TextInput, Image } from
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, Icon, List, ListItem } from 'react-native-elements';
-import CurrencyList from '../../../Components/CurrencyList';
+import CurrencyList from '../../../components/CurrencyList';
 
 /**
  * Screen used to change the currency of the balance display

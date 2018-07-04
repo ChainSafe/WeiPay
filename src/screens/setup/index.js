@@ -50,7 +50,7 @@ class CreateOrRestore extends Component {
             <View style={styles.mainContainer}>
                 <View style={styles.contentContainer} >
                     <View style={styles.companyDisplayContainer} >
-                        <Image style={styles.logo} source={require('../../Assets/images/eth.png')} />
+                        <Image style={styles.logo} source={require('../../assets/images/eth.png')} />
                         <Text style={styles.pageTitle} > WeiPay</Text>
                         <Text style={styles.pageDescription} > ERC20 Token Wallet </Text>
                     </View>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableHighlight, Dimensions } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { Icon, Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-import { CardSection } from '../../Components/common/CardSection';
+import { CardSection } from '../../../../components/common/CardSection';
 
 const navigate = () => {
   const navigateToPassphrase = NavigationActions.reset({
