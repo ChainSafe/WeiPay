@@ -17,7 +17,9 @@ class QrCodeScanner extends Component {
 
     /**
      * Initializes the "qrcode" variable, which can be used to
-     * keep track of the data scanned by the scanner
+     * keep track of the data scanned by the scanner.
+     * The parameters that were passed from the addContact screen are also assigned in
+     * state
      * @param {Object} props 
      */
     constructor(props) {
@@ -28,7 +30,6 @@ class QrCodeScanner extends Component {
             currentContactName: this.props.navigation.state.params.contactName,
             previousInputs: this.props.navigation.state.params.allAddressInputs,
             coinInvoker: this.props.navigation.state.params.coinName
-
 
         }
 
@@ -56,13 +57,13 @@ class QrCodeScanner extends Component {
     };
 
 
-    testing() {
 
-        this.props.navigation.goBack()
-    }
-
+    /**
+     * Returns a screen with the react-native-camera component as the background
+     *  - a text box to  see the text that was scanned
+     *  - a button to go back to the invoking screen and fill in the input field
+     */
     render() {
-
 
         return (
             <View style={styles.container}>
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
 })
 
 /**
- * Is not being used.
+ * Reterives the name of the page that invoked the screen.
  * @param {Object} state 
  */
 const mapStateToProps = state => {
