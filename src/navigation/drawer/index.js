@@ -10,7 +10,7 @@ import BackupPhrase from '../../screens/main/menu/settings/BackupPhrase';
 import Contacts from '../../screens/main/menu/contacts/index';
 
 
-import addContact from '../../screens/main/SettingsSubPages/addContact';
+import AddContact from '../../screens/main/menu/contacts/add/AddContact';
 
 import Settings from '../../screens/main/menu/settings/index';
 
@@ -53,7 +53,7 @@ export default DrawerNavigator({
   Contacts: {
     screen: TabNavigator({
       contacts: { screen: Contacts },
-      addContact: { screen: addContact }
+      addContact: { screen: AddContact }
     }, {
         navigationOptions: {
           headerStyle: {

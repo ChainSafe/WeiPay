@@ -22,7 +22,7 @@ import PortfolioToken from '../../screens/main//portfolio/tabs/PortfolioToken';
 
 import AddToken from '../../screens/main/tokens/add/index';
 
-import addContact from '../../screens/main/SettingsSubPages/addContact';
+import addContact from '../../screens/main/menu/contacts/add/AddContact';
 
 import contacts from '../../screens/main/menu/contacts/index';
 

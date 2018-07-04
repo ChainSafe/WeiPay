@@ -4,7 +4,7 @@ import { NavigationActions } from 'react-navigation';
 import { Icon, Button, FormLabel, FormInput, FormValidationMessage, List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import AddFirstContact from '../../SettingsSubPages/AddFirstContact'
+import AddFirstContact from './add/AddFirstContact';
 
 /**
  * Screen that displays all the contacts that have been added to
