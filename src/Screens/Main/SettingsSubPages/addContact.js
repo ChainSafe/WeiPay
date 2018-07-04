@@ -27,26 +27,33 @@ class AddContact extends Component {
     super(props);
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
-    if ("contactAddressess" in this.props.currentContact) {
+    let contactNameHolder = ""
+    let contactAddressHolder = {}
 
-      let contactAddress = this.props.currentContact.contactAddressess
-      let contactName = this.props.currentContact.name
+    if ("ContactAddresses" in this.props.currentContact) {
+      console.log("*****************************");
+
+      console.log(this.props.currentContact.ContactAddresses);
+      console.log(this.props.currentContact.name);
+
+      console.log("*****************************");
+
+      contactAddressHolder = this.props.currentContact.ContactAddresses
+      contactNameHolder = this.props.currentContact.name
       //this.renderAddContact = this.renderAddContact.bind(this);
-
     } else {
-      let contactAddress = {}
-      this.props.tokens.map(token => contactAddress[token.title] = "")
+      this.props.tokens.map(token => contactAddressHolder[token.title] = "")
       this.renderAddContact = this.renderAddContact.bind(this);
-      let contactName = ""
     }
+
 
 
 
     this.state = {
       disabled: true,
       clear: false,
-      contactName: contactName,
-      contactAddress = contactAddress
+      contactName: contactNameHolder,
+      contactAddress: contactAddressHolder
     }
   }
 
@@ -129,8 +136,12 @@ class AddContact extends Component {
    */
   render() {
 
-    console.log("Back from QrScanner");
-    console.log(this.props.currentContact);
+    console.log("In addContact");
+
+    console.log(this.state.contactName);
+    console.log(this.state.contactAddress);
+
+    console.log("In not addContact");
 
 
 
