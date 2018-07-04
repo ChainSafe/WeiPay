@@ -20,8 +20,12 @@ import Drawer from '../drawer';
 import PortfolioCoin from '../../screens/main/PortfolioTabs/PortfolioCoin';
 import PortfolioToken from '../../screens/main/PortfolioTabs/PortfolioToken';
 import AddToken from '../../screens/main/AddToken';
+
 import addContact from '../../screens/main/SettingsSubPages/addContact';
-import contacts from '../../screens/main/Contacts';
+
+// import contacts from '../../screens/main/menu/contacts/index';
+import contacts from '../../screens/main/menu/contacts/index';
+
 import ContactAddresses from '../../screens/main/SettingsSubPages/ContactAddresses';
 import QrCodeScanner from '../../screens/main/PortfolioTabs/QrCodeScanner';
 import CoinSend from '../../screens/main/PortfolioTabs/CoinSend'

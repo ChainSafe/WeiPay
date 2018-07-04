@@ -6,8 +6,14 @@ import Portfolio from '../../screens/main/portfolio/index';
 
 import BackupPhrase from '../../screens/main/menu/settings/BackupPhrase';
 
-import AddWallet from '../../screens/main/AddWallet';
-import Contacts from '../../screens/main/Contacts';
+
+// import Contacts from '../../screens/main/menu/contacts/index';
+import Contacts from '../../screens/main/menu/contacts/index';
+
+
+
+
+
 import addContact from '../../screens/main/SettingsSubPages/addContact';
 
 import Settings from '../../screens/main/menu/settings/index';
