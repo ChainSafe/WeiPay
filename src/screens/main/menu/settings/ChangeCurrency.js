@@ -3,18 +3,18 @@ import { View, TouchableOpacity, ScrollView, StyleSheet, TextInput, Image } from
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, Icon, List, ListItem } from 'react-native-elements';
-import LanguageList from '../../../components/LanguageList';
+import CurrencyList from '../../../../components/CurrencyList';
 
 /**
- * Screen used to change the language to be used in the wallet
+ * Screen used to change the currency of the balance display
  */
-class LanguageChange extends Component {
+class ChangeCurrency extends Component {
 
     /**
-     * Changes screen title to "Change Language"
+     * Changes screen title to "Change Currency"
      */
     static navigationOptions = {
-        title: "Change Language"
+        title: "Change Currency"
     };
 
     /**
@@ -22,16 +22,13 @@ class LanguageChange extends Component {
      */
     navigate = () => {
         // const navigateToPassphrase = NavigationActions.navigate({
-        //     routeName: "generatePassphrase",
-        //     params: { name: "Shubhnik" }
+        //     routeName: "generatePassphrase",     
         // });
         // this.props.navigation.dispatch(navigateToPassphrase);
-        // if(this.props.language != )
-        debugger
     };
 
     /**
-     * Returns a scrollable view containing all the languages available for the 
+     * Returns a scrollable view containing all the currencies available for the 
      * user to select from.
      * 
      * Also contains an update button.
@@ -39,7 +36,7 @@ class LanguageChange extends Component {
     render() {
         return (
             <View style={styles.pageContainer} >
-                <LanguageList noBorder />
+                <CurrencyList />
                 <View style={styles.btnContainer} >
                     <Button
                         title='Update'
@@ -58,7 +55,7 @@ class LanguageChange extends Component {
 }
 
 /**
- * Styles used in the change language screen display
+ * Styles used in the change currency screen display
  */
 const styles = StyleSheet.create({
     pageContainer: {
@@ -74,12 +71,4 @@ const styles = StyleSheet.create({
     }
 })
 
-/**
- * Not Defined correctly. Not being used
- * @param {Object} param0 
- */
-function mapStateToProps({ language }) {
-    return { language }
-}
-
-export default LanguageChange;
+export default ChangeCurrency;

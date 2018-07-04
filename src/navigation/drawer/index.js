@@ -16,8 +16,8 @@ import Settings from '../../screens/main/menu/settings/index';
 
 import Search from '../../screens/main/menu/settings/Search';
 
-import LanguageChange from '../../screens/main/SettingsSubPages/LanguageChange';
-import ChangeCurrency from '../../screens/main/SettingsSubPages/ChangeCurrency';
+import LanguageChange from '../../screens/main/menu/settings/LanguageChange';
+import ChangeCurrency from '../../screens/main/menu/settings/ChangeCurrency';
 
 import CoinSend from '../../screens/main/tokens/send/CoinSend';
 

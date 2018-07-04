@@ -26,7 +26,7 @@ import addContact from '../../screens/main/menu/contacts/add/AddContact';
 
 import contacts from '../../screens/main/menu/contacts/index';
 
-import ContactAddresses from '../../screens/main/SettingsSubPages/ContactAddresses';
+import ContactAddresses from '../../screens/main/menu/contacts/SelectedContact';
 
 
 import QrCodeScanner from '../../screens/main/qr/QrCodeScanner';

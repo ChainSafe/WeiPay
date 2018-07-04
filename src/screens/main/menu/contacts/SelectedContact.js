@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, ListView, StyleSheet } from 'react-native';
-import { CardSection } from '../../../components/common/CardSection';
-import { Card } from '../../../components/common/Card';
+import { connect } from 'react-redux'
 import { Button } from 'react-native-elements'
 import { NavigationActions } from 'react-navigation';
-import { connect } from 'react-redux'
-import { getQRCodeData } from '../../../actions/ActionCreator'
+import { Card } from '../../../../components/common/Card';
+import { CardSection } from '../../../../components/common/CardSection';
+import { getQRCodeData } from '../../../../actions/ActionCreator'
 
 /**
  * 
