@@ -130,11 +130,11 @@ const styles = StyleSheet.create({
  * Reterives the name of the page that invoked the screen.
  * @param {Object} state 
  */
-const mapStateToProps = state => {
+const mapStateToProps = ({ newWallet, QrScanner }) => {
     return {
-        Invoker: state.newWallet.QrScannerInvoker,
-        invoker: state.QrScanner.invoker,
-        data: state.QrScanner.data
+        Invoker: newWallet.QrScannerInvoker,
+        invoker: QrScanner.invoker,
+        data: QrScanner.data
     }
 }
 
