@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TextInput, ListView, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TextInput, ListView, ScrollView, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import { CardSection } from './common/CardSection';
 import { Card } from './common/Card';
-import _ from 'lodash'
-import addContactAction from '../Actions/actionCreator';
-import *  as actions from '../Actions/actionCreator.js';
-import AddContactListItem from './AddContactListItem';
+import { NavigationActions } from "react-navigation";
+import { qrScannerInvoker } from '../Actions/actionCreator';
 import { List, ListItem, Button } from 'react-native-elements'
 
 /**
@@ -37,23 +35,27 @@ class AddContactList extends Component {
    * ES6 Class
    * Used to navigate to the "QCodeScanner" page
    */
-  navigate = () => {
-    const navigateToQRScanner = NavigationActions.navigate({
-      routeName: "QCodeScanner",
-      params: { name: "Shubhnik" }
-    });
-    this.props.navigation.dispatch(navigateToQRScanner);
-  };
+  // navigate = () => {
+  //   this.props.qrScannerInvoker("CoinSend")
+  //   const navigateToQRScanner = NavigationActions.navigate({
+  //     routeName: "QCodeScanner",
+  //     params: { name: "Shubhnik" }
+  //   });
+  //   this.props.navigation.dispatch(navigateToQRScanner);
+  // };
+
+
 
   /**
    * LifeCycle Function: executes after the component has been mounted
    * Executing the action "createContactAddesses" with the latest addresses inputed
    * by the user when adding a new contact
    */
-  componentDidMount() {
-    let copyTokens = this.props.tokens.slice(0).map(token => { return { ...token, value: "" } })
-    this.props.createContactAddresses(copyTokens)
-  }
+  // componentDidMount() {
+  //   let copyTokens = this.props.tokens.slice(0).map(token => { return { ...token, value: "" } })
+  //   this.props.createContactAddresses(copyTokens)
+  // }
+  //complete_contact
 
   /**
    * Is not used anywhere
@@ -105,7 +107,11 @@ class AddContactList extends Component {
                 <View style={styles.card}>
                   <Button
                     title='QR'
-                    onPress={() => this.navigate()}
+                    onPress={() => this.props.navigate("QCodeScanner", {
+                      coinName: coin.title, invoker: "addContact",
+                      contactName: this.props.contactName,
+                      allAddressInputs: this.props.contactAddress
+                    })}
                     style={styles.qrButton}
                   />
                   <TextInput
@@ -164,7 +170,8 @@ const styles = StyleSheet.create({
   },
   qrButton: {
     width: 50,
-    height: 50
+    height: 50,
+    backgroundColor: "yellow"
   },
   addressInput: {
     width: 150,
@@ -208,4 +215,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, actions)(AddContactList);
+export default connect(mapStateToProps, { qrScannerInvoker })(AddContactList);

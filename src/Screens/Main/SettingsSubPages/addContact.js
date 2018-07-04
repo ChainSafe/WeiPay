@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import AddContactList from '../../../Components/AddContactList';
 import addContactAction from '../../../Actions/actionCreator';
 import { Card } from '../../../Components/common/Card';
+import { NavigationActions } from "react-navigation";
 import { CardSection } from '../../../Components/common/CardSection';
 import * as actions from '../../../Actions/actionCreator';
 
@@ -25,15 +26,34 @@ class AddContact extends Component {
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-    let contactAddress = {}
-    this.props.tokens.map(token => contactAddress[token.title] = "")
-    this.renderAddContact = this.renderAddContact.bind(this);
+
+    let contactNameHolder = ""
+    let contactAddressHolder = {}
+
+    if ("ContactAddresses" in this.props.currentContact) {
+      console.log("*****************************");
+
+      console.log(this.props.currentContact.ContactAddresses);
+      console.log(this.props.currentContact.name);
+
+      console.log("*****************************");
+
+      contactAddressHolder = this.props.currentContact.ContactAddresses
+      contactNameHolder = this.props.currentContact.name
+      //this.renderAddContact = this.renderAddContact.bind(this);
+    } else {
+      this.props.tokens.map(token => contactAddressHolder[token.title] = "")
+      this.renderAddContact = this.renderAddContact.bind(this);
+    }
+
+
+
 
     this.state = {
       disabled: true,
       clear: false,
-      contactName: "",
-      contactAddress
+      contactName: contactNameHolder,
+      contactAddress: contactAddressHolder
     }
   }
 
@@ -89,6 +109,16 @@ class AddContact extends Component {
     this.props.addingContact(coinAddress)
   }
 
+
+  navigate = () => {
+
+    const navigateToQrScanner = NavigationActions.navigate({
+      routeName: 'QCodeScanner',
+      params: "addContact"
+    });
+    this.props.navigation.dispatch(navigateToQrScanner);
+  };
+
   /**
    * Checks if the contactAddress state is empty or not.
    * Returns a boolean (true if contactAddress is empty, false if full)
@@ -105,6 +135,16 @@ class AddContact extends Component {
    * Returns the form required to add a contact 
    */
   render() {
+
+    console.log("In addContact");
+
+    console.log(this.state.contactName);
+    console.log(this.state.contactAddress);
+
+    console.log("In not addContact");
+
+
+
     return (
       <View style={{ flex: 1, paddingTop: 3 }}>
         <ScrollView style={{ height: '75%' }} >
@@ -114,6 +154,8 @@ class AddContact extends Component {
             renderAddress={this.renderAddress.bind(this)}
             renderName={this.renderName.bind(this)}
             contactAddress={this.state.contactAddress}
+            navigate={this.props.navigation.navigate}
+
           />
         </ScrollView>
         <View style={styles.container}>
@@ -178,7 +220,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     tokens: state.newWallet.tokens,
-    currenctContact: state.contacts.currenctContact,
+    currentContact: state.contacts.currentContact,
     current: state.contacts.currentContact,
   }
 }
