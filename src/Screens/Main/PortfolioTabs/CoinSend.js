@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { FormInput, FormLabel, Button } from 'react-native-elements';
 import { NavigationActions } from "react-navigation";
-import { getQRCodeData } from '../../../Actions/actionCreator';
+import { getQRCodeData } from '../../../actions/ActionCreator';
 import provider from '../../../constants/Providers';
 const ethers = require('ethers');
 const utils = ethers.utils;

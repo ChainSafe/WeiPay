@@ -1,21 +1,21 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { StackNavigator, DrawerNavigator, TabNavigator, DrawerItems } from 'react-navigation';
-import Portfolio from '../Screens/Main/Portfolio';
-import BackupPhrase from '../Screens/Main/BackupPhrase';
-import AddWallet from '../Screens/Main/AddWallet';
-import Contacts from '../Screens/Main/Contacts';
-import addContact from '../Screens/Main/SettingsSubPages/addContact';
-import Settings from '../Screens/Main/Settings';
-import Search from '../Screens/Main/Search';
-import LanguageChange from '../Screens/Main/SettingsSubPages/LanguageChange';
-import ChangeCurrency from '../Screens/Main/SettingsSubPages/ChangeCurrency';
-import CoinSend from '../Screens/Main/PortfolioTabs/CoinSend';
-import CoinReceive from '../Screens/Main/PortfolioTabs/CoinReceive';
-import CoinActivity from '../Screens/Main/PortfolioTabs/CoinActivity';
-import TokenReceive from '../Screens/Main/PortfolioTabs/TokenReceive';
-import TokenSend from '../Screens/Main/PortfolioTabs/TokenSend';
-import AddToken from '../Screens/Main/AddToken'
+import Portfolio from '../../screens/main/Portfolio';
+import BackupPhrase from '../../screens/main/BackupPhrase';
+import AddWallet from '../../screens/main/AddWallet';
+import Contacts from '../../screens/main/Contacts';
+import addContact from '../../screens/main/SettingsSubPages/addContact';
+import Settings from '../../screens/main/Settings';
+import Search from '../../screens/main/Search';
+import LanguageChange from '../../screens/main/SettingsSubPages/LanguageChange';
+import ChangeCurrency from '../../screens/main/SettingsSubPages/ChangeCurrency';
+import CoinSend from '../../screens/main/PortfolioTabs/CoinSend';
+import CoinReceive from '../../screens/main/PortfolioTabs/CoinReceive';
+import CoinActivity from '../../screens/main/PortfolioTabs/CoinActivity';
+import TokenReceive from '../../screens/main/PortfolioTabs/TokenReceive';
+import TokenSend from '../../screens/main/PortfolioTabs/TokenSend';
+import AddToken from '../../screens/main/AddToken'
 
 /**
  * Creates a componet containing the Slide in DrawerNavigator

@@ -1,45 +1,58 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput, Image, Dimensions } from "react-native";
+import { View, TouchableOpacity, ScrollView, StyleSheet, Text, TextInput, Image, AsyncStorage, Dimensions } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
-import { Terms } from './terms';
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-import { Input } from '../../Components/common/Input';
-import { CardSection } from '../../Components/common/CardSection';
+import { Input } from '../../../Components/common/Input';
+import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCreator';
+import provider from '../../../constants/Providers';
+const ethers = require('ethers');
 
 /**
- * Screen used to display the passphrase (mnemonic)
+ * Initial setup screen used to allow the user to give their wallet a name after
+ * the wallet has been recovered
  */
-class GeneratePassphrase extends Component {
+class CreateWalletName extends Component {
 
     /**
-     * Sets the title of the screen to be "Generate Passphrase"
+     * Sets the title to "Create Wallet Name"
      */
     static navigationOptions = {
-        title: "Generate Passphrase",
-        headerLeft: null
+        title: "Create Wallet Name"
     };
 
+    /**
+     * Method is used to navigate back to the recoverWallet screen.
+     */
     navigate = () => {
-        const navigateToEnableTokens = NavigationActions.navigate({
-            routeName: "confirmPassphrase",
-            params: { wallet: this.props.navigation.state.wallet }
-        });
-        this.props.navigation.dispatch(navigateToEnableTokens);
+        const navigateToPassphrase = NavigationActions.navigate({ routeName: "recoverWallet" });
+        this.props.navigation.dispatch(navigateToPassphrase);
     };
 
+    /**
+     * Executes the action "newWalletNameEntry" with "name" as the parameter
+     * in order to update the name of the wallet in the global state variable
+     * @param {String} name 
+     */
+    getWalletName(name) {
+        this.props.newWalletNameEntry(name);
+    }
+
+    /**
+     * Main Component
+     * Returns the form required for the user to set the name of their wallet
+     */
     render() {
-        const { walletInfo } = this.props;
         return (
             <View style={styles.mainContainer}>
                 <View style={styles.contentContainer} >
                     <View style={styles.form} >
-                        <Text style={styles.walletName}>Wallet Name: {walletInfo.walletName}</Text>
-                        <Text style={styles.passphraseHeading}> Passphrase </Text>
-                        <CardSection>
-                            <Text style={styles.passphrase}>{walletInfo.wallet.mnemonic}</Text>
-                        </CardSection>
-
+                        <Text style={styles.walletName}>Wallet Name </Text>
+                        <FormInput
+                            placeholder={"Ex. My Wallet"}
+                            onChangeText={this.getWalletName.bind(this)}
+                            inputStyle={{ width: 300 }}
+                        />
                         <View style={styles.btnContainer} >
                             <Button
                                 // disabled={this.props.walletName === ""}
@@ -60,6 +73,9 @@ class GeneratePassphrase extends Component {
     }
 }
 
+/**
+ * Styles used in the "CreateWalletNameRecovery" screen
+ */
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
@@ -70,19 +86,7 @@ const styles = StyleSheet.create({
     walletName: {
         fontSize: 20,
         paddingTop: 20,
-        paddingBottom: 5,
-    },
-    passphraseHeading: {
-        fontSize: 18,
-        paddingTop: 15,
-        paddingBottom: 10
-    },
-    passphrase: {
-        padding: 15,
-        fontSize: 18,
-        fontWeight: '400',
-        alignItems: 'center',
-        width: 330,
+        paddingBottom: 25,
     },
     formInput: {
         width: 300
@@ -96,8 +100,14 @@ const styles = StyleSheet.create({
     },
 })
 
+/**
+ * This method is not being used here
+ * @param {Object} param0 
+ */
 const mapStateToProps = ({ newWallet }) => {
-    return { walletInfo: newWallet }
+    const { walletName } = newWallet;
+    return { walletName }
 }
 
-export default connect(mapStateToProps, null)(GeneratePassphrase)
+export default connect(mapStateToProps, { newWalletNameEntry, newWalletCreation })(CreateWalletName);
+

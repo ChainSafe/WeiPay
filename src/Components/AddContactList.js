@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { CardSection } from './common/CardSection';
 import { Card } from './common/Card';
 import _ from 'lodash'
-import addContactAction from '../Actions/actionCreator';
-import *  as actions from '../Actions/actionCreator.js';
+import addContactAction from '../actions/ActionCreator';
+import *  as actions from '../actions/ActionCreator.js';
 import AddContactListItem from './AddContactListItem';
 import { List, ListItem, Button } from 'react-native-elements'
 

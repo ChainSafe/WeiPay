@@ -1,17 +1,15 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, ScrollView, StyleSheet, Text, TextInput, Image, AsyncStorage, Dimensions } from "react-native";
+import { View, TouchableOpacity, ScrollView, StyleSheet, TextInput, Image, AsyncStorage, Dimensions, Text } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
-import { Terms } from './terms';
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-import { Input } from '../../Components/common/Input';
-import { newWalletCreation, newWalletNameEntry } from '../../Actions/actionCreator';
-import provider from '../../constants/Providers';
+import { Input } from '../../../Components/common/Input';
+import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCreator';
 const ethers = require('ethers');
 
 /**
  * Initial setup screen used to allow the user to give their wallet a name after
- * the wallet has been recovered
+ * a new wallet has been created
  */
 class CreateWalletName extends Component {
 
@@ -23,10 +21,13 @@ class CreateWalletName extends Component {
     };
 
     /**
-     * Method is used to navigate back to the recoverWallet screen.
+     * Method is used to save the newly generated wallet (via ethers.js) in the global state
+     * variable and to navigate to the "generatePassphrase" screen  
      */
     navigate = () => {
-        const navigateToPassphrase = NavigationActions.navigate({ routeName: "recoverWallet" });
+        const wallet = ethers.Wallet.createRandom();
+        this.props.newWalletCreation(wallet);
+        const navigateToPassphrase = NavigationActions.navigate({ routeName: "generatePassphrase" });
         this.props.navigation.dispatch(navigateToPassphrase);
     };
 
@@ -46,7 +47,7 @@ class CreateWalletName extends Component {
     render() {
         return (
             <View style={styles.mainContainer}>
-                <View style={styles.contentContainer} >
+                <View >
                     <View style={styles.form} >
                         <Text style={styles.walletName}>Wallet Name </Text>
                         <FormInput

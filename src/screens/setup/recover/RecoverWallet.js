@@ -3,8 +3,8 @@ import { View, Text, StyleSheet, Alert, Dimensions } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-import { newWalletCreation } from '../../Actions/actionCreator'; //gonna save this passphrase to state
-import provider from '../../constants/Providers';
+import { newWalletCreation } from '../../../actions/ActionCreator'; //gonna save this passphrase to state
+import provider from '../../../constants/Providers';
 const ethers = require('ethers');
 
 /**

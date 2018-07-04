@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { Text, View, ScrollView, StyleSheet, Dimensions } from "react-native";
 import { NavigationActions } from "react-navigation";
-import { Terms } from './terms';
+import { Terms } from '../../../constants/Terms';
 import { Button } from 'react-native-elements';
 
 /**
  * Initial terms and condition screen when the app is oppened for the first time.
  */
-class ViewTerms extends Component {
+class TermsAndConditions extends Component {
 
     /**
      * Sets the Screen title to "Terms and Conditions"
@@ -87,4 +87,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ViewTerms;
+export default TermsAndConditions;

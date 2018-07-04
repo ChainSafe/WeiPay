@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { FormInput, FormLabel, Button } from 'react-native-elements';
 import Camera from 'react-native-camera';
 import { NavigationActions } from "react-navigation";
-import { getQRCodeData } from '../../../Actions/actionCreator'
+import { getQRCodeData } from '../../../actions/ActionCreator'
 
 /**
  * React Component

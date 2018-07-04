@@ -1,9 +1,6 @@
 import { AsyncStorage } from 'react-native';
-import { addTokenSetup } from "./actionTypes";
-import * as actionTypes from './actionTypes';
-
-
-
+import { addTokenSetup } from "./ActionTypes";
+import * as actionTypes from './ActionTypes';
 
 function AddToken(payload) {
   return {

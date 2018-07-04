@@ -1,26 +1,30 @@
 import React from 'react';
-import { StackNavigator, DrawerNavigator, TabNavigator, DrawerItems } from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 import { View } from 'react-native'
 
-import TermsScreen from '../Screens/Setup/ViewTerms';
-import CreateOrRestore from '../Screens/Setup/CreateOrRestore';
-import CreateWalletName from '../Screens/Setup/CreateWalletName';
-import GeneratePassphrase from '../Screens/Setup/GeneratePassphrase';
-import ConfirmPassphrase from '../Screens/Setup/ConfirmPassphrase';
-import CreateWalletNameRecovered from '../Screens/Setup/CreateWalletNameRecovered';
-import RecoverWallet from '../Screens/Setup/RecoverWallet';
-import EnableTokens from '../Screens/Setup/EnableTokens';
-import QrScannerWindow from '../Screens/Main/PortfolioTabs/QrCodeScanner';
+import TermsScreen from '../../screens/setup/terms/TermsAndConditions';
+
+import CreateOrRestore from '../../screens/setup/index';
+
+import CreateWalletName from '../../screens/setup/create/CreateWalletName';
+import GeneratePassphrase from '../../screens/setup/create/GeneratePassphrase';
+import ConfirmPassphrase from '../../screens/setup/create/ConfirmPassphrase';
+
+import CreateWalletNameRecovered from '../../screens/setup/recover/CreateWalletName';
+import RecoverWallet from '../../screens/setup/recover/RecoverWallet';
+
+import EnableTokens from '../../screens/setup/crypto/EnableTokens';
+import QrScannerWindow from '../../screens/main/PortfolioTabs/QrCodeScanner';
 
 import Drawer from '../drawer';
-import PortfolioCoin from '../Screens/Main/PortfolioTabs/PortfolioCoin';
-import PortfolioToken from '../Screens/Main/PortfolioTabs/PortfolioToken';
-import AddToken from '../Screens/Main/AddToken';
-import addContact from '../Screens/Main/SettingsSubPages/addContact';
-import contacts from '../Screens/Main/Contacts';
-import ContactAddresses from '../Screens/Main/SettingsSubPages/ContactAddresses';
-import QrCodeScanner from '../Screens/Main/PortfolioTabs/QrCodeScanner';
-import CoinSend from '../Screens/Main/PortfolioTabs/CoinSend'
+import PortfolioCoin from '../../screens/main/PortfolioTabs/PortfolioCoin';
+import PortfolioToken from '../../screens/main/PortfolioTabs/PortfolioToken';
+import AddToken from '../../screens/main/AddToken';
+import addContact from '../../screens/main/SettingsSubPages/addContact';
+import contacts from '../../screens/main/Contacts';
+import ContactAddresses from '../../screens/main/SettingsSubPages/ContactAddresses';
+import QrCodeScanner from '../../screens/main/PortfolioTabs/QrCodeScanner';
+import CoinSend from '../../screens/main/PortfolioTabs/CoinSend'
 
 /**
  * Constant contains all the screens that can be navigated to using the 

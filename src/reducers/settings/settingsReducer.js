@@ -1,10 +1,9 @@
-import * as actions from '../Actions/actionTypes';
+import * as actions from '../../actions/ActionTypes';
 
 const INITIAL_STATE = {
     currency: "CAD",
     language: "English"
 }
-
 
 /**
  * Reducer handles all the actions invoked during the process of

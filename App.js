@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { Provider } from 'react-redux'
 import store from './store'
-import AppNavigation from './src/Navigation'
+import AppNavigation from './src/navigation/stack'
 
 
 export default class App extends Component {

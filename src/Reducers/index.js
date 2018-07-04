@@ -1,11 +1,11 @@
 import { combineReducers } from "redux";
-import NavigationReducer from "./navigationReducer";
-import NewWalletSetup from './NewWalletSetup';
-import currencyListReducer from './currencyListReducer';
-import languageListReducer from './languageListReducer';
-import settingsReducer from './settingsReducer';
-import ContactsReducer from './ContactsReducer';
 
+import NavigationReducer from "./navigation/navigationReducer";
+import NewWalletSetup from './wallet/NewWalletSetup';
+import currencyListReducer from './fiat/fiatListReducer';
+import languageListReducer from './language/languageListReducer';
+import settingsReducer from './settings/settingsReducer';
+import ContactsReducer from './contacts/contactReducer';
 
 /**
  * Contains a reference to all the reducers being used in the applications.

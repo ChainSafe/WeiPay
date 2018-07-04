@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import RadioGroup from 'react-native-radio-buttons-group';
 import { CardSection } from './common/CardSection';
 import { Card } from './common/Card';
-import { selectWalletLanguage } from '../Actions/actionCreator';
+import { selectWalletLanguage } from '../actions/ActionCreator';
 
 /**
  * React Component

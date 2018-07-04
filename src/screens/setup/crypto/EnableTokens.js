@@ -3,13 +3,13 @@ import { View, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput, Image 
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-import CoinList from '../../Components/CoinList';
+import CoinList from '../../../Components/CoinList';
 
 /**
  * Screen used to aquire the tokens/coins that the user wants to use
  * in their portfolio
  */
-class EnableTokens extends Component {
+class EnableCrypto extends Component {
     state = {
         tokenList: this.props.tokenList,
         changeState: true
@@ -86,4 +86,4 @@ const mapStateToProps = state => {
     }
 };
 
-export default connect(mapStateToProps)(EnableTokens);
+export default connect(mapStateToProps)(EnableCrypto);

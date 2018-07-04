@@ -3,10 +3,10 @@ import { ListView, View, Text, StyleSheet, TextInput, ScrollView } from 'react-n
 import { Button, List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import AddContactList from '../../../Components/AddContactList';
-import addContactAction from '../../../Actions/actionCreator';
+import addContactAction from '../../../actions/ActionCreator';
 import { Card } from '../../../Components/common/Card';
 import { CardSection } from '../../../Components/common/CardSection';
-import * as actions from '../../../Actions/actionCreator';
+import * as actions from '../../../actions/ActionCreator';
 
 /**
  * Is a full screen react component

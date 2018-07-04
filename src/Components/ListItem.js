@@ -6,7 +6,7 @@ import { CheckBox } from 'react-native-elements'
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
-import { addTokenToSetup } from '../Actions/actionCreator';
+import { addTokenToSetup } from '../actions/ActionCreator';
 
 var touched = false;
 

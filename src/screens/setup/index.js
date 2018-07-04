@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, Image } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button } from 'react-native-elements';
-import { restoreWallet } from '../../Actions/actionCreator';
+import { restoreWallet } from '../../actions/ActionCreator';
 
 /**
  * Initial setup screen used to allow the user to either restore a previously

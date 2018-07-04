@@ -5,7 +5,7 @@ import { Card } from '../../../Components/common/Card';
 import { Button } from 'react-native-elements'
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux'
-import { getQRCodeData } from '../../../Actions/actionCreator'
+import { getQRCodeData } from '../../../actions/ActionCreator'
 
 /**
  * 
