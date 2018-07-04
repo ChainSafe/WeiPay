@@ -5,6 +5,8 @@ import { FormInput, FormLabel, Button } from 'react-native-elements';
 import Camera from 'react-native-camera';
 import { NavigationActions } from "react-navigation";
 import { getQRCodeData } from '../../../Actions/actionCreator'
+import { saveAddContactInputs } from '../../../Actions/actionCreator'
+import ContactAddresses from '../SettingsSubPages/ContactAddresses';
 
 /**
  * React Component
@@ -15,16 +17,22 @@ class QrCodeScanner extends Component {
 
     /**
      * Initializes the "qrcode" variable, which can be used to
-     * keep track of the data scanned by the scanner
+     * keep track of the data scanned by the scanner.
+     * The parameters that were passed from the addContact screen are also assigned in
+     * state
      * @param {Object} props 
      */
     constructor(props) {
         super(props);
         this.state = {
-            toAddress: "",
-            value: 0,
-            resetInput: false,
-            qrcode: ''
+            qrcode: '',
+            invoker: this.props.invoker,
+            currentContactName: this.props.data.contactName,
+            previousInputs: this.props.data.allAddressInputs,
+            coinInvoker: this.props.data.coinName
+
+
+
         }
     }
 
@@ -36,26 +44,28 @@ class QrCodeScanner extends Component {
      */
     onBarCodeRead = (e) => {
         this.setState({ qrcode: e.data })
-        this.props.getQRCodeData(e.data)
+        if (this.state.invoker == "CoinSend") {
+            this.props.getQRCodeData(e.data)
+        } else {
+            let oldInputs = this.state.previousInputs
+            oldInputs[this.state.coinInvoker] = e.data
+            let contactInputs = {}
+            contactInputs["name"] = this.state.currentContactName
+            contactInputs["ContactAddresses"] = oldInputs
+
+            this.props.saveAddContactInputs(contactInputs)
+        }
     };
 
-    /**
-     * Is used to Navigate to the Coin Portfolio where the user
-     * can send/receive transactions and view thier activity
-     */
-    navigate = () => {
-        const navigateToEnableTokens = NavigationActions.navigate({
-            routeName: "PortfolioCoin",
-        });
-        this.props.navigation.dispatch(navigateToEnableTokens);
-    };
+
 
     /**
-     * Main Qr Code scanner.
-     * Full screen camera
-     * With a button to confirm the scan
+     * Returns a screen with the react-native-camera component as the background
+     *  - a text box to  see the text that was scanned
+     *  - a button to go back to the invoking screen and fill in the input field
      */
     render() {
+
         return (
             <View style={styles.container}>
                 <Camera
@@ -73,7 +83,7 @@ class QrCodeScanner extends Component {
                     <Button
                         title='Next'
                         style={styles.buttonStyle}
-                        onPress={() => this.navigate()}
+                        onPress={() => this.props.navigation.goBack()}
                     />
                 </Camera>
             </View>
@@ -117,13 +127,15 @@ const styles = StyleSheet.create({
 })
 
 /**
- * Is not being used.
+ * Reterives the name of the page that invoked the screen.
  * @param {Object} state 
  */
-const mapStateToProps = state => {
+const mapStateToProps = ({ newWallet, QrScanner }) => {
     return {
-        QrData: state.newWallet.QrData
+        Invoker: newWallet.QrScannerInvoker,
+        invoker: QrScanner.invoker,
+        data: QrScanner.data
     }
 }
 
-export default connect(mapStateToProps, { getQRCodeData })(QrCodeScanner);
+export default connect(mapStateToProps, { getQRCodeData, saveAddContactInputs })(QrCodeScanner);
