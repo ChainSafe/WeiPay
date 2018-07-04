@@ -56,27 +56,6 @@ class QrCodeScanner extends Component {
     };
 
 
-
-
-
-    /**
-     * Is used to Navigate to the Coin Portfolio where the user
-     * can send/receive transactions and view thier activity
-     */
-    navigate = () => {
-        const navigateToEnableTokens = NavigationActions.navigate({
-            routeName: this.state.invoker,
-            params: { name: "Shubhnik", coinName: this.props.navigation.state.params.coinName, address: this.state.qrcode }
-        });
-        this.props.navigation.dispatch(navigateToEnableTokens);
-    };
-
-    //-------------
-    // [{…}, {…}]
-    // 0: {name: "Hello", contactAddress: {…}}
-    // 1: {name: "Jshzhzh", contactAddress: {…}}
-    //-----------------
-
     testing() {
 
         this.props.navigation.goBack()
@@ -102,7 +81,7 @@ class QrCodeScanner extends Component {
                     <Button
                         title='Next'
                         style={styles.buttonStyle}
-                        onPress={() => this.navigate()}
+                        onPress={() => this.props.navigation.goBack()}
                     />
                 </Camera>
             </View>

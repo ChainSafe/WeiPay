@@ -47,7 +47,7 @@ export default (state = INITIAL_STATE, action) => {
       let newContact = [...state.contacts, action.payload]
       console.log(newContact);
 
-      return { ...state, contacts: newContact }
+      return { ...state, contacts: newContact, currentContact: {} }
 
     case actions.CLEAR_INPUT:
       return { ...state, contactName: "", contactAddress: "" }
