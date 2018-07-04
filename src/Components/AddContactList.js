@@ -32,56 +32,6 @@ class AddContactList extends Component {
     }
   }
 
-  /**
-   * ES6 Class
-   * Used to navigate to the "QCodeScanner" page
-   */
-  // navigate = () => {
-  //   this.props.qrScannerInvoker("CoinSend")
-  //   const navigateToQRScanner = NavigationActions.navigate({
-  //     routeName: "QCodeScanner",
-  //     params: { name: "Shubhnik" }
-  //   });
-  //   this.props.navigation.dispatch(navigateToQRScanner);
-  // };
-
-
-
-  /**
-   * LifeCycle Function: executes after the component has been mounted
-   * Executing the action "createContactAddesses" with the latest addresses inputed
-   * by the user when adding a new contact
-   */
-  // componentDidMount() {
-  //   let copyTokens = this.props.tokens.slice(0).map(token => { return { ...token, value: "" } })
-  //   this.props.createContactAddresses(copyTokens)
-  // }
-  //complete_contact
-
-  /**
-   * Is not used anywhere
-   * @param {Object} coin 
-   */
-  renderRow(coin) {
-    return (
-      <View style={styles.componentStyle} key={coin.title}>
-        <CardSection>
-          <View style={styles.section}>
-            <Text style={styles.title}>{coin.title} 's Address</Text>
-            <Card>
-              <TextInput
-                placeholder="Enter or Paste Address here"
-                onChangeText={(text) => this.props.renderAddress(text, coin.title, coin)}
-                ref={ref => this.props.contactAddress = ref}
-                value={this.props.contactAddress}
-              // key={this.props.contactAddress}
-              />
-            </Card>
-          </View>
-        </CardSection>
-      </View>
-    )
-  }
 
   /**
    * Is not used anywhere

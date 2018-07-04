@@ -31,16 +31,10 @@ class AddContact extends Component {
     let contactAddressHolder = {}
 
     if ("ContactAddresses" in this.props.currentContact) {
-      console.log("*****************************");
 
-      console.log(this.props.currentContact.ContactAddresses);
-      console.log(this.props.currentContact.name);
-
-      console.log("*****************************");
 
       contactAddressHolder = this.props.currentContact.ContactAddresses
       contactNameHolder = this.props.currentContact.name
-      //this.renderAddContact = this.renderAddContact.bind(this);
     } else {
       this.props.tokens.map(token => contactAddressHolder[token.title] = "")
       this.renderAddContact = this.renderAddContact.bind(this);
@@ -130,7 +124,6 @@ class AddContact extends Component {
     });
   }
 
-  // clear button, types into inputs, that value should be passed to the parent, clear in parent state to null
   /**
    * Returns the form required to add a contact 
    */
@@ -217,13 +210,6 @@ const styles = StyleSheet.create({
  * Returns an object containing the token list
  * @param {Object} state 
  */
-// const mapStateToProps = state => {
-//   return {
-//     tokens: state.newWallet.tokens,
-//     currentContact: state.contacts.currentContact,
-//     current: state.contacts.currentContact,
-//   }
-// }
 
 const mapStateToProps = ({ contacts, newWallet }) => {
   return {
