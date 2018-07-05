@@ -3,8 +3,6 @@ import { ListView, View, Text, StyleSheet, TextInput, ScrollView } from 'react-n
 import { Button, List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { NavigationActions } from "react-navigation";
-
-
 import AddContactList from '../../../../../components/contacts/AddContactList';
 import { Card } from '../../../../../components/common/Card';
 import { CardSection } from '../../../../../components/common/CardSection';

@@ -12,7 +12,6 @@ import { qrScannerInvoker } from '../../actions/ActionCreator';
 import { saveAddContactInputs } from '../../actions/ActionCreator'
 import { NavigationActions } from "react-navigation";
 
-
 /**
  * AddContactList is a component class which is used to display
  * a list of all the tokens that currently exists in the portfolio and 
@@ -176,7 +175,7 @@ const styles = StyleSheet.create({
  *  - current is not used in this class
  * @param {Object} state 
  */
-const mapStateToProps = ({ newWallet, contact }) => {
+const mapStateToProps = ({ newWallet, contacts }) => {
   return {
     tokens: newWallet.tokens,
     currentContact: contacts.currentContact,
