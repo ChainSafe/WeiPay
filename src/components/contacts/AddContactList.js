@@ -3,10 +3,10 @@ import { StyleSheet, View, Text, TextInput, ListView, ScrollView } from 'react-n
 import { connect } from 'react-redux';
 import { List, ListItem, Button } from 'react-native-elements'
 import _ from 'lodash'
-import { CardSection } from './common/CardSection';
-import { Card } from './common/Card';
-import addContactAction from '../actions/ActionCreator';
-import *  as actions from '../actions/ActionCreator.js';
+import { CardSection } from '../common/CardSection';
+import { Card } from '../common/Card';
+import addContactAction from '../../actions/ActionCreator';
+import *  as actions from '../../actions/ActionCreator.js';
 import AddContactListItem from './AddContactListItem';
 
 /**

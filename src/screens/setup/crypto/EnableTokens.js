@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput, Image 
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-import CoinList from '../../../components/CoinList';
+import CoinList from '../../../components/tokens/CoinList';
 
 /**
  * Screen used to aquire the tokens/coins that the user wants to use

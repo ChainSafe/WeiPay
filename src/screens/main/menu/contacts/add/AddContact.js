@@ -4,7 +4,7 @@ import { Button, List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 
 
-import AddContactList from '../../../../../components/AddContactList';
+import AddContactList from '../../../../../components/contacts/AddContactList';
 import { Card } from '../../../../../components/common/Card';
 import { CardSection } from '../../../../../components/common/CardSection';
 import addContactAction from '../../../../../actions/ActionCreator';

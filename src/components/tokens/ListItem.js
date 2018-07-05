@@ -3,9 +3,9 @@ import { Text, View, StyleSheet, TouchableOpacity, TouchableHighlight } from 're
 import { connect } from 'react-redux';
 import { CheckBox, Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { CardSection } from './common/CardSection';
-import { Card } from './common/Card';
-import { addTokenToSetup } from '../actions/ActionCreator';
+import { CardSection } from '../common/CardSection';
+import { Card } from '../common/Card';
+import { addTokenToSetup } from '../../actions/ActionCreator';
 
 /**
  * React Component

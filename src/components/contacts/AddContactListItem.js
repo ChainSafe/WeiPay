@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, TouchableHighlight, TextInput } from 'react-native';
 import { CheckBox, Button } from 'react-native-elements'
-import { CardSection } from './common/CardSection';
-import { Card } from './common/Card';
-import { Input } from './common/Input';
+import { CardSection } from '../common/CardSection';
+import { Card } from '../common/Card';
+import { Input } from '../common/Input';
 
 /**
  * This component is not being used anywhere

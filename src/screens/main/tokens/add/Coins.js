@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { Icon, Button } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
-import CoinList from '../../../../components/CoinList';
+import CoinList from '../../../../components/tokens/CoinList';
 
 /**
  * React Component
