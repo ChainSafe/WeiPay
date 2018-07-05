@@ -3,7 +3,8 @@ import { View, Text, StyleSheet, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { FormInput, FormLabel, Button } from 'react-native-elements';
 import { NavigationActions } from "react-navigation";
-import { getQRCodeData } from '../../../Actions/actionCreator';
+import { getQRCodeData } from '../../../Actions/actionCreator'
+import { qrScannerInvoker } from '../../../Actions/actionCreator'
 import provider from '../../../constants/Providers';
 const ethers = require('ethers');
 const utils = ethers.utils;
@@ -178,8 +179,10 @@ class CoinSend extends Component {
    * Is used to navigate to the Qr-Code scanner
    */
   navigate = () => {
+    this.props.qrScannerInvoker("CoinSend")
     const navigateToQRScanner = NavigationActions.navigate({
       routeName: "QCodeScanner",
+      params: { name: "Shubhnik", invoker: "CoinSend" }
     });
     this.props.navigation.dispatch(navigateToQRScanner);
   };
@@ -286,4 +289,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { getQRCodeData })(CoinSend);
+export default connect(mapStateToProps, { getQRCodeData, qrScannerInvoker })(CoinSend);

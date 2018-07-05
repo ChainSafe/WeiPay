@@ -5,6 +5,7 @@ import currencyListReducer from './currencyListReducer';
 import languageListReducer from './languageListReducer';
 import settingsReducer from './settingsReducer';
 import ContactsReducer from './ContactsReducer';
+import QrScannerReducer from './QrScannerReducer'
 
 
 /**
@@ -18,7 +19,8 @@ const AppReducer = combineReducers({
   currency: currencyListReducer,
   language: languageListReducer,
   settings: settingsReducer,
-  contacts: ContactsReducer
+  contacts: ContactsReducer,
+  QrScanner: QrScannerReducer
 });
 
 export default AppReducer;

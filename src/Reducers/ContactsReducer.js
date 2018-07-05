@@ -42,7 +42,16 @@ export default (state = INITIAL_STATE, action) => {
       // [...old, state.currentContact]
 
       let newContact = [...state.contacts, action.payload]
-      return { ...state, contacts: newContact }
+      console.log(newContact);
+
+      return { ...state, contacts: newContact, currentContact: {} }
+
+    case actions.CLEAR_INPUT:
+      return { ...state, contactName: "", contactAddress: "" }
+
+    case actions.SAVING_ADDCONTACT_INPUTS:
+
+      return { ...state, currentContact: action.payload }
 
     default:
       return state;

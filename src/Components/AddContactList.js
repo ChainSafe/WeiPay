@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TextInput, ListView, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TextInput, ListView, ScrollView, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import { CardSection } from './common/CardSection';
 import { Card } from './common/Card';
-import _ from 'lodash'
-import addContactAction from '../Actions/actionCreator';
-import *  as actions from '../Actions/actionCreator.js';
-import AddContactListItem from './AddContactListItem';
+import { NavigationActions } from "react-navigation";
+import { qrScannerInvoker } from '../Actions/actionCreator';
+import { saveAddContactInputs } from '../Actions/actionCreator'
 import { List, ListItem, Button } from 'react-native-elements'
 
 /**
@@ -33,52 +32,6 @@ class AddContactList extends Component {
     }
   }
 
-  /**
-   * ES6 Class
-   * Used to navigate to the "QCodeScanner" page
-   */
-  navigate = () => {
-    const navigateToQRScanner = NavigationActions.navigate({
-      routeName: "QCodeScanner",
-      params: { name: "Shubhnik" }
-    });
-    this.props.navigation.dispatch(navigateToQRScanner);
-  };
-
-  /**
-   * LifeCycle Function: executes after the component has been mounted
-   * Executing the action "createContactAddesses" with the latest addresses inputed
-   * by the user when adding a new contact
-   */
-  componentDidMount() {
-    let copyTokens = this.props.tokens.slice(0).map(token => { return { ...token, value: "" } })
-    this.props.createContactAddresses(copyTokens)
-  }
-
-  /**
-   * Is not used anywhere
-   * @param {Object} coin 
-   */
-  renderRow(coin) {
-    return (
-      <View style={styles.componentStyle} key={coin.title}>
-        <CardSection>
-          <View style={styles.section}>
-            <Text style={styles.title}>{coin.title} 's Address</Text>
-            <Card>
-              <TextInput
-                placeholder="Enter or Paste Address here"
-                onChangeText={(text) => this.props.renderAddress(text, coin.title, coin)}
-                ref={ref => this.props.contactAddress = ref}
-                value={this.props.contactAddress}
-              // key={this.props.contactAddress}
-              />
-            </Card>
-          </View>
-        </CardSection>
-      </View>
-    )
-  }
 
   /**
    * Is not used anywhere
@@ -88,6 +41,23 @@ class AddContactList extends Component {
     return (
       <ListItem title='Enter Address' textInput={true} />
     )
+  }
+
+  /**
+   * Navigates to QCodeScanner screen with inputs made by the user
+   * @param {String} coinName 
+   */
+  navigateToQRScanner(coinName) {
+    const data = {
+      coinName: coinName,
+      contactName: this.props.contactName,
+      allAddressInputs: this.props.contactAddress
+    }
+
+    this.props.qrScannerInvoker("addContact")
+    this.props.saveAddContactInputs(data)
+
+    this.props.navigate("QCodeScanner", data)
   }
 
   /**
@@ -105,7 +75,7 @@ class AddContactList extends Component {
                 <View style={styles.card}>
                   <Button
                     title='QR'
-                    onPress={() => this.navigate()}
+                    onPress={() => this.navigateToQRScanner(coin.title)}
                     style={styles.qrButton}
                   />
                   <TextInput
@@ -164,7 +134,8 @@ const styles = StyleSheet.create({
   },
   qrButton: {
     width: 50,
-    height: 50
+    height: 50,
+    backgroundColor: "yellow"
   },
   addressInput: {
     width: 150,
@@ -200,12 +171,12 @@ const styles = StyleSheet.create({
  *  - current is not used in this class
  * @param {Object} state 
  */
-const mapStateToProps = state => {
+const mapStateToProps = ({ newWallet, contact }) => {
   return {
-    tokens: state.newWallet.tokens,
-    currentContact: state.contacts.currentContact,
-    current: state.contacts.currentContact
+    tokens: newWallet.tokens,
+    currentContact: contacts.currentContact,
+    current: contacts.currentContact
   }
 }
 
-export default connect(mapStateToProps, actions)(AddContactList);
+export default connect(mapStateToProps, { qrScannerInvoker, saveAddContactInputs })(AddContactList);

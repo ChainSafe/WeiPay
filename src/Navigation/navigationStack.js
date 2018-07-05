@@ -1,6 +1,4 @@
-import React from 'react';
 import { StackNavigator, DrawerNavigator, TabNavigator, DrawerItems } from 'react-navigation';
-import { View } from 'react-native'
 
 import TermsScreen from '../Screens/Setup/ViewTerms';
 import CreateOrRestore from '../Screens/Setup/CreateOrRestore';
@@ -15,18 +13,19 @@ import QrScannerWindow from '../Screens/Main/PortfolioTabs/QrCodeScanner';
 import Drawer from '../drawer';
 import PortfolioCoin from '../Screens/Main/PortfolioTabs/PortfolioCoin';
 import PortfolioToken from '../Screens/Main/PortfolioTabs/PortfolioToken';
-import AddToken from '../Screens/Main/AddToken';
 import addContact from '../Screens/Main/SettingsSubPages/addContact';
 import contacts from '../Screens/Main/Contacts';
 import ContactAddresses from '../Screens/Main/SettingsSubPages/ContactAddresses';
 import QrCodeScanner from '../Screens/Main/PortfolioTabs/QrCodeScanner';
 import CoinSend from '../Screens/Main/PortfolioTabs/CoinSend'
+import AddContactComponent from '../Components/AddContactList'
 
 /**
  * Constant contains all the screens that can be navigated to using the 
  * navigate method from any class
  */
 const navigator = StackNavigator({
+
   terms: {
     screen: TermsScreen
   },

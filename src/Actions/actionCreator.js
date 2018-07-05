@@ -116,7 +116,7 @@ export function addingContact(contact) {
 
 /**
  * returns an action that contains an object which contains the name
- * of the new contact and all the contact address that belongs to it.
+ * of the new contact and all the coin address that belongs to it.
  * 
  * @param {String} contactName 
  * @param {Object} contactAddress 
@@ -136,6 +136,8 @@ export function completeContact(contactName, contactAddress) {
  * that currently exists on the porfolio page.
  * This object also holds the addresses that were inputed by the user when 
  * adding a new contact
+ * 
+ * this is not being used
  * @param {Object} addresses 
  * @param {String} coinType 
  */
@@ -154,5 +156,26 @@ export function createContactAddresses(addresses, coinType) {
 export function getQRCodeData(data) {
   return dispatch => {
     dispatch({ type: actionTypes.QRSCANNER_DATA, payload: data })
+  }
+}
+
+/**
+ * Contains the name of the page from which the QrScanner was invoked from
+ * @param {String} pageName 
+ */
+export function qrScannerInvoker(pageName) {
+  return dispatch => {
+    dispatch({ type: actionTypes.QRSCANNER_PAGE_INVOKER, payload: pageName })
+  }
+}
+
+
+/**
+ * Contains the inputs made in the addCOntact screen
+ * @param {Object} completeInput 
+ */
+export function saveAddContactInputs(completeInput) {
+  return dispatch => {
+    dispatch({ type: actionTypes.SAVING_ADDCONTACT_INPUTS, payload: completeInput })
   }
 }
