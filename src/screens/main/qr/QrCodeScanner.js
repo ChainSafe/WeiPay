@@ -6,7 +6,7 @@ import Camera from 'react-native-camera';
 import { NavigationActions } from "react-navigation";
 import { getQRCodeData } from '../../../actions/ActionCreator'
 import { saveAddContactInputs } from '../../../actions/ActionCreator'
-import ContactAddresses from '../contacts/SelectedContact';
+import ContactAddresses from '../menu/contacts/SelectedContact';
 
 /**
  * React Component

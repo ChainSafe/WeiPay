@@ -6,6 +6,7 @@ import currencyListReducer from './fiat/fiatListReducer';
 import languageListReducer from './language/languageListReducer';
 import settingsReducer from './settings/settingsReducer';
 import ContactsReducer from './contacts/contactReducer';
+import QrScannerReducer from './wallet/QrScannerReducer'
 
 /**
  * Contains a reference to all the reducers being used in the applications.
@@ -18,7 +19,8 @@ const AppReducer = combineReducers({
     currency: currencyListReducer,
     language: languageListReducer,
     settings: settingsReducer,
-    contacts: ContactsReducer
+    contacts: ContactsReducer,
+    QrScanner: QrScannerReducer
 });
 
 export default AppReducer;

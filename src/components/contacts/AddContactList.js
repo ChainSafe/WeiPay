@@ -11,7 +11,7 @@ import AddContactListItem from './AddContactListItem';
 import { qrScannerInvoker } from '../../actions/ActionCreator';
 import { saveAddContactInputs } from '../../actions/ActionCreator'
 import { NavigationActions } from "react-navigation";
-import { List, ListItem, Button } from 'react-native-elements'
+
 
 /**
  * AddContactList is a component class which is used to display
