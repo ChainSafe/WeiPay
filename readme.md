@@ -10,6 +10,17 @@ uniform data to its users with the added benefits of reduced app storage space.
 2) Add Bitcoin wallet/transactions 
 3) Save graphQL/Prisma api json data on IPFS
 
+ - Config file(s) for ERC20 Tokens using ethers.js
+		 - 	 Each of the files should be placed in the following directory
+			src -> constants -> config -> erc20
+		 -  There should be a new reducer to handle all the actions made from using the ERC20 tokens/or modify the function in the send.js
+		 - After adding each config file, they must be integrated into the coinList component which can 
+		 be selected by the user upon going through the initial process & upon adding it through the portfolio.
+ - Add BitCoin wallet/transactions
+	 -	No idea, (Google it)
+-	Save api json data on IPFS
+	-	We need to figure out how to use IPFS without running a DAEMON in background
+
 ## WeiPay File Structure 
 
 * android
