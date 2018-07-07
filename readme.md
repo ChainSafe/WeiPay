@@ -139,7 +139,7 @@ uniform data to its users with the added benefits of reduced app storage space.
 # How To:
 
 + git clone https://github.com/ChainSafe/WeiPay.git
-+ npm install 
++ npm install, sudo npm install (if on linux)
 + react-native link
 + git checkout -b yourBranchName
 
@@ -147,12 +147,19 @@ uniform data to its users with the added benefits of reduced app storage space.
 + Node 8.0 +
 + XCODE - For IOS Build 
 + Android Studio - Android Build 
+ - JDK >= 1.7 (if you run on 1.6 you will get an error on "_cameras = new HashMap<>();")
+ - On Android, you require `buildToolsVersion` of `25.0.2+`. _This should easily and automatically be downloaded by Android Studio's SDK Manager._
+ - Java should be in your system path
 
 # Run on Simulator 
 
 + IOS: react-native run-ios
 
 + Android: react-native run-android
+ - Run the following commands before running the command above
+	 - sudo npm start (if on linux)
+	 - Run the simulator from android studio or Connect your android device with usb debugging enabled
+
 
 # Run on Device 
 
@@ -164,6 +171,10 @@ uniform data to its users with the added benefits of reduced app storage space.
   5) You will need to navigate to your iphone settings->general and trust your computer. New field will appear.
 
 ## Android 
+
+ 1.  Enable the Developers options on the Android Device
+ 2. Enable Usb debugging in the Developers option
+ 3. Run the following command in the project directory : 'adb reverse tcp:8081 tcp:8081`
 
 # To Build and Debug with Android Studio run the following Commands
   
