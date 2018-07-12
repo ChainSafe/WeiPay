@@ -9,12 +9,6 @@ function AddToken(payload) {
   }
 }
 
-// export async function getCurrentWallet() {
-//   let wallet = await AsyncStorage.getItem('wallet')
-//
-//   return ({ type: actionTypes.CURRENT_WALLET, payload: wallet })
-// }
-
 /**
  * Action for adding tokens to the portfolio during the main setup
  * returns a dispatch => which invokes all the reducers to handle this action
