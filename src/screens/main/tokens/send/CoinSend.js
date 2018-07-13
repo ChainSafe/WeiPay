@@ -56,33 +56,6 @@ class CoinSend extends Component {
         )
       }
     });
-
-    /*
-      Send money from testrpc to current wallet just to make sure there are funds for transactions.
-      If you have no money in your current wallet then you need to uncomment this and adjust privat key
-    */
-
-    // const privateKey = "0x1e1a9de3455f77edf5aaa0342766c9bcb65e8d6b6e868bda0f34fac118d1419f";
-    // const walletToFundCurrentWallet = new ethers.Wallet(privateKey);
-    // const currentWallet = this.props.wallet;
-
-    // walletToFundCurrentWallet.provider = provider;
-    // currentWallet.provider = provider;
-
-    // var amount = ethers.utils.parseEther('5.0');
-    // var sendPromise = walletToFundCurrentWallet.send(currentWallet.address, amount);
-
-    // sendPromise.then(function (transactionHash) {
-    //   console.log(transactionHash);
-    //   provider.getBalance(walletToFundCurrentWallet.address).then(function (balance) {
-    //     var etherString = utils.formatEther(balance);
-    //     console.log("walletToFundCurrentWallet Balance: " + etherString);
-    //   });
-    //   provider.getBalance(currentWallet.address).then(function (balance) {
-    //     var etherString = utils.formatEther(balance);
-    //     console.log("currentWallet Balance: " + etherString);
-    //   });
-    // });
   }
 
   /**
