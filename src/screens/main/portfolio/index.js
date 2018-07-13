@@ -15,16 +15,20 @@ class Portfolio extends Component {
    * top bar to pull out the DrawerMenu
    */
   static navigationOptions = ({ navigation }) => {
-    return {
-      title: 'Portfolio',
-      headerLeft: null,
+
+    return {   
+      headerStyle: {
+        borderBottomWidth: 0,
+        backgroundColor: "#fafbfe"
+      },   
+      headerLeft: null,      
       headerRight: (
-        <View style={{ paddingRight: 15 }}>
+        <View style={{ paddingRight: 35, backgroundColor: "#fafbfe", borderBottomWidth: 0 }}>
           <Icon
             name="menu"
             onPress={() => navigation.navigate('DrawerOpen')}
             title="SideMenu"
-            style={{ paddingLeft: 20 }}
+            style={{ paddingLeft: 35 }}
           />
         </View>
       )
@@ -48,7 +52,6 @@ class Portfolio extends Component {
    * Returns a ListItem component specific to the properties of the token parameter
    */
   renderRow = (token) => {
-
     return (
       <ListItem
         roundAvatar
@@ -66,7 +69,17 @@ class Portfolio extends Component {
    */
   render() {
     return (
-      <View style={{ flex: 1 }} >
+      <View style={styles.mainContainer} >
+
+         <View>
+            <Text style={styles.textHeader} > WeiPay</Text>
+          </View>
+
+        <View stlye={styles.headerContainer} >
+            <Text style={styles.headerItemL}> 0$ USD</Text>
+            <Text style={styles.headerItemR}> Tokens | Coins </Text>
+        </View>
+
         <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false} />
         <View style={styles.btnContainer} >
           <Button
@@ -89,10 +102,37 @@ class Portfolio extends Component {
  * Styles used in the "Portfolio" screen
  */
 const styles = StyleSheet.create({
+  mainContainer : {
+    flex: 1,
+    backgroundColor: "#fafbfe"
+  },
+  headerContainer : {
+    flexDirection: 'row',
+    alignItems: "center",
+    flexWrap: "wrap",
+    height: 30,
+    backgroundColor: 'blue'
+  },
   item: {
     padding: 10,
     fontSize: 18,
     height: 44,
+  },
+  headerItemL : { 
+    alignSelf: 'flex-start',
+    width: '30%',
+    marginTop: 10 
+    // alignItems: "center" 
+  }, 
+  headerItemR : {
+    alignSelf: 'flex-end',
+    width: '30%' 
+  },
+  textHeader: {       
+    fontFamily: "Cairo-Light",
+    fontSize: 50,        
+    marginBottom:-15,
+   color: '#1a1f3e'
   },
   btnContainer: {
     alignItems: 'center',
