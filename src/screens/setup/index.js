@@ -51,12 +51,10 @@ class CreateOrRestore extends Component {
     render() {
         return (
             <View style={styles.mainContainer}>
-
                 <View style={styles.textContainer}>
                     <Text style={styles.textHeader} > WeiPay</Text>
                     <Text style={styles.textHeaderDescription} > ERC20 Token Wallet </Text>
                 </View>
-                
                 <View style={styles.secondaryContainer}>
                     <View style={styles.contentContainer} >
                         <View style={styles.btnContainer} >

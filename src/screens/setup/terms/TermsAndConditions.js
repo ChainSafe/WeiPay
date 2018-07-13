@@ -12,8 +12,7 @@ class TermsAndConditions extends Component {
     /**
      * Sets the Screen title to "Terms and Conditions"
      */
-    static navigationOptions = {
-        // title: "Terms and Conditions",
+    static navigationOptions = {     
         headerStyle: {
             borderBottomWidth: 0,
             backgroundColor: "#fafbfe"
@@ -36,10 +35,8 @@ class TermsAndConditions extends Component {
     render() {
         const { counterCount, incrementAction, decrementAction } = this.props;
         return (
-
             <View style={styles.mainContainer}>
                 <Text style={styles.textHeader} > Terms & Conditions </Text>
-             
                 <View style={styles.termsContainer}>
                     <ScrollView>
                         <Text style={styles.textBody} >{Terms}</Text>
@@ -58,7 +55,6 @@ class TermsAndConditions extends Component {
                     </View>
                     <Text style={styles.textFooter} >Powered by Chainsafe </Text> 
                 </View>
-                
             </View>
         );
     }

@@ -103,13 +103,20 @@ class Portfolio extends Component {
             title='Add Token or Coin'
             icon={{ size: 28 }}
             buttonStyle={{
-              backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100, width: 300,
-              height: 50, padding: 10, alignItems: 'center', justifyContent: 'center'
+              backgroundColor: '#12c1a2', borderRadius: 100, width: 340,
+              height: 60, padding: 10, alignItems: 'center', justifyContent: 'center', marginTop: 10
             }}
-            textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
+            textStyle={{ textAlign: 'center', color: 'white', fontSize: 20, fontFamily:"Cairo-Regular" }}
             onPress={() => this.props.navigation.navigate('AddToken')}
           />
+
+           <Text style={styles.textFooter} >Powered by Chainsafe </Text>
         </View>
+
+        {/* <View style={styles.footerContainer}>
+          
+        </View>   */}
+
       </View>
     )
   }
@@ -124,13 +131,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fafbfe"
   },
   headerContainer : {
-    // paddingLeft: 35,
     flexDirection: 'row',
-    alignItems: "center",
-    // flexWrap: "wrap",
-    // height: 30,
+    alignItems: "center",  
     flex:1,   
   },
+ 
   list: {
     flex: 1,
     justifyContent: 'center',
@@ -156,9 +161,18 @@ const styles = StyleSheet.create({
     color: '#27c997',
     fontSize: 20
   }, 
+  textFooter : {
+    fontFamily: "WorkSans-Regular",
+    fontSize: 16,
+    paddingBottom: 20,
+    paddingTop: 20,
+    justifyContent: 'center', 
+    alignItems: 'center' ,
+    color: '#c0c0c0'
+},
   btnContainer: {
     alignItems: 'center',
-    height: 80,
+    height: 150,
     paddingTop: 20,
     paddingBottom: 20,
     justifyContent: "center"
