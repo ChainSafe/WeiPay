@@ -1,13 +1,5 @@
-import { AsyncStorage } from 'react-native';
-import { addTokenSetup } from "./ActionTypes";
 import * as actionTypes from './ActionTypes';
 
-function AddToken(payload) {
-  return {
-    type: addTokenSetup,
-    payload
-  }
-}
 
 /**
  * Action for adding tokens to the portfolio during the main setup
@@ -20,16 +12,6 @@ export function addTokenToSetup(coin) {
     dispatch({ type: actionTypes.ADD_TOKEN_SETUP, payload: coin })
   }
 }
-
-
-// export function login() {
-//   return dispatch => {
-//     dispatch({ type: LOADING })
-//     // api call
-//     .then(res => { dispatch({ type: LOGIN, payload: user}) })
-//     .catch(err => { dispatch({type: LOGIN_FAILED, payload: null}) })
-//   }
-// }
 
 /**
  * returns an action with a new crypto wallet create using
@@ -122,22 +104,6 @@ export function completeContact(contactName, contactAddress) {
   }
 }
 
-/**
- * returns an action that contain an object with all the tokens
- * that currently exists on the porfolio page.
- * This object also holds the addresses that were inputed by the user when 
- * adding a new contact
- * 
- * this is not being used
- * @param {Object} addresses 
- * @param {String} coinType 
- */
-export function createContactAddresses(addresses, coinType) {
-
-  return dispatch => {
-    dispatch({ type: actionTypes.CONTACT_ADDRESS, payload: addresses })
-  }
-}
 
 /**
  * returns an action that contains the data reterived by using the QrScanner
