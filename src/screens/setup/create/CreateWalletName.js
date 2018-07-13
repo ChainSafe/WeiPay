@@ -3,8 +3,9 @@ import { View, TouchableOpacity, ScrollView, StyleSheet, TextInput, Image, Async
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-import { Input } from '../../../components/common/Input';
 import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCreator';
+import {Card} from '../../../components/common/Card'
+import LinearGradient from 'react-native-linear-gradient';
 const ethers = require('ethers');
 
 /**
@@ -47,14 +48,22 @@ class CreateWalletName extends Component {
     render() {
         return (
             <View style={styles.mainContainer}>
-                <View >
-                    <View style={styles.form} >
-                        <Text style={styles.walletName}>Wallet Name </Text>
-                        <FormInput
-                            placeholder={"Ex. My Wallet"}
-                            onChangeText={this.getWalletName.bind(this)}
-                            inputStyle={{ width: 300 }}
-                        />
+                    <View style={styles.form}>
+                        
+                        <View style={styles.formExcludingButton}>
+                            <Text style={styles.walletName}>Wallet Name </Text>
+                            <View style={styles.formInputform} >
+                                <Text style={styles.formInputHeaderText}>Create a name for you wallet,</Text> 
+                                <Text style={[styles.formHeadingText, styles.formInputHeaderText]} >for example: <Text style={{color: "#27c997"}}>My Wallet</Text></Text>
+                                <FormInput
+                                    placeholder={"Ex. My Wallet"}
+                                    onChangeText={this.getWalletName.bind(this)}
+                                    inputStyle={styles.formInput}
+                                />
+                            </View>
+                        </View>
+                        
+
                         <View style={styles.btnContainer} >
                             <Button
                                 // disabled={this.props.walletName === ""}
@@ -67,9 +76,16 @@ class CreateWalletName extends Component {
                                 textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
                                 onPress={this.navigate}
                             />
+                            <Text style={{paddingTop: 4, color: '#c0c0c0'}}>Mantained by ChainSafe</Text>
                         </View>
+                        
+                        
+
+
+
+
                     </View>
-                </View>
+                
             </View>
         );
     }
@@ -81,26 +97,75 @@ class CreateWalletName extends Component {
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: -100
+        flexDirection: 'row',    
+        backgroundColor: "#fafbfe",
+        
     },
     walletName: {
+        fontFamily: "Cairo-Light",
         fontSize: 20,
-        paddingTop: 20,
+        color: '#000000',
+        paddingTop: 45,
         paddingBottom: 25,
+        alignItems: 'flex-start',
+        paddingRight: '50%'
+        
     },
     formInput: {
-        width: 300
+        width: 300,
+        color: '#27c997',
+        fontFamily: "WorkSans-Regular",
+        fontSize: 16
     },
+
+    formInputHeaderText: {
+        fontFamily: "WorkSans-Light",
+        fontSize: 16,
+        color: "#000000"
+        
+        
+    },
+
     form: {
         width: Dimensions.get('window').width - 10,
-        alignItems: 'center'
+        justifyContent: 'space-around'
+         
     },
-    btnContainer: {
+    
+    formExcludingButton: {
         alignItems: 'center',
     },
+
+    formInputform: {
+        backgroundColor: "#ffffff",
+        width: 306,
+        height: 220,
+        paddingTop: 33,
+        paddingLeft: 30,
+        paddingRight: 42,
+        borderWidth: 1,
+        borderRadius: 6,
+        borderColor: '#fff',
+        borderBottomWidth: 1,
+        shadowOpacity: 1,
+        shadowColor: 'black',
+      
+        
+    },
+
+    formHeadingText: {
+        paddingBottom: 50
+    },
+
+    btnContainer: {
+        justifyContent: 'flex-end',
+        alignItems: 'center'
+        
+
+    },
 })
+
+
 
 /**
  * This method is not being used here
@@ -113,3 +178,11 @@ const mapStateToProps = ({ newWallet }) => {
 
 export default connect(mapStateToProps, { newWalletNameEntry, newWalletCreation })(CreateWalletName);
 
+/*
+
+borderRadius: 2,
+        shadowColor: "#000",
+        shadowOffset: { width: 2, height: 10 },
+        shadowRadius: 12,
+
+    */
