@@ -102,7 +102,7 @@ class Portfolio extends Component {
             textStyle={{ textAlign: 'center', color: 'white', fontSize: 20, fontFamily:"Cairo-Regular" }}
             onPress={() => this.props.navigation.navigate('AddToken')}
           />
-          <Text style={styles.textFooter} >Powered by Chainsafe </Text>
+          <Text style={styles.textFooter} >Powered by ChainSafe </Text>
         </View>
       </View>
     )

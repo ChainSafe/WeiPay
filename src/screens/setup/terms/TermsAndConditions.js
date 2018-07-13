@@ -53,7 +53,7 @@ class TermsAndConditions extends Component {
                             onPress={this.navigate}
                         />
                     </View>
-                    <Text style={styles.textFooter} >Powered by Chainsafe </Text> 
+                    <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
                 </View>
             </View>
         );
