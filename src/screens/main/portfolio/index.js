@@ -15,16 +15,19 @@ class Portfolio extends Component {
    * top bar to pull out the DrawerMenu
    */
   static navigationOptions = ({ navigation }) => {
-    return {
-      title: 'Portfolio',
-      headerLeft: null,
+    return {   
+      headerStyle: {
+        borderBottomWidth: 0,
+        backgroundColor: "#fafbfe"
+      },   
+      headerLeft: null,      
       headerRight: (
-        <View style={{ paddingRight: 15 }}>
+        <View style={{ paddingRight: 30, paddingTop: 15, backgroundColor: "#fafbfe", borderBottomWidth: 0 }}>
           <Icon
             name="menu"
             onPress={() => navigation.navigate('DrawerOpen')}
             title="SideMenu"
-            style={{ paddingLeft: 20 }}
+            style={{ paddingLeft: 35 }}
           />
         </View>
       )
@@ -48,7 +51,6 @@ class Portfolio extends Component {
    * Returns a ListItem component specific to the properties of the token parameter
    */
   renderRow = (token) => {
-
     return (
       <ListItem
         roundAvatar
@@ -56,6 +58,20 @@ class Portfolio extends Component {
         key={token.id}
         title={token.title}
         onPress={() => this.props.navigation.navigate(token.type)}
+        containerStyle = {{
+          borderRadius: 10, 
+          width:350, 
+          height:65, 
+          backgroundColor: '#ffffff',
+          borderBottomWidth: 0,
+          borderColor: '#dbdbdb',
+          borderBottomWidth: 0,
+          shadowColor: '#dbdbdb',
+          shadowOffset: { width: 1, height: 2 },
+          shadowOpacity: 0.5,
+          shadowRadius: 1.3,
+          elevation: 1,
+        }}
       />
     )
   }
@@ -66,19 +82,27 @@ class Portfolio extends Component {
    */
   render() {
     return (
-      <View style={{ flex: 1 }} >
-        <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false} />
+      <View style={styles.mainContainer} >
+
+         <View stlye={styles.headerContainer}>
+            <Text style={styles.textHeader} >Portfolio </Text>
+            <Text style={styles.headerValue}> 0$ USD</Text>            
+        </View>
+        <View style={styles.list}>
+          <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}  />
+        </View>
         <View style={styles.btnContainer} >
           <Button
             title='Add Token or Coin'
             icon={{ size: 28 }}
             buttonStyle={{
-              backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100, width: 300,
-              height: 50, padding: 10, alignItems: 'center', justifyContent: 'center'
+              backgroundColor: '#12c1a2', borderRadius: 100, width: 340,
+              height: 60, padding: 10, alignItems: 'center', justifyContent: 'center', marginTop: 10
             }}
-            textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
+            textStyle={{ textAlign: 'center', color: 'white', fontSize: 20, fontFamily:"Cairo-Regular" }}
             onPress={() => this.props.navigation.navigate('AddToken')}
           />
+          <Text style={styles.textFooter} >Powered by ChainSafe </Text>
         </View>
       </View>
     )
@@ -89,14 +113,52 @@ class Portfolio extends Component {
  * Styles used in the "Portfolio" screen
  */
 const styles = StyleSheet.create({
+  mainContainer : {
+    flex: 1,
+    backgroundColor: "#fafbfe"
+  },
+  headerContainer : {
+    flexDirection: 'row',
+    alignItems: "center",  
+    flex:1,   
+  },
+  list: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 15
+  },
   item: {
     padding: 10,
     fontSize: 18,
     height: 44,
   },
+  textHeader: {       
+    fontFamily: "Cairo-Light",
+    fontSize: 40,        
+    marginBottom:-15,
+    marginLeft: 30,
+    color: '#1a1f3e'
+  },
+  headerValue : {   
+    fontFamily: "WorkSans-Regular",  
+    marginTop: 10,
+    marginLeft: 30,
+    color: '#27c997',
+    fontSize: 20
+  }, 
+  textFooter : {
+    fontFamily: "WorkSans-Regular",
+    fontSize: 16,
+    paddingBottom: 20,
+    paddingTop: 20,
+    justifyContent: 'center', 
+    alignItems: 'center' ,
+    color: '#c0c0c0'
+},
   btnContainer: {
     alignItems: 'center',
-    height: 80,
+    height: 150,
     paddingTop: 20,
     paddingBottom: 20,
     justifyContent: "center"
