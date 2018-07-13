@@ -23,7 +23,7 @@ class Portfolio extends Component {
       },   
       headerLeft: null,      
       headerRight: (
-        <View style={{ paddingRight: 35, backgroundColor: "#fafbfe", borderBottomWidth: 0 }}>
+        <View style={{ paddingRight: 30, paddingTop: 15, backgroundColor: "#fafbfe", borderBottomWidth: 0 }}>
           <Icon
             name="menu"
             onPress={() => navigation.navigate('DrawerOpen')}
@@ -59,6 +59,23 @@ class Portfolio extends Component {
         key={token.id}
         title={token.title}
         onPress={() => this.props.navigation.navigate(token.type)}
+        containerStyle = {{
+          borderRadius: 10, 
+          width:350, 
+          height:65, 
+          backgroundColor: '#ffffff',
+
+          borderBottomWidth: 0,
+
+          borderColor: '#dbdbdb',
+          borderBottomWidth: 0,
+          shadowColor: '#dbdbdb',
+          shadowOffset: { width: 1, height: 2 },
+          shadowOpacity: 0.5,
+          shadowRadius: 1.3,
+          elevation: 1,
+        }}
+       
       />
     )
   }
@@ -71,16 +88,16 @@ class Portfolio extends Component {
     return (
       <View style={styles.mainContainer} >
 
-         <View>
-            <Text style={styles.textHeader} > WeiPay</Text>
-          </View>
-
-        <View stlye={styles.headerContainer} >
-            <Text style={styles.headerItemL}> 0$ USD</Text>
-            <Text style={styles.headerItemR}> Tokens | Coins </Text>
+         <View stlye={styles.headerContainer}>
+            <Text style={styles.textHeader} >Portfolio </Text>
+            <Text style={styles.headerValue}> 0$ USD</Text>            
         </View>
 
-        <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false} />
+        <View style={styles.list}>
+          <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}  />
+        </View>
+      
+
         <View style={styles.btnContainer} >
           <Button
             title='Add Token or Coin'
@@ -107,33 +124,38 @@ const styles = StyleSheet.create({
     backgroundColor: "#fafbfe"
   },
   headerContainer : {
+    // paddingLeft: 35,
     flexDirection: 'row',
     alignItems: "center",
-    flexWrap: "wrap",
-    height: 30,
-    backgroundColor: 'blue'
+    // flexWrap: "wrap",
+    // height: 30,
+    flex:1,   
+  },
+  list: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 15
   },
   item: {
     padding: 10,
     fontSize: 18,
     height: 44,
   },
-  headerItemL : { 
-    alignSelf: 'flex-start',
-    width: '30%',
-    marginTop: 10 
-    // alignItems: "center" 
-  }, 
-  headerItemR : {
-    alignSelf: 'flex-end',
-    width: '30%' 
-  },
   textHeader: {       
     fontFamily: "Cairo-Light",
-    fontSize: 50,        
+    fontSize: 40,        
     marginBottom:-15,
-   color: '#1a1f3e'
+    marginLeft: 30,
+    color: '#1a1f3e'
   },
+  headerValue : {   
+    fontFamily: "WorkSans-Regular",  
+    marginTop: 10,
+    marginLeft: 30,
+    color: '#27c997',
+    fontSize: 20
+  }, 
   btnContainer: {
     alignItems: 'center',
     height: 80,
