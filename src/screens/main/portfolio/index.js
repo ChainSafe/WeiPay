@@ -15,7 +15,6 @@ class Portfolio extends Component {
    * top bar to pull out the DrawerMenu
    */
   static navigationOptions = ({ navigation }) => {
-
     return {   
       headerStyle: {
         borderBottomWidth: 0,
@@ -64,9 +63,7 @@ class Portfolio extends Component {
           width:350, 
           height:65, 
           backgroundColor: '#ffffff',
-
           borderBottomWidth: 0,
-
           borderColor: '#dbdbdb',
           borderBottomWidth: 0,
           shadowColor: '#dbdbdb',
@@ -75,7 +72,6 @@ class Portfolio extends Component {
           shadowRadius: 1.3,
           elevation: 1,
         }}
-       
       />
     )
   }
@@ -92,12 +88,9 @@ class Portfolio extends Component {
             <Text style={styles.textHeader} >Portfolio </Text>
             <Text style={styles.headerValue}> 0$ USD</Text>            
         </View>
-
         <View style={styles.list}>
           <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}  />
         </View>
-      
-
         <View style={styles.btnContainer} >
           <Button
             title='Add Token or Coin'
@@ -109,14 +102,8 @@ class Portfolio extends Component {
             textStyle={{ textAlign: 'center', color: 'white', fontSize: 20, fontFamily:"Cairo-Regular" }}
             onPress={() => this.props.navigation.navigate('AddToken')}
           />
-
-           <Text style={styles.textFooter} >Powered by Chainsafe </Text>
+          <Text style={styles.textFooter} >Powered by Chainsafe </Text>
         </View>
-
-        {/* <View style={styles.footerContainer}>
-          
-        </View>   */}
-
       </View>
     )
   }
@@ -135,7 +122,6 @@ const styles = StyleSheet.create({
     alignItems: "center",  
     flex:1,   
   },
- 
   list: {
     flex: 1,
     justifyContent: 'center',
