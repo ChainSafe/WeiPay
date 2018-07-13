@@ -19,6 +19,7 @@ class CoinReceive extends Component {
     }
   }
 
+
   /**
    * Returns a component that be used to display the Wallet public key in a form of text
    * and QrCode
@@ -36,9 +37,10 @@ class CoinReceive extends Component {
                 fgColor='white' />
             </View>
             <FormLabel> My Address </FormLabel>
-            <FormInput style={styles.formInputElement} />
-            <FormLabel> Request Amount </FormLabel>
-            <FormInput style={styles.formInputElement} />
+            <FormInput 
+                style={styles.formInputElement} 
+                value={this.props.walletAddress}
+                multiline={true} />         
           </View>
           <View style={styles.btnContainer} >
             <Button
