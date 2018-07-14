@@ -112,10 +112,8 @@ class GeneratePassphrase extends Component {
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        // paddingTop: '20%',  
         backgroundColor: "#fafbfe",
         width: '100%',
-        // height: '100%'
     },
     contentContainer : {
         alignItems: 'center',
