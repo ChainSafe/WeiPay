@@ -16,12 +16,7 @@ class TermsAndConditions extends Component {
         headerStyle: {
             borderBottomWidth: 0,
             backgroundColor: "#fafbfe"
-        },
-        style: {
-            borderBottomWidth: 0,
-            backgroundColor: "#fafbfe"
-        },
-        // header: null,
+        },       
     };
 
     /**
@@ -37,8 +32,7 @@ class TermsAndConditions extends Component {
     /**
      * Returns the scrollable component that displays the terms and conditions with a submit button
      */
-    render() {
-        const { counterCount, incrementAction, decrementAction } = this.props;
+    render() {      
         return (
             <View style={styles.mainContainer}>
                 <Text style={styles.textHeader} > Terms & Conditions </Text>
@@ -79,8 +73,8 @@ const styles = StyleSheet.create({
     },
     termsContainer: {
         flex: 1,  
-        paddingLeft: 40,
-        paddingRight: 25,  
+        paddingLeft: '7.5%',
+        paddingRight: '7.5%',  
         paddingBottom: 5,          
         // width: Dimensions.get('window').width - 20,
         width: '100%',

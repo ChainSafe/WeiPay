@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { Button, FormLabel, FormInput, FormValidationMessage, Card } from 'react-native-elements';
 import { Input } from '../../../components/common/Input';
 import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCreator';
+
+var {height, width} = Dimensions.get('window');
 const ethers = require('ethers');
 
 /**
@@ -34,15 +36,15 @@ class CreateWalletName extends Component {
                 backgroundColor: "#fafbfe"
             },
             headerLeft: (
-                 <View style={{ paddingLeft: 35,   backgroundColor: "#fafbfe",  paddingTop: 15, borderBottomWidth: 0 }}>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('createOrRestore')} >
-                    <Image
-                    source={require('../../../assets/icons/back.png')}
-                    style={{height:20, width:20}}
-                /> 
-                </TouchableOpacity>
-            </View>
+                <View style={{ marginLeft: 35, backgroundColor: "#fafbfe",  paddingTop: 15, borderBottomWidth: 0 }}>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('createOrRestore')} >
+                        <Image
+                            source={require('../../../assets/icons/back.png')}
+                            style={{height:20, width:20}}
+                        /> 
+                    </TouchableOpacity>
+                </View>                
             )   
         }    
     };
@@ -113,8 +115,7 @@ class CreateWalletName extends Component {
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        paddingTop: '5%',
-        // paddingLeft: 35,     
+        paddingTop: '5%',   
         backgroundColor: "#fafbfe",
         width: '100%',
         height: '100%'
@@ -135,7 +136,7 @@ const styles = StyleSheet.create({
     textHeader: {       
         fontFamily: "Cairo-Light",
         fontSize: 24,        
-        paddingLeft: 35,  
+        paddingLeft: 35,  //cannot set custom navbar with % so we are having an app standard for 30px left for titles  
         paddingBottom: '3%',
         color: '#1a1f3e'
     },

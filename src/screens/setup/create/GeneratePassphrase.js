@@ -14,19 +14,18 @@ class GeneratePassphrase extends Component {
     /**
      * Sets the title of the screen to be "Generate Passphrase"
      */
-    static navigationOptions = {
-        headerStyle: {
-            borderBottomWidth: 0,
-            backgroundColor: "#fafbfe"
-        },
-        headerLeft: (
-            <View style={{ paddingLeft: 35,   backgroundColor: "#fafbfe",  paddingTop: 15, borderBottomWidth: 0 }}>
-               <Image
-                    source={require('../../../assets/icons/back.png')}
-                    style={{height:20, width:20}}
-                /> 
-            </View>
-          )      
+    static navigationOptions = ({ navigation }) => {
+        return {
+            headerStyle: {
+                borderBottomWidth: 0,
+                backgroundColor: "#fafbfe"
+            },
+            headerLeft: (
+                <View style={{ marginLeft: 35, backgroundColor: "#fafbfe",  paddingTop: 15, borderBottomWidth: 0 }}>
+                   
+                </View>                
+            )   
+        }     
     };
 
     navigate = () => {
@@ -41,9 +40,10 @@ class GeneratePassphrase extends Component {
         const { walletInfo } = this.props;
         return (
             <View style={styles.mainContainer}>
-                <View>
-                    <Text style={styles.textHeader} >Your Passphrase</Text>                
-                </View>
+               
+                <Text style={styles.textHeader} >Your Passphrase</Text>                
+                
+                <View style={{flex:1}}> 
                 <View style={styles.contentContainer} >
                     <Card containerStyle={{ 
                         width: '80%', 
@@ -57,11 +57,9 @@ class GeneratePassphrase extends Component {
                         <Text style={styles.cardText}>
                             Please write down your 12 word passphrase. You will need it to verify your wallet.
                         </Text>
-
                         <Text style={styles.textMnemonic}>
                           {walletInfo.wallet.mnemonic}
                         </Text>
-                       
                     </Card>
                 </View>
 
@@ -77,9 +75,10 @@ class GeneratePassphrase extends Component {
                         textStyle={{ textAlign: 'center', color: 'white', fontSize: 16, fontFamily:"Cairo-Regular" }}
                         onPress={this.navigate}
                     />
-
                     <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
-                </View>           
+                </View>    
+
+                </View>
             </View>
 
             // <View style={styles.mainContainer}>
@@ -113,14 +112,14 @@ class GeneratePassphrase extends Component {
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        paddingTop: '5%',  
+        // paddingTop: '20%',  
         backgroundColor: "#fafbfe",
         width: '100%',
-        height: '100%'
+        // height: '100%'
     },
     contentContainer : {
         alignItems: 'center',
-        flex: 1
+        flex: 1,
     },
     cardText : {
         paddingBottom: '10%',
@@ -136,7 +135,8 @@ const styles = StyleSheet.create({
         fontSize: 24,        
         paddingLeft: 35,  
         paddingBottom: '3%',
-        color: '#1a1f3e'
+        color: '#1a1f3e',
+        alignSelf: 'flex-start',  
     },
     textMnemonic: {
         paddingLeft: 20,
@@ -148,13 +148,15 @@ const styles = StyleSheet.create({
         fontSize: 12,
         paddingBottom: 15,
         paddingTop: 15,
-        justifyContent: 'center', 
+        justifyContent: 'flex-end', 
         alignItems: 'center',
         color: '#c0c0c0'
     },
     btnContainer: {
         alignItems: 'center',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        paddingTop: 15,
+        alignContent: 'flex-end'
     }
 })
 
