@@ -16,7 +16,7 @@ class TermsAndConditions extends Component {
         headerStyle: {
             borderBottomWidth: 0,
             backgroundColor: "#fafbfe"
-        },       
+        },     
     };
 
     /**
@@ -81,31 +81,28 @@ const styles = StyleSheet.create({
     },
     textHeader : {
         fontFamily: "Cairo-Light",
-        fontSize: 30,
+        fontSize: 26,
         paddingLeft: '9%',
         paddingBottom: '2.5%',
-        letterSpacing: 1.68,
-        // alignSelf: 'flex-start',   
+        letterSpacing: 0.84,       
     },
     textBody : {
         fontFamily: "WorkSans-Light",
-        fontSize: 14,   
+        fontSize: 12,   
         paddingLeft: '10%',
-        paddingRight: '10%',   
-        // height: '40%'   
+        paddingRight: '10%', 
+        lineHeight:16  
     },
-    btnContainer: {
-        // paddingTop: 15,   
-        marginTop: '4%',    
-        marginBottom: '2.75%',
+    btnContainer: {  
+        marginTop: '5%',    
+        marginBottom: '3.5%',
         alignItems:'stretch',
         width: '100%',
     }  ,
     textFooter : {
         fontFamily: "WorkSans-Regular",
         fontSize: 12,
-        paddingBottom: '2.75%',
-        // paddingTop: 15,
+        paddingBottom: '3.5%',
         justifyContent: 'center', 
         alignItems: 'center' ,
         color: '#c0c0c0'
