@@ -16,7 +16,12 @@ class TermsAndConditions extends Component {
         headerStyle: {
             borderBottomWidth: 0,
             backgroundColor: "#fafbfe"
-        }
+        },
+        style: {
+            borderBottomWidth: 0,
+            backgroundColor: "#fafbfe"
+        },
+        // header: null,
     };
 
     /**
@@ -46,10 +51,10 @@ class TermsAndConditions extends Component {
                             title='Agree'
                             icon={{ size: 28 }}
                             buttonStyle={{
-                                backgroundColor: '#12c1a2', borderRadius: 100, width: 340,
-                                height: 60, padding: 10, alignItems: 'center', justifyContent: 'center', marginTop: 10
+                                backgroundColor: '#12c1a2', borderRadius: 100, width: 300,
+                                height: 52, padding: 5, alignItems: 'center', justifyContent: 'center', marginTop: 10
                             }}
-                            textStyle={{ textAlign: 'center', color: 'white', fontSize: 20, fontFamily:"Cairo-Regular" }}
+                            textStyle={{ textAlign: 'center', color: 'white', fontSize: 16, fontFamily:"Cairo-Regular" }}
                             onPress={this.navigate}
                         />
                     </View>
@@ -77,33 +82,34 @@ const styles = StyleSheet.create({
         paddingLeft: 40,
         paddingRight: 25,  
         paddingBottom: 5,          
-        width: Dimensions.get('window').width - 20,
+        // width: Dimensions.get('window').width - 20,
+        width: '100%',
         backgroundColor: '#fafbfe',
         justifyContent: 'center',
         alignItems: 'center'
     },
     textHeader : {
         fontFamily: "Cairo-Light",
-        fontSize: 35,
+        fontSize: 30,
         paddingLeft: 15,
         letterSpacing: 1.68,
         alignSelf: 'flex-start',   
     },
     textBody : {
         fontFamily: "WorkSans-Light",
-        fontSize: 16,       
+        fontSize: 14,       
     },
     textFooter : {
         fontFamily: "WorkSans-Regular",
-        fontSize: 16,
-        paddingBottom: 20,
-        paddingTop: 20,
+        fontSize: 12,
+        paddingBottom: 15,
+        paddingTop: 15,
         justifyContent: 'center', 
         alignItems: 'center' ,
         color: '#c0c0c0'
     },
     btnContainer: {
-        paddingTop: 25,
+        paddingTop: 15,
         alignItems: 'center',
         width: '100%',
     }  

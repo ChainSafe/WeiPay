@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, TouchableOpacity, ScrollView, StyleSheet, TextInput, Image, AsyncStorage, Dimensions, Text } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
-import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
+import { Button, FormLabel, FormInput, FormValidationMessage, Card } from 'react-native-elements';
 import { Input } from '../../../components/common/Input';
 import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCreator';
 const ethers = require('ethers');
@@ -14,13 +14,6 @@ const ethers = require('ethers');
 class CreateWalletName extends Component {
 
     /**
-     * Sets the title to "Create Wallet Name"
-     */
-    static navigationOptions = {
-        title: "Create Wallet Name"
-    };
-
-    /**
      * Method is used to save the newly generated wallet (via ethers.js) in the global state
      * variable and to navigate to the "generatePassphrase" screen  
      */
@@ -29,6 +22,29 @@ class CreateWalletName extends Component {
         this.props.newWalletCreation(wallet);
         const navigateToPassphrase = NavigationActions.navigate({ routeName: "generatePassphrase" });
         this.props.navigation.dispatch(navigateToPassphrase);
+    };
+
+    /**
+     * Sets the title to "Create Wallet Name"
+     */
+    static navigationOptions = ({ navigation }) =>  {
+        return {
+            headerStyle: {
+                borderBottomWidth: 0,
+                backgroundColor: "#fafbfe"
+            },
+            headerLeft: (
+                 <View style={{ paddingLeft: 35,   backgroundColor: "#fafbfe",  paddingTop: 15, borderBottomWidth: 0 }}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('createOrRestore')} >
+                    <Image
+                    source={require('../../../assets/icons/back.png')}
+                    style={{height:20, width:20}}
+                /> 
+                </TouchableOpacity>
+            </View>
+            )   
+        }    
     };
 
     /**
@@ -47,29 +63,45 @@ class CreateWalletName extends Component {
     render() {
         return (
             <View style={styles.mainContainer}>
-                <View >
-                    <View style={styles.form} >
-                        <Text style={styles.walletName}>Wallet Name </Text>
+                <View>
+                    <Text style={styles.textHeader} >Wallet Name</Text>                
+                </View>
+                <View style={styles.contentContainer} >
+                    <Card containerStyle={{ 
+                        width: '80%', 
+                        height: '55%', 
+                        borderRadius: 7.5, 
+                        shadowOpacity: 0.5, 
+                        shadowRadius: 1.3, 
+                        shadowColor: '#dbdbdb',
+                        shadowOffset: { width: 1, height: 2 },                    
+                    }}> 
+                        <Text style={styles.cardText}>
+                            Create a name for your wallet, for example: My Wallet
+                        </Text>
                         <FormInput
                             placeholder={"Ex. My Wallet"}
                             onChangeText={this.getWalletName.bind(this)}
-                            inputStyle={{ width: 300 }}
-                        />
-                        <View style={styles.btnContainer} >
-                            <Button
-                                // disabled={this.props.walletName === ""}
-                                title='Next'
-                                icon={{ size: 28 }}
-                                buttonStyle={{
-                                    backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100, width: 300,
-                                    height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginTop: 30
-                                }}
-                                textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
-                                onPress={this.navigate}
-                            />
-                        </View>
-                    </View>
+                            // inputStyle={{ width: 300 }}
+                        /> 
+                    </Card>
                 </View>
+
+                <View style={styles.btnContainer}>
+                    <Button
+                        //disabled={this.props.walletName === ""}
+                        title='Next'
+                        icon={{ size: 28 }}
+                        buttonStyle={{
+                            backgroundColor: '#12c1a2', borderRadius: 100, width: 300,
+                            height: 52, padding: 5, alignItems: 'center', justifyContent: 'center', marginTop: 10
+                        }}
+                        textStyle={{ textAlign: 'center', color: 'white', fontSize: 16, fontFamily:"Cairo-Regular" }}
+                        onPress={this.navigate}
+                    />
+
+                      <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
+                </View>           
             </View>
         );
     }
@@ -81,24 +113,44 @@ class CreateWalletName extends Component {
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
+        paddingTop: '5%',
+        // paddingLeft: 35,     
+        backgroundColor: "#fafbfe",
+        width: '100%',
+        height: '100%'
+    },
+    contentContainer : {
         alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: -100
+        flex: 1
     },
-    walletName: {
-        fontSize: 20,
+    cardText : {
+        paddingBottom: '20%',
         paddingTop: 20,
-        paddingBottom: 25,
+        paddingLeft: 20,
+        paddingRight: 20,
+        fontFamily: "WorkSans-Light",  
+        color: '#000000',
+        fontSize: 16,
     },
-    formInput: {
-        width: 300
+    textHeader: {       
+        fontFamily: "Cairo-Light",
+        fontSize: 24,        
+        paddingLeft: 35,  
+        paddingBottom: '3%',
+        color: '#1a1f3e'
     },
-    form: {
-        width: Dimensions.get('window').width - 10,
-        alignItems: 'center'
+    textFooter : {
+        fontFamily: "WorkSans-Regular",
+        fontSize: 12,
+        paddingBottom: 15,
+        paddingTop: 15,
+        justifyContent: 'center', 
+        alignItems: 'center' ,
+        color: '#c0c0c0'
     },
     btnContainer: {
         alignItems: 'center',
+        justifyContent: 'flex-end'
     },
 })
 
