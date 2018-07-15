@@ -36,7 +36,7 @@ class CreateWalletName extends Component {
                 backgroundColor: "#fafbfe"
             },
             headerLeft: (
-                <View style={{ marginLeft: 35, backgroundColor: "#fafbfe",  paddingTop: 15, borderBottomWidth: 0 }}>
+                <View style={{ marginLeft: 35, alignItems:'stretch', backgroundColor: "#fafbfe",  paddingTop: 15, borderBottomWidth: 0 }}>
                     <TouchableOpacity
                         onPress={() => navigation.navigate('createOrRestore')} >
                         <Image
@@ -64,10 +64,8 @@ class CreateWalletName extends Component {
      */
     render() {
         return (
-            <View style={styles.mainContainer}>
-                <View>
-                    <Text style={styles.textHeader} >Wallet Name</Text>                
-                </View>
+            <View style={styles.mainContainer}>              
+                <Text style={styles.textHeader} >Wallet Name</Text>                               
                 <View style={styles.contentContainer} >
                     <Card containerStyle={{ 
                         width: '80%', 
@@ -95,15 +93,27 @@ class CreateWalletName extends Component {
                         title='Next'
                         icon={{ size: 28 }}
                         buttonStyle={{
-                            backgroundColor: '#12c1a2', borderRadius: 100, width: 300,
-                            height: 52, padding: 5, alignItems: 'center', justifyContent: 'center', marginTop: 10
+                            backgroundColor: '#12c1a2',   
+                            borderRadius: 100, 
+                            width: '84%',
+                            height: 52,                                  
+                            alignItems: 'center', 
+                            justifyContent: 'center',                                  
+                            marginLeft: '7.5%'
                         }}
-                        textStyle={{ textAlign: 'center', color: 'white', fontSize: 16, fontFamily:"Cairo-Regular" }}
+                        textStyle={{ textAlign: 'center', 
+                        color: 'white', 
+                        fontSize: 16, 
+                        fontFamily:"Cairo-Regular" }}
                         onPress={this.navigate}
                     />
-
-                      <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
-                </View>           
+                </View>  
+                
+                <View style={{ alignItems:'center'}} >    
+                    <View style={{ alignItems:'center'}} >
+                        <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
+                    </View>  
+                </View>   
             </View>
         );
     }
@@ -126,9 +136,9 @@ const styles = StyleSheet.create({
     },
     cardText : {
         paddingBottom: '20%',
-        paddingTop: 20,
-        paddingLeft: 20,
-        paddingRight: 20,
+        paddingTop: '5%',
+        paddingLeft: '5%',
+        paddingRight: '5%',
         fontFamily: "WorkSans-Light",  
         color: '#000000',
         fontSize: 16,
@@ -140,18 +150,23 @@ const styles = StyleSheet.create({
         paddingBottom: '3%',
         color: '#1a1f3e'
     },
+    btnContainer: {
+        alignItems: 'stretch',
+        justifyContent: 'flex-end',
+        width: '100%',      
+    },
+    footerContainer: {
+        alignItems:"center",         
+        alignItems:"center", 
+        justifyContent:'flex-end',
+        position: 'absolute', 
+        bottom: '5%',       
+    },
     textFooter : {
         fontFamily: "WorkSans-Regular",
-        fontSize: 12,
-        paddingBottom: 15,
-        paddingTop: 15,
-        justifyContent: 'center', 
-        alignItems: 'center' ,
+        fontSize: 12,      
+        marginTop: '3.5%',      
         color: '#c0c0c0'
-    },
-    btnContainer: {
-        alignItems: 'center',
-        justifyContent: 'flex-end'
     },
 })
 
