@@ -3,7 +3,7 @@ import { Text, View, ScrollView, StyleSheet, Dimensions } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { Terms } from '../../../constants/Terms';
 import { Button } from 'react-native-elements';
-
+import LinearGradient from 'react-native-linear-gradient';
 /**
  * Initial terms and condition screen when the app is oppened for the first time.
  */
@@ -41,18 +41,19 @@ class TermsAndConditions extends Component {
                     <ScrollView>
                         <Text style={styles.textBody} >{Terms}</Text>
                     </ScrollView>
-                    <View style={styles.btnContainer}>
-                        <Button
-                            title='Agree'
-                            icon={{ size: 28 }}
-                            buttonStyle={{
-                                backgroundColor: '#12c1a2', borderRadius: 100, width: 340,
-                                height: 60, padding: 10, alignItems: 'center', justifyContent: 'center', marginTop: 10
-                            }}
-                            textStyle={{ textAlign: 'center', color: 'white', fontSize: 20, fontFamily:"Cairo-Regular" }}
-                            onPress={this.navigate}
-                        />
-                    </View>
+                        <View style={styles.btnContainer}>
+                            <Button
+                                title='Agree'
+                                icon={{ size: 28 }}
+                                buttonStyle={{
+                                    backgroundColor: '#12c1a2', borderRadius: 100, width: 340,
+                                    height: 60, padding: 10, alignItems: 'center', justifyContent: 'center', marginTop: 10
+                                }}
+                                textStyle={{ textAlign: 'center', color: 'white', fontSize: 20, fontFamily:"Cairo-Regular" }}
+                                onPress={this.navigate}
+                            />
+                        </View>                        
+                    
                     <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
                 </View>
             </View>
