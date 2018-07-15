@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     textFooter : {
         fontFamily: "WorkSans-Regular",
         fontSize: 12,
-        paddingBottom: '3.5%',
+        paddingBottom: '5%',
         justifyContent: 'center', 
         alignItems: 'center' ,
         color: '#c0c0c0'
