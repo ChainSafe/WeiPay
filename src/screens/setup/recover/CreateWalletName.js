@@ -78,7 +78,7 @@ class CreateWalletName extends Component {
                     <FormInput
                         placeholder={"Ex. My Wallet"}
                         onChangeText={this.getWalletName.bind(this)}
-                        // inputStyle={{ width: 300 }}
+                        inputStyle={{width:'100%', flexWrap: 'wrap'}}
                     /> 
                 </Card>
             </View>

@@ -82,7 +82,7 @@ class CreateWalletName extends Component {
                         <FormInput
                             placeholder={"Ex. My Wallet"}
                             onChangeText={this.getWalletName.bind(this)}
-                            // inputStyle={{ width: 300 }}
+                            inputStyle={{width:'100%', flexWrap: 'wrap'}}
                         /> 
                     </Card>
                 </View>
@@ -107,8 +107,7 @@ class CreateWalletName extends Component {
                         fontFamily:"Cairo-Regular" }}
                         onPress={this.navigate}
                     />
-                </View>  
-                
+                </View>                  
                 <View style={{ alignItems:'center'}} >    
                     <View style={{ alignItems:'center'}} >
                         <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
@@ -167,7 +166,7 @@ const styles = StyleSheet.create({
         fontSize: 12,      
         marginTop: '3.5%',      
         color: '#c0c0c0'
-    },
+    }
 })
 
 /**
