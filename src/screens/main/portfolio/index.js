@@ -66,11 +66,11 @@ class Portfolio extends Component {
           borderBottomWidth: 0,
           borderColor: '#dbdbdb',
           borderBottomWidth: 0,
-          shadowColor: '#dbdbdb',
-          shadowOffset: { width: 1, height: 2 },
-          shadowOpacity: 0.5,
+          shadowColor: 'red',
+          // shadowOffset: { width: 2, height: 3},
+          shadowOpacity:1,
           shadowRadius: 1.3,
-          elevation: 1,
+          //elevation: 1,
         }}
       />
     )

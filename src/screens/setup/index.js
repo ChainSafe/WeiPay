@@ -71,7 +71,12 @@ class CreateOrRestore extends Component {
                                 justifyContent: 'center',                                  
                                 marginLeft: '7.5%'
                             }}
-                            textStyle={{ textAlign: 'center', color: 'white', fontSize: 16, fontFamily:"Cairo-Regular" }}
+                            textStyle={{ 
+                                textAlign: 'center', 
+                                color: 'white', 
+                                fontSize: 16, 
+                                fontFamily:"Cairo-Regular" 
+                            }}
                             onPress={this.navigateCreate}
                         />
                     </View>
@@ -80,15 +85,22 @@ class CreateOrRestore extends Component {
                             title='Restore Wallet'
                             icon={{ size: 28 }}
                             buttonStyle={{
-                                backgroundColor: '#061f46', 
+                                backgroundColor: 'transparent', 
+                                borderColor: '#12c1a2',
                                 borderRadius: 100, 
+                                borderWidth: 1,                               
                                 width: '84%',
                                 height: 52,                                  
                                 alignItems: 'center', 
                                 justifyContent: 'center',                                  
                                 marginLeft: '7.5%'
                             }}
-                            textStyle={{ textAlign: 'center', color: 'white', fontSize: 16, fontFamily:"Cairo-Regular" }}
+                            textStyle={{ 
+                                textAlign: 'center', 
+                                color: '#12c1a2', 
+                                fontSize: 16, 
+                                fontFamily:"Cairo-Regular" 
+                            }}
                             onPress={this.navigateRestore}
                         />
                     </View>

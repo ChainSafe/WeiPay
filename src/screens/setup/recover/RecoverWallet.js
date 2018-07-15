@@ -114,7 +114,7 @@ class RecoverWallet extends Component {
                             <FormInput
                                 placeholder={"Ex. man friend love long phrase ... "}
                                 onChangeText={this.renderRecoveryKey.bind(this)}
-                                inputStyle={{width:'100%', flexWrap: 'wrap'}}
+                                inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2'}}
                             /> 
                         {/* </View> */}
                     </Card>
