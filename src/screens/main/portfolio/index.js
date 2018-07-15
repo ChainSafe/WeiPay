@@ -57,8 +57,50 @@ class Portfolio extends Component {
         roundAvatar
         avatar={{ uri: token.avatar_url }}
         key={token.id}
-        title={token.title}
+        title= {
+          <View style={{flexDirection:'row', backgroundColor:"blue", justifyContent:"center", marginLeft:'2.5%'}}>
+           <Text style={{ 
+             fontSize:16,
+             fontFamily: "Cairo-Regular",  
+             alignItems:"flex-start",
+             flex:1,
+             width:'90%'               
+             }}>
+             {token.symbol}
+            </Text>
+            <Text style={{
+              alignItems:"flex-end",
+              fontSize:16,
+              fontFamily: "WorkSans-Regular",
+              marginTop: '1.5%',
+              // right: '.5%',
+              // position:"absolute"             
+              }}> 0 </Text>
+          </View>
+        }      
         onPress={() => this.props.navigation.navigate(token.type)}
+        subtitle={
+          <View style={{flexDirection:'row', backgroundColor:"red", justifyContent:"center", marginLeft:'2.5%'}}>
+            <Text style={{
+              fontSize:11, 
+              fontFamily: "Cairo-Light",             
+              alignItems:"flex-start",
+              flex:1,
+              width:'90%',  
+            }}>
+             {token.title}
+            </Text>
+            <Text style={{
+              alignItems:"flex-end",
+              fontSize:11,
+              fontFamily: "WorkSans-Light", 
+              paddingTop: '1.5%',
+              paddingRight: '1.5%'
+              // right: '.5%',
+              // position:"absolute"                 
+              }}> 0 </Text>
+          </View>
+        }
         containerStyle = {{
           borderRadius: 10, 
           width: '82%', 
@@ -67,7 +109,6 @@ class Portfolio extends Component {
           backgroundColor: '#ffffff',
           borderBottomWidth: 0,
           borderColor: 'black',
-          // borderBottomWidth: 0.2,
           shadowColor: '#000006',
           shadowOffset: { width: 1, height: 1},
           shadowOpacity:15,

@@ -3,6 +3,21 @@
         "id": 0,
         "type": "PortfolioCoin",
         "title": "Ether",
+        "symbol": "ETH",
         "selected": false
+    },
+    {
+        "id": 1,
+        "type": "PortfolioToken",
+        "title": "Substratum",
+        "symbol": "SUB",
+        "selected": false 
+    },
+    {
+        "id": 2,
+        "type": "PortfolioToken",
+        "title": "Stellar",
+        "symbol": "XLM",
+        "selected": false 
     }
 ]
