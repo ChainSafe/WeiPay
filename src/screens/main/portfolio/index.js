@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, AsyncStorage, ListView } from 'react-native';
+import { View, Text, FlatList, StyleSheet, AsyncStorage, ListView, Image, TouchableOpacity } from 'react-native';
 import { StackNavigator, DrawerNavigator, TabNavigator } from 'react-navigation';
 import { List, ListItem, Icon, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -23,12 +23,13 @@ class Portfolio extends Component {
       headerLeft: null,      
       headerRight: (
         <View style={{ paddingRight: 30, paddingTop: 15, backgroundColor: "#fafbfe", borderBottomWidth: 0 }}>
-          <Icon
-            name="menu"
-            onPress={() => navigation.navigate('DrawerOpen')}
-            title="SideMenu"
-            style={{ paddingLeft: 35 }}
-          />
+           <TouchableOpacity
+                onPress={() => navigation.navigate('createOrRestore')} >
+                <Image
+                    source={require('../../../assets/icons/menu.png')}
+                    style={{height:13, width:22}}
+                /> 
+            </TouchableOpacity>         
         </View>
       )
     }
@@ -60,17 +61,17 @@ class Portfolio extends Component {
         onPress={() => this.props.navigation.navigate(token.type)}
         containerStyle = {{
           borderRadius: 10, 
-          width:350, 
-          height:65, 
+          width: '82%', 
+          height: 63, 
+          marginTop:'2.5%',
           backgroundColor: '#ffffff',
           borderBottomWidth: 0,
-          borderColor: '#dbdbdb',
-          borderBottomWidth: 0,
-          shadowColor: 'red',
-          // shadowOffset: { width: 2, height: 3},
-          shadowOpacity:1,
-          shadowRadius: 1.3,
-          //elevation: 1,
+          borderColor: 'black',
+          // borderBottomWidth: 0.2,
+          shadowColor: '#000006',
+          shadowOffset: { width: 1, height: 1},
+          shadowOpacity:15,
+          shadowRadius: 0.5,
         }}
       />
     )
@@ -82,28 +83,42 @@ class Portfolio extends Component {
    */
   render() {
     return (
-      <View style={styles.mainContainer} >
+      <View style={styles.mainContainer} >  
 
-         <View stlye={styles.headerContainer}>
-            <Text style={styles.textHeader} >Portfolio </Text>
-            <Text style={styles.headerValue}> 0$ USD</Text>            
+        <Text style={styles.textHeader} >Portfolio </Text>
+        <Text style={styles.headerValue}>0$ USD</Text>            
+       
+        <View style={{alignItems:"stretch", flex:1, width:"100%", marginLeft: '9%'}}>
+            <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}  />
         </View>
-        <View style={styles.list}>
-          <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}  />
-        </View>
+
         <View style={styles.btnContainer} >
           <Button
             title='Add Token or Coin'
             icon={{ size: 28 }}
-            buttonStyle={{
-              backgroundColor: '#12c1a2', borderRadius: 100, width: 340,
-              height: 60, padding: 10, alignItems: 'center', justifyContent: 'center', marginTop: 10
+            buttonStyle={{             
+              backgroundColor: '#12c1a2',   
+              borderRadius: 100, 
+              width: '84%',
+              height: 52,                                  
+              alignItems: 'center', 
+              justifyContent: 'center',                                  
+              marginLeft: '7.5%'
             }}
-            textStyle={{ textAlign: 'center', color: 'white', fontSize: 20, fontFamily:"Cairo-Regular" }}
+            textStyle={{ 
+              textAlign: 'center', 
+              color: 'white', 
+              fontSize: 16, 
+              fontFamily:"Cairo-Regular" 
+            }}
             onPress={() => this.props.navigation.navigate('AddToken')}
           />
+        </View>
+
+        <View style={styles.footerContainer}>
           <Text style={styles.textFooter} >Powered by ChainSafe </Text>
         </View>
+
       </View>
     )
   }
@@ -115,54 +130,40 @@ class Portfolio extends Component {
 const styles = StyleSheet.create({
   mainContainer : {
     flex: 1,
-    backgroundColor: "#fafbfe"
-  },
-  headerContainer : {
-    flexDirection: 'row',
-    alignItems: "center",  
-    flex:1,   
-  },
-  list: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 15
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
+    backgroundColor: "#fafbfe",
+    width:"100%"
   },
   textHeader: {       
     fontFamily: "Cairo-Light",
-    fontSize: 40,        
-    marginBottom:-15,
-    marginLeft: 30,
+    fontSize: 26,        
+    // marginBottom:-15,
+    marginLeft: '9%',
     color: '#1a1f3e'
   },
   headerValue : {   
     fontFamily: "WorkSans-Regular",  
-    marginTop: 10,
-    marginLeft: 30,
+    marginBottom: '2.5%',
+    marginLeft: '9%',
     color: '#27c997',
-    fontSize: 20
-  }, 
+    fontSize: 21
+  },   
+  btnContainer: {
+    alignItems: 'stretch',
+    width: '100%',
+    justifyContent: 'flex-end',
+    marginBottom: '3.5%',
+    flex:1
+  },
+  footerContainer: {
+    alignItems:"center"
+  },
   textFooter : {
     fontFamily: "WorkSans-Regular",
-    fontSize: 16,
-    paddingBottom: 20,
-    paddingTop: 20,
-    justifyContent: 'center', 
+    fontSize: 11,
+    marginBottom: '5%',
     alignItems: 'center' ,
     color: '#c0c0c0'
-},
-  btnContainer: {
-    alignItems: 'center',
-    height: 150,
-    paddingTop: 20,
-    paddingBottom: 20,
-    justifyContent: "center"
-  },
+  }
 })
 
 /**

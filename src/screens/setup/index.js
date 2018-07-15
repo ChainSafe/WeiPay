@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     },
     textFooter : {
         fontFamily: "WorkSans-Regular",
-        fontSize: 12,
+        fontSize: 11,
         color: '#c0c0c0'
     }
 })

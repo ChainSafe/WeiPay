@@ -158,8 +158,8 @@ const styles = StyleSheet.create({
     },
     textFooter : {
         fontFamily: "WorkSans-Regular",
-        fontSize: 12,      
-        marginTop: '3.5%',      
+        fontSize: 11,      
+        marginTop: '3.5%', 
         color: '#c0c0c0'
     }
 })

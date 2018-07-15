@@ -193,35 +193,14 @@ const styles = StyleSheet.create({
         alignItems:"center", 
         justifyContent:'flex-end',
         position: 'absolute', 
-        bottom: '5%',       
+        // bottom: '5%',       
     },
     textFooter : {
         fontFamily: "WorkSans-Regular",
-        fontSize: 12,      
+        fontSize: 11,      
         marginTop: '3.5%',      
         color: '#c0c0c0'
     }
-    // mainContainer: {
-    //     flex: 1,
-    //     alignItems: 'center',
-    //     justifyContent: 'center',
-    //     marginTop: -100
-    // },
-    // walletName: {
-    //     fontSize: 20,
-    //     paddingTop: 20,
-    //     paddingBottom: 25,
-    // },
-    // formInput: {
-    //     width: 300
-    // },
-    // form: {
-    //     width: Dimensions.get('window').width - 10,
-    //     alignItems: 'center'
-    // },
-    // btnContainer: {
-    //     alignItems: 'center',
-    // },
 })
 
 export default connect(null, { newWalletCreation })(RecoverWallet);
