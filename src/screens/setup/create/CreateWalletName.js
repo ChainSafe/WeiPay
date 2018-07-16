@@ -102,13 +102,18 @@ class CreateWalletName extends Component {
                             inputStyle={styles.formInput}
                         />
                     </View>
-                    <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={styles.button} >
+                    
                         <View style={styles.btnContainer}>
-                           
+                            <TouchableOpacity>   
+                                <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={styles.button} >
+                                    <Text>Next</Text>
+                                </LinearGradient>
+                            </TouchableOpacity> 
                             <Text style={{paddingTop: 4, color: '#c0c0c0'}}>Mantained by ChainSafe</Text>
-                        
+
                         </View>
-                    </LinearGradient>
+
+
                 
 
 
@@ -120,18 +125,6 @@ class CreateWalletName extends Component {
     }
 }
 
-
-const shadowOpt = {
-	width:100,
-	height:100,
-	color:"#000",
-	border:2,
-	radius:3,
-	opacity:0.2,
-	x:0,
-	y:3,
-	style:{marginVertical:5}
-}
 
 
 const styles = StyleSheet.create({
