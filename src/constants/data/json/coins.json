@@ -19,5 +19,47 @@
         "title": "Stellar",
         "symbol": "XLM",
         "selected": false 
+    },
+    {
+        "id": 3,
+        "type": "PortfolioCoin",
+        "title": "Ether",
+        "symbol": "ETH",
+        "selected": false
+    },
+    {
+        "id": 4,
+        "type": "PortfolioToken",
+        "title": "Substratum",
+        "symbol": "SUB",
+        "selected": false 
+    },
+    {
+        "id": 5,
+        "type": "PortfolioToken",
+        "title": "Stellar",
+        "symbol": "XLM",
+        "selected": false 
+    },
+    {
+        "id": 6,
+        "type": "PortfolioCoin",
+        "title": "Ether",
+        "symbol": "ETH",
+        "selected": false
+    },
+    {
+        "id": 7,
+        "type": "PortfolioToken",
+        "title": "Substratum",
+        "symbol": "SUB",
+        "selected": false 
+    },
+    {
+        "id": 8,
+        "type": "PortfolioToken",
+        "title": "Stellar",
+        "symbol": "XLM",
+        "selected": false 
     }
 ]

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, AsyncStorage, ListView, Image, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, StyleSheet, AsyncStorage, ListView, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { StackNavigator, DrawerNavigator, TabNavigator } from 'react-navigation';
 import { List, ListItem, Icon, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -58,7 +58,7 @@ class Portfolio extends Component {
         avatar={{ uri: token.avatar_url }}
         key={token.id}
         title= {
-          <View style={{flexDirection:'row', backgroundColor:"blue", justifyContent:"center", marginLeft:'2.5%'}}>
+          <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'2.5%'}}>
            <Text style={{ 
              fontSize:16,
              fontFamily: "Cairo-Regular",  
@@ -72,15 +72,13 @@ class Portfolio extends Component {
               alignItems:"flex-end",
               fontSize:16,
               fontFamily: "WorkSans-Regular",
-              marginTop: '1.5%',
-              // right: '.5%',
-              // position:"absolute"             
+              marginTop: '1.75%',                     
               }}> 0 </Text>
           </View>
         }      
         onPress={() => this.props.navigation.navigate(token.type)}
         subtitle={
-          <View style={{flexDirection:'row', backgroundColor:"red", justifyContent:"center", marginLeft:'2.5%'}}>
+          <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'2.5%'}}>
             <Text style={{
               fontSize:11, 
               fontFamily: "Cairo-Light",             
@@ -95,24 +93,22 @@ class Portfolio extends Component {
               fontSize:11,
               fontFamily: "WorkSans-Light", 
               paddingTop: '1.5%',
-              paddingRight: '1.5%'
-              // right: '.5%',
-              // position:"absolute"                 
+              paddingRight: '1.75%'                        
               }}> 0 </Text>
           </View>
         }
         containerStyle = {{
           borderRadius: 10, 
-          width: '82%', 
+          width: '83%', 
           height: 63, 
-          marginTop:'2.5%',
+          marginTop:'3.5%',
           backgroundColor: '#ffffff',
-          borderBottomWidth: 0,
-          borderColor: 'black',
-          shadowColor: '#000006',
+          borderWidth:0.5,
+          borderColor: '#F8F8FF',
+          shadowColor: '#F8F8FF',
           shadowOffset: { width: 1, height: 1},
-          shadowOpacity:15,
-          shadowRadius: 0.5,
+          shadowOpacity:20,
+          shadowRadius: 10,
         }}
       />
     )
@@ -129,8 +125,10 @@ class Portfolio extends Component {
         <Text style={styles.textHeader} >Portfolio </Text>
         <Text style={styles.headerValue}>0$ USD</Text>            
        
-        <View style={{alignItems:"stretch", flex:1, width:"100%", marginLeft: '9%'}}>
-            <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}  />
+        <View style={{alignItems:"stretch", width:"100%", marginLeft: '9%'}}>
+          <ScrollView style={{height:"70%"}} >
+              <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}  />
+          </ScrollView>
         </View>
 
         <View style={styles.btnContainer} >
@@ -192,7 +190,7 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     width: '100%',
     justifyContent: 'flex-end',
-    marginBottom: '3.5%',
+    marginBottom: '2.5%',
     flex:1
   },
   footerContainer: {
@@ -201,7 +199,7 @@ const styles = StyleSheet.create({
   textFooter : {
     fontFamily: "WorkSans-Regular",
     fontSize: 11,
-    marginBottom: '5%',
+    marginBottom: '3.5%',
     alignItems: 'center' ,
     color: '#c0c0c0'
   }
