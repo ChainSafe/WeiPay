@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, AsyncStorage, ListView } from 'react-native';
+import { View, Text, FlatList, StyleSheet, AsyncStorage, ListView, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { StackNavigator, DrawerNavigator, TabNavigator } from 'react-navigation';
 import { List, ListItem, Icon, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -23,12 +23,13 @@ class Portfolio extends Component {
       headerLeft: null,      
       headerRight: (
         <View style={{ paddingRight: 30, paddingTop: 15, backgroundColor: "#fafbfe", borderBottomWidth: 0 }}>
-          <Icon
-            name="menu"
-            onPress={() => navigation.navigate('DrawerOpen')}
-            title="SideMenu"
-            style={{ paddingLeft: 35 }}
-          />
+           <TouchableOpacity
+                onPress={() => navigation.navigate('createOrRestore')} >
+                <Image
+                    source={require('../../../assets/icons/menu.png')}
+                    style={{height:13, width:22}}
+                /> 
+            </TouchableOpacity>         
         </View>
       )
     }
@@ -52,27 +53,79 @@ class Portfolio extends Component {
    */
   renderRow = (token) => {
     return (
-      <ListItem
-        roundAvatar
-        avatar={{ uri: token.avatar_url }}
-        key={token.id}
-        title={token.title}
-        onPress={() => this.props.navigation.navigate(token.type)}
-        containerStyle = {{
-          borderRadius: 10, 
-          width:350, 
-          height:65, 
-          backgroundColor: '#ffffff',
-          borderBottomWidth: 0,
-          borderColor: '#dbdbdb',
-          borderBottomWidth: 0,
-          shadowColor: '#dbdbdb',
-          shadowOffset: { width: 1, height: 2 },
-          shadowOpacity: 0.5,
-          shadowRadius: 1.3,
-          elevation: 1,
-        }}
-      />
+      <View style={{marginTop:'2.5%'}}>
+        <ListItem
+          roundAvatar
+          avatar={{ uri: token.avatar_url }}
+          key={token.id}
+          title= {
+            <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
+              <Text style={{ 
+                fontSize:16,
+                fontFamily: "Cairo-Regular",  
+                alignItems:"flex-start",
+                flex:1,
+                width:'90%',
+                letterSpacing: 0.5,  
+                top: '1%'                                               
+                }}>
+                  {token.symbol}
+                </Text>
+                <Text style={{
+                  alignItems:"flex-end",
+                  fontSize:16,
+                  fontFamily: "WorkSans-Regular",   
+                  letterSpacing: 0.5,  
+                  top: '3.5%'                                     
+                  }}> 
+                    23 
+                  </Text>
+            </View>
+          }      
+          onPress={() => this.props.navigation.navigate(token.type)}
+          subtitle={
+            <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
+              <Text style={{
+                fontSize:11, 
+                fontFamily: "Cairo-Light",             
+                alignItems:"flex-start",
+                flex:1,
+                width:'90%',  
+                letterSpacing: 0.4,  
+                top: '-1.5%',
+                height: '100%'                 
+              }}>
+                {token.title}
+              </Text>
+              <Text style={{
+                alignItems:"flex-end",
+                fontSize:11,
+                fontFamily: "WorkSans-Light",            
+                paddingRight: '1.75%',
+                letterSpacing: 0.4,                                       
+                }}> 
+                  $2444 
+                </Text>
+            </View>
+          }
+          containerStyle = {{
+            borderRadius: 10, 
+            width: '83%', 
+            height: 63,            
+            backgroundColor: '#ffffff',
+            justifyContent:"center",
+            borderWidth:0.5,
+            borderColor: '#F8F8FF',
+            shadowColor: '#F8F8FF',
+            shadowOffset: { width: 1, height: 1},
+            shadowOpacity:20,
+            shadowRadius: 10,
+          }}
+          avatarStyle = {{           
+            marginTop:'-5%',         
+          }}
+        />
+      </View>
     )
   }
 
@@ -82,26 +135,37 @@ class Portfolio extends Component {
    */
   render() {
     return (
-      <View style={styles.mainContainer} >
-
-         <View stlye={styles.headerContainer}>
-            <Text style={styles.textHeader} >Portfolio </Text>
-            <Text style={styles.headerValue}> 0$ USD</Text>            
-        </View>
-        <View style={styles.list}>
-          <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}  />
+      <View style={styles.mainContainer} >  
+        <Text style={styles.textHeader} >Portfolio </Text>
+        <Text style={styles.headerValue}>0$ USD</Text>            
+        <View style={{alignItems:"stretch", width:"100%", marginLeft: '9%'}}>
+          <ScrollView style={{height:"70%"}} >
+              <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}  />
+          </ScrollView>
         </View>
         <View style={styles.btnContainer} >
           <Button
             title='Add Token or Coin'
             icon={{ size: 28 }}
-            buttonStyle={{
-              backgroundColor: '#12c1a2', borderRadius: 100, width: 340,
-              height: 60, padding: 10, alignItems: 'center', justifyContent: 'center', marginTop: 10
+            buttonStyle={{             
+              backgroundColor: '#12c1a2',   
+              borderRadius: 100, 
+              width: '84%',
+              height: 52,                                  
+              alignItems: 'center', 
+              justifyContent: 'center',                                  
+              marginLeft: '7.5%'
             }}
-            textStyle={{ textAlign: 'center', color: 'white', fontSize: 20, fontFamily:"Cairo-Regular" }}
+            textStyle={{ 
+              textAlign: 'center', 
+              color: 'white', 
+              fontSize: 16, 
+              fontFamily:"Cairo-Regular" 
+            }}
             onPress={() => this.props.navigation.navigate('AddToken')}
           />
+        </View>
+        <View style={styles.footerContainer}>
           <Text style={styles.textFooter} >Powered by ChainSafe </Text>
         </View>
       </View>
@@ -115,54 +179,39 @@ class Portfolio extends Component {
 const styles = StyleSheet.create({
   mainContainer : {
     flex: 1,
-    backgroundColor: "#fafbfe"
-  },
-  headerContainer : {
-    flexDirection: 'row',
-    alignItems: "center",  
-    flex:1,   
-  },
-  list: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 15
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
+    backgroundColor: "#fafbfe",
+    width:"100%"
   },
   textHeader: {       
     fontFamily: "Cairo-Light",
-    fontSize: 40,        
-    marginBottom:-15,
-    marginLeft: 30,
+    fontSize: 26,        
+    marginLeft: '9%',
     color: '#1a1f3e'
   },
   headerValue : {   
     fontFamily: "WorkSans-Regular",  
-    marginTop: 10,
-    marginLeft: 30,
+    marginBottom: '2.5%',
+    marginLeft: '9%',
     color: '#27c997',
-    fontSize: 20
-  }, 
+    fontSize: 21
+  },   
+  btnContainer: {
+    alignItems: 'stretch',
+    width: '100%',
+    justifyContent: 'flex-end',
+    marginBottom: '2.5%',
+    flex:1
+  },
+  footerContainer: {
+    alignItems:"center"
+  },
   textFooter : {
     fontFamily: "WorkSans-Regular",
-    fontSize: 16,
-    paddingBottom: 20,
-    paddingTop: 20,
-    justifyContent: 'center', 
+    fontSize: 11,
+    marginBottom: '3.5%',
     alignItems: 'center' ,
     color: '#c0c0c0'
-},
-  btnContainer: {
-    alignItems: 'center',
-    height: 150,
-    paddingTop: 20,
-    paddingBottom: 20,
-    justifyContent: "center"
-  },
+  }
 })
 
 /**

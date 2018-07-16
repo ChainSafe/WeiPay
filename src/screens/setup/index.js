@@ -14,11 +14,14 @@ class CreateOrRestore extends Component {
     /**
      * Sets the title to "Create or Restore Wallet"
      */
-    static navigationOptions = {
+    static navigationOptions = {        
         headerStyle: {
             borderBottomWidth: 0,
             backgroundColor: "#fafbfe"
-        }
+        },  
+        headerLeft: (
+            <View style={{ marginLeft: 35, backgroundColor: "#fafbfe",  paddingTop: 15, borderBottomWidth: 0 }}> </View>                
+        )      
     };
 
     /**
@@ -50,36 +53,58 @@ class CreateOrRestore extends Component {
      */
     render() {
         return (
-            <View style={styles.mainContainer}>
-                <View style={styles.textContainer}>
-                    <Text style={styles.textHeader} > WeiPay</Text>
-                    <Text style={styles.textHeaderDescription} > ERC20 Token Wallet </Text>
-                </View>
-                <View style={styles.secondaryContainer}>
-                    <View style={styles.contentContainer} >
-                        <View style={styles.btnContainer} >
-                            <Button
-                                title='Create Wallet'
-                                icon={{ size: 28 }}
-                                buttonStyle={{
-                                    backgroundColor: '#12c1a2', borderRadius: 100, width: 340,
-                                    height: 60, padding: 10, alignItems: 'center', justifyContent: 'center', marginTop: 10
-                                }}
-                                textStyle={{ textAlign: 'center', color: 'white', fontSize: 20, fontFamily:"Cairo-Regular" }}
-                                onPress={this.navigateCreate}
-                            />
-                            <Button
-                                title='Restore Wallet'
-                                icon={{ size: 28 }}
-                                buttonStyle={{
-                                    backgroundColor: '#061f46', borderRadius: 100, width: 340,
-                                    height: 60, padding: 10, alignItems: 'center', justifyContent: 'center', marginTop: 20
-                                }}
-                                textStyle={{ textAlign: 'center', color: 'white', fontSize: 20, fontFamily:"Cairo-Regular" }}
-                                onPress={this.navigateRestore}
-                            />
-                        </View>
+            <View style={styles.mainContainer}>               
+                <Text style={styles.textHeader} > WeiPay</Text>
+                <Text style={styles.textHeaderDescription} > ERC20 Token Wallet </Text>
+                <View style={styles.btnContainer} >
+                    <View style={styles.btn}>
+                        <Button
+                            title='Create Wallet'
+                            icon={{ size: 28 }}
+                            buttonStyle={{
+                                backgroundColor: '#12c1a2', 
+                                borderRadius: 100, 
+                                width: '84%',
+                                height: 52,                                  
+                                alignItems: 'center', 
+                                justifyContent: 'center',                                  
+                                marginLeft: '7.5%'
+                            }}
+                            textStyle={{ 
+                                textAlign: 'center', 
+                                color: 'white', 
+                                fontSize: 16, 
+                                fontFamily:"Cairo-Regular" 
+                            }}
+                            onPress={this.navigateCreate}
+                        />
                     </View>
+                    <View>
+                        <Button
+                            title='Restore Wallet'
+                            icon={{ size: 28 }}
+                            buttonStyle={{
+                                backgroundColor: 'transparent', 
+                                borderColor: '#12c1a2',
+                                borderRadius: 100, 
+                                borderWidth: 1,                               
+                                width: '84%',
+                                height: 52,                                  
+                                alignItems: 'center', 
+                                justifyContent: 'center',                                  
+                                marginLeft: '7.5%'
+                            }}
+                            textStyle={{ 
+                                textAlign: 'center', 
+                                color: '#12c1a2', 
+                                fontSize: 16, 
+                                fontFamily:"Cairo-Regular" 
+                            }}
+                            onPress={this.navigateRestore}
+                        />
+                    </View>
+                </View>
+                <View style={styles.footerContainer}>
                     <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
                 </View>
             </View>
@@ -91,52 +116,47 @@ class CreateOrRestore extends Component {
  * Styles used in the "CreateOrRestore" setup screen
  */
 const styles = StyleSheet.create({
-    mainContainer: {
-        flex: 1,
-        paddingTop: 70,       
-        justifyContent: 'flex-start',
+    mainContainer: {        
         backgroundColor: '#fafbfe',
-    },
-    textContainer : {
-        paddingLeft: 40,
-    },
-    contentContainer: {
-        marginTop: 25,
-        flex: 1,    
-    },
-    secondaryContainer : {
-        flex:1,
-        alignItems: 'center'
-    },
-    companyDisplayContainer: {
-        marginTop: 50,     
+        width: '100%',  
+        paddingTop: '40%',
+        height: '100%',
+        flex: 1,     
+        alignItems: 'center' 
     },
     textHeader: {       
         fontFamily: "Cairo-Light",
-        fontSize: 50,        
-        marginBottom:-15,
-       color: '#1a1f3e'
+        fontSize: 34,        
+        marginBottom: '-2.5%',
+        color: '#1a1f3e'
     },
     textHeaderDescription: {      
         color: '#1a1f3e',
         fontFamily: "Cairo-Regular",
-        fontSize: 20,
-        paddingLeft: 10,     
-        letterSpacing: 3,
+        fontSize: 14,    
+        letterSpacing: 3
+    },
+    btnContainer: {
+        alignItems:'stretch',
+        width: '100%',
+        justifyContent: 'flex-end'
+    },
+    btn: {
+        marginBottom: '3.5%',
+        marginTop: '10%'
+    },
+    footerContainer: {
+        alignItems:"center", 
+        position: 'absolute', 
+        bottom: '5%', 
+        flex:1, 
+        justifyContent:'flex-end' 
     },
     textFooter : {
         fontFamily: "WorkSans-Regular",
-        fontSize: 16,
-        paddingBottom: 20,
-        paddingTop: 20,
-        justifyContent: 'center', 
-        alignItems: 'center' ,
+        fontSize: 11,
         color: '#c0c0c0'
-    },
-    btnContainer: {
-        marginTop: 20,
-        justifyContent: 'flex-end'
-    },
+    }
 })
 
 export default connect(null, { restoreWallet })(CreateOrRestore);
