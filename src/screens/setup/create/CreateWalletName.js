@@ -34,6 +34,29 @@ class CreateWalletName extends Component {
     };
 
     /**
+     * Sets the title to "Create Wallet Name"
+     */
+    // static navigationOptions = ({ navigation }) =>  {
+    //     return {
+    //         headerStyle: {
+    //             borderBottomWidth: 0,
+    //             backgroundColor: "#fafbfe"
+    //         },
+    //         headerLeft: (
+    //             <View style={{ marginLeft: 35, alignItems:'stretch', backgroundColor: "#fafbfe",  paddingTop: 15, borderBottomWidth: 0 }}>
+    //                 <TouchableOpacity
+    //                     onPress={() => navigation.navigate('createOrRestore')} >
+    //                     <Image
+    //                         source={require('../../../assets/icons/back.png')}
+    //                         style={{height:20, width:20}}
+    //                     /> 
+    //                 </TouchableOpacity>
+    //             </View>                
+    //         )   
+    //     }    
+    // };
+
+    /**
      * Executes the action "newWalletNameEntry" with "name" as the parameter
      * in order to update the name of the wallet in the global state variable
      * @param {String} name 
