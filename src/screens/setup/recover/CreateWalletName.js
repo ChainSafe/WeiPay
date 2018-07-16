@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     textHeader: {       
         fontFamily: "Cairo-Light",
         fontSize: 24,        
-        paddingLeft: '10%',  //cannot set custom navbar with % so we are having an app standard for 30px left for titles  
+        paddingLeft: '10%', 
         paddingBottom: '3%',
         marginTop: '5%',
         color: '#1a1f3e'
