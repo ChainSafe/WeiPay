@@ -49,59 +49,73 @@ class CoinListItem extends Component {
     const { checked } = this.state
 
     return (
-      <View style={{marginTop:'2.5%'}}>
-        <ListItem
-          key={coin.id}
-          title= {
-            <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
-              <Text style={{ 
-                fontSize:16,
-                fontFamily: "Cairo-Regular",  
-                alignItems:"flex-start",
-                flex:1,
-                width:'90%',
-                letterSpacing: 0.5,  
-                top: '1%'                                               
+      <View style={{ marginTop:'2.5%'}}>
+     
+        <View style={[styles.check, coin.selected ? styles.valid : styles.invalid]}>
+          <ListItem
+            hideChevron = "true"
+            key={coin.id}
+            title= {
+              <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
+                <Text style={{ 
+                  fontSize:16,
+                  fontFamily: "Cairo-Regular",  
+                  alignItems:"flex-start",
+                  flex:1,
+                  width:'90%',
+                  letterSpacing: 0.5,  
+                  top: '1%'                                               
+                  }}>
+                    {coin.symbol}
+                  </Text>   
+                  <CheckBox center 
+                    iconRight
+                    iconType='material'
+                    checkedIcon='clear'
+                    uncheckedIcon='add'
+                    checkedColor='red'
+                    checked={coin.selected}
+                    containerStyle={[title, coin.selected ? styles.valid : styles.invalid]}                  
+                    onPress={() => this.renderPress(coin)}
+                    />    
+              </View>
+            }   
+            subtitle={
+              <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
+                <Text style={{
+                  fontSize:11, 
+                  fontFamily: "Cairo-Light",             
+                  alignItems:"flex-start",
+                  flex:1,
+                  width:'90%',  
+                  letterSpacing: 0.4,  
+                  top: '-1.5%',
+                  height: '100%'                 
                 }}>
-                  {coin.symbol}
+                  {coin.title}
                 </Text>           
-            </View>
-          }   
-          subtitle={
-            <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
-              <Text style={{
-                fontSize:11, 
-                fontFamily: "Cairo-Light",             
-                alignItems:"flex-start",
-                flex:1,
-                width:'90%',  
-                letterSpacing: 0.4,  
-                top: '-1.5%',
-                height: '100%'                 
-              }}>
-                {coin.title}
-              </Text>           
-            </View>
-          }
-          containerStyle = {{
-            borderRadius: 10, 
-            width: '83%', 
-            height: 63,            
-            backgroundColor: '#ffffff',
-            justifyContent:"center",
-            borderWidth:0.5,
-            borderColor: '#F8F8FF',
-            shadowColor: '#F8F8FF',
-            shadowOffset: { width: 1, height: 1},
-            shadowOpacity:20,
-            shadowRadius: 10,
-          }}
-          avatarStyle = {{           
-            marginTop:'-5%',         
-          }}
-        />
+              </View>
+            }
+            containerStyle = {{
+              borderRadius: 10, 
+              width: '83%', 
+              height: 63,            
+              backgroundColor: '#ffffff',
+              justifyContent:"center",
+              borderWidth:0.5,
+              borderColor: '#F8F8FF',
+              shadowColor: '#F8F8FF',
+              shadowOffset: { width: 1, height: 1},
+              shadowOpacity:20,
+              shadowRadius: 10,
+            }}
+            avatarStyle = {{           
+              marginTop:'-5%',         
+            }}
+          />
+        </View>
+  
       </View>
-
 
 
       // <View>
@@ -133,14 +147,18 @@ class CoinListItem extends Component {
 const styles = StyleSheet.create({
   title: {
     paddingLeft: 15,
-    alignItems: 'flex-start',
+    alignItems: 'flex-end',
+    backgroundColor:'#ffffff',
+    borderWidth: 0,
   },
-  invalid: {
-    alignItems: 'flex-start',
-  },
-  valid: {
-    alignItems: 'flex-start',
-  }
+  // invalid: {
+  //   alignItems: 'flex-start',
+  //   // backgroundColor:'blue'
+  // },
+  // valid: {
+  //   alignItems: 'flex-start',
+  //   // backgroundColor:'blue'
+  // }
 })
 
 /**
