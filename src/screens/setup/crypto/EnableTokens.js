@@ -16,21 +16,6 @@ class EnableCrypto extends Component {
     }
 
     /**
-     * Sets the screen title to "Enable Tokens Page"
-     */
-    static navigationOptions = ({ navigation }) =>  {
-        return {
-            headerStyle: {
-                borderBottomWidth: 0,
-                backgroundColor: "#fafbfe"
-            },
-            headerLeft: (
-                <View style={{ marginLeft: 35, alignItems:'stretch', backgroundColor: "#fafbfe",  paddingTop: 15, borderBottomWidth: 0 }}> </View>                
-            )   
-        }    
-    };
-
-    /**
      * Method used to navigate to the main portfolio Screen
      */
     navigate = () => {
@@ -51,8 +36,8 @@ class EnableCrypto extends Component {
         return (
             <View style={styles.mainContainer} >
                 <Text style={styles.textHeader} >Enable Tokens </Text>   
-                <View style={{alignItems:"stretch", width:"100%", marginLeft: '9%'}}>             
-                    <ScrollView style={{height:"75%"}} >
+                <View style={{alignItems:"stretch", width:"100%", marginLeft: '9%', marginBottom:"2.5%"}}>             
+                    <ScrollView style={{height:"70%"}} >
                         <CoinList />
                     </ScrollView>
                 </View>
@@ -100,6 +85,8 @@ const styles = StyleSheet.create({
         fontFamily: "Cairo-Light",
         fontSize: 26,        
         marginLeft: '9%',
+        marginTop:"10%",
+        paddingBottom: '2.5%',
         color: '#1a1f3e'
     },
     btnContainer: {

@@ -1,36 +1,22 @@
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
 import { View } from 'react-native'
-
 import TermsScreen from '../../screens/setup/terms/TermsAndConditions';
-
 import CreateOrRestore from '../../screens/setup/index';
-
 import CreateWalletName from '../../screens/setup/create/CreateWalletName';
 import GeneratePassphrase from '../../screens/setup/create/GeneratePassphrase';
 import ConfirmPassphrase from '../../screens/setup/create/ConfirmPassphrase';
-
 import CreateWalletNameRecovered from '../../screens/setup/recover/CreateWalletName';
 import RecoverWallet from '../../screens/setup/recover/RecoverWallet';
-
 import EnableTokens from '../../screens/setup/crypto/EnableTokens';
-
 import Drawer from '../drawer';
-
 import PortfolioCoin from '../../screens/main/portfolio/tabs/PortfolioCoin';
 import PortfolioToken from '../../screens/main//portfolio/tabs/PortfolioToken';
-
 import AddToken from '../../screens/main/tokens/add/index';
-
 import addContact from '../../screens/main/menu/contacts/add/AddContact';
-
 import contacts from '../../screens/main/menu/contacts/index';
-
 import ContactAddresses from '../../screens/main/menu/contacts/SelectedContact';
-
-
 import QrCodeScanner from '../../screens/main/qr/QrCodeScanner';
-
 import CoinSend from '../../screens/main/tokens/send/CoinSend'
 
 /**
@@ -38,9 +24,8 @@ import CoinSend from '../../screens/main/tokens/send/CoinSend'
  * navigate method from any class
  */
 const navigator = StackNavigator({
-
   terms: {
-    screen: TermsScreen
+    screen: TermsScreen,
   },
   addContact: {
     screen: addContact
@@ -88,9 +73,10 @@ const navigator = StackNavigator({
     screen: ContactAddresses
   }
 }, {
-
-    headerStyle: {
-      borderBottomWidth: 0
+    headerMode: 'none',
+    navigationOptions: {
+      backgroundColor: "#fafbfe", 
+      borderBottomWidth: 0,  
     },
     lazy: true
   });

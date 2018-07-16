@@ -12,19 +12,6 @@ import { restoreWallet } from '../../actions/ActionCreator';
 class CreateOrRestore extends Component {
 
     /**
-     * Sets the title to "Create or Restore Wallet"
-     */
-    static navigationOptions = {        
-        headerStyle: {
-            borderBottomWidth: 0,
-            backgroundColor: "#fafbfe"
-        },  
-        headerLeft: (
-            <View style={{ marginLeft: 35, backgroundColor: "#fafbfe",  paddingTop: 15, borderBottomWidth: 0 }}> </View>                
-        )      
-    };
-
-    /**
      * Method is used to navigate to the "createWalletName" if and only if the 
      * user decides to create a new wallet
      */
@@ -119,7 +106,7 @@ const styles = StyleSheet.create({
     mainContainer: {        
         backgroundColor: '#fafbfe',
         width: '100%',  
-        paddingTop: '40%',
+        paddingTop: '45%',
         height: '100%',
         flex: 1,     
         alignItems: 'center' 

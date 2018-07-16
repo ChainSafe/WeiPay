@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, ScrollView, StyleSheet, Dimensions } from "react-native";
+import { Text, View, ScrollView, StyleSheet, Dimensions, TouchableOpacity, Platform } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { Terms } from '../../../constants/Terms';
 import { Button } from 'react-native-elements';
@@ -8,16 +8,6 @@ import { Button } from 'react-native-elements';
  * Initial terms and condition screen when the app is oppened for the first time.
  */
 class TermsAndConditions extends Component {
-
-    /**
-     * Sets the Screen title to "Terms and Conditions"
-     */
-    static navigationOptions = {     
-        headerStyle: {
-            borderBottomWidth: 0,
-            backgroundColor: "#fafbfe"
-        },     
-    };
 
     /**
      * Method used to navigate to the "createOrRestore" screen
@@ -72,7 +62,7 @@ class TermsAndConditions extends Component {
 /**
  * Styles used in the terms and condition screen
  */
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({    
     mainContainer: {
         flex: 1,             
         backgroundColor: '#fafbfe',
@@ -81,8 +71,9 @@ const styles = StyleSheet.create({
     textHeader : {
         fontFamily: "Cairo-Light",
         fontSize: 26,
-        paddingLeft: '9%',
+        paddingLeft: '10%',
         paddingBottom: '2.5%',
+        marginTop:"10%",
         letterSpacing: 0.84,       
     },
     textBody : {
