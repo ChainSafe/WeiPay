@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ListView } from 'react-native';
 import { connect } from 'react-redux';
-import ListItem from './ListItem';
+import CoinListItem from './ListItem';
 
 /**
  * React Component Class
@@ -37,7 +37,7 @@ class CoinList extends Component {
      */
     renderRow(coin) {
         //return instance of listitem
-        return <ListItem coin={coin} />;
+        return <CoinListItem coin={coin} />;        
     }
 
     /**

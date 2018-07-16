@@ -69,7 +69,7 @@ class Portfolio extends Component {
                 letterSpacing: 0.5,  
                 top: '1%'                                               
                 }}>
-                {token.symbol}
+                  {token.symbol}
                 </Text>
                 <Text style={{
                   alignItems:"flex-end",
@@ -77,7 +77,9 @@ class Portfolio extends Component {
                   fontFamily: "WorkSans-Regular",   
                   letterSpacing: 0.5,  
                   top: '3.5%'                                     
-                  }}> 23 </Text>
+                  }}> 
+                    23 
+                  </Text>
             </View>
           }      
           onPress={() => this.props.navigation.navigate(token.type)}
@@ -93,7 +95,7 @@ class Portfolio extends Component {
                 top: '-1.5%',
                 height: '100%'                 
               }}>
-              {token.title}
+                {token.title}
               </Text>
               <Text style={{
                 alignItems:"flex-end",
@@ -101,7 +103,9 @@ class Portfolio extends Component {
                 fontFamily: "WorkSans-Light",            
                 paddingRight: '1.75%',
                 letterSpacing: 0.4,                                       
-                }}> $2444 </Text>
+                }}> 
+                  $2444 
+                </Text>
             </View>
           }
           containerStyle = {{
@@ -110,7 +114,6 @@ class Portfolio extends Component {
             height: 63,            
             backgroundColor: '#ffffff',
             justifyContent:"center",
-            // backgroundColor:'blue',
             borderWidth:0.5,
             borderColor: '#F8F8FF',
             shadowColor: '#F8F8FF',
@@ -133,16 +136,13 @@ class Portfolio extends Component {
   render() {
     return (
       <View style={styles.mainContainer} >  
-
         <Text style={styles.textHeader} >Portfolio </Text>
         <Text style={styles.headerValue}>0$ USD</Text>            
-       
         <View style={{alignItems:"stretch", width:"100%", marginLeft: '9%'}}>
           <ScrollView style={{height:"70%"}} >
               <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}  />
           </ScrollView>
         </View>
-
         <View style={styles.btnContainer} >
           <Button
             title='Add Token or Coin'
@@ -165,11 +165,9 @@ class Portfolio extends Component {
             onPress={() => this.props.navigation.navigate('AddToken')}
           />
         </View>
-
         <View style={styles.footerContainer}>
           <Text style={styles.textFooter} >Powered by ChainSafe </Text>
         </View>
-
       </View>
     )
   }
@@ -187,7 +185,6 @@ const styles = StyleSheet.create({
   textHeader: {       
     fontFamily: "Cairo-Light",
     fontSize: 26,        
-    // marginBottom:-15,
     marginLeft: '9%',
     color: '#1a1f3e'
   },
