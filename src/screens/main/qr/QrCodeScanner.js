@@ -132,7 +132,6 @@ const styles = StyleSheet.create({
  */
 const mapStateToProps = ({ newWallet, QrScanner }) => {
     return {
-        Invoker: newWallet.QrScannerInvoker,
         invoker: QrScanner.invoker,
         data: QrScanner.data
     }

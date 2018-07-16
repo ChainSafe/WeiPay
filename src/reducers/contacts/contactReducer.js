@@ -33,8 +33,7 @@ export default (state = INITIAL_STATE, action) => {
 
       return { ...state, currentContact: contact }
 
-    case actions.CONTACT_ADDRESS:
-      return { ...state, contactAddress: action.payload }
+    
     case actions.COMPLETE_CONTACT:
       var old = state.contacts
 
@@ -46,19 +45,9 @@ export default (state = INITIAL_STATE, action) => {
 
       return { ...state, contacts: newContact, currentContact: {} }
 
-    case actions.CLEAR_INPUT:
-      return { ...state, contactName: "", contactAddress: "" }
-
-    case actions.SAVING_ADDCONTACT_INPUTS:
-
-      return { ...state, currentContact: action.payload }
-
     default:
       return state;
   }
-  // console.log("Total Contacts: ");
-  // console.log(state.contacts);
-  // console.log("Currenct Contact: ");
-  // console.log(state.currentContact);
+ 
 
 }

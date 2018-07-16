@@ -23,9 +23,6 @@ export default (state = INITIAL_STATE, action) => {
   //console.log(action);
   switch (action.type) {
 
-    case actions.QRSCANNER_PAGE_INVOKER:
-      return { ...state, QrScannerInvoker: action.payload }
-
     case actions.QRSCANNER_DATA:
       console.log(action.payload);
 
