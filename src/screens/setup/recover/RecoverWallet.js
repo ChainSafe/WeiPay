@@ -13,29 +13,6 @@ const ethers = require('ethers');
 class RecoverWallet extends Component {
 
     /**
-     * Sets the title of the screen
-     */
-    // static navigationOptions = ({ navigation }) =>  {
-    //     return {
-    //         headerStyle: {
-    //             borderBottomWidth: 0,
-    //             backgroundColor: "#fafbfe"
-    //         },
-    //         headerLeft: (
-    //             <View style={{ marginLeft: 35, alignItems:'stretch', backgroundColor: "#fafbfe",  paddingTop: 15, borderBottomWidth: 0 }}>
-    //                 <TouchableOpacity
-    //                     onPress={() => navigation.navigate('createWalletNameRecovered')} >
-    //                     <Image
-    //                         source={require('../../../assets/icons/back.png')}
-    //                         style={{height:20, width:20}}
-    //                     /> 
-    //                 </TouchableOpacity>
-    //             </View>                
-    //         )   
-    //     }    
-    //};
-
-    /**
      * Navigates the state to view the enableTokens screen if the mnemonic entered
      * is valid otherwise an error is displayed
      */
@@ -98,14 +75,13 @@ class RecoverWallet extends Component {
             <View style={styles.mainContainer}>   
              <View style={styles.headerBack}> 
                  <TouchableOpacity
-                        onPress={() => navigation.navigate('createOrRestore')} >
-                        <Image
-                            source={require('../../../assets/icons/back.png')}
-                            style={{height:20, width:20}}
-                        /> 
-                    </TouchableOpacity>
-              </View>   
-
+                    onPress={() => navigation.navigate('createOrRestore')} >
+                    <Image
+                        source={require('../../../assets/icons/back.png')}
+                        style={{height:20, width:20}}
+                    /> 
+                </TouchableOpacity>
+            </View>   
                 <Text style={styles.textHeader} >Recovery Passphrase</Text>                               
                 <View style={styles.contentContainer} >
                     <Card containerStyle={{ 

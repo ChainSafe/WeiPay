@@ -15,29 +15,6 @@ const ethers = require('ethers');
 class CreateWalletName extends Component {
 
     /**
-     * Sets the title to "Create Wallet Name"
-     */
-    // static navigationOptions = ({ navigation }) =>  {
-    //     return {
-    //         headerStyle: {
-    //             borderBottomWidth: 0,
-    //             backgroundColor: "#fafbfe"
-    //         },
-    //         headerLeft: (
-    //             <View style={{ marginLeft: 35, alignItems:'stretch', backgroundColor: "#fafbfe",  paddingTop: 15, borderBottomWidth: 0 }}>
-    //                 <TouchableOpacity
-    //                     onPress={() => navigation.navigate('createOrRestore')} >
-    //                     <Image
-    //                         source={require('../../../assets/icons/back.png')}
-    //                         style={{height:20, width:20}}
-    //                     /> 
-    //                 </TouchableOpacity>
-    //             </View>                
-    //         )   
-    //     }    
-    // };
-
-    /**
      * Method is used to navigate back to the recoverWallet screen.
      */
     navigate = () => {
@@ -61,37 +38,36 @@ class CreateWalletName extends Component {
     render() {
         return (
             <View style={styles.mainContainer}>   
-              <View style={styles.headerBack}> 
-                 <TouchableOpacity
+                <View style={styles.headerBack}> 
+                    <TouchableOpacity
                         onPress={() => navigation.navigate('createOrRestore')} >
                         <Image
                             source={require('../../../assets/icons/back.png')}
                             style={{height:20, width:20}}
                         /> 
                     </TouchableOpacity>
-              </View>   
-
-            <Text style={styles.textHeader} >Wallet Name</Text>                               
-            <View style={styles.contentContainer} >
-                <Card containerStyle={{ 
-                    width: '80%', 
-                    height: '55%', 
-                    borderRadius: 7.5, 
-                    shadowOpacity: 0.5, 
-                    shadowRadius: 1.3, 
-                    shadowColor: '#dbdbdb',
-                    shadowOffset: { width: 1, height: 2 },                    
-                }}> 
-                    <Text style={styles.cardText}>
-                        Create a name for your wallet, for example: My Wallet
-                    </Text>
-                    <FormInput
-                        placeholder={"Ex. My Wallet"}
-                        onChangeText={this.getWalletName.bind(this)}
-                        inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2'}}
-                    /> 
-                </Card>
-            </View>
+                  </View>   
+                <Text style={styles.textHeader} >Wallet Name</Text>                               
+                <View style={styles.contentContainer} >
+                    <Card containerStyle={{ 
+                        width: '80%', 
+                        height: '55%', 
+                        borderRadius: 7.5, 
+                        shadowOpacity: 0.5, 
+                        shadowRadius: 1.3, 
+                        shadowColor: '#dbdbdb',
+                        shadowOffset: { width: 1, height: 2 },                    
+                    }}> 
+                        <Text style={styles.cardText}>
+                            Create a name for your wallet, for example: My Wallet
+                        </Text>
+                        <FormInput
+                            placeholder={"Ex. My Wallet"}
+                            onChangeText={this.getWalletName.bind(this)}
+                            inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2'}}
+                        /> 
+                  </Card>
+              </View>
             <View style={styles.btnContainer}>
                 <Button
                     //disabled={this.props.walletName === ""}
