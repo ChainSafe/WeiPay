@@ -51,9 +51,9 @@ class CoinListItem extends Component {
     return (
       <View style={{ marginTop:'2.5%'}}>
      
-        <View style={[styles.check, coin.selected ? styles.valid : styles.invalid]}>
+        <View style={[styles.check, coin.selected ? styles.containerSelected : styles.containerDeselect]}>
           <ListItem
-            hideChevron = "true"
+            hideChevron
             key={coin.id}
             title= {
               <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
@@ -68,16 +68,18 @@ class CoinListItem extends Component {
                   }}>
                     {coin.symbol}
                   </Text>   
-                  <CheckBox center 
-                    iconRight
-                    iconType='material'
-                    checkedIcon='clear'
-                    uncheckedIcon='add'
-                    checkedColor='red'
-                    checked={coin.selected}
-                    containerStyle={[title, coin.selected ? styles.valid : styles.invalid]}                  
-                    onPress={() => this.renderPress(coin)}
-                    />    
+                  <View>
+                    <CheckBox center 
+                      iconRight
+                      iconType='material'
+                      checkedIcon='clear'
+                      uncheckedIcon='add'
+                      checkedColor='red'
+                      checked={coin.selected}
+                      containerStyle={[title, coin.selected ? styles.valid : styles.invalid]}                  
+                      onPress={() => this.renderPress(coin)}
+                      /> 
+                    </View>   
               </View>
             }   
             subtitle={
@@ -98,7 +100,7 @@ class CoinListItem extends Component {
             }
             containerStyle = {{
               borderRadius: 10, 
-              width: '83%', 
+              width: '100%', 
               height: 63,            
               backgroundColor: '#ffffff',
               justifyContent:"center",
@@ -114,29 +116,7 @@ class CoinListItem extends Component {
             }}
           />
         </View>
-  
       </View>
-
-
-      // <View>
-      //   <Card
-      //     style={[styles.check, coin.selected ? styles.valid : styles.invalid]}
-      //   >
-      //     <CheckBox center
-      //       title={coin.title}
-      //       iconLeft
-      //       iconType='material'
-      //       checkedIcon='clear'
-      //       uncheckedIcon='add'
-      //       checkedColor='red'
-      //       checked={coin.selected}
-      //       containerStyle={[title, coin.selected ? styles.valid : styles.invalid]}
-      //       onPress={() => this.renderPress(coin)}
-      //     />
-      //   </Card>
-      // </View>
-
-
     )
   }
 }
@@ -151,14 +131,28 @@ const styles = StyleSheet.create({
     backgroundColor:'#ffffff',
     borderWidth: 0,
   },
-  // invalid: {
-  //   alignItems: 'flex-start',
-  //   // backgroundColor:'blue'
-  // },
-  // valid: {
-  //   alignItems: 'flex-start',
-  //   // backgroundColor:'blue'
-  // }
+  invalid: {
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    paddingTop: '2.5%'
+  },
+  valid: {
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    paddingTop: '2.5%'    
+  },
+  containerSelected : {
+    borderColor: '#27c997',
+    borderWidth:2,
+    width: '83%', 
+    borderRadius: 10, 
+  },
+  containerDeselect :{ 
+    borderColor: '#d0021b',
+    borderWidth:2,
+    width: '83%', 
+    borderRadius: 10, 
+  }
 })
 
 /**

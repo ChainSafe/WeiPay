@@ -109,14 +109,12 @@ class RecoverWallet extends Component {
                     }}> 
                         <Text style={styles.cardText}>
                             Enter your 12 word recovery passphrase to recover your wallet.
-                        </Text>
-                        {/* <View style={{flexDirection:'row'}}> */}
-                            <FormInput
-                                placeholder={"Ex. man friend love long phrase ... "}
-                                onChangeText={this.renderRecoveryKey.bind(this)}
-                                inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2'}}
-                            /> 
-                        {/* </View> */}
+                        </Text>                
+                        <FormInput
+                            placeholder={"Ex. man friend love long phrase ... "}
+                            onChangeText={this.renderRecoveryKey.bind(this)}
+                            inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2'}}
+                        />                        
                     </Card>
                 </View>
                 <View style={styles.btnContainer}>
@@ -146,8 +144,6 @@ class RecoverWallet extends Component {
                     </View>  
                 </View>   
             </View>
-
-       
         );
     }
 }
@@ -192,8 +188,7 @@ const styles = StyleSheet.create({
         alignItems:"center",         
         alignItems:"center", 
         justifyContent:'flex-end',
-        position: 'absolute', 
-        // bottom: '5%',       
+        position: 'absolute',           
     },
     textFooter : {
         fontFamily: "WorkSans-Regular",

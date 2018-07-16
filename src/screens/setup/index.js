@@ -20,8 +20,7 @@ class CreateOrRestore extends Component {
             backgroundColor: "#fafbfe"
         },  
         headerLeft: (
-            <View style={{ marginLeft: 35, backgroundColor: "#fafbfe",  paddingTop: 15, borderBottomWidth: 0 }}>
-            </View>                
+            <View style={{ marginLeft: 35, backgroundColor: "#fafbfe",  paddingTop: 15, borderBottomWidth: 0 }}> </View>                
         )      
     };
 

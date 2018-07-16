@@ -86,7 +86,6 @@ class CreateWalletName extends Component {
                         /> 
                     </Card>
                 </View>
-
                 <View style={styles.btnContainer}>
                     <Button
                         //disabled={this.props.walletName === ""}

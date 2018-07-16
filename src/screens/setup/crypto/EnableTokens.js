@@ -108,10 +108,6 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         marginBottom: '2.5%',
         flex:1
-        // height: 80,
-        // paddingTop: 20,
-        // paddingBottom: 20,
-        // justifyContent: "center"
     },
     footerContainer: {
         alignItems:"center"

@@ -73,7 +73,6 @@ class TermsAndConditions extends Component {
  * Styles used in the terms and condition screen
  */
 const styles = StyleSheet.create({
-
     mainContainer: {
         flex: 1,             
         backgroundColor: '#fafbfe',
@@ -104,7 +103,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
         paddingBottom: '5%',
         justifyContent: 'center', 
-        alignItems: 'center' ,
+        alignItems: 'center',
         color: '#c0c0c0'
     } 
 })
