@@ -38,9 +38,8 @@ import CoinSend from '../../screens/main/tokens/send/CoinSend'
  * navigate method from any class
  */
 const navigator = StackNavigator({
-
   terms: {
-    screen: TermsScreen
+    screen: TermsScreen,
   },
   addContact: {
     screen: addContact
@@ -88,9 +87,10 @@ const navigator = StackNavigator({
     screen: ContactAddresses
   }
 }, {
-
-    headerStyle: {
-      borderBottomWidth: 0
+    headerMode: 'none',
+    navigationOptions: {
+      backgroundColor: "#fafbfe", 
+      borderBottomWidth: 0,  
     },
     lazy: true
   });

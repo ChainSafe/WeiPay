@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Alert, Dimensions, TouchableOpacity, Image } from "react-native";
+import { View, Text, StyleSheet, Alert, Dimensions, TouchableOpacity, Image, Platform } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, FormLabel, FormInput, FormValidationMessage, Card } from 'react-native-elements';
@@ -15,25 +15,25 @@ class RecoverWallet extends Component {
     /**
      * Sets the title of the screen
      */
-    static navigationOptions = ({ navigation }) =>  {
-        return {
-            headerStyle: {
-                borderBottomWidth: 0,
-                backgroundColor: "#fafbfe"
-            },
-            headerLeft: (
-                <View style={{ marginLeft: 35, alignItems:'stretch', backgroundColor: "#fafbfe",  paddingTop: 15, borderBottomWidth: 0 }}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('createWalletNameRecovered')} >
-                        <Image
-                            source={require('../../../assets/icons/back.png')}
-                            style={{height:20, width:20}}
-                        /> 
-                    </TouchableOpacity>
-                </View>                
-            )   
-        }    
-    };
+    // static navigationOptions = ({ navigation }) =>  {
+    //     return {
+    //         headerStyle: {
+    //             borderBottomWidth: 0,
+    //             backgroundColor: "#fafbfe"
+    //         },
+    //         headerLeft: (
+    //             <View style={{ marginLeft: 35, alignItems:'stretch', backgroundColor: "#fafbfe",  paddingTop: 15, borderBottomWidth: 0 }}>
+    //                 <TouchableOpacity
+    //                     onPress={() => navigation.navigate('createWalletNameRecovered')} >
+    //                     <Image
+    //                         source={require('../../../assets/icons/back.png')}
+    //                         style={{height:20, width:20}}
+    //                     /> 
+    //                 </TouchableOpacity>
+    //             </View>                
+    //         )   
+    //     }    
+    //};
 
     /**
      * Navigates the state to view the enableTokens screen if the mnemonic entered
@@ -95,7 +95,17 @@ class RecoverWallet extends Component {
      */
     render() {
         return (
-            <View style={styles.mainContainer}>              
+            <View style={styles.mainContainer}>   
+             <View style={styles.headerBack}> 
+                 <TouchableOpacity
+                        onPress={() => navigation.navigate('createOrRestore')} >
+                        <Image
+                            source={require('../../../assets/icons/back.png')}
+                            style={{height:20, width:20}}
+                        /> 
+                    </TouchableOpacity>
+              </View>   
+
                 <Text style={styles.textHeader} >Recovery Passphrase</Text>                               
                 <View style={styles.contentContainer} >
                     <Card containerStyle={{ 
@@ -159,6 +169,14 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%'
     },
+    headerBack: {
+        marginTop: Platform.OS === 'ios' ? '5%' : '5%',
+        ...Platform.select({
+          ios: { backgroundColor: '#fafbfe'},
+          android: { backgroundColor: '#fafbfe'}
+        }),
+        marginLeft: '9%',       
+      },   
     contentContainer : {
         alignItems: 'center',
         flex: 1
@@ -175,8 +193,9 @@ const styles = StyleSheet.create({
     textHeader: {       
         fontFamily: "Cairo-Light",
         fontSize: 24,        
-        paddingLeft: 35,  //cannot set custom navbar with % so we are having an app standard for 30px left for titles  
+        paddingLeft: '10%',  //cannot set custom navbar with % so we are having an app standard for 30px left for titles  
         paddingBottom: '3%',
+        marginTop: '5%',
         color: '#1a1f3e'
     },
     btnContainer: {

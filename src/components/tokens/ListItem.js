@@ -73,6 +73,8 @@ class CoinListItem extends Component {
                       iconType='material'
                       checkedIcon='clear'
                       uncheckedIcon='add'
+                      uncheckedColor='#27c997'
+
                       checkedColor='red'
                       checked={coin.selected}
                       containerStyle={[title, coin.selected ? styles.valid : styles.invalid]}                  
@@ -141,13 +143,13 @@ const styles = StyleSheet.create({
     paddingTop: '2.5%'    
   },
   containerSelected : {
-    borderColor: '#27c997',
+    // borderColor: '#27c997',
     borderWidth:2,
     width: '83%', 
     borderRadius: 10, 
   },
   containerDeselect :{ 
-    borderColor: '#d0021b',
+    // borderColor: '#d0021b',
     borderWidth:2,
     width: '83%', 
     borderRadius: 10, 
