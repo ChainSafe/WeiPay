@@ -49,13 +49,15 @@ class CoinListItem extends Component {
 
     return (
       <View style={{ marginTop:'2.5%'}}>
-     
         <View style={[styles.check, coin.selected ? styles.containerSelected : styles.containerDeselect]}>
           <ListItem
             hideChevron
             key={coin.id}
+            roundAvatar
+            avatar={{ uri: coin.avatar_url }}
             title= {
-              <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
+              <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'3.5%'}}>
+               
                 <Text style={{ 
                   fontSize:16,
                   fontFamily: "Cairo-Regular",  
@@ -63,18 +65,19 @@ class CoinListItem extends Component {
                   flex:1,
                   width:'90%',
                   letterSpacing: 0.5,  
-                  top: '1%'                                               
+                  // backgroundColor:"blue",
+                  top: '6%'                                               
                   }}>
                     {coin.symbol}
-                  </Text>   
-                  <View>
+                  </Text> 
+
+                  <View style={{ top:'5.5%' }} >
                     <CheckBox center 
                       iconRight
                       iconType='material'
                       checkedIcon='clear'
                       uncheckedIcon='add'
                       uncheckedColor='#27c997'
-
                       checkedColor='red'
                       checked={coin.selected}
                       containerStyle={[title, coin.selected ? styles.valid : styles.invalid]}                  
@@ -84,7 +87,7 @@ class CoinListItem extends Component {
               </View>
             }   
             subtitle={
-              <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
+              <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'3.5%'}}>
                 <Text style={{
                   fontSize:11, 
                   fontFamily: "Cairo-Light",             
@@ -92,8 +95,9 @@ class CoinListItem extends Component {
                   flex:1,
                   width:'90%',  
                   letterSpacing: 0.4,  
-                  top: '-1.5%',
-                  height: '100%'                 
+                  top: '-3.5%',
+                  // backgroundColor:"green",
+                  height: '100%'                
                 }}>
                   {coin.title}
                 </Text>           
