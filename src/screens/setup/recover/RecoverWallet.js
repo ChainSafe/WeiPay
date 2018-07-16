@@ -75,7 +75,7 @@ class RecoverWallet extends Component {
             <View style={styles.mainContainer}>   
              <View style={styles.headerBack}> 
                  <TouchableOpacity
-                    onPress={() => navigation.navigate('createOrRestore')} >
+                    onPress={() => this.props.navigation.navigate('createOrRestore')} >
                     <Image
                         source={require('../../../assets/icons/back.png')}
                         style={{height:20, width:20}}
