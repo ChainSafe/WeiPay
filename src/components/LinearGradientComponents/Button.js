@@ -3,19 +3,19 @@ import { View, TouchableOpacity, StyleSheet, TextInput, Text } from "react-nativ
 import LinearGradient  from 'react-native-linear-gradient'
 
 
-class Button extends Component {
+/**
+ * Component must have the following props:
+ *      onClickFunction
+ *      buttonText
+ * 
+ * Optional props:
+ *      customStyles
+ *      customTextStyles
+ *      
+ *      
+ */
 
-    /**
-     * Component must have the following props:
-     *      onClickFunction
-     *      buttonText
-     * 
-     * Optional props:
-     *      customStyles
-     *      customTextStyles
-     *      
-     *      
-     */
+class Button extends Component {
 
     render() {
         return (

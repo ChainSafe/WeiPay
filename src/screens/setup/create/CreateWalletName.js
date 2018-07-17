@@ -3,10 +3,10 @@ import { View, TouchableOpacity, ScrollView, StyleSheet, TextInput, Image, Async
 import { KeyboardAvoidingView } from 'react-native';
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
-import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
+import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCreator';
 import {Card} from '../../../components/common/Card'
-import LinearGradient from 'react-native-linear-gradient';
+import Button   from '../../../components/LinearGradientComponents/Button'
 const ethers = require('ethers');
 
 /**
@@ -116,31 +116,28 @@ class CreateWalletName extends Component {
                     <Text style={styles.walletNameText}>Wallet Name</Text>
                 </View>
                 
-                    <View style={styles.formContainer}>
-                        <Text style={styles.formText}>Create a name for you wallet,</Text> 
-                        <Text style={[styles.formText, {paddingBottom: "20%"}]} >for example: <Text style={{color: "#27c997"}}>My Wallet</Text></Text>
+                <View style={styles.formContainer}>
+                    <Text style={styles.formText}>Create a name for you wallet,</Text> 
+                    <Text style={[styles.formText, {paddingBottom: "20%"}]} >for example: <Text style={{color: "#27c997"}}>My Wallet</Text></Text>
+                    <View style={styles.formInputContainer}>
                         <FormInput
                             placeholder={"Ex. My Wallet"}
                             onChangeText={this.getWalletName.bind(this)}
                             inputStyle={styles.formInput}
                         />
                     </View>
+                </View>
                     
-                        <View style={styles.btnContainer}>
-                            <TouchableOpacity>   
-                                <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={styles.button} >
-                                    <Text>Next</Text>
-                                </LinearGradient>
-                            </TouchableOpacity> 
-                            <Text style={{paddingTop: 4, color: '#c0c0c0'}}>Mantained by ChainSafe</Text>
 
-                        </View>
+                <View style={styles.btnContainer}>
+                    <Button 
+                        onClickFunction={this.navigate}
+                        buttonText="Next"
+                        customStyles={styles.button}
+                    />
+                    <Text style={styles.footerText}>Mantained by ChainSafe</Text>
 
-
-                
-
-
-
+                </View>
 
             </View>
 
@@ -153,8 +150,8 @@ class CreateWalletName extends Component {
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        alignContent: 'stretch',
-        justifyContent: "center",
+        flexDirection: 'column',
+        
         padding: 10,
         backgroundColor: "#fafbfe", 
     },
@@ -165,36 +162,33 @@ const styles = StyleSheet.create({
         paddingBottom: 20, 
         alignItems: 'flex-start',
         backgroundColor: "#ffffff",
-        // borderWidth: 5,
-        // borderRadius: 6,
-        // borderColor: '#000',
-        // borderBottomWidth: 6,
-        shadowColor: "#000",
-        shadowOffset: { width: 2, height: 10 },
-        shadowRadius: 12,
+        borderWidth: 5,
+        borderRadius: 6,
+        borderColor: '#000',
+        borderBottomWidth: 6,
 
-        
     },
 
     button: {
-        borderColor: '#2a2a2a',
-        borderWidth: 1,
-        borderRadius: 100,
         width: 300,
         height: 50,
-        padding: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 30
 
     },
 
     btnContainer: {
-        
-        
-        alignItems: 'center',
+       
+        flex: 1,
+        paddingRight: '7%',
         justifyContent: 'flex-end',
+        
+        alignItems: 'center'
+    },
 
+
+    formInputContainer:{
+        alignItems: 'flex-start',
+        marginRight: 10,
+        width: "95%"
     },
 
     formInput: {
@@ -222,6 +216,14 @@ const styles = StyleSheet.create({
         color: '#000000',
     },
 
+    footerText: {
+        paddingTop: 4, 
+        color: '#c0c0c0',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingLeft: "9%"
+
+    }
 
 
     
