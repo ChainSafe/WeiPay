@@ -1,39 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, AsyncStorage, ListView, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, FlatList, StyleSheet, AsyncStorage, ListView, Image, TouchableOpacity, ScrollView, Platform } from 'react-native';
 import { StackNavigator, DrawerNavigator, TabNavigator } from 'react-navigation';
 import { List, ListItem, Icon, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
+import ModalDropdown from 'react-native-modal-dropdown';
 
 /**
  * Screen is used to display the wallet portfolio of the user, which contains the 
  * tokens and the balance of the wallet
  */
 class Portfolio extends Component {
-
-  /**
-   * Sets the title of the screen to be "Portfolio", and modifies the 
-   * top bar to pull out the DrawerMenu
-   */
-  static navigationOptions = ({ navigation }) => {
-    return {   
-      headerStyle: {
-        borderBottomWidth: 0,
-        backgroundColor: "#fafbfe"
-      },   
-      headerLeft: null,      
-      headerRight: (
-        <View style={{ paddingRight: 30, paddingTop: 15, backgroundColor: "#fafbfe", borderBottomWidth: 0 }}>
-           <TouchableOpacity
-                onPress={() => navigation.navigate('createOrRestore')} >
-                <Image
-                    source={require('../../../assets/icons/menu.png')}
-                    style={{height:13, width:22}}
-                /> 
-            </TouchableOpacity>         
-        </View>
-      )
-    }
-  }
 
   /**
    * LifeCycle Method (executes before the component has been rendered)
@@ -136,9 +112,23 @@ class Portfolio extends Component {
   render() {
     return (
       <View style={styles.mainContainer} >  
+       <View style={styles.headerMenu}> 
+          <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('DrawerOpen')} >
+              <Image
+                  source={require('../../../assets/icons/menu.png')}
+                  style={{height:13, width:22}}
+              /> 
+          </TouchableOpacity>
+        </View>   
         <Text style={styles.textHeader} >Portfolio </Text>
-        <Text style={styles.headerValue}>0$ USD</Text>            
-        <View style={{alignItems:"stretch", width:"100%", marginLeft: '9%'}}>
+
+        <View style={{ flexDirection: 'row'}}>
+            <Text style={styles.headerValue}>0$</Text>   
+            <Text style={styles.headerValueCurrency}> USD</Text> 
+        </View>
+
+        <View style={{alignItems:"stretch", width:"100%", marginLeft: '9%', marginTop:'2.5%'}}>
           <ScrollView style={{height:"70%"}} >
               <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}  />
           </ScrollView>
@@ -180,21 +170,38 @@ const styles = StyleSheet.create({
   mainContainer : {
     flex: 1,
     backgroundColor: "#fafbfe",
-    width:"100%"
+    width:"100%", 
   },
+  headerMenu: {
+    marginTop: Platform.OS === 'ios' ? '10%' : '10%',
+    ...Platform.select({
+      ios: { backgroundColor: '#fafbfe'},
+      android: { backgroundColor: '#fafbfe'}
+    }),
+    right: '9%',
+    position: 'absolute',
+    zIndex: 100   
+  }, 
   textHeader: {       
     fontFamily: "Cairo-Light",
     fontSize: 26,        
     marginLeft: '9%',
-    color: '#1a1f3e'
+    marginTop: '15%',
+    color: '#1a1f3e',
   },
   headerValue : {   
-    fontFamily: "WorkSans-Regular",  
-    marginBottom: '2.5%',
+    fontFamily: "WorkSans-Medium",  
     marginLeft: '9%',
     color: '#27c997',
-    fontSize: 21
+    fontSize: 21,  
   },   
+  headerValueCurrency : {
+    fontSize:11,
+    fontFamily: "WorkSans-Regular", 
+    color: '#27c997',
+    justifyContent:'center',
+    paddingTop:'1.5%',    
+  },
   btnContainer: {
     alignItems: 'stretch',
     width: '100%',
