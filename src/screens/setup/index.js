@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     textHeader: {       
         fontFamily: "Cairo-Light",
         fontSize: 34,        
-        marginBottom: '-2.5%',
+        marginBottom: '-0.5%',
         color: '#1a1f3e'
     },
     textHeaderDescription: {      
