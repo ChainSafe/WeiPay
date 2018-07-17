@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, Alert, Dimensions } from "react-native";
+import { View, Text, StyleSheet, Alert, Dimensions, TouchableOpacity, Image, Platform } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
-import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
+import { Button, FormLabel, FormInput, FormValidationMessage, Card } from 'react-native-elements';
 import { newWalletCreation } from '../../../actions/ActionCreator'; //gonna save this passphrase to state
 import provider from '../../../constants/Providers';
 const ethers = require('ethers');
@@ -11,13 +11,6 @@ const ethers = require('ethers');
  * Screen used to recover a previously generated wallet
  */
 class RecoverWallet extends Component {
-
-    /**
-     * Sets the title of the screen
-     */
-    static navigationOptions = {
-        title: "Restore"
-    };
 
     /**
      * Navigates the state to view the enableTokens screen if the mnemonic entered
@@ -79,33 +72,63 @@ class RecoverWallet extends Component {
      */
     render() {
         return (
-
-            <View style={styles.mainContainer}>
+            <View style={styles.mainContainer}>   
+             <View style={styles.headerBack}> 
+                 <TouchableOpacity
+                    onPress={() => this.props.navigation.navigate('createWalletNameRecovered')} >
+                    <Image
+                        source={require('../../../assets/icons/back.png')}
+                        style={{height:20, width:20}}
+                    /> 
+                </TouchableOpacity>
+            </View>   
+                <Text style={styles.textHeader} >Recovery Passphrase</Text>                               
                 <View style={styles.contentContainer} >
-                    <View style={styles.form} >
-                        <Text style={styles.walletName}>Enter Passphrase to Recover </Text>
+                    <Card containerStyle={{ 
+                        width: '80%', 
+                        height: '55%', 
+                        borderRadius: 7.5, 
+                        shadowOpacity: 0.5, 
+                        shadowRadius: 1.3, 
+                        shadowColor: '#dbdbdb',
+                        shadowOffset: { width: 1, height: 2 },                    
+                    }}> 
+                        <Text style={styles.cardText}>
+                            Enter your 12 word recovery passphrase to recover your wallet.
+                        </Text>                
                         <FormInput
-                            placeholder={"Ex. Cat Fish Hello Man Women Etc."}
+                            placeholder={"Ex. man friend love long phrase ... "}
                             onChangeText={this.renderRecoveryKey.bind(this)}
-                            inputStyle={{ width: 300 }}
-                            multiline={true}
-                            numberOfLines={3}
-                        />
-                        <View style={styles.btnContainer} >
-                            <Button
-                                // disabled={this.state.mnemonic === ""}
-                                title='Restore'
-                                icon={{ size: 28 }}
-                                buttonStyle={{
-                                    backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100, width: 300,
-                                    height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginTop: 30
-                                }}
-                                textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
-                                onPress={this.navigate}
-                            />
-                        </View>
-                    </View>
+                            inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2'}}
+                        />                        
+                    </Card>
                 </View>
+                <View style={styles.btnContainer}>
+                    <Button
+                        //disabled={this.state.mnemonic === ""}
+                        title='Recover'
+                        icon={{ size: 28 }}
+                        buttonStyle={{
+                            backgroundColor: '#12c1a2',   
+                            borderRadius: 100, 
+                            width: '84%',
+                            height: 52,                                  
+                            alignItems: 'center', 
+                            justifyContent: 'center',                                  
+                            marginLeft: '7.5%'
+                        }}
+                        textStyle={{ textAlign: 'center', 
+                        color: 'white', 
+                        fontSize: 16, 
+                        fontFamily:"Cairo-Regular" }}
+                        onPress={this.navigate}
+                    />
+                </View>  
+                <View style={{ alignItems:'center'}} >    
+                    <View style={{ alignItems:'center'}} >
+                        <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
+                    </View>  
+                </View>   
             </View>
         );
     }
@@ -117,25 +140,57 @@ class RecoverWallet extends Component {
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
+        paddingTop: '5%',   
+        backgroundColor: "#fafbfe",
+        width: '100%',
+        height: '100%'
+    },
+    headerBack: {
+        marginTop: Platform.OS === 'ios' ? '5%' : '5%',
+        ...Platform.select({
+          ios: { backgroundColor: '#fafbfe'},
+          android: { backgroundColor: '#fafbfe'}
+        }),
+        marginLeft: '9%',       
+      },   
+    contentContainer : {
         alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: -100
+        flex: 1
     },
-    walletName: {
-        fontSize: 20,
-        paddingTop: 20,
-        paddingBottom: 25,
+    cardText : {
+        paddingBottom: '20%',
+        paddingTop: '5%',
+        paddingLeft: '5%',
+        paddingRight: '5%',
+        fontFamily: "WorkSans-Light",  
+        color: '#000000',
+        fontSize: 16,
     },
-    formInput: {
-        width: 300
-    },
-    form: {
-        width: Dimensions.get('window').width - 10,
-        alignItems: 'center'
+    textHeader: {       
+        fontFamily: "Cairo-Light",
+        fontSize: 24,        
+        paddingLeft: '10%',  //cannot set custom navbar with % so we are having an app standard for 30px left for titles  
+        paddingBottom: '3%',
+        marginTop: '5%',
+        color: '#1a1f3e'
     },
     btnContainer: {
-        alignItems: 'center',
+        alignItems: 'stretch',
+        justifyContent: 'flex-end',
+        width: '100%',      
     },
+    footerContainer: {
+        alignItems:"center",         
+        alignItems:"center", 
+        justifyContent:'flex-end',
+        position: 'absolute',           
+    },
+    textFooter : {
+        fontFamily: "WorkSans-Regular",
+        fontSize: 11,      
+        marginTop: '3.5%',      
+        color: '#c0c0c0'
+    }
 })
 
 export default connect(null, { newWalletCreation })(RecoverWallet);

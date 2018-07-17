@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
-import { CheckBox, Button } from 'react-native-elements'
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { CheckBox, Button, List, ListItem, Icon, } from 'react-native-elements'
 import { CardSection } from '../common/CardSection';
 import { Card } from '../common/Card';
 import { addTokenToSetup } from '../../actions/ActionCreator';
@@ -12,7 +11,7 @@ import { addTokenToSetup } from '../../actions/ActionCreator';
  * Class is used to create a single item of the 
  * selectable token list
  */
-class ListItem extends Component {
+class CoinListItem extends Component {
 
   /**
    * Initializer
@@ -49,22 +48,79 @@ class ListItem extends Component {
     const { checked } = this.state
 
     return (
-      <View>
-        <Card
-          style={[styles.check, coin.selected ? styles.valid : styles.invalid]}
-        >
-          <CheckBox center
-            title={coin.title}
-            iconLeft
-            iconType='material'
-            checkedIcon='clear'
-            uncheckedIcon='add'
-            checkedColor='red'
-            checked={coin.selected}
-            containerStyle={[title, coin.selected ? styles.valid : styles.invalid]}
-            onPress={() => this.renderPress(coin)}
+      <View style={{ marginTop:'2.5%'}}>
+        <View style={[styles.check, coin.selected ? styles.containerSelected : styles.containerDeselect]}>
+          <ListItem
+            hideChevron
+            key={coin.id}
+            roundAvatar
+            avatar={{ uri: coin.avatar_url }}
+            title= {
+              <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'3.5%'}}>
+               
+                <Text style={{ 
+                  fontSize:16,
+                  fontFamily: "Cairo-Regular",  
+                  alignItems:"flex-start",
+                  flex:1,
+                  width:'90%',
+                  letterSpacing: 0.5,  
+                  // backgroundColor:"blue",
+                  top: '6%'                                               
+                  }}>
+                    {coin.symbol}
+                  </Text> 
+
+                  <View style={{ top:'5.5%' }} >
+                    <CheckBox center 
+                      iconRight
+                      iconType='material'
+                      checkedIcon='clear'
+                      uncheckedIcon='add'
+                      uncheckedColor='#27c997'
+                      checkedColor='red'
+                      checked={coin.selected}
+                      containerStyle={[title, coin.selected ? styles.valid : styles.invalid]}                  
+                      onPress={() => this.renderPress(coin)}
+                      /> 
+                    </View>   
+              </View>
+            }   
+            subtitle={
+              <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'3.5%'}}>
+                <Text style={{
+                  fontSize:11, 
+                  fontFamily: "Cairo-Light",             
+                  alignItems:"flex-start",
+                  flex:1,
+                  width:'90%',  
+                  letterSpacing: 0.4,  
+                  top: '-3.5%',
+                  // backgroundColor:"green",
+                  height: '100%'                
+                }}>
+                  {coin.title}
+                </Text>           
+              </View>
+            }
+            containerStyle = {{
+              borderRadius: 10, 
+              width: '100%', 
+              height: 63,            
+              backgroundColor: '#ffffff',
+              justifyContent:"center",
+              borderWidth:0.5,
+              borderColor: '#F8F8FF',
+              shadowColor: '#F8F8FF',
+              shadowOffset: { width: 1, height: 1},
+              shadowOpacity:20,
+              shadowRadius: 10,
+            }}
+            avatarStyle = {{           
+              marginTop:'-5%',         
+            }}
           />
-        </Card>
+        </View>
       </View>
     )
   }
@@ -76,13 +132,31 @@ class ListItem extends Component {
 const styles = StyleSheet.create({
   title: {
     paddingLeft: 15,
-    alignItems: 'flex-start',
+    alignItems: 'flex-end',
+    backgroundColor:'#ffffff',
+    borderWidth: 0,
   },
   invalid: {
-    alignItems: 'flex-start',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    paddingTop: '2.5%'
   },
   valid: {
-    alignItems: 'flex-start',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    paddingTop: '2.5%'    
+  },
+  containerSelected : {
+    // borderColor: '#27c997',
+    borderWidth:2,
+    width: '83%', 
+    borderRadius: 10, 
+  },
+  containerDeselect :{ 
+    // borderColor: '#d0021b',
+    borderWidth:2,
+    width: '83%', 
+    borderRadius: 10, 
   }
 })
 
@@ -96,4 +170,4 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps, { addTokenToSetup })(ListItem)
+export default connect(mapStateToProps, { addTokenToSetup })(CoinListItem)
