@@ -3,7 +3,7 @@ import { Text, View, ScrollView, StyleSheet, Dimensions, TouchableOpacity, Platf
 import { NavigationActions } from "react-navigation";
 import { Terms } from '../../../constants/Terms';
 import { Button } from 'react-native-elements';
-
+import LinearGradient from 'react-native-linear-gradient';
 /**
  * Initial terms and condition screen when the app is oppened for the first time.
  */
@@ -19,12 +19,18 @@ class TermsAndConditions extends Component {
         this.props.navigation.dispatch(navigateToCreateOrRestore);
     };
 
+    test(){
+        console.log("Hello");
+        
+    }
+
     /**
      * Returns the scrollable component that displays the terms and conditions with a submit button
      */
     render() {      
         return (
             <View style={styles.mainContainer}>
+
                 <Text style={styles.textHeader} >Terms & Conditions </Text>
                 <ScrollView>
                     <Text style={styles.textBody} >{Terms}</Text>
@@ -53,7 +59,8 @@ class TermsAndConditions extends Component {
                 </View>
                 <View style={{alignItems:"center"}}>
                     <Text style={styles.textFooter}>Powered by ChainSafe </Text> 
-                </View>            
+                </View>
+
             </View>
         );
     }
@@ -100,3 +107,6 @@ const styles = StyleSheet.create({
 })
 
 export default TermsAndConditions;
+
+
+                
