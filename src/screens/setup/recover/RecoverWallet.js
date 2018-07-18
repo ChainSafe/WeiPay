@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { Button, FormLabel, FormInput, FormValidationMessage, Card } from 'react-native-elements';
 import { newWalletCreation } from '../../../actions/ActionCreator'; //gonna save this passphrase to state
 import provider from '../../../constants/Providers';
+import LinearButton from '../../../components/LinearGradient/LinearButton';
 const ethers = require('ethers');
 
 /**
@@ -85,7 +86,7 @@ class RecoverWallet extends Component {
                 <Text style={styles.textHeader} >Recovery Passphrase</Text>                               
                 <View style={styles.contentContainer} >
                     <Card containerStyle={{ 
-                        width: '80%', 
+                        width: '82%', 
                         height: '55%', 
                         borderRadius: 7.5, 
                         shadowOpacity: 0.5, 
@@ -104,25 +105,10 @@ class RecoverWallet extends Component {
                     </Card>
                 </View>
                 <View style={styles.btnContainer}>
-                    <Button
-                        //disabled={this.state.mnemonic === ""}
-                        title='Recover'
-                        icon={{ size: 28 }}
-                        buttonStyle={{
-                            backgroundColor: '#12c1a2',   
-                            borderRadius: 100, 
-                            width: '84%',
-                            height: 52,                                  
-                            alignItems: 'center', 
-                            justifyContent: 'center',                                  
-                            marginLeft: '7.5%'
-                        }}
-                        textStyle={{ textAlign: 'center', 
-                        color: 'white', 
-                        fontSize: 16, 
-                        fontFamily:"Cairo-Regular" }}
-                        onPress={this.navigate}
-                    />
+                    <LinearButton 
+                        onClickFunction={this.navigate }
+                        buttonText="Recover"                                           
+                    />                  
                 </View>  
                 <View style={{ alignItems:'center'}} >    
                     <View style={{ alignItems:'center'}} >
@@ -169,7 +155,7 @@ const styles = StyleSheet.create({
     textHeader: {       
         fontFamily: "Cairo-Light",
         fontSize: 24,        
-        paddingLeft: '10%',  //cannot set custom navbar with % so we are having an app standard for 30px left for titles  
+        paddingLeft: '10%',   
         paddingBottom: '3%',
         marginTop: '5%',
         color: '#1a1f3e'

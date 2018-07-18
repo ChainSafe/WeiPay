@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { Text, View, StyleSheet, Image } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
-import { Button } from 'react-native-elements';
 import { restoreWallet } from '../../actions/ActionCreator';
+import LinearButton   from '../../components/LinearGradient/LinearButton'
+import ClearButton   from '../../components/LinearGradient/ClearButton'
 
 /**
  * Initial setup screen used to allow the user to either restore a previously
@@ -44,51 +45,17 @@ class CreateOrRestore extends Component {
                 <Text style={styles.textHeader} > WeiPay</Text>
                 <Text style={styles.textHeaderDescription} > ERC20 Token Wallet </Text>
                 <View style={styles.btnContainer} >
-                    <View style={styles.btn}>
-                        <Button
-                            title='Create Wallet'
-                            icon={{ size: 28 }}
-                            buttonStyle={{
-                                backgroundColor: '#12c1a2', 
-                                borderRadius: 100, 
-                                width: '84%',
-                                height: 52,                                  
-                                alignItems: 'center', 
-                                justifyContent: 'center',                                  
-                                marginLeft: '7.5%'
-                            }}
-                            textStyle={{ 
-                                textAlign: 'center', 
-                                color: 'white', 
-                                fontSize: 16, 
-                                fontFamily:"Cairo-Regular" 
-                            }}
-                            onPress={this.navigateCreate}
+                    <View style={styles.btn}>                       
+                        <LinearButton 
+                            onClickFunction={this.navigateCreate}
+                            buttonText="Create Wallet"                        
                         />
                     </View>
                     <View>
-                        <Button
-                            title='Restore Wallet'
-                            icon={{ size: 28 }}
-                            buttonStyle={{
-                                backgroundColor: 'transparent', 
-                                borderColor: '#12c1a2',
-                                borderRadius: 100, 
-                                borderWidth: 1,                               
-                                width: '84%',
-                                height: 52,                                  
-                                alignItems: 'center', 
-                                justifyContent: 'center',                                  
-                                marginLeft: '7.5%'
-                            }}
-                            textStyle={{ 
-                                textAlign: 'center', 
-                                color: '#12c1a2', 
-                                fontSize: 16, 
-                                fontFamily:"Cairo-Regular" 
-                            }}
-                            onPress={this.navigateRestore}
-                        />
+                      <ClearButton 
+                            onClickFunction={this.navigateRestore}
+                            buttonText="Restore Wallet"                            
+                        />                       
                     </View>
                 </View>
                 <View style={styles.footerContainer}>

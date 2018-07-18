@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, StyleSheet, TextInput, Text } from "react-native";
-import LinearGradient  from 'react-native-linear-gradient'
-
 
 /**
  * Component must have the following props:
@@ -15,7 +13,7 @@ import LinearGradient  from 'react-native-linear-gradient'
  *      
  */
 
-class Button extends Component {
+class ClearButton extends Component {
 
     render() {
         return (
@@ -23,16 +21,14 @@ class Button extends Component {
                 <TouchableOpacity 
                     onPress={this.props.onClickFunction}
                 >
-                    <LinearGradient 
-                        colors={['#04b79f', '#5cfab1']} 
-                        start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+                    <View                        
                         style={[styles.buttonStyles, this.props.customStyles]}
                         >
                         <Text
                             style={[styles.textStyles, this.props.customTextStyles]}
                         >{this.props.buttonText}</Text>
                         
-                    </LinearGradient>
+                    </View>
                 </TouchableOpacity>
             </View>
         );
@@ -44,20 +40,23 @@ class Button extends Component {
 const styles = StyleSheet.create({
     buttonStyles: {
         borderRadius: 100, 
-        width: '84%',
+        borderColor: "#27c997",
+        borderWidth: 1,
+        width: '82%',
         height: 52,                                  
         alignItems: 'center', 
         justifyContent: 'center',                                  
-        marginLeft: '7.5%'
+        marginLeft: '9%'
     },
 
     textStyles: {
         fontFamily: "Cairo-Regular",
-        fontSize: 20,
-        color: "#ffffff",
+        fontSize: 16,
+        color: "#27c997",
+        letterSpacing: 0.4
     }
 
 })
   
 
-export default Button
+export default ClearButton

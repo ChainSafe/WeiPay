@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import { View, TouchableOpacity, ScrollView, StyleSheet, Text, TextInput, Image, AsyncStorage, Dimensions, Platform } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
-import { Button, FormLabel, FormInput, FormValidationMessage, Card } from 'react-native-elements';
+import { FormLabel, FormInput, FormValidationMessage, Card } from 'react-native-elements';
 import { Input } from '../../../components/common/Input';
 import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCreator';
 import provider from '../../../constants/Providers';
+import LinearButton from '../../../components/LinearGradient/LinearButton';
 const ethers = require('ethers');
 
 /**
@@ -50,7 +51,7 @@ class CreateWalletName extends Component {
                 <Text style={styles.textHeader} >Wallet Name</Text>                               
                 <View style={styles.contentContainer} >
                     <Card containerStyle={{ 
-                        width: '80%', 
+                        width: '82%', 
                         height: '55%', 
                         borderRadius: 7.5, 
                         shadowOpacity: 0.5, 
@@ -69,25 +70,10 @@ class CreateWalletName extends Component {
                   </Card>
               </View>
             <View style={styles.btnContainer}>
-                <Button
-                    //disabled={this.props.walletName === ""}
-                    title='Next'
-                    icon={{ size: 28 }}
-                    buttonStyle={{
-                        backgroundColor: '#12c1a2',   
-                        borderRadius: 100, 
-                        width: '84%',
-                        height: 52,                                  
-                        alignItems: 'center', 
-                        justifyContent: 'center',                                  
-                        marginLeft: '7.5%'
-                    }}
-                    textStyle={{ textAlign: 'center', 
-                    color: 'white', 
-                    fontSize: 16, 
-                    fontFamily:"Cairo-Regular" }}
-                    onPress={this.navigate}
-                />
+                <LinearButton 
+                    onClickFunction={this.navigate }
+                    buttonText="Next"                                           
+                />               
             </View>  
             <View style={{ alignItems:'center'}} >    
                 <View style={{ alignItems:'center'}} >
