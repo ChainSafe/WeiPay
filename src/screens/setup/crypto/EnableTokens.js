@@ -4,7 +4,7 @@ import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { FormLabel, FormInput, FormValidationMessage, Button } from 'react-native-elements';
 import CoinList from '../../../components/tokens/CoinList';
-// import LinearButton   from '../../../components/LinearGradient/LinearButton'
+import LinearButton   from '../../../components/LinearGradient/LinearButton'
 
 /**
  * Screen used to aquire the tokens/coins that the user wants to use

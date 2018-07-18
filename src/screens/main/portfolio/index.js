@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import ModalDropdown from 'react-native-modal-dropdown';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 
-//import LinearButton   from '../../../components/LinearGradient/LinearButton'
 /**
  * Screen is used to display the wallet portfolio of the user, which contains the 
  * tokens and the balance of the wallet
@@ -25,6 +24,11 @@ class Portfolio extends Component {
     })
     this.dataSource = ds.cloneWithRows(data);
   }
+
+  navigate = () => {
+    const navigateToAddToken = NavigationActions.navigate({ routeName: "AddToken" });
+    this.props.navigation.dispatch(navigateToAddToken);
+};
 
   /**
    * Returns a ListItem component specific to the properties of the token parameter
@@ -143,11 +147,11 @@ class Portfolio extends Component {
           </ScrollView>
         </View>
         <View style={styles.btnContainer} >
-            {/* <LinearButton 
-                    onClickFunction={this.props.navigation.navigate('AddToken')}
+            <LinearButton 
+                    onClickFunction={this.navigate}
                     buttonText="Add Token or Coin"
                     customStyles={styles.button}
-                />          */}
+                />         
         </View>
         <View style={styles.footerContainer}>
           <Text style={styles.textFooter} >Powered by ChainSafe </Text>

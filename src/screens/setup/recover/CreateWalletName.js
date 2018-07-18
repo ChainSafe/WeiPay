@@ -70,30 +70,10 @@ class CreateWalletName extends Component {
                   </Card>
               </View>
             <View style={styles.btnContainer}>
-                    <LinearButton 
-                        onClickFunction={this.navigate }
-                        buttonText="Next"                                           
-                    />
-
-                {/* <Button
-                    //disabled={this.props.walletName === ""}
-                    title='Next'
-                    icon={{ size: 28 }}
-                    buttonStyle={{
-                        backgroundColor: '#12c1a2',   
-                        borderRadius: 100, 
-                        width: '84%',
-                        height: 52,                                  
-                        alignItems: 'center', 
-                        justifyContent: 'center',                                  
-                        marginLeft: '7.5%'
-                    }}
-                    textStyle={{ textAlign: 'center', 
-                    color: 'white', 
-                    fontSize: 16, 
-                    fontFamily:"Cairo-Regular" }}
-                    onPress={this.navigate}
-                /> */}
+                <LinearButton 
+                    onClickFunction={this.navigate }
+                    buttonText="Next"                                           
+                />               
             </View>  
             <View style={{ alignItems:'center'}} >    
                 <View style={{ alignItems:'center'}} >
