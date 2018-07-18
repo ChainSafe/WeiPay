@@ -60,7 +60,14 @@ class Portfolio extends Component {
                   </Text>
             </View>
           }      
-          onPress={() => this.props.navigation.navigate(token.type)}
+          onPress={() => {
+            if(token.type == "PortfolioToken") {
+              this.props.navigation.navigate("coinSend")
+            } else {
+              this.props.navigation.navigate("coinSend")
+            }
+          }
+          }
           subtitle={
             <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
               <Text style={{
@@ -136,11 +143,11 @@ class Portfolio extends Component {
           </ScrollView>
         </View>
         <View style={styles.btnContainer} >
-            <LinearButton 
+            {/* <LinearButton 
                     onClickFunction={this.props.navigation.navigate('AddToken')}
                     buttonText="Add Token or Coin"
                     customStyles={styles.button}
-                />         
+                />          */}
         </View>
         <View style={styles.footerContainer}>
           <Text style={styles.textFooter} >Powered by ChainSafe </Text>
