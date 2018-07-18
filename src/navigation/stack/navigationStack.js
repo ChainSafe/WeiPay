@@ -10,20 +10,15 @@ import CreateWalletNameRecovered from '../../screens/setup/recover/CreateWalletN
 import RecoverWallet from '../../screens/setup/recover/RecoverWallet';
 import EnableTokens from '../../screens/setup/crypto/EnableTokens';
 import Drawer from '../drawer';
-
-//import PortfolioCoin from '../../screens/main/portfolio/tabs/PortfolioCoin';
-
 import CoinSend from '../../screens/main/tokens/send/CoinSend';
 import CoinHistory from '../../screens/main/tokens/history/CoinActivity';
 import CoinReceive from '../../screens/main/tokens/receive/CoinReceive';
-
 import PortfolioToken from '../../screens/main//portfolio/tabs/PortfolioToken';
 import AddToken from '../../screens/main/tokens/add/index';
 import addContact from '../../screens/main/menu/contacts/add/AddContact';
 import contacts from '../../screens/main/menu/contacts/index';
 import ContactAddresses from '../../screens/main/menu/contacts/SelectedContact';
 import QrCodeScanner from '../../screens/main/qr/QrCodeScanner';
-// import CoinSend from '../../screens/main/tokens/send/CoinSend'
 
 /**
  * Constant contains all the screens that can be navigated to using the 
@@ -72,19 +67,12 @@ const navigator = StackNavigator({
   coinHistory:{
     screen: CoinHistory
   },
-
-  // PortfolioCoin: {
-  //   screen: PortfolioCoin
-  // },
   PortfolioToken: {
     screen: PortfolioToken
   },
   QCodeScanner: {
     screen: QrCodeScanner
   },
-  // CoinSend: {
-  //   screen: CoinSend
-  // },
   contactAddresses: {
     screen: ContactAddresses
   }
@@ -97,14 +85,4 @@ const navigator = StackNavigator({
     lazy: true
   });
 
-
 export default navigator;
-
-
-// header: ({ navigate }) => {
-//   return {
-//     style: {
-//       headerStyle: { shadowColor: 'transparent'}
-//     }
-//   }
-// }
