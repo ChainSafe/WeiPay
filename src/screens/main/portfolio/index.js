@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, StyleSheet, AsyncStorage, ListView, Image, TouchableOpacity, ScrollView, Platform } from 'react-native';
 import { StackNavigator, DrawerNavigator, TabNavigator } from 'react-navigation';
-import { List, ListItem, Icon, Button } from 'react-native-elements';
+import { List, ListItem, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import ModalDropdown from 'react-native-modal-dropdown';
+import LinearButton from '../../../components/LinearGradient/LinearButton';
 
 /**
  * Screen is used to display the wallet portfolio of the user, which contains the 
@@ -23,6 +24,11 @@ class Portfolio extends Component {
     })
     this.dataSource = ds.cloneWithRows(data);
   }
+
+  navigate = () => {
+    const navigateToAddToken = NavigationActions.navigate({ routeName: "AddToken" });
+    this.props.navigation.dispatch(navigateToAddToken);
+};
 
   /**
    * Returns a ListItem component specific to the properties of the token parameter
@@ -58,7 +64,14 @@ class Portfolio extends Component {
                   </Text>
             </View>
           }      
-          onPress={() => this.props.navigation.navigate(token.type)}
+          onPress={() => {
+            if(token.type == "PortfolioToken") {
+              this.props.navigation.navigate("coinSend")
+            } else {
+              this.props.navigation.navigate("coinSend")
+            }
+          }
+          }
           subtitle={
             <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
               <Text style={{
@@ -134,26 +147,11 @@ class Portfolio extends Component {
           </ScrollView>
         </View>
         <View style={styles.btnContainer} >
-          <Button
-            title='Add Token or Coin'
-            icon={{ size: 28 }}
-            buttonStyle={{             
-              backgroundColor: '#12c1a2',   
-              borderRadius: 100, 
-              width: '84%',
-              height: 52,                                  
-              alignItems: 'center', 
-              justifyContent: 'center',                                  
-              marginLeft: '7.5%'
-            }}
-            textStyle={{ 
-              textAlign: 'center', 
-              color: 'white', 
-              fontSize: 16, 
-              fontFamily:"Cairo-Regular" 
-            }}
-            onPress={() => this.props.navigation.navigate('AddToken')}
-          />
+            <LinearButton 
+                    onClickFunction={this.navigate}
+                    buttonText="Add Token or Coin"
+                    customStyles={styles.button}
+                />         
         </View>
         <View style={styles.footerContainer}>
           <Text style={styles.textFooter} >Powered by ChainSafe </Text>
