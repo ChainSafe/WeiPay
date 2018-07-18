@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { Button, FormLabel, FormInput, FormValidationMessage, Card } from 'react-native-elements';
 import { newWalletCreation } from '../../../actions/ActionCreator'; //gonna save this passphrase to state
 import provider from '../../../constants/Providers';
+import LinearButton from '../../../components/LinearGradient/LinearButton';
 const ethers = require('ethers');
 
 /**
@@ -85,7 +86,7 @@ class RecoverWallet extends Component {
                 <Text style={styles.textHeader} >Recovery Passphrase</Text>                               
                 <View style={styles.contentContainer} >
                     <Card containerStyle={{ 
-                        width: '80%', 
+                        width: '82%', 
                         height: '55%', 
                         borderRadius: 7.5, 
                         shadowOpacity: 0.5, 
@@ -104,7 +105,11 @@ class RecoverWallet extends Component {
                     </Card>
                 </View>
                 <View style={styles.btnContainer}>
-                    <Button
+                    <LinearButton 
+                        onClickFunction={this.navigate }
+                        buttonText="Recover"                                           
+                    />
+                    {/* <Button
                         //disabled={this.state.mnemonic === ""}
                         title='Recover'
                         icon={{ size: 28 }}
@@ -122,7 +127,7 @@ class RecoverWallet extends Component {
                         fontSize: 16, 
                         fontFamily:"Cairo-Regular" }}
                         onPress={this.navigate}
-                    />
+                    /> */}
                 </View>  
                 <View style={{ alignItems:'center'}} >    
                     <View style={{ alignItems:'center'}} >

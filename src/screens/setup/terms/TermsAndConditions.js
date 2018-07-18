@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Text, View, ScrollView, StyleSheet, Dimensions, TouchableOpacity, Platform } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { Terms } from '../../../constants/Terms';
-import { Button } from 'react-native-elements';
+import LinearButton   from '../../../components/LinearGradient/LinearButton'
 
 /**
  * Initial terms and condition screen when the app is oppened for the first time.
@@ -30,25 +30,10 @@ class TermsAndConditions extends Component {
                     <Text style={styles.textBody} >{Terms}</Text>
                 </ScrollView>                        
                 <View style={styles.btnContainer}>
-                    <Button
-                        title='Agree'
-                        icon={{ size: 28 }}
-                        buttonStyle={{ 
-                            backgroundColor: '#12c1a2', 
-                            borderRadius: 100, 
-                            width: '84%',
-                            height: 52,                                  
-                            alignItems: 'center', 
-                            justifyContent: 'center',                                  
-                            marginLeft: '7.5%'
-                        }}
-                        textStyle={{ 
-                            textAlign: 'center', 
-                            color: 'white', 
-                            fontSize: 16, 
-                            fontFamily:"Cairo-Regular" 
-                        }}
-                        onPress={this.navigate}
+                    <LinearButton 
+                        onClickFunction={this.navigate}
+                        buttonText="Agree"
+                        customStyles={styles.button}
                     />
                 </View>
                 <View style={{alignItems:"center"}}>
@@ -86,7 +71,7 @@ const styles = StyleSheet.create({
     btnContainer: {  
         marginTop: '5%',    
         marginBottom: '3.5%',
-        alignItems:'stretch',
+        // alignItems:'stretch',
         width: '100%',
     }  ,
     textFooter : {

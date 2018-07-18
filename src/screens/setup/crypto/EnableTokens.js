@@ -2,14 +2,16 @@ import React, { Component } from "react";
 import { View, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput, Image } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
-import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
+import { FormLabel, FormInput, FormValidationMessage, Button } from 'react-native-elements';
 import CoinList from '../../../components/tokens/CoinList';
+// import LinearButton   from '../../../components/LinearGradient/LinearButton'
 
 /**
  * Screen used to aquire the tokens/coins that the user wants to use
  * in their portfolio
  */
 class EnableCrypto extends Component {
+
     state = {
         tokenList: this.props.tokenList,
         changeState: true
@@ -42,6 +44,11 @@ class EnableCrypto extends Component {
                     </ScrollView>
                 </View>
                 <View style={styles.btnContainer} >
+                    {/* <LinearButton 
+                        onClickFunction={this.navigate}
+                        buttonText="Add"
+                        customStyles={styles.button}
+                    /> */}
                     <Button
                         // disabled={this.props.tokenList.length === 0}
                         title='Add'
