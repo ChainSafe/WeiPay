@@ -7,6 +7,7 @@ import LinearGradient  from 'react-native-linear-gradient'
  * Component must have the following props:
  *      onClickFunction
  *      buttonText
+ *      buttonStateEnabled
  * 
  * Optional props:
  *      customStyles
@@ -22,6 +23,7 @@ class LinearButton extends Component {
             <View>
                 <TouchableOpacity 
                     onPress={this.props.onClickFunction}
+                    disabled={this.props.buttonStateEnabled}
                 >
                     <LinearGradient 
                         colors={['#04b79f', '#5cfab1']} 

@@ -14,6 +14,18 @@ const ethers = require('ethers');
  */
 class CreateWalletName extends Component {
 
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            
+            buttonDisabled: true
+        
+        }
+    }
+
+
+
     /**
      * Method is used to save the newly generated wallet (via ethers.js) in the global state
      * variable and to navigate to the "generatePassphrase" screen  
@@ -32,6 +44,7 @@ class CreateWalletName extends Component {
      */
     getWalletName(name) {
         this.props.newWalletNameEntry(name);
+        this.setState({buttonDisabled: false})
     }
 
     /**
@@ -76,6 +89,7 @@ class CreateWalletName extends Component {
                     onClickFunction={this.navigate}
                     buttonText="Next"
                     customStyles={styles.button}
+                    buttonStateEnabled={this.state.buttonDisabled}
                 />
             </View>                  
             <View style={{ alignItems:'center'}} >    
