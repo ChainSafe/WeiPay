@@ -26,7 +26,7 @@ class LinearButton extends Component {
                     disabled={this.props.buttonStateEnabled}
                 >
                     <LinearGradient 
-                        colors={['#04b79f', '#5cfab1']} 
+                        colors={!this.props.buttonStateEnabled ? gradientColors.Enabled : gradientColors.Disabled} 
                         start={{x: 0, y: 0}} end={{x: 1, y: 1}}
                         style={[styles.buttonStyles, this.props.customStyles]}
                         >
@@ -39,6 +39,12 @@ class LinearButton extends Component {
         );
     }
 }
+
+const gradientColors = {
+    Enabled: ['#04b79f', '#5cfab1'],
+    Disabled: ['#a2a3a5', '#e5e5e5']
+}
+
 
 const styles = StyleSheet.create({
     buttonStyles: {
@@ -55,7 +61,13 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: "#ffffff",
         letterSpacing: 0.4
+    },
+
+    DisabledButton: {
+        
     }
+
+
 })
   
 
