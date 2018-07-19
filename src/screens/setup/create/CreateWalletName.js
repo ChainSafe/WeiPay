@@ -43,11 +43,9 @@ class CreateWalletName extends Component {
      * Returns the form required for the user to set the name of their wallet
      */
     render() {
-        return (
-            
+        return (           
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={styles.mainContainer} >
-                    
+                <View style={styles.mainContainer} >        
                     <View style={styles.headerBack}> 
                         <TouchableOpacity
                             onPress={() => this.props.navigation.navigate('createOrRestore')} >
@@ -78,8 +76,6 @@ class CreateWalletName extends Component {
                             /> 
                         </Card>
                         </View>
-                          
-
                     <View style={styles.btnContainer}>
                         <LinearButton 
                             onClickFunction={this.navigate}
@@ -93,12 +89,8 @@ class CreateWalletName extends Component {
                             <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
                         </View>  
                     </View> 
-
                 </View>
-                
             </TouchableWithoutFeedback>
-            
-            
         );
     }
 }
