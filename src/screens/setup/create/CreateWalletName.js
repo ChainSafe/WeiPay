@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet, Image, Text, Platform, Keyboard, Animated, KeyboardAvoidingView, ScrollView     } from "react-native";
-import { KeyboardAwareView } from 'react-native-keyboard-aware-view'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet, Image, Text, Platform, Keyboard } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { FormLabel, FormInput, FormValidationMessage, Card } from 'react-native-elements';
@@ -15,43 +13,6 @@ const ethers = require('ethers');
  */
 class CreateWalletName extends Component {
 
-    // constructor(props) {
-    //     super(props);
-
-
-    //     this.keyboardHeight = new Animated.Value(0);
-    // }
-
-
-
-    // componentWillMount () {
-    //     this.keyboardWillShowSub = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
-    //     this.keyboardWillHideSub = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
-    // }
-
-    // componentWillUnmount() {
-    //     this.keyboardWillShowSub.remove();
-    //     this.keyboardWillHideSub.remove();
-    // }
-
-
-    // keyboardWillShow = (event) => {
-    //     Animated.parallel([
-    //       Animated.timing(this.keyboardHeight, {
-    //         duration: event.duration,
-    //         toValue: event.endCoordinates.height,
-    //       })
-    //     ]).start();
-    //   };
-    
-    // keyboardWillHide = (event) => {
-    //     Animated.parallel([
-    //         Animated.timing(this.keyboardHeight, {
-    //         duration: event.duration,
-    //         toValue: 0,
-    //         })
-    //     ]).start();
-    // };
     
     /**
      * Method is used to save the newly generated wallet (via ethers.js) in the global state
