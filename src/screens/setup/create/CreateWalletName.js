@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, StyleSheet, Image, Text, Platform, Keyboard, Animated, KeyboardAvoidingView, ScrollView     } from "react-native";
+import { View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet, Image, Text, Platform, Keyboard, Animated, KeyboardAvoidingView, ScrollView     } from "react-native";
 import { KeyboardAwareView } from 'react-native-keyboard-aware-view'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { NavigationActions } from "react-navigation";
@@ -79,53 +79,54 @@ class CreateWalletName extends Component {
      */
     render() {
         return (
-               
-            <View style={styles.mainContainer} >
-                <ScrollView>   
-                    <View style={styles.headerBack}> 
-                        <TouchableOpacity
-                            onPress={() => this.props.navigation.navigate('createOrRestore')} >
-                            <Image
-                                source={require('../../../assets/icons/back.png')}
-                                style={{height:20, width:20}}
-                            /> 
-                        </TouchableOpacity>
-                    </View>   
-                    <Text style={styles.textHeader} >Wallet Name</Text>                               
-                    <View style={styles.contentContainer} >
-                        <Card containerStyle={{ 
-                            width: '82%', 
-                            height: '55%', 
-                            borderRadius: 7.5, 
-                            shadowOpacity: 0.5, 
-                            shadowRadius: 1.3, 
-                            shadowColor: '#dbdbdb',
-                            shadowOffset: { width: 1, height: 2 },                    
-                        }}> 
-                            <Text style={styles.cardText}>
-                                Create a name for your wallet, for example: My Wallet
-                            </Text>
-                            <FormInput
-                                placeholder={"Ex. My Wallet"}
-                                onChangeText={this.getWalletName.bind(this)}
-                                inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2'}}
-                            /> 
-                        </Card>
-                    </View>
-                    <View style={styles.btnContainer}>
-                        <LinearButton 
-                            onClickFunction={this.navigate}
-                            buttonText="Next"
-                            customStyles={styles.button}
-                        />
-                    </View>                  
-                    <View style={{ alignItems:'center'}} >    
-                        <View style={{ alignItems:'center'}} >
-                            <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
-                        </View>  
-                    </View>   
-                </ScrollView>
-            </View>
+            
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.mainContainer} >
+                    
+                        <View style={styles.headerBack}> 
+                            <TouchableOpacity
+                                onPress={() => this.props.navigation.navigate('createOrRestore')} >
+                                <Image
+                                    source={require('../../../assets/icons/back.png')}
+                                    style={{height:20, width:20}}
+                                /> 
+                            </TouchableOpacity>
+                        </View>   
+                        <Text style={styles.textHeader} >Wallet Name</Text>                               
+                        <View style={styles.contentContainer} >
+                            <Card containerStyle={{ 
+                                width: '82%', 
+                                height: '55%', 
+                                borderRadius: 7.5, 
+                                shadowOpacity: 0.5, 
+                                shadowRadius: 1.3, 
+                                shadowColor: '#dbdbdb',
+                                shadowOffset: { width: 1, height: 2 },                    
+                            }}> 
+                                <Text style={styles.cardText}>
+                                    Create a name for your wallet, for example: My Wallet
+                                </Text>
+                                <FormInput
+                                    placeholder={"Ex. My Wallet"}
+                                    onChangeText={this.getWalletName.bind(this)}
+                                    inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2'}}
+                                /> 
+                            </Card>
+                        </View>
+                        <View style={styles.btnContainer}>
+                            <LinearButton 
+                                onClickFunction={this.navigate}
+                                buttonText="Next"
+                                customStyles={styles.button}
+                            />
+                        </View>                  
+                        <View style={{ alignItems:'center'}} >    
+                            <View style={{ alignItems:'center'}} >
+                                <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
+                            </View>  
+                        </View>   
+                </View>
+            </TouchableWithoutFeedback>
             
         );
     }
@@ -134,6 +135,7 @@ class CreateWalletName extends Component {
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
+        justifyContent: "center",
         paddingTop: '5%',   
         backgroundColor: "#fafbfe",
         width: '100%',
