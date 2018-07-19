@@ -14,17 +14,10 @@ const ethers = require('ethers');
  */
 class CreateWalletName extends Component {
 
-
     constructor(props) {
         super(props);
-        this.state = {
-            
-            buttonDisabled: true
-        
-        }
+        this.state = { buttonDisabled: true }
     }
-
-
 
     /**
      * Method is used to save the newly generated wallet (via ethers.js) in the global state

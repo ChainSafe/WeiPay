@@ -44,8 +44,6 @@ const gradientColors = {
     Enabled: ['#04b79f', '#5cfab1'],
     Disabled: ['#a2a3a5', '#e5e5e5']
 }
-
-
 const styles = StyleSheet.create({
     buttonStyles: {
         borderRadius: 100, 
@@ -55,19 +53,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',                                  
         marginLeft: '9%'
     },
-
     textStyles: {
         fontFamily: "Cairo-Regular",
         fontSize: 16,
         color: "#ffffff",
         letterSpacing: 0.4
     },
-
-    DisabledButton: {
-        
-    }
-
-
 })
   
 
