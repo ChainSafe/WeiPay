@@ -20,11 +20,8 @@ class EnableCrypto extends Component {
     /**
      * Method used to navigate to the main portfolio Screen
      */
-    navigate = () => {
-        const navigateToPassphrase = NavigationActions.reset({
-            index: 0,
-            actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
-        });
+    navigate = () => {      
+        const navigateToPassphrase = NavigationActions.navigate({ routeName: "Drawer" });
         this.props.navigation.dispatch(navigateToPassphrase);
     };
 
@@ -44,32 +41,11 @@ class EnableCrypto extends Component {
                     </ScrollView>
                 </View>
                 <View style={styles.btnContainer} >
-                    {/* <LinearButton 
+                    <LinearButton 
                         onClickFunction={this.navigate}
                         buttonText="Add"
                         customStyles={styles.button}
-                    /> */}
-                    <Button
-                        // disabled={this.props.tokenList.length === 0}
-                        title='Add'
-                        icon={{ size: 28 }}
-                        buttonStyle={{
-                            backgroundColor: '#12c1a2',   
-                            borderRadius: 100, 
-                            width: '84%',
-                            height: 52,                                  
-                            alignItems: 'center', 
-                            justifyContent: 'center',                                  
-                            marginLeft: '7.5%'
-                        }}
-                        textStyle={{ 
-                            textAlign: 'center', 
-                            color: 'white', 
-                            fontSize: 16, 
-                            fontFamily:"Cairo-Regular" 
-                         }}
-                        onPress={() => this.props.navigation.navigate('Drawer')}
-                    />
+                    />                  
                 </View>
                 <View style={styles.footerContainer}>
                     <Text style={styles.textFooter} >Powered by ChainSafe </Text>
