@@ -48,64 +48,55 @@ class CreateWalletName extends Component {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.mainContainer} >
                     
-                        <View style={styles.headerBack}> 
-                            <TouchableOpacity
-                                onPress={() => this.props.navigation.navigate('createOrRestore')} >
-                                <Image
-                                    source={require('../../../assets/icons/back.png')}
-                                    style={{height:20, width:20}}
-                                /> 
-                            </TouchableOpacity>
-                        </View>   
-                        <Text style={styles.textHeader} >Wallet Name</Text>                               
-                        <View style={styles.contentContainer} >
-                            <Card containerStyle={{ 
-                                width: '82%', 
-                                height: '55%', 
-                                borderRadius: 7.5, 
-                                shadowOpacity: 0.5, 
-                                shadowRadius: 1.3, 
-                                shadowColor: '#dbdbdb',
-                                shadowOffset: { width: 1, height: 2 },                    
-                            }}> 
-                                <Text style={styles.cardText}>
-                                    Create a name for your wallet, for example: My Wallet
-                                </Text>
-                                <FormInput
-                                    placeholder={"Ex. My Wallet"}
-                                    onChangeText={this.getWalletName.bind(this)}
-                                    inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2'}}
-                                /> 
-                            </Card>
+                    <View style={styles.headerBack}> 
+                        <TouchableOpacity
+                            onPress={() => this.props.navigation.navigate('createOrRestore')} >
+                            <Image
+                                source={require('../../../assets/icons/back.png')}
+                                style={{height:20, width:20}}
+                            /> 
+                        </TouchableOpacity>
+                    </View>   
+                    <Text style={styles.textHeader} >Wallet Name</Text>                               
+                    <View style={styles.contentContainer} >
+                        <Card containerStyle={{ 
+                            width: '82%', 
+                            height: '55%', 
+                            borderRadius: 7.5, 
+                            shadowOpacity: 0.5, 
+                            shadowRadius: 1.3, 
+                            shadowColor: '#dbdbdb',
+                            shadowOffset: { width: 1, height: 2 },                    
+                        }}> 
+                            <Text style={styles.cardText}>
+                                Create a name for your wallet, for example: My Wallet
+                            </Text>
+                            <FormInput
+                                placeholder={"Ex. My Wallet"}
+                                onChangeText={this.getWalletName.bind(this)}
+                                inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2'}}
+                            /> 
+                        </Card>
                         </View>
-                        <View style={styles.btnContainer}>
-                            <LinearButton 
-                                onClickFunction={this.navigate}
-                                buttonText="Next"
-                                customStyles={styles.button}
-                            />
-                        </View>                  
-                        <View style={{ alignItems:'center'}} >    
-                            <View style={{ alignItems:'center'}} >
-                                <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
-                            </View>  
-                        </View>   
-                </View>
+                          
 
-            <View style={styles.btnContainer}>
-                <LinearButton 
-                    onClickFunction={this.navigate}
-                    buttonText="Next"
-                    customStyles={styles.button}
-                    buttonStateEnabled={this.state.buttonDisabled}
-                />
-            </View>                  
-            <View style={{ alignItems:'center'}} >    
-                <View style={{ alignItems:'center'}} >
-                    <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
-                </View>  
-            </View>   
-        </View>
+                    <View style={styles.btnContainer}>
+                        <LinearButton 
+                            onClickFunction={this.navigate}
+                            buttonText="Next"
+                            customStyles={styles.button}
+                            buttonStateEnabled={this.state.buttonDisabled}
+                        />
+                    </View>                  
+                    <View style={{ alignItems:'center'}} >    
+                        <View style={{ alignItems:'center'}} >
+                            <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
+                        </View>  
+                    </View> 
+
+                </View>
+                
+            </TouchableWithoutFeedback>
             
             
         );
