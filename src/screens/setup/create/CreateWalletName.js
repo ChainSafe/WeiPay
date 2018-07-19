@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet, Image, Text, Platform, Keyboard, Animated, KeyboardAvoidingView, ScrollView     } from "react-native";
-import { KeyboardAwareView } from 'react-native-keyboard-aware-view'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet, Image, Text, Platform, Keyboard } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { FormLabel, FormInput, FormValidationMessage, Card } from 'react-native-elements';
@@ -14,45 +12,11 @@ const ethers = require('ethers');
  * a new wallet has been created
  */
 class CreateWalletName extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { buttonDisabled: true }
+    }
 
-    // constructor(props) {
-    //     super(props);
-
-
-    //     this.keyboardHeight = new Animated.Value(0);
-    // }
-
-
-
-    // componentWillMount () {
-    //     this.keyboardWillShowSub = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
-    //     this.keyboardWillHideSub = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
-    // }
-
-    // componentWillUnmount() {
-    //     this.keyboardWillShowSub.remove();
-    //     this.keyboardWillHideSub.remove();
-    // }
-
-
-    // keyboardWillShow = (event) => {
-    //     Animated.parallel([
-    //       Animated.timing(this.keyboardHeight, {
-    //         duration: event.duration,
-    //         toValue: event.endCoordinates.height,
-    //       })
-    //     ]).start();
-    //   };
-    
-    // keyboardWillHide = (event) => {
-    //     Animated.parallel([
-    //         Animated.timing(this.keyboardHeight, {
-    //         duration: event.duration,
-    //         toValue: 0,
-    //         })
-    //     ]).start();
-    // };
-    
     /**
      * Method is used to save the newly generated wallet (via ethers.js) in the global state
      * variable and to navigate to the "generatePassphrase" screen  
@@ -71,6 +35,7 @@ class CreateWalletName extends Component {
      */
     getWalletName(name) {
         this.props.newWalletNameEntry(name);
+        this.setState({buttonDisabled: false})
     }
 
     /**
@@ -78,56 +43,54 @@ class CreateWalletName extends Component {
      * Returns the form required for the user to set the name of their wallet
      */
     render() {
-        return (
-            
+        return (           
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={styles.mainContainer} >
-                    
-                        <View style={styles.headerBack}> 
-                            <TouchableOpacity
-                                onPress={() => this.props.navigation.navigate('createOrRestore')} >
-                                <Image
-                                    source={require('../../../assets/icons/back.png')}
-                                    style={{height:20, width:20}}
-                                /> 
-                            </TouchableOpacity>
-                        </View>   
-                        <Text style={styles.textHeader} >Wallet Name</Text>                               
-                        <View style={styles.contentContainer} >
-                            <Card containerStyle={{ 
-                                width: '82%', 
-                                height: '55%', 
-                                borderRadius: 7.5, 
-                                shadowOpacity: 0.5, 
-                                shadowRadius: 1.3, 
-                                shadowColor: '#dbdbdb',
-                                shadowOffset: { width: 1, height: 2 },                    
-                            }}> 
-                                <Text style={styles.cardText}>
-                                    Create a name for your wallet, for example: My Wallet
-                                </Text>
-                                <FormInput
-                                    placeholder={"Ex. My Wallet"}
-                                    onChangeText={this.getWalletName.bind(this)}
-                                    inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2'}}
-                                /> 
-                            </Card>
+                <View style={styles.mainContainer} >        
+                    <View style={styles.headerBack}> 
+                        <TouchableOpacity
+                            onPress={() => this.props.navigation.navigate('createOrRestore')} >
+                            <Image
+                                source={require('../../../assets/icons/back.png')}
+                                style={{height:20, width:20}}
+                            /> 
+                        </TouchableOpacity>
+                    </View>   
+                    <Text style={styles.textHeader} >Wallet Name</Text>                               
+                    <View style={styles.contentContainer} >
+                        <Card containerStyle={{ 
+                            width: '82%', 
+                            height: '55%', 
+                            borderRadius: 7.5, 
+                            shadowOpacity: 0.5, 
+                            shadowRadius: 1.3, 
+                            shadowColor: '#dbdbdb',
+                            shadowOffset: { width: 1, height: 2 },                    
+                        }}> 
+                            <Text style={styles.cardText}>
+                                Create a name for your wallet, for example: My Wallet
+                            </Text>
+                            <FormInput
+                                placeholder={"Ex. My Wallet"}
+                                onChangeText={this.getWalletName.bind(this)}
+                                inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2'}}
+                            /> 
+                        </Card>
                         </View>
-                        <View style={styles.btnContainer}>
-                            <LinearButton 
-                                onClickFunction={this.navigate}
-                                buttonText="Next"
-                                customStyles={styles.button}
-                            />
-                        </View>                  
-                        <View style={{ alignItems:'center'}} >    
-                            <View style={{ alignItems:'center'}} >
-                                <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
-                            </View>  
-                        </View>   
+                    <View style={styles.btnContainer}>
+                        <LinearButton 
+                            onClickFunction={this.navigate}
+                            buttonText="Next"
+                            customStyles={styles.button}
+                            buttonStateEnabled={this.state.buttonDisabled}
+                        />
+                    </View>                  
+                    <View style={{ alignItems:'center'}} >    
+                        <View style={{ alignItems:'center'}} >
+                            <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
+                        </View>  
+                    </View> 
                 </View>
             </TouchableWithoutFeedback>
-            
         );
     }
 }
