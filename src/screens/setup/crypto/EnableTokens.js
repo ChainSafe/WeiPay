@@ -20,8 +20,7 @@ class EnableCrypto extends Component {
     /**
      * Method used to navigate to the main portfolio Screen
      */
-    navigate = () => {      
-        // const navigateToPassphrase = NavigationActions.navigate({ routeName: "Drawer" });
+    navigate = () => {              
         const navigateToPassphrase = NavigationActions.navigate({ routeName: "mainStack" });
         this.props.navigation.dispatch(navigateToPassphrase);
     };
@@ -34,18 +33,17 @@ class EnableCrypto extends Component {
      */
     render() {
         return (
-            <View style={styles.mainContainer} >
-                <Text style={styles.textHeader} >Enable Tokens </Text>   
-                <View style={{alignItems:"stretch", width:"100%", marginLeft: '9%', marginBottom:"2.5%"}}>             
-                    <ScrollView style={{height:"70%"}} >
+            <View style={styles.mainContainer}>
+                <Text style={styles.textHeader}>Enable Tokens </Text>   
+                <View style={styles.coinListContainer}>             
+                    <ScrollView style={styles.scrollView} >
                         <CoinList />
                     </ScrollView>
                 </View>
                 <View style={styles.btnContainer} >
                     <LinearButton 
                         onClickFunction={this.navigate}
-                        buttonText="Add"
-                        customStyles={styles.button}
+                        buttonText="Add"                       
                     />                  
                 </View>
                 <View style={styles.footerContainer}>
@@ -72,6 +70,15 @@ const styles = StyleSheet.create({
         marginTop:"10%",
         paddingBottom: '2.5%',
         color: '#1a1f3e'
+    },
+    coinListContainer: {
+        alignItems:"stretch", 
+        width:"100%", 
+        marginLeft: '9%', 
+        marginBottom:"2.5%"
+    },
+    scrollView: {
+        height:"70%"
     },
     btnContainer: {
         alignItems: 'stretch',

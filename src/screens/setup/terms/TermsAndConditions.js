@@ -70,8 +70,7 @@ const styles = StyleSheet.create({
     },
     btnContainer: {  
         marginTop: '5%',    
-        marginBottom: '3.5%',
-        // alignItems:'stretch',
+        marginBottom: '3.5%',      
         width: '100%',
     }  ,
     textFooter : {
