@@ -18,3 +18,4 @@ export const COMPLETE_CONTACT = 'complete_contact';
 export const CONTACT_ADDRESS = 'contact_address'
 export const QRSCANNER_PAGE_INVOKER = 'qrscanner_page_invoker'
 export const SAVING_ADDCONTACT_INPUTS = 'saving_addContact_inputs'
+export const ADD_TOKEN_INFO = 'add_token_info'

@@ -136,3 +136,9 @@ export function saveAddContactInputs(completeInput) {
     dispatch({ type: actionTypes.SAVING_ADDCONTACT_INPUTS, payload: completeInput })
   }
 }
+
+export function addTokenInfo(tokenInfo) {
+  return dispatch => {
+    dispatch({ type: actionTypes.ADD_TOKEN_INFO, payload: tokenInfo})
+  }
+}
