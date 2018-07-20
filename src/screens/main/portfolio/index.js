@@ -5,6 +5,8 @@ import { List, ListItem, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import ModalDropdown from 'react-native-modal-dropdown';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
+import { NavigationActions } from "react-navigation";
+import {addTokenInfo} from '../../../actions/ActionCreator';
 
 /**
  * Screen is used to display the wallet portfolio of the user, which contains the 
@@ -65,9 +67,11 @@ class Portfolio extends Component {
             </View>
           }      
           onPress={() => {
-            if(token.type == "PortfolioToken") {
+            this.props.addTokenInfo(token)
+            if(token.type === "PortfolioToken") {
               this.props.navigation.navigate("coinSend")
-            } else {
+            }
+            else {
               this.props.navigation.navigate("coinSend")
             }
           }
@@ -229,4 +233,4 @@ function mapStateToProps({ newWallet }) {
   return { newWallet }
 }
 
-export default connect(mapStateToProps)(Portfolio);
+export default connect(mapStateToProps, {addTokenInfo})(Portfolio);

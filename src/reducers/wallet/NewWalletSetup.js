@@ -10,7 +10,8 @@ const INITIAL_STATE = {
   backupPassphrase: "",
   coinData: data,
   QrData: "",
-  QrScannerInvoker: ""
+  QrScannerInvoker: "",
+  current_token: {}
 };
 
 /**
@@ -55,6 +56,9 @@ export default (state = INITIAL_STATE, action) => {
 
       // await AsyncStorage.setItem('wallet', { ...state, tokens: current } )
       return { ...state, tokens: newTokens };
+
+    case actions.ADD_TOKEN_INFO:
+      return { ...state, current_token: action.payload };
 
     default:
       return state;

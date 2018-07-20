@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Alert, Platform, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { FormInput, FormLabel, Button, Card } from 'react-native-elements';
-import { NavigationActions } from "react-navigation";
-import { getQRCodeData } from '../../../../actions/ActionCreator';
+
+import { NavigationActions, DrawerNavigator } from "react-navigation";
+import { getQRCodeData, addTokenInfo } from '../../../../actions/ActionCreator';
 import provider from '../../../../constants/Providers';
 import { qrScannerInvoker } from '../../../../actions/ActionCreator'
 import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator'
-
+import ERC20ABI from '../../../../constants/data/json/ERC20ABI.json';
 
 const ethers = require('ethers');
 const utils = ethers.utils;
@@ -142,6 +143,27 @@ class CoinSend extends Component {
     });
   }
 
+  sendERC20Transaction = () => {
+    console.log("IN SEND TRANSACTION FUNCTION")
+    const val = this.state.value
+    console.log("THE val is")
+    console.log(val)
+    const toAddr = this.state.toAddress
+    const currentWallet = this.props.wallet;
+    const contract = new ethers.Contract(this.props.token.address, ERC20ABI, currentWallet)
+    var overrideOptions = {
+        gasLimit: 150000,
+        gasPrice: 9000000000,
+        nonce: 0,
+    };
+    var sendPromise = contract.functions.transfer(this.state.toAddress, val, overrideOptions)
+    sendPromise.then((transaction) => {
+        console.log(transaction.hash);
+        this.setState({ txHash: transaction.hash })
+        this.openModal()
+    });
+  }
+
   /**
    * Is used to reset the input fields
    */
@@ -168,6 +190,8 @@ class CoinSend extends Component {
    * Returns the complete form required to send a transaction
    */
   render() {
+    console.log("This . wallet ")
+    console.log(this.props.token)
     return (
       <View style={styles.mainContainer}>
 
@@ -273,7 +297,13 @@ class CoinSend extends Component {
                 height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginBottom: 30, marginTop: 5.5
               }}
               textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
-              onPress={() => this.sendTransaction()}
+              onPress={() => {
+                if(this.props.token.type === "ERC20") {
+                    this.sendERC20Transaction()
+                } else {
+                    this.sendTransaction()
+                }
+              }}
             />
           </View>
         </View>
@@ -343,8 +373,9 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     wallet: state.newWallet.wallet,
-    addressData: state.newWallet.QrData
+    addressData: state.newWallet.QrData,
+    token: state.newWallet.current_token
   }
 }
 
-export default connect(mapStateToProps, { getQRCodeData, qrScannerInvoker })(CoinSend);
+export default connect(mapStateToProps, { getQRCodeData, qrScannerInvoker, addTokenInfo })(CoinSend);
