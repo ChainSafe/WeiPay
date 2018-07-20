@@ -10,6 +10,7 @@ import com.facebook.react.ReactPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.horcrux.svg.SvgPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +29,8 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new VectorIconsPackage(),
             new RNCameraPackage(),
-              new LinearGradientPackage()
+              new LinearGradientPackage(),
+              new SvgPackage()
       );
     }
 
