@@ -1,5 +1,5 @@
 import React from 'react';
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import { View } from 'react-native'
 import TermsScreen from '../../screens/setup/terms/TermsAndConditions';
 import CreateOrRestore from '../../screens/setup/index';
@@ -9,7 +9,8 @@ import ConfirmPassphrase from '../../screens/setup/create/ConfirmPassphrase';
 import CreateWalletNameRecovered from '../../screens/setup/recover/CreateWalletName';
 import RecoverWallet from '../../screens/setup/recover/RecoverWallet';
 import EnableTokens from '../../screens/setup/crypto/EnableTokens';
-import Drawer from '../drawer';
+//import Drawer from '../drawer';
+import mainBucketNavigation from '../stack/mainBucketStack'
 import CoinSend from '../../screens/main/tokens/send/CoinSend';
 import CoinHistory from '../../screens/main/tokens/history/CoinActivity';
 import CoinReceive from '../../screens/main/tokens/receive/CoinReceive';
@@ -55,27 +56,27 @@ const navigator = StackNavigator({
   enableTokens: {
     screen: EnableTokens
   },
-  Drawer: {
-    screen: Drawer
+  mainStack: {
+    screen: mainBucketNavigation
   },
-  coinSend:{
-    screen: CoinSend
-  },
-  coinReceive:{
-    screen: CoinReceive
-  },
-  coinHistory:{
-    screen: CoinHistory
-  },
-  PortfolioToken: {
-    screen: PortfolioToken
-  },
-  QCodeScanner: {
-    screen: QrCodeScanner
-  },
-  contactAddresses: {
-    screen: ContactAddresses
-  }
+  // coinSend:{
+  //   screen: CoinSend
+  // },
+  // coinReceive:{
+  //   screen: CoinReceive
+  // },
+  // coinHistory:{
+  //   screen: CoinHistory
+  // },
+  // PortfolioToken: {
+  //   screen: PortfolioToken
+  // },
+  // QCodeScanner: {
+  //   screen: QrCodeScanner
+  // },
+  // contactAddresses: {
+  //   screen: ContactAddresses
+  // }
 }, {
     headerMode: 'none',
     navigationOptions: {
