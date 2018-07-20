@@ -79,28 +79,20 @@ class RecoverWallet extends Component {
                     onPress={() => this.props.navigation.navigate('createWalletNameRecovered')} >
                     <Image
                         source={require('../../../assets/icons/back.png')}
-                        style={{height:20, width:20}}
+                        style={styles.btnBack}
                     /> 
                 </TouchableOpacity>
             </View>   
                 <Text style={styles.textHeader} >Recovery Passphrase</Text>                               
                 <View style={styles.contentContainer} >
-                    <Card containerStyle={{ 
-                        width: '82%', 
-                        height: '55%', 
-                        borderRadius: 7.5, 
-                        shadowOpacity: 0.5, 
-                        shadowRadius: 1.3, 
-                        shadowColor: '#dbdbdb',
-                        shadowOffset: { width: 1, height: 2 },                    
-                    }}> 
+                    <Card containerStyle={ styles.cardContainer}> 
                         <Text style={styles.cardText}>
                             Enter your 12 word recovery passphrase to recover your wallet.
                         </Text>                
                         <FormInput
                             placeholder={"Ex. man friend love long phrase ... "}
                             onChangeText={this.renderRecoveryKey.bind(this)}
-                            inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2'}}
+                            inputStyle={styles.txtMnemonic}
                         />                        
                     </Card>
                 </View>
@@ -110,8 +102,8 @@ class RecoverWallet extends Component {
                         buttonText="Recover"                                           
                     />                  
                 </View>  
-                <View style={{ alignItems:'center'}} >    
-                    <View style={{ alignItems:'center'}} >
+                <View style={styles.footerGrandparentContainer} >    
+                    <View style={styles.footerParentContainer} >
                         <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
                     </View>  
                 </View>   
@@ -138,10 +130,34 @@ const styles = StyleSheet.create({
           android: { backgroundColor: '#fafbfe'}
         }),
         marginLeft: '9%',       
-      },   
+    },   
+    btnBack:{
+        height:20, 
+        width:20
+    },
+    textHeader: {       
+        fontFamily: "Cairo-Light",
+        fontSize: 24,        
+        paddingLeft: '10%',   
+        paddingBottom: '3%',
+        marginTop: '5%',
+        color: '#1a1f3e'
+    },
+    txtMnemonic: {
+        width:'100%', flexWrap: 'wrap', color:'#12c1a2'
+    },
     contentContainer : {
         alignItems: 'center',
         flex: 1
+    },
+    cardContainer : {
+        width: '82%', 
+        height: '55%', 
+        borderRadius: 7.5, 
+        shadowOpacity: 0.5, 
+        shadowRadius: 1.3, 
+        shadowColor: '#dbdbdb',
+        shadowOffset: { width: 1, height: 2 } 
     },
     cardText : {
         paddingBottom: '20%',
@@ -152,24 +168,16 @@ const styles = StyleSheet.create({
         color: '#000000',
         fontSize: 16,
     },
-    textHeader: {       
-        fontFamily: "Cairo-Light",
-        fontSize: 24,        
-        paddingLeft: '10%',   
-        paddingBottom: '3%',
-        marginTop: '5%',
-        color: '#1a1f3e'
-    },
     btnContainer: {
         alignItems: 'stretch',
         justifyContent: 'flex-end',
         width: '100%',      
+    },   
+    footerGrandparentContainer : {
+        alignItems:'center'
     },
-    footerContainer: {
-        alignItems:"center",         
-        alignItems:"center", 
-        justifyContent:'flex-end',
-        position: 'absolute',           
+    footerParentContainer :{ 
+        alignItems:'center'
     },
     textFooter : {
         fontFamily: "WorkSans-Regular",
