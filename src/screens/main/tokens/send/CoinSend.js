@@ -18,14 +18,6 @@ const utils = ethers.utils;
  * Screen used to conduct negative transactions (sending coins/tokens)
  */
 class CoinSend extends Component {
-  /**
-   * Sets the Tab header to "SEND"
-   */
-  static navigationOptions = ({ navigation }) => {
-    return {
-      tabBarLabel: 'SEND'
-    }
-  }
 
   /**
    * Initializes State to keep track of the
@@ -194,8 +186,6 @@ class CoinSend extends Component {
     console.log(this.props.token)
     return (
       <View style={styles.mainContainer}>
-
-
         <View style={styles.headerMenu}> 
               <View style={{alignSelf:'flex-start', justifyContent:'center', backgroundColor:"pink", marginLeft: '9%'}}>
                 <TouchableOpacity

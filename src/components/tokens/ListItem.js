@@ -48,7 +48,7 @@ class CoinListItem extends Component {
     const { checked } = this.state
 
     return (
-      <View style={{ marginTop:'2.5%'}}>
+      <View style={{ marginTop:'2.5%', alignItems:'stretch', marginLeft:'0.5%'}}>
         <TouchableOpacity 
           onPress={() => this.renderPress(coin)}>
         <View style={[styles.check, coin.selected ? styles.containerSelected : styles.containerDeselect]}>
@@ -59,15 +59,13 @@ class CoinListItem extends Component {
             avatar={{ uri: coin.avatar_url }}
             title= {
               <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'3.5%'}}>
-               
                 <Text style={{ 
                   fontSize:16,
                   fontFamily: "Cairo-Regular",  
                   alignItems:"flex-start",
                   flex:1,
                   width:'90%',
-                  letterSpacing: 0.5,  
-                  // backgroundColor:"blue",
+                  letterSpacing: 0.5,                 
                   top: '6%'                                               
                   }}>
                     {coin.symbol}
@@ -77,10 +75,10 @@ class CoinListItem extends Component {
                     <CheckBox center 
                       iconRight
                       iconType='material'
-                      checkedIcon='clear'
+                      checkedIcon='check'
                       uncheckedIcon='add'
-                      uncheckedColor='#27c997'
-                      checkedColor='red'
+                      uncheckedColor='black'
+                      checkedColor='#27c997'
                       checked={coin.selected}
                       containerStyle={[title, coin.selected ? styles.valid : styles.invalid]}                  
                       onPress={() => this.renderPress(coin)}
@@ -98,7 +96,6 @@ class CoinListItem extends Component {
                   width:'90%',  
                   letterSpacing: 0.4,  
                   top: '-3.5%',
-                  // backgroundColor:"green",
                   height: '100%'                
                 }}>
                   {coin.title}
@@ -106,17 +103,14 @@ class CoinListItem extends Component {
               </View>
             }
             containerStyle = {{
-              borderRadius: 10, 
+              shadowColor: 'grey',
+              shadowOffset: {width:0, height:0},
+              shadowRadius: 2,
+              shadowOpacity: 0.5,
               width: '100%', 
               height: 63,            
               backgroundColor: '#ffffff',
-              justifyContent:"center",
-              borderWidth:0.5,
-              borderColor: '#F8F8FF',
-              shadowColor: '#F8F8FF',
-              shadowOffset: { width: 1, height: 1},
-              shadowOpacity:20,
-              shadowRadius: 10,
+              justifyContent:"center",             
             }}
             avatarStyle = {{           
               marginTop:'-5%',         
@@ -151,15 +145,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: '2.5%'    
   },
-  containerSelected : {
-    borderWidth:2,
+  containerSelected : {    
     width: '83%', 
-    borderRadius: 10, 
   },
-  containerDeselect :{ 
-    borderWidth:2,
+  containerDeselect :{     
     width: '83%', 
-    borderRadius: 10, 
   }
 })
 

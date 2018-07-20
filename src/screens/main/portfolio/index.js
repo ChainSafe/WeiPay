@@ -37,9 +37,10 @@ class Portfolio extends Component {
    */
   renderRow = (token) => {
     return (
-      <View style={{marginTop:'2.5%'}}>
+      <View style={{marginTop:'2.5%', alignItems:'stretch', marginLeft:'0.5%'}}>
         <ListItem
           roundAvatar
+          hideChevron
           avatar={{ uri: token.avatar_url }}
           key={token.id}
           title= {
@@ -102,17 +103,25 @@ class Portfolio extends Component {
             </View>
           }
           containerStyle = {{
-            borderRadius: 10, 
-            width: '83%', 
+            shadowColor: 'grey',
+            shadowOffset: {width:0, height:0},
+            shadowRadius: 2,
+            shadowOpacity: 0.5,
+            width: '82%', 
             height: 63,            
             backgroundColor: '#ffffff',
-            justifyContent:"center",
-            borderWidth:0.5,
-            borderColor: '#F8F8FF',
-            shadowColor: '#F8F8FF',
-            shadowOffset: { width: 1, height: 1},
-            shadowOpacity:20,
-            shadowRadius: 10,
+            justifyContent:"center",      
+            // borderRadius: 10, 
+            // width: '83%', 
+            // height: 63,            
+            // backgroundColor: '#ffffff',
+            // justifyContent:"center",
+            // borderWidth:0.5,
+            // borderColor: '#F8F8FF',
+            // shadowColor: '#F8F8FF',
+            // shadowOffset: { width: 1, height: 1},
+            // shadowOpacity:20,
+            // shadowRadius: 10,
           }}
           avatarStyle = {{           
             marginTop:'-5%',         
