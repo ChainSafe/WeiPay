@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Alert, Platform, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
-import { FormInput, FormLabel, Button } from 'react-native-elements';
+import { FormInput, FormLabel, Button, Card } from 'react-native-elements';
 import { NavigationActions } from "react-navigation";
 import { getQRCodeData } from '../../../../actions/ActionCreator';
 import provider from '../../../../constants/Providers';
 import { qrScannerInvoker } from '../../../../actions/ActionCreator'
+import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator'
+
+
 const ethers = require('ethers');
 const utils = ethers.utils;
 
@@ -188,35 +191,68 @@ class CoinSend extends Component {
                     /> 
                 </TouchableOpacity>
               </View>
-           </View>   
-    
+           </View>
+
+        <CoinSendTabNavigator navigation={this.props.navigation} />
 
         <View style={styles.contentContainer} >
-          <View style={styles.form} >
-            <FormLabel>Send To </FormLabel>
-            <View style={{ flexDirection: 'row' }}>
-              <Button
-                title='QR'
-                onPress={() => this.navigate()}
-                style={styles.qr}
-              />
-              <FormInput style={styles.formInputAddress}
-                onChangeText={this.renderAddress.bind(this)}
-                value={this.props.addressData}
-                ref={ref => this.inputAddress = ref}
-                containerStyle={{ width: "65%", marginTop: 0, marginBottom: 0 }}
-              />
+          <View>
+            <Card
+                containerStyle={{ 
+                  width: '82%', 
+                  height: '75%', 
+                  borderRadius: 7.5, 
+                  shadowOpacity: 0.5, 
+                  shadowRadius: 1.3, 
+                  shadowColor: '#dbdbdb',
+                  shadowOffset: { width: 1, height: 2 },    
+                  alignItems:'stretch'                
+              }}>
+                  <Text style={styles.cardText}>
+                    Send Ether by scanning someone's QR code or public address.
+                  </Text>
+                  <View style= {styles.barcodeImage}>
+                    <TouchableOpacity
+                        onPress= {() => this.navigate()} >
+                        <Image
+                            source={require('../../../../assets/icons/barcode.png')}
+                            style={{height:75, width:75}}
+                        /> 
+                    </TouchableOpacity>
+                  </View>
+                  <View style={{ paddingBottom: '6%',}}>
+                    <FormInput
+                        placeholder={"Public Address"}
+                        onChangeText={this.renderAddress.bind(this)}                  
+                        ref={ref => this.inputAddress = ref}
+                        inputStyle={{
+                          width:'100%', 
+                          flexWrap: 'wrap', 
+                          color:'#12c1a2', 
+                          fontSize:16, 
+                          fontFamily: "WorkSans-Light",
+                          letterSpacing:0.4
+                        }}
+                  /> 
+                  </View>
+                  <FormInput
+                      placeholder={"Amount"}
+                      onChangeText={this.renderValue.bind(this)}
+                      ref={ref => this.inputAmount = ref}
+                      inputStyle={{
+                        width:'100%', 
+                        flexWrap: 'wrap', 
+                        color:'#12c1a2',
+                        fontSize:16, 
+                        fontFamily: "WorkSans-Light",
+                        letterSpacing:0.4
+                      }}
+                  /> 
+                  <Text style={styles.transactionFee} > 
+                    Transaction Fee Total {this.state.value} Eth
+                  </Text>
+              </Card>
             </View>
-            <FormLabel>Amount </FormLabel>
-            <FormInput style={styles.formInputElement}
-              onChangeText={this.renderValue.bind(this)}
-              ref={ref => this.inputAmount = ref}
-            />
-            <FormLabel>
-              Transaction Fee
-              Total  {this.state.value} ETH 0 USD
-            </FormLabel>
-          </View>
           <View style={styles.btnContainer} >
             <Button
               title='Reset'
@@ -279,7 +315,9 @@ const styles = StyleSheet.create({
 
   },
   contentContainer: {
-    marginTop: 25
+    marginTop: 25,
+    width:'100%',
+    alignItems:'center'
   },
   form: {
     width: 340

@@ -3,6 +3,8 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 import { FormInput, FormLabel, Button } from 'react-native-elements';
 import QRCode from 'react-native-qrcode';
 import { connect } from 'react-redux'
+import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator'
+
 
 /**
  * React Component
@@ -27,6 +29,7 @@ class CoinReceive extends Component {
   render() {
     return (
       <View style={styles.mainContainer}>
+        <CoinSendTabNavigator navigation={this.props.navigation} />
         <View style={styles.contentContainer} >
           <View style={styles.form} >
             <View style={styles.imageContainer}>
