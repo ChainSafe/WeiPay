@@ -1,6 +1,5 @@
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
-import { View } from 'react-native'
 import TermsScreen from '../../screens/setup/terms/TermsAndConditions';
 import CreateOrRestore from '../../screens/setup/index';
 import CreateWalletName from '../../screens/setup/create/CreateWalletName';
@@ -9,16 +8,11 @@ import ConfirmPassphrase from '../../screens/setup/create/ConfirmPassphrase';
 import CreateWalletNameRecovered from '../../screens/setup/recover/CreateWalletName';
 import RecoverWallet from '../../screens/setup/recover/RecoverWallet';
 import EnableTokens from '../../screens/setup/crypto/EnableTokens';
-import Drawer from '../drawer';
-import CoinSend from '../../screens/main/tokens/send/CoinSend';
-import CoinHistory from '../../screens/main/tokens/history/CoinActivity';
-import CoinReceive from '../../screens/main/tokens/receive/CoinReceive';
+import mainBucketNavigation from '../stack/mainBucketStack'
 import PortfolioToken from '../../screens/main//portfolio/tabs/PortfolioToken';
 import AddToken from '../../screens/main/tokens/add/index';
 import addContact from '../../screens/main/menu/contacts/add/AddContact';
 import contacts from '../../screens/main/menu/contacts/index';
-import ContactAddresses from '../../screens/main/menu/contacts/SelectedContact';
-import QrCodeScanner from '../../screens/main/qr/QrCodeScanner';
 
 /**
  * Constant contains all the screens that can be navigated to using the 
@@ -55,27 +49,9 @@ const navigator = StackNavigator({
   enableTokens: {
     screen: EnableTokens
   },
-  Drawer: {
-    screen: Drawer
+  mainStack: {
+    screen: mainBucketNavigation
   },
-  coinSend:{
-    screen: CoinSend
-  },
-  coinReceive:{
-    screen: CoinReceive
-  },
-  coinHistory:{
-    screen: CoinHistory
-  },
-  PortfolioToken: {
-    screen: PortfolioToken
-  },
-  QCodeScanner: {
-    screen: QrCodeScanner
-  },
-  contactAddresses: {
-    screen: ContactAddresses
-  }
 }, {
     headerMode: 'none',
     navigationOptions: {

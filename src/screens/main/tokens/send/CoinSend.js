@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native';
+import { View, Text, StyleSheet, Alert, Platform, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { FormInput, FormLabel, Button } from 'react-native-elements';
 import { NavigationActions } from "react-navigation";
@@ -167,6 +167,30 @@ class CoinSend extends Component {
   render() {
     return (
       <View style={styles.mainContainer}>
+
+
+        <View style={styles.headerMenu}> 
+              <View style={{alignSelf:'flex-start', justifyContent:'center', backgroundColor:"pink", marginLeft: '9%'}}>
+                <TouchableOpacity
+                      onPress={() => this.props.navigation.navigate('mainStack')} >           
+                      <Image
+                          source={require('../../../../assets/icons/back.png')}
+                          style={{height:20, width:20}}
+                      /> 
+                  </TouchableOpacity>
+              </View>
+              <View style={{alignSelf:'flex-end', justifyContent:'center', backgroundColor:"red",  right: '9%', marginTop:'2%'}}>
+                <TouchableOpacity
+                    onPress={() => this.props.navigation.navigate('DrawerOpen')} >
+                    <Image
+                        source={require('../../../../assets/icons/menu.png')}
+                        style={{height:13, width:22}}
+                    /> 
+                </TouchableOpacity>
+              </View>
+           </View>   
+    
+
         <View style={styles.contentContainer} >
           <View style={styles.form} >
             <FormLabel>Send To </FormLabel>
@@ -230,6 +254,29 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start'
+  },
+  headerMenu: {
+    marginTop: Platform.OS === 'ios' ? '7.5%' : '5%',
+    ...Platform.select({
+      ios: { backgroundColor: '#fafbfe'},
+      android: { backgroundColor: '#fafbfe'}
+    }),
+    justifyContent:'center',
+    backgroundColor:"blue" ,
+    alignItems:"stretch",
+    width:"100%",
+    flex:1
+  },  
+  tabHeader:{
+    flexDirection:'row', 
+    top:50, 
+    // backgroundColor:'red', 
+    width:'82%',
+    justifyContent:'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#b3b3b3',
+    paddingBottom: '2%'
+
   },
   contentContainer: {
     marginTop: 25

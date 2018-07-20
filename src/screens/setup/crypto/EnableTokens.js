@@ -21,7 +21,8 @@ class EnableCrypto extends Component {
      * Method used to navigate to the main portfolio Screen
      */
     navigate = () => {      
-        const navigateToPassphrase = NavigationActions.navigate({ routeName: "Drawer" });
+        // const navigateToPassphrase = NavigationActions.navigate({ routeName: "Drawer" });
+        const navigateToPassphrase = NavigationActions.navigate({ routeName: "mainStack" });
         this.props.navigation.dispatch(navigateToPassphrase);
     };
 

@@ -9,9 +9,6 @@ import Settings from '../../screens/main/menu/settings/index';
 import Search from '../../screens/main/menu/settings/Search';
 import LanguageChange from '../../screens/main/menu/settings/LanguageChange';
 import ChangeCurrency from '../../screens/main/menu/settings/ChangeCurrency';
-import CoinSend from '../../screens/main/tokens/send/CoinSend';
-import CoinReceive from '../../screens/main/tokens/receive/CoinReceive';
-import CoinActivity from '../../screens/main/tokens/history/CoinActivity';
 import TokenReceive from '../../screens/main/tokens/receive/TokenReceive';
 import TokenSend from '../../screens/main/tokens/send/TokenSend';
 import AddToken from '../../screens/main/tokens/add/index';
@@ -33,9 +30,6 @@ const CustomDrawerContentComponent = props => (
  * where each property is pointing to screen
  */
 export default DrawerNavigator({
-  portfolio: {
-    screen: Portfolio
-  },
   backupPhrase: {
     screen: BackupPhrase
   },
@@ -74,7 +68,8 @@ export default DrawerNavigator({
   search: {
     screen: Search
   }
-}, {
+}, 
+  {
     contentComponent: CustomDrawerContentComponent,
     headerMode: 'none',
     header: false
