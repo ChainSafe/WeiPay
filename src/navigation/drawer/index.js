@@ -9,20 +9,9 @@ import Settings from '../../screens/main/menu/settings/index';
 import Search from '../../screens/main/menu/settings/Search';
 import LanguageChange from '../../screens/main/menu/settings/LanguageChange';
 import ChangeCurrency from '../../screens/main/menu/settings/ChangeCurrency';
-// import CoinSend from '../../screens/main/tokens/send/CoinSend';
-// import CoinReceive from '../../screens/main/tokens/receive/CoinReceive';
-// import CoinActivity from '../../screens/main/tokens/history/CoinActivity';
 import TokenReceive from '../../screens/main/tokens/receive/TokenReceive';
 import TokenSend from '../../screens/main/tokens/send/TokenSend';
 import AddToken from '../../screens/main/tokens/add/index';
-
-
-import CoinSend from '../../screens/main/tokens/send/CoinSend';
-import CoinHistory from '../../screens/main/tokens/history/CoinActivity';
-import CoinReceive from '../../screens/main/tokens/receive/CoinReceive';
-import PortfolioToken from '../../screens/main//portfolio/tabs/PortfolioToken';
-import QrCodeScanner from '../../screens/main/qr/QrCodeScanner';
-import ContactAddresses from '../../screens/main/menu/contacts/SelectedContact';
 
 /**
  * Creates a componet containing the Slide in DrawerNavigator
@@ -41,29 +30,6 @@ const CustomDrawerContentComponent = props => (
  * where each property is pointing to screen
  */
 export default DrawerNavigator({
-  
-  // portfolio: {
-  //   screen: Portfolio
-  // },
-  // coinSend:{
-  //   screen: CoinSend
-  // },
-  // coinReceive:{
-  //   screen: CoinReceive
-  // },
-  // coinHistory:{
-  //   screen: CoinHistory
-  // },
-  // PortfolioToken: {
-  //   screen: PortfolioToken
-  // },
-  // QCodeScanner: {
-  //   screen: QrCodeScanner
-  // },
-  // contactAddresses: {
-  //   screen: ContactAddresses
-  // },
-
   backupPhrase: {
     screen: BackupPhrase
   },
@@ -102,7 +68,8 @@ export default DrawerNavigator({
   search: {
     screen: Search
   }
-}, {
+}, 
+  {
     contentComponent: CustomDrawerContentComponent,
     headerMode: 'none',
     header: false
