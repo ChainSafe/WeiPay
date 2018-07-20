@@ -49,6 +49,8 @@ class CoinListItem extends Component {
 
     return (
       <View style={{ marginTop:'2.5%'}}>
+        <TouchableOpacity 
+          onPress={() => this.renderPress(coin)}>
         <View style={[styles.check, coin.selected ? styles.containerSelected : styles.containerDeselect]}>
           <ListItem
             hideChevron
@@ -121,6 +123,7 @@ class CoinListItem extends Component {
             }}
           />
         </View>
+        </TouchableOpacity >
       </View>
     )
   }
@@ -132,8 +135,10 @@ class CoinListItem extends Component {
 const styles = StyleSheet.create({
   title: {
     paddingLeft: 15,
+    paddingRight: '15%',
     alignItems: 'flex-end',
     backgroundColor:'#ffffff',
+    width:'100%',
     borderWidth: 0,
   },
   invalid: {
