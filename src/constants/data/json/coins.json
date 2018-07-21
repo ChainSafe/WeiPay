@@ -10,6 +10,7 @@
         "id": 1,
         "type": "ERC20",
         "title": "Meaning of Life Token",
+        "symbol": "MLT",
         "address": "0x6Ac15feFB151bC0742d40A13B3d8c1848229d939",
         "selected": false
     },
@@ -17,60 +18,61 @@
         "id": 2,
         "type": "ERC20",
         "title": "ChainSafe Token",
+        "symbol": "CHT",
         "address": "0xa65622c4a9f23da90f6db7c49538b1a8dd73db3e",
         "selected": false
     },
     {
-        "id": 1,
+        "id": 3,
         "type": "PortfolioToken",
         "title": "Substratum",
         "symbol": "SUB",
         "selected": false 
-    },
-    {
-        "id": 2,
-        "type": "PortfolioToken",
-        "title": "Stellar",
-        "symbol": "XLM",
-        "selected": false 
-    },
-    {
-        "id": 3,
-        "type": "PortfolioCoin",
-        "title": "Ether",
-        "symbol": "ETH",
-        "selected": false
     },
     {
         "id": 4,
         "type": "PortfolioToken",
-        "title": "Substratum",
-        "symbol": "SUB",
-        "selected": false 
-    },
-    {
-        "id": 5,
-        "type": "PortfolioToken",
         "title": "Stellar",
         "symbol": "XLM",
         "selected": false 
     },
     {
-        "id": 6,
+        "id": 5,
         "type": "PortfolioCoin",
         "title": "Ether",
         "symbol": "ETH",
         "selected": false
     },
     {
-        "id": 7,
+        "id": 6,
         "type": "PortfolioToken",
         "title": "Substratum",
         "symbol": "SUB",
         "selected": false 
     },
     {
+        "id": 7,
+        "type": "PortfolioToken",
+        "title": "Stellar",
+        "symbol": "XLM",
+        "selected": false 
+    },
+    {
         "id": 8,
+        "type": "PortfolioCoin",
+        "title": "Ether",
+        "symbol": "ETH",
+        "selected": false
+    },
+    {
+        "id": 9,
+        "type": "PortfolioToken",
+        "title": "Substratum",
+        "symbol": "SUB",
+        "selected": false 
+    },
+    {
+        "id": 10,
         "type": "PortfolioToken",
         "title": "Stellar",
         "symbol": "XLM",

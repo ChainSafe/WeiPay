@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Alert, Platform, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { FormInput, FormLabel, Button, Card } from 'react-native-elements';
-
 import { NavigationActions, DrawerNavigator } from "react-navigation";
 import { getQRCodeData, addTokenInfo } from '../../../../actions/ActionCreator';
 import provider from '../../../../constants/Providers';
 import { qrScannerInvoker } from '../../../../actions/ActionCreator'
 import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator'
 import ERC20ABI from '../../../../constants/data/json/ERC20ABI.json';
+
+import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 
 const ethers = require('ethers');
 const utils = ethers.utils;
@@ -18,14 +19,6 @@ const utils = ethers.utils;
  * Screen used to conduct negative transactions (sending coins/tokens)
  */
 class CoinSend extends Component {
-  /**
-   * Sets the Tab header to "SEND"
-   */
-  static navigationOptions = ({ navigation }) => {
-    return {
-      tabBarLabel: 'SEND'
-    }
-  }
 
   /**
    * Initializes State to keep track of the
@@ -172,6 +165,17 @@ class CoinSend extends Component {
     this.inputAmount.clearText();
   }
 
+  navigateBack = () => {
+    const navigateToPassphrase = NavigationActions.navigate({ routeName: "mainStack" });
+    this.props.navigation.dispatch(navigateToPassphrase);
+  }
+
+  navigateMenu = () => {
+    const navigateToPassphrase = NavigationActions.navigate({ routeName: "DrawerOpen" });
+    this.props.navigation.dispatch(navigateToPassphrase);
+  }
+
+
   /**
    * Navigator
    * Is used to navigate to the Qr-Code scanner
@@ -195,8 +199,12 @@ class CoinSend extends Component {
     return (
       <View style={styles.mainContainer}>
 
+        <BackWithMenuNav 
+          backFunction={this.navigateBack} 
+          menuFunction={this.navigateMenu} />
 
-        <View style={styles.headerMenu}> 
+
+        {/* <View style={styles.headerMenu}> 
               <View style={{alignSelf:'flex-start', justifyContent:'center', backgroundColor:"pink", marginLeft: '9%'}}>
                 <TouchableOpacity
                       onPress={() => this.props.navigation.navigate('mainStack')} >           
@@ -215,7 +223,7 @@ class CoinSend extends Component {
                     /> 
                 </TouchableOpacity>
               </View>
-           </View>
+           </View> */}
 
         <CoinSendTabNavigator navigation={this.props.navigation} />
 
@@ -319,30 +327,8 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'flex-start'
-  },
-  headerMenu: {
-    marginTop: Platform.OS === 'ios' ? '7.5%' : '5%',
-    ...Platform.select({
-      ios: { backgroundColor: '#fafbfe'},
-      android: { backgroundColor: '#fafbfe'}
-    }),
-    justifyContent:'center',
-    backgroundColor:"blue" ,
-    alignItems:"stretch",
-    width:"100%",
-    flex:1
-  },  
-  tabHeader:{
-    flexDirection:'row', 
-    top:50, 
-    // backgroundColor:'red', 
-    width:'82%',
-    justifyContent:'center',
-    borderBottomWidth: 1,
-    borderBottomColor: '#b3b3b3',
-    paddingBottom: '2%'
-
+    justifyContent: 'flex-start',
+    paddingTop: '2.5%'
   },
   contentContainer: {
     marginTop: 25,
