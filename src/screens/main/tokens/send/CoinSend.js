@@ -198,73 +198,62 @@ class CoinSend extends Component {
     console.log(this.props.token)
     return (
       <View style={styles.mainContainer}>
-
         <BackWithMenuNav 
           backFunction={this.navigateBack} 
-          menuFunction={this.navigateMenu} />
-
-
-        <CoinSendTabNavigator navigation={this.props.navigation} />
-
+          menuFunction={this.navigateMenu} 
+        />
+        <CoinSendTabNavigator 
+          navigation={this.props.navigation} 
+        />
         <View style={styles.contentContainer} >
           <View>
-            <Card
-                containerStyle={{ 
-                  width: '82%', 
-                  height: '75%', 
-                  borderRadius: 7.5, 
-                  shadowOpacity: 0.5, 
-                  shadowRadius: 1.3, 
-                  shadowColor: '#dbdbdb',
-                  shadowOffset: { width: 1, height: 2 },    
-                  alignItems:'stretch'                
-              }}>
-                  <Text style={styles.cardText}>
-                    Send Ether by scanning someone's QR code or public address.
-                  </Text>
-                  <View style= {styles.barcodeImage}>
-                    <TouchableOpacity
-                        onPress= {() => this.navigate()} >
-                        <Image
-                            source={require('../../../../assets/icons/barcode.png')}
-                            style={{height:75, width:75}}
-                        /> 
-                    </TouchableOpacity>
-                  </View>
-                  <View style={{ paddingBottom: '6%',}}>
-                    <FormInput
-                        placeholder={"Public Address"}
-                        onChangeText={this.renderAddress.bind(this)}                  
-                        ref={ref => this.inputAddress = ref}
-                        inputStyle={{
-                          width:'100%', 
-                          flexWrap: 'wrap', 
-                          color:'#12c1a2', 
-                          fontSize:16, 
-                          fontFamily: "WorkSans-Light",
-                          letterSpacing:0.4
-                        }}
-                  /> 
-                  </View>
+            <Card containerStyle={ styles.cardContainer }>
+              <Text style={styles.cardText}>
+                Send Ether by scanning someone's QR code or public address.
+              </Text>
+              <View style= {styles.barcodeImageContainer}>
+                <TouchableOpacity
+                    onPress= {() => this.navigate()} >
+                    <Image
+                        source={require('../../../../assets/icons/barcode.png')}
+                        style={styles.barcodeImage}
+                    /> 
+                </TouchableOpacity>
+              </View>
+                <View style={{ paddingBottom: '6%',}}>
                   <FormInput
-                      placeholder={"Amount"}
-                      onChangeText={this.renderValue.bind(this)}
-                      ref={ref => this.inputAmount = ref}
+                      placeholder={"Public Address"}
+                      onChangeText={this.renderAddress.bind(this)}                  
+                      ref={ref => this.inputAddress = ref}
                       inputStyle={{
                         width:'100%', 
                         flexWrap: 'wrap', 
-                        color:'#12c1a2',
+                        color:'#12c1a2', 
                         fontSize:16, 
                         fontFamily: "WorkSans-Light",
                         letterSpacing:0.4
                       }}
+                    /> 
+                </View>
+                <FormInput
+                    placeholder={"Amount"}
+                    onChangeText={this.renderValue.bind(this)}
+                    ref={ref => this.inputAmount = ref}
+                    inputStyle={{
+                      width:'100%', 
+                      flexWrap: 'wrap', 
+                      color:'#12c1a2',
+                      fontSize:16, 
+                      fontFamily: "WorkSans-Light",
+                      letterSpacing:0.4
+                  }}
                   /> 
                   <Text style={styles.transactionFee} > 
                     Transaction Fee Total {this.state.value} Eth
                   </Text>
               </Card>
             </View>
-          <View style={styles.btnContainer} >
+          {/* <View style={styles.btnContainer} >
             <Button
               title='Reset'
               disabled={this.state.toAddress === "" && this.state.value == 0}
@@ -292,7 +281,7 @@ class CoinSend extends Component {
                 }
               }}
             />
-          </View>
+          </View> */}
         </View>
       </View >
     )
@@ -314,8 +303,41 @@ const styles = StyleSheet.create({
     width:'100%',
     alignItems:'center'
   },
-  form: {
-    width: 340
+  barcodeImageContainer: {
+    paddingTop: '5%', 
+    paddingBottom:'5%',
+    paddingLeft: '5%',
+  },
+  barcodeImage: {
+    height:75, 
+    width:75
+  },
+  cardContainer: {
+    width: '82%', 
+    height: '80%', 
+    borderRadius: 7.5, 
+    shadowOpacity: 0.5, 
+    shadowRadius: 1.3, 
+    shadowColor: '#dbdbdb',
+    shadowOffset: { width: 1, height: 2 },    
+    alignItems:'stretch' 
+  },
+  cardText : {
+    paddingBottom: '2.5%',
+    paddingTop: '8%',
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    fontFamily: "WorkSans-Light",  
+    color: '#000000',
+    fontSize: 16,
+    lineHeight: 22
+},
+  transactionFee : {
+    fontFamily: "WorkSans-Light",
+    fontSize: 9,
+    letterSpacing: 0.3,
+    paddingLeft: '7%',
+    paddingTop: '2.5%'
   },
   qr: {
     marginLeft: 5,
