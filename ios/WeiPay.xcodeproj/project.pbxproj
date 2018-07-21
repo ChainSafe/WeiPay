@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -69,6 +68,8 @@
 		DFD374ABD8AE4C67986E9372 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A87AA81A7A4A4DB5A3327359 /* libBVLinearGradient.a */; };
 		E0B3933C68954739B22C715A /* WorkSans-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B9585DA25EB40119A026C85 /* WorkSans-Thin.ttf */; };
 		E3B0BAB4D5824D8ABE95F982 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AAB8D6AC0284DA4962924B9 /* MaterialCommunityIcons.ttf */; };
+		A2B5CEB76E4A45CC9BB8BF89 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8066F08E11C3411A959469FC /* libRNSVG.a */; };
+		31B8821B337D477BA80C7063 /* libRNSVG-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB17030C984F472EB76686AD /* libRNSVG-tvOS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -458,6 +459,9 @@
 		DFFCF974EF40409391292441 /* Cairo-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Cairo-ExtraLight.ttf"; path = "../src/assets/fonts/Cairo/Cairo-ExtraLight.ttf"; sourceTree = "<group>"; };
 		F446EF44CCB24BB89AD1B0B0 /* Cairo-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Cairo-SemiBold.ttf"; path = "../src/assets/fonts/Cairo/Cairo-SemiBold.ttf"; sourceTree = "<group>"; };
 		FEAAFFBEACCB4A7CAB2AF738 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		6B9BFC7385124BBBAA5FC2BF /* RNSVG.xcodeproj */ = {isa = PBXFileReference; name = "RNSVG.xcodeproj"; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		8066F08E11C3411A959469FC /* libRNSVG.a */ = {isa = PBXFileReference; name = "libRNSVG.a"; path = "libRNSVG.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		EB17030C984F472EB76686AD /* libRNSVG-tvOS.a */ = {isa = PBXFileReference; name = "libRNSVG-tvOS.a"; path = "libRNSVG-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -490,6 +494,7 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				DFD374ABD8AE4C67986E9372 /* libBVLinearGradient.a in Frameworks */,
+				A2B5CEB76E4A45CC9BB8BF89 /* libRNSVG.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -505,6 +510,7 @@
 				2D02E4C61E0B4AEC006451C7 /* libRCTSettings-tvOS.a in Frameworks */,
 				2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */,
 				2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */,
+				31B8821B337D477BA80C7063 /* libRNSVG-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -734,6 +740,7 @@
 				B581CDC14A8F411894B0618D /* RNVectorIcons.xcodeproj */,
 				87A9F06AC41947FC8721D5C0 /* ReactNativePermissions.xcodeproj */,
 				91793F28DA2D49E2818178BC /* BVLinearGradient.xcodeproj */,
+				6B9BFC7385124BBBAA5FC2BF /* RNSVG.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1488,12 +1495,15 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-permissions/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
 				INFOPLIST_FILE = WeiPayTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1520,12 +1530,15 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-permissions/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
 				INFOPLIST_FILE = WeiPayTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1555,6 +1568,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-permissions/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
 				INFOPLIST_FILE = WeiPay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
@@ -1585,6 +1599,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-permissions/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
 				INFOPLIST_FILE = WeiPay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11;
@@ -1619,11 +1634,14 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-permissions/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
 				INFOPLIST_FILE = "WeiPay-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1659,11 +1677,14 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-permissions/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
 				INFOPLIST_FILE = "WeiPay-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1698,11 +1719,14 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-permissions/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
 				INFOPLIST_FILE = "WeiPay-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1737,11 +1761,14 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-permissions/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
+					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
 				INFOPLIST_FILE = "WeiPay-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
