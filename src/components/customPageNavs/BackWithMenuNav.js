@@ -3,31 +3,6 @@ import { View, TouchableOpacity, StyleSheet, TextInput, Text, Platform, Image } 
 import { NavigationActions } from "react-navigation";
 
 class BackWithMenuNav extends Component {
-
-
-      /**
-     * Navigates back and pass route in from props
-     */
-    // navigateBack = (route) => {
-    //     const navigateHistory = NavigationActions.navigate({
-    //       routeName: "coinHistory",
-    //       params: { name: "Shubhnik" }
-    //     });
-    //     this.props.navigation.dispatch(navigateHistory);  
-    // }
-    
-    // /**
-    //  * Navigates to the coinSend Page
-    //  */
-    // navigateToMenu = () => {
-    //     const navigateToMenu = NavigationActions.navigate({
-    //         routeName: "DrawerOpen",
-    //         params: { name: "Shubhnik" }
-    //     });
-    //     this.props.navigation.dispatch(navigateToMenu);
-    // }
-
-
     render() {
         return (
             <View style={styles.container}>

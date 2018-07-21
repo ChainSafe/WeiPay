@@ -204,27 +204,6 @@ class CoinSend extends Component {
           menuFunction={this.navigateMenu} />
 
 
-        {/* <View style={styles.headerMenu}> 
-              <View style={{alignSelf:'flex-start', justifyContent:'center', backgroundColor:"pink", marginLeft: '9%'}}>
-                <TouchableOpacity
-                      onPress={() => this.props.navigation.navigate('mainStack')} >           
-                      <Image
-                          source={require('../../../../assets/icons/back.png')}
-                          style={{height:20, width:20}}
-                      /> 
-                  </TouchableOpacity>
-              </View>
-              <View style={{alignSelf:'flex-end', justifyContent:'center', backgroundColor:"red",  right: '9%', marginTop:'2%'}}>
-                <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate('DrawerOpen')} >
-                    <Image
-                        source={require('../../../../assets/icons/menu.png')}
-                        style={{height:13, width:22}}
-                    /> 
-                </TouchableOpacity>
-              </View>
-           </View> */}
-
         <CoinSendTabNavigator navigation={this.props.navigation} />
 
         <View style={styles.contentContainer} >
