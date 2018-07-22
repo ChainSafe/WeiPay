@@ -91,12 +91,12 @@ class CoinActivity extends Component {
                        <Text style={styles.date}>{item.timeStamp}</Text>
                     </View>
                     <View style={styles.addressContainer}>
-                        <Text style={styles.addressTitle}>Address:</Text>   
+                        <Text style={styles.addressTitle}>Address: </Text>   
                         <Text style={styles.addressValue}>{item.address}</Text> 
                     </View>
                     <View style={styles.amountContainer}>
                         <Text style={styles.amountTitle}>Amount: </Text>   
-                        <Text style={styles.amountValue}> {item.value}</Text> 
+                        <Text style={styles.amountValue}>{item.value}</Text> 
                     </View>
                   </View>
                 </View>
@@ -133,8 +133,8 @@ const styles = StyleSheet.create({
   },   
   addressValue : {
     fontSize:13,
-    fontFamily: "Cairo-Regular",  
-    color: '#141f25',  
+    fontFamily: "Cairo-Light",  
+    color: 'black',  
     justifyContent:'center',
     lineHeight: 17    
   },
@@ -150,8 +150,8 @@ const styles = StyleSheet.create({
   },   
   amountValue : {
     fontSize:13,
-    fontFamily: "Cairo-Regular",  
-    color: '#141f25',  
+    fontFamily: "Cairo-Light",  
+    color: 'black',  
     justifyContent:'center',
     lineHeight: 16    
   },

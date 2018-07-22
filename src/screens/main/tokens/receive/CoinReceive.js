@@ -26,23 +26,23 @@ class CoinReceive extends Component {
           showBack={true}
           navigation={this.props.navigation}
         />
-
         <CoinSendTabNavigator navigation={this.props.navigation} />
         <View style={styles.contentContainer} >
-          <View style={styles.form} >
+          
             <View style={styles.imageContainer}>
               <QRCode
                 value={this.props.walletAddress}
-                size={200}
-                bgColor='black'
-                fgColor='white' />
+                size={280}
+                bgColor='#27c997'
+                fgColor='#fafbfe' />
             </View>
-            <FormLabel> My Address </FormLabel>
-            <FormInput 
-                style={styles.formInputElement} 
-                value={this.props.walletAddress}
-                multiline={true} />         
-          </View>
+
+            <View style={styles.addressContainer}>
+                <Text style={styles.addressTitle}>Address: </Text>   
+                <Text style={styles.addressValue}>{this.props.walletAddress}</Text> 
+            </View>
+
+         
           <View style={styles.btnContainer} >
             <Button
               A title='Next'
@@ -63,38 +63,48 @@ class CoinReceive extends Component {
  * Styles
  */
 const styles = StyleSheet.create({
-  barcode: {
-    width: 165,
-    height: 165,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: "#fafbfe",
-  },
   mainContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingTop: '2.5%'
+    paddingTop: '2.5%',
+    backgroundColor: '#fafbfe'
   },
   contentContainer: {
     marginTop: 25,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  form: {
-    width: 340,
-    flex: 1
-  },
   btnContainer: {
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center'
   },
+  addressContainer:{
+    flexDirection: 'row',
+    flexWrap: 'wrap', 
+    paddingBottom: '1.5%',
+    paddingTop: '2.5%',
+    width: 280
+  },
+  addressTitle : {   
+    fontFamily: "Cairo-Regular",  
+    color: 'black',
+    fontSize: 13,  
+    lineHeight: 17
+  },   
+  addressValue : {
+    fontSize:13,
+    fontFamily: "Cairo-Light",  
+    color: 'black',  
+    justifyContent:'center',
+    lineHeight: 17    
+  },
   imageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 20,
-    paddingBottom: 35
+    paddingTop: '2.5%',
+    paddingBottom: '2.5%'
   }
 })
 
