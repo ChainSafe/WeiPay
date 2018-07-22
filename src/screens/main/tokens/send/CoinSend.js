@@ -8,7 +8,7 @@ import provider from '../../../../constants/Providers';
 import { qrScannerInvoker } from '../../../../actions/ActionCreator'
 import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator'
 import ERC20ABI from '../../../../constants/data/json/ERC20ABI.json';
-
+import LinearButton from '../../../../components/LinearGradient/LinearButton';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 
 const ethers = require('ethers');
@@ -220,7 +220,7 @@ class CoinSend extends Component {
                     /> 
                 </TouchableOpacity>
               </View>
-                <View style={{ paddingBottom: '6%',}}>
+                <View style={styles.topFormInput}>
                   <FormInput
                       placeholder={"Public Address"}
                       onChangeText={this.renderAddress.bind(this)}                  
@@ -253,8 +253,12 @@ class CoinSend extends Component {
                   </Text>
               </Card>
             </View>
-          {/* <View style={styles.btnContainer} >
-            <Button
+
+
+          <View style={styles.btnContainer} >
+            
+            
+             <Button
               title='Reset'
               disabled={this.state.toAddress === "" && this.state.value == 0}
               icon={{ size: 28 }}
@@ -264,6 +268,7 @@ class CoinSend extends Component {
               }}
               textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
               onPress={() => this.resetFields()} />
+
             <Button
               title='Next'
               disabled={this.state.toAddress === "" || this.state.value == 0}
@@ -281,7 +286,7 @@ class CoinSend extends Component {
                 }
               }}
             />
-          </View> */}
+          </View>
         </View>
       </View >
     )
@@ -331,7 +336,10 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontSize: 16,
     lineHeight: 22
-},
+  },
+  topFormInput:{
+    paddingBottom: '6%'
+  },
   transactionFee : {
     fontFamily: "WorkSans-Light",
     fontSize: 9,
