@@ -126,22 +126,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fafbfe",
     width:"100%", 
+    paddingTop: '2.5%',
   },
-  headerMenu: {
-    marginTop: Platform.OS === 'ios' ? '10%' : '10%',
-    ...Platform.select({
-      ios: { backgroundColor: '#fafbfe'},
-      android: { backgroundColor: '#fafbfe'}
-    }),
-    right: '9%',
-    position: 'absolute',
-    zIndex: 100   
-  }, 
   textHeader: {       
     fontFamily: "Cairo-Light",
     fontSize: 26,        
     marginLeft: '9%',
-    marginTop: '15%',
     color: '#1a1f3e',
   },
   accountValueHeader:{

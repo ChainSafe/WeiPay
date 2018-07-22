@@ -54,21 +54,21 @@ const styles = StyleSheet.create({
         marginRight: '9%',
         marginLeft: '9%',
         height: Platform.OS === 'ios' ? 45 : 40,
-        backgroundColor: 'purple',
+        // backgroundColor: 'purple',
         justifyContent:'center'
     },
      boxContainer:{
          flex:1,
          alignItems: 'center',
          justifyContent: 'center',
-         backgroundColor: "blue"
+        //  backgroundColor: "blue"
      },
      boxOne: {
-         backgroundColor: 'blue',
+        //  backgroundColor: 'blue',
          alignItems:'flex-start'
      },
      boxTwo: {
-        backgroundColor: 'green',
+        // backgroundColor: 'green',
         alignItems:'flex-end',
     
         zIndex: 100

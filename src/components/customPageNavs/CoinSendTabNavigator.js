@@ -68,7 +68,7 @@ class CoinSendTabNavigator extends Component {
 const styles = StyleSheet.create({
     tabHeader:{
         flexDirection:'row',  
-        backgroundColor:'red', 
+        // backgroundColor:'red', 
         width:'82%',
         justifyContent:'center',
         borderBottomWidth: 1,

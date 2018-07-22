@@ -78,7 +78,7 @@ class CoinActivity extends Component {
         <FlatList
           data={this.state.data}
           keyExtractor={(x, i) => i.toString()}
-          style={{ flex: 1, width: '100%' }}
+          style={{ flex: 1, width: '100%'}}
           renderItem={({ item }) =>
             <CardSection>
               <View style={styles.item}>
@@ -88,16 +88,16 @@ class CoinActivity extends Component {
                       <Text style={styles.type}>
                         {item.type}
                       </Text>
-
-                       <Text style={styles.date} >{item.timeStamp}</Text>
+                       <Text style={styles.date}>{item.timeStamp}</Text>
                     </View>
-                    
-                   
-                    <Text style={styles.text} >Address:</Text>
-                    <Text style={styles.text} >
-                      {item.address}
-                    </Text>
-                    <Text style={styles.text}>Amount: {item.value} Ether</Text>
+                    <View style={styles.addressContainer}>
+                        <Text style={styles.addressTitle}>Address:</Text>   
+                        <Text style={styles.addressValue}>{item.address}</Text> 
+                    </View>
+                    <View style={styles.amountContainer}>
+                        <Text style={styles.amountTitle}>Amount: </Text>   
+                        <Text style={styles.amountValue}> {item.value}</Text> 
+                    </View>
                   </View>
                 </View>
               </View>
@@ -116,43 +116,73 @@ export default CoinActivity
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    paddingTop: '2.5%',
     backgroundColor: "#fafbfe",
+    width:"100%", 
+    paddingTop: '2.5%',
+  },
+  addressContainer:{
+    flexDirection: 'row',
+    flexWrap: 'wrap', 
+    paddingBottom: '1.5%'
+  },
+  addressTitle : {   
+    fontFamily: "Cairo-Regular",  
+    color: 'black',
+    fontSize: 13,  
+    lineHeight: 17
+  },   
+  addressValue : {
+    fontSize:13,
+    fontFamily: "Cairo-Regular",  
+    color: '#141f25',  
+    justifyContent:'center',
+    lineHeight: 17    
+  },
+  amountContainer:{
+    flexDirection: 'row',
+    flexWrap: 'wrap', 
+  },
+  amountTitle : {   
+    fontFamily: "Cairo-Regular",  
+    color: 'black',
+    fontSize: 13,  
+    lineHeight: 16 
+  },   
+  amountValue : {
+    fontSize:13,
+    fontFamily: "Cairo-Regular",  
+    color: '#141f25',  
+    justifyContent:'center',
+    lineHeight: 16    
   },
   headerContainer:{
     flexDirection: 'row',
-    backgroundColor: "blue"
+    justifyContent:"center", 
+    paddingBottom: '1.5%'
   },
   item: {
     padding: 5,
     marginTop: 5,
     marginBottom: 5,
-    marginLeft: 20,
-    marginRight: 20,
-    flex: 1
+    marginLeft: '7.5%',
+    marginRight: '7.5%',
+    flex: 1,
+    width: '82%',
   },
   type: {
     fontSize: 16,
-    padding: '1.5%',
     letterSpacing: 0.5,
     fontFamily: "Cairo-Regular",     
+    alignItems:"flex-start",
+    flex:1,
+    width:'60%',
+    top: 0    
   },
   date: {
     fontSize: 11,
-    // padding: '1.5%',
     letterSpacing: 0.4,
     fontFamily: "Cairo-Light",  
-    alignItems: 'flex-end'  
-    // fontSize: 12,
-    // padding: 2.5,
-    // paddingBottom: 15,
-    // fontWeight: '400'
+    top: '1.75%',
+    color: '#141f25'  
   },
-  text: {
-    fontSize: 12,
-    padding: 2.5,
-    fontWeight: '300'
-  }
 })
