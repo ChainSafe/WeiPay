@@ -165,17 +165,6 @@ class CoinSend extends Component {
     this.inputAmount.clearText();
   }
 
-  navigateBack = () => {
-    const navigateToPassphrase = NavigationActions.navigate({ routeName: "mainStack" });
-    this.props.navigation.dispatch(navigateToPassphrase);
-  }
-
-  navigateMenu = () => {
-    const navigateToPassphrase = NavigationActions.navigate({ routeName: "DrawerOpen" });
-    this.props.navigation.dispatch(navigateToPassphrase);
-  }
-
-
   /**
    * Navigator
    * Is used to navigate to the Qr-Code scanner
@@ -201,6 +190,8 @@ class CoinSend extends Component {
         <BackWithMenuNav 
           backFunction={this.navigateBack} 
           menuFunction={this.navigateMenu} 
+          showMenu={false}
+          navigation={this.props.navigation}
         />
         <CoinSendTabNavigator 
           navigation={this.props.navigation} 
