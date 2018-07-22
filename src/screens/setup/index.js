@@ -48,13 +48,15 @@ class CreateOrRestore extends Component {
                     <View style={styles.btn}>                       
                         <LinearButton 
                             onClickFunction={this.navigateCreate}
-                            buttonText="Create Wallet"                        
+                            buttonText="Create Wallet"  
+                            customStyles={styles.button}                      
                         />
                     </View>
                     <View>
                       <ClearButton 
                             onClickFunction={this.navigateRestore}
-                            buttonText="Restore Wallet"                            
+                            buttonText="Restore Wallet" 
+                            customStyles={styles.button}                           
                         />                       
                     </View>
                 </View>
@@ -94,6 +96,9 @@ const styles = StyleSheet.create({
         alignItems:'stretch',
         width: '100%',
         justifyContent: 'flex-end'
+    },
+    button: {
+        width: '82%'
     },
     btn: {
         marginBottom: '3.5%',

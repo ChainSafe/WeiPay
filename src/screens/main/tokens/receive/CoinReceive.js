@@ -23,6 +23,7 @@ class CoinReceive extends Component {
           backFunction={this.navigateBack} 
           menuFunction={this.navigateMenu} 
           showMenu={true}
+          showBack={true}
           navigation={this.props.navigation}
         />
 
@@ -67,6 +68,7 @@ const styles = StyleSheet.create({
     height: 165,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: "#fafbfe",
   },
   mainContainer: {
     flex: 1,

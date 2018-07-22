@@ -47,7 +47,7 @@ const gradientColors = {
 const styles = StyleSheet.create({
     buttonStyles: {
         borderRadius: 100, 
-        width: '82%',
+        // width: '82%',
         height: 52,                                  
         alignItems: 'center', 
         justifyContent: 'center',                                  

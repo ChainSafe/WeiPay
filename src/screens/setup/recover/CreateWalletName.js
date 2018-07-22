@@ -64,7 +64,8 @@ class CreateWalletName extends Component {
             <View style={styles.btnContainer}>
                 <LinearButton 
                     onClickFunction={this.navigate }
-                    buttonText="Next"                                           
+                    buttonText="Next"  
+                    customStyles={styles.button}                                         
                 />               
             </View>  
             <View style={styles.footerGrandparentContainer} >    
@@ -139,6 +140,9 @@ const styles = StyleSheet.create({
         alignItems: 'stretch',
         justifyContent: 'flex-end',
         width: '100%',      
+    },
+    button: {
+        width: '82%'
     },
     footerGrandparentContainer : {
         alignItems:'center'

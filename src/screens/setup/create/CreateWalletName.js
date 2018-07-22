@@ -148,6 +148,9 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         width: '100%',      
     },
+    button: {
+        width: '82%'
+    },
     footerGrandparentContainer : {
         alignItems:'center'
     },

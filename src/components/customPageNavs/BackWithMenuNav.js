@@ -17,10 +17,12 @@ class BackWithMenuNav extends Component {
     /**
      *  Props:
      *      showMenu: type=boolean, Determines if the Drawer icon will be displayed
+     *      showBack: 
      */
     render() {
         return (
             <View style={styles.container}>
+             { this.props.showBack ? 
                 <View style={[styles.boxContainer, styles.boxOne]}>
                     <TouchableOpacity
                         onPress={this.navigateBack} >
@@ -29,7 +31,7 @@ class BackWithMenuNav extends Component {
                             style={{height:20, width:20}}
                         /> 
                     </TouchableOpacity>
-                </View>
+                </View> : null}
                 { this.props.showMenu ? 
                 <View style={[styles.boxContainer, styles.boxTwo]} >
                     <TouchableOpacity

@@ -25,15 +25,6 @@ class CoinActivity extends Component {
     }
   }
 
-  /**
-   * Sets the Tab header to "ACTIVITY"
-   */
-  static navigationOptions = ({ navigation }) => {
-    return {
-      tabBarLabel: 'ACTIVITY'
-    }
-  }
-
   componentDidMount() {
     this.getData(this.state.address);
   }
@@ -80,9 +71,9 @@ class CoinActivity extends Component {
           backFunction={this.navigateBack} 
           menuFunction={this.navigateMenu} 
           showMenu={true}
+          showBack={true}
           navigation={this.props.navigation}
         />
-
         <CoinSendTabNavigator navigation={this.props.navigation} />
         <FlatList
           data={this.state.data}
@@ -92,11 +83,16 @@ class CoinActivity extends Component {
             <CardSection>
               <View style={styles.item}>
                 <View>
-                  <View style={{}}>
-                    <Text style={styles.type}>
-                      {item.type}
-                    </Text>
-                    <Text style={styles.date} >{item.timeStamp}</Text>
+                  <View>
+                    <View style={styles.headerContainer}> 
+                      <Text style={styles.type}>
+                        {item.type}
+                      </Text>
+
+                       <Text style={styles.date} >{item.timeStamp}</Text>
+                    </View>
+                    
+                   
                     <Text style={styles.text} >Address:</Text>
                     <Text style={styles.text} >
                       {item.address}
@@ -122,7 +118,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'flex-start',
-    paddingTop: '2.5%'
+    paddingTop: '2.5%',
+    backgroundColor: "#fafbfe",
+  },
+  headerContainer:{
+    flexDirection: 'row',
+    backgroundColor: "blue"
   },
   item: {
     padding: 5,
@@ -134,14 +135,20 @@ const styles = StyleSheet.create({
   },
   type: {
     fontSize: 16,
-    padding: 3,
-    fontWeight: '500'
+    padding: '1.5%',
+    letterSpacing: 0.5,
+    fontFamily: "Cairo-Regular",     
   },
   date: {
-    fontSize: 12,
-    padding: 2.5,
-    paddingBottom: 15,
-    fontWeight: '400'
+    fontSize: 11,
+    // padding: '1.5%',
+    letterSpacing: 0.4,
+    fontFamily: "Cairo-Light",  
+    alignItems: 'flex-end'  
+    // fontSize: 12,
+    // padding: 2.5,
+    // paddingBottom: 15,
+    // fontWeight: '400'
   },
   text: {
     fontSize: 12,
