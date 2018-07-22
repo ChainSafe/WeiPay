@@ -4,7 +4,7 @@ import { FormInput, FormLabel, Button } from 'react-native-elements';
 import QRCode from 'react-native-qrcode';
 import { connect } from 'react-redux'
 import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator'
-
+import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 
 /**
  * React Component
@@ -13,22 +13,19 @@ import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSend
 class CoinReceive extends Component {
 
   /**
-   * Sets the Tab header to "RECEIVE"
-   */
-  static navigationOptions = ({ navigation }) => {
-    return {
-      tabBarLabel: 'RECEIVE'
-    }
-  }
-
-
-  /**
    * Returns a component that be used to display the Wallet public key in a form of text
    * and QrCode
    */
   render() {
     return (
       <View style={styles.mainContainer}>
+        <BackWithMenuNav 
+          backFunction={this.navigateBack} 
+          menuFunction={this.navigateMenu} 
+          showMenu={true}
+          navigation={this.props.navigation}
+        />
+
         <CoinSendTabNavigator navigation={this.props.navigation} />
         <View style={styles.contentContainer} >
           <View style={styles.form} >
@@ -74,7 +71,8 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
+    paddingTop: '2.5%'
   },
   contentContainer: {
     marginTop: 25,

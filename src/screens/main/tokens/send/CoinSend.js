@@ -190,7 +190,7 @@ class CoinSend extends Component {
         <BackWithMenuNav 
           backFunction={this.navigateBack} 
           menuFunction={this.navigateMenu} 
-          showMenu={false}
+          showMenu={true}
           navigation={this.props.navigation}
         />
         <CoinSendTabNavigator 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { CardSection } from '../../../../components/common/CardSection';
 import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator'
+import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 const axios = require('axios');
 const ethers = require('ethers');
 const moment = require('moment');
@@ -74,7 +75,14 @@ class CoinActivity extends Component {
    */
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.mainContainer}>
+        <BackWithMenuNav 
+          backFunction={this.navigateBack} 
+          menuFunction={this.navigateMenu} 
+          showMenu={true}
+          navigation={this.props.navigation}
+        />
+
         <CoinSendTabNavigator navigation={this.props.navigation} />
         <FlatList
           data={this.state.data}
@@ -110,10 +118,11 @@ export default CoinActivity
  * Style
  */
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'flex-start',
+    paddingTop: '2.5%'
   },
   item: {
     padding: 5,
