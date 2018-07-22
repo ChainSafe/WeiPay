@@ -4,7 +4,6 @@ import { NavigationActions } from "react-navigation";
 
 class BackWithMenuNav extends Component {
 
-
     navigateBack = () => {
         const navigateToPassphrase = NavigationActions.navigate({ routeName: "mainStack" });
         this.props.navigation.dispatch(navigateToPassphrase);
@@ -15,12 +14,10 @@ class BackWithMenuNav extends Component {
         this.props.navigation.dispatch(navigateToPassphrase);
     }
     
-
     /**
      *  Props:
      *      showMenu: type=boolean, Determines if the Drawer icon will be displayed
      */
-
     render() {
         return (
             <View style={styles.container}>
@@ -75,5 +72,4 @@ const styles = StyleSheet.create({
     }
 })
   
-
 export default BackWithMenuNav
