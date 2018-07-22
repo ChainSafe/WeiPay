@@ -3,10 +3,10 @@ import { View, Text, FlatList, StyleSheet, AsyncStorage, ListView, Image, Toucha
 import { StackNavigator, DrawerNavigator, TabNavigator } from 'react-navigation';
 import { List, ListItem, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
-import ModalDropdown from 'react-native-modal-dropdown';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import { NavigationActions } from "react-navigation";
 import {addTokenInfo} from '../../../actions/ActionCreator';
+import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 
 /**
  * Screen is used to display the wallet portfolio of the user, which contains the 
@@ -31,7 +31,7 @@ class Portfolio extends Component {
   navigate = () => {
     const navigateToAddToken = NavigationActions.navigate({ routeName: "AddToken" });
     this.props.navigation.dispatch(navigateToAddToken);
-};
+  };
 
   /**
    * Returns a ListItem component specific to the properties of the token parameter
@@ -87,24 +87,19 @@ class Portfolio extends Component {
   render() {
     return (
       <View style={styles.mainContainer} >  
-       <View style={styles.headerMenu}> 
-          <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('DrawerOpen')} >
-              <Image
-                  source={require('../../../assets/icons/menu.png')}
-                  style={{height:13, width:22}}
-              /> 
-          </TouchableOpacity>
-        </View>   
+        <BackWithMenuNav         
+          menuFunction={this.navigateMenu} 
+          showMenu={true}
+          showBack={false}
+          navigation={this.props.navigation}
+        />
         <Text style={styles.textHeader} >Portfolio </Text>
-
-        <View style={{ flexDirection: 'row'}}>
+        <View style={styles.accountValueHeader}>
             <Text style={styles.headerValue}>0$</Text>   
             <Text style={styles.headerValueCurrency}> USD</Text> 
         </View>
-
-        <View style={{alignItems:"stretch", width:"100%", marginLeft: '9%', marginTop:'2.5%'}}>
-          <ScrollView style={{height:"70%"}} >
+        <View style={styles.scrollViewContainer}>
+          <ScrollView style={styles.scrollView} >
               <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}  />
           </ScrollView>
         </View>
@@ -149,6 +144,9 @@ const styles = StyleSheet.create({
     marginTop: '15%',
     color: '#1a1f3e',
   },
+  accountValueHeader:{
+    flexDirection: 'row'
+  },
   headerValue : {   
     fontFamily: "WorkSans-Medium",  
     marginLeft: '9%',
@@ -161,6 +159,15 @@ const styles = StyleSheet.create({
     color: '#27c997',
     justifyContent:'center',
     paddingTop:'1.5%',    
+  },
+  scrollViewContainer:{
+    alignItems:"stretch", 
+    width:"100%", 
+    marginLeft: '9%', 
+    marginTop:'2.5%'
+  },
+  scrollView:{
+    height:"70%"
   },
   listItemContainer:{
     marginTop:'2.5%'
