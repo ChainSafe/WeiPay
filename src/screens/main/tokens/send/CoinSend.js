@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Alert, Platform, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { FormInput, FormLabel, Button, Card } from 'react-native-elements';
-
 import { NavigationActions, DrawerNavigator } from "react-navigation";
 import { getQRCodeData, addTokenInfo } from '../../../../actions/ActionCreator';
 import provider from '../../../../constants/Providers';
 import { qrScannerInvoker } from '../../../../actions/ActionCreator'
 import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator'
 import ERC20ABI from '../../../../constants/data/json/ERC20ABI.json';
+
+import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 
 const ethers = require('ethers');
 const utils = ethers.utils;
@@ -18,14 +19,6 @@ const utils = ethers.utils;
  * Screen used to conduct negative transactions (sending coins/tokens)
  */
 class CoinSend extends Component {
-  /**
-   * Sets the Tab header to "SEND"
-   */
-  static navigationOptions = ({ navigation }) => {
-    return {
-      tabBarLabel: 'SEND'
-    }
-  }
 
   /**
    * Initializes State to keep track of the
@@ -194,90 +187,64 @@ class CoinSend extends Component {
     console.log(this.props.token)
     return (
       <View style={styles.mainContainer}>
-
-
-        <View style={styles.headerMenu}> 
-              <View style={{alignSelf:'flex-start', justifyContent:'center', backgroundColor:"pink", marginLeft: '9%'}}>
+        <BackWithMenuNav 
+          backFunction={this.navigateBack} 
+          menuFunction={this.navigateMenu} 
+          showMenu={false}
+          navigation={this.props.navigation}
+        />
+        <CoinSendTabNavigator 
+          navigation={this.props.navigation} 
+        />
+        <View style={styles.contentContainer} >
+          <View>
+            <Card containerStyle={ styles.cardContainer }>
+              <Text style={styles.cardText}>
+                Send Ether by scanning someone's QR code or public address.
+              </Text>
+              <View style= {styles.barcodeImageContainer}>
                 <TouchableOpacity
-                      onPress={() => this.props.navigation.navigate('mainStack')} >           
-                      <Image
-                          source={require('../../../../assets/icons/back.png')}
-                          style={{height:20, width:20}}
-                      /> 
-                  </TouchableOpacity>
-              </View>
-              <View style={{alignSelf:'flex-end', justifyContent:'center', backgroundColor:"red",  right: '9%', marginTop:'2%'}}>
-                <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate('DrawerOpen')} >
+                    onPress= {() => this.navigate()} >
                     <Image
-                        source={require('../../../../assets/icons/menu.png')}
-                        style={{height:13, width:22}}
+                        source={require('../../../../assets/icons/barcode.png')}
+                        style={styles.barcodeImage}
                     /> 
                 </TouchableOpacity>
               </View>
-           </View>
-
-        <CoinSendTabNavigator navigation={this.props.navigation} />
-
-        <View style={styles.contentContainer} >
-          <View>
-            <Card
-                containerStyle={{ 
-                  width: '82%', 
-                  height: '75%', 
-                  borderRadius: 7.5, 
-                  shadowOpacity: 0.5, 
-                  shadowRadius: 1.3, 
-                  shadowColor: '#dbdbdb',
-                  shadowOffset: { width: 1, height: 2 },    
-                  alignItems:'stretch'                
-              }}>
-                  <Text style={styles.cardText}>
-                    Send Ether by scanning someone's QR code or public address.
-                  </Text>
-                  <View style= {styles.barcodeImage}>
-                    <TouchableOpacity
-                        onPress= {() => this.navigate()} >
-                        <Image
-                            source={require('../../../../assets/icons/barcode.png')}
-                            style={{height:75, width:75}}
-                        /> 
-                    </TouchableOpacity>
-                  </View>
-                  <View style={{ paddingBottom: '6%',}}>
-                    <FormInput
-                        placeholder={"Public Address"}
-                        onChangeText={this.renderAddress.bind(this)}                  
-                        ref={ref => this.inputAddress = ref}
-                        inputStyle={{
-                          width:'100%', 
-                          flexWrap: 'wrap', 
-                          color:'#12c1a2', 
-                          fontSize:16, 
-                          fontFamily: "WorkSans-Light",
-                          letterSpacing:0.4
-                        }}
-                  /> 
-                  </View>
+                <View style={{ paddingBottom: '6%',}}>
                   <FormInput
-                      placeholder={"Amount"}
-                      onChangeText={this.renderValue.bind(this)}
-                      ref={ref => this.inputAmount = ref}
+                      placeholder={"Public Address"}
+                      onChangeText={this.renderAddress.bind(this)}                  
+                      ref={ref => this.inputAddress = ref}
                       inputStyle={{
                         width:'100%', 
                         flexWrap: 'wrap', 
-                        color:'#12c1a2',
+                        color:'#12c1a2', 
                         fontSize:16, 
                         fontFamily: "WorkSans-Light",
                         letterSpacing:0.4
                       }}
+                    /> 
+                </View>
+                <FormInput
+                    placeholder={"Amount"}
+                    onChangeText={this.renderValue.bind(this)}
+                    ref={ref => this.inputAmount = ref}
+                    inputStyle={{
+                      width:'100%', 
+                      flexWrap: 'wrap', 
+                      color:'#12c1a2',
+                      fontSize:16, 
+                      fontFamily: "WorkSans-Light",
+                      letterSpacing:0.4
+                  }}
                   /> 
                   <Text style={styles.transactionFee} > 
                     Transaction Fee Total {this.state.value} Eth
                   </Text>
               </Card>
             </View>
-          <View style={styles.btnContainer} >
+          {/* <View style={styles.btnContainer} >
             <Button
               title='Reset'
               disabled={this.state.toAddress === "" && this.state.value == 0}
@@ -305,7 +272,7 @@ class CoinSend extends Component {
                 }
               }}
             />
-          </View>
+          </View> */}
         </View>
       </View >
     )
@@ -319,38 +286,49 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'flex-start'
-  },
-  headerMenu: {
-    marginTop: Platform.OS === 'ios' ? '7.5%' : '5%',
-    ...Platform.select({
-      ios: { backgroundColor: '#fafbfe'},
-      android: { backgroundColor: '#fafbfe'}
-    }),
-    justifyContent:'center',
-    backgroundColor:"blue" ,
-    alignItems:"stretch",
-    width:"100%",
-    flex:1
-  },  
-  tabHeader:{
-    flexDirection:'row', 
-    top:50, 
-    // backgroundColor:'red', 
-    width:'82%',
-    justifyContent:'center',
-    borderBottomWidth: 1,
-    borderBottomColor: '#b3b3b3',
-    paddingBottom: '2%'
-
+    justifyContent: 'flex-start',
+    paddingTop: '2.5%'
   },
   contentContainer: {
     marginTop: 25,
     width:'100%',
     alignItems:'center'
   },
-  form: {
-    width: 340
+  barcodeImageContainer: {
+    paddingTop: '5%', 
+    paddingBottom:'5%',
+    paddingLeft: '5%',
+  },
+  barcodeImage: {
+    height:75, 
+    width:75
+  },
+  cardContainer: {
+    width: '82%', 
+    height: '80%', 
+    borderRadius: 7.5, 
+    shadowOpacity: 0.5, 
+    shadowRadius: 1.3, 
+    shadowColor: '#dbdbdb',
+    shadowOffset: { width: 1, height: 2 },    
+    alignItems:'stretch' 
+  },
+  cardText : {
+    paddingBottom: '2.5%',
+    paddingTop: '8%',
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    fontFamily: "WorkSans-Light",  
+    color: '#000000',
+    fontSize: 16,
+    lineHeight: 22
+},
+  transactionFee : {
+    fontFamily: "WorkSans-Light",
+    fontSize: 9,
+    letterSpacing: 0.3,
+    paddingLeft: '7%',
+    paddingTop: '2.5%'
   },
   qr: {
     marginLeft: 5,
