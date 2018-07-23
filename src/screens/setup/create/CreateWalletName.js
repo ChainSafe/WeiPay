@@ -14,7 +14,9 @@ const ethers = require('ethers');
 class CreateWalletName extends Component {
     constructor(props) {
         super(props);
-        this.state = { buttonDisabled: true }
+        this.state = { 
+            buttonDisabled: true,
+         }
     }
 
     /**
@@ -22,8 +24,9 @@ class CreateWalletName extends Component {
      * variable and to navigate to the "generatePassphrase" screen  
      */
     navigate = () => {
-        const wallet = ethers.Wallet.createRandom();
+        const wallet = ethers.Wallet.createRandom();    
         this.props.newWalletCreation(wallet);
+        console.log(this.state.wallet);
         const navigateToPassphrase = NavigationActions.navigate({ routeName: "generatePassphrase" });
         this.props.navigation.dispatch(navigateToPassphrase);
     };
@@ -67,13 +70,13 @@ class CreateWalletName extends Component {
                                 inputStyle={styles.txtWalletName}
                             /> 
                         </Card>
-                        </View>
+                    </View>
                     <View style={styles.btnContainer}>
                         <LinearButton 
                             onClickFunction={this.navigate}
                             buttonText="Next"
                             customStyles={styles.button}
-                            buttonStateEnabled={this.state.buttonDisabled}
+                            // buttonStateEnabled={this.state.buttonDisabled}
                         />
                     </View>                  
                     <View style={styles.footerGrandparentContainer} >    
@@ -94,7 +97,8 @@ const styles = StyleSheet.create({
         paddingTop: '5%',   
         backgroundColor: "#fafbfe",
         width: '100%',
-        height: '100%'
+        height: '100%',
+        marginTop: '2.5%'
     },
     headerBack: {
         marginTop: Platform.OS === 'ios' ? '5%' : '5%',
@@ -147,6 +151,9 @@ const styles = StyleSheet.create({
         alignItems: 'stretch',
         justifyContent: 'flex-end',
         width: '100%',      
+    },
+    button: {
+        width: '82%'
     },
     footerGrandparentContainer : {
         alignItems:'center'

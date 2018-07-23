@@ -43,7 +43,8 @@ class EnableCrypto extends Component {
                 <View style={styles.btnContainer} >
                     <LinearButton 
                         onClickFunction={this.navigate}
-                        buttonText="Add"                       
+                        buttonText="Add"  
+                        customStyles={styles.button}                     
                     />                  
                 </View>
                 <View style={styles.footerContainer}>
@@ -86,6 +87,9 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         marginBottom: '2.5%',
         flex:1
+    },
+    button: {
+        width: '82%'
     },
     footerContainer: {
         alignItems:"center"

@@ -7,6 +7,8 @@ import { Input } from '../../../components/common/Input';
 import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCreator';
 import provider from '../../../constants/Providers';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
+import {BoxShadow} from 'react-native-shadow';
+
 const ethers = require('ethers');
 
 /**
@@ -50,21 +52,24 @@ class CreateWalletName extends Component {
                   </View>   
                 <Text style={styles.textHeader}>Wallet Name</Text>                               
                 <View style={styles.contentContainer} >
-                    <Card containerStyle={styles.cardContainer}> 
-                        <Text style={styles.cardText}>
-                            Create a name for your wallet, for example: My Wallet
-                        </Text>
-                        <FormInput
-                            placeholder={"Ex. My Wallet"}
-                            onChangeText={this.getWalletName.bind(this)}
-                            inputStyle={styles.txtWalletName}
-                        /> 
-                  </Card>
+                    {/* <BoxShadow setting={shadowOpt}> */}
+                        <Card containerStyle={styles.cardContainer}> 
+                            <Text style={styles.cardText}>
+                                Create a name for your wallet, for example: My Wallet
+                            </Text>
+                            <FormInput
+                                placeholder={"Ex. My Wallet"}
+                                onChangeText={this.getWalletName.bind(this)}
+                                inputStyle={styles.txtWalletName}
+                            /> 
+                        </Card>
+               3 */}
               </View>
             <View style={styles.btnContainer}>
                 <LinearButton 
                     onClickFunction={this.navigate }
-                    buttonText="Next"                                           
+                    buttonText="Next"  
+                    customStyles={styles.button}                                         
                 />               
             </View>  
             <View style={styles.footerGrandparentContainer} >    
@@ -76,6 +81,19 @@ class CreateWalletName extends Component {
         );
     }
 }
+
+
+// const shadowOpt = {
+//     width:'100%',
+//     height:'100%',
+//     color:"#000",
+//     border:2,
+//     radius:3,
+//     opacity:0.2,
+//     x:0,
+//     y:3,
+//     // style:{marginVertical:5}
+// }
 
 /**
  * Styles used in the "CreateWalletNameRecovery" screen
@@ -115,11 +133,11 @@ const styles = StyleSheet.create({
     cardContainer: {
         width: '82%', 
         height: '55%', 
-        borderRadius: 7.5, 
-        shadowOpacity: 0.5, 
-        shadowRadius: 1.3, 
-        shadowColor: '#dbdbdb',
-        shadowOffset: { width: 1, height: 2 }   
+        // borderRadius: 7.5, 
+        // shadowOpacity: 0.5, 
+        // shadowRadius: 1.3, 
+        // shadowColor: '#dbdbdb',
+        // shadowOffset: { width: 1, height: 2 }   
     },
     cardText : {
         paddingBottom: '20%',
@@ -139,6 +157,9 @@ const styles = StyleSheet.create({
         alignItems: 'stretch',
         justifyContent: 'flex-end',
         width: '100%',      
+    },
+    button: {
+        width: '82%'
     },
     footerGrandparentContainer : {
         alignItems:'center'

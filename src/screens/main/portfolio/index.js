@@ -3,10 +3,10 @@ import { View, Text, FlatList, StyleSheet, AsyncStorage, ListView, Image, Toucha
 import { StackNavigator, DrawerNavigator, TabNavigator } from 'react-navigation';
 import { List, ListItem, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
-import ModalDropdown from 'react-native-modal-dropdown';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import { NavigationActions } from "react-navigation";
 import {addTokenInfo} from '../../../actions/ActionCreator';
+import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 
 /**
  * Screen is used to display the wallet portfolio of the user, which contains the 
@@ -21,9 +21,7 @@ class Portfolio extends Component {
    */
   componentWillMount() {
     let data = this.props.newWallet.tokens
-
-    console.log(this.props.newWallet.tokens);
-    
+    console.log(this.props.newWallet.tokens);    
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     })
@@ -33,40 +31,26 @@ class Portfolio extends Component {
   navigate = () => {
     const navigateToAddToken = NavigationActions.navigate({ routeName: "AddToken" });
     this.props.navigation.dispatch(navigateToAddToken);
-};
+  };
 
   /**
    * Returns a ListItem component specific to the properties of the token parameter
    */
   renderRow = (token) => {
     return (
-      <View style={{marginTop:'2.5%'}}>
+      <View style={styles.listItemContainer}>
         <ListItem
           roundAvatar
           avatar={{ uri: token.avatar_url }}
           key={token.id}
           title= {
-            <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
-              <Text style={{ 
-                fontSize:16,
-                fontFamily: "Cairo-Regular",  
-                alignItems:"flex-start",
-                flex:1,
-                width:'90%',
-                letterSpacing: 0.5,  
-                top: '1%'                                               
-                }}>
-                  {token.symbol}
-                </Text>
-                <Text style={{
-                  alignItems:"flex-end",
-                  fontSize:16,
-                  fontFamily: "WorkSans-Regular",   
-                  letterSpacing: 0.5,  
-                  top: '3.5%'                                     
-                  }}> 
-                    23 
-                  </Text>
+            <View style={styles.listItemSymbolRowContiner}>
+              <Text style={styles.listItemSymbolText}>
+                {token.symbol}
+              </Text>
+              <Text style={styles.listItemCoinCount}> 
+                23 
+              </Text>
             </View>
           }      
           onPress={() => {
@@ -80,46 +64,17 @@ class Portfolio extends Component {
           }
           }
           subtitle={
-            <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
-              <Text style={{
-                fontSize:11, 
-                fontFamily: "Cairo-Light",             
-                alignItems:"flex-start",
-                flex:1,
-                width:'90%',  
-                letterSpacing: 0.4,  
-                top: '-1.5%',
-                height: '100%'                 
-              }}>
+            <View style={styles.listItemSubtitleContainer}>
+              <Text style={styles.lisItemSubtitleName}>
                 {token.title}
               </Text>
-              <Text style={{
-                alignItems:"flex-end",
-                fontSize:11,
-                fontFamily: "WorkSans-Light",            
-                paddingRight: '1.75%',
-                letterSpacing: 0.4,                                       
-                }}> 
+              <Text style={styles.listItemSubtitleValue}> 
                   $2444 
                 </Text>
             </View>
           }
-          containerStyle = {{
-            borderRadius: 10, 
-            width: '83%', 
-            height: 63,            
-            backgroundColor: '#ffffff',
-            justifyContent:"center",
-            borderWidth:0.5,
-            borderColor: '#F8F8FF',
-            shadowColor: '#F8F8FF',
-            shadowOffset: { width: 1, height: 1},
-            shadowOpacity:20,
-            shadowRadius: 10,
-          }}
-          avatarStyle = {{           
-            marginTop:'-5%',         
-          }}
+          containerStyle = {styles.listItem}
+          avatarStyle = {styles.avitarStyle}
         />
       </View>
     )
@@ -132,33 +87,28 @@ class Portfolio extends Component {
   render() {
     return (
       <View style={styles.mainContainer} >  
-       <View style={styles.headerMenu}> 
-          <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('DrawerOpen')} >
-              <Image
-                  source={require('../../../assets/icons/menu.png')}
-                  style={{height:13, width:22}}
-              /> 
-          </TouchableOpacity>
-        </View>   
+        <BackWithMenuNav         
+          menuFunction={this.navigateMenu} 
+          showMenu={true}
+          showBack={false}
+          navigation={this.props.navigation}
+        />
         <Text style={styles.textHeader} >Portfolio </Text>
-
-        <View style={{ flexDirection: 'row'}}>
+        <View style={styles.accountValueHeader}>
             <Text style={styles.headerValue}>0$</Text>   
             <Text style={styles.headerValueCurrency}> USD</Text> 
         </View>
-
-        <View style={{alignItems:"stretch", width:"100%", marginLeft: '9%', marginTop:'2.5%'}}>
-          <ScrollView style={{height:"70%"}} >
+        <View style={styles.scrollViewContainer}>
+          <ScrollView style={styles.scrollView} >
               <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}  />
           </ScrollView>
         </View>
         <View style={styles.btnContainer} >
             <LinearButton 
-                    onClickFunction={this.navigate}
-                    buttonText="Add Token or Coin"
-                    customStyles={styles.button}
-                />         
+              onClickFunction={this.navigate}
+              buttonText="Add Token or Coin"
+              customStyles={styles.button}
+            />         
         </View>
         <View style={styles.footerContainer}>
           <Text style={styles.textFooter} >Powered by ChainSafe </Text>
@@ -176,23 +126,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fafbfe",
     width:"100%", 
+    paddingTop: '2.5%',
   },
-  headerMenu: {
-    marginTop: Platform.OS === 'ios' ? '10%' : '10%',
-    ...Platform.select({
-      ios: { backgroundColor: '#fafbfe'},
-      android: { backgroundColor: '#fafbfe'}
-    }),
-    right: '9%',
-    position: 'absolute',
-    zIndex: 100   
-  }, 
   textHeader: {       
     fontFamily: "Cairo-Light",
     fontSize: 26,        
     marginLeft: '9%',
-    marginTop: '15%',
     color: '#1a1f3e',
+  },
+  accountValueHeader:{
+    flexDirection: 'row'
   },
   headerValue : {   
     fontFamily: "WorkSans-Medium",  
@@ -207,12 +150,86 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     paddingTop:'1.5%',    
   },
+  scrollViewContainer:{
+    alignItems:"stretch", 
+    width:"100%", 
+    marginLeft: '9%', 
+    marginTop:'2.5%'
+  },
+  scrollView:{
+    height:"70%"
+  },
+  listItemContainer:{
+    marginTop:'2.5%'
+  },
+  listItem:{
+    borderRadius: 10, 
+    width: '83%', 
+    height: 63,            
+    backgroundColor: '#ffffff',
+    justifyContent:"center",
+    borderWidth:0.5,
+    borderColor: '#F8F8FF',
+    shadowColor: '#F8F8FF',
+    shadowOffset: { width: 1, height: 1},
+    shadowOpacity:20,
+    shadowRadius: 10,
+  },
+  listItemSymbolRowContiner:{
+    flexDirection:'row', 
+    justifyContent:"center", 
+    marginLeft:'5%'
+  },
+  avitarStyle:{
+    marginTop:'-5%'
+  },
+  listItemSymbolText:{
+    fontSize:16,
+    fontFamily: "Cairo-Regular",  
+    alignItems:"flex-start",
+    flex:1,
+    width:'90%',
+    letterSpacing: 0.5,  
+    top: '1%'    
+  },
+  listItemCoinCount:{
+    alignItems:"flex-end",
+    fontSize:16,
+    fontFamily: "WorkSans-Regular",   
+    letterSpacing: 0.5,  
+    top: '3.5%'   
+  },
+  listItemSubtitleContainer:{
+    flexDirection:'row', 
+    justifyContent:"center", 
+    marginLeft:'5%'
+  },
+  lisItemSubtitleName:{
+    fontSize:11, 
+    fontFamily: "Cairo-Light",             
+    alignItems:"flex-start",
+    flex:1,
+    width:'90%',  
+    letterSpacing: 0.4,  
+    top: '-1.5%',
+    height: '100%'    
+  },
+  listItemSubtitleValue:{
+    alignItems:"flex-end",
+    fontSize:11,
+    fontFamily: "WorkSans-Light",            
+    paddingRight: '1.75%',
+    letterSpacing: 0.4,     
+  },
   btnContainer: {
     alignItems: 'stretch',
     width: '100%',
     justifyContent: 'flex-end',
     marginBottom: '2.5%',
     flex:1
+  },
+  button: {
+    width: '82%'
   },
   footerContainer: {
     alignItems:"center"

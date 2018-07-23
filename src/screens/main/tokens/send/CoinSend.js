@@ -8,7 +8,7 @@ import provider from '../../../../constants/Providers';
 import { qrScannerInvoker } from '../../../../actions/ActionCreator'
 import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator'
 import ERC20ABI from '../../../../constants/data/json/ERC20ABI.json';
-
+import LinearButton from '../../../../components/LinearGradient/LinearButton';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 
 const ethers = require('ethers');
@@ -187,17 +187,17 @@ class CoinSend extends Component {
     console.log(this.props.token)
     return (
       <View style={styles.mainContainer}>
-        <BackWithMenuNav 
-          backFunction={this.navigateBack} 
+        <BackWithMenuNav          
           menuFunction={this.navigateMenu} 
-          showMenu={false}
+          showMenu={true}
+          showBack={true}
           navigation={this.props.navigation}
         />
         <CoinSendTabNavigator 
           navigation={this.props.navigation} 
         />
         <View style={styles.contentContainer} >
-          <View>
+       
             <Card containerStyle={ styles.cardContainer }>
               <Text style={styles.cardText}>
                 Send Ether by scanning someone's QR code or public address.
@@ -211,41 +211,42 @@ class CoinSend extends Component {
                     /> 
                 </TouchableOpacity>
               </View>
-                <View style={{ paddingBottom: '6%',}}>
+                <View style={styles.topFormInput}>
                   <FormInput
                       placeholder={"Public Address"}
                       onChangeText={this.renderAddress.bind(this)}                  
                       ref={ref => this.inputAddress = ref}
-                      inputStyle={{
-                        width:'100%', 
-                        flexWrap: 'wrap', 
-                        color:'#12c1a2', 
-                        fontSize:16, 
-                        fontFamily: "WorkSans-Light",
-                        letterSpacing:0.4
-                      }}
+                      inputStyle={styles.formInput}
                     /> 
                 </View>
                 <FormInput
                     placeholder={"Amount"}
                     onChangeText={this.renderValue.bind(this)}
                     ref={ref => this.inputAmount = ref}
-                    inputStyle={{
-                      width:'100%', 
-                      flexWrap: 'wrap', 
-                      color:'#12c1a2',
-                      fontSize:16, 
-                      fontFamily: "WorkSans-Light",
-                      letterSpacing:0.4
-                  }}
+                    inputStyle={styles.formInput}
                   /> 
                   <Text style={styles.transactionFee} > 
                     Transaction Fee Total {this.state.value} Eth
                   </Text>
               </Card>
-            </View>
-          {/* <View style={styles.btnContainer} >
-            <Button
+         
+          <View style={styles.btnContainer} >
+            
+              {/* <LinearButton 
+                    onClickFunction={this.navigate}
+                    buttonText="Next"
+                    customStyles={styles.button}
+                    buttonStateEnabled={this.state.buttonDisabled}
+                />
+
+                <LinearButton 
+                    onClickFunction={this.navigate}
+                    buttonText="Send"
+                    customStyles={styles.button}
+                    buttonStateEnabled={this.state.buttonDisabled}
+                /> */}
+
+             <Button
               title='Reset'
               disabled={this.state.toAddress === "" && this.state.value == 0}
               icon={{ size: 28 }}
@@ -255,6 +256,7 @@ class CoinSend extends Component {
               }}
               textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
               onPress={() => this.resetFields()} />
+
             <Button
               title='Next'
               disabled={this.state.toAddress === "" || this.state.value == 0}
@@ -272,7 +274,12 @@ class CoinSend extends Component {
                 }
               }}
             />
-          </View> */}
+          </View>
+           <View style={styles.footerGrandparentContainer} >    
+              <View style={styles.footerParentContainer} >
+                  <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
+              </View>  
+          </View>
         </View>
       </View >
     )
@@ -285,14 +292,16 @@ class CoinSend extends Component {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: 'stretch',
     justifyContent: 'flex-start',
-    paddingTop: '2.5%'
+    paddingTop: '2.5%',
+    backgroundColor: "#fafbfe",
+    width: '100%',
+    height: '100%'
   },
-  contentContainer: {
-    marginTop: 25,
-    width:'100%',
-    alignItems:'center'
+  contentContainer: {    
+    alignItems:'center',
+    flex:1
   },
   barcodeImageContainer: {
     paddingTop: '5%', 
@@ -305,7 +314,7 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     width: '82%', 
-    height: '80%', 
+    height: '65%', 
     borderRadius: 7.5, 
     shadowOpacity: 0.5, 
     shadowRadius: 1.3, 
@@ -322,7 +331,18 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontSize: 16,
     lineHeight: 22
-},
+  },
+  formInput:{ 
+    width:'100%', 
+    flexWrap: 'wrap', 
+    color:'#12c1a2', 
+    fontSize:16, 
+    fontFamily: "WorkSans-Light",
+    letterSpacing:0.4
+  },
+  topFormInput:{
+    paddingBottom: '6%'
+  },
   transactionFee : {
     fontFamily: "WorkSans-Light",
     fontSize: 9,
@@ -337,8 +357,23 @@ const styles = StyleSheet.create({
   btnContainer: {
     flex: 1,
     justifyContent: 'flex-end',
-    alignItems: 'center'
+    alignItems: 'stretch'
   },
+  button: {
+    width: '100%'
+  },
+  footerGrandparentContainer : {
+    alignItems:'center'
+  },
+  footerParentContainer :{ 
+      alignItems:'center'
+  },
+  textFooter : {
+      fontFamily: "WorkSans-Regular",
+      fontSize: 11,      
+      marginTop: '3.5%',      
+      color: '#c0c0c0'
+  }
 })
 
 /**

@@ -72,7 +72,10 @@ const styles = StyleSheet.create({
         marginTop: '5%',    
         marginBottom: '3.5%',      
         width: '100%',
-    }  ,
+    },
+    button: {
+        width: '82%'
+    },
     textFooter : {
         fontFamily: "WorkSans-Regular",
         fontSize: 12,

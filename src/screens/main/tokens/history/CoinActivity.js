@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { CardSection } from '../../../../components/common/CardSection';
 import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator'
+import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 const axios = require('axios');
 const ethers = require('ethers');
 const moment = require('moment');
@@ -21,15 +22,6 @@ class CoinActivity extends Component {
       loaded: false,
       data: [],
       address: '0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a'
-    }
-  }
-
-  /**
-   * Sets the Tab header to "ACTIVITY"
-   */
-  static navigationOptions = ({ navigation }) => {
-    return {
-      tabBarLabel: 'ACTIVITY'
     }
   }
 
@@ -74,26 +66,38 @@ class CoinActivity extends Component {
    */
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.mainContainer}>
+        <BackWithMenuNav 
+          backFunction={this.navigateBack} 
+          menuFunction={this.navigateMenu} 
+          showMenu={true}
+          showBack={true}
+          navigation={this.props.navigation}
+        />
         <CoinSendTabNavigator navigation={this.props.navigation} />
         <FlatList
           data={this.state.data}
           keyExtractor={(x, i) => i.toString()}
-          style={{ flex: 1, width: '100%' }}
+          style={{ flex: 1, width: '100%', backgroundColor:'#fafbfe'}}
           renderItem={({ item }) =>
             <CardSection>
               <View style={styles.item}>
                 <View>
-                  <View style={{}}>
-                    <Text style={styles.type}>
-                      {item.type}
-                    </Text>
-                    <Text style={styles.date} >{item.timeStamp}</Text>
-                    <Text style={styles.text} >Address:</Text>
-                    <Text style={styles.text} >
-                      {item.address}
-                    </Text>
-                    <Text style={styles.text}>Amount: {item.value} Ether</Text>
+                  <View>
+                    <View style={styles.headerContainer}> 
+                      <Text style={styles.type}>
+                        {item.type}
+                      </Text>
+                       <Text style={styles.date}>{item.timeStamp}</Text>
+                    </View>
+                    <View style={styles.addressContainer}>
+                        <Text style={styles.addressTitle}>Address: </Text>   
+                        <Text style={styles.addressValue}>{item.address}</Text> 
+                    </View>
+                    <View style={styles.amountContainer}>
+                        <Text style={styles.amountTitle}>Amount: </Text>   
+                        <Text style={styles.amountValue}>{item.value}</Text> 
+                    </View>
                   </View>
                 </View>
               </View>
@@ -110,33 +114,75 @@ export default CoinActivity
  * Style
  */
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'flex-start',
+    backgroundColor: "#fafbfe",
+    width:"100%", 
+    paddingTop: '2.5%',
+  },
+  addressContainer:{
+    flexDirection: 'row',
+    flexWrap: 'wrap', 
+    paddingBottom: '1.5%'
+  },
+  addressTitle : {   
+    fontFamily: "Cairo-Regular",  
+    color: 'black',
+    fontSize: 13,  
+    lineHeight: 17
+  },   
+  addressValue : {
+    fontSize:13,
+    fontFamily: "Cairo-Light",  
+    color: 'black',  
+    justifyContent:'center',
+    lineHeight: 17    
+  },
+  amountContainer:{
+    flexDirection: 'row',
+    flexWrap: 'wrap', 
+  },
+  amountTitle : {   
+    fontFamily: "Cairo-Regular",  
+    color: 'black',
+    fontSize: 13,  
+    lineHeight: 16 
+  },   
+  amountValue : {
+    fontSize:13,
+    fontFamily: "Cairo-Light",  
+    color: 'black',  
+    justifyContent:'center',
+    lineHeight: 16    
+  },
+  headerContainer:{
+    flexDirection: 'row',
+    justifyContent:"center", 
+    paddingBottom: '1.5%'
   },
   item: {
     padding: 5,
     marginTop: 5,
     marginBottom: 5,
-    marginLeft: 20,
-    marginRight: 20,
-    flex: 1
+    marginLeft: '7.5%',
+    marginRight: '7.5%',
+    flex: 1,
+    width: '82%',
   },
   type: {
     fontSize: 16,
-    padding: 3,
-    fontWeight: '500'
+    letterSpacing: 0.5,
+    fontFamily: "Cairo-Regular",     
+    alignItems:"flex-start",
+    flex:1,
+    width:'60%',
+    top: 0    
   },
   date: {
-    fontSize: 12,
-    padding: 2.5,
-    paddingBottom: 15,
-    fontWeight: '400'
+    fontSize: 11,
+    letterSpacing: 0.4,
+    fontFamily: "Cairo-Light",  
+    top: '1.75%',
+    color: '#141f25'  
   },
-  text: {
-    fontSize: 12,
-    padding: 2.5,
-    fontWeight: '300'
-  }
 })

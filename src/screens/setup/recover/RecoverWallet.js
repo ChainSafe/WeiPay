@@ -99,7 +99,8 @@ class RecoverWallet extends Component {
                 <View style={styles.btnContainer}>
                     <LinearButton 
                         onClickFunction={this.navigate }
-                        buttonText="Recover"                                           
+                        buttonText="Recover"   
+                        customStyles={styles.button}                                        
                     />                  
                 </View>  
                 <View style={styles.footerGrandparentContainer} >    
@@ -144,7 +145,9 @@ const styles = StyleSheet.create({
         color: '#1a1f3e'
     },
     txtMnemonic: {
-        width:'100%', flexWrap: 'wrap', color:'#12c1a2'
+        width:'100%', 
+        flexWrap: 'wrap', 
+        color:'#12c1a2'
     },
     contentContainer : {
         alignItems: 'center',
@@ -172,7 +175,10 @@ const styles = StyleSheet.create({
         alignItems: 'stretch',
         justifyContent: 'flex-end',
         width: '100%',      
-    },   
+    }, 
+    button: {
+        width: '82%'
+    },  
     footerGrandparentContainer : {
         alignItems:'center'
     },

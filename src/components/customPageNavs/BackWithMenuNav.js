@@ -17,10 +17,12 @@ class BackWithMenuNav extends Component {
     /**
      *  Props:
      *      showMenu: type=boolean, Determines if the Drawer icon will be displayed
+     *      showBack: 
      */
     render() {
         return (
             <View style={styles.container}>
+             { this.props.showBack ? 
                 <View style={[styles.boxContainer, styles.boxOne]}>
                     <TouchableOpacity
                         onPress={this.navigateBack} >
@@ -29,9 +31,9 @@ class BackWithMenuNav extends Component {
                             style={{height:20, width:20}}
                         /> 
                     </TouchableOpacity>
-                </View>
+                </View> : null}
                 { this.props.showMenu ? 
-                <View style={[styles.boxContainer, styles.boxTwo]} height>
+                <View style={[styles.boxContainer, styles.boxTwo]} >
                     <TouchableOpacity
                          onPress={this.navigateMenu} >
                          <Image
@@ -51,22 +53,18 @@ const styles = StyleSheet.create({
         marginTop: Platform.OS === 'ios' ? '5%' : '2%',
         marginRight: '9%',
         marginLeft: '9%',
-        height: Platform.OS === 'ios' ? 45 : 40,
-        backgroundColor: 'purple',
+        height: Platform.OS === 'ios' ? 45 : 40,      
         justifyContent:'center'
     },
      boxContainer:{
          flex:1,
          alignItems: 'center',
-         justifyContent: 'center',
-         backgroundColor: "blue"
+         justifyContent: 'center',     
      },
-     boxOne: {
-         backgroundColor: 'blue',
+     boxOne: {       
          alignItems:'flex-start'
      },
-     boxTwo: {
-        backgroundColor: 'green',
+     boxTwo: {        
         alignItems:'flex-end',
         zIndex: 100
     }

@@ -46,6 +46,7 @@
 		5638807C20FE811E00E56130 /* libReactNativePermissions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 560B93EA20F8F8570080F8FA /* libReactNativePermissions.a */; };
 		5638807D20FE812600E56130 /* libRNCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 567EA57D20DDB175009FC8E1 /* libRNCamera.a */; };
 		5638807E20FE812C00E56130 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 567EA58020DDB175009FC8E1 /* libRNVectorIcons.a */; };
+		568FF5E82105458A0028C82A /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 561F4B0C21040FAA00B053DD /* libRNSVG.a */; };
 		5C6419C2B0E24660B9477E2D /* WorkSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29CD08F5B3064F5EAE97A0BA /* WorkSans-SemiBold.ttf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		6417ABE05CA54B0AA7715E9B /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C02F7996025C46539BF3E6DC /* Ionicons.ttf */; };
@@ -58,7 +59,6 @@
 		92740D9031CE415EB0C4343E /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 82607DCA72254C838B8BE9B2 /* Entypo.ttf */; };
 		94069F7671434E04B6D433ED /* WorkSans-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A88100E72876493F9AC22CA7 /* WorkSans-ExtraLight.ttf */; };
 		987CAE49C001458B9388DD8B /* Cairo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22D23136550748F7AB8C04B8 /* Cairo-Regular.ttf */; };
-		A2B5CEB76E4A45CC9BB8BF89 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8066F08E11C3411A959469FC /* libRNSVG.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		AF217818333B45FDA3DA6B63 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23343B9B69D14112885F01E5 /* Feather.ttf */; };
 		B5141B862F0F4294823B2BBB /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7FA48B62917B4EF0AEB29487 /* Octicons.ttf */; };
@@ -486,6 +486,7 @@
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
+				568FF5E82105458A0028C82A /* libRNSVG.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
@@ -493,7 +494,6 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				DFD374ABD8AE4C67986E9372 /* libBVLinearGradient.a in Frameworks */,
-				A2B5CEB76E4A45CC9BB8BF89 /* libRNSVG.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
