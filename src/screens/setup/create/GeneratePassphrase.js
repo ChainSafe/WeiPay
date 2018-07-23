@@ -1,32 +1,15 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput, Image, Dimensions } from "react-native";
+import { View, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput, Image, Dimensions, Platform } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, FormLabel, FormInput, FormValidationMessage, Card } from 'react-native-elements';
 import { Input } from '../../../components/common/Input';
-import { CardSection } from '../../../components/common/CardSection';
+import LinearButton   from '../../../components/LinearGradient/LinearButton'
 
 /**
  * Screen used to display the passphrase (mnemonic)
  */
 class GeneratePassphrase extends Component {
-
-    /**
-     * Sets the title of the screen to be "Generate Passphrase"
-     */
-    static navigationOptions = ({ navigation }) => {
-        return {
-            headerStyle: {
-                borderBottomWidth: 0,
-                backgroundColor: "#fafbfe"
-            },
-            headerLeft: (
-                <View style={{ marginLeft: 35, backgroundColor: "#fafbfe",  paddingTop: 15, borderBottomWidth: 0 }}>
-                   
-                </View>                
-            )   
-        }     
-    };
 
     navigate = () => {
         const navigateToEnableTokens = NavigationActions.navigate({
@@ -40,31 +23,45 @@ class GeneratePassphrase extends Component {
         const { walletInfo } = this.props;
         return (
             <View style={styles.mainContainer}>
-               
-                <Text style={styles.textHeader} >Your Passphrase</Text>                
-                
+                <View style={styles.headerBack}> 
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate('createWalletName')} >
+                        <Image
+                            source={require('../../../assets/icons/back.png')}
+                            style={styles.btnBack}
+                        /> 
+                    </TouchableOpacity>
+                </View>                
+                <Text style={styles.textHeader} >Your Passphrase</Text>                                
                 <View style={{flex:1}}> 
-                <View style={styles.contentContainer} >
-                    <Card containerStyle={{ 
-                        width: '80%', 
-                        height: '55%', 
-                        borderRadius: 7.5, 
-                        shadowOpacity: 0.5, 
-                        shadowRadius: 1.3, 
-                        shadowColor: '#dbdbdb',
-                        shadowOffset: { width: 1, height: 2 },                    
-                    }}> 
-                        <Text style={styles.cardText}>
-                            Please write down your 12 word passphrase. You will need it to verify your wallet.
-                        </Text>
-                        <Text style={styles.textMnemonic}>
-                          {walletInfo.wallet.mnemonic}
-                        </Text>
-                    </Card>
-                </View>
+                    <View style={styles.contentContainer} >
+                        <Card containerStyle={{ 
+                            width: '80%', 
+                            height: '55%', 
+                            borderRadius: 7.5, 
+                            shadowOpacity: 0.5, 
+                            shadowRadius: 1.3, 
+                            shadowColor: '#dbdbdb',
+                            shadowOffset: { width: 1, height: 2 },                    
+                        }}> 
+                            <Text style={styles.cardText}>
+                                Please write down your 12 word passphrase. You will need it to verify your wallet.
+                            </Text>
+                            <Text style={styles.textMnemonic}>
+                            {walletInfo.wallet.mnemonic}
+                            </Text>
+                        </Card>
+                    </View>
 
                 <View style={styles.btnContainer}>
-                    <Button
+                    <LinearButton 
+                        onClickFunction={this.navigate}
+                        buttonText="Next"
+                        customStyles={styles.button}
+                        // buttonStateEnabled={this.state.buttonDisabled}
+                    />
+
+                    {/* <Button
                         //disabled={this.props.walletName === ""}
                         title='Next'
                         icon={{ size: 28 }}
@@ -74,7 +71,7 @@ class GeneratePassphrase extends Component {
                         }}
                         textStyle={{ textAlign: 'center', color: 'white', fontSize: 16, fontFamily:"Cairo-Regular" }}
                         onPress={this.navigate}
-                    />
+                    /> */}
                     <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
                 </View>    
 
@@ -114,10 +111,26 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#fafbfe",
         width: '100%',
+        marginTop: '2.5%'
     },
     contentContainer : {
         alignItems: 'center',
         flex: 1,
+    },
+    headerBack: {
+        marginTop: Platform.OS === 'ios' ? '5%' : '5%',
+        ...Platform.select({
+          ios: { backgroundColor: '#fafbfe'},
+          android: { backgroundColor: '#fafbfe'}
+        }),
+        marginLeft: '9%',       
+    },   
+    btnBack:{
+        height:20, 
+        width:20
+    },
+    button: {
+        width: '82%'
     },
     cardText : {
         paddingBottom: '10%',

@@ -78,7 +78,7 @@ class CoinActivity extends Component {
         <FlatList
           data={this.state.data}
           keyExtractor={(x, i) => i.toString()}
-          style={{ flex: 1, width: '100%'}}
+          style={{ flex: 1, width: '100%', backgroundColor:'#fafbfe'}}
           renderItem={({ item }) =>
             <CardSection>
               <View style={styles.item}>

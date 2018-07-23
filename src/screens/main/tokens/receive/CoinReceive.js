@@ -28,37 +28,31 @@ class CoinReceive extends Component {
         />
         <CoinSendTabNavigator navigation={this.props.navigation} />
         <View style={styles.contentContainer} >
-          
-            <View style={styles.imageContainer}>
-              <QRCode
-                value={this.props.walletAddress}
-                size={280}
-                bgColor='#27c997'
-                fgColor='#fafbfe' />
-            </View>
-
-            <View style={styles.addressContainer}>
-                <Text style={styles.addressTitle}>Address: </Text>   
-                <Text style={styles.addressValue}>{this.props.walletAddress}</Text> 
-            </View>
-
-         
-          <View style={styles.btnContainer} >
-            <Button
-              A title='Next'
-              icon={{ size: 28 }}
-              buttonStyle={{
-                backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100, width: 300,
-                height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginBottom: 30, marginTop: 5.5
-              }}
-              textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
-            />
+          <View style={styles.imageContainer}>
+            <QRCode
+              value={this.props.walletAddress}
+              size={280}
+              bgColor='#27c997'
+              fgColor='#fafbfe' />
+          </View>
+          <View style={styles.addressContainer}>
+              <Text style={styles.addressTitle}>Address: </Text>   
+              <Text style={styles.addressValue}>{this.props.walletAddress}</Text> 
           </View>
         </View>
+
+         <View style={styles.footerGrandparentContainer} >    
+              <View style={styles.footerParentContainer} >
+                  <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
+              </View>  
+          </View>
+
+
       </View>
     )
   }
 }
+
 /**
  * Styles
  */
@@ -105,6 +99,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: '2.5%',
     paddingBottom: '2.5%'
+  },
+  footerGrandparentContainer : {
+    alignItems:'center'
+  },
+  footerParentContainer :{ 
+      alignItems:'center'
+  },
+  textFooter : {
+      fontFamily: "WorkSans-Regular",
+      fontSize: 11,      
+      marginTop: '3.5%',      
+      color: '#c0c0c0'
   }
 })
 

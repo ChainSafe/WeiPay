@@ -22,6 +22,7 @@
     "react-native-permissions": "^1.1.1",
     "react-native-qrcode": "^0.2.6",
     "react-native-radio-buttons-group": "^1.0.7",
+    "react-native-shadow": "^1.2.2",
     "react-native-svg": "^6.4.1",
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "1.0.0-beta.15",
