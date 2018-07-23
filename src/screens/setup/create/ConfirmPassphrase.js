@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import { View, Button, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput, Image, Dimensions, Alert } from "react-native";
+import { View, Button, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput, Image, Dimensions, Alert, Platform } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { FormLabel, FormInput, FormValidationMessage, Card } from 'react-native-elements';
 import { Input } from '../../../components/common/Input';
 import { CardSection } from '../../../components/common/CardSection';
+import LinearButton   from '../../../components/LinearGradient/LinearButton'
+import ClearButton from '../../../components/LinearGradient/ClearButton'
 var shuffle = require('shuffle-array'); //to randomize order
 
 /**
@@ -25,21 +27,6 @@ class ConfirmPassphrase extends Component {
             selectedTags: [],
             scrambledTags: []
         }
-    }
-
-    /**
-     * Sets the screen title to "Confirm Passphrase"
-     */
-    static navigationOptions = ({ navigation }) => {
-        return {
-            headerStyle: {
-                borderBottomWidth: 0,
-                backgroundColor: "#fafbfe"
-            },
-            headerLeft: (
-                <View style={{ marginLeft: 35, backgroundColor: "#fafbfe",  paddingTop: 15, borderBottomWidth: 0 }}> </View>                
-            )   
-        } 
     }
 
     /**
@@ -172,19 +159,19 @@ class ConfirmPassphrase extends Component {
         const { selectedTags, scrambledTags } = this.state;
         return (
             <View style={styles.mainContainer}>
+                <View style={styles.headerBack}> 
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate('createWalletName')} >
+                        <Image
+                            source={require('../../../assets/icons/back.png')}
+                            style={styles.btnBack}
+                        /> 
+                    </TouchableOpacity>
+                </View>  
                 <Text style={styles.textHeader} >Confirm Passphrase</Text>                
                 
-                <View style={{flex:1}}> 
                 <View style={styles.contentContainer} >
-                    <Card containerStyle={{ 
-                        width: '80%', 
-                        height: '55%', 
-                        borderRadius: 7.5, 
-                        shadowOpacity: 0.5, 
-                        shadowRadius: 1.3, 
-                        shadowColor: '#dbdbdb',
-                        shadowOffset: { width: 1, height: 2 },                    
-                    }}> 
+                    <Card containerStyle={styles.cardContainer}> 
                         <Text style={styles.cardText}>
                             Please assemble your passphrase in the correct order.
                         </Text>
@@ -192,31 +179,37 @@ class ConfirmPassphrase extends Component {
                         <View style={styles.tagContainer} >
                             {
                                 scrambledTags.map((item, index) => {
-                                    return <Button title={item.word} key={item.index} onPress={() => this.addTag(item, "init", index)} />
+                                    // return <Button title={item.word} key={item.index} onPress={() => this.addTag(item, "init", index)} />
+                                    return (
+                                        <View key={item.index} style={styles.cardButtonContainer}>
+                                            <ClearButton 
+                                                buttonText={item.word} 
+                                                key={item.index} 
+                                                onClickFunction={() => this.addTag(item, "init", index)} 
+                                                customStyles={styles.cardButton}
+                                                />
+                                        </View>
+                                    )
                                 })
                             }
                         </View>
- 
-                       
                     </Card>
                 </View>
 
                 <View style={styles.btnContainer}>
-                    <Button
-                        //disabled={this.props.walletName === ""}
-                        title='Next'
-                        icon={{ size: 28 }}
-                        buttonStyle={{
-                            backgroundColor: '#12c1a2', borderRadius: 100, width: 300,
-                            height: 52, padding: 5, alignItems: 'center', justifyContent: 'center', marginTop: 10
-                        }}
-                        textStyle={{ textAlign: 'center', color: 'white', fontSize: 16, fontFamily:"Cairo-Regular" }}
-                        onPress={this.navigate}
-                    />
-                    <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
+                  <LinearButton 
+                        onClickFunction={this.navigate}
+                        buttonText="Next"
+                        customStyles={styles.button}
+                        // buttonStateEnabled={this.state.buttonDisabled}
+                    />                    
                 </View>    
 
-                </View>
+                <View style={styles.footerGrandparentContainer} >    
+                    <View style={styles.footerParentContainer} >
+                        <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
+                    </View>  
+                </View> 
             </View>
             // <View style={styles.mainContainer}>
             //     <View style={styles.contentContainer} >
@@ -266,22 +259,70 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#fafbfe", 
         width: '100%',
+        paddingTop: '5%'
     },
     contentContainer: {
-        marginTop: 25
+        alignItems: 'center',
+        flex: 1,
+    },
+    headerBack: {
+        marginTop: Platform.OS === 'ios' ? '5%' : '5%',
+        ...Platform.select({
+          ios: { backgroundColor: '#fafbfe'},
+          android: { backgroundColor: '#fafbfe'}
+        }),
+        marginLeft: '9%',       
+    }, 
+    btnBack:{
+        height:20, 
+        width:20
     },
     tagContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        padding: 2
+        alignItems: 'center',
+        marginLeft: '2.5%',
+
+        // backgroundColor: 'blue',
+        alignContent: 'space-around'
+        // padding: 2
+    },
+    cardButtonContainer:{
+        // paddingTop: '1%',
+        paddingBottom: '2%',
+        // paddingLeft: '2%',
+        paddingRight: '1.75%'
+    },
+    cardButton: {
+        height: 32,
+        justifyContent:"center"        
     },
     textHeader: {       
         fontFamily: "Cairo-Light",
-        fontSize: 24,        
-        paddingLeft: 35,  
+        fontSize: 26,        
+        paddingLeft: '10%',  
         paddingBottom: '3%',
+        marginTop: '5%',
         color: '#1a1f3e',
-        alignSelf: 'flex-start',  
+    },
+    cardContainer: {
+        width: '80%', 
+        height: '85%', 
+        borderRadius: 7.5, 
+        shadowOpacity: 0.5, 
+        shadowRadius: 1.3, 
+        shadowColor: '#dbdbdb',
+        shadowOffset: { width: 1, height: 2 }
+    },
+    cardText:{
+        paddingBottom: '10%',
+        lineHeight: 22,       
+        paddingTop: '5%',
+        paddingLeft: '5%',
+        paddingRight: '5%',
+        fontFamily: "WorkSans-Light",  
+        color: '#000000',
+        fontSize: 16,
     },
     tag: {
         margin: 2,
@@ -290,38 +331,27 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    btn: {
-        backgroundColor: 'white',
-        borderColor: '#2a2a2a',
-        borderWidth: 2,
-        borderRadius: 10,
-        width: 300,
-        height: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 30,
-        marginTop: 5.5
+    button: {
+        width: '82%',
     },
-    btnText: {
-        color: '#2a2a2a',
-        fontSize: 20
-    },
-    content: {
-        width: 350
-    },
-    btnContainer: {
-        flex: 1,
+    
+    btnContainer: {    
         justifyContent: 'flex-end',
-        alignItems: 'center'
+        alignItems: 'stretch',
+        alignContent: 'flex-end'
     },
-    headerText: {
-        fontSize: 15,
-        fontWeight: 'bold',
-        padding: 20
+    footerGrandparentContainer : {
+        alignItems:'center'
     },
-    passphrase: {
-        padding: 20
-    }
+    footerParentContainer :{ 
+        alignItems:'center'
+    },
+    textFooter : {
+        fontFamily: "WorkSans-Regular",
+        fontSize: 11,      
+        marginTop: '3.5%', 
+        color: '#c0c0c0'
+    },
 })
 
 /**

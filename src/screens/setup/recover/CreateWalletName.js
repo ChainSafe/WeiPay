@@ -49,21 +49,19 @@ class CreateWalletName extends Component {
                             style={styles.btnBack}
                         /> 
                     </TouchableOpacity>
-                  </View>   
+                </View>   
                 <Text style={styles.textHeader}>Wallet Name</Text>                               
-                <View style={styles.contentContainer} >
-                    {/* <BoxShadow setting={shadowOpt}> */}
-                        <Card containerStyle={styles.cardContainer}> 
-                            <Text style={styles.cardText}>
-                                Create a name for your wallet, for example: My Wallet
-                            </Text>
-                            <FormInput
-                                placeholder={"Ex. My Wallet"}
-                                onChangeText={this.getWalletName.bind(this)}
-                                inputStyle={styles.txtWalletName}
-                            /> 
-                        </Card>
-               3 */}
+                <View style={styles.contentContainer} >                   
+                    <Card containerStyle={styles.cardContainer}> 
+                        <Text style={styles.cardText}>
+                            Create a name for your wallet, for example: My Wallet
+                        </Text>
+                        <FormInput
+                            placeholder={"Ex. My Wallet"}
+                            onChangeText={this.getWalletName.bind(this)}
+                            inputStyle={styles.txtWalletName}
+                        /> 
+                    </Card>          
               </View>
             <View style={styles.btnContainer}>
                 <LinearButton 
@@ -81,19 +79,6 @@ class CreateWalletName extends Component {
         );
     }
 }
-
-
-// const shadowOpt = {
-//     width:'100%',
-//     height:'100%',
-//     color:"#000",
-//     border:2,
-//     radius:3,
-//     opacity:0.2,
-//     x:0,
-//     y:3,
-//     // style:{marginVertical:5}
-// }
 
 /**
  * Styles used in the "CreateWalletNameRecovery" screen
