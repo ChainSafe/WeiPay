@@ -53,9 +53,11 @@ class CreateWalletName extends Component {
                 <Text style={styles.textHeader}>Wallet Name</Text>                               
                 <View style={styles.contentContainer} >                   
                     <Card containerStyle={styles.cardContainer}> 
+                      
                         <Text style={styles.cardText}>
-                            Create a name for your wallet, for example: My Wallet
-                        </Text>
+                            Create a name for your wallet, for example: My Wallet 
+                        </Text>                        
+                       
                         <FormInput
                             placeholder={"Ex. My Wallet"}
                             onChangeText={this.getWalletName.bind(this)}
@@ -105,7 +107,8 @@ const styles = StyleSheet.create({
     },
     textHeader: {       
         fontFamily: "Cairo-Light",
-        fontSize: 24,        
+        fontSize: 26,   
+        letterSpacing: 0.8,     
         paddingLeft: '10%', 
         paddingBottom: '3%',
         marginTop: '5%',
@@ -118,11 +121,11 @@ const styles = StyleSheet.create({
     cardContainer: {
         width: '82%', 
         height: '55%', 
-        // borderRadius: 7.5, 
-        // shadowOpacity: 0.5, 
-        // shadowRadius: 1.3, 
-        // shadowColor: '#dbdbdb',
-        // shadowOffset: { width: 1, height: 2 }   
+        borderRadius: 7.5, 
+        shadowOpacity: 0.5, 
+        shadowRadius: 1.3, 
+        shadowColor: '#dbdbdb',
+        shadowOffset: { width: 1, height: 2 }   
     },
     cardText : {
         paddingBottom: '20%',
@@ -136,7 +139,9 @@ const styles = StyleSheet.create({
     txtWalletName: {
         width:'100%', 
         flexWrap: 'wrap', 
-        color:'#12c1a2'
+        color:'#12c1a2',
+        letterSpacing: 0.4,
+        fontFamily: "WorkSans-Regular",  
     },
     btnContainer: {
         alignItems: 'stretch',

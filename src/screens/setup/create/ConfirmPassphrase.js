@@ -25,7 +25,7 @@ class ConfirmPassphrase extends Component {
         super(props);
         this.state = {
             selectedTags: [],
-            scrambledTags: []
+            scrambledTags: [],
         }
     }
 
@@ -35,6 +35,7 @@ class ConfirmPassphrase extends Component {
      * This method add each word of the mnemonic to the local state variable object
      */
     componentDidMount() {
+        console.log("test");
         const state = this.state;
         const words = this.props.mnemonic.split(' ');
         var orderArray = [];
@@ -43,7 +44,9 @@ class ConfirmPassphrase extends Component {
         }
         shuffle(orderArray);
         for (let i = 0; i < words.length; i++) {
-            state.scrambledTags.push(orderArray[i]);
+            console.log(orderArray[i]);
+            // state.scrambledTags.push({"word":orderArray[i], "active":false});
+            state.scrambledTags.push({"wordItem":orderArray[i], "selected": false});
         }
         this.setState(state)
     }
@@ -70,7 +73,11 @@ class ConfirmPassphrase extends Component {
         const state = this.state;
         if (action == "init") {
             console.log("in action init");
-            this.swapTag(tagItem, "selectedTags", x);
+            console.log(state.scrambledTags[x]);  
+            state.scrambledTags[x].selected = true;  
+            // state.scrambledTags.push(tagItem);  
+            // this.setState(state)    
+             this.swapTag(tagItem, "selectedTags", x);
         } else if (action == "revert") {
             this.swapTag(tagItem, "scrambledTags", x);
         } else {
@@ -181,18 +188,42 @@ class ConfirmPassphrase extends Component {
                                 scrambledTags.map((item, index) => {
                                     // return <Button title={item.word} key={item.index} onPress={() => this.addTag(item, "init", index)} />
                                     return (
-                                        <View key={item.index} style={styles.cardButtonContainer}>
+                                        <View key={item.wordItem.index} style={styles.cardButtonContainer}>
                                             <ClearButton 
-                                                buttonText={item.word} 
-                                                key={item.index} 
-                                                onClickFunction={() => this.addTag(item, "init", index)} 
+                                                buttonText={item.wordItem.word} 
+                                                key={item.wordItem.index} 
+                                                onClickFunction={() => this.addTag(item.wordItem, "init", index)} 
                                                 customStyles={styles.cardButton}
+                                                buttonStateEnabled={this.state.scrambledTags[index].selected}
                                                 />
                                         </View>
                                     )
                                 })
                             }
                         </View>
+                        <View style={styles.tagContainer} >
+                            {
+                                selectedTags.map((item, index) => {
+                                    return (
+                                        <View key={item.index}  style={styles.cardSelectedButtonContainer}>
+                                            <TouchableOpacity
+                                                onPress={() => this.addTag(item, "revert", index)}>
+                                                <Text> 
+                                                    {item.word}
+                                                </Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    )
+                                    // return <Button
+                                    // style={styles.tag}
+                                    // title={item.word}
+                                    // key={item.index}
+                                    // onPress={() => this.addTag(item, "revert", index)} />
+                                })
+                            }
+                        </View>
+
+
                     </Card>
                 </View>
 
@@ -282,15 +313,15 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         alignItems: 'center',
         marginLeft: '2.5%',
-
-        // backgroundColor: 'blue',
+        marginRight: '2.5%',       
         alignContent: 'space-around'
-        // padding: 2
     },
     cardButtonContainer:{
-        // paddingTop: '1%',
         paddingBottom: '2%',
-        // paddingLeft: '2%',
+        paddingRight: '1.75%'
+    },
+    cardSelectedButtonContainer:{
+        paddingBottom: '2%',
         paddingRight: '1.75%'
     },
     cardButton: {
@@ -334,7 +365,6 @@ const styles = StyleSheet.create({
     button: {
         width: '82%',
     },
-    
     btnContainer: {    
         justifyContent: 'flex-end',
         alignItems: 'stretch',
