@@ -118,7 +118,7 @@ uniform data to its users with the added benefits of reduced app storage space.
 * store.js
 * package.json
 
-#ESLINT installation
+# ESLINT installation
 + Locally install ESLINT module ```sudo npm install eslint --save-dev
 + For VSCODE users install the ESLINT plugin
 + ```sudo npm install eslint-plugin-react --save-dev```
