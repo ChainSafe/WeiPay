@@ -8,6 +8,8 @@ import { Card } from '../../../../../components/common/Card';
 import { CardSection } from '../../../../../components/common/CardSection';
 import addContactAction from '../../../../../actions/ActionCreator';
 import * as actions from '../../../../../actions/ActionCreator';
+import BackWithMenuNav from "../../../../../components/customPageNavs/BackWithMenuNav"
+
 
 /**
  * Is a full screen react component
@@ -140,6 +142,14 @@ class AddContact extends Component {
 
     return (
       <View style={{ flex: 1, paddingTop: 3 }}>
+      
+        <BackWithMenuNav 
+            showMenu={true}
+            showBack={true}
+            navigation={this.props.navigation}
+            backPage={"mainStack"}
+
+          />
         <ScrollView style={{ height: '75%' }} >
           <AddContactList
             contactName={this.state.contactName}

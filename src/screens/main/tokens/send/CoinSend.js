@@ -191,6 +191,7 @@ class CoinSend extends Component {
           showMenu={true}
           showBack={true}
           navigation={this.props.navigation}
+          backPage={"mainStack"}
           
         />
         <CoinSendTabNavigator 
@@ -296,8 +297,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingTop: '2.5%',
     backgroundColor: "#fafbfe",
-    width: '100%',
-    height: '100%'
+    // width: '100%',
+    // height: '100%'
   },
   contentContainer: {    
     alignItems:'center',

@@ -6,6 +6,8 @@ import { Icon, Button } from 'react-native-elements';
 import CoinList from '../../../../components/tokens/CoinList';
 import Layout from '../../../../constants/Layout'
 import { NavigationActions } from "react-navigation";
+import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
+
 
 /**
  * React Component
@@ -79,6 +81,13 @@ class Tokens extends Component {
   render() {
     return (
       <View style={{ flex: 1 }} >
+        <BackWithMenuNav 
+                showMenu={true}
+                showBack={true}
+                navigation={this.props.navigation}
+                backPage={"mainStack"}
+
+              />
         <CoinList type={'tokens'} />
       </View>
     )

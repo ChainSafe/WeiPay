@@ -20,11 +20,10 @@ class CoinReceive extends Component {
     return (
       <View style={styles.mainContainer}>
         <BackWithMenuNav 
-          backFunction={this.navigateBack} 
-          menuFunction={this.navigateMenu} 
           showMenu={true}
           showBack={true}
           navigation={this.props.navigation}
+          backPage={"mainStack"}
         />
         <CoinSendTabNavigator navigation={this.props.navigation} />
         <View style={styles.contentContainer} >
