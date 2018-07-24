@@ -188,10 +188,9 @@ class CoinSend extends Component {
     return (
       <View style={styles.mainContainer}>
         <BackWithMenuNav 
-          backFunction={this.navigateBack} 
-          menuFunction={this.navigateMenu} 
           showMenu={false}
           navigation={this.props.navigation}
+          
         />
         <CoinSendTabNavigator 
           navigation={this.props.navigation} 
