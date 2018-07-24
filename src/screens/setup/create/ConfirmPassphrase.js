@@ -26,6 +26,7 @@ class ConfirmPassphrase extends Component {
         this.state = {
             selectedTags: [],
             scrambledTags: [],
+            selectedWords:[]
         }
     }
 
@@ -69,49 +70,7 @@ class ConfirmPassphrase extends Component {
      * @param {String} action 
      * @param {Number} x 
      */
-    addTag(tagItem, action, x) {
-        const state = this.state;
-        if (action == "init") {
-            console.log("in action init");
-            console.log(state.scrambledTags[x]);  
-            state.scrambledTags[x].selected = true;  
-            // state.scrambledTags.push(tagItem);  
-            // this.setState(state)    
-            //  this.swapTag(tagItem, "selectedTags", x);
-        } else if (action == "revert") {
-            // this.swapTag(tagItem, "scrambledTags", x);
-        } else {
-            console.log("problems in the add");
-        }
-    }
 
-    /* Pass in index and remove it out of whatever state -> just removed an item from any state, pass in state and index */
-    /**
-     * Helper method for the addTag method
-     * This method goes through the logic of transfering the selected tag to the "currentStateVariable"
-     * list.
-     * "currentStateVariable"  = "scrambledTags" | "selectedTags"
-     * @param {String} tagItem 
-     * @param {String} currentStateVariable 
-     * @param {Number} currenIndex 
-     */
-    swapTag(tagItem, currentStateVariable, currenIndex) {
-        const state = this.state;
-        if (currentStateVariable == "scrambledTags") {
-            console.log("in swap tag function in the scrambled tags statement");
-            state.scrambledTags.push(tagItem);
-            state.selectedTags.splice(currenIndex, 1);
-            this.setState(state)
-        } else if (currentStateVariable == "selectedTags") {
-            console.log("in swap tag function in the selected tags statement");
-            state.selectedTags.push(tagItem);
-            state.scrambledTags.splice(currenIndex, 1);
-            this.setState(state)
-        } else {
-            console.log("problems in the swap");
-        }
-        console.log(state);
-    }
 
     /**
      * This method is used to check if the order of the tags in the input
@@ -158,12 +117,27 @@ class ConfirmPassphrase extends Component {
         // console.log(this.state);
     }
 
+
+    addTag(wordItem, scrambledListIndex){
+        //update the wordItem.selected property to true
+        const state = this.state;
+        let oldStates = state.scrambledTags
+        oldStates[x].selected = true
+        this.setState({ scrambledTags: oldStates})
+        //
+        // state.selectedTags.push({"wordItem":tagItem, "scrambledWordIndex": x});
+        // this.setState(state)
+
+
+    }
+
+
     /**
      * Returns the screen required for the user to go about selecting the tags
      * in the correct order
      */
     render() {
-        const { selectedTags, scrambledTags } = this.state;
+        const { selectedTags, scrambledTags, selectedWords } = this.state;
         return (
             <View style={styles.mainContainer}>
                 <View style={styles.headerBack}> 
@@ -192,7 +166,7 @@ class ConfirmPassphrase extends Component {
                                             <ClearButton 
                                                 buttonText={item.wordItem.word} 
                                                 key={item.wordItem.index} 
-                                                onClickFunction={() => this.addTag(item.wordItem, "init", index)} 
+                                                onClickFunction={() => this.addTag(item.wordItem, index)} 
                                                 customStyles={styles.cardButton}
                                                 buttonStateEnabled={this.state.scrambledTags[index].selected}
                                                 />
@@ -201,27 +175,23 @@ class ConfirmPassphrase extends Component {
                                 })
                             }
                         </View>
-                        {/* <View style={styles.tagContainer} >
+
+                        <View style={styles.tagContainer} >
                             {
                                 selectedTags.map((item, index) => {
                                     return (
-                                        <View key={item.index}  style={styles.cardSelectedButtonContainer}>
+                                        <View key={item.wordItem.index}  style={styles.cardSelectedButtonContainer}>
                                             <TouchableOpacity
-                                                onPress={() => this.addTag(item, "revert", index)}>
+                                                onPress={() => this.removeWord(item.wordItem, index, item.wordItem.scrambledWordIndex)}>
                                                 <Text> 
-                                                    {item.word}
+                                                    {item.wordItem.word}
                                                 </Text>
                                             </TouchableOpacity>
                                         </View>
-                                    )
-                                    // return <Button
-                                    // style={styles.tag}
-                                    // title={item.word}
-                                    // key={item.index}
-                                    // onPress={() => this.addTag(item, "revert", index)} />
+                                    )                                  
                                 })
                             }
-                        </View> */}
+                        </View>
 
 
                     </Card>
