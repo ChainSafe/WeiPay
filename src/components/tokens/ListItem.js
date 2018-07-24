@@ -5,7 +5,6 @@ import { CheckBox, Button, List, ListItem, Icon, } from 'react-native-elements'
 import { CardSection } from '../common/CardSection';
 import { Card } from '../common/Card';
 import { addTokenToSetup } from '../../actions/ActionCreator';
-
 import {BoxShadow} from 'react-native-shadow'
 
 /**
@@ -49,21 +48,8 @@ class CoinListItem extends Component {
     const { title } = styles;
     const { checked } = this.state
 
-  //   const shadowOpt = {
-  //     width:'100%',
-  //     height: 63,       
-  //     color:"#000",
-  //     border:2,
-  //     radius:3,
-  //      opacity:0.2,
-  //      x:0,
-  //      y:3,
-  //      style:{marginVertical:5}
-  // }
-
     return (
       <View style={{ marginTop:'2.5%'}}>
-     
         <TouchableOpacity 
           onPress={() => this.renderPress(coin)}>
         <View style={[styles.check, coin.selected ? styles.containerSelected : styles.containerDeselect]}>
@@ -82,7 +68,6 @@ class CoinListItem extends Component {
                   flex:1,
                   width:'90%',
                   letterSpacing: 0.5,  
-                  // backgroundColor:"blue",
                   top: '6%'                                               
                   }}>
                     {coin.symbol}
@@ -113,7 +98,6 @@ class CoinListItem extends Component {
                   width:'90%',  
                   letterSpacing: 0.4,  
                   top: '-3.5%',
-                  // backgroundColor:"green",
                   height: '100%'                
                 }}>
                   {coin.title}
@@ -129,17 +113,6 @@ class CoinListItem extends Component {
               height: 63,            
               backgroundColor: '#ffffff',
               justifyContent:"center",      
-              // borderRadius: 10, 
-              // width: '100%', 
-              // height: 63,            
-              // backgroundColor: '#ffffff',
-              // justifyContent:"center",
-              // borderWidth:0.5,
-              // borderColor: '#F8F8FF',
-              // shadowColor: '#F8F8FF',
-              // shadowOffset: { width: 1, height: 1},
-              // shadowOpacity:20,
-              // shadowRadius: 10,
             }}
             avatarStyle = {{           
               marginTop:'-5%',         

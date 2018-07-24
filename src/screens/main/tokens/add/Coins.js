@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
-import { Icon, Button } from 'react-native-elements';
+import { View, StyleSheet } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import CoinList from '../../../../components/tokens/CoinList';
+import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
 
 /**
  * React Component
@@ -27,6 +28,7 @@ class CustomButton extends Component {
     )
   }
 }
+
 /**
  * React-Component
  * This component is not being used anywhere
@@ -98,6 +100,13 @@ class Coins extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
+        <BackWithMenuNav 
+              showMenu={true}
+              showBack={true}
+              navigation={this.props.navigation}
+              backPage={"mainStack"}
+
+            />
         <CoinList type={'coins'} />
       </View>
     )

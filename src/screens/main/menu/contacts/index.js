@@ -5,6 +5,9 @@ import { Icon, Button, FormLabel, FormInput, FormValidationMessage, List, ListIt
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import AddFirstContact from './add/AddFirstContact';
+import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
+
+
 
 /**
  * Screen that displays all the contacts that have been added to
@@ -93,9 +96,25 @@ class Contacts extends Component {
    */
   render() {
     const show = this.props.contacts.length === 0 ?
-      <AddFirstContact navigate={this.props.navigation.navigate} />
+      <View>
+        <BackWithMenuNav 
+          showMenu={true}
+          showBack={true}
+          navigation={this.props.navigation}
+          backPage={"mainStack"}
+
+        />
+        <AddFirstContact navigate={this.props.navigation.navigate} />
+      </View>
       :
       <View style={{ flex: 1 }}>
+        <BackWithMenuNav 
+            showMenu={true}
+            showBack={true}
+            navigation={this.props.navigation}
+            backPage={"mainStack"}
+
+          />
         <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false} />
       </View>
     return show

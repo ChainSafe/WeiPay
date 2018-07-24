@@ -7,11 +7,10 @@ class BackWithMenuNav extends Component {
     navigateBack = () => {
         if (typeof this.props.backPage == 'undefined'){
             this.props.navigation.goBack()
-        }else{
+        } else { 
             const navigateToPassphrase = NavigationActions.navigate({ routeName: this.props.backPage });
             this.props.navigation.dispatch(navigateToPassphrase);
         }
-        
     }
     
     navigateMenu = () => {

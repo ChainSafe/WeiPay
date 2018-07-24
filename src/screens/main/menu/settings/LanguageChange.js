@@ -4,6 +4,7 @@ import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, Icon, List, ListItem } from 'react-native-elements';
 import LanguageList from '../../../../components/LanguageList';
+import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
 
 /**
  * Screen used to change the language to be used in the wallet
@@ -39,6 +40,13 @@ class LanguageChange extends Component {
     render() {
         return (
             <View style={styles.pageContainer} >
+                <BackWithMenuNav 
+                    showMenu={true}
+                    showBack={true}
+                    navigation={this.props.navigation}
+                    backPage={"settingsMain"}
+
+                />
                 <LanguageList noBorder />
                 <View style={styles.btnContainer} >
                     <Button
