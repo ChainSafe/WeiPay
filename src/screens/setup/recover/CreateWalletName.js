@@ -49,21 +49,21 @@ class CreateWalletName extends Component {
                             style={styles.btnBack}
                         /> 
                     </TouchableOpacity>
-                  </View>   
+                </View>   
                 <Text style={styles.textHeader}>Wallet Name</Text>                               
-                <View style={styles.contentContainer} >
-                    {/* <BoxShadow setting={shadowOpt}> */}
-                        <Card containerStyle={styles.cardContainer}> 
-                            <Text style={styles.cardText}>
-                                Create a name for your wallet, for example: My Wallet
-                            </Text>
-                            <FormInput
-                                placeholder={"Ex. My Wallet"}
-                                onChangeText={this.getWalletName.bind(this)}
-                                inputStyle={styles.txtWalletName}
-                            /> 
-                        </Card>
-               3 */}
+                <View style={styles.contentContainer} >                   
+                    <Card containerStyle={styles.cardContainer}> 
+                      
+                        <Text style={styles.cardText}>
+                            Create a name for your wallet, for example: My Wallet 
+                        </Text>                        
+                       
+                        <FormInput
+                            placeholder={"Ex. My Wallet"}
+                            onChangeText={this.getWalletName.bind(this)}
+                            inputStyle={styles.txtWalletName}
+                        /> 
+                    </Card>          
               </View>
             <View style={styles.btnContainer}>
                 <LinearButton 
@@ -81,19 +81,6 @@ class CreateWalletName extends Component {
         );
     }
 }
-
-
-// const shadowOpt = {
-//     width:'100%',
-//     height:'100%',
-//     color:"#000",
-//     border:2,
-//     radius:3,
-//     opacity:0.2,
-//     x:0,
-//     y:3,
-//     // style:{marginVertical:5}
-// }
 
 /**
  * Styles used in the "CreateWalletNameRecovery" screen
@@ -120,8 +107,9 @@ const styles = StyleSheet.create({
     },
     textHeader: {       
         fontFamily: "Cairo-Light",
-        fontSize: 24,        
-        paddingLeft: '10%', 
+        fontSize: 26,   
+        letterSpacing: 0.8,     
+        paddingLeft: '9%', 
         paddingBottom: '3%',
         marginTop: '5%',
         color: '#1a1f3e'
@@ -133,11 +121,11 @@ const styles = StyleSheet.create({
     cardContainer: {
         width: '82%', 
         height: '55%', 
-        // borderRadius: 7.5, 
-        // shadowOpacity: 0.5, 
-        // shadowRadius: 1.3, 
-        // shadowColor: '#dbdbdb',
-        // shadowOffset: { width: 1, height: 2 }   
+        borderRadius: 7.5, 
+        shadowOpacity: 0.5, 
+        shadowRadius: 1.3, 
+        shadowColor: '#dbdbdb',
+        shadowOffset: { width: 1, height: 2 }   
     },
     cardText : {
         paddingBottom: '20%',
@@ -151,7 +139,9 @@ const styles = StyleSheet.create({
     txtWalletName: {
         width:'100%', 
         flexWrap: 'wrap', 
-        color:'#12c1a2'
+        color:'#12c1a2',
+        letterSpacing: 0.4,
+        fontFamily: "WorkSans-Regular",  
     },
     btnContainer: {
         alignItems: 'stretch',

@@ -40,14 +40,11 @@ class CoinReceive extends Component {
               <Text style={styles.addressValue}>{this.props.walletAddress}</Text> 
           </View>
         </View>
-
          <View style={styles.footerGrandparentContainer} >    
               <View style={styles.footerParentContainer} >
                   <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
               </View>  
           </View>
-
-
       </View>
     )
   }
