@@ -6,6 +6,8 @@ import { CardSection } from '../common/CardSection';
 import { Card } from '../common/Card';
 import { addTokenToSetup } from '../../actions/ActionCreator';
 
+import {BoxShadow} from 'react-native-shadow'
+
 /**
  * React Component
  * Class is used to create a single item of the 
@@ -47,8 +49,21 @@ class CoinListItem extends Component {
     const { title } = styles;
     const { checked } = this.state
 
+  //   const shadowOpt = {
+  //     width:'100%',
+  //     height: 63,       
+  //     color:"#000",
+  //     border:2,
+  //     radius:3,
+  //      opacity:0.2,
+  //      x:0,
+  //      y:3,
+  //      style:{marginVertical:5}
+  // }
+
     return (
       <View style={{ marginTop:'2.5%'}}>
+     
         <TouchableOpacity 
           onPress={() => this.renderPress(coin)}>
         <View style={[styles.check, coin.selected ? styles.containerSelected : styles.containerDeselect]}>
@@ -106,17 +121,25 @@ class CoinListItem extends Component {
               </View>
             }
             containerStyle = {{
-              borderRadius: 10, 
+              shadowColor: 'grey',
+              shadowOffset: {width:0, height:0},
+              shadowRadius: 2,
+              shadowOpacity: 0.5,
               width: '100%', 
               height: 63,            
               backgroundColor: '#ffffff',
-              justifyContent:"center",
-              borderWidth:0.5,
-              borderColor: '#F8F8FF',
-              shadowColor: '#F8F8FF',
-              shadowOffset: { width: 1, height: 1},
-              shadowOpacity:20,
-              shadowRadius: 10,
+              justifyContent:"center",      
+              // borderRadius: 10, 
+              // width: '100%', 
+              // height: 63,            
+              // backgroundColor: '#ffffff',
+              // justifyContent:"center",
+              // borderWidth:0.5,
+              // borderColor: '#F8F8FF',
+              // shadowColor: '#F8F8FF',
+              // shadowOffset: { width: 1, height: 1},
+              // shadowOpacity:20,
+              // shadowRadius: 10,
             }}
             avatarStyle = {{           
               marginTop:'-5%',         
@@ -124,6 +147,8 @@ class CoinListItem extends Component {
           />
         </View>
         </TouchableOpacity >
+
+       
       </View>
     )
   }

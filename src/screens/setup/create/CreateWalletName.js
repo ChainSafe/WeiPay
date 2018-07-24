@@ -97,8 +97,7 @@ const styles = StyleSheet.create({
         paddingTop: '5%',   
         backgroundColor: "#fafbfe",
         width: '100%',
-        height: '100%',
-        marginTop: '2.5%'
+        height: '100%',       
     },
     headerBack: {
         marginTop: Platform.OS === 'ios' ? '5%' : '5%',
@@ -114,7 +113,7 @@ const styles = StyleSheet.create({
     },
     textHeader: {       
         fontFamily: "Cairo-Light",
-        fontSize: 24,        
+        fontSize: 26,        
         paddingLeft: '10%',  
         paddingBottom: '3%',
         marginTop: '5%',

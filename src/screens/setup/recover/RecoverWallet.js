@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     textHeader: {       
         fontFamily: "Cairo-Light",
         fontSize: 24,        
-        paddingLeft: '10%',   
+        paddingLeft: '9%',   
         paddingBottom: '3%',
         marginTop: '5%',
         color: '#1a1f3e'
@@ -147,7 +147,9 @@ const styles = StyleSheet.create({
     txtMnemonic: {
         width:'100%', 
         flexWrap: 'wrap', 
-        color:'#12c1a2'
+        color:'#12c1a2',
+        letterSpacing: 0.4,
+        fontFamily: "WorkSans-Regular", 
     },
     contentContainer : {
         alignItems: 'center',
