@@ -23,6 +23,7 @@ class BackWithMenuNav extends Component {
      *  Props:
      *      showMenu: type=boolean, Determines if the Drawer icon will be displayed
      *      backPage: type=string, Specifies the page to go back to from the current screen (Optional)
+     *      showBack: type=boolean, Determines if the back icon will be displayed on Main header
      */
     render() {
         return (

@@ -188,7 +188,8 @@ class CoinSend extends Component {
     return (
       <View style={styles.mainContainer}>
         <BackWithMenuNav 
-          showMenu={false}
+          showMenu={true}
+          showBack={true}
           navigation={this.props.navigation}
           
         />
