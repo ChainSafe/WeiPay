@@ -33,9 +33,14 @@
     "shuffle-array": "^1.0.1"
   },
   "devDependencies": {
+    "babel-eslint": "^8.2.6",
     "babel-jest": "21.2.0",
     "babel-preset-react-native": "4.0.0",
     "eslint": "^5.2.0",
+<<<<<<< HEAD
+=======
+    "eslint-config-airbnb-base": "^13.0.0",
+>>>>>>> 4691b271af5ad91a952939bf7a601797c2b5aadd
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-react": "^7.10.0",
     "eslint-plugin-react-native": "^3.2.1",
