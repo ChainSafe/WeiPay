@@ -119,7 +119,7 @@ uniform data to its users with the added benefits of reduced app storage space.
 * package.json
 
 # ESLINT installation
-+ Locally install ESLINT module ```sudo npm install eslint --save-dev
++ Locally install ESLINT module ```sudo npm install eslint --save-dev```
 + For VSCODE users install the ESLINT plugin
 + ```sudo npm install eslint-plugin-react --save-dev```
 + ```sudo npm install eslint-plugin-react-native --save-dev```
