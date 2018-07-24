@@ -42,23 +42,13 @@ const navigator = DrawerNavigator({
       },
     })},
       backupPhrase: { screen: BackupPhrase },
-      Contacts: {
-        screen: TabNavigator({
-          contacts: { screen: Contacts },
-          addContact: { screen: AddContact }
-          }, {
-            navigationOptions: {
-              headerStyle: {
-                borderBottomWidth: 0,
-              }
-            },
-              tabBarPosition: 'top',
-              tabBarOptions: {
-                labelStyle: { fontSize: 16, marginBottom: 13 },
-                style: {
-                  borderTopColor: 'transparent'
-                }
-              }
+        Contacts: {
+          screen: StackNavigator({
+            contacts: { screen: Contacts },
+            addContact: { screen: AddContact }
+          },
+          {
+            headerMode: 'none'
           })},
           AddToken: { screen: AddToken },
           Settings: {
