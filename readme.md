@@ -133,10 +133,10 @@ uniform data to its users with the added benefits of reduced app storage space.
 
 # How To:
 
-+ git clone https://github.com/ChainSafe/WeiPay.git
-+ npm install, sudo npm install (if on linux)
-+ react-native link
-+ git checkout -b yourBranchName
++ ```git clone https://github.com/ChainSafe/WeiPay.git```
++ ```npm install, sudo npm install``` (if on linux)
++ ```react-native link```
++ ```git checkout -b yourBranchName```
 
 # Software Requirements  
 + Node 8.0 +
