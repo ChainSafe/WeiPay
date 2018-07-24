@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
         fontFamily: "Cairo-Light",
         fontSize: 26,   
         letterSpacing: 0.8,     
-        paddingLeft: '10%', 
+        paddingLeft: '9%', 
         paddingBottom: '3%',
         marginTop: '5%',
         color: '#1a1f3e'
