@@ -49,7 +49,7 @@ class CoinListItem extends Component {
     const { checked } = this.state
 
     return (
-      <View style={{ marginTop:'2.5%'}}>
+      <View style={{ marginTop:'2.5%', marginLeft:'0.25%'}}>
         <TouchableOpacity 
           onPress={() => this.renderPress(coin)}>
         <View style={[styles.check, coin.selected ? styles.containerSelected : styles.containerDeselect]}>
@@ -108,7 +108,8 @@ class CoinListItem extends Component {
               shadowColor: 'grey',
               shadowOffset: {width:0, height:0},
               shadowRadius: 2,
-              shadowOpacity: 0.5,
+              shadowOpacity: 1,
+              borderWidth: 0,
               width: '100%', 
               height: 63,            
               backgroundColor: '#ffffff',
@@ -150,14 +151,14 @@ const styles = StyleSheet.create({
     paddingTop: '2.5%'    
   },
   containerSelected : {
-    borderWidth:2,
+    // borderWidth:0.5,
     width: '83%', 
-    borderRadius: 10, 
+    // borderRadius: 10, 
   },
   containerDeselect :{ 
-    borderWidth:2,
+    // borderWidth:0.5,
     width: '83%', 
-    borderRadius: 10, 
+    // borderRadius: 10, 
   }
 })
 

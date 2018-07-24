@@ -9,6 +9,7 @@ import { View, TouchableOpacity, StyleSheet, TextInput, Text } from "react-nativ
  * Optional props:
  *      customStyles
  *      customTextStyles
+ *      unlockButton -> home screen active button
  *      
  *      
  */
@@ -25,14 +26,16 @@ class ClearButton extends Component {
                         style={[
                             styles.buttonStyles, 
                             this.props.customStyles,
-                            this.props.buttonStateEnabled ? styles.buttonActive : styles.buttonInactive
+                            this.props.buttonStateEnabled ? styles.buttonActive : styles.buttonInactive,
+                            this.props.unlockButton ? styles.buttonActive : styles.buttonInactive
                         ]}
                         >
                         <Text
                             style={[
                                 styles.textStyles, 
                                 this.props.customTextStyles,
-                                this.props.buttonStateEnabled ? styles.textActive : styles.textInactive
+                                this.props.buttonStateEnabled ? styles.textActive : styles.textInactive,
+                                this.props.unlockButton ? styles.textActive : styles.textInactive
                             ]}
                         >{this.props.buttonText}</Text>
                         
