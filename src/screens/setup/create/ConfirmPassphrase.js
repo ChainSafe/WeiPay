@@ -77,9 +77,9 @@ class ConfirmPassphrase extends Component {
             state.scrambledTags[x].selected = true;  
             // state.scrambledTags.push(tagItem);  
             // this.setState(state)    
-             this.swapTag(tagItem, "selectedTags", x);
+            //  this.swapTag(tagItem, "selectedTags", x);
         } else if (action == "revert") {
-            this.swapTag(tagItem, "scrambledTags", x);
+            // this.swapTag(tagItem, "scrambledTags", x);
         } else {
             console.log("problems in the add");
         }
@@ -201,7 +201,7 @@ class ConfirmPassphrase extends Component {
                                 })
                             }
                         </View>
-                        <View style={styles.tagContainer} >
+                        {/* <View style={styles.tagContainer} >
                             {
                                 selectedTags.map((item, index) => {
                                     return (
@@ -221,7 +221,7 @@ class ConfirmPassphrase extends Component {
                                     // onPress={() => this.addTag(item, "revert", index)} />
                                 })
                             }
-                        </View>
+                        </View> */}
 
 
                     </Card>
