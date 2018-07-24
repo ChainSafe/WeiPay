@@ -88,7 +88,6 @@ class ConfirmPassphrase extends Component {
         this.setState(state)
     }
 
-
     /**
      * Returns the screen required for the user to go about selecting the tags
      * in the correct order
@@ -107,13 +106,11 @@ class ConfirmPassphrase extends Component {
                     </TouchableOpacity>
                 </View>  
                 <Text style={styles.textHeader} >Confirm Passphrase</Text>                
-                
                 <View style={styles.contentContainer} >
                     <Card containerStyle={styles.cardContainer}> 
                         <Text style={styles.cardText}>
                             Please assemble your passphrase in the correct order.
                         </Text>
-
                         <View style={styles.tagContainer} >
                             {
                                 scrambledTags.map((item, index) => {                  
@@ -131,15 +128,14 @@ class ConfirmPassphrase extends Component {
                                 })
                             }
                         </View>
-
-                        <View style={styles.tagContainer} >
+                        <View style={styles.selectedTextContainer} >
                             {
                                 selectedTags.map((item, index) => {
                                     return (
                                         <View key={item.wordItem.index}  style={styles.cardSelectedButtonContainer}>
                                             <TouchableOpacity
                                                 onPress={() => this.removeWord(item, index)}>
-                                                <Text> 
+                                                <Text style={styles.selectedWordText}> 
                                                     {item.wordItem.word}
                                                 </Text>
                                             </TouchableOpacity>
@@ -148,11 +144,8 @@ class ConfirmPassphrase extends Component {
                                 })
                             }
                         </View>
-
-
                     </Card>
                 </View>
-
                 <View style={styles.btnContainer}>
                   <LinearButton 
                         onClickFunction={this.navigate}
@@ -161,49 +154,12 @@ class ConfirmPassphrase extends Component {
                         // buttonStateEnabled={this.state.buttonDisabled}
                     />                    
                 </View>    
-
                 <View style={styles.footerGrandparentContainer} >    
                     <View style={styles.footerParentContainer} >
                         <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
                     </View>  
                 </View> 
             </View>
-            // <View style={styles.mainContainer}>
-            //     <View style={styles.contentContainer} >
-            //         <View style={styles.content} >
-            //             <CardSection>
-            //                 <Text style={styles.headerText} >Please assemble your passphrase in the correct order </Text>
-            //             </CardSection>
-            //             <CardSection>
-            //                 <View style={styles.tagContainer} >
-            //                     {
-            //                         selectedTags.map((item, index) => {
-            //                             return <Button
-            //                                 style={styles.tag}
-            //                                 title={item.word}
-            //                                 key={item.index}
-            //                                 onPress={() => this.addTag(item, "revert", index)} />
-            //                         })
-            //                     }
-            //                 </View>
-            //             </CardSection>
-            //             <CardSection>
-            //                 <View style={styles.tagContainer} >
-            //                     {
-            //                         scrambledTags.map((item, index) => {
-            //                             return <Button title={item.word} key={item.index} onPress={() => this.addTag(item, "init", index)} />
-            //                         })
-            //                     }
-            //                 </View>
-            //             </CardSection>
-            //         </View>
-            //         <View style={styles.btnContainer} >
-            //             <TouchableOpacity style={styles.btn} onPress={this.validatePassphrase}>
-            //                 <Text style={styles.btnText}> Next</Text>
-            //             </TouchableOpacity>
-            //         </View>
-            //     </View>
-            // </View>
         );
     }
 }
@@ -246,9 +202,22 @@ const styles = StyleSheet.create({
         paddingBottom: '2%',
         paddingRight: '1.75%'
     },
+    selectedTextContainer:{
+        paddingTop: '5%',
+        paddingLeft: '5%',
+        paddingRight: '5%',
+        flexDirection: 'row',
+        flexWrap: 'wrap'
+    },
     cardSelectedButtonContainer:{
         paddingBottom: '2%',
         paddingRight: '1.75%'
+    },
+    selectedWordText:{
+        fontSize: 14,
+        lineHeight: 22, 
+        color: "#27c997",
+        fontFamily: "WorkSans-Regular",    
     },
     cardButton: {
         height: 32,
