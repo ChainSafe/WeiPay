@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, TouchableHighlight, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { CheckBox, Button, List, ListItem, Icon, } from 'react-native-elements'
 import { CardSection } from '../common/CardSection';
@@ -52,77 +52,79 @@ class CoinListItem extends Component {
       <View style={{ marginTop:'2.5%', marginLeft:'0.25%'}}>
         <TouchableOpacity 
           onPress={() => this.renderPress(coin)}>
-        <View style={[styles.check, coin.selected ? styles.containerSelected : styles.containerDeselect]}>
-          <ListItem
-            hideChevron
-            key={coin.id}
-            roundAvatar
-            avatar={{ uri: coin.avatar_url }}
-            title= {
-              <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'3.5%'}}>
-               
-                <Text style={{ 
-                  fontSize:16,
-                  fontFamily: "Cairo-Regular",  
-                  alignItems:"flex-start",
-                  flex:1,
-                  width:'90%',
-                  letterSpacing: 0.5,  
-                  top: '6%'                                               
+          <View style={[styles.check, coin.selected ? styles.containerSelected : styles.containerDeselect]}>
+            <ListItem
+              hideChevron
+              key={coin.id}
+              roundAvatar
+              avatar={ require('../../assets/images/eth.png') }
+              title= {
+                <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'3.5%'}}>    
+
+                           
+                  <Text style={{ 
+                    fontSize:16,
+                    fontFamily: "Cairo-Regular",  
+                    alignItems:"flex-start",
+                    flex:1,
+                    width:'90%',
+                    letterSpacing: 0.5,  
+                    top: '6%'                                               
+                    }}>
+                      {coin.symbol}
+                    </Text> 
+
+                    <View style={{ top:'5.5%' }} >
+                      <CheckBox center 
+                        iconRight
+                        iconType='material'
+                        checkedIcon='clear'
+                        uncheckedIcon='add'
+                        uncheckedColor='#27c997'
+                        checkedColor='red'
+                        checked={coin.selected}
+                        containerStyle={[title, coin.selected ? styles.valid : styles.invalid]}                  
+                        onPress={() => this.renderPress(coin)}
+                        /> 
+                      </View>   
+                </View>
+              }   
+              subtitle={
+                <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'3.5%'}}>
+                  <Text style={{
+                    fontSize:11, 
+                    fontFamily: "Cairo-Light",             
+                    alignItems:"flex-start",
+                    flex:1,
+                    width:'90%',  
+                    letterSpacing: 0.4,  
+                    top: '-3.5%',
+                    height: '100%'                
                   }}>
-                    {coin.symbol}
-                  </Text> 
-
-                  <View style={{ top:'5.5%' }} >
-                    <CheckBox center 
-                      iconRight
-                      iconType='material'
-                      checkedIcon='clear'
-                      uncheckedIcon='add'
-                      uncheckedColor='#27c997'
-                      checkedColor='red'
-                      checked={coin.selected}
-                      containerStyle={[title, coin.selected ? styles.valid : styles.invalid]}                  
-                      onPress={() => this.renderPress(coin)}
-                      /> 
-                    </View>   
-              </View>
-            }   
-            subtitle={
-              <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'3.5%'}}>
-                <Text style={{
-                  fontSize:11, 
-                  fontFamily: "Cairo-Light",             
-                  alignItems:"flex-start",
-                  flex:1,
-                  width:'90%',  
-                  letterSpacing: 0.4,  
-                  top: '-3.5%',
-                  height: '100%'                
-                }}>
-                  {coin.title}
-                </Text>           
-              </View>
-            }
-            containerStyle = {{
-              shadowColor: 'grey',
-              shadowOffset: {width:0, height:0},
-              shadowRadius: 2,
-              shadowOpacity: 1,
-              borderWidth: 0,
-              width: '100%', 
-              height: 63,            
-              backgroundColor: '#ffffff',
-              justifyContent:"center",      
-            }}
-            avatarStyle = {{           
-              marginTop:'-5%',         
-            }}
-          />
-        </View>
+                    {coin.title}
+                  </Text>           
+                </View>
+              }
+              containerStyle = {{
+                shadowColor: 'grey',
+                shadowOffset: {width:0, height:0},
+                shadowRadius: 2,
+                shadowOpacity: 1,
+                borderWidth: 0,
+                width: '100%', 
+                height: 63,            
+                backgroundColor: '#ffffff',
+                justifyContent:"center",      
+              }}
+              avatarStyle = {{           
+                marginTop:'-5%',  
+                width: 20,
+                height: 30,
+                backgroundColor: "transparent"      
+              }}
+            />
+          </View>
         </TouchableOpacity >
-
-       
       </View>
     )
   }

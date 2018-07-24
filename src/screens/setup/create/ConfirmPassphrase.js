@@ -132,7 +132,7 @@ class ConfirmPassphrase extends Component {
                             {
                                 selectedTags.map((item, index) => {
                                     return (
-                                        <View key={item.wordItem.index}  style={styles.cardSelectedButtonContainer}>
+                                        <View key={item.wordItem.index} style={styles.cardSelectedButtonContainer}>
                                             <TouchableOpacity
                                                 onPress={() => this.removeWord(item, index)}>
                                                 <Text style={styles.selectedWordText}> 
