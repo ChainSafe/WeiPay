@@ -4,12 +4,8 @@ import { Button, List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { NavigationActions } from "react-navigation";
 import AddContactList from '../../../../../components/contacts/AddContactList';
-import { Card } from '../../../../../components/common/Card';
-import { CardSection } from '../../../../../components/common/CardSection';
-import addContactAction from '../../../../../actions/ActionCreator';
 import * as actions from '../../../../../actions/ActionCreator';
 import BackWithMenuNav from "../../../../../components/customPageNavs/BackWithMenuNav"
-
 
 /**
  * Is a full screen react component
@@ -33,17 +29,12 @@ class AddContact extends Component {
     let contactAddressHolder = {}
 
     if ("ContactAddresses" in this.props.currentContact) {
-
-
       contactAddressHolder = this.props.currentContact.ContactAddresses
       contactNameHolder = this.props.currentContact.name
     } else {
       this.props.tokens.map(token => contactAddressHolder[token.title] = "")
       this.renderAddContact = this.renderAddContact.bind(this);
     }
-
-
-
 
     this.state = {
       disabled: true,
@@ -105,9 +96,7 @@ class AddContact extends Component {
     this.props.addingContact(coinAddress)
   }
 
-
   navigate = () => {
-
     const navigateToQrScanner = NavigationActions.navigate({
       routeName: 'QCodeScanner',
       params: "addContact"
@@ -130,19 +119,8 @@ class AddContact extends Component {
    * Returns the form required to add a contact 
    */
   render() {
-
-    console.log("In addContact");
-
-    console.log(this.state.contactName);
-    console.log(this.state.contactAddress);
-
-    console.log("In not addContact");
-
-
-
     return (
       <View style={{ flex: 1, paddingTop: 3 }}>
-      
         <BackWithMenuNav 
             showMenu={true}
             showBack={true}

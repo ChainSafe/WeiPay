@@ -9,9 +9,6 @@ import { getQRCodeData } from '../../../../actions/ActionCreator'
 import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
 
 
-/**
- * 
- */
 class ContactAddresses extends Component {
   componentWillMount() {
     let addresses = this.props.navigation.state.params.addresses

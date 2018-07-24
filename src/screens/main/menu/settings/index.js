@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
-import { StackNavigator, DrawerNavigator, NavigationActions } from 'react-navigation';
-import { Icon, List, ListItem } from 'react-native-elements';
+import { View, StyleSheet, TouchableOpacity} from 'react-native';
+import { NavigationActions } from 'react-navigation';
+import { List, ListItem } from 'react-native-elements';
 import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
-
 
 /**
  * Screen used to display all the wallet settings options that the user can select from
@@ -54,7 +53,6 @@ class Settings extends Component {
                     showBack={true}
                     navigation={this.props.navigation}
                     backPage={"mainStack"}
-
                 />
         <List style={styles.list} containerStyle={{ marginTop: 0, borderTopWidth: 0, borderBottomWidth: 0 }} >
           {
