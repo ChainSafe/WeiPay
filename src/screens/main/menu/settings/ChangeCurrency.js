@@ -4,6 +4,8 @@ import { NavigationActions } from "react-navigation";
 import { connect } from "react-redux";
 import { Button, Icon, List, ListItem } from 'react-native-elements';
 import CurrencyList from '../../../../components/CurrencyList';
+import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
+
 
 /**
  * Screen used to change the currency of the balance display
@@ -36,6 +38,13 @@ class ChangeCurrency extends Component {
     render() {
         return (
             <View style={styles.pageContainer} >
+                <BackWithMenuNav 
+                    showMenu={true}
+                    showBack={true}
+                    navigation={this.props.navigation}
+                    backPage={"settingsMain"}
+
+                />
                 <CurrencyList />
                 <View style={styles.btnContainer} >
                     <Button

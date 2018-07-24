@@ -20,11 +20,10 @@ class CoinReceive extends Component {
     return (
       <View style={styles.mainContainer}>
         <BackWithMenuNav 
-          backFunction={this.navigateBack} 
-          menuFunction={this.navigateMenu} 
           showMenu={true}
           showBack={true}
           navigation={this.props.navigation}
+          backPage={"mainStack"}
         />
         <CoinSendTabNavigator navigation={this.props.navigation} />
         <View style={styles.contentContainer} >
@@ -40,14 +39,11 @@ class CoinReceive extends Component {
               <Text style={styles.addressValue}>{this.props.walletAddress}</Text> 
           </View>
         </View>
-
          <View style={styles.footerGrandparentContainer} >    
               <View style={styles.footerParentContainer} >
                   <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
               </View>  
           </View>
-
-
       </View>
     )
   }

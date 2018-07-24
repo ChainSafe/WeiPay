@@ -20,9 +20,14 @@ class ClearButton extends Component {
             <View>
                 <TouchableOpacity 
                     onPress={this.props.onClickFunction}
+                    disabled={this.props.buttonStateEnabled}
                 >
                     <View                        
-                        style={[styles.buttonStyles, this.props.customStyles]}
+                        style={[
+                            styles.buttonStyles, 
+                            this.props.customStyles,
+                            !this.props.buttonStateEnabled ? styles.buttonActive : styles.buttonInactive
+                        ]}
                         >
                         <Text
                             style={[styles.textStyles, this.props.customTextStyles]}
@@ -38,11 +43,17 @@ class ClearButton extends Component {
 }
 
 const styles = StyleSheet.create({
+
+    buttonActive:{
+        borderColor: "#27c997", 
+    },
+    buttonInactive:{
+        borderColor:"#b3b3b3"
+        
+    },
     buttonStyles: {
         borderRadius: 100, 
-        borderColor: "#27c997",
         borderWidth: 1,
-        // width: '82%',
         height: 52,                                  
         alignItems: 'center', 
         justifyContent: 'center',                                  

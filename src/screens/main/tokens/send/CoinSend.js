@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Alert, Platform, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, Alert, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
-import { FormInput, FormLabel, Button, Card } from 'react-native-elements';
-import { NavigationActions, DrawerNavigator } from "react-navigation";
+import { FormInput, Button, Card } from 'react-native-elements';
+import { NavigationActions } from "react-navigation";
 import { getQRCodeData, addTokenInfo } from '../../../../actions/ActionCreator';
 import provider from '../../../../constants/Providers';
 import { qrScannerInvoker } from '../../../../actions/ActionCreator'
@@ -187,11 +187,12 @@ class CoinSend extends Component {
     console.log(this.props.token)
     return (
       <View style={styles.mainContainer}>
-        <BackWithMenuNav          
-          menuFunction={this.navigateMenu} 
+        <BackWithMenuNav 
           showMenu={true}
           showBack={true}
           navigation={this.props.navigation}
+          backPage={"mainStack"}
+          
         />
         <CoinSendTabNavigator 
           navigation={this.props.navigation} 
@@ -296,8 +297,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingTop: '2.5%',
     backgroundColor: "#fafbfe",
-    width: '100%',
-    height: '100%'
   },
   contentContainer: {    
     alignItems:'center',

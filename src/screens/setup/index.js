@@ -84,13 +84,14 @@ const styles = StyleSheet.create({
         fontFamily: "Cairo-Light",
         fontSize: 34,        
         marginBottom: '-0.5%',
+        letterSpacing: 1.1,
         color: '#1a1f3e'
     },
     textHeaderDescription: {      
         color: '#1a1f3e',
         fontFamily: "Cairo-Regular",
         fontSize: 14,    
-        letterSpacing: 3
+        letterSpacing: 2.5
     },
     btnContainer: {
         alignItems:'stretch',
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
     },
     btn: {
         marginBottom: '3.5%',
-        marginTop: '10%'
+        marginTop: '7.5%'
     },
     footerContainer: {
         alignItems:"center", 

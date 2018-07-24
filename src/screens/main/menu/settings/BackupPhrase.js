@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableHighlight, Dimensions } from 'react-na
 import { NavigationActions } from 'react-navigation';
 import { Icon, Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import { CardSection } from '../../../../components/common/CardSection';
+import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
 
 const navigate = () => {
   const navigateToPassphrase = NavigationActions.reset({
@@ -77,6 +78,14 @@ class BackupPhrase extends Component {
   render() {
     return (
       <View style={styles.mainContainer}>
+        <BackWithMenuNav 
+          showMenu={true}
+          showBack={true}
+          navigation={this.props.navigation}
+          backPage={"mainStack"}
+
+        />
+
         <View style={styles.contentContainer} >
           <Text style={styles.title} > Your Wallet is secure now  </Text>
           <Text style={styles.description} > To view your backup passphrase, continue.</Text>
@@ -106,16 +115,16 @@ class BackupPhrase extends Component {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
   },
   contentContainer: {
+    flex: 1,
     marginTop: 25,
   },
   btnContainer: {
     flex: 1,
     justifyContent: 'flex-end',
-    alignItems: 'center'
+    // alignItems: 'center'
   },
   title: {
     alignSelf: "center",
