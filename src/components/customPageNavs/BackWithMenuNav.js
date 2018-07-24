@@ -5,8 +5,13 @@ import { NavigationActions } from "react-navigation";
 class BackWithMenuNav extends Component {
 
     navigateBack = () => {
-        const navigateToPassphrase = NavigationActions.navigate({ routeName: "mainStack" });
-        this.props.navigation.dispatch(navigateToPassphrase);
+        if (typeof this.props.backPage == 'undefined'){
+            this.props.navigation.goBack()
+        }else{
+            const navigateToPassphrase = NavigationActions.navigate({ routeName: this.props.backPage });
+            this.props.navigation.dispatch(navigateToPassphrase);
+        }
+        
     }
     
     navigateMenu = () => {
@@ -17,7 +22,8 @@ class BackWithMenuNav extends Component {
     /**
      *  Props:
      *      showMenu: type=boolean, Determines if the Drawer icon will be displayed
-     *      showBack: 
+     *      backPage: type=string, Specifies the page to go back to from the current screen (Optional)
+     *      showBack: type=boolean, Determines if the back icon will be displayed on Main header
      */
     render() {
         return (
