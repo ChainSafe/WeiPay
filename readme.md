@@ -118,14 +118,25 @@ uniform data to its users with the added benefits of reduced app storage space.
 * store.js
 * package.json
 
-
+# Clean Clone to Build to IOS Device 
++ ```git clone https://github.com/ChainSafe/WeiPay.git```
++ ```npm install``` or ```yarn install``` 
++ ```react-native link```
++ React Native/Xcode build issue
+  - Double Conversion Errors -> Xcode -> Libraries -> RCTWebSocket.xcodeproj -> Build Phases - > Link Binary   with Libraries -> select libfishhook.a and click " - " button. Click " + " and add libfishhook.a to add the broken dependency.
+  - ```https://github.com/facebook/react-native/issues/19839```
+  - React Native third party library issue -> ```https://github.com/facebook/react-native/issues/14382```
+  - Solution: ```CD /node_modules/react-native/third-party/glog & ./configure```
+  - This will throw one last error in xcode, you must change the return value of the function to NULL and comment out the current return statement (return (void*)context->PC_FROM_UCONTEXT;).
+  - ```https://github.com/facebook/react-native/issues/16106```
+  - Build & run project -> select developer profile -> make sure deployment targets are the same in both your project and the tests project -> WeiPay should build to your physical ios device
 
 # How To:
 
-+ git clone https://github.com/ChainSafe/WeiPay.git
-+ npm install, sudo npm install (if on linux)
-+ react-native link
-+ git checkout -b yourBranchName
++ ```git clone https://github.com/ChainSafe/WeiPay.git```
++ ```npm install, sudo npm install``` (if on linux)
++ ```react-native link```
++ ```git checkout -b yourBranchName```
 
 # Software Requirements  
 + Node 8.0 +
