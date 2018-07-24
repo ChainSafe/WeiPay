@@ -242,42 +242,7 @@ class ConfirmPassphrase extends Component {
                     </View>  
                 </View> 
             </View>
-            // <View style={styles.mainContainer}>
-            //     <View style={styles.contentContainer} >
-            //         <View style={styles.content} >
-            //             <CardSection>
-            //                 <Text style={styles.headerText} >Please assemble your passphrase in the correct order </Text>
-            //             </CardSection>
-            //             <CardSection>
-            //                 <View style={styles.tagContainer} >
-            //                     {
-            //                         selectedTags.map((item, index) => {
-            //                             return <Button
-            //                                 style={styles.tag}
-            //                                 title={item.word}
-            //                                 key={item.index}
-            //                                 onPress={() => this.addTag(item, "revert", index)} />
-            //                         })
-            //                     }
-            //                 </View>
-            //             </CardSection>
-            //             <CardSection>
-            //                 <View style={styles.tagContainer} >
-            //                     {
-            //                         scrambledTags.map((item, index) => {
-            //                             return <Button title={item.word} key={item.index} onPress={() => this.addTag(item, "init", index)} />
-            //                         })
-            //                     }
-            //                 </View>
-            //             </CardSection>
-            //         </View>
-            //         <View style={styles.btnContainer} >
-            //             <TouchableOpacity style={styles.btn} onPress={this.validatePassphrase}>
-            //                 <Text style={styles.btnText}> Next</Text>
-            //             </TouchableOpacity>
-            //         </View>
-            //     </View>
-            // </View>
+            
         );
     }
 }
