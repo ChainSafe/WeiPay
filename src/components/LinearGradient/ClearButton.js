@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
 
     buttonActive:{
         borderColor: "#27c997", 
-        // borderColor:"#b3b3b3"
     },
     buttonInactive:{
         borderColor:"#b3b3b3"
@@ -54,9 +53,7 @@ const styles = StyleSheet.create({
     },
     buttonStyles: {
         borderRadius: 100, 
-        // borderColor: "#27c997",
         borderWidth: 1,
-        // width: '82%',
         height: 52,                                  
         alignItems: 'center', 
         justifyContent: 'center',                                  
