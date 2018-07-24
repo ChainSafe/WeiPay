@@ -44,8 +44,6 @@ class ConfirmPassphrase extends Component {
         }
         shuffle(orderArray);
         for (let i = 0; i < words.length; i++) {
-            console.log(orderArray[i]);
-            // state.scrambledTags.push({"word":orderArray[i], "active":false});
             state.scrambledTags.push({"wordItem":orderArray[i], "selected": false});
         }
         this.setState(state)
@@ -72,17 +70,9 @@ class ConfirmPassphrase extends Component {
     addTag(tagItem, action, x) {
         const state = this.state;
         if (action == "init") {
-            console.log("in action init");
-            console.log(state.scrambledTags[x]);  
             state.scrambledTags[x].selected = true;  
-            // state.scrambledTags.push(tagItem);  
-            // this.setState(state)    
-            //  this.swapTag(tagItem, "selectedTags", x);
-        } else if (action == "revert") {
-            // this.swapTag(tagItem, "scrambledTags", x);
-        } else {
-            console.log("problems in the add");
-        }
+            
+        } 
     }
 
     /* Pass in index and remove it out of whatever state -> just removed an item from any state, pass in state and index */
@@ -98,19 +88,14 @@ class ConfirmPassphrase extends Component {
     swapTag(tagItem, currentStateVariable, currenIndex) {
         const state = this.state;
         if (currentStateVariable == "scrambledTags") {
-            console.log("in swap tag function in the scrambled tags statement");
             state.scrambledTags.push(tagItem);
             state.selectedTags.splice(currenIndex, 1);
             this.setState(state)
         } else if (currentStateVariable == "selectedTags") {
-            console.log("in swap tag function in the selected tags statement");
             state.selectedTags.push(tagItem);
             state.scrambledTags.splice(currenIndex, 1);
             this.setState(state)
-        } else {
-            console.log("problems in the swap");
-        }
-        console.log(state);
+        } 
     }
 
     /**
