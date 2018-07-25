@@ -1,54 +1,52 @@
-import React, { Component } from "react";
-import { View, Button, TouchableOpacity, Text, ScrollView, StyleSheet, TextInput, Image, Dimensions, Alert, Platform } from "react-native";
-import { NavigationActions } from "react-navigation";
-import { connect } from "react-redux";
-import { FormLabel, FormInput, FormValidationMessage, Card } from 'react-native-elements';
-import { Input } from '../../../components/common/Input';
-import { CardSection } from '../../../components/common/CardSection';
-import LinearButton   from '../../../components/LinearGradient/LinearButton'
-import ClearButton from '../../../components/LinearGradient/ClearButton'
-var shuffle = require('shuffle-array'); //to randomize order
+import React, { Component } from 'react';
+import { View, TouchableOpacity, Text, StyleSheet, Image, Dimensions, Platform } from 'react-native';
+import { NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux';
+import { Card } from 'react-native-elements';
+import LinearButton from '../../../components/LinearGradient/LinearButton';
+import ClearButton from '../../../components/LinearGradient/ClearButton';
+
+const shuffle = require('shuffle-array');
 
 /**
  * Initial setup screen that prompts the user to re-enter the passphrase(mnemonic) using the
- * tags. 
+ * tags.
  * This screen is only displayed in the process of creating a new wallet
  */
 class ConfirmPassphrase extends Component {
 
-    /**
-     * Sets the local state to keep track of the tags which are selected and
-     * unselected 
-     * @param {Object} props 
-     */
-    constructor(props) {
-        super(props);
-        this.state = {
-            selectedTags: [],
-            scrambledTags: [],
-            selectedWords:[]
-        }
-    }
+  /**
+   * Sets the local state to keep track of the tags which are selected and
+   * unselected
+   * @param {Object} props
+   */
 
-    /**
-     * LifeCycle Method
-     * This method is executed after the component has been rendered.
-     * This method add each word of the mnemonic to the local state variable object
-     */
-    componentDidMount() {      
-        const state = this.state;
-        const words = this.props.mnemonic.split(' ');
-        var orderArray = [];
-        for (let i = 0; i < words.length; i++) {
-            orderArray.push({ "word": words[i], "index": i });
-        }
-        shuffle(orderArray);
-        for (let i = 0; i < words.length; i++) {
-            //console.log(orderArray[i]);
-            // state.scrambledTags.push({"word":orderArray[i], "active":false});
-            state.scrambledTags.push({"wordItem":orderArray[i], "selected": false});
-        }
-        this.setState(state)
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedTags: [],
+      scrambledTags: [],
+    };
+  }
+
+  /**
+    * LifeCycle Method
+    * This method is executed after the component has been rendered.
+    * This method add each word of the mnemonic to the local state variable object
+    */
+  componentDidMount() {
+    const state = this.state;
+    const words = this.props.mnemonic.split(' ');
+    let orderArray = [];
+    for (let i = 0; i < words.length; i++) {
+        orderArray.push({ "word": words[i], "index": i });
+    }
+    shuffle(orderArray);
+    for (let i = 0; i < words.length; i++) {             
+        state.scrambledTags.push({ 'wordItem': orderArray[i], 'selected' : false });
+    }
+    this.setState(state);
+    console.log(state);
     }
 
     /**
@@ -72,9 +70,13 @@ class ConfirmPassphrase extends Component {
 
     addWord(wordItem, scrambledListIndex){
         const state = this.state;
+        console.log(state);
         let oldStates = state.scrambledTags
-        oldStates[scrambledListIndex].selected = true
+        oldStates[scrambledListIndex].selected = true;
         this.setState({ scrambledTags: oldStates})
+
+        console.log(state);
+
         state.selectedTags.push({"wordItem":wordItem, "scrambledWordIndex": scrambledListIndex});
         this.setState(state)
     }
@@ -93,7 +95,7 @@ class ConfirmPassphrase extends Component {
      * in the correct order
      */
     render() {
-        const { selectedTags, scrambledTags, selectedWords } = this.state;
+        const { selectedTags, scrambledTags } = this.state;
         return (
             <View style={styles.mainContainer}>
                 <View style={styles.headerBack}> 
@@ -105,7 +107,7 @@ class ConfirmPassphrase extends Component {
                         /> 
                     </TouchableOpacity>
                 </View>  
-                <Text style={styles.textHeader} >Confirm Passphrase</Text>                
+                <Text style={styles.textHeader}>Confirm Passphrase</Text>
                 <View style={styles.contentContainer} >
                     <Card containerStyle={styles.cardContainer}> 
                         <Text style={styles.cardText}>
@@ -113,15 +115,16 @@ class ConfirmPassphrase extends Component {
                         </Text>
                         <View style={styles.tagContainer} >
                             {
-                                scrambledTags.map((item, index) => {                  
-                                    return (
+                                scrambledTags.map((item, index) => {
+                                  return (
                                         <View key={item.wordItem.index} style={styles.cardButtonContainer}>
-                                            <ClearButton 
-                                                buttonText={item.wordItem.word} 
-                                                key={item.wordItem.index} 
-                                                onClickFunction={() => this.addWord(item.wordItem, index)} 
+                                            <ClearButton
+                                                buttonText={item.wordItem.word}
+                                                key={item.wordItem.index}
+                                                onClickFunction={() => this.addWord(item.wordItem, index)}
                                                 customStyles={styles.cardButton}
-                                                buttonStateEnabled={this.state.scrambledTags[index].selected}
+                                                // buttonStateEnabled={this.state.scrambledTags[index].selected}
+                                                buttonStateEnabled={false}
                                                 />
                                         </View>
                                     )

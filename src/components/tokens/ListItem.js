@@ -10,11 +10,10 @@ import { addTokenToSetup } from '../../actions/ActionCreator';
 
 /**
  * React Component
- * Class is used to create a single item of the 
+ * Class is used to create a single item of the
  * selectable token list
  */
 class CoinListItem extends Component {
-
   /**
    * Initializer
    * Creates a boolean state variable which is used

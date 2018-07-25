@@ -47,16 +47,16 @@ class ClearButton extends Component {
 }
 
 const styles = StyleSheet.create({
-    buttonActive:{
+    buttonActive: {
         borderColor: "#27c997", 
     },
-    buttonInactive:{
+    buttonInactive: {
         borderColor:"#b3b3b3"
     },
-    textActive:{
+    textActive: {
         color: "#27c997", 
     },
-    textInactive:{
+    textInactive: {
         color:"#b3b3b3"
     },
     buttonStyles: {
