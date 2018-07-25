@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, StyleSheet, TextInput, Text } from "react-native";
+import PropTypes from 'prop-types'
 
 /**
  * Component must have the following props:
@@ -25,8 +26,7 @@ class ClearButton extends Component {
                     <View                        
                         style={[
                             styles.buttonStyles, 
-                            this.props.customStyles,
-                            this.props.buttonStateEnabled ? styles.buttonActive : styles.buttonInactive,
+                            this.props.customStyles,                            
                             this.props.unlockButton ? styles.buttonActive : styles.buttonInactive
                         ]}
                         >
@@ -44,6 +44,11 @@ class ClearButton extends Component {
             </View>
         );
     }
+}
+
+ClearButton.propTypes = {
+    onPress: PropTypes.func,
+    disabled: PropTypes.bool,
 }
 
 const styles = StyleSheet.create({

@@ -6,6 +6,8 @@ import { NavigationActions } from "react-navigation";
 import AddContactList from '../../../../../components/contacts/AddContactList';
 import * as actions from '../../../../../actions/ActionCreator';
 import BackWithMenuNav from "../../../../../components/customPageNavs/BackWithMenuNav"
+import ContactTabNavigator from "../../../../../components/customPageNavs/ContactTabNavigator"
+
 
 /**
  * Is a full screen react component
@@ -40,7 +42,8 @@ class AddContact extends Component {
       disabled: true,
       clear: false,
       contactName: contactNameHolder,
-      contactAddress: contactAddressHolder
+      contactAddress: contactAddressHolder,
+      Active: false
     }
   }
 
@@ -125,9 +128,12 @@ class AddContact extends Component {
             showMenu={true}
             showBack={true}
             navigation={this.props.navigation}
-            backPage={"mainStack"}
-
+            backPage={"contacts"}
           />
+        <ContactTabNavigator 
+          Active={this.state.active}
+          navigation={this.props.navigation} 
+        />
         <ScrollView style={{ height: '75%' }} >
           <AddContactList
             contactName={this.state.contactName}
@@ -136,7 +142,6 @@ class AddContact extends Component {
             renderName={this.renderName.bind(this)}
             contactAddress={this.state.contactAddress}
             navigate={this.props.navigation.navigate}
-
           />
         </ScrollView>
         <View style={styles.container}>

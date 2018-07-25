@@ -39,15 +39,11 @@ class ConfirmPassphrase extends Component {
     const words = this.props.mnemonic.split(' ');
     let orderArray = [];
     for (let i = 0; i < words.length; i++) {
-        orderArray.push({ "word": words[i], "index": i });
+        orderArray.push({ 'wordItem' : { "word": words[i], "index": i }, 'selected': false });
     }
     shuffle(orderArray);
-    for (let i = 0; i < words.length; i++) {             
-        state.scrambledTags.push({ 'wordItem': orderArray[i], 'selected' : false });
-    }
-    this.setState(state);
-    console.log(state);
-    }
+    this.setState({scrambledTags: orderArray });
+  }
 
     /**
      * Method is used to navigate to the "enableTokens" screen.
@@ -70,13 +66,9 @@ class ConfirmPassphrase extends Component {
 
     addWord(wordItem, scrambledListIndex){
         const state = this.state;
-        console.log(state);
         let oldStates = state.scrambledTags
         oldStates[scrambledListIndex].selected = true;
         this.setState({ scrambledTags: oldStates})
-
-        console.log(state);
-
         state.selectedTags.push({"wordItem":wordItem, "scrambledWordIndex": scrambledListIndex});
         this.setState(state)
     }
@@ -123,8 +115,7 @@ class ConfirmPassphrase extends Component {
                                                 key={item.wordItem.index}
                                                 onClickFunction={() => this.addWord(item.wordItem, index)}
                                                 customStyles={styles.cardButton}
-                                                // buttonStateEnabled={this.state.scrambledTags[index].selected}
-                                                buttonStateEnabled={false}
+                                                unlockButton={this.state.scrambledTags[index].selected}
                                                 />
                                         </View>
                                     )
@@ -171,116 +162,116 @@ class ConfirmPassphrase extends Component {
  * Styles used the "ConfirmPassphrase" screen
  */
 const styles = StyleSheet.create({
-    mainContainer: {
-        flex: 1,
-        backgroundColor: "#fafbfe", 
-        width: '100%',
-        paddingTop: '5%'
-    },
-    contentContainer: {
-        alignItems: 'center',
-        flex: 1,
-    },
-    headerBack: {
-        marginTop: Platform.OS === 'ios' ? '5%' : '5%',
-        ...Platform.select({
-          ios: { backgroundColor: '#fafbfe'},
-          android: { backgroundColor: '#fafbfe'}
-        }),
-        marginLeft: '9%',       
-    }, 
-    btnBack:{
-        height:20, 
-        width:20
-    },
-    tagContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        marginLeft: '2.5%',
-        marginRight: '2.5%',       
-        alignContent: 'space-around'
-    },
-    cardButtonContainer:{
-        paddingBottom: '2%',
-        paddingRight: '1.75%'
-    },
-    selectedTextContainer:{
-        paddingTop: '5%',
-        paddingLeft: '5%',
-        paddingRight: '5%',
-        flexDirection: 'row',
-        flexWrap: 'wrap'
-    },
-    cardSelectedButtonContainer:{
-        paddingBottom: '2%',
-        paddingRight: '1.75%'
-    },
-    selectedWordText:{
-        fontSize: 14,
-        lineHeight: 22, 
-        color: "#27c997",
-        fontFamily: "WorkSans-Regular",    
-    },
-    cardButton: {
-        height: 32,
-        justifyContent:"center"        
-    },
-    textHeader: {       
-        fontFamily: "Cairo-Light",
-        fontSize: 26,        
-        paddingLeft: '10%',  
-        paddingBottom: '3%',
-        marginTop: '5%',
-        color: '#1a1f3e',
-    },
-    cardContainer: {
-        width: '80%', 
-        height: '85%', 
-        borderRadius: 7.5, 
-        shadowOpacity: 0.5, 
-        shadowRadius: 1.3, 
-        shadowColor: '#dbdbdb',
-        shadowOffset: { width: 1, height: 2 }
-    },
-    cardText:{
-        paddingBottom: '10%',
-        lineHeight: 22,       
-        paddingTop: '5%',
-        paddingLeft: '5%',
-        paddingRight: '5%',
-        fontFamily: "WorkSans-Light",  
-        color: '#000000',
-        fontSize: 16,
-    },
-    tag: {
-        margin: 2,
-        width: Dimensions.get('window').width / 3 - 15,
-        height: 40,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    button: {
-        width: '82%',
-    },
-    btnContainer: {    
-        justifyContent: 'flex-end',
-        alignItems: 'stretch',
-        alignContent: 'flex-end'
-    },
-    footerGrandparentContainer : {
-        alignItems:'center'
-    },
-    footerParentContainer :{ 
-        alignItems:'center'
-    },
-    textFooter : {
-        fontFamily: "WorkSans-Regular",
-        fontSize: 11,      
-        marginTop: '3.5%', 
-        color: '#c0c0c0'
-    },
-})
+  mainContainer: {
+    flex: 1,
+    backgroundColor: '#fafbfe',
+    width: '100%',
+    paddingTop: '5%',
+  },
+  contentContainer: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  headerBack: {
+    marginTop: Platform.OS === 'ios' ? '5%' : '5%',
+    ...Platform.select({
+      ios: { backgroundColor: '#fafbfe'},
+      android: { backgroundColor: '#fafbfe'}
+    }),
+    marginLeft: '9%',
+  },
+  btnBack: {
+    height: 20,
+    width: 20,
+  },
+  tagContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    marginLeft: '2.5%',
+    marginRight: '2.5%',
+    alignContent: 'space-around',
+  },
+  cardButtonContainer: {
+    paddingBottom: '2%',
+    paddingRight: '1.75%',
+  },
+  selectedTextContainer: {
+    paddingTop: '5%',
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  cardSelectedButtonContainer: {
+    paddingBottom: '2%',
+    paddingRight: '1.75%',
+  },
+  selectedWordText: {
+    fontSize: 14,
+    lineHeight: 22,
+    color: '#27c997',
+    fontFamily: 'WorkSans-Regular',
+  },
+  cardButton: {
+    height: 32,
+    justifyContent: 'center',
+  },
+  textHeader: {
+    fontFamily: 'Cairo-Light',
+    fontSize: 26,
+    paddingLeft: '10%',
+    paddingBottom: '3%',
+    marginTop: '5%',
+    color: '#1a1f3e',
+  },
+  cardContainer: {
+    width: '80%',
+    height: '85%',
+    borderRadius: 7.5,
+    shadowOpacity: 0.5,
+    shadowRadius: 1.3,
+    shadowColor: '#dbdbdb',
+    shadowOffset: { width: 1, height: 2 },
+  },
+  cardText: {
+    paddingBottom: '10%',
+    lineHeight: 22,
+    paddingTop: '5%',
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    fontFamily: 'WorkSans-Light',
+    color: '#000000',
+    fontSize: 16,
+  },
+  tag: {
+    margin: 2,
+    width: Dimensions.get('window').width / 3 - 15,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    width: '82%',
+  },
+  btnContainer: {
+    justifyContent: 'flex-end',
+    alignItems: 'stretch',
+    alignContent: 'flex-end',
+  },
+  footerGrandparentContainer: {
+    alignItems: 'center',
+  },
+  footerParentContainer: {
+    alignItems: 'center',
+  },
+  textFooter: {
+    fontFamily: 'WorkSans-Regular',
+    fontSize: 11,
+    marginTop: '3.5%',
+    color: '#c0c0c0',
+  },
+});
 
 /**
  * Reterives the mnemonic passphrase of the wallet that was created
