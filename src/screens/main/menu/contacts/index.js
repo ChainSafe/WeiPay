@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import AddFirstContact from './add/AddFirstContact';
 import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
+import ContactTabNavigator from '../../../../components/customPageNavs/ContactTabNavigator'
 
 
 
@@ -18,19 +19,24 @@ class Contacts extends Component {
   /**
    * Sets the screen title to "Contacts".
    */
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: 'Contacts',
-      headerRight: (
-        <View style={{ paddingRight: 15 }}>
-          <Icon
-            name="menu"
-            onPress={() => navigation.navigate('DrawerOpen')}
-            title="SideMenu"
-          />
-        </View>
-      )
-    }
+  // static navigationOptions = ({ navigation }) => {
+  //   return {
+  //     title: 'Contacts',
+  //     headerRight: (
+  //       <View style={{ paddingRight: 15 }}>
+  //         <Icon
+  //           name="menu"
+  //           onPress={() => navigation.navigate('DrawerOpen')}
+  //           title="SideMenu"
+  //         />
+  //       </View>
+  //     )
+  //   }
+  // }
+
+  constructor(props) {
+    super(props)
+    this.state = { active: true }
   }
 
   /**
@@ -96,24 +102,27 @@ class Contacts extends Component {
    */
   render() {
     const show = this.props.contacts.length === 0 ?
-      <View>
+      <View style={styles.mainContainer}>
         <BackWithMenuNav 
           showMenu={true}
-          showBack={true}
+          showBack={false}
           navigation={this.props.navigation}
           backPage={"mainStack"}
-
+        />
+        <ContactTabNavigator 
+          Active={this.state.active}
+          navigation={this.props.navigation} 
         />
         <AddFirstContact navigate={this.props.navigation.navigate} />
       </View>
       :
-      <View style={{ flex: 1 }}>
+      <View style={styles.mainContainer}>
+        <ContactTabNavigator />
         <BackWithMenuNav 
             showMenu={true}
-            showBack={true}
+            showBack={false}
             navigation={this.props.navigation}
             backPage={"mainStack"}
-
           />
         <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false} />
       </View>
@@ -127,8 +136,10 @@ class Contacts extends Component {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-start'
+    alignItems: 'stretch',
+    justifyContent: 'flex-start',
+    paddingTop: '2.5%',
+    backgroundColor: "#fafbfe",
   },
   contentContainer: {
     marginTop: 25
