@@ -64,22 +64,20 @@ class ConfirmPassphrase extends Component {
      * @param {Number} x 
      */
 
-    addWord(wordItem, scrambledListIndex){
-        const state = this.state;
-        let oldStates = state.scrambledTags
-        oldStates[scrambledListIndex].selected = true;
-        this.setState({ scrambledTags: oldStates})
-        state.selectedTags.push({"wordItem":wordItem, "scrambledWordIndex": scrambledListIndex});
-        this.setState(state)
+    addWord(wordItem, scrambledListIndex) {
+        this.setState((prevState) => {
+            prevState.scrambledTags[scrambledListIndex].selected = true;
+            prevState.selectedTags.push({ "wordItem": wordItem, "scrambledWordIndex": scrambledListIndex });
+            return prevState;
+        });
     }
 
     removeWord(wordItem, appendedWordIndex ) {
-        const state = this.state;
-        let oldState = state.scrambledTags
-        oldState[wordItem.scrambledWordIndex].selected = false
-        this.setState({ scrambledTags: oldState})
-        state.selectedTags.splice(appendedWordIndex, 1);       
-        this.setState(state)
+        this.setState((prevState) => {
+            prevState.scrambledTags[wordItem.scrambledWordIndex].selected = false;
+            prevState.selectedTags.splice(appendedWordIndex, 1);
+            return prevState;
+        });
     }
 
     /**
