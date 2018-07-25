@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
         paddingLeft: '10%',
         paddingBottom: '2.5%',
         marginTop:"10%",
-        letterSpacing: 0.84,       
+        letterSpacing: 0.8,   
+        color: '#1a1f3e'    
     },
     textBody : {
         fontFamily: "WorkSans-Light",

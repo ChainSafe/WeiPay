@@ -34,22 +34,9 @@ export default DrawerNavigator({
     screen: BackupPhrase
   },
   Contacts: {
-    screen: TabNavigator({
-      contacts: { screen: Contacts },
-      addContact: { screen: AddContact }
-    }, {
-        navigationOptions: {
-          headerStyle: {
-            borderBottomWidth: 0,
-          }
-        },
-        tabBarPosition: 'top',
-        tabBarOptions: {
-          labelStyle: { fontSize: 16, marginBottom: 13 },
-          style: {
-            borderTopColor: 'transparent'
-          }
-        }
+    screen: StackNavigator({
+        contacts: { screen: Contacts },
+        addContact: { screen: AddContact }
       })
   },
   AddToken: {

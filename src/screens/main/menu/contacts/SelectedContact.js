@@ -6,10 +6,9 @@ import { NavigationActions } from 'react-navigation';
 import { Card } from '../../../../components/common/Card';
 import { CardSection } from '../../../../components/common/CardSection';
 import { getQRCodeData } from '../../../../actions/ActionCreator'
+import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
 
-/**
- * 
- */
+
 class ContactAddresses extends Component {
   componentWillMount() {
     let addresses = this.props.navigation.state.params.addresses
@@ -60,6 +59,13 @@ class ContactAddresses extends Component {
   render() {
     return (
       <View>
+        <BackWithMenuNav 
+            showMenu={false}
+            showBack={true}
+            navigation={this.props.navigation}
+            backPage={"Contacts"}
+
+          />
         <ListView dataSource={this.dataSource} renderRow={this.renderRow.bind(this)} removeClippedSubviews={false} />
       </View>
     )

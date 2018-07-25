@@ -4,10 +4,10 @@ import { Button, List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { NavigationActions } from "react-navigation";
 import AddContactList from '../../../../../components/contacts/AddContactList';
-import { Card } from '../../../../../components/common/Card';
-import { CardSection } from '../../../../../components/common/CardSection';
-import addContactAction from '../../../../../actions/ActionCreator';
 import * as actions from '../../../../../actions/ActionCreator';
+import BackWithMenuNav from "../../../../../components/customPageNavs/BackWithMenuNav"
+import ContactTabNavigator from "../../../../../components/customPageNavs/ContactTabNavigator"
+
 
 /**
  * Is a full screen react component
@@ -31,8 +31,6 @@ class AddContact extends Component {
     let contactAddressHolder = {}
 
     if ("ContactAddresses" in this.props.currentContact) {
-
-
       contactAddressHolder = this.props.currentContact.ContactAddresses
       contactNameHolder = this.props.currentContact.name
     } else {
@@ -40,14 +38,12 @@ class AddContact extends Component {
       this.renderAddContact = this.renderAddContact.bind(this);
     }
 
-
-
-
     this.state = {
       disabled: true,
       clear: false,
       contactName: contactNameHolder,
-      contactAddress: contactAddressHolder
+      contactAddress: contactAddressHolder,
+      Active: false
     }
   }
 
@@ -103,9 +99,7 @@ class AddContact extends Component {
     this.props.addingContact(coinAddress)
   }
 
-
   navigate = () => {
-
     const navigateToQrScanner = NavigationActions.navigate({
       routeName: 'QCodeScanner',
       params: "addContact"
@@ -128,18 +122,18 @@ class AddContact extends Component {
    * Returns the form required to add a contact 
    */
   render() {
-
-    console.log("In addContact");
-
-    console.log(this.state.contactName);
-    console.log(this.state.contactAddress);
-
-    console.log("In not addContact");
-
-
-
     return (
       <View style={{ flex: 1, paddingTop: 3 }}>
+        <BackWithMenuNav 
+            showMenu={true}
+            showBack={true}
+            navigation={this.props.navigation}
+            backPage={"contacts"}
+          />
+        <ContactTabNavigator 
+          Active={this.state.active}
+          navigation={this.props.navigation} 
+        />
         <ScrollView style={{ height: '75%' }} >
           <AddContactList
             contactName={this.state.contactName}
@@ -148,7 +142,6 @@ class AddContact extends Component {
             renderName={this.renderName.bind(this)}
             contactAddress={this.state.contactAddress}
             navigate={this.props.navigation.navigate}
-
           />
         </ScrollView>
         <View style={styles.container}>

@@ -32,23 +32,14 @@ class GeneratePassphrase extends Component {
                         /> 
                     </TouchableOpacity>
                 </View>                
-                <Text style={styles.textHeader} >Your Passphrase</Text>                                
-                <View style={{flex:1}}> 
+                <Text style={styles.textHeader} >Your Passphrase</Text>                                             
                     <View style={styles.contentContainer} >
-                        <Card containerStyle={{ 
-                            width: '80%', 
-                            height: '55%', 
-                            borderRadius: 7.5, 
-                            shadowOpacity: 0.5, 
-                            shadowRadius: 1.3, 
-                            shadowColor: '#dbdbdb',
-                            shadowOffset: { width: 1, height: 2 },                    
-                        }}> 
+                        <Card containerStyle={styles.cardContainer}> 
                             <Text style={styles.cardText}>
                                 Please write down your 12 word passphrase. You will need it to verify your wallet.
                             </Text>
                             <Text style={styles.textMnemonic}>
-                            {walletInfo.wallet.mnemonic}
+                                {walletInfo.wallet.mnemonic}
                             </Text>
                         </Card>
                     </View>
@@ -59,49 +50,14 @@ class GeneratePassphrase extends Component {
                         buttonText="Next"
                         customStyles={styles.button}
                         // buttonStateEnabled={this.state.buttonDisabled}
-                    />
-
-                    {/* <Button
-                        //disabled={this.props.walletName === ""}
-                        title='Next'
-                        icon={{ size: 28 }}
-                        buttonStyle={{
-                            backgroundColor: '#12c1a2', borderRadius: 100, width: 300,
-                            height: 52, padding: 5, alignItems: 'center', justifyContent: 'center', marginTop: 10
-                        }}
-                        textStyle={{ textAlign: 'center', color: 'white', fontSize: 16, fontFamily:"Cairo-Regular" }}
-                        onPress={this.navigate}
-                    /> */}
-                    <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
+                    />                   
                 </View>    
-
-                </View>
+                <View style={styles.footerGrandparentContainer} >    
+                    <View style={styles.footerParentContainer} >
+                        <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
+                    </View>  
+                </View>             
             </View>
-
-            // <View style={styles.mainContainer}>
-            //     <View style={styles.contentContainer} >
-            //         <View style={styles.form} >
-            //             <Text style={styles.walletName}>Wallet Name: {walletInfo.walletName}</Text>
-            //             <Text style={styles.passphraseHeading}> Passphrase </Text>
-            //             <CardSection>
-            //                 <Text style={styles.passphrase}>{walletInfo.wallet.mnemonic}</Text>
-            //             </CardSection>
-            //             <View style={styles.btnContainer} >
-            //                 <Button
-            //                     // disabled={this.props.walletName === ""}
-            //                     title='Next'
-            //                     icon={{ size: 28 }}
-            //                     buttonStyle={{
-            //                         backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100, width: 300,
-            //                         height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginTop: 30
-            //                     }}
-            //                     textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
-            //                     onPress={this.navigate}
-            //                 />
-            //             </View>
-            //         </View>
-            //     </View>
-            // </View>
         );
     }
 }
@@ -111,7 +67,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#fafbfe",
         width: '100%',
-        marginTop: '2.5%'
+        paddingTop: '5%'
     },
     contentContainer : {
         alignItems: 'center',
@@ -124,7 +80,15 @@ const styles = StyleSheet.create({
           android: { backgroundColor: '#fafbfe'}
         }),
         marginLeft: '9%',       
-    },   
+    }, 
+    textHeader: {       
+        fontFamily: "Cairo-Light",
+        fontSize: 26,        
+        paddingLeft: '10%',  
+        paddingBottom: '3%',
+        marginTop: '5%',
+        color: '#1a1f3e',
+    },  
     btnBack:{
         height:20, 
         width:20
@@ -134,41 +98,48 @@ const styles = StyleSheet.create({
     },
     cardText : {
         paddingBottom: '10%',
-        paddingTop: 20,
-        paddingLeft: 20,
-        paddingRight: 20,
+        lineHeight: 22,       
+        paddingTop: '5%',
+        paddingLeft: '5%',
+        paddingRight: '5%',
         fontFamily: "WorkSans-Light",  
         color: '#000000',
         fontSize: 16,
     },
-    textHeader: {       
-        fontFamily: "Cairo-Light",
-        fontSize: 24,        
-        paddingLeft: 35,  
-        paddingBottom: '3%',
-        color: '#1a1f3e',
-        alignSelf: 'flex-start',  
+    cardContainer:{
+        width: '80%', 
+        height: '55%', 
+        borderRadius: 7.5, 
+        shadowOpacity: 0.5, 
+        shadowRadius: 1.3, 
+        shadowColor: '#dbdbdb',
+        shadowOffset: { width: 1, height: 2 }   
     },
     textMnemonic: {
-        paddingLeft: 20,
-        paddingRight: 20,
-        color: '#12c1a2'
-    },
-    textFooter : {
-        fontFamily: "WorkSans-Regular",
-        fontSize: 12,
-        paddingBottom: 15,
-        paddingTop: 15,
-        justifyContent: 'flex-end', 
-        alignItems: 'center',
-        color: '#c0c0c0'
+        paddingLeft: '5%',
+        paddingRight: '5%',
+        color: '#12c1a2',
+        lineHeight: 26,    
+        letterSpacing: 0.4   
     },
     btnContainer: {
-        alignItems: 'center',
+        alignItems: 'stretch',
         justifyContent: 'flex-end',
         paddingTop: 15,
         alignContent: 'flex-end'
-    }
+    },
+    footerGrandparentContainer : {
+        alignItems:'center'
+    },
+    footerParentContainer :{ 
+        alignItems:'center'
+    },
+    textFooter : {
+        fontFamily: "WorkSans-Regular",
+        fontSize: 11,      
+        marginTop: '3.5%', 
+        color: '#c0c0c0'
+    },
 })
 
 const mapStateToProps = ({ newWallet }) => {
