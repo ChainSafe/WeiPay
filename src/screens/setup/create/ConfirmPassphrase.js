@@ -121,7 +121,7 @@ class ConfirmPassphrase extends Component {
                                                 key={item.wordItem.index} 
                                                 onClickFunction={() => this.addWord(item.wordItem, index)} 
                                                 customStyles={styles.cardButton}
-                                                buttonStateEnabled={this.state.scrambledTags[index].selected}
+                                                unlockButton={this.state.scrambledTags[index].selected}
                                                 />
                                         </View>
                                     )

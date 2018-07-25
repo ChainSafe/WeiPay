@@ -26,7 +26,7 @@ class ClearButton extends Component {
                         style={[
                             styles.buttonStyles, 
                             this.props.customStyles,
-                            this.props.buttonStateEnabled ? styles.buttonActive : styles.buttonInactive,
+                            
                             this.props.unlockButton ? styles.buttonActive : styles.buttonInactive
                         ]}
                         >
