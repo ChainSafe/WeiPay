@@ -155,11 +155,11 @@ uniform data to its users with the added benefits of reduced app storage space.
 
 # Run on Simulator 
 
-+ IOS: react-native run-ios
++ IOS: ```react-native run-ios```
 
-+ Android: react-native run-android
++ Android: ```react-native run-android```
  - Run the following commands before running the command above
-	 - sudo npm start (if on linux)
+	 - ```sudo npm start``` (if on linux)
 	 - Run the simulator from android studio or Connect your android device with usb debugging enabled
 
 
@@ -176,19 +176,19 @@ uniform data to its users with the added benefits of reduced app storage space.
 
  1.  Enable the Developers options on the Android Device
  2. Enable Usb debugging in the Developers option
- 3. Run the following command in the project directory : 'adb reverse tcp:8081 tcp:8081`
+ 3. Run the following command in the project directory : ```adb reverse tcp:8081 tcp:8081```
 
 # To Build and Debug with Android Studio run the following Commands
   
 If there is a react-native-camera folder in Android studio do the following first:
-* system terminal:  'npm install react-native-camera --save'
+* system terminal:  ```npm install react-native-camera --save```
   
   Commands:
     * Android studio terminal: './gradlew assembleDebug'
     * System terminal 1:
-                        * for Mac: 'npm start'
-                        * for linux: 'sudo npm start'
-    * System ternimal 2: 'react-native run-android'
+                        * for Mac: ```npm start```
+                        * for linux: ```sudo npm start```
+    * System ternimal 2: ```react-native run-android```
  
 
 Common Errors Encountered When Building For IOS
