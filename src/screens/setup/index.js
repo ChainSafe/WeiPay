@@ -49,14 +49,15 @@ class CreateOrRestore extends Component {
                         <LinearButton 
                             onClickFunction={this.navigateCreate}
                             buttonText="Create Wallet"  
-                            customStyles={styles.button}                      
+                            customStyles={styles.button}                                   
                         />
                     </View>
                     <View>
                       <ClearButton 
                             onClickFunction={this.navigateRestore}
                             buttonText="Restore Wallet" 
-                            customStyles={styles.button}                           
+                            customStyles={styles.button}     
+                            unlockButton={true}                                   
                         />                       
                     </View>
                 </View>

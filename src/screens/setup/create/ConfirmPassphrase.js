@@ -26,6 +26,7 @@ class ConfirmPassphrase extends Component {
         this.state = {
             selectedTags: [],
             scrambledTags: [],
+            selectedWords:[]
         }
     }
 
@@ -34,8 +35,7 @@ class ConfirmPassphrase extends Component {
      * This method is executed after the component has been rendered.
      * This method add each word of the mnemonic to the local state variable object
      */
-    componentDidMount() {
-        console.log("test");
+    componentDidMount() {      
         const state = this.state;
         const words = this.props.mnemonic.split(' ');
         var orderArray = [];
@@ -44,6 +44,8 @@ class ConfirmPassphrase extends Component {
         }
         shuffle(orderArray);
         for (let i = 0; i < words.length; i++) {
+            //console.log(orderArray[i]);
+            // state.scrambledTags.push({"word":orderArray[i], "active":false});
             state.scrambledTags.push({"wordItem":orderArray[i], "selected": false});
         }
         this.setState(state)
@@ -67,80 +69,23 @@ class ConfirmPassphrase extends Component {
      * @param {String} action 
      * @param {Number} x 
      */
-    addTag(tagItem, action, x) {
+
+    addWord(wordItem, scrambledListIndex){
         const state = this.state;
-        if (action == "init") {
-            state.scrambledTags[x].selected = true;  
-            
-        } 
+        let oldStates = state.scrambledTags
+        oldStates[scrambledListIndex].selected = true
+        this.setState({ scrambledTags: oldStates})
+        state.selectedTags.push({"wordItem":wordItem, "scrambledWordIndex": scrambledListIndex});
+        this.setState(state)
     }
 
-    /* Pass in index and remove it out of whatever state -> just removed an item from any state, pass in state and index */
-    /**
-     * Helper method for the addTag method
-     * This method goes through the logic of transfering the selected tag to the "currentStateVariable"
-     * list.
-     * "currentStateVariable"  = "scrambledTags" | "selectedTags"
-     * @param {String} tagItem 
-     * @param {String} currentStateVariable 
-     * @param {Number} currenIndex 
-     */
-    swapTag(tagItem, currentStateVariable, currenIndex) {
+    removeWord(wordItem, appendedWordIndex ) {
         const state = this.state;
-        if (currentStateVariable == "scrambledTags") {
-            state.scrambledTags.push(tagItem);
-            state.selectedTags.splice(currenIndex, 1);
-            this.setState(state)
-        } else if (currentStateVariable == "selectedTags") {
-            state.selectedTags.push(tagItem);
-            state.scrambledTags.splice(currenIndex, 1);
-            this.setState(state)
-        } 
-    }
-
-    /**
-     * This method is used to check if the order of the tags in the input
-     * box match with the order of the passphrase list
-     */
-    validatePassphrase = () => {
-        this.navigate();
-        // const { scrambledTags, selectedTags } = this.state;
-        // var passphraseIncomplete = true;
-        // var count = 0;
-
-        // //check if all the tags have been selected
-        // if (scrambledTags.length == 0) {
-        //     console.log("all selected");
-        //     for (var i = 0; i < selectedTags.length; i++) {
-        //         //need to use i as the selected order and compare to index of the word to check if they are equal
-        //         if (selectedTags[i].index == i) {
-        //             count++;
-        //             passphraseIncomplete = false;
-        //         }
-        //     }
-        //     if (count == selectedTags.length) {
-        //         this.navigate();
-        //     } else {
-        //         Alert.alert(
-        //             'Passphrase Error',
-        //             'You did not enter the right passphrase in the correct order. Please try again.',
-        //             [
-        //                 { text: 'OK', onPress: () => console.log('OK Pressed') },
-        //             ],
-        //             { cancelable: false }
-        //         )
-        //     }
-        // } else {
-        //     Alert.alert(
-        //         'Passphrase Error',
-        //         'You must select all words.',
-        //         [
-        //             { text: 'OK', onPress: () => console.log('OK Pressed') },
-        //         ],
-        //         { cancelable: false }
-        //     )
-        // }
-        // console.log(this.state);
+        let oldState = state.scrambledTags
+        oldState[wordItem.scrambledWordIndex].selected = false
+        this.setState({ scrambledTags: oldState})
+        state.selectedTags.splice(appendedWordIndex, 1);       
+        this.setState(state)
     }
 
     /**
@@ -148,7 +93,7 @@ class ConfirmPassphrase extends Component {
      * in the correct order
      */
     render() {
-        const { selectedTags, scrambledTags } = this.state;
+        const { selectedTags, scrambledTags, selectedWords } = this.state;
         return (
             <View style={styles.mainContainer}>
                 <View style={styles.headerBack}> 
@@ -161,23 +106,20 @@ class ConfirmPassphrase extends Component {
                     </TouchableOpacity>
                 </View>  
                 <Text style={styles.textHeader} >Confirm Passphrase</Text>                
-                
                 <View style={styles.contentContainer} >
                     <Card containerStyle={styles.cardContainer}> 
                         <Text style={styles.cardText}>
                             Please assemble your passphrase in the correct order.
                         </Text>
-
                         <View style={styles.tagContainer} >
                             {
-                                scrambledTags.map((item, index) => {
-                                    // return <Button title={item.word} key={item.index} onPress={() => this.addTag(item, "init", index)} />
+                                scrambledTags.map((item, index) => {                  
                                     return (
                                         <View key={item.wordItem.index} style={styles.cardButtonContainer}>
                                             <ClearButton 
                                                 buttonText={item.wordItem.word} 
                                                 key={item.wordItem.index} 
-                                                onClickFunction={() => this.addTag(item.wordItem, "init", index)} 
+                                                onClickFunction={() => this.addWord(item.wordItem, index)} 
                                                 customStyles={styles.cardButton}
                                                 buttonStateEnabled={this.state.scrambledTags[index].selected}
                                                 />
@@ -186,32 +128,24 @@ class ConfirmPassphrase extends Component {
                                 })
                             }
                         </View>
-                        {/* <View style={styles.tagContainer} >
+                        <View style={styles.selectedTextContainer} >
                             {
                                 selectedTags.map((item, index) => {
                                     return (
-                                        <View key={item.index}  style={styles.cardSelectedButtonContainer}>
+                                        <View key={item.wordItem.index} style={styles.cardSelectedButtonContainer}>
                                             <TouchableOpacity
-                                                onPress={() => this.addTag(item, "revert", index)}>
-                                                <Text> 
-                                                    {item.word}
+                                                onPress={() => this.removeWord(item, index)}>
+                                                <Text style={styles.selectedWordText}> 
+                                                    {item.wordItem.word}
                                                 </Text>
                                             </TouchableOpacity>
                                         </View>
-                                    )
-                                    // return <Button
-                                    // style={styles.tag}
-                                    // title={item.word}
-                                    // key={item.index}
-                                    // onPress={() => this.addTag(item, "revert", index)} />
+                                    )                                  
                                 })
                             }
-                        </View> */}
-
-
+                        </View>
                     </Card>
                 </View>
-
                 <View style={styles.btnContainer}>
                   <LinearButton 
                         onClickFunction={this.navigate}
@@ -220,14 +154,12 @@ class ConfirmPassphrase extends Component {
                         // buttonStateEnabled={this.state.buttonDisabled}
                     />                    
                 </View>    
-
                 <View style={styles.footerGrandparentContainer} >    
                     <View style={styles.footerParentContainer} >
                         <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
                     </View>  
                 </View> 
             </View>
-            
         );
     }
 }
@@ -270,9 +202,22 @@ const styles = StyleSheet.create({
         paddingBottom: '2%',
         paddingRight: '1.75%'
     },
+    selectedTextContainer:{
+        paddingTop: '5%',
+        paddingLeft: '5%',
+        paddingRight: '5%',
+        flexDirection: 'row',
+        flexWrap: 'wrap'
+    },
     cardSelectedButtonContainer:{
         paddingBottom: '2%',
         paddingRight: '1.75%'
+    },
+    selectedWordText:{
+        fontSize: 14,
+        lineHeight: 22, 
+        color: "#27c997",
+        fontFamily: "WorkSans-Regular",    
     },
     cardButton: {
         height: 32,
