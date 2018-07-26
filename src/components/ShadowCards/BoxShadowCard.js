@@ -3,20 +3,19 @@ import { View, TouchableOpacity, StyleSheet, TextInput, Text } from "react-nativ
 import LinearGradient  from 'react-native-linear-gradient'
 
 
-class BoxShadowCard extends Component {
 
-    render() {
+const BoxShadowCard = (props) => {
+    
         return (
         <LinearGradient
                 colors={['transparent', 'rgba(109, 108, 108,.05)', 'transparent']}
-                style={[styles.GradientStyling, {justifyContent: 'center'}, this.props.customStyling]}
+                style={[styles.GradientStyling, {justifyContent: 'center'}, props.customStyling]}
             >
             <View style={[styles.ChildContainerStyles]}>
-                {this.props.children}
+                {props.children}
             </View>
         </LinearGradient>   
     );
-  }
 }
 
 const gradientColors = {
