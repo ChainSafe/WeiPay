@@ -1,37 +1,32 @@
-import React, { Component } from "react";
-import { View, TouchableOpacity, ScrollView, StyleSheet, Text, TextInput, Image, AsyncStorage, Dimensions, Platform } from "react-native";
-import { NavigationActions } from "react-navigation";
-import { connect } from "react-redux";
-import { FormLabel, FormInput, FormValidationMessage, Card } from 'react-native-elements';
-import { Input } from '../../../components/common/Input';
+import React, { Component } from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+import { NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux';
+import { FormInput, Card } from 'react-native-elements';
 import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCreator';
-import provider from '../../../constants/Providers';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
-import {BoxShadow} from 'react-native-shadow';
-
-const ethers = require('ethers');
+import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 
 /**
  * Initial setup screen used to allow the user to give their wallet a name after
  * the wallet has been recovered
  */
 class CreateWalletName extends Component {
-
     /**
      * Method is used to navigate back to the recoverWallet screen.
      */
     navigate = () => {
-        const navigateToPassphrase = NavigationActions.navigate({ routeName: "recoverWallet" });
-        this.props.navigation.dispatch(navigateToPassphrase);
+      const navigateToPassphrase = NavigationActions.navigate({ routeName: 'recoverWallet' });
+      this.props.navigation.dispatch(navigateToPassphrase);
     };
 
     /**
      * Executes the action "newWalletNameEntry" with "name" as the parameter
      * in order to update the name of the wallet in the global state variable
-     * @param {String} name 
+     * @param {String} name
      */
     getWalletName(name) {
-        this.props.newWalletNameEntry(name);
+      this.props.newWalletNameEntry(name);
     }
 
     /**
@@ -39,46 +34,55 @@ class CreateWalletName extends Component {
      * Returns the form required for the user to set the name of their wallet
      */
     render() {
-        return (
-            <View style={styles.mainContainer}>   
-                <View style={styles.headerBack}> 
-                    <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('createOrRestore')} >
-                        <Image
-                            source={require('../../../assets/icons/back.png')}
-                            style={styles.btnBack}
-                        /> 
-                    </TouchableOpacity>
-                </View>   
-                <Text style={styles.textHeader}>Wallet Name</Text>                               
-                <View style={styles.contentContainer} >                   
-                    <Card containerStyle={styles.cardContainer}> 
-                      
-                        <Text style={styles.cardText}>
-                            Create a name for your wallet, for example: My Wallet 
-                        </Text>                        
-                       
+      const {
+        mainContainer,
+        textHeader,
+        contentContainer,
+        cardContainer,
+        cardText,
+        txtWalletName,
+        btnContainer,
+        button,
+        footerGrandparentContainer,
+        footerParentContainer,
+        textFooter,
+      } = styles;
+
+      return (
+            <View style={mainContainer}>
+                <BackWithMenuNav
+                    showMenu={false}
+                    showBack={true}
+                    navigation={this.props.navigation}
+                    backPage={'createOrRestore'}
+                />
+                <Text style={textHeader}>Wallet Name</Text>
+                <View style={contentContainer}>
+                    <Card containerStyle={cardContainer}>
+                        <Text style={cardText}>
+                            Create a name for your wallet, for example: My Wallet
+                        </Text>
                         <FormInput
-                            placeholder={"Ex. My Wallet"}
+                            placeholder={'Ex. My Wallet'}
                             onChangeText={this.getWalletName.bind(this)}
-                            inputStyle={styles.txtWalletName}
-                        /> 
-                    </Card>          
+                            inputStyle={txtWalletName}
+                        />
+                    </Card>
               </View>
-            <View style={styles.btnContainer}>
-                <LinearButton 
+            <View style={btnContainer}>
+                <LinearButton
                     onClickFunction={this.navigate }
-                    buttonText="Next"  
-                    customStyles={styles.button}                                         
-                />               
-            </View>  
-            <View style={styles.footerGrandparentContainer} >    
-                <View style={styles.footerParentContainer} >
-                    <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
-                </View>  
-            </View>   
+                    buttonText= 'Next'
+                    customStyles={button}
+                />
+            </View>
+            <View style={footerGrandparentContainer}>
+                <View style={footerParentContainer} >
+                    <Text style={textFooter} >Powered by ChainSafe </Text>
+                </View>
+            </View>
         </View>
-        );
+      );
     }
 }
 
@@ -86,93 +90,79 @@ class CreateWalletName extends Component {
  * Styles used in the "CreateWalletNameRecovery" screen
  */
 const styles = StyleSheet.create({
-    mainContainer: {
-        flex: 1,
-        paddingTop: '5%',   
-        backgroundColor: "#fafbfe",
-        width: '100%',
-        height: '100%'
-    },
-    headerBack: {
-        marginTop: Platform.OS === 'ios' ? '5%' : '5%',
-        ...Platform.select({
-          ios: { backgroundColor: '#fafbfe'},
-          android: { backgroundColor: '#fafbfe'}
-        }),
-        marginLeft: '9%',       
-    },   
-    btnBack:{
-        height:20, 
-        width:20
-    },
-    textHeader: {       
-        fontFamily: "Cairo-Light",
-        fontSize: 26,   
-        letterSpacing: 0.8,     
-        paddingLeft: '9%', 
-        paddingBottom: '3%',
-        marginTop: '5%',
-        color: '#1a1f3e'
-    },
-    contentContainer : {
-        alignItems: 'center',
-        flex: 1
-    },
-    cardContainer: {
-        width: '82%', 
-        height: '55%', 
-        borderRadius: 7.5, 
-        shadowOpacity: 0.5, 
-        shadowRadius: 1.3, 
-        shadowColor: '#dbdbdb',
-        shadowOffset: { width: 1, height: 2 }   
-    },
-    cardText : {
-        paddingBottom: '20%',
-        paddingTop: '5%',
-        paddingLeft: '5%',
-        paddingRight: '5%',
-        fontFamily: "WorkSans-Light",  
-        color: '#000000',
-        fontSize: 16,
-    },
-    txtWalletName: {
-        width:'100%', 
-        flexWrap: 'wrap', 
-        color:'#12c1a2',
-        letterSpacing: 0.4,
-        fontFamily: "WorkSans-Regular",  
-    },
-    btnContainer: {
-        alignItems: 'stretch',
-        justifyContent: 'flex-end',
-        width: '100%',      
-    },
-    button: {
-        width: '82%'
-    },
-    footerGrandparentContainer : {
-        alignItems:'center'
-    },
-    footerParentContainer :{ 
-        alignItems:'center'
-    },
-    textFooter : {
-        fontFamily: "WorkSans-Regular",
-        fontSize: 11,      
-        marginTop: '3.5%', 
-        color: '#c0c0c0'
-    }
-})
+  mainContainer: {
+    flex: 1,
+    paddingTop: '5%',
+    backgroundColor: '#fafbfe',
+    width: '100%',
+    height: '100%',
+  },
+  textHeader: {
+    fontFamily: 'Cairo-Light',
+    fontSize: 26,
+    letterSpacing: 0.8,
+    paddingLeft: '9%',
+    paddingBottom: '3%',
+    color: '#1a1f3e',
+  },
+  contentContainer: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  cardContainer: {
+    width: '82%',
+    height: '55%',
+    borderRadius: 7.5,
+    shadowOpacity: 0.5,
+    shadowRadius: 1.3,
+    shadowColor: '#dbdbdb',
+    shadowOffset: { width: 1, height: 2 },
+  },
+  cardText: {
+    paddingBottom: '20%',
+    paddingTop: '5%',
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    fontFamily: 'WorkSans-Light',
+    color: '#000000',
+    fontSize: 16,
+  },
+  txtWalletName: {
+    width: '100%',
+    flexWrap: 'wrap',
+    color: '#12c1a2',
+    letterSpacing: 0.4,
+    fontFamily: 'WorkSans-Regular',  
+  },
+  btnContainer: {
+    alignItems: 'stretch',
+    justifyContent: 'flex-end',
+    width: '100%',
+  },
+  button: {
+    width: '82%',
+  },
+  footerGrandparentContainer: {
+    alignItems: 'center',
+  },
+  footerParentContainer: {
+    alignItems: 'center',
+  },
+  textFooter: {
+    fontFamily: 'WorkSans-Regular',
+    fontSize: 11,
+    marginTop: '3.5%',
+    color: '#c0c0c0',
+  },
+});
 
 /**
  * This method is not being used here
- * @param {Object} param0 
+ * @param {Object} param
  */
 const mapStateToProps = ({ newWallet }) => {
-    const { walletName } = newWallet;
-    return { walletName }
-}
+  const { walletName } = newWallet;
+  return { walletName };
+};
 
 export default connect(mapStateToProps, { newWalletNameEntry, newWalletCreation })(CreateWalletName);
-

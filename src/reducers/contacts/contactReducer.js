@@ -4,12 +4,12 @@ const INITIAL_STATE = {
   contacts: [],
   currentContact: {},
   addingContact: true,
-  contactName: "",
-  contactAddress: {}
-}
+  contactName: '',
+  contactAddress: {},
+};
 
 /**
- * Reducer used to handle all actions occurring during the process of 
+ * Reducer used to handle all actions occurring during the process of
  * adding a new contact. Each case represents an Action
  */
 export default (state = INITIAL_STATE, action) => {
@@ -17,37 +17,35 @@ export default (state = INITIAL_STATE, action) => {
     case actions.ADDING_CONTACT:
       var contact = state.currentContact;
 
-      //Object.keys(contact)[0]
+      // Object.keys(contact)[0]
 
-      const actionKey = Object.keys(action.payload)[0]
-      const actionKeyValue = action.payload[Object.keys(action.payload)[0]]
+      const actionKey = Object.keys(action.payload)[0];
+      const actionKeyValue = action.payload[Object.keys(action.payload)[0]];
 
       if (actionKey in contact) {
-        contact[actionKey] = actionKeyValue
+        contact[actionKey] = actionKeyValue;
       } else {
-        contact[actionKey] = actionKeyValue
+        contact[actionKey] = actionKeyValue;
       }
 
       // console.log("Contact Details: ");
       // console.log(contact);
 
-      return { ...state, currentContact: contact }
+      return { ...state, currentContact: contact };
 
-    
+
     case actions.COMPLETE_CONTACT:
-      var old = state.contacts
+      var old = state.contacts;
 
       // old.push(state.currentContact)
       // [...old, state.currentContact]
 
-      let newContact = [...state.contacts, action.payload]
+      const newContact = [...state.contacts, action.payload];
       console.log(newContact);
 
-      return { ...state, contacts: newContact, currentContact: {} }
+      return { ...state, contacts: newContact, currentContact: {} };
 
     default:
       return state;
   }
- 
-
-}
+};

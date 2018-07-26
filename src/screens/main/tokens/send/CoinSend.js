@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Alert, TouchableOpacity, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { FormInput, Button, Card } from 'react-native-elements';
-import { NavigationActions } from "react-navigation";
+import { NavigationActions } from 'react-navigation';
 import { getQRCodeData, addTokenInfo } from '../../../../actions/ActionCreator';
 import provider from '../../../../constants/Providers';
 import { qrScannerInvoker } from '../../../../actions/ActionCreator'
@@ -30,10 +30,10 @@ class CoinSend extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      toAddress: "",
+      toAddress: '',
       value: 0,
       resetInput: false,
-      inputValue: ""
+      inputValue: ''
     }
 
     /**
@@ -42,7 +42,7 @@ class CoinSend extends Component {
      */
     provider.getBalance(this.props.wallet.address).then(function (balance) {
       const etherString = utils.formatEther(balance);
-      console.log("Current Wallet Balance" + etherString);
+      console.log('Current Wallet Balance' + etherString);
       if (etherString == 0) {
         Alert.alert(
           'No Ether Alert',
@@ -99,11 +99,11 @@ class CoinSend extends Component {
           { cancelable: false }
         )
       } else {
-        console.log("is a number " + valueInput)
+        console.log('is a number ' + valueInput)
         this.setState({ value: valueInput });
       }
     } else {
-      console.log("not a number " + valueInput)
+      console.log('not a number ' + valueInput)
       this.setState({ value: 0 });
     }
   }
@@ -128,19 +128,19 @@ class CoinSend extends Component {
       console.log(transactionHash);
       provider.getBalance(currentWallet.address).then(function (balance) {
         const etherString = utils.formatEther(balance);
-        console.log("currentWallet Balance: " + etherString);
+        console.log('currentWallet Balance: ' + etherString);
       });
       provider.getBalance(receivingAddress).then(function (balance) {
         const etherString = utils.formatEther(balance);
-        console.log("receiving account Balance: " + etherString);
+        console.log('receiving account Balance: ' + etherString);
       });
     });
   }
 
   sendERC20Transaction = () => {
-    console.log("IN SEND TRANSACTION FUNCTION")
+    console.log('IN SEND TRANSACTION FUNCTION')
     const val = this.state.value
-    console.log("THE val is")
+    console.log('THE val is')
     console.log(val)
     const toAddr = this.state.toAddress
     const currentWallet = this.props.wallet;
@@ -171,10 +171,10 @@ class CoinSend extends Component {
    * Is used to navigate to the Qr-Code scanner
    */
   navigate = () => {
-    this.props.qrScannerInvoker("CoinSend")
+    this.props.qrScannerInvoker('CoinSend')
     const navigateToQRScanner = NavigationActions.navigate({
-      routeName: "QCodeScanner",
-      params: { name: "Shubhnik", invoker: "CoinSend" }
+      routeName: 'QCodeScanner',
+      params: { name: 'Shubhnik', invoker: 'CoinSend' }
     });
     this.props.navigation.dispatch(navigateToQRScanner);
   };
@@ -311,7 +311,7 @@ const styles = StyleSheet.create({
     paddingTop: '8%',
     paddingLeft: '5%',
     paddingRight: '5%',
-    fontFamily: "WorkSans-Light",  
+    fontFamily: 'WorkSans-Light',  
     color: '#000000',
     fontSize: 16,
     lineHeight: 22
@@ -321,14 +321,14 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap', 
     color:'#12c1a2', 
     fontSize:16, 
-    fontFamily: "WorkSans-Light",
+    fontFamily: 'WorkSans-Light',
     letterSpacing:0.4
   },
   topFormInput:{
     paddingBottom: '6%'
   },
   transactionFee : {
-    fontFamily: "WorkSans-Light",
+    fontFamily: 'WorkSans-Light',
     fontSize: 9,
     letterSpacing: 0.3,
     paddingLeft: '7%',
@@ -356,7 +356,7 @@ const styles = StyleSheet.create({
       alignItems:'center'
   },
   textFooter : {
-      fontFamily: "WorkSans-Regular",
+      fontFamily: 'WorkSans-Regular',
       fontSize: 11,      
       marginTop: '3.5%',      
       color: '#c0c0c0'
