@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { FormLabel, FormInput, FormValidationMessage, Card } from 'react-native-elements';
 import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCreator';
 import LinearButton   from '../../../components/LinearGradient/LinearButton'
+import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard'
+import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 const ethers = require('ethers');
 
 /**
@@ -49,18 +51,15 @@ class CreateWalletName extends Component {
         return (           
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.mainContainer} >        
-                    <View style={styles.headerBack}> 
-                        <TouchableOpacity
-                            onPress={() => this.props.navigation.navigate('createOrRestore')} >
-                            <Image
-                                source={require('../../../assets/icons/back.png')}
-                                style={styles.btnBack}
-                            /> 
-                        </TouchableOpacity>
-                    </View>   
-                    <Text style={styles.textHeader} >Wallet Name</Text>                               
-                    <View style={styles.contentContainer} >
-                        <Card containerStyle={styles.cardContainer}> 
+                    <BackWithMenuNav
+                        showMenu={false}
+                        showBack={true}
+                        navigation={this.props.navigation}
+                        backPage={'createOrRestore'}
+                    />
+                    <Text style={styles.textHeader} >Wallet Name</Text>
+                    <View style={{alignItems: 'center' , width: '82%', height: '55%',  flex: 1, marginLeft: '9%'}}>
+                        <BoxShadowCard customStyles={styles.contentContainer}>
                             <Text style={styles.cardText}>
                                 Create a name for your wallet, for example: My Wallet
                             </Text>
@@ -69,7 +68,7 @@ class CreateWalletName extends Component {
                                 onChangeText={this.getWalletName.bind(this)}
                                 inputStyle={styles.txtWalletName}
                             /> 
-                        </Card>
+                        </BoxShadowCard>
                     </View>
                     <View style={styles.btnContainer}>
                         <LinearButton 
@@ -78,7 +77,7 @@ class CreateWalletName extends Component {
                             customStyles={styles.button}
                             // buttonStateEnabled={this.state.buttonDisabled}
                         />
-                    </View>                  
+                    </View>
                     <View style={styles.footerGrandparentContainer} >    
                         <View style={styles.footerParentContainer} >
                             <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
@@ -93,11 +92,11 @@ class CreateWalletName extends Component {
 const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
-        justifyContent: "center",
-        paddingTop: '5%',   
+        
+        paddingTop: '5%',
         backgroundColor: "#fafbfe",
-        width: '100%',
-        height: '100%',       
+        // width: '100%',
+        // height: '100%',       
     },
     headerBack: {
         marginTop: Platform.OS === 'ios' ? '5%' : '5%',
@@ -116,21 +115,16 @@ const styles = StyleSheet.create({
         fontSize: 26,        
         paddingLeft: '10%',  
         paddingBottom: '3%',
-        marginTop: '5%',
+        
         color: '#1a1f3e'
     },
     contentContainer : {
-        alignItems: 'center',
-        flex: 1
+        height: '100%',
+        
     },
     cardContainer: {
         width: '82%', 
-        height: '55%', 
-        borderRadius: 7.5, 
-        shadowOpacity: 0.5, 
-        shadowRadius: 1.3, 
-        shadowColor: '#dbdbdb',
-        shadowOffset: { width: 1, height: 2 }   
+        height: '55%',    
     },
     cardText : {
         paddingBottom: '20%',
@@ -147,9 +141,10 @@ const styles = StyleSheet.create({
         color:'#12c1a2'
     },
     btnContainer: {
+        flex: 1,
         alignItems: 'stretch',
         justifyContent: 'flex-end',
-        width: '100%',      
+        width: '100%', 
     },
     button: {
         width: '82%'

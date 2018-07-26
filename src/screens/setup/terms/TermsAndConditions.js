@@ -3,6 +3,7 @@ import { Text, View, ScrollView, StyleSheet, Dimensions, TouchableOpacity, Platf
 import { NavigationActions } from "react-navigation";
 import { Terms } from '../../../constants/Terms';
 import LinearButton   from '../../../components/LinearGradient/LinearButton'
+import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard'
 
 /**
  * Initial terms and condition screen when the app is oppened for the first time.
@@ -49,7 +50,8 @@ class TermsAndConditions extends Component {
  */
 const styles = StyleSheet.create({    
     mainContainer: {
-        flex: 1,             
+        flex: 1,
+        justifyContent: 'flex-start',             
         backgroundColor: '#fafbfe',
         width: '100%',           
     },
