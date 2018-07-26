@@ -19,7 +19,7 @@ import QrCodeScanner from '../../screens/main/qr/QrCodeScanner';
 import BackupPhrase from '../../screens/main/menu/settings/BackupPhrase';
 
 /**
- * Constant contains all the screens that can be navigated to using the 
+ * Constant contains all the screens that can be navigated to using the
  * navigate method from any class
  */
 const navigator = DrawerNavigator({
@@ -37,8 +37,8 @@ const navigator = DrawerNavigator({
         initialRouteName: 'portfolio',
         headerMode: 'none',
         navigationOptions: {
-        backgroundColor: "#fafbfe", 
-        borderBottomWidth: 0,  
+        backgroundColor: "#fafbfe",
+        borderBottomWidth: 0,
       },
     })},
       backupPhrase: { screen: BackupPhrase },
@@ -59,14 +59,15 @@ const navigator = DrawerNavigator({
           },
           {
             headerMode: 'none'
-          })},      
+          })},
         }, {
     headerMode: 'none',
     navigationOptions: {
-      backgroundColor: "#fafbfe", 
-      borderBottomWidth: 0,  
+      backgroundColor: "#fafbfe",
+      borderBottomWidth: 0,
     },
-    lazy: true
+    lazy: true,
+    drawerPosition: 'right'
   });
 
 export default navigator;
