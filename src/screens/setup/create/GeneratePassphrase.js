@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Image, Platform } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { Card } from 'react-native-elements';
@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
     fontSize: 26,
     paddingLeft: '10%',
     paddingBottom: '3%',
-    marginTop: '5%',
     color: '#1a1f3e',
   },
   contentContainer: {

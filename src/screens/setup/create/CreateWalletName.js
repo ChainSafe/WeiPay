@@ -116,7 +116,6 @@ const styles = StyleSheet.create({
     fontSize: 26,
     paddingLeft: '10%',
     paddingBottom: '3%',
-    marginTop: '5%',
     color: '#1a1f3e',
   },
   contentContainer: {
