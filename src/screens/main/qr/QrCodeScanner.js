@@ -30,9 +30,6 @@ class QrCodeScanner extends Component {
             currentContactName: this.props.data.contactName,
             previousInputs: this.props.data.allAddressInputs,
             coinInvoker: this.props.data.coinName
-
-
-
         }
     }
 
