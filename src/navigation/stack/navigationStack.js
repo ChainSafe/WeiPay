@@ -1,4 +1,3 @@
-import React from 'react';
 import { StackNavigator } from 'react-navigation';
 import TermsScreen from '../../screens/setup/terms/TermsAndConditions';
 import CreateOrRestore from '../../screens/setup/index';
@@ -9,7 +8,6 @@ import CreateWalletNameRecovered from '../../screens/setup/recover/CreateWalletN
 import RecoverWallet from '../../screens/setup/recover/RecoverWallet';
 import EnableTokens from '../../screens/setup/crypto/EnableTokens';
 import mainBucketNavigation from '../stack/mainBucketStack'
-import PortfolioToken from '../../screens/main//portfolio/tabs/PortfolioToken';
 import AddToken from '../../screens/main/tokens/add/index';
 import addContact from '../../screens/main/menu/contacts/add/AddContact';
 import contacts from '../../screens/main/menu/contacts/index';
