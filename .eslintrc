@@ -16,6 +16,6 @@
       "airbnb-base"
     ],
     "rules" : {
-      "arrow-body-style" : "warn"
+      "arrow-body-style": ["error", "always"]
     }
   }
