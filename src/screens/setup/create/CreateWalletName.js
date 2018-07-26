@@ -71,7 +71,7 @@ class CreateWalletName extends Component {
                         backPage={'createOrRestore'}
                     />
                     <Text style={styles.textHeader} >Wallet Name</Text>
-                    <View style={{alignItems: 'center' , width: '82%', height: '55%',  flex: 1, marginLeft: '9%'}}>
+                    <View style={{backgroundColor:"blue", alignItems: 'stretch' , width: '82%', height: '55%',  flex: 1, marginLeft: '9%'}}>
                         <BoxShadowCard customStyles={styles.contentContainer}>
                             <Text style={styles.cardText}>
                                 Create a name for your wallet, for example: My Wallet
@@ -104,36 +104,20 @@ class CreateWalletName extends Component {
 
 const styles = StyleSheet.create({
     mainContainer: {
-        flex: 1,
-        
+        flex: 1,        
         paddingTop: '5%',
-        backgroundColor: "#fafbfe",
-        // width: '100%',
-        // height: '100%',       
-    },
-    headerBack: {
-        marginTop: Platform.OS === 'ios' ? '5%' : '5%',
-        ...Platform.select({
-          ios: { backgroundColor: '#fafbfe'},
-          android: { backgroundColor: '#fafbfe'}
-        }),
-        marginLeft: '9%',       
-    }, 
-    btnBack:{
-        height:20, 
-        width:20
-    },
+        backgroundColor: "#fafbfe",            
+    },      
     textHeader: {       
         fontFamily: "Cairo-Light",
         fontSize: 26,        
         paddingLeft: '10%',  
-        paddingBottom: '3%',
-        
+        paddingBottom: '3%',        
         color: '#1a1f3e'
     },
     contentContainer : {
-        height: '100%',
-        
+        height: '100%',  
+        width: '100%'      
     },
     cardContainer: {
         width: '82%', 

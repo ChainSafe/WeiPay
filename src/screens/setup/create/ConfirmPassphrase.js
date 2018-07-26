@@ -208,22 +208,24 @@ const styles = StyleSheet.create({
     marginRight: '2.5%',
     alignContent: 'space-around',
   },
+  cardButtonContainer: {
+    paddingBottom: '2%',
+    paddingRight: '1.75%',
+    // flex:1
+  },
   cardButton: {
     height: 32,
-    justifyContent: 'center',
+    // height: '33%',
+     justifyContent: 'center',
   },
   cardContainer: {
     width: '80%',
-    height: '85%',
+    height: '90%',
     borderRadius: 7.5,
     shadowOpacity: 0.5,
     shadowRadius: 1.3,
     shadowColor: '#dbdbdb',
     shadowOffset: { width: 1, height: 2 },
-  },
-  cardButtonContainer: {
-    paddingBottom: '2%',
-    paddingRight: '1.75%',
   },
   selectedTextContainer: {
     paddingTop: '5%',
@@ -242,13 +244,14 @@ const styles = StyleSheet.create({
     color: '#27c997',
     fontFamily: 'WorkSans-Regular',
   },
-  tag: {
-    margin: 2,
-    width: Dimensions.get('window').width / 3 - 15,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  // tag: {
+  //   margin: 2,
+  //   width: Dimensions.get('window').width / 3 - 15,
+  //   // height: 40,
+  //   height: '5.5%',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  // },
   button: {
     width: '82%',
   },
