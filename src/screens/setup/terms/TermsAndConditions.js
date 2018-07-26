@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, StyleSheet } from 'react-native';
+import { Text, View, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { Terms } from '../../../constants/Terms';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '82%',
+    height: Dimensions.get('window').height * 0.082,  
   },
   footerContainer: {
     alignItems: 'center',
