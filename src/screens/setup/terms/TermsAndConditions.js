@@ -39,7 +39,7 @@ class TermsAndConditions extends Component {
                 <Text style={textHeader} >Terms & Conditions </Text>
                 <ScrollView style={scrollView}>
                     <Text style={textBody} >{Terms}</Text>
-                </ScrollView>
+                </ScrollView>                
                 <View style={btnContainer}>
                     <LinearButton
                         onClickFunction={this.navigate}
@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
     marginTop: '5%',
     marginBottom: '3.5%',
     width: '100%',
+    marginLeft: '9%',
   },
   button: {
     width: '82%',
