@@ -29,7 +29,7 @@ export default (state = INITIAL_STATE, action) => {
     case actions.NEW_WALLET_NAME:
       return { ...state, walletName: action.payload };
     case actions.ADD_TOKEN_SETUP:
-      var current = state.tokens;
+      const current = state.tokens;
       let newTokens = [];
       const index = current.map(token => token.id).indexOf(action.payload.id);
       if (index === -1) {      
