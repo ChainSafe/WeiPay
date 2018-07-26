@@ -15,7 +15,7 @@ import AddToken from '../../screens/main/tokens/add/index';
 
 /**
  * Creates a componet containing the Slide in DrawerNavigator
- * @param {Object} props 
+ * @param {Object} props
  */
 const CustomDrawerContentComponent = props => (
   <View style={{ flex: 1 }}>
@@ -55,9 +55,10 @@ export default DrawerNavigator({
   search: {
     screen: Search
   }
-}, 
+},
   {
     contentComponent: CustomDrawerContentComponent,
     headerMode: 'none',
-    header: false
+    header: false,
+    drawerPosition: 'right'
   })

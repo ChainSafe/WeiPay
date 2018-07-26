@@ -22,23 +22,23 @@ class TermsAndConditions extends Component {
     /**
      * Returns the scrollable component that displays the terms and conditions with a submit button
      */
-    render() {      
+    render() {
         return (
             <View style={styles.mainContainer}>
-                <Text style={styles.textHeader} >Terms & Conditions </Text>
-                <ScrollView>
-                    <Text style={styles.textBody} >{Terms}</Text>
-                </ScrollView>                        
-                <View style={styles.btnContainer}>
-                    <LinearButton 
-                        onClickFunction={this.navigate}
-                        buttonText="Agree"
+              <Text style={styles.textHeader} >Terms & Conditions </Text>
+              <ScrollView>
+                <Text style={styles.textBody} >{Terms}</Text>
+              </ScrollView>
+              <View style={styles.btnContainer}>
+                <LinearButton
+                  onClickFunction={this.navigate}
+                  buttonText="Agree"
                         customStyles={styles.button}
                     />
                 </View>
                 <View style={{alignItems:"center"}}>
-                    <Text style={styles.textFooter}>Powered by ChainSafe </Text> 
-                </View>            
+                    <Text style={styles.textFooter}>Powered by ChainSafe </Text>
+                </View>
             </View>
         );
     }
@@ -47,11 +47,11 @@ class TermsAndConditions extends Component {
 /**
  * Styles used in the terms and condition screen
  */
-const styles = StyleSheet.create({    
+const styles = StyleSheet.create({
     mainContainer: {
-        flex: 1,             
+        flex: 1,
         backgroundColor: '#fafbfe',
-        width: '100%',           
+        width: '100%',
     },
     textHeader : {
         fontFamily: "Cairo-Light",
@@ -59,19 +59,19 @@ const styles = StyleSheet.create({
         paddingLeft: '10%',
         paddingBottom: '2.5%',
         marginTop:"10%",
-        letterSpacing: 0.8,   
-        color: '#1a1f3e'    
+        letterSpacing: 0.8,
+        color: '#1a1f3e'
     },
     textBody : {
         fontFamily: "WorkSans-Light",
-        fontSize: 12,   
+        fontSize: 12,
         paddingLeft: '10%',
-        paddingRight: '10%', 
-        lineHeight:16  
+        paddingRight: '10%',
+        lineHeight:16
     },
-    btnContainer: {  
-        marginTop: '5%',    
-        marginBottom: '3.5%',      
+    btnContainer: {
+        marginTop: '5%',
+        marginBottom: '3.5%',
         width: '100%',
     },
     button: {
@@ -81,10 +81,10 @@ const styles = StyleSheet.create({
         fontFamily: "WorkSans-Regular",
         fontSize: 12,
         paddingBottom: '5%',
-        justifyContent: 'center', 
+        justifyContent: 'center',
         alignItems: 'center',
         color: '#c0c0c0'
-    } 
+    }
 })
 
 export default TermsAndConditions;
