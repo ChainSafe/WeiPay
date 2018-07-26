@@ -49,6 +49,7 @@ const navigator = DrawerNavigator({
   navigationOptions: {
     backgroundColor: '#fafbfe',
     borderBottomWidth: 0,
+    drawerPosition: 'right'
   },
   lazy: true,
 });

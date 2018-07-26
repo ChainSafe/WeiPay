@@ -9,6 +9,7 @@ import { qrScannerInvoker } from '../../../../actions/ActionCreator'
 import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator'
 import ERC20ABI from '../../../../constants/data/json/ERC20ABI.json';
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
+import ClearButton from '../../../../components/LinearGradient/ClearButton'
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 
 const ethers = require('ethers');
@@ -183,106 +184,91 @@ class CoinSend extends Component {
    * Returns the complete form required to send a transaction
    */
   render() {
-    console.log('This . wallet ')
-    console.log(this.props.token)
     return (
+
       <View style={styles.mainContainer}>
-        <BackWithMenuNav 
-          showMenu={true}
-          showBack={true}
-          navigation={this.props.navigation}
-          backPage={'mainStack'}
-          
-        />
-        <CoinSendTabNavigator 
-          navigation={this.props.navigation} 
-        />
-        <View style={styles.contentContainer} >
-       
-            <Card containerStyle={ styles.cardContainer }>
-              <Text style={styles.cardText}>
-                Send Ether by scanning someone's QR code or public address.
-              </Text>
-              <View style= {styles.barcodeImageContainer}>
-                <TouchableOpacity
-                    onPress= {() => this.navigate()} >
-                    <Image
-                        source={require('../../../../assets/icons/barcode.png')}
-                        style={styles.barcodeImage}
-                    /> 
-                </TouchableOpacity>
-              </View>
-                <View style={styles.topFormInput}>
-                  <FormInput
-                      placeholder={'Public Address'}
-                      onChangeText={this.renderAddress.bind(this)}                  
-                      ref={ref => this.inputAddress = ref}
-                      inputStyle={styles.formInput}
-                    /> 
-                </View>
-                <FormInput
-                    placeholder={'Amount'}
-                    onChangeText={this.renderValue.bind(this)}
-                    ref={ref => this.inputAmount = ref}
-                    inputStyle={styles.formInput}
-                  /> 
-                  <Text style={styles.transactionFee} > 
-                    Transaction Fee Total {this.state.value} Eth
-                  </Text>
-              </Card>
-         
-          <View style={styles.btnContainer} >
-            
-              {/* <LinearButton 
-                    onClickFunction={this.navigate}
-                    buttonText="Next"
-                    customStyles={styles.button}
-                    buttonStateEnabled={this.state.buttonDisabled}
-                />
 
-                <LinearButton 
-                    onClickFunction={this.navigate}
-                    buttonText="Send"
-                    customStyles={styles.button}
-                    buttonStateEnabled={this.state.buttonDisabled}
-                /> */}
-
-             <Button
-              title='Reset'
-              disabled={this.state.toAddress === '' && this.state.value == 0}
-              icon={{ size: 28 }}
-              buttonStyle={{
-                backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100, width: 300,
-                height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginBottom: 5, marginTop: 5.5
-              }}
-              textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
-              onPress={() => this.resetFields()} />
-
-            <Button
-              title='Next'
-              disabled={this.state.toAddress === '' || this.state.value == 0}
-              icon={{ size: 28 }}
-              buttonStyle={{
-                backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100, width: 300,
-                height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginBottom: 30, marginTop: 5.5
-              }}
-              textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
-              onPress={() => {
-                if(this.props.token.type === 'ERC20') {
-                    this.sendERC20Transaction()
-                } else {
-                    this.sendTransaction()
-                }
-              }}
-            />
+        <View style={{paddingBottom: '10%'}}>
+          <View style={{marginBottom: '4%'}}>
+            <BackWithMenuNav 
+              showMenu={true}
+              showBack={true}
+              navigation={this.props.navigation}
+              backPage={"mainStack"}
+            />  
           </View>
-           <View style={styles.footerGrandparentContainer} >    
-              <View style={styles.footerParentContainer} >
-                  <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
-              </View>  
+
+          <CoinSendTabNavigator 
+            navigation={this.props.navigation} 
+          />
+        </View>
+
+        <View style={styles.contentContainer}>
+          <Text style={styles.cardText}>
+            Send Ether by scanning someone's QR code or public address.
+          </Text>
+
+          <View style= {styles.barcodeImageContainer}>
+              <TouchableOpacity
+                onPress= {() => this.navigate()} >
+                <Image
+                    source={require('../../../../assets/icons/barcode.png')}
+                    style={styles.barcodeImage}
+                /> 
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.topFormInput}>
+            <FormInput
+                placeholder={"Public Address"}
+                onChangeText={this.renderAddress.bind(this)}                  
+                ref={ref => this.inputAddress = ref}
+                inputStyle={styles.formInput}
+              />
+              <FormInput
+                placeholder={"Amount"}
+                onChangeText={this.renderValue.bind(this)}
+                ref={ref => this.inputAmount = ref}
+                inputStyle={styles.formInput}
+              /> 
+              <Text style={styles.transactionFee} > 
+                Transaction Fee Total {this.state.value} Eth
+              </Text>
           </View>
         </View>
-      </View >
+
+         <View style={styles.btnContainer}>
+
+            <View style={{ flex: 1, marginRight: '4.5%'}}>
+              <ClearButton 
+                onClickFunction={this.resetFields}
+                buttonText="Reset"
+                customStyles={{marginLeft: '0%'}}
+                // buttonStateEnabled={this.state.buttonDisabled}
+              />
+            </View>
+
+            <View style={styles.subBtnContainer}>
+              <LinearButton 
+                onClickFunction={
+                  this.props.token.type === "ERC20" ? this.sendERC20Transaction : this.sendTransaction  
+                              }
+                buttonText="Send"
+                customStyles={{marginLeft: '0%'}}
+                // buttonStateEnabled={this.state.buttonDisabled}
+              />
+            </View>
+          
+          </View>
+
+          <View style={styles.footerParentContainer} >
+              <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
+          </View> 
+
+
+
+      </View>
+      
     )
   }
 }
@@ -291,16 +277,25 @@ class CoinSend extends Component {
  * Styles for CoinSend screen
  */
 const styles = StyleSheet.create({
+
+  subBtnContainer: {
+    flex: 1,  
+    marginLeft:'4.5%'
+  },
   mainContainer: {
     flex: 1,
     alignItems: 'stretch',
-    justifyContent: 'flex-start',
-    paddingTop: '2.5%',
-    backgroundColor: '#fafbfe',
+    backgroundColor: "#fafbfe",
   },
   contentContainer: {    
-    alignItems:'center',
-    flex:1
+    backgroundColor: '#ffffff',
+    alignContent: 'flex-start',
+    marginLeft: '9%',
+    marginRight: '9%',
+    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 1
+  
   },
   barcodeImageContainer: {
     paddingTop: '5%', 
@@ -310,16 +305,6 @@ const styles = StyleSheet.create({
   barcodeImage: {
     height:75, 
     width:75
-  },
-  cardContainer: {
-    width: '82%', 
-    height: '65%', 
-    borderRadius: 7.5, 
-    shadowOpacity: 0.5, 
-    shadowRadius: 1.3, 
-    shadowColor: '#dbdbdb',
-    shadowOffset: { width: 1, height: 2 },    
-    alignItems:'stretch' 
   },
   cardText : {
     paddingBottom: '2.5%',
@@ -347,7 +332,7 @@ const styles = StyleSheet.create({
     fontSize: 9,
     letterSpacing: 0.3,
     paddingLeft: '7%',
-    paddingTop: '2.5%'
+    paddingTop: '0.4%'
   },
   qr: {
     marginLeft: 5,
@@ -355,8 +340,11 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'stretch'
+    flexDirection: 'row',
+    alignContent: 'center',
+    marginLeft: '9%',
+    marginRight: '9%',
+    marginTop: '5%'
   },
   button: {
     width: '100%'

@@ -44,9 +44,13 @@ export default DrawerNavigator({
       headerMode: 'none',
     }),
   },
+  search: {
+    screen: Search
+  }
 },
-{
-  contentComponent: CustomDrawerContentComponent,
-  headerMode: 'none',
-  header: false,
-});
+  {
+    contentComponent: CustomDrawerContentComponent,
+    headerMode: 'none',
+    header: false,
+    drawerPosition: 'right'
+  })

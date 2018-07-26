@@ -52,6 +52,7 @@
 		6417ABE05CA54B0AA7715E9B /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C02F7996025C46539BF3E6DC /* Ionicons.ttf */; };
 		699EFBC4610148858B574925 /* Cairo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A8EDB0CA25934068AF19F7EA /* Cairo-Light.ttf */; };
 		6C4D57A5565A41429A423E17 /* WorkSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AB98464BBB441F799ADDC63 /* WorkSans-Regular.ttf */; };
+		6F6C303221089B4E00C3CA32 /* libfishhook.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6841FA4F8DC00B85C8A /* libfishhook.a */; };
 		73A4F4773CDB4AD5824F38D2 /* WorkSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 00EBFE4DDB1D422E9C4ECE04 /* WorkSans-ExtraBold.ttf */; };
 		7453236E5A0A4DB4B768A1A0 /* Cairo-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F446EF44CCB24BB89AD1B0B0 /* Cairo-SemiBold.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -476,6 +477,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F6C303221089B4E00C3CA32 /* libfishhook.a in Frameworks */,
 				5638807E20FE812C00E56130 /* libRNVectorIcons.a in Frameworks */,
 				5638807D20FE812600E56130 /* libRNCamera.a in Frameworks */,
 				5638807C20FE811E00E56130 /* libReactNativePermissions.a in Frameworks */,
@@ -908,19 +910,21 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = 599RW8J73G;
+						DevelopmentTeam = 34N25G38Q7;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 599RW8J73G;
+						DevelopmentTeam = 34N25G38Q7;
 						ProvisioningStyle = Automatic;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 34N25G38Q7;
 						ProvisioningStyle = Automatic;
 					};
 					2D02E48F1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 34N25G38Q7;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2D02E47A1E0B4A5D006451C7;
 					};
@@ -1487,7 +1491,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 599RW8J73G;
+				DEVELOPMENT_TEAM = 34N25G38Q7;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1526,7 +1530,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = 599RW8J73G;
+				DEVELOPMENT_TEAM = 34N25G38Q7;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
@@ -1564,7 +1568,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = 599RW8J73G;
+				DEVELOPMENT_TEAM = 34N25G38Q7;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
@@ -1581,7 +1585,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.WeiPay.Test;
+				PRODUCT_BUNDLE_IDENTIFIER = io.chainsafe.weipay;
 				PRODUCT_NAME = WeiPay;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1595,7 +1599,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 599RW8J73G;
+				DEVELOPMENT_TEAM = 34N25G38Q7;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
@@ -1612,7 +1616,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.WeiPay.Test;
+				PRODUCT_BUNDLE_IDENTIFIER = io.chainsafe.weipay;
 				PRODUCT_NAME = WeiPay;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1629,6 +1633,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 34N25G38Q7;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
@@ -1654,7 +1659,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.WeiPay-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.chainsafe.weipay-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -1673,6 +1678,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 34N25G38Q7;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1697,7 +1703,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.WeiPay-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.chainsafe.weipay-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -1714,6 +1720,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 34N25G38Q7;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
@@ -1757,6 +1764,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 34N25G38Q7;
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
