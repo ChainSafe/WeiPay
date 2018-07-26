@@ -7,6 +7,7 @@ import { Input } from '../../../components/common/Input';
 import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCreator';
 import provider from '../../../constants/Providers';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
+import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import {BoxShadow} from 'react-native-shadow';
 
 const ethers = require('ethers');
@@ -41,15 +42,12 @@ class CreateWalletName extends Component {
     render() {
         return (
             <View style={styles.mainContainer}>   
-                <View style={styles.headerBack}> 
-                    <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('createOrRestore')} >
-                        <Image
-                            source={require('../../../assets/icons/back.png')}
-                            style={styles.btnBack}
-                        /> 
-                    </TouchableOpacity>
-                </View>   
+                <BackWithMenuNav 
+                    showMenu={false}
+                    showBack={true}
+                    navigation={this.props.navigation}
+                    backPage={"createOrRestore"}
+                />
                 <Text style={styles.textHeader}>Wallet Name</Text>                               
                 <View style={styles.contentContainer} >                   
                     <Card containerStyle={styles.cardContainer}> 
@@ -93,25 +91,12 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%'
     },
-    headerBack: {
-        marginTop: Platform.OS === 'ios' ? '5%' : '5%',
-        ...Platform.select({
-          ios: { backgroundColor: '#fafbfe'},
-          android: { backgroundColor: '#fafbfe'}
-        }),
-        marginLeft: '9%',       
-    },   
-    btnBack:{
-        height:20, 
-        width:20
-    },
     textHeader: {       
         fontFamily: "Cairo-Light",
         fontSize: 26,   
         letterSpacing: 0.8,     
         paddingLeft: '9%', 
-        paddingBottom: '3%',
-        marginTop: '5%',
+        paddingBottom: '3%',      
         color: '#1a1f3e'
     },
     contentContainer : {
