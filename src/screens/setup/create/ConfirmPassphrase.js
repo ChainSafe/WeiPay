@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Image, Dimensions, Platform } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { Card } from 'react-native-elements';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import ClearButton from '../../../components/LinearGradient/ClearButton';
+import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 
 const shuffle = require('shuffle-array');
 
@@ -14,7 +15,6 @@ const shuffle = require('shuffle-array');
  * This screen is only displayed in the process of creating a new wallet
  */
 class ConfirmPassphrase extends Component {
-
   /**
    * Sets the local state to keep track of the tags which are selected and
    * unselected
@@ -35,49 +35,48 @@ class ConfirmPassphrase extends Component {
     * This method add each word of the mnemonic to the local state variable object
     */
   componentDidMount() {
-    const state = this.state;
     const words = this.props.mnemonic.split(' ');
     let orderArray = [];
     for (let i = 0; i < words.length; i++) {
-        orderArray.push({ 'wordItem' : { "word": words[i], "index": i }, 'selected': false });
+      orderArray.push({ 'wordItem' : { 'word': words[i], 'index': i }, 'selected': false });
     }
     shuffle(orderArray);
-    this.setState({scrambledTags: orderArray });
+    this.setState({ scrambledTags: orderArray });
   }
 
     /**
      * Method is used to navigate to the "enableTokens" screen.
      */
     navigate = () => {
-        const navigateToEnableTokens = NavigationActions.navigate({
-            routeName: "enableTokens",
-        });
-        this.props.navigation.dispatch(navigateToEnableTokens);
+      const navigateToEnableTokens = NavigationActions.navigate({
+        routeName: 'enableTokens',
+      });
+      this.props.navigation.dispatch(navigateToEnableTokens);
     };
 
     /**
      * This method is used to when a tag has been selected from either the tag box or the input
      * box and the tag is transfered either to the state.selectedTags list or to the state.scrambledTags list.
-     *  
-     * @param {String} tagItem 
-     * @param {String} action 
-     * @param {Number} x 
+     *
+     * @param {String} tagItem
+     * @param {String} action
+     * @param {Number} x
      */
 
     addWord(wordItem, scrambledListIndex) {
-        this.setState((prevState) => {
-            prevState.scrambledTags[scrambledListIndex].selected = true;
-            prevState.selectedTags.push({ "wordItem": wordItem, "scrambledWordIndex": scrambledListIndex });
-            return prevState;
-        });
+      this.setState((prevState) => {
+        prevState.scrambledTags[scrambledListIndex].selected = true;
+        prevState.selectedTags.push({ 'wordItem': wordItem, 'scrambledWordIndex': scrambledListIndex });
+        return prevState;
+      });
     }
 
-    removeWord(wordItem, appendedWordIndex ) {
-        this.setState((prevState) => {
-            prevState.scrambledTags[wordItem.scrambledWordIndex].selected = false;
-            prevState.selectedTags.splice(appendedWordIndex, 1);
-            return prevState;
-        });
+    removeWord(wordItem, appendedWordIndex) {
+      this.setState((prevState) => {
+        prevState.scrambledTags[wordItem.scrambledWordIndex].selected = false;
+        prevState.selectedTags.splice(appendedWordIndex, 1);
+        return prevState;
+      });
     }
 
     /**
@@ -85,80 +84,94 @@ class ConfirmPassphrase extends Component {
      * in the correct order
      */
     render() {
-        const { selectedTags, scrambledTags } = this.state;
-        return (
-            <View style={styles.mainContainer}>
-                <View style={styles.headerBack}> 
-                    <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('createWalletName')} >
-                        <Image
-                            source={require('../../../assets/icons/back.png')}
-                            style={styles.btnBack}
-                        /> 
-                    </TouchableOpacity>
-                </View>  
-                <Text style={styles.textHeader}>Confirm Passphrase</Text>
-                <View style={styles.contentContainer} >
-                    <Card containerStyle={styles.cardContainer}> 
-                        <Text style={styles.cardText}>
-                            Please assemble your passphrase in the correct order.
-                        </Text>
-                        <View style={styles.tagContainer} >
-                            {
-                                scrambledTags.map((item, index) => {
-                                  return (
-                                        <View key={item.wordItem.index} style={styles.cardButtonContainer}>
-                                            <ClearButton
-                                                buttonText={item.wordItem.word}
-                                                key={item.wordItem.index}
-                                                onClickFunction={() => this.addWord(item.wordItem, index)}
-                                                customStyles={styles.cardButton}
-                                                unlockButton={this.state.scrambledTags[index].selected}
-                                                />
-                                        </View>
-                                    )
-                                })
-                            }
-                        </View>
-                        <View style={styles.selectedTextContainer} >
-                            {
-                                selectedTags.map((item, index) => {
-                                    return (
-                                        <View key={item.wordItem.index} style={styles.cardSelectedButtonContainer}>
-                                            <TouchableOpacity
-                                                onPress={() => this.removeWord(item, index)}>
-                                                <Text style={styles.selectedWordText}> 
-                                                    {item.wordItem.word}
-                                                </Text>
-                                            </TouchableOpacity>
-                                        </View>
-                                    )                                  
-                                })
-                            }
-                        </View>
-                    </Card>
-                </View>
-                <View style={styles.btnContainer}>
-                  <LinearButton 
-                        onClickFunction={this.navigate}
-                        buttonText="Next"
-                        customStyles={styles.button}
-                        // buttonStateEnabled={this.state.buttonDisabled}
-                    />                    
-                </View>    
-                <View style={styles.footerGrandparentContainer} >    
-                    <View style={styles.footerParentContainer} >
-                        <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
-                    </View>  
-                </View> 
+      const { selectedTags, scrambledTags } = this.state;
+
+      const {
+        mainContainer,
+        textHeader,
+        contentContainer,
+        cardContainer,
+        cardText,
+        tagContainer,
+        cardButtonContainer,
+        cardButton,
+        selectedTextContainer,
+        cardSelectedButtonContainer,
+        selectedWordText,
+        btnContainer,
+        button,
+        footerGrandparentContainer,
+        footerParentContainer,
+        textFooter,
+      } = styles;
+
+      return (
+        <View style={mainContainer}>
+            <BackWithMenuNav
+                showMenu={false}
+                showBack={true}
+                navigation={this.props.navigation}
+                backPage={'createWalletName'}
+            />
+            <Text style={textHeader}>Confirm Passphrase</Text>
+            <View style={contentContainer} >
+                <Card containerStyle={cardContainer}>
+                    <Text style={cardText}>
+                        Please assemble your passphrase in the correct order.
+                    </Text>
+                    <View style={tagContainer} >
+                        {
+                            scrambledTags.map((item, index) => {
+                              return (
+                                <View key={item.wordItem.index} style={cardButtonContainer}>
+                                    <ClearButton
+                                        buttonText={item.wordItem.word}
+                                        key={item.wordItem.index}
+                                        onClickFunction={() => this.addWord(item.wordItem, index)}
+                                        customStyles={cardButton}
+                                        unlockButton={this.state.scrambledTags[index].selected}
+                                        />
+                                </View>
+                              );
+                            })
+                        }
+                    </View>
+                    <View style={selectedTextContainer} >
+                        {
+                            selectedTags.map((item, index) => {
+                              return (
+                                <View key={item.wordItem.index} style={cardSelectedButtonContainer}>
+                                    <TouchableOpacity
+                                        onPress={() => this.removeWord(item, index)}>
+                                        <Text style={selectedWordText}>
+                                            {item.wordItem.word}
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+                              );
+                            })
+                        }
+                    </View>
+                </Card>
             </View>
-        );
+            <View style={btnContainer}>
+                <LinearButton
+                    onClickFunction={this.navigate}
+                    buttonText= 'Next'
+                    customStyles={button}
+                    // buttonStateEnabled={this.state.buttonDisabled}
+                />
+            </View>
+            <View style={footerGrandparentContainer}>
+                <View style={footerParentContainer}>
+                    <Text style={textFooter} >Powered by ChainSafe </Text>
+                </View>
+            </View>
+        </View>
+      );
     }
 }
 
-/**
- * Styles used the "ConfirmPassphrase" screen
- */
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
@@ -166,21 +179,26 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingTop: '5%',
   },
+  textHeader: {
+    fontFamily: 'Cairo-Light',
+    fontSize: 26,
+    paddingLeft: '10%',
+    paddingBottom: '3%',
+    color: '#1a1f3e',
+  },
   contentContainer: {
     alignItems: 'center',
     flex: 1,
   },
-  headerBack: {
-    marginTop: Platform.OS === 'ios' ? '5%' : '5%',
-    ...Platform.select({
-      ios: { backgroundColor: '#fafbfe'},
-      android: { backgroundColor: '#fafbfe'}
-    }),
-    marginLeft: '9%',
-  },
-  btnBack: {
-    height: 20,
-    width: 20,
+  cardText: {
+    paddingBottom: '10%',
+    lineHeight: 22,
+    paddingTop: '5%',
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    fontFamily: 'WorkSans-Light',
+    color: '#000000',
+    fontSize: 16,
   },
   tagContainer: {
     flexDirection: 'row',
@@ -189,6 +207,19 @@ const styles = StyleSheet.create({
     marginLeft: '2.5%',
     marginRight: '2.5%',
     alignContent: 'space-around',
+  },
+  cardButton: {
+    height: 32,
+    justifyContent: 'center',
+  },
+  cardContainer: {
+    width: '80%',
+    height: '85%',
+    borderRadius: 7.5,
+    shadowOpacity: 0.5,
+    shadowRadius: 1.3,
+    shadowColor: '#dbdbdb',
+    shadowOffset: { width: 1, height: 2 },
   },
   cardButtonContainer: {
     paddingBottom: '2%',
@@ -210,37 +241,6 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     color: '#27c997',
     fontFamily: 'WorkSans-Regular',
-  },
-  cardButton: {
-    height: 32,
-    justifyContent: 'center',
-  },
-  textHeader: {
-    fontFamily: 'Cairo-Light',
-    fontSize: 26,
-    paddingLeft: '10%',
-    paddingBottom: '3%',
-    marginTop: '5%',
-    color: '#1a1f3e',
-  },
-  cardContainer: {
-    width: '80%',
-    height: '85%',
-    borderRadius: 7.5,
-    shadowOpacity: 0.5,
-    shadowRadius: 1.3,
-    shadowColor: '#dbdbdb',
-    shadowOffset: { width: 1, height: 2 },
-  },
-  cardText: {
-    paddingBottom: '10%',
-    lineHeight: 22,
-    paddingTop: '5%',
-    paddingLeft: '5%',
-    paddingRight: '5%',
-    fontFamily: 'WorkSans-Light',
-    color: '#000000',
-    fontSize: 16,
   },
   tag: {
     margin: 2,
@@ -274,11 +274,11 @@ const styles = StyleSheet.create({
 /**
  * Reterives the mnemonic passphrase of the wallet that was created
  * and returns an object containing that information
- * @param {Object} param0 
+ * @param {Object} param
  */
 const mapStateToProps = ({ newWallet }) => {
-    const mnemonic = newWallet.wallet.mnemonic;
-    return { mnemonic }
+  const mnemonic = newWallet.wallet.mnemonic;
+  return { mnemonic }
 }
 
 export default connect(mapStateToProps, null)(ConfirmPassphrase)

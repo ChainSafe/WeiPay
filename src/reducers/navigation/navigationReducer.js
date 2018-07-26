@@ -1,4 +1,4 @@
-import AppNavigator from "../../navigation/stack/navigationStack";
+import AppNavigator from '../../navigation/stack/navigationStack';
 
 /**
  * Reducer used to handle all actions invoked by the NavigationActions when navigating
@@ -6,7 +6,7 @@ import AppNavigator from "../../navigation/stack/navigationStack";
  */
 
 const initialState = AppNavigator.router.getStateForAction(
-  AppNavigator.router.getActionForPathAndParams("terms")
+  AppNavigator.router.getActionForPathAndParams('terms'),
 );
 const navigationReducer = (state = initialState, action) => {
   const newState = AppNavigator.router.getStateForAction(action, state);
