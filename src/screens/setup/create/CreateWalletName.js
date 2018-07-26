@@ -63,26 +63,34 @@ class CreateWalletName extends Component {
 
       return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={styles.mainContainer} >        
-                    <BackWithMenuNav
-                        showMenu={false}
-                        showBack={true}
-                        navigation={this.props.navigation}
-                        backPage={'createOrRestore'}
-                    />
-                    <Text style={styles.textHeader} >Wallet Name</Text>
-                    <View style={{backgroundColor:"blue", alignItems: 'stretch' , width: '82%', height: '55%',  flex: 1, marginLeft: '9%'}}>
-                        <BoxShadowCard customStyles={styles.contentContainer}>
-                            <Text style={styles.cardText}>
-                                Create a name for your wallet, for example: My Wallet
-                            </Text>
-                            <FormInput
-                                placeholder={'Ex. My Wallet'}
-                                onChangeText={this.getWalletName.bind(this)}
-                                inputStyle={styles.txtWalletName}
-                            /> 
-                        </BoxShadowCard>
+                <View style={styles.mainContainer} >
+                    <View style={{flex: 0.75,}}>        
+                        <BackWithMenuNav
+                            showMenu={false}
+                            showBack={true}
+                            navigation={this.props.navigation}
+                            backPage={'createOrRestore'}
+                        />
                     </View>
+                    
+                    
+                    <Text style={styles.textHeader} >Wallet Name</Text>
+
+                    <View style={{alignItems: 'center' ,  flex: 3}}>
+                        <View style={styles.contentContainer}>
+                            <BoxShadowCard>
+                                <Text style={styles.cardText}>
+                                    Create a name for your wallet, for example: My Wallet
+                                </Text>
+                                <FormInput
+                                    placeholder={'Ex. My Wallet'}
+                                    onChangeText={this.getWalletName.bind(this)}
+                                    inputStyle={styles.txtWalletName}
+                                /> 
+                            </BoxShadowCard>
+                        </View>
+                    </View>
+
                     <View style={btnContainer}>
                         <LinearButton
                             onClickFunction={this.navigate}
@@ -104,60 +112,61 @@ class CreateWalletName extends Component {
 
 const styles = StyleSheet.create({
     mainContainer: {
-        flex: 1,        
-        paddingTop: '5%',
-        backgroundColor: "#fafbfe",            
-    },      
-    textHeader: {       
-        fontFamily: "Cairo-Light",
-        fontSize: 26,        
-        paddingLeft: '10%',  
-        paddingBottom: '3%',        
-        color: '#1a1f3e'
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: '#fafbfe',
+    width: '100%',
+    
     },
-    contentContainer : {
-        height: '100%',  
-        width: '100%'      
+    textHeader: {
+    fontFamily: 'Cairo-Light',
+    fontSize: 26,
+    paddingLeft: '10%',
+    color: '#1a1f3e',
+    flex: 0.75, 
+    },
+    contentContainer: {
+    flex: 1,
+    width: '82%',
     },
     cardContainer: {
-        width: '82%', 
-        height: '55%',    
+    width: '82%',
     },
-    cardText : {
-        paddingBottom: '20%',
-        paddingTop: '5%',
-        paddingLeft: '5%',
-        paddingRight: '5%',
-        fontFamily: "WorkSans-Light",  
-        color: '#000000',
-        fontSize: 16,
+    cardText: {
+    paddingBottom: '20%',
+    paddingTop: '7.5%',
+    paddingLeft: '7.5%',
+    paddingRight: '7.5%',
+    fontFamily: 'WorkSans-Light',
+    color: '#000000',
+    fontSize: 16,
     },
     txtWalletName: {
-        width:'100%', 
-        flexWrap: 'wrap', 
-        color:'#12c1a2'
+    width: '100%',
+    flexWrap: 'wrap',
+    color: '#12c1a2',
     },
     btnContainer: {
-        flex: 1,
-        alignItems: 'stretch',
-        justifyContent: 'flex-end',
-        width: '100%', 
+    flex: 2,
+    alignItems: 'stretch',
+    justifyContent: 'flex-end',
+    width: '100%',
     },
     button: {
-        width: '82%'
+    width: '82%',
     },
-    footerGrandparentContainer : {
-        alignItems:'center'
+    footerGrandparentContainer: {
+    alignItems: 'center',
+    marginBottom: '2.5%',
+    marginTop: '2.5%',
     },
-    footerParentContainer :{ 
-        alignItems:'center'
+    footerParentContainer: {
+    alignItems: 'center',
     },
-    textFooter : {
-        fontFamily: "WorkSans-Regular",
-        fontSize: 11,      
-        marginTop: '3.5%',      
-        color: '#c0c0c0'
-    }
+    textFooter: {
+    fontFamily: 'WorkSans-Regular',
+    fontSize: 11,
+    color: '#c0c0c0',},
 })
 
 /**
