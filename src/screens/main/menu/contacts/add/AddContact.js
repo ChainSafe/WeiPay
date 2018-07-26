@@ -12,16 +12,16 @@ import ContactTabNavigator from "../../../../../components/customPageNavs/Contac
 /**
  * Is a full screen react component
  * This screen is used to add a new contact to the wallet contact list.
- * 
+ *
  */
 class AddContact extends Component {
 
   /**
-   * Initializes the current token list stored in state as the datasource 
+   * Initializes the current token list stored in state as the datasource
    * for the scrollListView.
-   * Also initializes the local state variable to keep track of the changes made to 
+   * Also initializes the local state variable to keep track of the changes made to
    * the text fields
-   * @param {Object} props 
+   * @param {Object} props
    */
   constructor(props) {
     super(props);
@@ -73,7 +73,7 @@ class AddContact extends Component {
   /**
    * This Method is used to update the contact name in the global
    * and local state variable when ever the contactName inputfield changes.
-   * @param {String} name 
+   * @param {String} name
    */
   renderName(name) {
     this.setState({ contactName: name })
@@ -83,12 +83,12 @@ class AddContact extends Component {
 
   /**
    * This method is passed in as a prop to the AddContactList component.
-   * Creates an object with the coinName as the only key, and address as the value of 
+   * Creates an object with the coinName as the only key, and address as the value of
    * coinName.
    * Adds this object to the local and Global state variable
-   * @param {String} address 
-   * @param {String} coinName 
-   * @param {Object} coin 
+   * @param {String} address
+   * @param {String} coinName
+   * @param {Object} coin
    */
   renderAddress(address, coinName, coin) {
     let copy = Object.assign({}, this.state.contactAddress)
@@ -110,7 +110,7 @@ class AddContact extends Component {
   /**
    * Checks if the contactAddress state is empty or not.
    * Returns a boolean (true if contactAddress is empty, false if full)
-   * @param {Object} o 
+   * @param {Object} o
    */
   isEmptyObject(o) {
     return Object.keys(o).every(function (x) {
@@ -119,20 +119,20 @@ class AddContact extends Component {
   }
 
   /**
-   * Returns the form required to add a contact 
+   * Returns the form required to add a contact
    */
   render() {
     return (
-      <View style={{ flex: 1, paddingTop: 3 }}>
-        <BackWithMenuNav 
-            showMenu={true}
-            showBack={true}
-            navigation={this.props.navigation}
-            backPage={"contacts"}
-          />
-        <ContactTabNavigator 
+      <View style={styles.mainContainer}>
+        <BackWithMenuNav
+          showMenu={true}
+          showBack={true}
+          navigation={this.props.navigation}
+          backPage={"contacts"}
+        />
+        <ContactTabNavigator
           Active={this.state.active}
-          navigation={this.props.navigation} 
+          navigation={this.props.navigation}
         />
         <ScrollView style={{ height: '75%' }} >
           <AddContactList
@@ -182,7 +182,9 @@ class AddContact extends Component {
  * Styles used in addContact file
  */
 const styles = StyleSheet.create({
-
+  mainContainer: {
+    backgroundColor: "#fafbfe",
+  },
   container: {
     flex: 1,
     flexDirection: 'row',
@@ -201,7 +203,7 @@ const styles = StyleSheet.create({
 /**
  * Reterives the token list from the state variable
  * Returns an object containing the token list
- * @param {Object} state 
+ * @param {Object} state
  */
 
 const mapStateToProps = ({ contacts, newWallet }) => {
@@ -213,4 +215,3 @@ const mapStateToProps = ({ contacts, newWallet }) => {
 }
 
 export default connect(mapStateToProps, actions)(AddContact)
-

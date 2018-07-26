@@ -8,12 +8,12 @@ import LinearGradient  from 'react-native-linear-gradient'
  *      onClickFunction
  *      buttonText
  *      buttonStateEnabled
- * 
+ *
  * Optional props:
  *      customStyles
  *      customTextStyles
- *      
- *      
+ *
+ *
  */
 
 class LinearButton extends Component {
@@ -21,20 +21,20 @@ class LinearButton extends Component {
     render() {
         return (
             <View>
-                <TouchableOpacity 
-                    onPress={this.props.onClickFunction}
-                    disabled={this.props.buttonStateEnabled}
+              <TouchableOpacity
+                onPress={this.props.onClickFunction}
+                disabled={this.props.buttonStateEnabled}
+              >
+                <LinearGradient
+                  colors={!this.props.buttonStateEnabled ? gradientColors.Enabled : gradientColors.Disabled}
+                  start={{x: 0, y: 0}} end={{x: 1, y: 1}}
+                  style={[styles.buttonStyles, this.props.customStyles]}
                 >
-                    <LinearGradient 
-                        colors={!this.props.buttonStateEnabled ? gradientColors.Enabled : gradientColors.Disabled} 
-                        start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                        style={[styles.buttonStyles, this.props.customStyles]}
-                        >
-                        <Text
-                            style={[styles.textStyles, this.props.customTextStyles]}
-                        >{this.props.buttonText}</Text>   
-                    </LinearGradient>
-                </TouchableOpacity>
+                  <Text
+                    style={[styles.textStyles, this.props.customTextStyles]}
+                  >{this.props.buttonText}</Text>
+                </LinearGradient>
+              </TouchableOpacity>
             </View>
         );
     }
@@ -46,10 +46,10 @@ const gradientColors = {
 }
 const styles = StyleSheet.create({
     buttonStyles: {
-        borderRadius: 100,         
-        height: 52,                                  
-        alignItems: 'center', 
-        justifyContent: 'center',                                  
+        borderRadius: 100,
+        height: 52,
+        alignItems: 'center',
+        justifyContent: 'center',
         marginLeft: '9%'
     },
     textStyles: {
@@ -59,6 +59,6 @@ const styles = StyleSheet.create({
         letterSpacing: 0.4
     },
 })
-  
+
 
 export default LinearButton

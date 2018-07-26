@@ -41,7 +41,7 @@ class Contacts extends Component {
 
   /**
    * LifeCycle method (executes before the screen has been rendered)
-   * Sets the "contacts" data reterived from the global state variable as the 
+   * Sets the "contacts" data reterived from the global state variable as the
    * data source for the list view
    */
   componentWillMount() {
@@ -54,7 +54,7 @@ class Contacts extends Component {
 
   /**
    * LifeCycle method (executes only when the state has been changed)
-   * Re-sets the "contacts" data reterived from the global state variable as the 
+   * Re-sets the "contacts" data reterived from the global state variable as the
    * data source for the list view
    */
   componentWillReceiveProps(nextProps) {
@@ -66,9 +66,9 @@ class Contacts extends Component {
   }
 
   /**
-   * Method is used to navigate to a screen specific to the 
+   * Method is used to navigate to a screen specific to the
    * properties in the "user" object parameter.
-   * 
+   *
    * @param {Object} user
    */
   navigate = (user) => {
@@ -83,50 +83,86 @@ class Contacts extends Component {
   /**
    * Method is used to create an interactable item for the listView specific to
    * the name property of the "user" object
-   * 
+   *
    * @param {Object} user
    */
   renderRow = (user) => {
     return (
-      <ListItem
-        key={user.name}
-        title={user.name}
-        onPress={() => this.navigate(user)}
-      />
+      <View style={{marginTop:'3%'}}>
+        <ListItem
+          key={user.name}
+          title={
+            <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
+              <Text style={{
+                fontSize:16,
+                fontFamily: "Cairo-Regular",
+                alignItems:"flex-start",
+                flex:1,
+                width:'90%',
+                letterSpacing: 0.5,
+                top: '1%'
+              }}>
+                {user.name}
+              </Text>
+
+            </View>
+          }
+          containerStyle = {{
+            borderRadius: 10,
+            width: '90%',
+            height: 55,
+            backgroundColor: '#ffffff',
+            justifyContent:"center",
+            borderWidth:0.5,
+            borderColor: '#F8F8FF',
+            shadowColor: '#F8F8FF',
+            shadowOffset: { width: 1, height: 1},
+            shadowOpacity:20,
+            shadowRadius: 10,
+          }}
+          onPress={() => this.navigate(user)}
+        />
+      </View>
     )
   }
 
   /**
-   * Returns a list of contacts if and only if the length of the contact list reterived from the global state 
+   * Returns a list of contacts if and only if the length of the contact list reterived from the global state
    * variable is greater than 0.
    */
   render() {
     const show = this.props.contacts.length === 0 ?
       <View style={styles.mainContainer}>
-        <BackWithMenuNav 
+        <BackWithMenuNav
           showMenu={true}
           showBack={false}
           navigation={this.props.navigation}
           backPage={"mainStack"}
         />
-        <ContactTabNavigator 
+        <ContactTabNavigator
           Active={this.state.active}
-          navigation={this.props.navigation} 
+          navigation={this.props.navigation}
         />
         <AddFirstContact navigate={this.props.navigation.navigate} />
       </View>
       :
       <View style={styles.mainContainer}>
-        <ContactTabNavigator />
-        <BackWithMenuNav 
-            showMenu={true}
-            showBack={false}
-            navigation={this.props.navigation}
-            backPage={"mainStack"}
-          />
-        <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false} />
+        <BackWithMenuNav
+          showMenu={true}
+          showBack={false}
+          navigation={this.props.navigation}
+          backPage={"mainStack"}
+        />
+        <ContactTabNavigator
+          Active={this.state.active}
+          navigation={this.props.navigation}
+        />
+
+        <View style={styles.list}>
+          <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false} />
+        </View>
       </View>
-    return show
+        return show
   }
 }
 
@@ -152,16 +188,22 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center'
   },
+  listItem: {
+    marginTop: '2.5%',
+    marginLeft: '0.25%',
+  },
+  list: {
+    marginLeft: '9%'
+  }
 })
 
 /**
- * Method reterives the list contacts that is stored in the global 
+ * Method reterives the list contacts that is stored in the global
  * state variable and is returns an object with that information
- * @param {Object} param0 
+ * @param {Object} param0
  */
 function mapStateToProps({ contacts }) {
   return { contacts: contacts.contacts }
 }
 
 export default connect(mapStateToProps)(Contacts);
-
