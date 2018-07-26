@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, StyleSheet, TextInput, Text } from "react-native";
+import PropTypes from 'prop-types'
 
 /**
  * Component must have the following props:
@@ -9,12 +10,12 @@ import { View, TouchableOpacity, StyleSheet, TextInput, Text } from "react-nativ
  * Optional props:
  *      customStyles
  *      customTextStyles
+ *      unlockButton -> home screen active button
  *      
  *      
  */
 
 class ClearButton extends Component {
-
     render() {
         return (
             <View>
@@ -25,12 +26,17 @@ class ClearButton extends Component {
                     <View                        
                         style={[
                             styles.buttonStyles, 
-                            this.props.customStyles,
-                            !this.props.buttonStateEnabled ? styles.buttonActive : styles.buttonInactive
+                            this.props.customStyles,                            
+                            this.props.unlockButton ? styles.buttonActive : styles.buttonInactive
                         ]}
                         >
                         <Text
-                            style={[styles.textStyles, this.props.customTextStyles]}
+                            style={[
+                                styles.textStyles, 
+                                this.props.customTextStyles,
+                                this.props.buttonStateEnabled ? styles.textActive : styles.textInactive,
+                                this.props.unlockButton ? styles.textActive : styles.textInactive
+                            ]}
                         >{this.props.buttonText}</Text>
                         
                     </View>
@@ -38,35 +44,40 @@ class ClearButton extends Component {
             </View>
         );
     }
+}
 
-
+ClearButton.propTypes = {
+    onPress: PropTypes.func,
+    disabled: PropTypes.bool,
 }
 
 const styles = StyleSheet.create({
-
-    buttonActive:{
+    buttonActive: {
         borderColor: "#27c997", 
     },
-    buttonInactive:{
+    buttonInactive: {
         borderColor:"#b3b3b3"
-        
+    },
+    textActive: {
+        color: "#27c997", 
+    },
+    textInactive: {
+        color:"#b3b3b3"
     },
     buttonStyles: {
-        borderRadius: 100, 
+        borderRadius: 100,        
         borderWidth: 1,
         height: 52,                                  
         alignItems: 'center', 
         justifyContent: 'center',                                  
         marginLeft: '9%'
     },
-
     textStyles: {
         fontFamily: "Cairo-Regular",
         fontSize: 16,
         color: "#27c997",
         letterSpacing: 0.4
     }
-
 })
   
 
