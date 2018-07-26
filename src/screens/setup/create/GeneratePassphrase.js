@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { Card } from 'react-native-elements';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
+import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard'
 
 /**
  * Screen used to display the passphrase (mnemonic)
@@ -22,6 +23,8 @@ class GeneratePassphrase extends Component {
     render() {
       const { walletInfo } = this.props;
 
+      //const { height} = Dimensions.get('window').height;
+
       const {
         mainContainer,
         textHeader,
@@ -38,36 +41,47 @@ class GeneratePassphrase extends Component {
 
       return (
         <View style={mainContainer}>
+          <View style={{flex:0.75}}>
             <BackWithMenuNav
                 showMenu={false}
                 showBack={true}
                 navigation={this.props.navigation}
                 backPage={'createWalletName'}
             />
+            </View>
             <Text style={textHeader} >Your Passphrase</Text>
-            <View style={contentContainer} >
-                <Card containerStyle={cardContainer}>
-                    <Text style={cardText}>
-                        Please write down your 12 word passphrase. You will need it to verify your wallet.
-                    </Text>
-                    <Text style={textMnemonic}>
-                        {walletInfo.wallet.mnemonic}
-                    </Text>
-                </Card>
+
+            <View style={{alignItems:"center", flex: 3}}>
+              <View style={contentContainer} >
+                  <BoxShadowCard >
+                      <Text style={cardText}>
+                          Please write down your 12 word passphrase. You will need it to verify your wallet.
+                      </Text>
+                      <Text style={textMnemonic}>
+                          {walletInfo.wallet.mnemonic}
+                      </Text>
+                    </BoxShadowCard>
+              </View>
             </View>
-            <View style={btnContainer}>
-                <LinearButton
-                    onClickFunction={this.navigate}
-                    buttonText="Next"
-                    customStyles={button}
-                    // buttonStateEnabled={this.state.buttonDisabled}
-                />
-            </View>
-            <View style={footerGrandparentContainer}>
-                <View style={footerParentContainer}>
-                    <Text style={textFooter} >Powered by ChainSafe </Text>
-                </View>
-            </View>
+
+
+              <View style={btnContainer}>
+                  <LinearButton
+                      onClickFunction={this.navigate}
+                      buttonText="Next"
+                      customStyles={button}
+                      // buttonStateEnabled={this.state.buttonDisabled}
+                  />
+
+                  <View style={footerGrandparentContainer}>
+                    <View style={footerParentContainer}>
+                        <Text style={textFooter} >Powered by ChainSafe </Text>
+                    </View>
+                  </View>
+
+              </View>
+             
+       
         </View>
       );
     }
@@ -78,27 +92,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fafbfe',
     width: '100%',
-    paddingTop: '5%',
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
     fontSize: 26,
-    paddingLeft: '10%',
-    paddingBottom: '3%',
+    paddingLeft: '9%',
     color: '#1a1f3e',
+    flex:0.75,
+    // backgroundColor: "blue"
   },
   contentContainer: {
-    alignItems: 'center',
-    flex: 1,
-  },
-  cardContainer: {
-    width: '80%',
-    height: '55%',
-    borderRadius: 7.5,
-    shadowOpacity: 0.5,
-    shadowRadius: 1.3,
-    shadowColor: '#dbdbdb',
-    shadowOffset: { width: 1, height: 2 },
+    // backgroundColor: "green",
+    width: '83%',
   },
   cardText: {
     paddingBottom: '10%',
@@ -120,14 +125,18 @@ const styles = StyleSheet.create({
   btnContainer: {
     alignItems: 'stretch',
     justifyContent: 'flex-end',
-    paddingTop: 15,
     alignContent: 'flex-end',
+    // backgroundColor: "red",
+    flex:2
   },
   button: {
     width: '82%',
   },
   footerGrandparentContainer: {
     alignItems: 'center',
+    // backgroundColor:"yellow",
+    marginBottom: '2.5%',
+    marginTop: '2.5%'
   },
   footerParentContainer: {
     alignItems: 'center',
@@ -135,7 +144,6 @@ const styles = StyleSheet.create({
   textFooter: {
     fontFamily: 'WorkSans-Regular',
     fontSize: 11,
-    marginTop: '3.5%',
     color: '#c0c0c0',
   },
 });

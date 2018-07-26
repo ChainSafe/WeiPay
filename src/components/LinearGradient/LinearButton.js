@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, StyleSheet, TextInput, Text } from "react-native";
+import { View, TouchableOpacity, StyleSheet, TextInput, Text, Dimensions } from "react-native";
 import LinearGradient  from 'react-native-linear-gradient'
 
 
@@ -46,11 +46,9 @@ const gradientColors = {
 }
 const styles = StyleSheet.create({
     buttonStyles: {
-        borderRadius: 100,         
-        height: 52,                                  
+        borderRadius: 100,                                                                                
         alignItems: 'center', 
         justifyContent: 'center',                                  
-        marginLeft: '9%'
     },
     textStyles: {
         fontFamily: "Cairo-Regular",
