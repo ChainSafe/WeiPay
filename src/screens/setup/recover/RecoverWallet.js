@@ -1,12 +1,13 @@
-import React, { Component } from "react";
-import { View, Text, StyleSheet, Alert, Dimensions, TouchableOpacity, Image, Platform } from "react-native";
-import { NavigationActions } from "react-navigation";
-import { connect } from "react-redux";
-import { Button, FormLabel, FormInput, FormValidationMessage, Card } from 'react-native-elements';
+import React, { Component } from 'react';
+import { View, Text, StyleSheet, Alert } from 'react-native';
+import { NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux';
+import { FormInput, Card } from 'react-native-elements';
 import { newWalletCreation } from '../../../actions/ActionCreator';
 import provider from '../../../constants/Providers';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
+
 const ethers = require('ethers');
 
 /**
@@ -20,7 +21,7 @@ class RecoverWallet extends Component {
      */
     navigate = () => {
       const navigateToTokens = NavigationActions.navigate({
-        routeName: "enableTokens",
+        routeName: 'enableTokens',
       });
 
       try {
@@ -30,20 +31,19 @@ class RecoverWallet extends Component {
                 mnemonic = this.state.mnemonic.trim();
                 wallet = ethers.Wallet.fromMnemonic(mnemonic);
             */
-        const wallet = new ethers.Wallet("0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5");
+        const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
         wallet.provider = provider;
         this.props.newWalletCreation(wallet); //pass state to redux to save it
         this.props.navigation.dispatch(navigateToTokens);
-      }
-      catch (err) {
+      } catch (err) {
         Alert.alert(
           'Mnemonic Error',
           'Your mnemonic was invalid, please re-enter.',
           [
             { text: 'OK', onPress: () => this.inputMnemonic.clearText() },
           ],
-          { cancelable: false }
-        )
+          { cancelable: false },
+        );
       }
     };
 
@@ -60,7 +60,7 @@ class RecoverWallet extends Component {
     }
 
     /**
-     * Updates the local state with the latest mnemonic that was inputted in the input field 
+     * Updates the local state with the latest mnemonic that was inputted in the input field
      * @param {String} mnemonicInput
      */
     renderRecoveryKey(mnemonicInput) {
@@ -94,7 +94,7 @@ class RecoverWallet extends Component {
                     navigation={this.props.navigation}
                     backPage={'createWalletNameRecovered'}
                 />
-                <Text style={textHeader} >Recovery Passphrase</Text>   
+                <Text style={textHeader} >Recovery Passphrase</Text>
                 <View style={contentContainer} >
                     <Card containerStyle={cardContainer}>
                         <Text style={cardText}>
@@ -128,7 +128,6 @@ class RecoverWallet extends Component {
  * Styles used in the RecoverWallet screen
  */
 const styles = StyleSheet.create({
-
   mainContainer: {
     flex: 1,
     paddingTop: '5%',
