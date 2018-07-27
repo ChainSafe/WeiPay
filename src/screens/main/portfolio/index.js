@@ -97,7 +97,7 @@ class Portfolio extends Component {
             navigation={this.props.navigation}
           />
         </View>
-        <Text style={styles.textHeader} >DASHBOARD</Text>
+        <Text style={styles.textHeader} >DIGI WALLET []-[]</Text>
 
         <View style={styles.accountValueHeader}>
             <Text style={styles.headerValue}>0$</Text>   
