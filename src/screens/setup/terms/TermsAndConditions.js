@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, StyleSheet } from 'react-native';
+import { Text, View, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { Terms } from '../../../constants/Terms';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
@@ -26,6 +26,7 @@ class TermsAndConditions extends Component {
       const {
         mainContainer,
         textHeader,
+        scrollView,
         textBody,
         btnContainer,
         button,
@@ -36,9 +37,9 @@ class TermsAndConditions extends Component {
       return (
             <View style={mainContainer}>
                 <Text style={textHeader} >Terms & Conditions </Text>
-                <ScrollView>
+                <ScrollView style={scrollView}>
                     <Text style={textBody} >{Terms}</Text>
-                </ScrollView>
+                </ScrollView>                
                 <View style={btnContainer}>
                     <LinearButton
                         onClickFunction={this.navigate}
@@ -62,15 +63,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fafbfe',
     width: '100%',
+    height: '100%',
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
     fontSize: 26,
-    paddingLeft: '10%',
+    paddingLeft: '9%',
     paddingBottom: '2.5%',
-    marginTop: '10%',
+    marginTop: '9%',
     letterSpacing: 0.8,
     color: '#1a1f3e',
+  },
+  scrollView:{
+    height: '60%',
+    flex: 3
   },
   textBody: {
     fontFamily: 'WorkSans-Light',
@@ -83,9 +89,11 @@ const styles = StyleSheet.create({
     marginTop: '5%',
     marginBottom: '3.5%',
     width: '100%',
+    marginLeft: '9%',
   },
   button: {
     width: '82%',
+    height: Dimensions.get('window').height * 0.082,  
   },
   footerContainer: {
     alignItems: 'center',

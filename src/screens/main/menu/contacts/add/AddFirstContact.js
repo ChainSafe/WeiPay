@@ -40,11 +40,11 @@ class AddFirstContact extends Component {
             customStyles={styles.button}
           />
         </View>
+        <View style={{ alignItems:'center'}} >
           <View style={{ alignItems:'center'}} >
-            <View style={{ alignItems:'center'}} >
-              <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-            </View>
+            <Text style={styles.textFooter} >Powered by ChainSafe </Text>
           </View>
+        </View>
 
       </View>
     )

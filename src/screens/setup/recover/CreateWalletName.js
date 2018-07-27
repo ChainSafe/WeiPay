@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 1, height: 2 },
   },
   cardText: {
-    paddingBottom: '20%',
+    paddingBottom: '5%',
     paddingTop: '5%',
     paddingLeft: '5%',
     paddingRight: '5%',

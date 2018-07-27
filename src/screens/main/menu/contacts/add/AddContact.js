@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ListView, View, Text, StyleSheet, TextInput, ScrollView } from 'react-native';
-import { Button, List, ListItem } from 'react-native-elements';
+import { Button, List, ListItem, Card, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { NavigationActions } from "react-navigation";
 import AddContactList from '../../../../../components/contacts/AddContactList';
@@ -134,7 +134,28 @@ class AddContact extends Component {
           Active={this.state.active}
           navigation={this.props.navigation}
         />
+
         <ScrollView style={{ height: '75%' }} >
+          <View style={styles.contentContainer} >
+            <Card containerStyle={{
+              width: '82%',
+              height: '55%',
+              borderRadius: 7.5,
+              shadowOpacity: 0.5,
+              shadowRadius: 1.3,
+              shadowColor: '#dbdbdb',
+              shadowOffset: { width: 1, height: 2 },
+            }}>
+              <Text style={styles.cardText}>
+                Create a name for your wallet, for example: My Wallet
+              </Text>
+              <FormInput
+                placeholder={"Ex. My Wallet"}
+
+                inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2'}}
+              />
+            </Card>
+          </View>
           <AddContactList
             contactName={this.state.contactName}
             dataSource={this.state.dataSource}
@@ -198,6 +219,19 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: 'red'
   },
+  contentContainer : {
+    alignItems: 'center',
+    flex: 1
+  },
+  cardText : {
+    paddingBottom: '20%',
+    paddingTop: '5%',
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    fontFamily: "WorkSans-Light",
+    color: '#000000',
+    fontSize: 16,
+},
 });
 
 /**

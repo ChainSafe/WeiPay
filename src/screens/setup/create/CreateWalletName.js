@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { View, TouchableWithoutFeedback, StyleSheet, Text, Keyboard } from 'react-native';
+import { View, TouchableWithoutFeedback, StyleSheet, Text, Keyboard, Platform } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput, Card } from 'react-native-elements';
 import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCreator';
-import LinearButton from '../../../components/LinearGradient/LinearButton';
+import LinearButton   from '../../../components/LinearGradient/LinearButton'
+import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard'
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
-
 const ethers = require('ethers');
 
 /**
@@ -63,26 +63,34 @@ class CreateWalletName extends Component {
 
       return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={mainContainer}>
-                    <BackWithMenuNav
-                        showMenu={false}
-                        showBack={true}
-                        navigation={this.props.navigation}
-                        backPage={'createOrRestore'}
-                    />
-                    <Text style={textHeader} >Wallet Name</Text>
-                    <View style={contentContainer} >
-                        <Card containerStyle={cardContainer}>
-                            <Text style={cardText}>
-                                Create a name for your wallet, for example: My Wallet
-                            </Text>
-                            <FormInput
-                                placeholder={'Ex. My Wallet'}
-                                onChangeText={this.getWalletName.bind(this)}
-                                inputStyle={txtWalletName}
-                            />
-                        </Card>
+                <View style={styles.mainContainer} >
+                    <View style={{flex: 0.75,}}>        
+                        <BackWithMenuNav
+                            showMenu={false}
+                            showBack={true}
+                            navigation={this.props.navigation}
+                            backPage={'createOrRestore'}
+                        />
                     </View>
+                    
+                    
+                    <Text style={styles.textHeader} >Wallet Name</Text>
+
+                    <View style={{alignItems: 'center' ,  flex: 3}}>
+                        <View style={styles.contentContainer}>
+                            <BoxShadowCard>
+                                <Text style={styles.cardText}>
+                                    Create a name for your wallet, for example: My Wallet
+                                </Text>
+                                <FormInput
+                                    placeholder={'Ex. My Wallet'}
+                                    onChangeText={this.getWalletName.bind(this)}
+                                    inputStyle={styles.txtWalletName}
+                                /> 
+                            </BoxShadowCard>
+                        </View>
+                    </View>
+
                     <View style={btnContainer}>
                         <LinearButton
                             onClickFunction={this.navigate}
@@ -91,11 +99,11 @@ class CreateWalletName extends Component {
                             // buttonStateEnabled={this.state.buttonDisabled}
                         />
                     </View>
-                    <View style={footerGrandparentContainer}>
-                        <View style={footerParentContainer} >
-                            <Text style={textFooter} >Powered by ChainSafe </Text>
-                        </View>
-                    </View>
+                    <View style={styles.footerGrandparentContainer} >    
+                        <View style={styles.footerParentContainer} >
+                            <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
+                        </View>  
+                    </View> 
                 </View>
             </TouchableWithoutFeedback>
       );
@@ -103,69 +111,63 @@ class CreateWalletName extends Component {
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
+    mainContainer: {
     flex: 1,
     justifyContent: 'center',
-    paddingTop: '5%',
     backgroundColor: '#fafbfe',
     width: '100%',
-    height: '100%',
-  },
-  textHeader: {
+    
+    },
+    textHeader: {
     fontFamily: 'Cairo-Light',
     fontSize: 26,
     paddingLeft: '10%',
-    paddingBottom: '3%',
     color: '#1a1f3e',
-  },
-  contentContainer: {
-    alignItems: 'center',
+    flex: 0.75, 
+    },
+    contentContainer: {
     flex: 1,
-  },
-  cardContainer: {
     width: '82%',
-    height: '55%',
-    borderRadius: 7.5,
-    shadowOpacity: 0.5,
-    shadowRadius: 1.3,
-    shadowColor: '#dbdbdb',
-    shadowOffset: { width: 1, height: 2 },
-  },
-  cardText: {
+    },
+    cardContainer: {
+    width: '82%',
+    },
+    cardText: {
     paddingBottom: '20%',
-    paddingTop: '5%',
-    paddingLeft: '5%',
-    paddingRight: '5%',
+    paddingTop: '7.5%',
+    paddingLeft: '7.5%',
+    paddingRight: '7.5%',
     fontFamily: 'WorkSans-Light',
     color: '#000000',
     fontSize: 16,
-  },
-  txtWalletName: {
+    },
+    txtWalletName: {
     width: '100%',
     flexWrap: 'wrap',
     color: '#12c1a2',
-  },
-  btnContainer: {
+    },
+    btnContainer: {
+    flex: 2,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     width: '100%',
-  },
-  button: {
+    },
+    button: {
     width: '82%',
-  },
-  footerGrandparentContainer: {
+    },
+    footerGrandparentContainer: {
     alignItems: 'center',
-  },
-  footerParentContainer: {
+    marginBottom: '2.5%',
+    marginTop: '2.5%',
+    },
+    footerParentContainer: {
     alignItems: 'center',
-  },
-  textFooter: {
+    },
+    textFooter: {
     fontFamily: 'WorkSans-Regular',
     fontSize: 11,
-    marginTop: '3.5%',
-    color: '#c0c0c0',
-  },
-});
+    color: '#c0c0c0',},
+})
 
 /**
  * This method is not being used here
