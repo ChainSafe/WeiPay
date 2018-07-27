@@ -5,7 +5,8 @@ import Portfolio from '../../screens/main/portfolio/index';
 import CoinSend from '../../screens/main/tokens/send/CoinSend';
 import CoinHistory from '../../screens/main/tokens/history/CoinActivity';
 import CoinReceive from '../../screens/main/tokens/receive/CoinReceive';
-import AddToken from '../../screens/main/tokens/add/index';
+import AddToken from '../../screens/main/tokens/add/Tokens';
+import AddCoin from '../../screens/main/tokens/add/Coins'
 import ContactAddresses from '../../screens/main/menu/contacts/SelectedContact';
 import QrCodeScanner from '../../screens/main/qr/QrCodeScanner';
 import BackupPhrase from '../../screens/main/menu/settings/BackupPhrase';
@@ -44,6 +45,7 @@ const navigator = DrawerNavigator({
     }),
   },
   AddToken: { screen: AddToken },
+  AddCoin: { screen: AddCoin },
 }, {
   headerMode: 'none',
   navigationOptions: {

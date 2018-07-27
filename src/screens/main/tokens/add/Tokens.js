@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Linking } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { NavigationActions } from 'react-navigation';
 import CoinList from '../../../../components/tokens/CoinList';
-import Layout from '../../../../constants/Layout'
-import { NavigationActions } from "react-navigation";
-import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
+import Layout from '../../../../constants/Layout';
+import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
+import TwoTabNavigator from '../../../../components/customPageNavs/TwoTabNavigatior';
+
 
 /**
  * React Component
@@ -13,7 +15,7 @@ import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuN
  */
 class CustomButton extends Component {
   navigate = () => {
-    this.props.navigation.navigate('DrawerOpen')
+    this.props.navigation.navigate('DrawerOpen');
   }
 
   render() {
@@ -26,7 +28,7 @@ class CustomButton extends Component {
           />
         </View>
       </View>
-    )
+    );
   }
 }
 
@@ -55,7 +57,7 @@ class Tokens extends Component {
       headerRight: (
         <CustomButton navigation={navigation} />
       )
-    }
+    };
   }
 
   /**
@@ -82,15 +84,24 @@ class Tokens extends Component {
                 showMenu={true}
                 showBack={true}
                 navigation={this.props.navigation}
-                backPage={"mainStack"}
+                backPage={'mainStack'}
               />
+
+          <TwoTabNavigator
+              leftTabScreen={'AddCoin'}
+              leftTabText={'Coins'}
+              rightTabScreen={'AddToken'}
+              rightTabText={'Tokens'}
+              navigation={this.props.navigation}
+            />
+
         <CoinList type={'tokens'} />
       </View>
-    )
+    );
   }
 }
 
-const scannerSize = Layout.window.width - 60
+const scannerSize = Layout.window.width - 60;
 const styles = StyleSheet.create({
   NavBarButton: {
     flex: 1,
@@ -102,7 +113,7 @@ const styles = StyleSheet.create({
     height: 60,
     paddingTop: 10,
     paddingBottom: 10,
-    justifyContent: "center"
+    justifyContent: 'center'
   },
   centerText: {
     flex: 1,
@@ -125,6 +136,6 @@ const styles = StyleSheet.create({
     height: scannerSize,
     width: scannerSize
   }
-})
+});
 
-export default Tokens
+export default Tokens;
