@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import CoinList from '../../../components/tokens/CoinList';
@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '82%',
+    height: Dimensions.get('window').height * 0.082,  
   },
   footerContainer: {
     alignItems: 'center',

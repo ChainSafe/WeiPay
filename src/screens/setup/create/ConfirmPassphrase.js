@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import { Card } from 'react-native-elements';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import ClearButton from '../../../components/LinearGradient/ClearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
+import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard'
 
 const shuffle = require('shuffle-array');
 
@@ -107,15 +107,19 @@ class ConfirmPassphrase extends Component {
 
       return (
         <View style={mainContainer}>
+          <View style={{flex:0.75, backgroundColor:'purple'}}>
             <BackWithMenuNav
                 showMenu={false}
                 showBack={true}
                 navigation={this.props.navigation}
                 backPage={'createWalletName'}
             />
-            <Text style={textHeader}>Confirm Passphrase</Text>
+          </View>
+          <Text style={textHeader}>Confirm Passphrase</Text>
+           
+          <View style={{alignItems:"center", flex: 4}}>
             <View style={contentContainer} >
-                <Card containerStyle={cardContainer}>
+                <BoxShadowCard>
                     <Text style={cardText}>
                         Please assemble your passphrase in the correct order.
                     </Text>
@@ -152,8 +156,11 @@ class ConfirmPassphrase extends Component {
                             })
                         }
                     </View>
-                </Card>
+                </BoxShadowCard>
+              </View>
             </View>
+
+
             <View style={btnContainer}>
                 <LinearButton
                     onClickFunction={this.navigate}
@@ -161,10 +168,10 @@ class ConfirmPassphrase extends Component {
                     customStyles={button}
                     // buttonStateEnabled={this.state.buttonDisabled}
                 />
-            </View>
-            <View style={footerGrandparentContainer}>
-                <View style={footerParentContainer}>
-                    <Text style={textFooter} >Powered by ChainSafe </Text>
+                <View style={footerGrandparentContainer}>
+                    <View style={footerParentContainer}>
+                        <Text style={textFooter} >Powered by ChainSafe </Text>
+                    </View>
                 </View>
             </View>
         </View>
@@ -177,18 +184,22 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fafbfe',
     width: '100%',
-    paddingTop: '5%',
+    // paddingTop: '5%',
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
     fontSize: 26,
-    paddingLeft: '10%',
-    paddingBottom: '3%',
+    paddingLeft: '9%',
+    // paddingBottom: '3%',
     color: '#1a1f3e',
+    flex:0.75,
+    backgroundColor: "blue"
   },
   contentContainer: {
-    alignItems: 'center',
-    flex: 1,
+    // alignItems: 'center',
+    // flex: 1,
+    backgroundColor: "green",
+    width: '82%'
   },
   cardText: {
     paddingBottom: '10%',
@@ -220,12 +231,7 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     width: '80%',
-    height: '90%',
-    borderRadius: 7.5,
-    shadowOpacity: 0.5,
-    shadowRadius: 1.3,
-    shadowColor: '#dbdbdb',
-    shadowOffset: { width: 1, height: 2 },
+    height: '90%',   
   },
   selectedTextContainer: {
     paddingTop: '5%',
@@ -244,24 +250,22 @@ const styles = StyleSheet.create({
     color: '#27c997',
     fontFamily: 'WorkSans-Regular',
   },
-  // tag: {
-  //   margin: 2,
-  //   width: Dimensions.get('window').width / 3 - 15,
-  //   // height: 40,
-  //   height: '5.5%',
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  // },
   button: {
     width: '82%',
+    height: Dimensions.get('window').height * 0.082,  
   },
   btnContainer: {
     justifyContent: 'flex-end',
     alignItems: 'stretch',
     alignContent: 'flex-end',
+    backgroundColor: "red",
+    flex:1
   },
   footerGrandparentContainer: {
     alignItems: 'center',
+    backgroundColor:"yellow",
+    marginBottom: '2.5%',
+    marginTop: '2.5%'
   },
   footerParentContainer: {
     alignItems: 'center',
@@ -269,7 +273,6 @@ const styles = StyleSheet.create({
   textFooter: {
     fontFamily: 'WorkSans-Regular',
     fontSize: 11,
-    marginTop: '3.5%',
     color: '#c0c0c0',
   },
 });

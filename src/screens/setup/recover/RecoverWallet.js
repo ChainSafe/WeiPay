@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native';
+import { View, Text, StyleSheet, Alert, Dimensions } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput, Card } from 'react-native-elements';
@@ -178,6 +178,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '82%',
+    height: Dimensions.get('window').height * 0.082,  
   },
   footerGrandparentContainer: {
     alignItems: 'center',
