@@ -37,7 +37,8 @@ class EnableCrypto extends Component {
         scrollView,
         btnContainer,
         button,
-        footerContainer,
+        footerGrandparentContainer,
+        footerParentContainer,
         textFooter,
       } = styles;
 
@@ -55,10 +56,15 @@ class EnableCrypto extends Component {
                         buttonText= 'Add'
                         customStyles={button}
                     />
+
+                    <View style={footerGrandparentContainer}>
+                      <View style={footerParentContainer}>
+                          <Text style={textFooter} >Powered by ChainSafe </Text>
+                      </View>
+                    </View>
+
                 </View>
-                <View style={footerContainer}>
-                    <Text style={textFooter} >Powered by ChainSafe </Text>
-                </View>
+                
             </View>
       );
     }
@@ -94,21 +100,36 @@ const styles = StyleSheet.create({
     marginTop: '5%',
     marginBottom: '3.5%',
     width: '100%',
+    flex:1
   },
   button: {
     width: '82%',
-    height: Dimensions.get('window').height * 0.082,  
+    height: Dimensions.get('window').height * 0.082, 
   },
-  footerContainer: {
+  footerGrandparentContainer: {
+    alignItems: 'center',
+    // backgroundColor:"yellow",
+    marginBottom: '2.5%',
+    marginTop: '2.5%'
+  },
+  footerParentContainer: {
     alignItems: 'center',
   },
   textFooter: {
     fontFamily: 'WorkSans-Regular',
     fontSize: 11,
-    marginBottom: '3.5%',
-    alignItems: 'center',
     color: '#c0c0c0',
   },
+  // footerContainer: {
+  //   alignItems: 'center',
+  // },
+  // textFooter: {
+  //   fontFamily: 'WorkSans-Regular',
+  //   fontSize: 11,
+  //   marginBottom: '3.5%',
+  //   alignItems: 'center',
+  //   color: '#c0c0c0',
+  // },
 });
 
 /**

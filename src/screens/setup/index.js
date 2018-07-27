@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     width: '100%',
     justifyContent: 'flex-end',
-    backgroundColor:"blue"
+    // backgroundColor:"blue"
   },
   button: {
     width: '82%',

@@ -38,7 +38,7 @@ class GeneratePassphrase extends Component {
 
       return (
         <View style={mainContainer}>
-          <View style={{flex:0.75}}>
+          <View style={navFlex}>
             <BackWithMenuNav
                 showMenu={false}
                 showBack={true}
@@ -47,7 +47,7 @@ class GeneratePassphrase extends Component {
             />
             </View>
             <Text style={textHeader} >Your Passphrase</Text>
-
+            
             <View style={{alignItems:"center", flex: 3}}>
               <View style={contentContainer} >
                   <BoxShadowCard >
@@ -89,6 +89,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fafbfe',
     width: '100%',
+  },
+  navFlex:{
+    flex:0.75,
   },
   textHeader: {
     fontFamily: 'Cairo-Light',

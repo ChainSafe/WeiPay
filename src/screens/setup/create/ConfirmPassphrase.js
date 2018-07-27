@@ -107,7 +107,7 @@ class ConfirmPassphrase extends Component {
 
       return (
         <View style={mainContainer}>
-          <View style={{flex:0.75, backgroundColor:'purple'}}>
+          <View style={{flex:0.75}}>
             <BackWithMenuNav
                 showMenu={false}
                 showBack={true}
@@ -193,12 +193,12 @@ const styles = StyleSheet.create({
     // paddingBottom: '3%',
     color: '#1a1f3e',
     flex:0.75,
-    backgroundColor: "blue"
+    // backgroundColor: "blue"
   },
   contentContainer: {
     // alignItems: 'center',
     // flex: 1,
-    backgroundColor: "green",
+    // backgroundColor: "green",
     width: '82%'
   },
   cardText: {
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
   },
   footerGrandparentContainer: {
     alignItems: 'center',
-    backgroundColor:"yellow",
+    // backgroundColor:"yellow",
     marginBottom: '2.5%',
     marginTop: '2.5%'
   },

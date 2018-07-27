@@ -95,12 +95,15 @@ class CreateWalletName extends Component {
                             customStyles={button}
                             // buttonStateEnabled={this.state.buttonDisabled}
                         />
-                    </View>
-                    <View style={styles.footerGrandparentContainer} >    
-                        <View style={styles.footerParentContainer} >
-                            <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
+
+                        <View style={styles.footerGrandparentContainer} >    
+                            <View style={styles.footerParentContainer} >
+                                <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
                         </View>  
                     </View> 
+
+                    </View>
+                   
                 </View>
             </TouchableWithoutFeedback>
       );
