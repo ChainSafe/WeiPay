@@ -3,7 +3,8 @@ import { View, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import CoinList from '../../../../components/tokens/CoinList';
-import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
+import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
+import TwoTabNavigator from '../../../../components/customPageNavs/TwoTabNavigatior';
 
 /**
  * React Component
@@ -104,9 +105,19 @@ class Coins extends Component {
               showMenu={true}
               showBack={true}
               navigation={this.props.navigation}
-              backPage={"mainStack"}
+              backPage={'mainStack'}
 
             />
+            <TwoTabNavigator
+              leftTabScreen={'AddCoin'}
+              leftTabText={'Coins'}
+              rightTabScreen={'AddToken'}
+              rightTabText={'Tokens'}
+              Active={true}
+              navigation={this.props.navigation}
+            />
+            
+
         <CoinList type={'coins'} />
       </View>
     )
@@ -132,7 +143,7 @@ const styles = StyleSheet.create({
     height: 60,
     paddingTop: 10,
     paddingBottom: 10,
-    justifyContent: "center"
+    justifyContent: 'center'
   }
 })
 
