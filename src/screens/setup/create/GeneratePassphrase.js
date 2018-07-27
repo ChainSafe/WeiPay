@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import { Card } from 'react-native-elements';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard'
@@ -22,8 +21,6 @@ class GeneratePassphrase extends Component {
 
     render() {
       const { walletInfo } = this.props;
-
-      //const { height} = Dimensions.get('window').height;
 
       const {
         mainContainer,
@@ -131,6 +128,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '82%',
+    height: Dimensions.get('window').height * 0.082,  
   },
   footerGrandparentContainer: {
     alignItems: 'center',

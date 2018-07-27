@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableWithoutFeedback, StyleSheet, Text, Keyboard, Platform } from 'react-native';
+import { View, TouchableWithoutFeedback, StyleSheet, Text, Keyboard, Platform, Dimensions } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput, Card } from 'react-native-elements';
@@ -64,18 +64,15 @@ class CreateWalletName extends Component {
       return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.mainContainer} >
-                    <View style={{flex: 0.75,}}>        
+                    <View style={{flex: 0.75}}>        
                         <BackWithMenuNav
                             showMenu={false}
                             showBack={true}
                             navigation={this.props.navigation}
                             backPage={'createOrRestore'}
                         />
-                    </View>
-                    
-                    
+                    </View>                    
                     <Text style={styles.textHeader} >Wallet Name</Text>
-
                     <View style={{alignItems: 'center' ,  flex: 3}}>
                         <View style={styles.contentContainer}>
                             <BoxShadowCard>
@@ -115,8 +112,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     backgroundColor: '#fafbfe',
-    width: '100%',
-    
+    width: '100%',   
     },
     textHeader: {
     fontFamily: 'Cairo-Light',
@@ -154,6 +150,7 @@ const styles = StyleSheet.create({
     },
     button: {
     width: '82%',
+    height: Dimensions.get('window').height * 0.082,  
     },
     footerGrandparentContainer: {
     alignItems: 'center',

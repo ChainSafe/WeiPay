@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Dimensions } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { restoreWallet } from '../../actions/ActionCreator';
@@ -44,7 +44,7 @@ class CreateOrRestore extends Component {
         textHeader,
         textHeaderDescription,
         btnContainer,
-        btn,
+        btnCreate,       
         button,
         footerContainer,
         textFooter,
@@ -55,21 +55,19 @@ class CreateOrRestore extends Component {
             <Text style={textHeader} > WeiPay</Text>
             <Text style={textHeaderDescription} > ERC20 Token Wallet </Text>
             <View style={btnContainer} >
-                <View style={btn}>
+                <View style={btnCreate}>
                     <LinearButton
                         onClickFunction={this.navigateCreate}
                         buttonText= 'Create Wallet'
                         customStyles={button}
                     />
-                </View>
-                <View>
-                    <ClearButton
-                        onClickFunction={this.navigateRestore}
-                        buttonText= 'Restore Wallet'
-                        customStyles={button}
-                        unlockButton={true}
-                    />
-                </View>
+                </View>           
+                <ClearButton
+                    onClickFunction={this.navigateRestore}
+                    buttonText= 'Restore Wallet'
+                    customStyles={button}
+                    unlockButton={true}
+                />              
             </View>
             <View style={footerContainer}>
                 <Text style={textFooter} >Powered by ChainSafe </Text>
@@ -108,11 +106,13 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     width: '100%',
     justifyContent: 'flex-end',
+    backgroundColor:"blue"
   },
   button: {
     width: '82%',
+    height: Dimensions.get('window').height * 0.082,  
   },
-  btn: {
+  btnCreate: {
     marginBottom: '3.5%',
     marginTop: '7.5%',
   },
