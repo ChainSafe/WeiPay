@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, AsyncStorage, ListView, Image, TouchableOpacity, ScrollView, Platform } from 'react-native';
+import { View, Text, FlatList, StyleSheet, AsyncStorage, ListView, Image, TouchableOpacity, ScrollView, Platform, Dimensions } from 'react-native';
 import { StackNavigator, DrawerNavigator, TabNavigator } from 'react-navigation';
 import { List, ListItem, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -7,6 +7,7 @@ import LinearButton from '../../../components/LinearGradient/LinearButton';
 import { NavigationActions } from "react-navigation";
 import {addTokenInfo} from '../../../actions/ActionCreator';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
+import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 
 /**
  * Screen is used to display the wallet portfolio of the user, which contains the 
@@ -39,43 +40,45 @@ class Portfolio extends Component {
   renderRow = (token) => {
     return (
       <View style={styles.listItemContainer}>
-        <ListItem
-          roundAvatar
-          avatar={{ uri: token.avatar_url }}
-          key={token.id}
-          title= {
-            <View style={styles.listItemSymbolRowContiner}>
-              <Text style={styles.listItemSymbolText}>
-                {token.symbol}
-              </Text>
-              <Text style={styles.listItemCoinCount}> 
-                23 
-              </Text>
-            </View>
-          }      
-          onPress={() => {
-            this.props.addTokenInfo(token)
-            if(token.type === "PortfolioToken") {
-              this.props.navigation.navigate("coinSend")
-            }
-            else {
-              this.props.navigation.navigate("coinSend")
-            }
-          }
-          }
-          subtitle={
-            <View style={styles.listItemSubtitleContainer}>
-              <Text style={styles.lisItemSubtitleName}>
-                {token.title}
-              </Text>
-              <Text style={styles.listItemSubtitleValue}> 
-                  $2444 
+        <BoxShadowCard>
+          <ListItem
+            roundAvatar
+            avatar={{ uri: token.avatar_url }}
+            key={token.id}
+            title= {
+              <View style={styles.listItemSymbolRowContiner}>
+                <Text style={styles.listItemSymbolText}>
+                  {token.symbol}
                 </Text>
-            </View>
-          }
-          containerStyle = {styles.listItem}
-          avatarStyle = {styles.avitarStyle}
-        />
+                <Text style={styles.listItemCoinCount}> 
+                  23 
+                </Text>
+              </View>
+            }      
+            onPress={() => {
+              this.props.addTokenInfo(token)
+              if(token.type === "PortfolioToken") {
+                this.props.navigation.navigate("coinSend")
+              }
+              else {
+                this.props.navigation.navigate("coinSend")
+              }
+            }
+            }
+            subtitle={
+              <View style={styles.listItemSubtitleContainer}>
+                <Text style={styles.lisItemSubtitleName}>
+                  {token.title}
+                </Text>
+                <Text style={styles.listItemSubtitleValue}> 
+                    $2444 
+                  </Text>
+              </View>
+            }
+            containerStyle = {styles.listItem}
+            avatarStyle = {styles.avitarStyle}
+          />
+        </BoxShadowCard>
       </View>
     )
   }
@@ -86,14 +89,16 @@ class Portfolio extends Component {
    */
   render() {
     return (
-      <View style={styles.mainContainer} >  
-        <BackWithMenuNav         
-          menuFunction={this.navigateMenu} 
-          showMenu={true}
-          showBack={false}
-          navigation={this.props.navigation}
-        />
-        <Text style={styles.textHeader} >Portfolio </Text>
+      <View style={styles.mainContainer} >
+        <View style={styles.navBar}>  
+          <BackWithMenuNav         
+            showMenu={true}
+            showBack={false}
+            navigation={this.props.navigation}
+          />
+        </View>
+        <Text style={styles.textHeader} >DIGI WALLET []-[]</Text>
+
         <View style={styles.accountValueHeader}>
             <Text style={styles.headerValue}>0$</Text>   
             <Text style={styles.headerValueCurrency}> USD</Text> 
@@ -126,16 +131,22 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fafbfe",
     width:"100%", 
-    paddingTop: '2.5%',
+  },
+  navBar: {
+    flex: 0.75,
+    paddingBottom: '2%'
   },
   textHeader: {       
     fontFamily: "Cairo-Light",
     fontSize: 26,        
-    marginLeft: '9%',
+    paddingLeft: '9%',
     color: '#1a1f3e',
+    flex: 0.75,
+    justifyContent: 'center',
   },
   accountValueHeader:{
-    flexDirection: 'row'
+    flexDirection: 'row',
+    flex: 0.5,
   },
   headerValue : {   
     fontFamily: "WorkSans-Medium",  
@@ -147,33 +158,29 @@ const styles = StyleSheet.create({
     fontSize:11,
     fontFamily: "WorkSans-Regular", 
     color: '#27c997',
-    justifyContent:'center',
-    paddingTop:'1.5%',    
+    justifyContent:'center', 
   },
   scrollViewContainer:{
     alignItems:"stretch", 
     width:"100%", 
-    marginLeft: '9%', 
-    marginTop:'2.5%'
+    paddingLeft: '9%',
+    paddingRight: '9%',
+    flex: 6,
   },
   scrollView:{
-    height:"70%"
+    flex: 1,
   },
   listItemContainer:{
-    marginTop:'2.5%'
+    flex: 1,
+    alignItems: 'stretch',
+    paddingBottom: '2.3%',
   },
   listItem:{
-    borderRadius: 10, 
-    width: '83%', 
-    height: 63,            
+    borderRadius: 10,           
     backgroundColor: '#ffffff',
     justifyContent:"center",
-    borderWidth:0.5,
-    borderColor: '#F8F8FF',
-    shadowColor: '#F8F8FF',
-    shadowOffset: { width: 1, height: 1},
-    shadowOpacity:20,
-    shadowRadius: 10,
+    borderWidth: 0,
+    borderBottomWidth: 0,
   },
   listItemSymbolRowContiner:{
     flexDirection:'row', 
@@ -181,7 +188,7 @@ const styles = StyleSheet.create({
     marginLeft:'5%'
   },
   avitarStyle:{
-    marginTop:'-5%'
+    //marginTop:'-5%'
   },
   listItemSymbolText:{
     fontSize:16,
@@ -210,9 +217,7 @@ const styles = StyleSheet.create({
     alignItems:"flex-start",
     flex:1,
     width:'90%',  
-    letterSpacing: 0.4,  
-    top: '-1.5%',
-    height: '100%'    
+    letterSpacing: 0.4,     
   },
   listItemSubtitleValue:{
     alignItems:"flex-end",
@@ -225,14 +230,16 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     width: '100%',
     justifyContent: 'flex-end',
-    marginBottom: '2.5%',
-    flex:1
+    flex:1,
   },
   button: {
-    width: '82%'
+    width: '82%',
+    height: Dimensions.get('window').height * 0.082,
   },
   footerContainer: {
-    alignItems:"center"
+    alignItems:"center",
+    justifyContent: 'flex-end',
+    flex: 0.5,
   },
   textFooter : {
     fontFamily: "WorkSans-Regular",

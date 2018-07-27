@@ -48,7 +48,8 @@ const styles = StyleSheet.create({
     buttonStyles: {
         borderRadius: 100,                                                                                
         alignItems: 'center', 
-        justifyContent: 'center',                                  
+        justifyContent: 'center',   
+        marginLeft: '9%',                               
     },
     textStyles: {
         fontFamily: "Cairo-Regular",
