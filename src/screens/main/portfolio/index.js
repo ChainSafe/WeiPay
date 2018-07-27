@@ -90,7 +90,7 @@ class Portfolio extends Component {
   render() {
     return (
       <View style={styles.mainContainer} >
-        <View style={{flex: 0.75, paddingBottom: '2%'}}>  
+        <View style={styles.navBar}>  
           <BackWithMenuNav         
             showMenu={true}
             showBack={false}
@@ -131,22 +131,22 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fafbfe",
     width:"100%", 
-    //paddingTop: '2.5%',
-    //backgroundColor: 'red'
+  },
+  navBar: {
+    flex: 0.75,
+    paddingBottom: '2%'
   },
   textHeader: {       
     fontFamily: "Cairo-Light",
     fontSize: 26,        
     paddingLeft: '9%',
     color: '#1a1f3e',
-    //backgroundColor: 'blue',
     flex: 0.75,
     justifyContent: 'center',
   },
   accountValueHeader:{
     flexDirection: 'row',
     flex: 0.5,
-    //backgroundColor: 'green'
   },
   headerValue : {   
     fontFamily: "WorkSans-Medium",  
@@ -158,8 +158,7 @@ const styles = StyleSheet.create({
     fontSize:11,
     fontFamily: "WorkSans-Regular", 
     color: '#27c997',
-    justifyContent:'center',
-    //paddingTop:'1.5%',    
+    justifyContent:'center', 
   },
   scrollViewContainer:{
     alignItems:"stretch", 
@@ -167,35 +166,21 @@ const styles = StyleSheet.create({
     paddingLeft: '9%',
     paddingRight: '9%',
     flex: 6,
-    //backgroundColor: 'orange' 
-    //marginTop:'2.5%'
   },
   scrollView:{
-    //height:"70%"
     flex: 1,
   },
   listItemContainer:{
-    //marginTop:'2.5%'
     flex: 1,
     alignItems: 'stretch',
-    //backgroundColor: 'purple',
     paddingBottom: '2.3%',
-    
   },
   listItem:{
-    borderRadius: 10, 
-    //width: '83%', 
-    //height: 63,            
+    borderRadius: 10,           
     backgroundColor: '#ffffff',
     justifyContent:"center",
     borderWidth: 0,
     borderBottomWidth: 0,
-    // borderWidth:0.5,
-    // borderColor: '#F8F8FF',
-    // shadowColor: '#F8F8FF',
-    // shadowOffset: { width: 1, height: 1},
-    // shadowOpacity:20,
-    // shadowRadius: 10,
   },
   listItemSymbolRowContiner:{
     flexDirection:'row', 
@@ -232,9 +217,7 @@ const styles = StyleSheet.create({
     alignItems:"flex-start",
     flex:1,
     width:'90%',  
-    letterSpacing: 0.4,  
-    //top: '-1.5%',
-    //height: '100%'    
+    letterSpacing: 0.4,     
   },
   listItemSubtitleValue:{
     alignItems:"flex-end",
@@ -247,9 +230,7 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     width: '100%',
     justifyContent: 'flex-end',
-    //marginBottom: '2.5%',
     flex:1,
-    //backgroundColor: 'gold',
   },
   button: {
     width: '82%',
@@ -259,7 +240,6 @@ const styles = StyleSheet.create({
     alignItems:"center",
     justifyContent: 'flex-end',
     flex: 0.5,
-    //backgroundColor: 'black',
   },
   textFooter : {
     fontFamily: "WorkSans-Regular",
