@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import { Card } from 'react-native-elements';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard'
@@ -23,8 +22,6 @@ class GeneratePassphrase extends Component {
     render() {
       const { walletInfo } = this.props;
 
-      //const { height} = Dimensions.get('window').height;
-
       const {
         mainContainer,
         textHeader,
@@ -41,7 +38,7 @@ class GeneratePassphrase extends Component {
 
       return (
         <View style={mainContainer}>
-          <View style={{flex:0.75}}>
+          <View style={navFlex}>
             <BackWithMenuNav
                 showMenu={false}
                 showBack={true}
@@ -50,7 +47,7 @@ class GeneratePassphrase extends Component {
             />
             </View>
             <Text style={textHeader} >Your Passphrase</Text>
-
+            
             <View style={{alignItems:"center", flex: 3}}>
               <View style={contentContainer} >
                   <BoxShadowCard >
@@ -93,6 +90,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafbfe',
     width: '100%',
   },
+  navFlex:{
+    flex:0.75,
+  },
   textHeader: {
     fontFamily: 'Cairo-Light',
     fontSize: 26,
@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '82%',
+    height: Dimensions.get('window').height * 0.082,  
   },
   footerGrandparentContainer: {
     alignItems: 'center',

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { CheckBox, ListItem, Icon, } from 'react-native-elements'
-import {BoxShadow} from 'react-native-shadow'
 import { CardSection } from '../common/CardSection';
 import { Card } from '../common/Card';
 import { addTokenToSetup } from '../../actions/ActionCreator';
-
+import BoxShadowCard from '../ShadowCards/BoxShadowCard';
 
 /**
  * React Component
@@ -47,45 +46,53 @@ class CoinListItem extends Component {
     const { checked } = this.state
 
     return (
+    
+     
       <View style={styles.listItemParentContainer}>
-        <TouchableOpacity
-          onPress={() => this.renderPress(coin)}>
-          <View style={[styles.check, coin.selected ? styles.containerSelected : styles.containerDeselect]}>
-            <ListItem
-              hideChevron
-              key={coin.id}
-              roundAvatar
-              avatar={ require('../../assets/images/eth.png') }
-              title= {
-                <View style={styles.titleContainer} >
-                  <Text style={styles.coinItemSymbolText}>{coin.symbol}</Text>
-                    <View style={styles.checkboxContainer} >
-                      <CheckBox 
-                        center
-                        iconRight
-                        iconType='material'
-                        checkedIcon='clear'
-                        uncheckedIcon='add'
-                        uncheckedColor='#27c997'
-                        checkedColor='red'
-                        checked={coin.selected}
-                        containerStyle={[title, coin.selected ? styles.valid : styles.invalid]}
-                        onPress={() => this.renderPress(coin)}
-                        />
-                      </View>
-                </View>
-              }
-              subtitle={
-                <View style={styles.subtitleContainer}>
-                  <Text style={styles.subtitleText}>{coin.title}</Text>
-                </View>
-              }
-              containerStyle = {styles.listItemContainer}
-              avatarStyle = {styles.avatarStyles}
-            />
-          </View>
-        </TouchableOpacity >
+      
+          <TouchableOpacity
+            onPress={() => this.renderPress(coin)}>
+            <View style={[styles.check, coin.selected ? styles.containerSelected : styles.containerDeselect]}>
+          
+            <BoxShadowCard customStyles={{flex:1}}> 
+              <ListItem
+                hideChevron
+                key={coin.id}
+                roundAvatar
+                avatar={ require('../../assets/images/eth.png') }
+                title= {
+                  <View style={styles.titleContainer} >
+                    <Text style={styles.coinItemSymbolText}>{coin.symbol}</Text>
+                      <View style={styles.checkboxContainer} >
+                        <CheckBox 
+                          center
+                          iconRight
+                          iconType='material'
+                          checkedIcon='clear'
+                          uncheckedIcon='add'
+                          uncheckedColor='#27c997'
+                          checkedColor='red'
+                          checked={coin.selected}
+                          containerStyle={[title, coin.selected ? styles.valid : styles.invalid]}
+                          onPress={() => this.renderPress(coin)}
+                          />
+                        </View>
+                  </View>
+                }
+                subtitle={
+                  <View style={styles.subtitleContainer}>
+                    <Text style={styles.subtitleText}>{coin.title}</Text>
+                  </View>
+                }
+                containerStyle = {styles.listItemContainer}
+                avatarStyle = {styles.avatarStyles}
+              />
+           </BoxShadowCard>
+            </View>
+          </TouchableOpacity >
+       
       </View>
+ 
     )
   }
 }
@@ -97,6 +104,7 @@ const styles = StyleSheet.create({
   listItemParentContainer: {
     marginTop: '2.5%',
     marginLeft: '0.25%',
+    height: Dimensions.get('window').height * 0.1, 
   },
   titleContainer: {
     flexDirection: 'row',
@@ -121,15 +129,12 @@ const styles = StyleSheet.create({
     top: '6%',
   },
   listItemContainer: {
-    shadowColor: 'grey',
-    shadowOffset: { width: 0, height: 0 },
-    shadowRadius: 2,
-    shadowOpacity: 1,
-    borderWidth: 0,
     width: '100%',
-    height: 63,
+    height: Dimensions.get('window').height * 0.1, 
     backgroundColor: '#ffffff',
     justifyContent: 'center',
+    borderWidth: 0,
+    borderBottomWidth: 0
   },
   checkboxContainer: {
     top: '5.5%',
