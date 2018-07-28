@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import {
+ View, Text, StyleSheet, FlatList 
+} from 'react-native';
 import { CardSection } from '../../../../components/common/CardSection';
-import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator'
+import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
+
 const axios = require('axios');
 const ethers = require('ethers');
 const moment = require('moment');
+
 const utils = ethers.utils;
 
 /**
@@ -14,15 +18,14 @@ const utils = ethers.utils;
  * using the current wallet address
  */
 class CoinActivity extends Component {
-
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      balance: "",
+      balance: '',
       loaded: false,
       data: [],
-      address: '0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a'
-    }
+      address: '0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a',
+    };
   }
 
   componentDidMount() {
@@ -30,22 +33,22 @@ class CoinActivity extends Component {
   }
 
   getData = async (address) => {
-    const url = 'https://api.etherscan.io/api?module=account&action=txlist&address=' + address + '&page=1&offset=10&sort=asc&apikey=YJ1TRXBKAH9QZWINVFT83JMFBQI15X7UPR';
-    axios.get(url).then(response => {
+    const url = `https://api.etherscan.io/api?module=account&action=txlist&address=${  address  }&page=1&offset=10&sort=asc&apikey=YJ1TRXBKAH9QZWINVFT83JMFBQI15X7UPR`;
+    axios.get(url).then((response) => {
       this.parseData(response.data.result);
     });
   }
 
   parseData = (json) => {
-    let transactions = [];
-    for (var i = 0; i < json.length; i++) {
-      let transObj = {}
+    const transactions = [];
+    for (let i = 0; i < json.length; i++) {
+      const transObj = {};
       if (json[i].from == this.state.address) {
-        transObj.type = 'Sent'; //enum should be implemented
+        transObj.type = 'Sent'; // enum should be implemented
         transObj.address = json[i].to;
         transObj.uri = 'require(../../../assets/images/sent.png)';
       } else {
-        transObj.type = 'Received'; //enum should be implemented
+        transObj.type = 'Received'; // enum should be implemented
         transObj.address = json[i].from;
         transObj.uri = 'require(../../../assets/images/receive.png)';
       }
@@ -57,46 +60,61 @@ class CoinActivity extends Component {
       transactions.push(transObj);
     }
     this.setState({
-      data: transactions
-    })
+      data: transactions,
+    });
   }
 
   /**
    * Returns a component holding a list of transactions that have been occured
    */
   render() {
+    const {
+      mainContainer,
+      itemStyle,
+      headerContainer,
+      type,
+      date,
+      addressContainer,
+      addressTitle,
+      addressValue,
+      amountContainer,
+      amountTitle,
+      amountValue,
+
+
+     
+    } = styles;
+
     return (
-      <View style={styles.mainContainer}>
-        <BackWithMenuNav 
+      <View style={mainContainer}>
+        <BackWithMenuNav
           showMenu={true}
           showBack={true}
           navigation={this.props.navigation}
-          backPage={"mainStack"}
-
+          backPage={'mainStack'}
         />
         <CoinSendTabNavigator navigation={this.props.navigation} />
         <FlatList
           data={this.state.data}
           keyExtractor={(x, i) => i.toString()}
-          style={{ flex: 1, width: '100%', backgroundColor:'#fafbfe'}}
-          renderItem={({ item }) =>
-            <CardSection>
-              <View style={styles.item}>
+          style={{ flex: 1, width: '100%', backgroundColor: '#fafbfe' }}
+          renderItem={({ item }) => <CardSection>
+              <View style={itemStyle}>
                 <View>
                   <View>
-                    <View style={styles.headerContainer}> 
-                      <Text style={styles.type}>
+                    <View style={headerContainer}>
+                      <Text style={type}>
                         {item.type}
                       </Text>
-                       <Text style={styles.date}>{item.timeStamp}</Text>
+                       <Text style={date}>{item.timeStamp}</Text>
                     </View>
-                    <View style={styles.addressContainer}>
-                        <Text style={styles.addressTitle}>Address: </Text>   
-                        <Text style={styles.addressValue}>{item.address}</Text> 
+                    <View style={addressContainer}>
+                        <Text style={addressTitle}>Address: </Text>
+                        <Text style={addressValue}>{item.address}</Text>
                     </View>
-                    <View style={styles.amountContainer}>
-                        <Text style={styles.amountTitle}>Amount: </Text>   
-                        <Text style={styles.amountValue}>{item.value}</Text> 
+                    <View style={amountContainer}>
+                        <Text style={amountTitle}>Amount: </Text>
+                        <Text style={amountValue}>{item.value}</Text>
                     </View>
                   </View>
                 </View>
@@ -104,11 +122,11 @@ class CoinActivity extends Component {
             </CardSection>
           } />
       </View >
-    )
+    );
   }
 }
 
-export default CoinActivity
+export default CoinActivity;
 
 /**
  * Style
@@ -116,51 +134,51 @@ export default CoinActivity
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    backgroundColor: "#fafbfe",
-    width:"100%", 
+    backgroundColor: '#fafbfe',
+    width: '100%',
     paddingTop: '2.5%',
   },
-  addressContainer:{
+  addressContainer: {
     flexDirection: 'row',
-    flexWrap: 'wrap', 
-    paddingBottom: '1.5%'
+    flexWrap: 'wrap',
+    paddingBottom: '1.5%',
   },
-  addressTitle : {   
-    fontFamily: "Cairo-Regular",  
+  addressTitle: {
+    fontFamily: 'Cairo-Regular',
     color: 'black',
-    fontSize: 13,  
-    lineHeight: 17
-  },   
-  addressValue : {
-    fontSize:13,
-    fontFamily: "Cairo-Light",  
-    color: 'black',  
-    justifyContent:'center',
-    lineHeight: 17    
+    fontSize: 13,
+    lineHeight: 17,
   },
-  amountContainer:{
-    flexDirection: 'row',
-    flexWrap: 'wrap', 
-  },
-  amountTitle : {   
-    fontFamily: "Cairo-Regular",  
+  addressValue: {
+    fontSize: 13,
+    fontFamily: 'Cairo-Light',
     color: 'black',
-    fontSize: 13,  
-    lineHeight: 16 
-  },   
-  amountValue : {
-    fontSize:13,
-    fontFamily: "Cairo-Light",  
-    color: 'black',  
-    justifyContent:'center',
-    lineHeight: 16    
+    justifyContent: 'center',
+    lineHeight: 17,
   },
-  headerContainer:{
+  amountContainer: {
     flexDirection: 'row',
-    justifyContent:"center", 
-    paddingBottom: '1.5%'
+    flexWrap: 'wrap',
   },
-  item: {
+  amountTitle: {
+    fontFamily: 'Cairo-Regular',
+    color: 'black',
+    fontSize: 13,
+    lineHeight: 16,
+  },
+  amountValue: {
+    fontSize: 13,
+    fontFamily: 'Cairo-Light',
+    color: 'black',
+    justifyContent: 'center',
+    lineHeight: 16,
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingBottom: '1.5%',
+  },
+  itemStyle: {
     padding: 5,
     marginTop: 5,
     marginBottom: 5,
@@ -172,17 +190,17 @@ const styles = StyleSheet.create({
   type: {
     fontSize: 16,
     letterSpacing: 0.5,
-    fontFamily: "Cairo-Regular",     
-    alignItems:"flex-start",
-    flex:1,
-    width:'60%',
-    top: 0    
+    fontFamily: 'Cairo-Regular',
+    alignItems: 'flex-start',
+    flex: 1,
+    width: '60%',
+    top: 0,
   },
   date: {
     fontSize: 11,
     letterSpacing: 0.4,
-    fontFamily: "Cairo-Light",  
+    fontFamily: 'Cairo-Light',
     top: '1.75%',
-    color: '#141f25'  
+    color: '#141f25',
   },
-})
+});

@@ -1,4 +1,3 @@
-import React from 'react';
 import { StackNavigator } from 'react-navigation';
 import TermsScreen from '../../screens/setup/terms/TermsAndConditions';
 import CreateOrRestore from '../../screens/setup/index';
@@ -8,14 +7,12 @@ import ConfirmPassphrase from '../../screens/setup/create/ConfirmPassphrase';
 import CreateWalletNameRecovered from '../../screens/setup/recover/CreateWalletName';
 import RecoverWallet from '../../screens/setup/recover/RecoverWallet';
 import EnableTokens from '../../screens/setup/crypto/EnableTokens';
-import mainBucketNavigation from '../stack/mainBucketStack'
-import PortfolioToken from '../../screens/main//portfolio/tabs/PortfolioToken';
-import AddToken from '../../screens/main/tokens/add/index';
+import mainBucketNavigation from './mainBucketStack';
 import addContact from '../../screens/main/menu/contacts/add/AddContact';
 import contacts from '../../screens/main/menu/contacts/index';
 
 /**
- * Constant contains all the screens that can be navigated to using the 
+ * Constant contains all the screens that can be navigated to using the
  * navigate method from any class
  */
 const navigator = StackNavigator({
@@ -23,42 +20,42 @@ const navigator = StackNavigator({
     screen: TermsScreen,
   },
   addContact: {
-    screen: addContact
+    screen: addContact,
   },
   contacts: {
-    screen: contacts
+    screen: contacts,
   },
   createOrRestore: {
-    screen: CreateOrRestore
+    screen: CreateOrRestore,
   },
   createWalletName: {
-    screen: CreateWalletName
+    screen: CreateWalletName,
   },
   generatePassphrase: {
-    screen: GeneratePassphrase
+    screen: GeneratePassphrase,
   },
   confirmPassphrase: {
-    screen: ConfirmPassphrase
+    screen: ConfirmPassphrase,
   },
   createWalletNameRecovered: {
-    screen: CreateWalletNameRecovered
+    screen: CreateWalletNameRecovered,
   },
   recoverWallet: {
-    screen: RecoverWallet
+    screen: RecoverWallet,
   },
   enableTokens: {
-    screen: EnableTokens
+    screen: EnableTokens,
   },
   mainStack: {
-    screen: mainBucketNavigation
+    screen: mainBucketNavigation,
   },
 }, {
-    headerMode: 'none',
-    navigationOptions: {
-      backgroundColor: "#fafbfe", 
-      borderBottomWidth: 0,  
-    },
-    lazy: true
-  });
+  headerMode: 'none',
+  navigationOptions: {
+    backgroundColor: '#fafbfe',
+    borderBottomWidth: 0,
+  },
+  lazy: true,
+});
 
 export default navigator;

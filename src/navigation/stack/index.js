@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { addNavigationHelpers } from "react-navigation";
-import NavigationStack from "./navigationStack";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { addNavigationHelpers } from 'react-navigation';
+import NavigationStack from './navigationStack';
 
 /**
  * React-Component
@@ -20,12 +20,10 @@ class AppNavigation extends Component {
 
 /**
  * Returns the current screen the state is pointing to
- * @param {Object} state 
+ * @param {Object} state
  */
-const mapStateToProps = state => {
-  return {
-    navigationState: state.NavigationReducer
-  };
-};
+const mapStateToProps = state => ({
+  navigationState: state.NavigationReducer,
+});
 
 export default connect(mapStateToProps)(AppNavigation);
