@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, StyleSheet, TextInput, Text } from "react-native";
+import { View, TouchableOpacity, StyleSheet, TextInput, Text, Dimensions } from "react-native";
 import PropTypes from 'prop-types'
 
 /**
@@ -66,11 +66,10 @@ const styles = StyleSheet.create({
     },
     buttonStyles: {
         borderRadius: 100,        
-        borderWidth: 1,
-        height: 52,                                  
+        borderWidth: 1,                               
         alignItems: 'center', 
-        justifyContent: 'center',                                  
-        marginLeft: '9%'
+        justifyContent: 'center',    
+        marginLeft: '9%',                                
     },
     textStyles: {
         fontFamily: "Cairo-Regular",

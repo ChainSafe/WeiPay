@@ -2,7 +2,7 @@ import * as actions from '../../actions/ActionTypes';
 
 const INITIAL_STATE = {
   restoreWallet: false,
-  mnemonic: ''
+  mnemonic: '',
 };
 /**
  * Reducer handles all actions invoked when going through the process of
