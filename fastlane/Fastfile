@@ -1,0 +1,28 @@
+fastlane_version '2.53.1'
+
+before_all do
+end
+
+platform :ios do
+  desc 'Fetch certificates and provisioning profiles'
+    lane :certificates do
+      match(app_identifier: 'io.chainsafe.weipay', type: 'development', readonly: true)
+      match(app_identifier: 'io.chainsafe.weipay', type: 'appstore', readonly: true)
+    end
+
+  desc 'Build the iOS application.'
+    private_lane :build do
+      certificates
+      gym(scheme: 'WeiPay', project: './ios/weipay.xcodeproj')
+    end
+
+  desc 'Ship to Testflight.'
+    lane :beta do
+      build
+      pilot(username: 'superadmin@chainsafe.io')
+    end
+end
+
+platform :android do
+  # Android Lanes
+end
