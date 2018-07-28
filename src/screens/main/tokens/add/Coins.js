@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions, Text } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import CoinList from '../../../../components/tokens/CoinList';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 import TwoTabNavigator from '../../../../components/customPageNavs/TwoTabNavigatior';
+import LinearButton from '../../../../components/LinearGradient/LinearButton';
 
 /**
  * React Component
@@ -13,7 +14,7 @@ import TwoTabNavigator from '../../../../components/customPageNavs/TwoTabNavigat
  */
 class CustomButton extends Component {
   navigate = () => {
-    this.props.navigation.navigate('DrawerOpen')
+    this.props.navigation.navigate('DrawerOpen');
   }
 
   render() {
@@ -26,33 +27,7 @@ class CustomButton extends Component {
           />
         </View>
       </View>
-    )
-  }
-}
-
-/**
- * React-Component
- * This component is not being used anywhere
- */
-class BackButton extends Component {
-  navigate = () => {
-    debugger
-    const navigateToPassphrase = NavigationActions.reset({
-      index: 0,
-      actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
-    });
-    this.props.navigation.dispatch(navigateToPassphrase);
-  };
-
-  render() {
-    return (
-      <Icon
-        name='chevron-left'
-        size={35}
-        color='#007AFF'
-        onPress={() => this.props.navigate('Drawer')}
-      />
-    )
+    );
   }
 }
 
@@ -80,8 +55,8 @@ class Coins extends Component {
       headerRight: (
         <CustomButton navigation={navigation} />
       ),
-      tabBarLabel: 'Coins'
-    }
+      tabBarLabel: 'Coins',
+    };
   }
 
   /**
@@ -90,7 +65,7 @@ class Coins extends Component {
   navigate = () => {
     const navigateToPassphrase = NavigationActions.reset({
       index: 0,
-      actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
+      actions: [NavigationActions.navigate({ routeName: 'portfolioScreen' })],
     });
     this.props.navigation.dispatch(navigateToPassphrase);
   };
@@ -100,27 +75,47 @@ class Coins extends Component {
    */
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <BackWithMenuNav 
-              showMenu={true}
-              showBack={true}
-              navigation={this.props.navigation}
-              backPage={'mainStack'}
+      
+      <View style={styles.mainContainer}>
 
-            />
-            <TwoTabNavigator
-              leftTabScreen={'AddCoin'}
-              leftTabText={'Coins'}
-              rightTabScreen={'AddToken'}
-              rightTabText={'Tokens'}
-              Active={true}
-              navigation={this.props.navigation}
-            />
-            
+        <View style={styles.NavBarButton}>
+          <BackWithMenuNav 
+            showMenu={true}
+            showBack={true}
+            navigation={this.props.navigation}
+            backPage={'mainStack'}
+          />
+        </View>
+        
+        <View style={styles.tabNavContainer}>
+          <TwoTabNavigator
+            leftTabScreen={'AddCoin'}
+            leftTabText={'Coins'}
+            rightTabScreen={'AddToken'}
+            rightTabText={'Tokens'}
+            Active={true}
+            navigation={this.props.navigation}
+          />
+        </View>
+        
+        <View style={styles.listContainer}>
+          <CoinList type={'coins'} />
+        </View>
 
-        <CoinList type={'coins'} />
+        <View style={styles.btnContainer}>
+          <LinearButton
+            onClickFunction={this.navigate}
+            buttonText='Add Coins'
+            customStyles={styles.button}
+          />
+        </View>
+        <View style={styles.footerContainer}>
+          <Text style={styles.textFooter}>Powered by ChainSafe </Text> 
+        </View>
+
+
       </View>
-    )
+    );
   }
 }
 
@@ -128,23 +123,47 @@ class Coins extends Component {
  * Styles
  */
 const styles = StyleSheet.create({
-  NavBarButton: {
-    flex: 1,
-    flexDirection: 'row',
-    padding: 10
+  
+  mainContainer: {
+    flex: 1 ,
+    backgroundColor: '#fafbfe',
   },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
+  NavBarButton: {
+    flex: 0.5, 
+    justifyContent: 'center',
+    paddingBottom: '2%',
+  },
+  tabNavContainer: { 
+    flex: 0.5, 
+    justifyContent: 'center',
+    marginBottom: '2%', 
+  },
+  listContainer: { 
+    flex: 6 ,
+    paddingLeft: '9%',
+    alignItems: 'stretch',
   },
   btnContainer: {
+    flex: 1,
+    alignItems: 'stretch',
+    justifyContent: 'flex-end',
+  },
+  button: {
+    width: '82%',
+    height: Dimensions.get('window').height * 0.082,  
+  },
+  footerContainer: {
+    flex: 0.5,
     alignItems: 'center',
-    height: 60,
-    paddingTop: 10,
-    paddingBottom: 10,
-    justifyContent: 'center'
-  }
-})
+  },
+  textFooter: {
+    fontFamily: 'WorkSans-Regular',
+    fontSize: 12,
+    paddingBottom: '5%',
+    justifyContent: 'center', 
+    alignItems: 'center',
+    color: '#c0c0c0',
+  },
+});
 
-export default Coins
+export default Coins;

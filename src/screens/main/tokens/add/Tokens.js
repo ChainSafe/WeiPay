@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Linking } from 'react-native';
+import { View, StyleSheet, Dimensions, Text } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import CoinList from '../../../../components/tokens/CoinList';
-import Layout from '../../../../constants/Layout';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 import TwoTabNavigator from '../../../../components/customPageNavs/TwoTabNavigatior';
-
+import LinearButton from '../../../../components/LinearGradient/LinearButton';
 
 /**
  * React Component
@@ -34,18 +33,17 @@ class CustomButton extends Component {
 
 /**
  * React Screen Component
- * Screen to add more tokens to the portfolio
+ * Screen to add more coins to the portfolio
  */
-class Tokens extends Component {
+class Coins extends Component {
   /**
-  * Opens up the Drawer Navigator that allows you to navigate and select
-  * new coins to add
-  * 
-  */
+   * Opens up the Drawer Navigator that allows you to navigate and select
+   * new coins to add
+   * 
+   */
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Enable Tokens',
-      tabBarLabel: 'Tokens',
       headerLeft:
         <Icon
           name='chevron-left'
@@ -56,86 +54,115 @@ class Tokens extends Component {
       ,
       headerRight: (
         <CustomButton navigation={navigation} />
-      )
+      ),
+      tabBarLabel: 'Coins',
     };
   }
 
   /**
-  * Allows you to navigate to the navigation drawer
-  */
+   * Allows you to navigate to the navigation drawer
+   */
   navigate = () => {
     const navigateToPassphrase = NavigationActions.reset({
       index: 0,
-      actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
+      actions: [NavigationActions.navigate({ routeName: 'portfolioScreen' })],
     });
     this.props.navigation.dispatch(navigateToPassphrase);
   };
 
-  onSuccess(e) {
-    Linking
-      .openURL(e.data)
-      .catch(err => console.error('An error occured', err));
-  }
-
+  /**
+   * Contains tha CoinList Component
+   */
   render() {
     return (
-      <View style={{ flex: 1 }} >
-        <BackWithMenuNav 
-                showMenu={true}
-                showBack={true}
-                navigation={this.props.navigation}
-                backPage={'mainStack'}
-              />
+      
+      <View style={styles.mainContainer}>
 
+        <View style={styles.NavBarButton}>
+          <BackWithMenuNav 
+            showMenu={true}
+            showBack={true}
+            navigation={this.props.navigation}
+            backPage={'mainStack'}
+          />
+        </View>
+        
+        <View style={styles.tabNavContainer}>
           <TwoTabNavigator
-              leftTabScreen={'AddCoin'}
-              leftTabText={'Coins'}
-              rightTabScreen={'AddToken'}
-              rightTabText={'Tokens'}
-              navigation={this.props.navigation}
-            />
+            leftTabScreen={'AddCoin'}
+            leftTabText={'Coins'}
+            rightTabScreen={'AddToken'}
+            rightTabText={'Tokens'}
+            navigation={this.props.navigation}
+          />
+        </View>
+        
+        <View style={styles.listContainer}>
+          <CoinList type={'tokens'} />
+        </View>
 
-        <CoinList type={'tokens'} />
+        <View style={styles.btnContainer}>
+          <LinearButton
+            onClickFunction={this.navigate}
+            buttonText='Add Tokens'
+            customStyles={styles.button}
+          />
+        </View>
+        <View style={styles.footerContainer}>
+          <Text style={styles.textFooter}>Powered by ChainSafe </Text> 
+        </View>
+
+
       </View>
     );
   }
 }
 
-const scannerSize = Layout.window.width - 60;
+/**
+ * Styles
+ */
 const styles = StyleSheet.create({
+  
+  mainContainer: {
+    flex: 1 ,
+    backgroundColor: '#fafbfe',
+  },
   NavBarButton: {
-    flex: 1,
-    flexDirection: 'row',
-    padding: 10
+    flex: 0.5, 
+    justifyContent: 'center',
+    paddingBottom: '2%',
+  },
+  tabNavContainer: { 
+    flex: 0.5, 
+    justifyContent: 'center', 
+    marginBottom: '2%', 
+  },
+  listContainer: { 
+    flex: 6 ,
+    paddingLeft: '9%',
+    //alignItems: 'stretch',
   },
   btnContainer: {
-    alignItems: 'center',
-    height: 60,
-    paddingTop: 10,
-    paddingBottom: 10,
-    justifyContent: 'center'
-  },
-  centerText: {
     flex: 1,
-    fontSize: 18,
-    padding: 32,
-    color: '#777',
+    alignItems: 'stretch',
+    justifyContent: 'flex-end',
   },
-  textBold: {
-    fontWeight: '500',
-    color: '#000',
+  button: {
+    width: '82%',
+    height: Dimensions.get('window').height * 0.082,  
   },
-  buttonText: {
-    fontSize: 21,
-    color: 'rgb(0,122,255)',
+  footerContainer: {
+    flex: 0.5,
+    alignItems: 'center',
   },
-  buttonTouchable: {
-    padding: 16,
+  textFooter: {
+    fontFamily: 'WorkSans-Regular',
+    fontSize: 12,
+    paddingBottom: '5%',
+    justifyContent: 'center', 
+    alignItems: 'center',
+    color: '#c0c0c0',
   },
-  scanner: {
-    height: scannerSize,
-    width: scannerSize
-  }
 });
 
-export default Tokens;
+export default Coins;
