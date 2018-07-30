@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Alert, Dimensions, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, StyleSheet, Alert, Dimensions, Keyboard, TouchableWithoutFeedback, SafeAreaView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput, Card } from 'react-native-elements';
@@ -88,45 +88,47 @@ class RecoverWallet extends Component {
       } = styles;
         
       return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={mainContainer}>
-              <View style={{flex: 0.75}}>        
-                <BackWithMenuNav
-                    showMenu={false}
-                    showBack={true}
-                    navigation={this.props.navigation}
-                    backPage={'createWalletNameRecovered'}
-                />
-              </View>
-              <Text style={textHeader} >Recovery Passphrase</Text>
-              <View style={{alignItems: 'center', flex: 3}}>
-                <View style={contentContainer} >
-                    <BoxShadowCard>
-                        <Text style={cardText}>
-                            Enter your 12 word recovery passphrase to recover your wallet.
-                        </Text>
-                        <FormInput
-                            placeholder={'Ex. man friend love long phrase ... '}
-                            onChangeText={this.renderRecoveryKey.bind(this)}
-                            inputStyle={txtMnemonic}
-                         />
-                    </BoxShadowCard>
+        <SafeAreaView style={styles.safeAreaView}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+              <View style={mainContainer}>
+                <View style={{flex: 0.75}}>        
+                  <BackWithMenuNav
+                      showMenu={false}
+                      showBack={true}
+                      navigation={this.props.navigation}
+                      backPage={'createWalletNameRecovered'}
+                  />
                 </View>
-              </View>
-              <View style={btnContainer}>
-                <LinearButton
-                    onClickFunction={this.navigate }
-                    buttonText= 'Recover'
-                    customStyles={button}
-                />
-                <View style={footerGrandparentContainer}>
-                    <View style={footerParentContainer}>
-                        <Text style={textFooter} >Powered by ChainSafe </Text>
-                    </View>
+                <Text style={textHeader} >Recovery Passphrase</Text>
+                <View style={{alignItems: 'center', flex: 3}}>
+                  <View style={contentContainer} >
+                      <BoxShadowCard>
+                          <Text style={cardText}>
+                              Enter your 12 word recovery passphrase to recover your wallet.
+                          </Text>
+                          <FormInput
+                              placeholder={'Ex. man friend love long phrase ... '}
+                              onChangeText={this.renderRecoveryKey.bind(this)}
+                              inputStyle={txtMnemonic}
+                          />
+                      </BoxShadowCard>
+                  </View>
                 </View>
-              </View>              
-            </View>
-        </TouchableWithoutFeedback>
+                <View style={btnContainer}>
+                  <LinearButton
+                      onClickFunction={this.navigate }
+                      buttonText= 'Recover'
+                      customStyles={button}
+                  />
+                  <View style={footerGrandparentContainer}>
+                      <View style={footerParentContainer}>
+                          <Text style={textFooter} >Powered by ChainSafe </Text>
+                      </View>
+                  </View>
+                </View>              
+              </View>
+          </TouchableWithoutFeedback>
+        </SafeAreaView>
       );
     }
 }
@@ -135,6 +137,10 @@ class RecoverWallet extends Component {
  * Styles used in the RecoverWallet screen
  */
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1, 
+    backgroundColor: '#fafbfe'
+  },
   mainContainer: {
     flex: 1,
     backgroundColor: '#fafbfe',
