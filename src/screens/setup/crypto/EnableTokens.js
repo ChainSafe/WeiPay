@@ -34,6 +34,7 @@ class EnableCrypto extends Component {
       const {
         safeAreaView,
         mainContainer,
+        headerContainer,
         textHeader,
         coinListContainer,
         scrollView,
@@ -47,7 +48,7 @@ class EnableCrypto extends Component {
       return (
         <SafeAreaView style={styles.safeAreaView}>
             <View style={mainContainer}>
-              <View style={{flex:1, justifyContent:"flex-end"}}>
+              <View style={styles.headerContainer}>
                  <Text style={textHeader}>Enable Tokens </Text>
               </View>              
               <View style={coinListContainer}>
@@ -86,26 +87,27 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafbfe',
     width: '100%',
   },
+  headerContainer: {
+    flex:1, 
+    justifyContent:"flex-end"
+  },
   textHeader: {
     fontFamily: 'Cairo-Light',
     fontSize: 26,
     marginLeft: '9%',
     color: '#1a1f3e',
-    // backgroundColor: "blue",
   },
   coinListContainer: {
     alignItems: 'stretch',
     width: '100%',
     marginLeft: '9%',
     flex:5,
-    // backgroundColor: "green",
     paddingBottom: "2.5%",
     paddingTop: "2.5%",
   },
   btnContainer: {
     flex: 1.25,
     width: '100%',
-    // backgroundColor: "purple"
   },
   button: {
     width: '82%',

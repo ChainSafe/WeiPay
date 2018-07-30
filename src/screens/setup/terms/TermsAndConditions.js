@@ -26,31 +26,39 @@ class TermsAndConditions extends Component {
       const {
         mainContainer,
         textHeader,
+        scrollViewContainer,
         scrollView,
         textBody,
         btnContainer,
         button,
-        footerContainer,
+        footerGrandparentContainer,
+        footerParentContainer,
         textFooter,
       } = styles;
 
       return (
         <SafeAreaView style={styles.safeAreaView}>
           <View style={mainContainer}>
-                <Text style={textHeader} >Terms & Conditions </Text>
-                <ScrollView style={scrollView}>
-                    <Text style={textBody} >{Terms}</Text>
-                </ScrollView>                
-                <View style={btnContainer}>
-                    <LinearButton
-                        onClickFunction={this.navigate}
-                        buttonText='Agree'
-                        customStyles={button}
-                    />
+            <View style={styles.headerContainer} >
+              <Text style={textHeader} >Terms & Conditions </Text>
+            </View>
+            <View style={styles.scrollViewContainer} >
+              <ScrollView style={scrollView}>
+                  <Text style={textBody} >{Terms}</Text>
+              </ScrollView> 
+            </View>
+            <View style={btnContainer}>
+                <LinearButton
+                    onClickFunction={this.navigate}
+                    buttonText='Agree'
+                    customStyles={button}
+                />
+                <View style={footerGrandparentContainer}>
+                  <View style={footerParentContainer} >
+                    <Text style={textFooter} >Powered by ChainSafe </Text>
+                  </View>
                 </View>
-                <View style={footerContainer}>
-                    <Text style={textFooter}>Powered by ChainSafe </Text> 
-                </View>
+              </View>             
             </View>
         </SafeAreaView>
       );
@@ -71,18 +79,24 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
+  headerContainer: {
+    flex:1, 
+    justifyContent:"flex-end"
+  },
   textHeader: {
     fontFamily: 'Cairo-Light',
     fontSize: 26,
     paddingLeft: '9%',
-    paddingBottom: '2.5%',
-    marginTop: '9%',
     letterSpacing: 0.8,
     color: '#1a1f3e',
   },
+  scrollViewContainer: {
+    flex:5,
+    paddingBottom: "2.5%",
+    paddingTop: "2.5%",
+  },
   scrollView:{
     height: '60%',
-    flex: 3
   },
   textBody: {
     fontFamily: 'WorkSans-Light',
@@ -92,23 +106,24 @@ const styles = StyleSheet.create({
     lineHeight: 16,
   },
   btnContainer: {
-    marginTop: '5%',
-    marginBottom: '3.5%',
     width: '100%',
+    flex: 1.25,
   },
   button: {
     width: '82%',
     height: Dimensions.get('window').height * 0.082,  
   },
-  footerContainer: {
+  footerGrandparentContainer: {
+    alignItems: 'center',
+    marginBottom: '5%',
+    marginTop: '5%',
+  },
+  footerParentContainer: {
     alignItems: 'center',
   },
   textFooter: {
     fontFamily: 'WorkSans-Regular',
-    fontSize: 12,
-    paddingBottom: '5%',
-    justifyContent: 'center', 
-    alignItems: 'center',
+    fontSize: 11,
     color: '#c0c0c0',
   },
 });

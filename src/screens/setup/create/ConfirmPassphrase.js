@@ -200,18 +200,16 @@ const styles = StyleSheet.create({
     paddingLeft: '9%',
     color: '#1a1f3e',
     flex:0.75,
-    // backgroundColor: "blue"
   },
   boxShadowContainer: {
     alignItems:"center", 
     flex: 4
   },
   contentContainer: {
-    // backgroundColor: "green",
     width: '82%'
   },
   cardText: {
-    paddingBottom: '10%',
+    paddingBottom: '5%',
     lineHeight: 22,
     paddingTop: '5%',
     paddingLeft: '5%',
@@ -229,13 +227,13 @@ const styles = StyleSheet.create({
     alignContent: 'space-around',
   },
   cardButtonContainer: {
-    paddingBottom: '2%',
-    paddingRight: '1.75%',
-    // flex:1
+    paddingBottom: '1%',
   },
   cardButton: {
-    height: 32,
-     justifyContent: 'center',
+    height: Dimensions.get('window').height * 0.05,  
+    justifyContent: 'center',
+    alignContent: "center",
+    alignItems: "center",
   },
   cardContainer: {
     width: '80%',
@@ -266,13 +264,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'stretch',
     alignContent: 'flex-end',
-    // backgroundColor: "red",
     flex:1
   },
   footerGrandparentContainer: {
     alignItems: 'center',
-    marginBottom: '5%',
-    marginTop: '5%'
+    marginBottom: '2.5%',
+    marginTop: '2.5%'
   },
   footerParentContainer: {
     alignItems: 'center',
