@@ -75,8 +75,6 @@ class CreateWalletName extends Component {
                     </BoxShadowCard>
                 </View>
               </View>
-
-              
             <View style={btnContainer}>
                 <LinearButton
                     onClickFunction={this.navigate }
