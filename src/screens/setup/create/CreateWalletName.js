@@ -73,7 +73,7 @@ class CreateWalletName extends Component {
                         />
                     </View>                    
                     <Text style={styles.textHeader} >Wallet Name</Text>
-                    <View style={{alignItems: 'center' ,  flex: 3}}>
+                    <View style={{alignItems: 'center', flex: 3}}>
                         <View style={styles.contentContainer}>
                             <BoxShadowCard>
                                 <Text style={styles.cardText}>
@@ -95,12 +95,13 @@ class CreateWalletName extends Component {
                             customStyles={button}
                             // buttonStateEnabled={this.state.buttonDisabled}
                         />
+                        <View style={styles.footerGrandparentContainer} >    
+                            <View style={styles.footerParentContainer} >
+                                <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
+                            </View>  
+                        </View> 
                     </View>
-                    <View style={styles.footerGrandparentContainer} >    
-                        <View style={styles.footerParentContainer} >
-                            <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
-                        </View>  
-                    </View> 
+                   
                 </View>
             </TouchableWithoutFeedback>
       );
@@ -109,61 +110,65 @@ class CreateWalletName extends Component {
 
 const styles = StyleSheet.create({
     mainContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#fafbfe',
-    width: '100%',   
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: '#fafbfe',
+        width: '100%',   
     },
     textHeader: {
-    fontFamily: 'Cairo-Light',
-    fontSize: 26,
-    paddingLeft: '10%',
-    color: '#1a1f3e',
-    flex: 0.75, 
+        fontFamily: 'Cairo-Light',
+        fontSize: 26,
+        letterSpacing: 0.8,
+        paddingLeft: '9%',
+        color: '#1a1f3e',
+        flex: 0.75, 
     },
     contentContainer: {
-    flex: 1,
-    width: '82%',
+        flex: 1,
+        width: '82%',
     },
     cardContainer: {
-    width: '82%',
+        width: '82%',
     },
     cardText: {
-    paddingBottom: '20%',
-    paddingTop: '7.5%',
-    paddingLeft: '7.5%',
-    paddingRight: '7.5%',
-    fontFamily: 'WorkSans-Light',
-    color: '#000000',
-    fontSize: 16,
+        paddingBottom: '20%',
+        paddingTop: '7.5%',
+        paddingLeft: '7.5%',
+        paddingRight: '7.5%',
+        fontFamily: 'WorkSans-Light',
+        color: '#000000',
+        fontSize: 16,
     },
     txtWalletName: {
-    width: '100%',
-    flexWrap: 'wrap',
-    color: '#12c1a2',
+        width: '100%',
+        flexWrap: 'wrap',
+        color: '#12c1a2',
+        letterSpacing: 0.4,
+        fontFamily: 'WorkSans-Regular',  
     },
     btnContainer: {
-    flex: 2,
-    alignItems: 'stretch',
-    justifyContent: 'flex-end',
-    width: '100%',
+        flex: 2,
+        alignItems: 'stretch',
+        justifyContent: 'flex-end',
+        width: '100%',
     },
     button: {
-    width: '82%',
-    height: Dimensions.get('window').height * 0.082,  
+        width: '82%',
+        height: Dimensions.get('window').height * 0.082,  
     },
     footerGrandparentContainer: {
-    alignItems: 'center',
-    marginBottom: '2.5%',
-    marginTop: '2.5%',
+        alignItems: 'center',
+        marginBottom: '2.5%',
+        marginTop: '2.5%',
     },
     footerParentContainer: {
-    alignItems: 'center',
+        alignItems: 'center',
     },
     textFooter: {
-    fontFamily: 'WorkSans-Regular',
-    fontSize: 11,
-    color: '#c0c0c0',},
+        fontFamily: 'WorkSans-Regular',
+        fontSize: 11,
+        color: '#c0c0c0',
+    },
 })
 
 /**

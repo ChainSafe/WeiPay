@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, Dimensions } from 'react-native';
+import { View, StyleSheet, Text, Dimensions, TouchableWithoutFeedback, Keyboard, Platform } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput, Card } from 'react-native-elements';
 import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCreator';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
+import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 
 /**
  * Initial setup screen used to allow the user to give their wallet a name after
@@ -49,16 +50,20 @@ class CreateWalletName extends Component {
       } = styles;
 
       return (
-            <View style={mainContainer}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={mainContainer}>
+              <View style={{flex: 0.75}}>        
                 <BackWithMenuNav
                     showMenu={false}
                     showBack={true}
                     navigation={this.props.navigation}
                     backPage={'createOrRestore'}
-                />
-                <Text style={textHeader}>Wallet Name</Text>
+                  />
+              </View>
+              <Text style={textHeader}>Wallet Name</Text>
+              <View style={{alignItems: 'center', flex: 3}}>
                 <View style={contentContainer}>
-                    <Card containerStyle={cardContainer}>
+                    <BoxShadowCard>
                         <Text style={cardText}>
                             Create a name for your wallet, for example: My Wallet
                         </Text>
@@ -67,21 +72,26 @@ class CreateWalletName extends Component {
                             onChangeText={this.getWalletName.bind(this)}
                             inputStyle={txtWalletName}
                         />
-                    </Card>
+                    </BoxShadowCard>
+                </View>
               </View>
+
+              
             <View style={btnContainer}>
                 <LinearButton
                     onClickFunction={this.navigate }
                     buttonText= 'Next'
                     customStyles={button}
                 />
-            </View>
-            <View style={footerGrandparentContainer}>
-                <View style={footerParentContainer} >
-                    <Text style={textFooter} >Powered by ChainSafe </Text>
+                <View style={footerGrandparentContainer}>
+                    <View style={footerParentContainer} >
+                        <Text style={textFooter} >Powered by ChainSafe </Text>
+                    </View>
                 </View>
             </View>
+           
         </View>
+      </TouchableWithoutFeedback>
       );
     }
 }
@@ -92,37 +102,30 @@ class CreateWalletName extends Component {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    paddingTop: '5%',
     backgroundColor: '#fafbfe',
+    justifyContent: 'center',
     width: '100%',
-    height: '100%',
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
     fontSize: 26,
     letterSpacing: 0.8,
     paddingLeft: '9%',
-    paddingBottom: '3%',
     color: '#1a1f3e',
+    flex: 0.75, 
   },
   contentContainer: {
-    alignItems: 'center',
+    width: '82%',
     flex: 1,
   },
   cardContainer: {
     width: '82%',
-    height: '55%',
-    borderRadius: 7.5,
-    shadowOpacity: 0.5,
-    shadowRadius: 1.3,
-    shadowColor: '#dbdbdb',
-    shadowOffset: { width: 1, height: 2 },
   },
   cardText: {
-    paddingBottom: '5%',
-    paddingTop: '5%',
-    paddingLeft: '5%',
-    paddingRight: '5%',
+    paddingBottom: '20%',
+    paddingTop: '7.5%',
+    paddingLeft: '7.5%',
+    paddingRight: '7.55%',
     fontFamily: 'WorkSans-Light',
     color: '#000000',
     fontSize: 16,
@@ -135,6 +138,7 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Regular',  
   },
   btnContainer: {
+    flex:2,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     width: '100%',
@@ -145,6 +149,8 @@ const styles = StyleSheet.create({
   },
   footerGrandparentContainer: {
     alignItems: 'center',
+    marginBottom: '2.5%',
+    marginTop: '2.5%',
   },
   footerParentContainer: {
     alignItems: 'center',
@@ -152,7 +158,6 @@ const styles = StyleSheet.create({
   textFooter: {
     fontFamily: 'WorkSans-Regular',
     fontSize: 11,
-    marginTop: '3.5%',
     color: '#c0c0c0',
   },
 });

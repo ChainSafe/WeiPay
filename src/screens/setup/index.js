@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   textHeader: {
     fontFamily: 'Cairo-Light',
     fontSize: 34,
-    marginBottom: '-0.5%',
+    marginBottom: '-0.1%',
     letterSpacing: 1.1,
     color: '#1a1f3e',
   },
