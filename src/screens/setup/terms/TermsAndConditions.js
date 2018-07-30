@@ -4,7 +4,7 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { Terms } from '../../../constants/Terms';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
-import { enterDebug } from '../../../actions/ActionCreator'
+import { enterDebug } from '../../../actions/ActionCreator';
 
 /**
  * Initial terms and condition screen when the app is oppened for the first time.
@@ -26,7 +26,7 @@ class TermsAndConditions extends Component {
         'Entering Debug Mode',
         '',
         [
-          {text: 'OK', onPress: this.props.enterDebug },
+          {text: 'OK', onPress: () => this.props.enterDebug() },
         ],
         { cancelable: false }
       )

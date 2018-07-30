@@ -64,6 +64,8 @@ class CreateWalletName extends Component {
         footerParentContainer,
         textFooter,
       } = styles;
+      console.log(this.props.debugMode);
+      
 
       return (
         <SafeAreaView style={styles.safeAreaView}>
@@ -192,7 +194,8 @@ const styles = StyleSheet.create({
  */
 const mapStateToProps = ({ newWallet }) => {
   const { walletName } = newWallet;
-  return { walletName };
+  const debugMode = newWallet.debugMode
+  return { walletName, debugMode };
 };
 
 export default connect(mapStateToProps, { newWalletNameEntry, newWalletCreation })(CreateWalletName);
