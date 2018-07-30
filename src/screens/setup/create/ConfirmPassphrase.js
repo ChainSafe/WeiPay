@@ -268,8 +268,8 @@ const styles = StyleSheet.create({
   },
   footerGrandparentContainer: {
     alignItems: 'center',
-    marginBottom: '3%',
-    marginTop: '3%'
+    marginBottom: '2.5%',
+    marginTop: '2.5%'
   },
   footerParentContainer: {
     alignItems: 'center',

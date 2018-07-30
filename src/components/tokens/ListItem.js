@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { CheckBox, ListItem, Icon, } from 'react-native-elements'
-import {BoxShadow} from 'react-native-shadow'
 import { CardSection } from '../common/CardSection';
 import { Card } from '../common/Card';
 import { addTokenToSetup } from '../../actions/ActionCreator';
-
+import BoxShadowCard from '../ShadowCards/BoxShadowCard';
 
 /**
  * React Component
@@ -51,6 +50,8 @@ class CoinListItem extends Component {
         <TouchableOpacity
           onPress={() => this.renderPress(coin)}>
           <View style={[styles.check, coin.selected ? styles.containerSelected : styles.containerDeselect]}>
+
+          <BoxShadowCard customStyles={{flex:1}}> 
             <ListItem
               hideChevron
               key={coin.id}
@@ -83,6 +84,10 @@ class CoinListItem extends Component {
               containerStyle = {styles.listItemContainer}
               avatarStyle = {styles.avatarStyles}
             />
+
+            </BoxShadowCard>
+
+
           </View>
         </TouchableOpacity >
       </View>
@@ -95,8 +100,9 @@ class CoinListItem extends Component {
  */
 const styles = StyleSheet.create({
   listItemParentContainer: {
-    marginTop: '2.5%',
+    marginTop: '3%',
     marginLeft: '0.25%',
+    height: Dimensions.get('window').height * 0.1, 
   },
   titleContainer: {
     flexDirection: 'row',
@@ -121,11 +127,8 @@ const styles = StyleSheet.create({
     top: '6%',
   },
   listItemContainer: {
-    shadowColor: 'grey',
-    shadowOffset: { width: 0, height: 0 },
-    shadowRadius: 2,
-    shadowOpacity: 1,
     borderWidth: 0,
+    borderBottomWidth: 0,
     width: '100%',
     height: 63,
     backgroundColor: '#ffffff',
