@@ -39,7 +39,11 @@ class CreateWalletName extends Component {
      */
     getWalletName(name) {
       this.props.newWalletNameEntry(name);
-      this.setState({ buttonDisabled: false });
+      if (name !== '') {
+        this.setState({ buttonDisabled: false });
+      } else {
+        this.setState({ buttonDisabled: true });
+      }
     }
 
     /**
@@ -93,7 +97,7 @@ class CreateWalletName extends Component {
                             onClickFunction={this.navigate}
                             buttonText="Next"
                             customStyles={button}
-                            // buttonStateEnabled={this.state.buttonDisabled}
+                            buttonStateEnabled={this.state.buttonDisabled}
                         />
                         <View style={styles.footerGrandparentContainer} >    
                             <View style={styles.footerParentContainer} >
