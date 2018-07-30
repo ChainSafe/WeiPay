@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableWithoutFeedback, StyleSheet, Text, Keyboard, Platform, Dimensions } from 'react-native';
+import { View, TouchableWithoutFeedback, StyleSheet, Text, Keyboard, Platform, Dimensions, SafeAreaView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput, Card } from 'react-native-elements';
@@ -62,9 +62,10 @@ class CreateWalletName extends Component {
       } = styles;
 
       return (
+        <SafeAreaView style={styles.safeAreaView}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.mainContainer} >
-                    <View style={{flex: 0.75}}>        
+                    <View style={styles.navContainer}>        
                         <BackWithMenuNav
                             showMenu={false}
                             showBack={true}
@@ -73,7 +74,7 @@ class CreateWalletName extends Component {
                         />
                     </View>                    
                     <Text style={styles.textHeader} >Wallet Name</Text>
-                    <View style={{alignItems: 'center' ,  flex: 3}}>
+                    <View style={styles.boxShadowContainer}>
                         <View style={styles.contentContainer}>
                             <BoxShadowCard>
                                 <Text style={styles.cardText}>
@@ -87,7 +88,6 @@ class CreateWalletName extends Component {
                             </BoxShadowCard>
                         </View>
                     </View>
-
                     <View style={btnContainer}>
                         <LinearButton
                             onClickFunction={this.navigate}
@@ -95,75 +95,91 @@ class CreateWalletName extends Component {
                             customStyles={button}
                             // buttonStateEnabled={this.state.buttonDisabled}
                         />
-                    </View>
-                    <View style={styles.footerGrandparentContainer} >    
-                        <View style={styles.footerParentContainer} >
-                            <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
-                        </View>  
-                    </View> 
+                        <View style={styles.footerGrandparentContainer} >    
+                            <View style={styles.footerParentContainer} >
+                                <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
+                            </View>  
+                        </View> 
+                    </View>                   
                 </View>
             </TouchableWithoutFeedback>
+        </SafeAreaView>
       );
     }
 }
 
 const styles = StyleSheet.create({
+    safeAreaView: {
+        flex: 1, 
+        backgroundColor: '#fafbfe'
+    },
     mainContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#fafbfe',
-    width: '100%',   
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: '#fafbfe',
+        width: '100%',   
+    },
+    navContainer: {
+        flex: 0.75,
+    },
+    boxShadowContainer: {
+        alignItems: 'center', 
+        flex: 3,
     },
     textHeader: {
-    fontFamily: 'Cairo-Light',
-    fontSize: 26,
-    paddingLeft: '10%',
-    color: '#1a1f3e',
-    flex: 0.75, 
+        fontFamily: 'Cairo-Light',
+        fontSize: 26,
+        letterSpacing: 0.8,
+        paddingLeft: '9%',
+        color: '#1a1f3e',
+        flex: 0.75, 
     },
     contentContainer: {
-    flex: 1,
-    width: '82%',
-    },
-    cardContainer: {
-    width: '82%',
+        flex: 1,
+        width: '82%',
     },
     cardText: {
-    paddingBottom: '20%',
-    paddingTop: '7.5%',
-    paddingLeft: '7.5%',
-    paddingRight: '7.5%',
-    fontFamily: 'WorkSans-Light',
-    color: '#000000',
-    fontSize: 16,
+        paddingBottom: '20%',
+        paddingTop: '7.5%',
+        paddingLeft: '7.5%',
+        paddingRight: '7.5%',
+        fontFamily: 'WorkSans-Light',
+        color: '#000000',
+        lineHeight: 22,
+        letterSpacing: 0.4,
+        fontSize: 16,
     },
     txtWalletName: {
-    width: '100%',
-    flexWrap: 'wrap',
-    color: '#12c1a2',
+        width: '100%',
+        flexWrap: 'wrap',
+        color: '#12c1a2',
+        letterSpacing: 0.4,
+        fontSize: 16,
+        fontFamily: 'WorkSans-Regular',  
     },
     btnContainer: {
-    flex: 2,
-    alignItems: 'stretch',
-    justifyContent: 'flex-end',
-    width: '100%',
+        flex: 2,
+        alignItems: 'stretch',
+        justifyContent: 'flex-end',
+        width: '100%',
     },
     button: {
-    width: '82%',
-    height: Dimensions.get('window').height * 0.082,  
+        width: '82%',
+        height: Dimensions.get('window').height * 0.082,  
     },
     footerGrandparentContainer: {
-    alignItems: 'center',
-    marginBottom: '2.5%',
-    marginTop: '2.5%',
+        alignItems: 'center',
+        marginBottom: '5%',
+        marginTop: '5%',
     },
     footerParentContainer: {
-    alignItems: 'center',
+        alignItems: 'center',
     },
     textFooter: {
-    fontFamily: 'WorkSans-Regular',
-    fontSize: 11,
-    color: '#c0c0c0',},
+        fontFamily: 'WorkSans-Regular',
+        fontSize: 11,
+        color: '#c0c0c0',
+    },
 })
 
 /**

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Dimensions } from 'react-native';
+import { Text, View, StyleSheet, Dimensions, SafeAreaView} from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { restoreWallet } from '../../actions/ActionCreator';
@@ -51,28 +51,30 @@ class CreateOrRestore extends Component {
       } = styles;
 
       return (
-        <View style={mainContainer}>
-            <Text style={textHeader} > WeiPay</Text>
-            <Text style={textHeaderDescription} > ERC20 Token Wallet </Text>
-            <View style={btnContainer} >
-                <View style={btnCreate}>
-                    <LinearButton
-                        onClickFunction={this.navigateCreate}
-                        buttonText= 'Create Wallet'
-                        customStyles={button}
-                    />
-                </View>           
-                <ClearButton
-                    onClickFunction={this.navigateRestore}
-                    buttonText= 'Restore Wallet'
-                    customStyles={button}
-                    unlockButton={true}
-                />              
-            </View>
-            <View style={footerContainer}>
-                <Text style={textFooter} >Powered by ChainSafe </Text>
-            </View>
-        </View>
+        <SafeAreaView style={styles.safeAreaView}>
+          <View style={mainContainer}>
+              <Text style={textHeader} > WeiPay</Text>
+              <Text style={textHeaderDescription} > ERC20 Token Wallet </Text>
+              <View style={btnContainer} >
+                  <View style={btnCreate}>
+                      <LinearButton
+                          onClickFunction={this.navigateCreate}
+                          buttonText= 'Create Wallet'
+                          customStyles={button}
+                      />
+                  </View>           
+                  <ClearButton
+                      onClickFunction={this.navigateRestore}
+                      buttonText= 'Restore Wallet'
+                      customStyles={button}
+                      unlockButton={true}
+                  />              
+              </View>
+              <View style={footerContainer}>
+                  <Text style={textFooter} >Powered by ChainSafe </Text>
+              </View>
+          </View>
+        </SafeAreaView>
       );
     }
 }
@@ -81,6 +83,10 @@ class CreateOrRestore extends Component {
  * Styles used in the "CreateOrRestore" setup screen
  */
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1, 
+    backgroundColor: '#fafbfe'
+  },
   mainContainer: {
     backgroundColor: '#fafbfe',
     width: '100%',
@@ -92,7 +98,7 @@ const styles = StyleSheet.create({
   textHeader: {
     fontFamily: 'Cairo-Light',
     fontSize: 34,
-    marginBottom: '-0.5%',
+    marginBottom: '-0.1%',
     letterSpacing: 1.1,
     color: '#1a1f3e',
   },
@@ -106,7 +112,6 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     width: '100%',
     justifyContent: 'flex-end',
-    backgroundColor:"blue"
   },
   button: {
     width: '82%',

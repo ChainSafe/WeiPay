@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, Dimensions } from 'react-native';
+import { View, StyleSheet, Text, Dimensions, TouchableWithoutFeedback, Keyboard, Platform, SafeAreaView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput, Card } from 'react-native-elements';
 import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCreator';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
+import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 
 /**
  * Initial setup screen used to allow the user to give their wallet a name after
@@ -49,39 +50,48 @@ class CreateWalletName extends Component {
       } = styles;
 
       return (
+        <SafeAreaView style={styles.safeAreaView}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={mainContainer}>
-                <BackWithMenuNav
-                    showMenu={false}
-                    showBack={true}
-                    navigation={this.props.navigation}
-                    backPage={'createOrRestore'}
-                />
-                <Text style={textHeader}>Wallet Name</Text>
-                <View style={contentContainer}>
-                    <Card containerStyle={cardContainer}>
-                        <Text style={cardText}>
-                            Create a name for your wallet, for example: My Wallet
-                        </Text>
-                        <FormInput
-                            placeholder={'Ex. My Wallet'}
-                            onChangeText={this.getWalletName.bind(this)}
-                            inputStyle={txtWalletName}
-                        />
-                    </Card>
-              </View>
-            <View style={btnContainer}>
-                <LinearButton
-                    onClickFunction={this.navigate }
-                    buttonText= 'Next'
-                    customStyles={button}
-                />
-            </View>
-            <View style={footerGrandparentContainer}>
-                <View style={footerParentContainer} >
-                    <Text style={textFooter} >Powered by ChainSafe </Text>
+                <View style={styles.navContainer}>        
+                  <BackWithMenuNav
+                      showMenu={false}
+                      showBack={true}
+                      navigation={this.props.navigation}
+                      backPage={'createOrRestore'}
+                    />
                 </View>
-            </View>
-        </View>
+                <Text style={textHeader}>Wallet Name</Text>
+                <View style={styles.boxShadowContainer}>
+                  <View style={contentContainer}>
+                      <BoxShadowCard>
+                          <Text style={cardText}>
+                              Create a name for your wallet, for example: My Wallet
+                          </Text>
+                          <FormInput
+                              placeholder={'Ex. My Wallet'}
+                              onChangeText={this.getWalletName.bind(this)}
+                              inputStyle={txtWalletName}
+                          />
+                      </BoxShadowCard>
+                  </View>
+                </View>
+              <View style={btnContainer}>
+                  <LinearButton
+                      onClickFunction={this.navigate }
+                      buttonText= 'Next'
+                      customStyles={button}
+                  />
+                  <View style={footerGrandparentContainer}>
+                      <View style={footerParentContainer} >
+                          <Text style={textFooter} >Powered by ChainSafe </Text>
+                      </View>
+                  </View>
+              </View>
+            
+          </View>
+        </TouchableWithoutFeedback>
+      </SafeAreaView>
       );
     }
 }
@@ -90,39 +100,43 @@ class CreateWalletName extends Component {
  * Styles used in the "CreateWalletNameRecovery" screen
  */
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1, 
+    backgroundColor: '#fafbfe'
+  },
   mainContainer: {
     flex: 1,
-    paddingTop: '5%',
     backgroundColor: '#fafbfe',
+    justifyContent: 'center',
     width: '100%',
-    height: '100%',
+  },
+  navContainer: {
+    flex: 0.75,
+  },
+  boxShadowContainer: {
+    alignItems: 'center', 
+    flex: 3
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
     fontSize: 26,
     letterSpacing: 0.8,
     paddingLeft: '9%',
-    paddingBottom: '3%',
     color: '#1a1f3e',
+    flex: 0.75, 
   },
   contentContainer: {
-    alignItems: 'center',
+    width: '82%',
     flex: 1,
   },
   cardContainer: {
     width: '82%',
-    height: '55%',
-    borderRadius: 7.5,
-    shadowOpacity: 0.5,
-    shadowRadius: 1.3,
-    shadowColor: '#dbdbdb',
-    shadowOffset: { width: 1, height: 2 },
   },
   cardText: {
-    paddingBottom: '5%',
-    paddingTop: '5%',
-    paddingLeft: '5%',
-    paddingRight: '5%',
+    paddingBottom: '20%',
+    paddingTop: '7.5%',
+    paddingLeft: '7.5%',
+    paddingRight: '7.55%',
     fontFamily: 'WorkSans-Light',
     color: '#000000',
     fontSize: 16,
@@ -135,6 +149,7 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Regular',  
   },
   btnContainer: {
+    flex:2,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     width: '100%',
@@ -145,6 +160,8 @@ const styles = StyleSheet.create({
   },
   footerGrandparentContainer: {
     alignItems: 'center',
+    marginBottom: '5%',
+    marginTop: '5%',
   },
   footerParentContainer: {
     alignItems: 'center',
@@ -152,7 +169,6 @@ const styles = StyleSheet.create({
   textFooter: {
     fontFamily: 'WorkSans-Regular',
     fontSize: 11,
-    marginTop: '3.5%',
     color: '#c0c0c0',
   },
 });
