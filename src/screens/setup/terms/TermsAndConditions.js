@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, StyleSheet, Dimensions, SafeAreaView } from 'react-native';
+import { Alert, Text, View, ScrollView, StyleSheet, Dimensions, SafeAreaView, TouchableWithoutFeedback } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux';
 import { Terms } from '../../../constants/Terms';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
+import { enterDebug } from '../../../actions/ActionCreator'
 
 /**
  * Initial terms and condition screen when the app is oppened for the first time.
@@ -18,6 +20,18 @@ class TermsAndConditions extends Component {
       });
       this.props.navigation.dispatch(navigateToCreateOrRestore);
     };
+
+    enterDebugMode(){
+      Alert.alert(
+        'Entering Debug Mode',
+        '',
+        [
+          {text: 'OK', onPress: this.props.enterDebug },
+        ],
+        { cancelable: false }
+      )
+      
+    }
 
     /**
      * Returns the scrollable component that displays the terms and conditions with a submit button
@@ -40,7 +54,7 @@ class TermsAndConditions extends Component {
         <SafeAreaView style={styles.safeAreaView}>
           <View style={mainContainer}>
             <View style={styles.headerContainer} >
-              <Text style={textHeader} >Terms & Conditions </Text>
+              <Text style={textHeader} onPress={this.enterDebugMode} >Terms & Conditions </Text>
             </View>
             <View style={styles.scrollViewContainer} >
               <ScrollView style={scrollView}>
@@ -81,7 +95,7 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     flex:1, 
-    justifyContent:"flex-end"
+    justifyContent:"flex-end",
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
@@ -128,4 +142,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TermsAndConditions;
+export default connect(null, { enterDebug })(TermsAndConditions);
