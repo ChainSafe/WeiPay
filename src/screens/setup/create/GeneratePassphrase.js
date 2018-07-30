@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, SafeAreaView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
@@ -37,58 +37,60 @@ class GeneratePassphrase extends Component {
       } = styles;
 
       return (
-        <View style={mainContainer}>
-          <View style={{flex:0.75}}>
-            <BackWithMenuNav
-                showMenu={false}
-                showBack={true}
-                navigation={this.props.navigation}
-                backPage={'createWalletName'}
-            />
-            </View>
-            <Text style={textHeader} >Your Passphrase</Text>
-
-            <View style={{alignItems:"center", flex: 3}}>
-              <View style={contentContainer} >
-                  <BoxShadowCard >
-                      <Text style={cardText}>
-                          Please write down your 12 word passphrase. You will need it to verify your wallet.
-                      </Text>
-                      <Text style={textMnemonic}>
-                          {walletInfo.wallet.mnemonic}
-                      </Text>
-                    </BoxShadowCard>
+        <SafeAreaView style={styles.safeAreaView}>
+          <View style={mainContainer}>
+            <View style={styles.navContainer}>
+              <BackWithMenuNav
+                  showMenu={false}
+                  showBack={true}
+                  navigation={this.props.navigation}
+                  backPage={'createWalletName'}
+                />
               </View>
-            </View>
-
-
-              <View style={btnContainer}>
-                  <LinearButton
-                      onClickFunction={this.navigate}
-                      buttonText="Next"
-                      customStyles={button}
-                      // buttonStateEnabled={this.state.buttonDisabled}
-                  />
-
-                  <View style={footerGrandparentContainer}>
-                    <View style={footerParentContainer}>
-                        <Text style={textFooter} >Powered by ChainSafe </Text>
-                    </View>
+              <Text style={textHeader} >Your Passphrase</Text>
+              <View style={{alignItems:"center", flex: 3}}>
+                <View style={contentContainer} >
+                    <BoxShadowCard >
+                        <Text style={cardText}>
+                            Please write down your 12 word passphrase. You will need it to verify your wallet.
+                        </Text>
+                        <Text style={textMnemonic}>
+                            {walletInfo.wallet.mnemonic}
+                        </Text>
+                      </BoxShadowCard>
                   </View>
-
               </View>
-             
-       
-        </View>
+              <View style={btnContainer}>
+                <LinearButton
+                    onClickFunction={this.navigate}
+                    buttonText="Next"
+                    customStyles={button}
+                    // buttonStateEnabled={this.state.buttonDisabled}
+                />
+                <View style={footerGrandparentContainer}>
+                  <View style={footerParentContainer}>
+                      <Text style={textFooter} >Powered by ChainSafe </Text>
+                  </View>
+                </View>
+            </View>          
+          </View>
+        </SafeAreaView>
       );
     }
 }
 
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1, 
+    backgroundColor: '#fafbfe'
+  },
   mainContainer: {
     flex: 1,
     backgroundColor: '#fafbfe',
     width: '100%',
+  },
+  navContainer: {
+    flex: 0.75,
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
@@ -96,10 +98,8 @@ const styles = StyleSheet.create({
     paddingLeft: '9%',
     color: '#1a1f3e',
     flex:0.75,
-    // backgroundColor: "blue"
   },
   contentContainer: {
-    // backgroundColor: "green",
     width: '83%',
   },
   cardText: {
@@ -123,8 +123,7 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     alignContent: 'flex-end',
-    // backgroundColor: "red",
-    flex:2
+    flex: 2
   },
   button: {
     width: '82%',
@@ -132,9 +131,8 @@ const styles = StyleSheet.create({
   },
   footerGrandparentContainer: {
     alignItems: 'center',
-    // backgroundColor:"yellow",
-    marginBottom: '2.5%',
-    marginTop: '2.5%'
+    marginBottom: '5%',
+    marginTop: '5%'
   },
   footerParentContainer: {
     alignItems: 'center',

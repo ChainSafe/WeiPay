@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, StyleSheet, Dimensions } from 'react-native';
+import { Text, View, ScrollView, StyleSheet, Dimensions, SafeAreaView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { Terms } from '../../../constants/Terms';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
@@ -35,7 +35,8 @@ class TermsAndConditions extends Component {
       } = styles;
 
       return (
-            <View style={mainContainer}>
+        <SafeAreaView style={styles.safeAreaView}>
+          <View style={mainContainer}>
                 <Text style={textHeader} >Terms & Conditions </Text>
                 <ScrollView style={scrollView}>
                     <Text style={textBody} >{Terms}</Text>
@@ -51,6 +52,7 @@ class TermsAndConditions extends Component {
                     <Text style={textFooter}>Powered by ChainSafe </Text> 
                 </View>
             </View>
+        </SafeAreaView>
       );
     }
 }
@@ -59,6 +61,10 @@ class TermsAndConditions extends Component {
  * Styles used in the terms and condition screen
  */
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1, 
+    backgroundColor: '#fafbfe'
+  },
   mainContainer: {
     flex: 1,
     backgroundColor: '#fafbfe',

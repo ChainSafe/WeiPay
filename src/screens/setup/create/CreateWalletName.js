@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableWithoutFeedback, StyleSheet, Text, Keyboard, Platform, Dimensions } from 'react-native';
+import { View, TouchableWithoutFeedback, StyleSheet, Text, Keyboard, Platform, Dimensions, SafeAreaView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput, Card } from 'react-native-elements';
@@ -62,9 +62,10 @@ class CreateWalletName extends Component {
       } = styles;
 
       return (
+        <SafeAreaView style={styles.safeAreaView}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.mainContainer} >
-                    <View style={{flex: 0.75}}>        
+                    <View style={styles.navContainer}>        
                         <BackWithMenuNav
                             showMenu={false}
                             showBack={true}
@@ -73,7 +74,7 @@ class CreateWalletName extends Component {
                         />
                     </View>                    
                     <Text style={styles.textHeader} >Wallet Name</Text>
-                    <View style={{alignItems: 'center', flex: 3}}>
+                    <View style={styles.boxShadowContainer}>
                         <View style={styles.contentContainer}>
                             <BoxShadowCard>
                                 <Text style={styles.cardText}>
@@ -87,7 +88,6 @@ class CreateWalletName extends Component {
                             </BoxShadowCard>
                         </View>
                     </View>
-
                     <View style={btnContainer}>
                         <LinearButton
                             onClickFunction={this.navigate}
@@ -100,20 +100,31 @@ class CreateWalletName extends Component {
                                 <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
                             </View>  
                         </View> 
-                    </View>
-                   
+                    </View>                   
                 </View>
             </TouchableWithoutFeedback>
+        </SafeAreaView>
       );
     }
 }
 
 const styles = StyleSheet.create({
+    safeAreaView: {
+        flex: 1, 
+        backgroundColor: '#fafbfe'
+    },
     mainContainer: {
         flex: 1,
         justifyContent: 'center',
         backgroundColor: '#fafbfe',
         width: '100%',   
+    },
+    navContainer: {
+        flex: 0.75,
+    },
+    boxShadowContainer: {
+        alignItems: 'center', 
+        flex: 3,
     },
     textHeader: {
         fontFamily: 'Cairo-Light',
@@ -127,9 +138,6 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '82%',
     },
-    cardContainer: {
-        width: '82%',
-    },
     cardText: {
         paddingBottom: '20%',
         paddingTop: '7.5%',
@@ -137,6 +145,8 @@ const styles = StyleSheet.create({
         paddingRight: '7.5%',
         fontFamily: 'WorkSans-Light',
         color: '#000000',
+        lineHeight: 22,
+        letterSpacing: 0.4,
         fontSize: 16,
     },
     txtWalletName: {
@@ -144,6 +154,7 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         color: '#12c1a2',
         letterSpacing: 0.4,
+        fontSize: 16,
         fontFamily: 'WorkSans-Regular',  
     },
     btnContainer: {
@@ -158,8 +169,8 @@ const styles = StyleSheet.create({
     },
     footerGrandparentContainer: {
         alignItems: 'center',
-        marginBottom: '2.5%',
-        marginTop: '2.5%',
+        marginBottom: '5%',
+        marginTop: '5%',
     },
     footerParentContainer: {
         alignItems: 'center',

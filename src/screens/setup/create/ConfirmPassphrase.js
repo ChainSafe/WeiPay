@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Dimensions, SafeAreaView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
@@ -106,18 +106,18 @@ class ConfirmPassphrase extends Component {
       } = styles;
 
       return (
-        <View style={mainContainer}>
-          <View style={{flex:0.75, backgroundColor:'purple'}}>
-            <BackWithMenuNav
+        <SafeAreaView style={styles.safeAreaView}>
+          <View style={mainContainer}>
+            <View style={styles.navContainer}>
+              <BackWithMenuNav
                 showMenu={false}
                 showBack={true}
                 navigation={this.props.navigation}
                 backPage={'createWalletName'}
-            />
+              />
           </View>
-          <Text style={textHeader}>Confirm Passphrase</Text>
-           
-          <View style={{alignItems:"center", flex: 4}}>
+          <Text style={textHeader}>Confirm Passphrase</Text>           
+          <View style={styles.boxShadowContainer}>
             <View style={contentContainer} >
                 <BoxShadowCard>
                     <Text style={cardText}>
@@ -175,30 +175,39 @@ class ConfirmPassphrase extends Component {
                 </View>
             </View>
         </View>
+
+         </SafeAreaView>
       );
     }
 }
 
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1, 
+    backgroundColor: '#fafbfe'
+  },
   mainContainer: {
     flex: 1,
     backgroundColor: '#fafbfe',
     width: '100%',
-    // paddingTop: '5%',
+  },
+  navContainer: {
+    flex: 0.75,
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
     fontSize: 26,
     paddingLeft: '9%',
-    // paddingBottom: '3%',
     color: '#1a1f3e',
     flex:0.75,
-    backgroundColor: "blue"
+    // backgroundColor: "blue"
+  },
+  boxShadowContainer: {
+    alignItems:"center", 
+    flex: 4
   },
   contentContainer: {
-    // alignItems: 'center',
-    // flex: 1,
-    backgroundColor: "green",
+    // backgroundColor: "green",
     width: '82%'
   },
   cardText: {
@@ -226,7 +235,6 @@ const styles = StyleSheet.create({
   },
   cardButton: {
     height: 32,
-    // height: '33%',
      justifyContent: 'center',
   },
   cardContainer: {
@@ -258,14 +266,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'stretch',
     alignContent: 'flex-end',
-    backgroundColor: "red",
+    // backgroundColor: "red",
     flex:1
   },
   footerGrandparentContainer: {
     alignItems: 'center',
-    backgroundColor:"yellow",
-    marginBottom: '2.5%',
-    marginTop: '2.5%'
+    marginBottom: '5%',
+    marginTop: '5%'
   },
   footerParentContainer: {
     alignItems: 'center',

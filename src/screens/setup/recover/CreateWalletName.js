@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, Dimensions, TouchableWithoutFeedback, Keyboard, Platform } from 'react-native';
+import { View, StyleSheet, Text, Dimensions, TouchableWithoutFeedback, Keyboard, Platform, SafeAreaView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput, Card } from 'react-native-elements';
@@ -50,46 +50,48 @@ class CreateWalletName extends Component {
       } = styles;
 
       return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={mainContainer}>
-              <View style={{flex: 0.75}}>        
-                <BackWithMenuNav
-                    showMenu={false}
-                    showBack={true}
-                    navigation={this.props.navigation}
-                    backPage={'createOrRestore'}
+        <SafeAreaView style={styles.safeAreaView}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={mainContainer}>
+                <View style={styles.navContainer}>        
+                  <BackWithMenuNav
+                      showMenu={false}
+                      showBack={true}
+                      navigation={this.props.navigation}
+                      backPage={'createOrRestore'}
+                    />
+                </View>
+                <Text style={textHeader}>Wallet Name</Text>
+                <View style={styles.boxShadowContainer}>
+                  <View style={contentContainer}>
+                      <BoxShadowCard>
+                          <Text style={cardText}>
+                              Create a name for your wallet, for example: My Wallet
+                          </Text>
+                          <FormInput
+                              placeholder={'Ex. My Wallet'}
+                              onChangeText={this.getWalletName.bind(this)}
+                              inputStyle={txtWalletName}
+                          />
+                      </BoxShadowCard>
+                  </View>
+                </View>
+              <View style={btnContainer}>
+                  <LinearButton
+                      onClickFunction={this.navigate }
+                      buttonText= 'Next'
+                      customStyles={button}
                   />
+                  <View style={footerGrandparentContainer}>
+                      <View style={footerParentContainer} >
+                          <Text style={textFooter} >Powered by ChainSafe </Text>
+                      </View>
+                  </View>
               </View>
-              <Text style={textHeader}>Wallet Name</Text>
-              <View style={{alignItems: 'center', flex: 3}}>
-                <View style={contentContainer}>
-                    <BoxShadowCard>
-                        <Text style={cardText}>
-                            Create a name for your wallet, for example: My Wallet
-                        </Text>
-                        <FormInput
-                            placeholder={'Ex. My Wallet'}
-                            onChangeText={this.getWalletName.bind(this)}
-                            inputStyle={txtWalletName}
-                        />
-                    </BoxShadowCard>
-                </View>
-              </View>
-            <View style={btnContainer}>
-                <LinearButton
-                    onClickFunction={this.navigate }
-                    buttonText= 'Next'
-                    customStyles={button}
-                />
-                <View style={footerGrandparentContainer}>
-                    <View style={footerParentContainer} >
-                        <Text style={textFooter} >Powered by ChainSafe </Text>
-                    </View>
-                </View>
-            </View>
-           
-        </View>
-      </TouchableWithoutFeedback>
+            
+          </View>
+        </TouchableWithoutFeedback>
+      </SafeAreaView>
       );
     }
 }
@@ -98,11 +100,22 @@ class CreateWalletName extends Component {
  * Styles used in the "CreateWalletNameRecovery" screen
  */
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1, 
+    backgroundColor: '#fafbfe'
+  },
   mainContainer: {
     flex: 1,
     backgroundColor: '#fafbfe',
     justifyContent: 'center',
     width: '100%',
+  },
+  navContainer: {
+    flex: 0.75,
+  },
+  boxShadowContainer: {
+    alignItems: 'center', 
+    flex: 3
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
@@ -147,8 +160,8 @@ const styles = StyleSheet.create({
   },
   footerGrandparentContainer: {
     alignItems: 'center',
-    marginBottom: '2.5%',
-    marginTop: '2.5%',
+    marginBottom: '5%',
+    marginTop: '5%',
   },
   footerParentContainer: {
     alignItems: 'center',
