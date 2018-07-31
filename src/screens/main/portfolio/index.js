@@ -99,7 +99,6 @@ class Portfolio extends Component {
             />
           </View>
           <Text style={styles.textHeader} >DIGI WALLET []-[]</Text>
-
           <View style={styles.accountValueHeader}>
               <Text style={styles.headerValue}>0$</Text>   
               <Text style={styles.headerValueCurrency}> USD</Text> 

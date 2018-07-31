@@ -217,7 +217,6 @@ class CoinSend extends Component {
                     navigation={this.props.navigation} 
                   />
                 </View>
-
                 <View style={styles.boxShadowContainer}>
                   <View style={contentContainer}>
                       <BoxShadowCard>
@@ -241,20 +240,18 @@ class CoinSend extends Component {
                               inputStyle={styles.formInput}
                             />
                         </View>
-                            <FormInput
-                              placeholder={"Amount"}
-                              onChangeText={this.renderValue.bind(this)}
-                              ref={ref => this.inputAmount = ref}
-                              inputStyle={styles.formInput}
-                            /> 
-                            <Text style={styles.transactionFee} > 
-                              Transaction Fee Total {this.state.value} Eth
-                            </Text>
-                    
+                          <FormInput
+                            placeholder={"Amount"}
+                            onChangeText={this.renderValue.bind(this)}
+                            ref={ref => this.inputAmount = ref}
+                            inputStyle={styles.formInput}
+                          /> 
+                          <Text style={styles.transactionFee} > 
+                            Transaction Fee Total {this.state.value} Eth
+                          </Text>                    
                       </BoxShadowCard>
                   </View>
                 </View>
-
                 <View style={styles.btnContainer}>
                   <View style={{flexDirection:"row"}}>
                     <View style={{ flex: 1}}>
@@ -282,8 +279,6 @@ class CoinSend extends Component {
                     </View>
                   </View>
                 </View>
-
-            
           </View>
         </TouchableWithoutFeedback>
 

@@ -36,8 +36,7 @@ class EnableCrypto extends Component {
         mainContainer,
         headerContainer,
         textHeader,
-        coinListContainer,
-        scrollView,
+        coinListContainer,      
         btnContainer,
         button,
         footerGrandparentContainer,
@@ -52,7 +51,7 @@ class EnableCrypto extends Component {
                  <Text style={textHeader}>Enable Tokens </Text>
               </View>              
               <View style={coinListContainer}>
-                  <ScrollView style={scrollView} >
+                  <ScrollView >
                       <CoinList />
                   </ScrollView>
               </View>
@@ -69,7 +68,7 @@ class EnableCrypto extends Component {
                 </View>
               </View>              
             </View>
-          </SafeAreaView>
+        </SafeAreaView>
       );
     }
 }
@@ -103,7 +102,6 @@ const styles = StyleSheet.create({
     marginLeft: '9%',
     flex:5,
     paddingBottom: "2.5%",
-    paddingTop: "2.5%",
   },
   btnContainer: {
     flex: 1.25,

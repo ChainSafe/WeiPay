@@ -88,8 +88,7 @@ class CreateWalletName extends Component {
                           <Text style={textFooter} >Powered by ChainSafe </Text>
                       </View>
                   </View>
-              </View>
-            
+              </View>            
           </View>
         </TouchableWithoutFeedback>
       </SafeAreaView>
