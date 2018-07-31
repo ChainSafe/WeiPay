@@ -82,7 +82,6 @@ class CoinActivity extends Component {
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={mainContainer}>
-         
           <View style={styles.navContainer}>        
               <BackWithMenuNav
                   showMenu={true}
@@ -96,7 +95,6 @@ class CoinActivity extends Component {
                 navigation={this.props.navigation} 
               />
           </View>
-
           <View style={styles.listContainer}>
             <FlatList
               data={this.state.data}
