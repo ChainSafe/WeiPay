@@ -42,21 +42,21 @@ class CoinSendTabNavigator extends Component {
      */
     render() {
         return (
-            <View style={styles.tabHeader}  >
+            <View style={styles.tabHeader}>
                 <TouchableOpacity 
                     style={styles.headerButton}
                     onPress={this.navigateToSend} >
-                    <Text style={styles.headerSend}>Send</Text>
+                    <Text style={[this.props.sendActive ? { color: 'red', borderBottomColor: 'black', borderBottomWidth: 1} : null , styles.headerSend]}>Send</Text>
                 </TouchableOpacity>
                 <TouchableOpacity 
                     style={styles.headerButton}
                     onPress={this.navigateToHistory}>
-                    <Text style={styles.headerActivity}>Activity</Text>
+                    <Text style={[this.props.activityActive ? { color: 'red', borderBottomColor: 'black', borderBottomWidth: 1} : null ,styles.headerActivity]}>Activity</Text>
                 </TouchableOpacity>
                 <TouchableOpacity 
                     style={styles.headerButton}
                     onPress={this.navigateToReceive}>
-                    <Text style={styles.headerReceive} >Receive</Text>
+                    <Text style={[this.props.receiveActive ? { color: 'red', borderBottomColor: 'black', borderBottomWidth: 1} : null ,styles.headerReceive]} >Receive</Text>
                 </TouchableOpacity>
             </View>
         );

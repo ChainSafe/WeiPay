@@ -213,8 +213,11 @@ class CoinSend extends Component {
                     />
                 </View>
                 <View style={styles.navHeaderContainer}>
-                  <CoinSendTabNavigator 
-                    navigation={this.props.navigation} 
+                <CoinSendTabNavigator 
+                    navigation={this.props.navigation}
+                    sendActive={true}
+                    activityActive={false}
+                    receiveActive={false} 
                   />
                 </View>
                 <View style={styles.boxShadowContainer}>

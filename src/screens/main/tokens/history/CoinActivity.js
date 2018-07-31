@@ -88,7 +88,14 @@ class CoinActivity extends Component {
             navigation={this.props.navigation}
             backPage={'mainStack'}
           />
-          <CoinSendTabNavigator navigation={this.props.navigation} />
+          <View style={styles.navHeaderContainer}>
+          <CoinSendTabNavigator 
+            navigation={this.props.navigation}
+            sendActive={false}
+            activityActive={true}
+            receiveActive={false} 
+          />
+          </View>
           <FlatList
             data={this.state.data}
             keyExtractor={(x, i) => i.toString()}
@@ -137,6 +144,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafbfe',
     width: '100%',
     paddingTop: '2.5%',
+  },
+  navHeaderContainer: {
+    flex: 0.75,
   },
   addressContainer: {
     flexDirection: 'row',

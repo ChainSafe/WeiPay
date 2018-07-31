@@ -36,7 +36,12 @@ class CoinReceive extends Component {
             navigation={this.props.navigation}
             backPage={'mainStack'}
           />
-          <CoinSendTabNavigator navigation={this.props.navigation} />
+          <CoinSendTabNavigator 
+            navigation={this.props.navigation}
+            sendActive={false}
+            activityActive={false}
+            receiveActive={true} 
+            />
           <View style={contentContainer} >
             <View style={imageContainer}>
               <QRCode
