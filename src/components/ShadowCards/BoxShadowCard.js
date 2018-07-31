@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
     flex: 1, 
     borderRadius: 10,
     margin: '1%',
-    marginTop: '2%',
-    marginBottom: '2%'
+    // marginTop: '2%',
+    // marginBottom: '2%'
   },
 
 });

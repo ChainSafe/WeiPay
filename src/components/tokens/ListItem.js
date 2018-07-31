@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Dimensions, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { CheckBox, ListItem, Icon, } from 'react-native-elements'
 import { CardSection } from '../common/CardSection';
@@ -50,39 +50,72 @@ class CoinListItem extends Component {
         <TouchableOpacity
           onPress={() => this.renderPress(coin)}>
           <View style={[styles.check, coin.selected ? styles.containerSelected : styles.containerDeselect]}>
-          <BoxShadowCard customStyles={{flex:1}}> 
-            <ListItem
-              hideChevron
-              key={coin.id}
-              roundAvatar
-              avatar={ require('../../assets/images/eth.png') }
-              title= {
-                <View style={styles.titleContainer} >
-                  <Text style={styles.coinItemSymbolText}>{coin.symbol}</Text>
-                    <View style={styles.checkboxContainer} >
-                      <CheckBox 
-                        center
-                        iconRight
-                        iconType='material'
-                        checkedIcon='clear'
-                        uncheckedIcon='add'
-                        uncheckedColor='#27c997'
-                        checkedColor='red'
-                        checked={coin.selected}
-                        containerStyle={[title, coin.selected ? styles.valid : styles.invalid]}
-                        onPress={() => this.renderPress(coin)}
-                        />
-                      </View>
+            <BoxShadowCard customStyles={{flex:1}}> 
+              {/* <ListItem
+                hideChevron 
+                key={coin.id}
+                roundAvatar
+                avatar={ require('../../assets/images/eth.png') }
+                title= {
+                  <View style={styles.titleContainer} >
+                    <Text style={styles.coinItemSymbolText}>{coin.symbol}</Text>
+                      <View style={styles.checkboxContainer} >
+                        <CheckBox 
+                          center
+                          iconRight
+                          iconType='material'
+                          checkedIcon='clear'
+                          uncheckedIcon='add'
+                          uncheckedColor='#27c997'
+                          checkedColor='red'
+                          checked={coin.selected}
+                          containerStyle={[title, coin.selected ? styles.valid : styles.invalid]}
+                          onPress={() => this.renderPress(coin)}
+                          />
+                        </View>
+                  </View>
+                }
+                subtitle={
+                  <View style={styles.subtitleContainer}>
+                    <Text style={styles.subtitleText}>{coin.title}</Text>
+                  </View>
+                }
+                containerStyle = {styles.listItemContainer}
+                avatarStyle = {styles.avatarStyles}
+              /> */}
+              <View style={styles.contentContainer}>
+                <View style={styles.imgMainContainer} >
+                  <View style={styles.imageContainer} >
+                    <Image
+                      style={styles.img}
+                      source={require('../../assets/images/eth.png') }
+                    />
+                  </View>
                 </View>
-              }
-              subtitle={
-                <View style={styles.subtitleContainer}>
-                  <Text style={styles.subtitleText}>{coin.title}</Text>
+
+                <View style={{flex: 3, backgroundColor: 'yellow'}}>
+                  <View style={{justifyContent:'center', flex:1}}>
+                    <Text>Eth </Text>
+                    <Text>Ethereum </Text>
+                  </View>
                 </View>
-              }
-              containerStyle = {styles.listItemContainer}
-              avatarStyle = {styles.avatarStyles}
-            />
+
+                <View style={{flex: 1, backgroundColor: 'blue'}}>
+                  <View style={{flex:1,justifyContent: 'center', alignItems:"center"}}>
+                    <Image
+                      style={{
+                        height: Dimensions.get('window').height * 0.035, 
+                        width: Dimensions.get('window').width * 0.035,
+                        justifyContent: 'center'}}
+                      source={require('../../assets/images/delete.png') }
+                    />
+                  </View>
+                </View>
+
+
+              </View>
+
+
             </BoxShadowCard>
           </View>
         </TouchableOpacity >
@@ -95,11 +128,36 @@ class CoinListItem extends Component {
  * Component Styles
  */
 const styles = StyleSheet.create({
-  listItemParentContainer: {
-    marginTop: '2.5%',
-    marginLeft: '0.25%',
-    height: Dimensions.get('window').height * 0.1, 
+
+  contentContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    // margin: '1%',
+    backgroundColor: 'red',
   },
+  listItemParentContainer: {
+    marginLeft: '0.25%',
+    height: Dimensions.get('window').height * 0.1,
+    flex: 1,
+  },
+
+  imgMainContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
+
+  imageContainer: {
+    backgroundColor: 'pink',
+    flex: 1,
+    justifyContent: 'center',
+  },
+
+  img: {
+    height: Dimensions.get('window').height * 0.05,
+    width: Dimensions.get('window').width * 0.05,
+    justifyContent: 'center',
+  },
+
   titleContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
