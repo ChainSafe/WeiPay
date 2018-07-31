@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    // alignItems: 'center',
     justifyContent: 'flex-start',
     backgroundColor: '#fafbfe',
   },
@@ -91,7 +90,6 @@ const styles = StyleSheet.create({
     flex: 0.75,
   },
   contentContainer: {
-    // marginTop: '10%',
     flex:5,
     justifyContent: 'center',
     alignItems: 'center',

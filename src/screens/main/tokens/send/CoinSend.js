@@ -281,7 +281,6 @@ class CoinSend extends Component {
                 </View>
           </View>
         </TouchableWithoutFeedback>
-
        </SafeAreaView>
       
     )

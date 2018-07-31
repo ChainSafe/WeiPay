@@ -100,28 +100,27 @@ class CoinActivity extends Component {
               data={this.state.data}
               keyExtractor={(x, i) => i.toString()}
               style={{ flex: 1, width: '100%', backgroundColor: '#fafbfe' }}
-              renderItem={({ item }) => <CardSection>
-                  <View style={itemStyle}>
+              renderItem={({ item }) =>              
+                <View style={itemStyle}>
+                  <View>
                     <View>
-                      <View>
-                        <View style={headerContainer}>
-                          <Text style={type}>
-                            {item.type}
-                          </Text>
-                          <Text style={date}>{item.timeStamp}</Text>
-                        </View>
-                        <View style={addressContainer}>
-                            <Text style={addressTitle}>Address: </Text>
-                            <Text style={addressValue}>{item.address}</Text>
-                        </View>
-                        <View style={amountContainer}>
-                            <Text style={amountTitle}>Amount: </Text>
-                            <Text style={amountValue}>{item.value}</Text>
-                        </View>
+                      <View style={headerContainer}>
+                        <Text style={type}>
+                          {item.type}
+                        </Text>
+                        <Text style={date}>{item.timeStamp}</Text>
+                      </View>
+                      <View style={addressContainer}>
+                          <Text style={addressTitle}>Address: </Text>
+                          <Text style={addressValue}>{item.address}</Text>
+                      </View>
+                      <View style={amountContainer}>
+                          <Text style={amountTitle}>Amount: </Text>
+                          <Text style={amountValue}>{item.value}</Text>
                       </View>
                     </View>
                   </View>
-                </CardSection>
+                </View>
               } />
           </View>
         </View >
@@ -195,13 +194,17 @@ const styles = StyleSheet.create({
     paddingBottom: '1.5%',
   },
   itemStyle: {
-    padding: 5,
-    marginTop: 5,
-    marginBottom: 5,
+    // padding: '2.5%',   
+    paddingBottom: '5%',
+    paddingLeft: '2.5%',
+    paddingRight: '2.5%',
+    marginBottom: '5%',
     marginLeft: '7.5%',
     marginRight: '7.5%',
     flex: 1,
     width: '82%',
+    borderBottomWidth: 1, 
+    borderBottomColor: '#b3b3b3'
   },
   type: {
     fontSize: 16,
