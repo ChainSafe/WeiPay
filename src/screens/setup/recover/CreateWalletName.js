@@ -37,6 +37,7 @@ class CreateWalletName extends Component {
     render() {
       const {
         mainContainer,
+        safeAreaView,
         textHeader,
         contentContainer,
         cardContainer,
@@ -50,7 +51,7 @@ class CreateWalletName extends Component {
       } = styles;
 
       return (
-        <SafeAreaView style={styles.safeAreaView}>
+        <SafeAreaView style={safeAreaView}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={mainContainer}>
                 <View style={styles.navContainer}>        

@@ -43,7 +43,7 @@ class BackWithMenuNav extends Component {
                     onPress={this.navigateMenu} >
                     <Image
                       source={require('../../assets/icons/menu.png')}
-                      style={{height:13, width:22}}
+                      style={{height:13, width:20}}
                     />
                   </TouchableOpacity>
                 </View> : null}
