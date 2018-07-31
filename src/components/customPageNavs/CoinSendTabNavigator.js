@@ -44,19 +44,20 @@ class CoinSendTabNavigator extends Component {
         return (
             <View style={styles.tabHeader}>
                 <TouchableOpacity 
-                    style={styles.headerButton}
+                    style={[this.props.sendActive ? { justifyContent: 'flex-end' ,backgroundColor: 'red', borderBottomColor: 'black', borderBottomWidth: 1} : null ,styles.headerButton]}
                     onPress={this.navigateToSend} >
-                    <Text style={[this.props.sendActive ? { color: 'red', borderBottomColor: 'black', borderBottomWidth: 1} : null , styles.headerSend]}>Send</Text>
+                    <Text style={[styles.headerSend, { height: '100%'}]}>Send</Text>
                 </TouchableOpacity>
                 <TouchableOpacity 
-                    style={styles.headerButton}
+                    style={[ this.props.activityActive ? { backgroundColor: 'red', borderBottomColor: 'black', borderBottomWidth: 1} : null ,styles.headerButton]}
                     onPress={this.navigateToHistory}>
-                    <Text style={[this.props.activityActive ? { color: 'red', borderBottomColor: 'black', borderBottomWidth: 1} : null ,styles.headerActivity]}>Activity</Text>
+                    <Text style={[styles.headerActivity, { height: '100%'}]}>Activity</Text>
                 </TouchableOpacity>
                 <TouchableOpacity 
-                    style={styles.headerButton}
+                    style={[ this.props.receiveActive ? { backgroundColor: 'red', borderBottomColor: 'black', borderBottomWidth: 1} : null ,styles.headerButton]}
                     onPress={this.navigateToReceive}>
-                    <Text style={[this.props.receiveActive ? { color: 'red', borderBottomColor: 'black', borderBottomWidth: 1} : null ,styles.headerReceive]} >Receive</Text>
+                    
+                    <Text style={[styles.headerReceive, { height: '100%'}]} >Receive</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -73,6 +74,7 @@ const styles = StyleSheet.create({
         paddingBottom: '2%',
         marginRight: '9%',
         marginLeft: '9%',
+        backgroundColor: 'yellow'
     },
     headerSend :{
         alignSelf:'flex-start',
