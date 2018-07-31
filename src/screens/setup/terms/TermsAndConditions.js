@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, StyleSheet, Dimensions, SafeAreaView } from 'react-native';
+import {
+ Alert, Text, View, ScrollView, StyleSheet, Dimensions, SafeAreaView, TouchableWithoutFeedback 
+} from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux';
 import { Terms } from '../../../constants/Terms';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
+import { enterDebug } from '../../../actions/ActionCreator';
 
 /**
  * Initial terms and condition screen when the app is oppened for the first time.
@@ -40,12 +44,12 @@ class TermsAndConditions extends Component {
         <SafeAreaView style={styles.safeAreaView}>
           <View style={mainContainer}>
             <View style={styles.headerContainer} >
-              <Text style={textHeader} >Terms & Conditions </Text>
+              <Text style={textHeader} onPress={this.props.enterDebug} >Terms & Conditions </Text>
             </View>
             <View style={styles.scrollViewContainer} >
               <ScrollView style={scrollView}>
                   <Text style={textBody} >{Terms}</Text>
-              </ScrollView> 
+              </ScrollView>
             </View>
             <View style={btnContainer}>
                 <LinearButton
@@ -58,7 +62,7 @@ class TermsAndConditions extends Component {
                     <Text style={textFooter} >Powered by ChainSafe </Text>
                   </View>
                 </View>
-              </View>             
+              </View>
             </View>
         </SafeAreaView>
       );
@@ -70,8 +74,8 @@ class TermsAndConditions extends Component {
  */
 const styles = StyleSheet.create({
   safeAreaView: {
-    flex: 1, 
-    backgroundColor: '#fafbfe'
+    flex: 1,
+    backgroundColor: '#fafbfe',
   },
   mainContainer: {
     flex: 1,
@@ -80,8 +84,8 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   headerContainer: {
-    flex:1, 
-    justifyContent:"flex-end"
+    flex: 1,
+    justifyContent: 'flex-end',
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
@@ -91,11 +95,11 @@ const styles = StyleSheet.create({
     color: '#1a1f3e',
   },
   scrollViewContainer: {
-    flex:5,
-    paddingBottom: "2.5%",
-    paddingTop: "2.5%",
+    flex: 5,
+    paddingBottom: '2.5%',
+    paddingTop: '2.5%',
   },
-  scrollView:{
+  scrollView: {
     height: '60%',
   },
   textBody: {
@@ -111,7 +115,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '82%',
-    height: Dimensions.get('window').height * 0.082,  
+    height: Dimensions.get('window').height * 0.082,
   },
   footerGrandparentContainer: {
     alignItems: 'center',
@@ -128,4 +132,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TermsAndConditions;
+export default connect(null, { enterDebug })(TermsAndConditions);

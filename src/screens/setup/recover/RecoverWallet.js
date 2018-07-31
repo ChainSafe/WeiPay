@@ -57,6 +57,7 @@ class RecoverWallet extends Component {
       this.state = {
         mnemonic: '',
         value: '',
+        buttonDisabled: true,
       };
     }
 
@@ -65,8 +66,14 @@ class RecoverWallet extends Component {
      * @param {String} mnemonicInput
      */
     renderRecoveryKey(mnemonicInput) {
-      this.setState({ value: mnemonicInput.toLowerCase() })
-      this.setState({ mnemonic: mnemonicInput.toLowerCase() });
+      const totalWords = mnemonicInput.split(' ');
+      if (totalWords.length == 12) {
+        this.setState({ value: mnemonicInput.toLowerCase() });
+        this.setState({ mnemonic: mnemonicInput.toLowerCase() });
+        this.setState({ buttonDisabled: false });
+      } else {
+        this.setState({ buttonDisabled: true });
+      }
     }
 
     /**
@@ -119,6 +126,7 @@ class RecoverWallet extends Component {
                       onClickFunction={this.navigate }
                       buttonText= 'Recover'
                       customStyles={button}
+                      buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
                   />
                   <View style={footerGrandparentContainer}>
                       <View style={footerParentContainer}>
@@ -199,4 +207,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null, { newWalletCreation })(RecoverWallet);
+/**
+ * This method is not being used here
+ * @param {Object} param
+ */
+const mapStateToProps = ({ newWallet }) => {
+  const { debugMode } = newWallet;
+  return { debugMode };
+};
+
+
+export default connect(mapStateToProps, { newWalletCreation })(RecoverWallet);
