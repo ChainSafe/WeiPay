@@ -90,9 +90,12 @@ class CoinActivity extends Component {
                   backPage={'mainStack'}
                 />
             </View>
-            <View style={styles.navHeaderContainer}>
+            <View style={[styles.navHeaderContainer]}>
               <CoinSendTabNavigator 
-                navigation={this.props.navigation} 
+                navigation={this.props.navigation}
+                sendActive={false}
+                activityActive={true}
+                receiveActive={false} 
               />
           </View>
           <View style={styles.listContainer}>
@@ -143,15 +146,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fafbfe',
     width: '100%',
+    // backgroundColor: 'green'
   },
   navContainer: {
     flex: 0.75,
   },
   navHeaderContainer: {
-    flex: 0.75,
+    flex: 0.3,
+    // backgroundColor: 'purple'
   },
   listContainer: {
-    flex:5,
+    flex: 5.25,
+    // backgroundColor: 'blue',
+    marginTop: '0%',
+    paddingTop: '7%',
   },
   addressContainer: {
     flexDirection: 'row',

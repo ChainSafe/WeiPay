@@ -42,21 +42,27 @@ class CoinSendTabNavigator extends Component {
      */
     render() {
         return (
-            <View style={styles.tabHeader}  >
+            <View style={styles.tabHeader}>
                 <TouchableOpacity 
                     style={styles.headerButton}
-                    onPress={this.navigateToSend} >
-                    <Text style={styles.headerSend}>Send</Text>
+                    onPress={this.navigateToSend} >                   
+                        <Text style={[styles.headerSend, { height: '100%'} ]}>Send</Text>
+                        <View style={this.props.sendActive ? { justifyContent: 'flex-end' , borderBottomColor: '#12c1a2', borderBottomWidth: 1.5, width: '60%'} : null }></View>
                 </TouchableOpacity>
+         
                 <TouchableOpacity 
-                    style={styles.headerButton}
+                    style={ styles.headerButton}
                     onPress={this.navigateToHistory}>
-                    <Text style={styles.headerActivity}>Activity</Text>
+                    <View style={this.props.activityActive ? { justifyContent: 'flex-end', borderBottomColor: '#12c1a2', borderBottomWidth: 1} : null}>
+                        <Text style={[styles.headerActivity, { height: '100%'}]}>Activity</Text>
+                    </View>
                 </TouchableOpacity>
+             
                 <TouchableOpacity 
                     style={styles.headerButton}
-                    onPress={this.navigateToReceive}>
-                    <Text style={styles.headerReceive} >Receive</Text>
+                    onPress={this.navigateToReceive}>                                    
+                        <Text style={[styles.headerReceive, { height: '100%'}]} >Receive</Text>
+                        <View style={this.props.receiveActive ? { justifyContent: 'flex-end', borderBottomColor: '#12c1a2', borderBottomWidth: 1.5, marginLeft:'20%'} : null}> </View>
                 </TouchableOpacity>
             </View>
         );
@@ -70,9 +76,10 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         borderBottomWidth: 1,
         borderBottomColor: '#b3b3b3',
-        paddingBottom: '2%',
+        paddingBottom: '3.5%',
         marginRight: '9%',
         marginLeft: '9%',
+        // backgroundColor: 'yellow'
     },
     headerSend :{
         alignSelf:'flex-start',
