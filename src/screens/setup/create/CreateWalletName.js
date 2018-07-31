@@ -99,7 +99,7 @@ class CreateWalletName extends Component {
                             onClickFunction={this.navigate}
                             buttonText="Next"
                             customStyles={button}
-                            buttonStateEnabled={this.state.buttonDisabled}
+                            buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
                         />
                         <View style={styles.footerGrandparentContainer} >    
                             <View style={styles.footerParentContainer} >

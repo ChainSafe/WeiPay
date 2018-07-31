@@ -126,7 +126,7 @@ class RecoverWallet extends Component {
                       onClickFunction={this.navigate }
                       buttonText= 'Recover'
                       customStyles={button}
-                      buttonStateEnabled={this.state.buttonDisabled}
+                      buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
                   />
                   <View style={footerGrandparentContainer}>
                       <View style={footerParentContainer}>
@@ -207,4 +207,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null, { newWalletCreation })(RecoverWallet);
+/**
+ * This method is not being used here
+ * @param {Object} param
+ */
+const mapStateToProps = ({ newWallet }) => {
+  const { debugMode } = newWallet;
+  return { debugMode };
+};
+
+
+export default connect(mapStateToProps, { newWalletCreation })(RecoverWallet);

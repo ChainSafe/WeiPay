@@ -145,7 +145,7 @@ export function addTokenInfo(tokenInfo) {
 
 export function enterDebug() {
   return (dispatch) => {
-    dispatch({ type: actionTypes.DEBUG_MODE });
+    dispatch({ type: actionTypes.DEBUG_MODE, payload: '' });
   };
 }
 

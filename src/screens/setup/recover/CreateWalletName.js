@@ -94,7 +94,7 @@ class CreateWalletName extends Component {
                       onClickFunction={this.navigate }
                       buttonText= 'Next'
                       customStyles={button}
-                      buttonStateEnabled={this.state.buttonDisabled}
+                      buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
 
                   />
                   <View style={footerGrandparentContainer}>
@@ -194,7 +194,9 @@ const styles = StyleSheet.create({
  */
 const mapStateToProps = ({ newWallet }) => {
   const { walletName } = newWallet;
-  return { walletName };
+  const { debugMode } = newWallet;
+
+  return { walletName, debugMode };
 };
 
 export default connect(mapStateToProps, { newWalletNameEntry, newWalletCreation })(CreateWalletName);

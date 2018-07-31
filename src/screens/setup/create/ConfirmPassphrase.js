@@ -288,7 +288,8 @@ const styles = StyleSheet.create({
  */
 const mapStateToProps = ({ newWallet }) => {
   const mnemonic = newWallet.wallet.mnemonic;
-  return { mnemonic }
+  const debugMode = newWallet.debugMode;
+  return { mnemonic, debugMode }
 }
 
 export default connect(mapStateToProps, null)(ConfirmPassphrase)
