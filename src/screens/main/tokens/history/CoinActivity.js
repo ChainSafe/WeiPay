@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import {
- View, Text, StyleSheet, FlatList 
-} from 'react-native';
+import { View, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native';
 import { CardSection } from '../../../../components/common/CardSection';
 import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
@@ -9,7 +7,6 @@ import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuN
 const axios = require('axios');
 const ethers = require('ethers');
 const moment = require('moment');
-
 const utils = ethers.utils;
 
 /**
@@ -80,48 +77,47 @@ class CoinActivity extends Component {
       amountContainer,
       amountTitle,
       amountValue,
-
-
-     
     } = styles;
 
     return (
-      <View style={mainContainer}>
-        <BackWithMenuNav
-          showMenu={true}
-          showBack={true}
-          navigation={this.props.navigation}
-          backPage={'mainStack'}
-        />
-        <CoinSendTabNavigator navigation={this.props.navigation} />
-        <FlatList
-          data={this.state.data}
-          keyExtractor={(x, i) => i.toString()}
-          style={{ flex: 1, width: '100%', backgroundColor: '#fafbfe' }}
-          renderItem={({ item }) => <CardSection>
-              <View style={itemStyle}>
-                <View>
+      <SafeAreaView style={styles.safeAreaView}>
+        <View style={mainContainer}>
+          <BackWithMenuNav
+            showMenu={true}
+            showBack={true}
+            navigation={this.props.navigation}
+            backPage={'mainStack'}
+          />
+          <CoinSendTabNavigator navigation={this.props.navigation} />
+          <FlatList
+            data={this.state.data}
+            keyExtractor={(x, i) => i.toString()}
+            style={{ flex: 1, width: '100%', backgroundColor: '#fafbfe' }}
+            renderItem={({ item }) => <CardSection>
+                <View style={itemStyle}>
                   <View>
-                    <View style={headerContainer}>
-                      <Text style={type}>
-                        {item.type}
-                      </Text>
-                       <Text style={date}>{item.timeStamp}</Text>
-                    </View>
-                    <View style={addressContainer}>
-                        <Text style={addressTitle}>Address: </Text>
-                        <Text style={addressValue}>{item.address}</Text>
-                    </View>
-                    <View style={amountContainer}>
-                        <Text style={amountTitle}>Amount: </Text>
-                        <Text style={amountValue}>{item.value}</Text>
+                    <View>
+                      <View style={headerContainer}>
+                        <Text style={type}>
+                          {item.type}
+                        </Text>
+                        <Text style={date}>{item.timeStamp}</Text>
+                      </View>
+                      <View style={addressContainer}>
+                          <Text style={addressTitle}>Address: </Text>
+                          <Text style={addressValue}>{item.address}</Text>
+                      </View>
+                      <View style={amountContainer}>
+                          <Text style={amountTitle}>Amount: </Text>
+                          <Text style={amountValue}>{item.value}</Text>
+                      </View>
                     </View>
                   </View>
                 </View>
-              </View>
-            </CardSection>
-          } />
-      </View >
+              </CardSection>
+            } />
+        </View >
+      </SafeAreaView>
     );
   }
 }
@@ -132,6 +128,10 @@ export default CoinActivity;
  * Style
  */
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1, 
+    backgroundColor: '#fafbfe'
+  },
   mainContainer: {
     flex: 1,
     backgroundColor: '#fafbfe',

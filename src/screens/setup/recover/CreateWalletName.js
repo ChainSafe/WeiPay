@@ -50,6 +50,7 @@ class CreateWalletName extends Component {
     render() {
       const {
         mainContainer,
+        safeAreaView,
         textHeader,
         contentContainer,
         cardContainer,
@@ -63,7 +64,7 @@ class CreateWalletName extends Component {
       } = styles;
 
       return (
-        <SafeAreaView style={styles.safeAreaView}>
+        <SafeAreaView style={safeAreaView}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={mainContainer}>
                 <View style={styles.navContainer}>        
@@ -102,8 +103,7 @@ class CreateWalletName extends Component {
                           <Text style={textFooter} >Powered by ChainSafe </Text>
                       </View>
                   </View>
-              </View>
-            
+              </View>            
           </View>
         </TouchableWithoutFeedback>
       </SafeAreaView>
@@ -175,8 +175,8 @@ const styles = StyleSheet.create({
   },
   footerGrandparentContainer: {
     alignItems: 'center',
-    marginBottom: '5%',
-    marginTop: '5%',
+    marginBottom: '3%',
+    marginTop: '3%',
   },
   footerParentContainer: {
     alignItems: 'center',

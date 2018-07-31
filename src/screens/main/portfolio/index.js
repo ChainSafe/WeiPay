@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, AsyncStorage, ListView, Image, TouchableOpacity, ScrollView, Platform, Dimensions } from 'react-native';
+import { View, Text, FlatList, StyleSheet, AsyncStorage, ListView, Image, TouchableOpacity, ScrollView, Platform, Dimensions, SafeAreaView } from 'react-native';
 import { StackNavigator, DrawerNavigator, TabNavigator } from 'react-navigation';
 import { List, ListItem, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -89,36 +89,37 @@ class Portfolio extends Component {
    */
   render() {
     return (
-      <View style={styles.mainContainer} >
-        <View style={styles.navBar}>  
-          <BackWithMenuNav         
-            showMenu={true}
-            showBack={false}
-            navigation={this.props.navigation}
-          />
+      <SafeAreaView style={styles.safeAreaView}>
+        <View style={styles.mainContainer} >
+          <View style={styles.navBar}>  
+            <BackWithMenuNav         
+              showMenu={true}
+              showBack={false}
+              navigation={this.props.navigation}
+            />
+          </View>
+          <Text style={styles.textHeader} >DIGI WALLET []-[]</Text>
+          <View style={styles.accountValueHeader}>
+              <Text style={styles.headerValue}>0$</Text>   
+              <Text style={styles.headerValueCurrency}> USD</Text> 
+          </View>
+          <View style={styles.scrollViewContainer}>
+            <ScrollView style={styles.scrollView} >
+                <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}  />
+            </ScrollView>
+          </View>
+          <View style={styles.btnContainer} >
+              <LinearButton 
+                onClickFunction={this.navigate}
+                buttonText="Add Token or Coin"
+                customStyles={styles.button}
+              />         
+          </View>
+          <View style={styles.footerContainer}>
+            <Text style={styles.textFooter} >Powered by ChainSafe </Text>
+          </View>
         </View>
-        <Text style={styles.textHeader} >DIGI WALLET []-[]</Text>
-
-        <View style={styles.accountValueHeader}>
-            <Text style={styles.headerValue}>0$</Text>   
-            <Text style={styles.headerValueCurrency}> USD</Text> 
-        </View>
-        <View style={styles.scrollViewContainer}>
-          <ScrollView style={styles.scrollView} >
-              <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}  />
-          </ScrollView>
-        </View>
-        <View style={styles.btnContainer} >
-            <LinearButton 
-              onClickFunction={this.navigate}
-              buttonText="Add Token or Coin"
-              customStyles={styles.button}
-            />         
-        </View>
-        <View style={styles.footerContainer}>
-          <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-        </View>
-      </View>
+      </SafeAreaView>
     )
   }
 }
@@ -127,6 +128,10 @@ class Portfolio extends Component {
  * Styles used in the "Portfolio" screen
  */
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1, 
+    backgroundColor: '#fafbfe'
+  },
   mainContainer : {
     flex: 1,
     backgroundColor: "#fafbfe",
@@ -173,10 +178,10 @@ const styles = StyleSheet.create({
   listItemContainer:{
     flex: 1,
     alignItems: 'stretch',
-    paddingBottom: '2.3%',
+    height: Dimensions.get('window').height * 0.1,
+    marginTop: '5%',
   },
-  listItem:{
-    borderRadius: 10,           
+  listItem:{      
     backgroundColor: '#ffffff',
     justifyContent:"center",
     borderWidth: 0,
@@ -186,9 +191,6 @@ const styles = StyleSheet.create({
     flexDirection:'row', 
     justifyContent:"center", 
     marginLeft:'5%'
-  },
-  avitarStyle:{
-    //marginTop:'-5%'
   },
   listItemSymbolText:{
     fontSize:16,
