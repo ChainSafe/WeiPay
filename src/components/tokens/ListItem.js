@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, Dimensions, Image } from 'react-native';
 import { connect } from 'react-redux';
+import RF from "react-native-responsive-fontsize"
 import { CheckBox, ListItem, Icon, } from 'react-native-elements'
 import { CardSection } from '../common/CardSection';
 import { Card } from '../common/Card';
 import { addTokenToSetup } from '../../actions/ActionCreator';
 import BoxShadowCard from '../ShadowCards/BoxShadowCard';
-
 /**
  * React Component
  * Class is used to create a single item of the
@@ -49,8 +49,8 @@ class CoinListItem extends Component {
       <View style={styles.listItemParentContainer}>
         <TouchableOpacity
           onPress={() => this.renderPress(coin)}>
-          <View style={[styles.check, coin.selected ? styles.containerSelected : styles.containerDeselect]}>
-            <BoxShadowCard customStyles={{flex:1}}> 
+          <View style={[coin.selected ? null : null]}>
+            <BoxShadowCard customStyles={{flex:1}} containerStyling={coin.selected ? {borderColor: 'black', borderWidth: 1} : null} > 
               {/* <ListItem
                 hideChevron 
                 key={coin.id}
@@ -83,7 +83,7 @@ class CoinListItem extends Component {
                 containerStyle = {styles.listItemContainer}
                 avatarStyle = {styles.avatarStyles}
               /> */}
-              <View style={styles.contentContainer}>
+              <View style={[styles.contentContainer]}>
                 <View style={styles.imgMainContainer} >
                   <View style={styles.imageContainer} >
                     <Image
@@ -93,14 +93,21 @@ class CoinListItem extends Component {
                   </View>
                 </View>
 
-                <View style={{flex: 3, backgroundColor: 'yellow'}}>
+                <View style={{flex: 5,}}>
                   <View style={{justifyContent:'center', flex:1}}>
-                    <Text>Eth </Text>
-                    <Text>Ethereum </Text>
+                    
+                    <View style={styles.mainTitleContainer}>
+                      <Text style={styles.mainTitleText} >{coin.symbol}</Text>
+                    </View>
+
+                    <View style={styles.subtitleContainer}>
+                      <Text style={styles.subTitleText} >{coin.title}</Text>
+                    </View>
+                  
                   </View>
                 </View>
 
-                <View style={{flex: 1, backgroundColor: 'blue'}}>
+                <View style={{flex: 1, }}>
                   <View style={{flex:1,justifyContent: 'center', alignItems:"center"}}>
                     <Image
                       style={{
@@ -132,9 +139,17 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     flexDirection: 'row',
-    // margin: '1%',
-    backgroundColor: 'red',
   },
+  containerSelected: {
+    borderWidth: 1,
+    borderColor: 'black',
+    width: '83%',
+  },
+  containerDeselect: {
+    width: '83%',
+  },
+
+
   listItemParentContainer: {
     marginLeft: '0.25%',
     height: Dimensions.get('window').height * 0.1,
@@ -147,7 +162,6 @@ const styles = StyleSheet.create({
   },
 
   imageContainer: {
-    backgroundColor: 'pink',
     flex: 1,
     justifyContent: 'center',
   },
@@ -157,6 +171,38 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 0.05,
     justifyContent: 'center',
   },
+
+  mainTitleContainer: {
+    flex: 0.5,
+    justifyContent: 'flex-end',
+    //backgroundColor: 'green',
+    paddingTop: '1.5%',
+
+  },
+
+  mainTitleText: {
+    fontSize: RF(3),
+    fontFamily: 'Cairo-Regular',
+    letterSpacing: 0.5,
+    color: 'black',
+  },  
+
+  subtitleContainer: {
+    //backgroundColor: 'red',
+    flex: 0.5,
+    justifyContent: 'flex-start',
+    paddingBottom: '1.5%',
+  },
+
+  subTitleText: {
+    fontSize: RF(2),
+    fontFamily: 'Cairo-Regular',
+    letterSpacing: 0.5,
+    
+  },
+
+
+
 
   titleContainer: {
     flexDirection: 'row',
@@ -190,11 +236,6 @@ const styles = StyleSheet.create({
   checkboxContainer: {
     top: '5.5%',
   },
-  subtitleContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginLeft: '3.5%',
-  },
   subtitleText: {
     fontSize: 11,
     fontFamily: 'Cairo-Light',
@@ -221,12 +262,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: '2.5%',
   },
-  containerSelected: {
-    width: '83%',
-  },
-  containerDeselect: {
-    width: '83%',
-  },
+  
 });
 
 /**

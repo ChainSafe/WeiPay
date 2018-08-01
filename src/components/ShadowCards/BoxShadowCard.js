@@ -11,7 +11,7 @@ const BoxShadowCard = (props) => {
                 colors={['transparent', 'rgba(109, 108, 108,.05)', 'transparent']}
                 style={[styles.GradientStyling, {justifyContent: 'center'}, props.customStyling]}
             >
-            <View style={[styles.ChildContainerStyles]}>
+            <View style={[styles.ChildContainerStyles, props.containerStyling]}>
                 {props.children}
             </View>
         </LinearGradient>   
