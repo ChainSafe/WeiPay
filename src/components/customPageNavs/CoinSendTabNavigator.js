@@ -46,23 +46,22 @@ class CoinSendTabNavigator extends Component {
                 <TouchableOpacity 
                     style={styles.headerButton}
                     onPress={this.navigateToSend} >                   
-                        <Text style={[styles.headerSend, { height: '100%'} ]}>Send</Text>
-                        <View style={this.props.sendActive ? { justifyContent: 'flex-end' , borderBottomColor: '#12c1a2', borderBottomWidth: 1.5, width: '60%'} : null }></View>
+                    <Text style={[styles.headerSend, { height: '100%'}, this.props.sendActive ? { color: '#12c1a2'} : null ]}>Send</Text>
+                    <View style={this.props.sendActive ? { justifyContent: 'flex-end' , borderBottomColor: '#12c1a2', borderBottomWidth: 1.5, width: '60%'} : null }></View>
                 </TouchableOpacity>
          
                 <TouchableOpacity 
                     style={ styles.headerButton}
-                    onPress={this.navigateToHistory}>
-                    <View style={this.props.activityActive ? { justifyContent: 'flex-end', borderBottomColor: '#12c1a2', borderBottomWidth: 1} : null}>
-                        <Text style={[styles.headerActivity, { height: '100%'}]}>Activity</Text>
-                    </View>
+                    onPress={this.navigateToHistory}>                   
+                    <Text style={[styles.headerActivity, { height: '100%'}, this.props.activityActive ? { color: '#12c1a2'} : null]}>Activity</Text>
+                    <View style={this.props.activityActive ? { justifyContent: 'flex-end', borderBottomColor: '#12c1a2', borderBottomWidth: 1.5} : null}></View>
                 </TouchableOpacity>
              
                 <TouchableOpacity 
                     style={styles.headerButton}
                     onPress={this.navigateToReceive}>                                    
-                        <Text style={[styles.headerReceive, { height: '100%'}]} >Receive</Text>
-                        <View style={this.props.receiveActive ? { justifyContent: 'flex-end', borderBottomColor: '#12c1a2', borderBottomWidth: 1.5, marginLeft:'20%'} : null}> </View>
+                    <Text style={[styles.headerReceive, { height: '100%'}, this.props.receiveActive ? { color: '#12c1a2' } : null]} >Receive</Text>
+                    <View style={this.props.receiveActive ? { justifyContent: 'flex-end', borderBottomColor: '#12c1a2', borderBottomWidth: 1.5, marginLeft:'20%'} : null}> </View>
                 </TouchableOpacity>
             </View>
         );
@@ -79,7 +78,6 @@ const styles = StyleSheet.create({
         paddingBottom: '3.5%',
         marginRight: '9%',
         marginLeft: '9%',
-        // backgroundColor: 'yellow'
     },
     headerSend :{
         alignSelf:'flex-start',

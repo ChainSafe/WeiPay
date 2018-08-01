@@ -146,18 +146,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fafbfe',
     width: '100%',
-    // backgroundColor: 'green'
   },
   navContainer: {
     flex: 0.75,
   },
   navHeaderContainer: {
     flex: 0.3,
-    // backgroundColor: 'purple'
   },
   listContainer: {
     flex: 5.25,
-    // backgroundColor: 'blue',
     marginTop: '0%',
     paddingTop: '7%',
   },
@@ -201,8 +198,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingBottom: '1.5%',
   },
-  itemStyle: {
-    // padding: '2.5%',   
+  itemStyle: {  
     paddingBottom: '5%',
     paddingLeft: '2.5%',
     paddingRight: '2.5%',
