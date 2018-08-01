@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Alert, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Alert, Dimensions, Keyboard, TouchableWithoutFeedback, SafeAreaView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput, Card } from 'react-native-elements';
@@ -7,6 +7,7 @@ import { newWalletCreation } from '../../../actions/ActionCreator';
 import provider from '../../../constants/Providers';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
+import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 
 const ethers = require('ethers');
 
@@ -56,6 +57,7 @@ class RecoverWallet extends Component {
       this.state = {
         mnemonic: '',
         value: '',
+        buttonDisabled: true,
       };
     }
 
@@ -64,8 +66,14 @@ class RecoverWallet extends Component {
      * @param {String} mnemonicInput
      */
     renderRecoveryKey(mnemonicInput) {
-      this.setState({ value: mnemonicInput.toLowerCase() })
-      this.setState({ mnemonic: mnemonicInput.toLowerCase() });
+      const totalWords = mnemonicInput.split(' ');
+      if (totalWords.length == 12) {
+        this.setState({ value: mnemonicInput.toLowerCase() });
+        this.setState({ mnemonic: mnemonicInput.toLowerCase() });
+        this.setState({ buttonDisabled: false });
+      } else {
+        this.setState({ buttonDisabled: true });
+      }
     }
 
     /**
@@ -87,39 +95,48 @@ class RecoverWallet extends Component {
       } = styles;
         
       return (
-            <View style={mainContainer}>
-                <BackWithMenuNav
-                    showMenu={false}
-                    showBack={true}
-                    navigation={this.props.navigation}
-                    backPage={'createWalletNameRecovered'}
-                />
+        <SafeAreaView style={styles.safeAreaView}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+              <View style={mainContainer}>
+                <View style={{flex: 0.75}}>        
+                  <BackWithMenuNav
+                      showMenu={false}
+                      showBack={true}
+                      navigation={this.props.navigation}
+                      backPage={'createWalletNameRecovered'}
+                  />
+                </View>
                 <Text style={textHeader} >Recovery Passphrase</Text>
-                <View style={contentContainer} >
-                    <Card containerStyle={cardContainer}>
-                        <Text style={cardText}>
-                            Enter your 12 word recovery passphrase to recover your wallet.
-                        </Text>
-                        <FormInput
-                            placeholder={'Ex. man friend love long phrase ... '}
-                            onChangeText={this.renderRecoveryKey.bind(this)}
-                            inputStyle={txtMnemonic}
-                         />
-                    </Card>
+                <View style={{alignItems: 'center', flex: 3}}>
+                  <View style={contentContainer} >
+                      <BoxShadowCard>
+                          <Text style={cardText}>
+                              Enter your 12 word recovery passphrase to recover your wallet.
+                          </Text>
+                          <FormInput
+                              placeholder={'Ex. man friend love long phrase ... '}
+                              onChangeText={this.renderRecoveryKey.bind(this)}
+                              inputStyle={txtMnemonic}
+                          />
+                      </BoxShadowCard>
+                  </View>
                 </View>
                 <View style={btnContainer}>
-                    <LinearButton
-                        onClickFunction={this.navigate }
-                        buttonText= 'Recover'
-                        customStyles={button}
-                    />
-                </View>
-                <View style={footerGrandparentContainer}>
-                    <View style={footerParentContainer}>
-                        <Text style={textFooter} >Powered by ChainSafe </Text>
-                    </View>
-                </View>
-            </View>
+                  <LinearButton
+                      onClickFunction={this.navigate }
+                      buttonText= 'Recover'
+                      customStyles={button}
+                      buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
+                  />
+                  <View style={footerGrandparentContainer}>
+                      <View style={footerParentContainer}>
+                          <Text style={textFooter} >Powered by ChainSafe </Text>
+                      </View>
+                  </View>
+                </View>              
+              </View>
+          </TouchableWithoutFeedback>
+        </SafeAreaView>
       );
     }
 }
@@ -128,38 +145,32 @@ class RecoverWallet extends Component {
  * Styles used in the RecoverWallet screen
  */
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1, 
+    backgroundColor: '#fafbfe'
+  },
   mainContainer: {
     flex: 1,
-    paddingTop: '5%',
     backgroundColor: '#fafbfe',
     width: '100%',
-    height: '100%',
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
-    fontSize: 24,
+    fontSize: 26,
+    letterSpacing: 0.8,
     paddingLeft: '9%',
-    paddingBottom: '3%',
     color: '#1a1f3e',
+    flex: 0.75,
   },
   contentContainer: {
-    alignItems: 'center',
-    flex: 1,
-  },
-  cardContainer: {
     width: '82%',
-    height: '55%',
-    borderRadius: 7.5,
-    shadowOpacity: 0.5,
-    shadowRadius: 1.3,
-    shadowColor: '#dbdbdb',
-    shadowOffset: { width: 1, height: 2 },
+    flex: 1,
   },
   cardText: {
     paddingBottom: '20%',
-    paddingTop: '5%',
-    paddingLeft: '5%',
-    paddingRight: '5%',
+    paddingTop: '7.5%',
+    paddingLeft: '7.5%',
+    paddingRight: '7.5%',
     fontFamily: 'WorkSans-Light',
     color: '#000000',
     fontSize: 16,
@@ -172,6 +183,7 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Regular',
   },
   btnContainer: {
+    flex: 2,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     width: '100%',
@@ -182,16 +194,27 @@ const styles = StyleSheet.create({
   },
   footerGrandparentContainer: {
     alignItems: 'center',
+    marginBottom: '3%',
+    marginTop: '3%',
   },
   footerParentContainer: {
     alignItems: 'center',
   },
   textFooter: {
     fontFamily: 'WorkSans-Regular',
-    fontSize: 11,
-    marginTop: '3.5%',
+    fontSize: 11,   
     color: '#c0c0c0',
   },
 });
 
-export default connect(null, { newWalletCreation })(RecoverWallet);
+/**
+ * This method is not being used here
+ * @param {Object} param
+ */
+const mapStateToProps = ({ newWallet }) => {
+  const { debugMode } = newWallet;
+  return { debugMode };
+};
+
+
+export default connect(mapStateToProps, { newWalletCreation })(RecoverWallet);

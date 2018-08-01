@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Dimensions, SafeAreaView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
@@ -106,18 +106,18 @@ class ConfirmPassphrase extends Component {
       } = styles;
 
       return (
-        <View style={mainContainer}>
-          <View style={{flex:0.75}}>
-            <BackWithMenuNav
+        <SafeAreaView style={styles.safeAreaView}>
+          <View style={mainContainer}>
+            <View style={styles.navContainer}>
+              <BackWithMenuNav
                 showMenu={false}
                 showBack={true}
                 navigation={this.props.navigation}
                 backPage={'createWalletName'}
-            />
+              />
           </View>
           <Text style={textHeader}>Confirm Passphrase</Text>
-           
-          <View style={{alignItems:"center", flex: 4}}>
+          <View style={styles.boxShadowContainer}>
             <View style={contentContainer} >
                 <BoxShadowCard>
                     <Text style={cardText}>
@@ -159,8 +159,6 @@ class ConfirmPassphrase extends Component {
                 </BoxShadowCard>
               </View>
             </View>
-
-
             <View style={btnContainer}>
                 <LinearButton
                     onClickFunction={this.navigate}
@@ -175,34 +173,41 @@ class ConfirmPassphrase extends Component {
                 </View>
             </View>
         </View>
+
+         </SafeAreaView>
       );
     }
 }
 
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1,
+    backgroundColor: '#fafbfe'
+  },
   mainContainer: {
     flex: 1,
     backgroundColor: '#fafbfe',
     width: '100%',
-    // paddingTop: '5%',
+  },
+  navContainer: {
+    flex: 0.75,
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
     fontSize: 26,
     paddingLeft: '9%',
-    // paddingBottom: '3%',
     color: '#1a1f3e',
     flex:0.75,
-    // backgroundColor: "blue"
+  },
+  boxShadowContainer: {
+    alignItems:"center",
+    flex: 4
   },
   contentContainer: {
-    // alignItems: 'center',
-    // flex: 1,
-    // backgroundColor: "green",
     width: '82%'
   },
   cardText: {
-    paddingBottom: '10%',
+    paddingBottom: '5%',
     lineHeight: 22,
     paddingTop: '5%',
     paddingLeft: '5%',
@@ -220,18 +225,17 @@ const styles = StyleSheet.create({
     alignContent: 'space-around',
   },
   cardButtonContainer: {
-    paddingBottom: '2%',
-    paddingRight: '1.75%',
-    // flex:1
+    paddingBottom: '1%',
   },
   cardButton: {
-    height: 32,
-    // height: '33%',
-     justifyContent: 'center',
+    height: Dimensions.get('window').height * 0.05,
+    justifyContent: 'center',
+    alignContent: "center",
+    alignItems: "center",
   },
   cardContainer: {
     width: '80%',
-    height: '90%',   
+    height: '90%',
   },
   selectedTextContainer: {
     paddingTop: '5%',
@@ -252,18 +256,16 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '82%',
-    height: Dimensions.get('window').height * 0.082,  
+    height: Dimensions.get('window').height * 0.082,
   },
   btnContainer: {
     justifyContent: 'flex-end',
     alignItems: 'stretch',
     alignContent: 'flex-end',
-    backgroundColor: "red",
     flex:1
   },
   footerGrandparentContainer: {
     alignItems: 'center',
-    // backgroundColor:"yellow",
     marginBottom: '2.5%',
     marginTop: '2.5%'
   },
@@ -284,7 +286,8 @@ const styles = StyleSheet.create({
  */
 const mapStateToProps = ({ newWallet }) => {
   const mnemonic = newWallet.wallet.mnemonic;
-  return { mnemonic }
+  const debugMode = newWallet.debugMode;
+  return { mnemonic, debugMode }
 }
 
 export default connect(mapStateToProps, null)(ConfirmPassphrase)

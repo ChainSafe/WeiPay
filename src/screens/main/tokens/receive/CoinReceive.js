@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, Dimensions } from 'react-native';
 import QRCode from 'react-native-qrcode';
 import { connect } from 'react-redux';
 import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator';
@@ -20,6 +20,8 @@ class CoinReceive extends Component {
       contentContainer,
       imageContainer,
       addressContainer,
+      navContainer,
+      navHeaderContainer,
       addressTitle,
       addressValue,
       footerGrandparentContainer,
@@ -28,33 +30,42 @@ class CoinReceive extends Component {
     } = styles;
 
     return (
-      <View style={mainContainer}>
-        <BackWithMenuNav
-          showMenu={true}
-          showBack={true}
-          navigation={this.props.navigation}
-          backPage={'mainStack'}
-        />
-        <CoinSendTabNavigator navigation={this.props.navigation} />
-        <View style={contentContainer} >
-          <View style={imageContainer}>
-            <QRCode
-              value={this.props.walletAddress}
-              size={280}
-              bgColor='#27c997'
-              fgColor='#fafbfe' />
-          </View>
-          <View style={addressContainer}>
-              <Text style={addressTitle}>Address: </Text>
-              <Text style={addressValue}>{this.props.walletAddress}</Text>
-          </View>
+      <SafeAreaView style={styles.safeAreaView}>
+        <View style={mainContainer}>
+
+        <View style={navContainer}>        
+          <BackWithMenuNav
+            showMenu={true}
+            showBack={true}
+            navigation={this.props.navigation}
+            backPage={'mainStack'}
+          />
         </View>
-         <View style={footerGrandparentContainer}>
-              <View style={footerParentContainer}>
-                  <Text style={textFooter} >Powered by ChainSafe </Text>
-              </View>
+
+        <View style={navHeaderContainer}>
+          <CoinSendTabNavigator navigation={this.props.navigation} />
+        </View>
+
+          <View style={contentContainer} >
+            <View style={imageContainer}>
+              <QRCode
+                value={this.props.walletAddress}
+                size={ 225}
+                bgColor='#27c997'
+                fgColor='#fafbfe' />
+            </View>
+            <View style={addressContainer}>
+                <Text style={addressTitle}>Address: </Text>
+                <Text style={addressValue}>{this.props.walletAddress}</Text>
+            </View>
           </View>
-      </View>
+          <View style={footerGrandparentContainer}>
+                <View style={footerParentContainer}>
+                    <Text style={textFooter} >Powered by ChainSafe </Text>
+                </View>
+            </View>
+        </View>
+      </SafeAreaView>
     );
   }
 }
@@ -63,15 +74,25 @@ class CoinReceive extends Component {
  * Styles
  */
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1, 
+    backgroundColor: '#fafbfe'
+  },
   mainContainer: {
     flex: 1,
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingTop: '2.5%',
     backgroundColor: '#fafbfe',
   },
+  navContainer: {
+    flex: 0.75,
+  },
+  navHeaderContainer: {
+    flex: 0.75,
+  },
   contentContainer: {
-    marginTop: 25,
+    // marginTop: '10%',
+    flex:5,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -84,8 +105,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     paddingBottom: '1.5%',
-    paddingTop: '2.5%',
-    width: 280,
+    paddingTop: '10%',
+    width: 225,
   },
   addressTitle: {
     fontFamily: 'Cairo-Regular',

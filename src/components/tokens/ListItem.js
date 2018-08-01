@@ -29,7 +29,7 @@ class CoinListItem extends Component {
    * Upon selecting this coin,
    *  "addTokenToSetup" action is executed in order to add this item to the global state variable
    *  In-class boolean state variable is the opposite of what it used to be
-   * @param {Object} coin 
+   * @param {Object} coin
    */
   renderPress(coin) {
     this.props.addTokenToSetup(coin);
@@ -46,53 +46,50 @@ class CoinListItem extends Component {
     const { checked } = this.state
 
     return (
-    
-     
+
+
       <View style={styles.listItemParentContainer}>
-      
-          <TouchableOpacity
-            onPress={() => this.renderPress(coin)}>
-            <View style={[styles.check, coin.selected ? styles.containerSelected : styles.containerDeselect]}>
-          
-            <BoxShadowCard customStyles={{flex:1}}> 
-              <ListItem
-                hideChevron
-                key={coin.id}
-                roundAvatar
-                avatar={ require('../../assets/images/eth.png') }
-                title= {
-                  <View style={styles.titleContainer} >
-                    <Text style={styles.coinItemSymbolText}>{coin.symbol}</Text>
-                      <View style={styles.checkboxContainer} >
-                        <CheckBox 
-                          center
-                          iconRight
-                          iconType='material'
-                          checkedIcon='clear'
-                          uncheckedIcon='add'
-                          uncheckedColor='#27c997'
-                          checkedColor='red'
-                          checked={coin.selected}
-                          containerStyle={[title, coin.selected ? styles.valid : styles.invalid]}
-                          onPress={() => this.renderPress(coin)}
-                          />
-                        </View>
-                  </View>
-                }
-                subtitle={
-                  <View style={styles.subtitleContainer}>
-                    <Text style={styles.subtitleText}>{coin.title}</Text>
-                  </View>
-                }
-                containerStyle = {styles.listItemContainer}
-                avatarStyle = {styles.avatarStyles}
-              />
-           </BoxShadowCard>
-            </View>
-          </TouchableOpacity >
-       
+        <TouchableOpacity
+          onPress={() => this.renderPress(coin)}>
+          <View style={[styles.check, coin.selected ? styles.containerSelected : styles.containerDeselect]}>
+          <BoxShadowCard customStyles={{flex:1}}>
+            <ListItem
+              hideChevron
+              key={coin.id}
+              roundAvatar
+              avatar={ require('../../assets/images/eth.png') }
+              title= {
+                <View style={styles.titleContainer} >
+                  <Text style={styles.coinItemSymbolText}>{coin.symbol}</Text>
+                    <View style={styles.checkboxContainer} >
+                      <CheckBox
+                        center
+                        iconRight
+                        iconType='material'
+                        checkedIcon='clear'
+                        uncheckedIcon='add'
+                        uncheckedColor='#27c997'
+                        checkedColor='red'
+                        checked={coin.selected}
+                        containerStyle={[title, coin.selected ? styles.valid : styles.invalid]}
+                        onPress={() => this.renderPress(coin)}
+                        />
+                      </View>
+                </View>
+              }
+              subtitle={
+                <View style={styles.subtitleContainer}>
+                  <Text style={styles.subtitleText}>{coin.title}</Text>
+                </View>
+              }
+              containerStyle = {styles.listItemContainer}
+              avatarStyle = {styles.avatarStyles}
+            />
+            </BoxShadowCard>
+          </View>
+        </TouchableOpacity >
       </View>
- 
+
     )
   }
 }
@@ -104,7 +101,7 @@ const styles = StyleSheet.create({
   listItemParentContainer: {
     marginTop: '2.5%',
     marginLeft: '0.25%',
-    height: Dimensions.get('window').height * 0.1, 
+    height: Dimensions.get('window').height * 0.1,
   },
   titleContainer: {
     flexDirection: 'row',
@@ -129,8 +126,9 @@ const styles = StyleSheet.create({
     top: '6%',
   },
   listItemContainer: {
+    borderWidth: 0,
+    borderBottomWidth: 0,
     width: '100%',
-    height: Dimensions.get('window').height * 0.1, 
     backgroundColor: '#ffffff',
     justifyContent: 'center',
     borderWidth: 0,
@@ -180,7 +178,7 @@ const styles = StyleSheet.create({
 
 /**
  * This function is not being used
- * @param {Object} state 
+ * @param {Object} state
  */
 const mapStateToProps = state => {
   return {

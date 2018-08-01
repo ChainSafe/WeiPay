@@ -43,7 +43,7 @@ class BackWithMenuNav extends Component {
                     onPress={this.navigateMenu} >
                     <Image
                       source={require('../../assets/icons/menu.png')}
-                      style={{height:13, width:22}}
+                      style={{height:13, width:20}}
                     />
                   </TouchableOpacity>
                 </View> : null}
@@ -55,10 +55,10 @@ class BackWithMenuNav extends Component {
 const styles = StyleSheet.create({
     container:{
         flexDirection: 'row',
-        marginTop: Platform.OS === 'ios' ? '5%' : '2%',
+        marginTop: Platform.OS === 'ios' ? '3.5%' : '2%',
         marginRight: '9%',
         marginLeft: '9%',
-        height: Platform.OS === 'ios' ? 45 : 40,
+        height: Platform.OS === 'ios' ? 40 : 40,
         justifyContent:'center'
     },
      boxContainer:{
