@@ -1,4 +1,4 @@
-import { StackNavigator, DrawerNavigator } from 'react-navigation';
+import { StackNavigator, DrawerNavigator, DrawerItems } from 'react-navigation';
 import Contacts from '../../screens/main/menu/contacts/index';
 import AddContact from '../../screens/main/menu/contacts/add/AddContact';
 import Portfolio from '../../screens/main/portfolio/index';
@@ -10,6 +10,22 @@ import AddCoin from '../../screens/main/tokens/add/Coins'
 import ContactAddresses from '../../screens/main/menu/contacts/SelectedContact';
 import QrCodeScanner from '../../screens/main/qr/QrCodeScanner';
 import BackupPhrase from '../../screens/main/menu/settings/BackupPhrase';
+
+import React from 'react';
+import { View } from 'react-native';
+
+const CustomDrawerContentComponent = props => (
+  <View style={{ flex: 1, backgroundColor: "white" }}>
+    <View style={{ marginLeft: 10 }}>
+      <DrawerItems 
+        {...props} 
+        activeBackgroundColor={'#f3f3f3'}  
+        labelStyle={{fontSize:16, letterSpacing:0.6,  fontFamily: "Cairo-Light", color:"black", fontWeight:'200' }}
+      />
+    </View>
+  </View>
+);
+
 
 /**
  * Constant contains all the screens that can be navigated to using the
@@ -48,12 +64,9 @@ const navigator = DrawerNavigator({
   AddCoin: { screen: AddCoin },
 }, {
   headerMode: 'none',
-  navigationOptions: {
-    backgroundColor: '#fafbfe',
-    borderBottomWidth: 0,
-    drawerPosition: 'right'
-  },
   lazy: true,
+  contentComponent: CustomDrawerContentComponent,
+  drawerPosition: 'right',
 });
 
 export default navigator;
