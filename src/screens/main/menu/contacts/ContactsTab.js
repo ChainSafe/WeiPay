@@ -7,14 +7,14 @@ import _ from 'lodash';
 import AddFirstContact from './add/AddFirstContact';
 import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
 import ContactTabNavigator from '../../../../components/customPageNavs/ContactTabNavigator'
-import ContactsTab from './ContactsTab'
-import AddContact from './add/AddContact'
+
+
 
 /**
  * Screen that displays all the contacts that have been added to
  * the wallet
  */
-class Contacts extends Component {
+class ContactsTab extends Component {
 
   /**
    * Sets the screen title to "Contacts".
@@ -36,10 +36,7 @@ class Contacts extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      active: true,
-      tab: 'contacts'
-    }
+    this.state = { active: true }
   }
 
   /**
@@ -80,17 +77,9 @@ class Contacts extends Component {
       routeName: 'contactAddresses',
       params: { addresses }
     });
+    debugger
     this.props.navigation.dispatch(navigateToCreateOrRestore);
   };
-
-  displayContactTab() {
-    if (this.state.tab === 'contacts'){
-      return <ContactsTab setAddContact={() => this.setState({ tab: 'addcontact' })}/>
-    }
-    if (this.state.tab === 'addcontact'){
-      return <AddContact navigation={this.props.navigation} />
-    }
-  }
 
   /**
    * Method is used to create an interactable item for the listView specific to
@@ -143,30 +132,16 @@ class Contacts extends Component {
    * variable is greater than 0.
    */
   render() {
+    const show = this.props.contacts.length === 0 ?
+        <AddFirstContact setAddContact={this.props.setAddContact}/>
+      :
 
-
-      return (
-        <View style={styles.mainContainer}>
-          <BackWithMenuNav
-            showMenu={true}
-            showBack={false}
-            navigation={this.props.navigation}
-            backPage={"mainStack"}
-          />
-          <ContactTabNavigator
-            Active={this.state.active}
-            navigation={this.props.navigation}
-            setContact={() => this.setState({ tab: 'contacts' })}
-            setAddContact={() => this.setState({ tab: 'addcontact' })}
-            tab={this.state.tab}
-          />
-          {this.displayContactTab()}
-
-          <View style={{ alignItems:'center', marginTop: '-5%', flex: 0.08, }} >
-            <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-          </View>
+        <View style={styles.list}>
+          <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false} />
         </View>
-      )
+
+
+      return show
   }
 }
 
@@ -197,13 +172,9 @@ const styles = StyleSheet.create({
     marginLeft: '0.25%',
   },
   list: {
+    marginTop: '4%',
+    flex: 1,
     marginLeft: '9%'
-  },
-  textFooter : {
-    fontFamily: "WorkSans-Regular",
-    fontSize: 11,
-    marginTop: '3.5%',
-    color: '#c0c0c0'
   }
 })
 
@@ -216,4 +187,4 @@ function mapStateToProps({ contacts }) {
   return { contacts: contacts.contacts }
 }
 
-export default connect(mapStateToProps)(Contacts);
+export default connect(mapStateToProps)(ContactsTab);

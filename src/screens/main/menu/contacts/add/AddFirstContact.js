@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Dimensions } from 'react-native';
 import { Button, Card } from 'react-native-elements';
 import LinearButton from '../../../../../components/LinearGradient/LinearButton'
+import BoxShadowCard from '../../../../../components/ShadowCards/BoxShadowCard'
 /**
  * React-Native
  * Temporary Screen used until a contact is added
@@ -15,35 +16,21 @@ class AddFirstContact extends Component {
   render() {
     return (
       <View style={styles.mainContainer}>
+        <View style={{flex: 1}} />
         <View style={styles.contentContainer} >
-          <Card containerStyle={{
-            width: '82%',
-            height: '27.5%',
-            borderRadius: 7.5,
-            shadowOpacity: 0.5,
-            shadowRadius: 1.3,
-            shadowColor: '#dbdbdb',
-            shadowOffset: { width: 1, height: 2 },
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
+          <BoxShadowCard>
             <Text style={styles.cardText}>
               You can save your friend's cryptocurrency addresses for fast, easy transactions
             </Text>
-          </Card>
+          </BoxShadowCard>
         </View>
 
         <View style={styles.btnContainer}>
           <LinearButton
-            onClickFunction={() => this.props.navigate('addContact')}
+            onClickFunction={this.props.setAddContact}
             buttonText="Add your first contact"
             customStyles={styles.button}
           />
-        </View>
-        <View style={{ alignItems:'center'}} >
-          <View style={{ alignItems:'center'}} >
-            <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-          </View>
         </View>
 
       </View>
@@ -56,38 +43,38 @@ class AddFirstContact extends Component {
  */
 const styles = StyleSheet.create({
   mainContainer: {
-        flex: 1,
-        paddingTop: '5%',
-        backgroundColor: "#fafbfe",
-        width: '100%',
-        height: '100%',
-        alignItems: 'center'
+    flex: 1,
+    paddingTop: '5%',
+    backgroundColor: "#fafbfe",
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
-
   contentContainer : {
-      alignItems: 'stretch',
-      justifyContent: 'center',
-      flex: 1
+    width: '82%',
+    flex: 1.3,
+    justifyContent: 'center'
   },
   cardText : {
     paddingBottom: '5%',
-    paddingTop: '5%',
+    paddingTop: '12%',
     paddingLeft: '5%',
     paddingRight: '5%',
-    fontFamily: "WorkSans-Regular",
+    fontFamily: "WorkSans-Light",
     color: '#000000',
     fontSize: 16,
   },
   btnContainer: {
+    flex: 1.6,
     alignItems: 'stretch',
-    marginRight: '9%',
     width: '100%',
+    justifyContent: 'flex-end',
+    marginBottom: '2%'
   },
-  textFooter : {
-      fontFamily: "WorkSans-Regular",
-      fontSize: 11,
-      marginTop: '3.5%',
-      color: '#c0c0c0'
+  button: {
+    width: '82%',
+    height: Dimensions.get('window').height * 0.082
   }
 })
 

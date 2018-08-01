@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
-import { ListView, View, Text, StyleSheet, TextInput, ScrollView } from 'react-native';
+import { ListView, View, Text, StyleSheet, TextInput, ScrollView, Dimensions, TouchableOpacity, Picker, Image } from 'react-native';
 import { Button, List, ListItem, Card, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { NavigationActions } from "react-navigation";
 import AddContactList from '../../../../../components/contacts/AddContactList';
 import * as actions from '../../../../../actions/ActionCreator';
-import BackWithMenuNav from "../../../../../components/customPageNavs/BackWithMenuNav"
-import ContactTabNavigator from "../../../../../components/customPageNavs/ContactTabNavigator"
-
-
+import BackWithMenuNav from '../../../../../components/customPageNavs/BackWithMenuNav'
+import ContactTabNavigator from '../../../../../components/customPageNavs/ContactTabNavigator'
+import LinearButton from '../../../../../components/LinearGradient/LinearButton'
+import ClearButton from '../../../../../components/LinearGradient/ClearButton'
+import BoxShadowCard from '../../../../../components/ShadowCards/BoxShadowCard'
+import Modal from 'react-native-modal'
+import barcode from '../../../../../assets/icons/barcode.png'
+import RNPickerSelect from 'react-native-picker-select';
 /**
  * Is a full screen react component
  * This screen is used to add a new contact to the wallet contact list.
@@ -38,12 +42,22 @@ class AddContact extends Component {
       this.renderAddContact = this.renderAddContact.bind(this);
     }
 
+    let tokens = []
+    this.inputRefs = {};
+    this.props.tokens.map(token => {
+      let tokenName = {}
+      tokenName.value = token.title
+      tokenName.label = token.title
+      tokens.push(tokenName)
+    })
+
     this.state = {
       disabled: true,
       clear: false,
       contactName: contactNameHolder,
       contactAddress: contactAddressHolder,
-      Active: false
+      tokenName: undefined,
+      tokens
     }
   }
 
@@ -118,81 +132,85 @@ class AddContact extends Component {
     });
   }
 
+  _toggleModal = () =>
+    this.setState({ isModalVisible: !this.state.isModalVisible });
+
+  addContact() {
+    this.props.completeContact(this.state.contactName, this.state.contactAddress);
+  }
+
   /**
    * Returns the form required to add a contact
    */
   render() {
     return (
       <View style={styles.mainContainer}>
-        <BackWithMenuNav
-          showMenu={true}
-          showBack={true}
-          navigation={this.props.navigation}
-          backPage={"contacts"}
-        />
-        <ContactTabNavigator
-          Active={this.state.active}
-          navigation={this.props.navigation}
-        />
+        <View style={{flex: 0.2}} />
+        <View style={styles.contentContainer} >
+          <BoxShadowCard style={{ padding: '130%' }}>
+            <Text style={styles.cardText}>
+              Add contact by scanning QR code, or pasting in contact's WeiPay Address
+            </Text>
 
-        <ScrollView style={{ height: '75%' }} >
-          <View style={styles.contentContainer} >
-            <Card containerStyle={{
-              width: '82%',
-              height: '55%',
-              borderRadius: 7.5,
-              shadowOpacity: 0.5,
-              shadowRadius: 1.3,
-              shadowColor: '#dbdbdb',
-              shadowOffset: { width: 1, height: 2 },
-            }}>
-              <Text style={styles.cardText}>
-                Create a name for your wallet, for example: My Wallet
-              </Text>
+            <View style={{flex: 1}}>
               <FormInput
-                placeholder={"Ex. My Wallet"}
-
+                placeholder={"Contact's Name"}
+                onChangeText={name => this.setState({ contactName: name})}
                 inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2'}}
               />
-            </Card>
-          </View>
-          <AddContactList
-            contactName={this.state.contactName}
-            dataSource={this.state.dataSource}
-            renderAddress={this.renderAddress.bind(this)}
-            renderName={this.renderName.bind(this)}
-            contactAddress={this.state.contactAddress}
-            navigate={this.props.navigation.navigate}
+            </View>
+            <View style={{flex: 1, marginLeft: '7%'}}>
+              <Image
+                source={require('../../../../../assets/icons/barcode.png')}
+                style={{flex: 1, width: '20%', }}
+              />
+            </View>
+            <View style={{flex: .8}}>
+              <RNPickerSelect
+                placeholder={{
+                    label: 'Coin Type',
+                    value: null,
+                }}
+                items={this.state.tokens}
+                onValueChange={(value) => {
+                  this.setState({
+                      tokenName: value,
+                  });
+                }}
+
+                style={{ ...pickerSelectStyles }}
+                value={this.state.favColor}
+                ref={(el) => {
+                    this.inputRefs.picker = el;
+                }}
+              />
+            </View>
+            <View style={{flex: 1}}>
+              <FormInput
+                placeholder={"WeiPay Address"}
+                onChangeText={address => this.setState({ contactAddress: address})}
+                inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2'}}
+              />
+            </View>
+          </BoxShadowCard>
+        </View>
+        <View style={{flex: 0.2}} />
+        <View style={styles.anotherCoinContainer} >
+          <BoxShadowCard>
+            <Text style={styles.cardText}>+ Add another coin address</Text>
+          </BoxShadowCard>
+        </View>
+        <View style={{flex: 0.1}} />
+        <View style={styles.btnContainer}>
+          <ClearButton
+            buttonText='Clear'
+            customStyles={styles.clearButton}
           />
-        </ScrollView>
-        <View style={styles.container}>
-          <View style={styles.buttonContainer}>
-            <Button
-              small
-              disabled={this.state.contactName === "" || this.isEmptyObject(this.state.contactAddress)}
-              title='Add Contact'
-              icon={{ size: 20 }}
-              buttonStyle={{
-                backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100,
-                height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginBottom: 5, marginTop: 5.5
-              }}
-              textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
-              onPress={() => this.renderAddContact()}
-            />
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              small
-              title='Clear'
-              icon={{ size: 20 }}
-              buttonStyle={{
-                backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100,
-                height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginBottom: 5, marginTop: 5.5
-              }}
-              textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
-              onPress={() => this.clear()}
-            />
-          </View>
+          <LinearButton
+            buttonText='Add'
+            onClickFunction={this.addContact.bind(this)}
+            customStyles={styles.addButton}
+          />
         </View>
       </View>
     );
@@ -204,7 +222,8 @@ class AddContact extends Component {
  */
 const styles = StyleSheet.create({
   mainContainer: {
-    backgroundColor: "#fafbfe",
+    alignItems: 'center',
+    flex: 1
   },
   container: {
     flex: 1,
@@ -221,19 +240,59 @@ const styles = StyleSheet.create({
   },
   contentContainer : {
     alignItems: 'center',
-    flex: 1
+    flex: 2,
+    width: '82%',
+  },
+  anotherCoinContainer: {
+    flex: .4,
+    width: '82%'
   },
   cardText : {
-    paddingBottom: '20%',
+    paddingBottom: '5%',
     paddingTop: '5%',
     paddingLeft: '5%',
     paddingRight: '5%',
     fontFamily: "WorkSans-Light",
     color: '#000000',
     fontSize: 16,
-},
+  },
+  clearButton: {
+    width: Dimensions.get('window').height * 0.225,
+    height: Dimensions.get('window').height * 0.082,
+    marginLeft: '5%'
+  },
+  addButton: {
+    width: Dimensions.get('window').height * 0.225,
+    height: Dimensions.get('window').height * 0.082,
+    marginLeft: '0%'
+  },
+  btnContainer: {
+    flex: 0.3,
+    flexDirection: 'row',
+    width: '80%',
+    justifyContent: 'flex-end',
+    marginLeft: '1.5%',
+    marginBottom: '8%'
+  },
+  modal: {
+     height: '40%',
+     borderRadius: 4
+  },
 });
 
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+      fontSize: 17,
+      fontFamily: "WorkSans-Light",
+      paddingTop: 13,
+      paddingHorizontal: 10,
+      paddingBottom: 12,
+      borderRadius: 4,
+      backgroundColor: 'white',
+      color: 'black',
+      marginLeft: '3.5%'
+  },
+});
 /**
  * Reterives the token list from the state variable
  * Returns an object containing the token list
@@ -249,3 +308,50 @@ const mapStateToProps = ({ contacts, newWallet }) => {
 }
 
 export default connect(mapStateToProps, actions)(AddContact)
+
+        // <ScrollView style={{ height: '75%' }} >
+        //   <View style={styles.contentContainer} >
+        //     <BoxShadowCard>
+        //       <Text style={styles.cardText}>
+        //         Add contact by scanning QR code, or pasting in contact's WeiPay Address
+        //       </Text>
+        //     </BoxShadowCard>
+        //   </View>
+        //   <AddContactList
+        //     contactName={this.state.contactName}
+        //     dataSource={this.state.dataSource}
+        //     renderAddress={this.renderAddress.bind(this)}
+        //     renderName={this.renderName.bind(this)}
+        //     contactAddress={this.state.contactAddress}
+        //     navigate={this.props.navigation.navigate}
+        //   />
+        // </ScrollView>
+                // <View style={styles.container}>
+                //   <View style={styles.buttonContainer}>
+                //     <Button
+                //       small
+                //       disabled={this.state.contactName === "" || this.isEmptyObject(this.state.contactAddress)}
+                //       title='Add Contact'
+                //       icon={{ size: 20 }}
+                //       buttonStyle={{
+                //         backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100,
+                //         height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginBottom: 5, marginTop: 5.5
+                //       }}
+                //       textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
+                //       onPress={() => this.renderAddContact()}
+                //     />
+                //   </View>
+                //   <View style={styles.buttonContainer}>
+                //     <Button
+                //       small
+                //       title='Clear'
+                //       icon={{ size: 20 }}
+                //       buttonStyle={{
+                //         backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100,
+                //         height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginBottom: 5, marginTop: 5.5
+                //       }}
+                //       textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
+                //       onPress={() => this.clear()}
+                //     />
+                //   </View>
+                // </View>

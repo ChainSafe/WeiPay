@@ -63,48 +63,48 @@ class CreateWalletName extends Component {
 
       return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={styles.mainContainer} >
-                    <View style={{flex: 0.75}}>        
-                        <BackWithMenuNav
-                            showMenu={false}
-                            showBack={true}
-                            navigation={this.props.navigation}
-                            backPage={'createOrRestore'}
-                        />
-                    </View>                    
-                    <Text style={styles.textHeader} >Wallet Name</Text>
-                    <View style={{alignItems: 'center' ,  flex: 3}}>
-                        <View style={styles.contentContainer}>
-                            <BoxShadowCard>
-                                <Text style={styles.cardText}>
-                                    Create a name for your wallet, for example: My Wallet
-                                </Text>
-                                <FormInput
-                                    placeholder={'Ex. My Wallet'}
-                                    onChangeText={this.getWalletName.bind(this)}
-                                    inputStyle={styles.txtWalletName}
-                                /> 
-                            </BoxShadowCard>
-                        </View>
-                    </View>
-
-                    <View style={btnContainer}>
-                        <LinearButton
-                            onClickFunction={this.navigate}
-                            buttonText="Next"
-                            customStyles={button}
-                            // buttonStateEnabled={this.state.buttonDisabled}
-                        />
-
-                        <View style={styles.footerGrandparentContainer} >    
-                            <View style={styles.footerParentContainer} >
-                                <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
-                        </View>  
-                    </View> 
-
-                    </View>
-                   
+              <View style={styles.mainContainer} >
+                <View style={{flex: 0.75}}>
+                  <BackWithMenuNav
+                    showMenu={false}
+                    showBack={true}
+                    navigation={this.props.navigation}
+                    backPage={'createOrRestore'}
+                  />
                 </View>
+                <Text style={styles.textHeader} >Wallet Name</Text>
+                <View style={{alignItems: 'center' ,  flex: 3}}>
+                  <View style={styles.contentContainer}>
+                    <BoxShadowCard>
+                      <Text style={styles.cardText}>
+                        Create a name for your wallet, for example: My Wallet
+                      </Text>
+                      <FormInput
+                        placeholder={'Ex. My Wallet'}
+                        onChangeText={this.getWalletName.bind(this)}
+                        inputStyle={styles.txtWalletName}
+                      />
+                    </BoxShadowCard>
+                  </View>
+                </View>
+
+                <View style={btnContainer}>
+                  <LinearButton
+                    onClickFunction={this.navigate}
+                    buttonText="Next"
+                    customStyles={button}
+                    // buttonStateEnabled={this.state.buttonDisabled}
+                  />
+
+                  <View style={styles.footerGrandparentContainer} >
+                    <View style={styles.footerParentContainer} >
+                      <Text style={styles.textFooter} >Powered by ChainSafe </Text>
+                    </View>
+                  </View>
+
+                </View>
+
+              </View>
             </TouchableWithoutFeedback>
       );
     }
@@ -115,14 +115,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     backgroundColor: '#fafbfe',
-    width: '100%',   
+    width: '100%',
     },
     textHeader: {
     fontFamily: 'Cairo-Light',
     fontSize: 26,
     paddingLeft: '10%',
     color: '#1a1f3e',
-    flex: 0.75, 
+    flex: 0.75,
     },
     contentContainer: {
     flex: 1,
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     },
     button: {
     width: '82%',
-    height: Dimensions.get('window').height * 0.082,  
+    height: Dimensions.get('window').height * 0.082,
     },
     footerGrandparentContainer: {
     alignItems: 'center',

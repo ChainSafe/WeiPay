@@ -34,6 +34,7 @@ class GeneratePassphrase extends Component {
         footerGrandparentContainer,
         footerParentContainer,
         textFooter,
+        navFlex
       } = styles;
 
       return (
@@ -47,7 +48,7 @@ class GeneratePassphrase extends Component {
             />
             </View>
             <Text style={textHeader} >Your Passphrase</Text>
-            
+
             <View style={{alignItems:"center", flex: 3}}>
               <View style={contentContainer} >
                   <BoxShadowCard >
@@ -77,8 +78,8 @@ class GeneratePassphrase extends Component {
                   </View>
 
               </View>
-             
-       
+
+
         </View>
       );
     }
@@ -131,7 +132,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '82%',
-    height: Dimensions.get('window').height * 0.082,  
+    height: Dimensions.get('window').height * 0.082,
   },
   footerGrandparentContainer: {
     alignItems: 'center',
