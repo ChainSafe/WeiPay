@@ -20,6 +20,8 @@ class CoinReceive extends Component {
       contentContainer,
       imageContainer,
       addressContainer,
+      navContainer,
+      navHeaderContainer,
       addressTitle,
       addressValue,
       footerGrandparentContainer,
@@ -30,13 +32,20 @@ class CoinReceive extends Component {
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={mainContainer}>
+
+        <View style={navContainer}>        
           <BackWithMenuNav
             showMenu={true}
             showBack={true}
             navigation={this.props.navigation}
             backPage={'mainStack'}
           />
+        </View>
+
+        <View style={navHeaderContainer}>
           <CoinSendTabNavigator navigation={this.props.navigation} />
+        </View>
+
           <View style={contentContainer} >
             <View style={imageContainer}>
               <QRCode
@@ -71,13 +80,19 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingTop: '2.5%',
     backgroundColor: '#fafbfe',
   },
+  navContainer: {
+    flex: 0.75,
+  },
+  navHeaderContainer: {
+    flex: 0.75,
+  },
   contentContainer: {
-    marginTop: '10%',
+    // marginTop: '10%',
+    flex:5,
     justifyContent: 'center',
     alignItems: 'center',
   },
