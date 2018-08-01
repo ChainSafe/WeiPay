@@ -12,15 +12,15 @@ import QrCodeScanner from '../../screens/main/qr/QrCodeScanner';
 import BackupPhrase from '../../screens/main/menu/settings/BackupPhrase';
 
 import React from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 const CustomDrawerContentComponent = props => (
-  <View style={{ flex: 1, backgroundColor: "white" }}>
+  <View style={styles.customContainer}>
     <View style={{ marginLeft: 10 }}>
       <DrawerItems 
         {...props} 
         activeBackgroundColor={'#f3f3f3'}  
-        labelStyle={{fontSize:16, letterSpacing:0.6,  fontFamily: "Cairo-Light", color:"black", fontWeight:'200' }}
+        labelStyle={styles.labelText}
       />
     </View>
   </View>
@@ -70,3 +70,18 @@ const navigator = DrawerNavigator({
 });
 
 export default navigator;
+
+const styles = StyleSheet.create({
+  customContainer: {
+    flex: 1, 
+    backgroundColor: "white" 
+  },
+  labelText:{
+    fontSize:16, 
+    letterSpacing:0.6,
+    fontFamily: "Cairo-Light", 
+    color:"black", 
+    fontWeight:'200'
+  },
+})
+
