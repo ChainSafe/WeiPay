@@ -189,7 +189,6 @@ class CoinSend extends Component {
     const {
       mainContainer,
       safeAreaView,
-      textHeader,
       contentContainer,
       cardText,
       txtWalletName,
@@ -214,8 +213,11 @@ class CoinSend extends Component {
                 </View>
                 <View style={styles.navHeaderContainer}>
                   <CoinSendTabNavigator 
-                    navigation={this.props.navigation} 
-                  />
+                      navigation={this.props.navigation}
+                      sendActive={true}
+                      activityActive={false}
+                      receiveActive={false} 
+                    />
                 </View>
                 <View style={styles.boxShadowContainer}>
                   <View style={contentContainer}>
@@ -281,7 +283,6 @@ class CoinSend extends Component {
                 </View>
           </View>
         </TouchableWithoutFeedback>
-
        </SafeAreaView>
       
     )
@@ -300,7 +301,7 @@ const styles = StyleSheet.create({
     flex: 0.75,
   },
   navHeaderContainer: {
-    flex: 0.75,
+    flex: 0.3,
   },
   mainContainer: {
     flex: 1,
@@ -310,15 +311,8 @@ const styles = StyleSheet.create({
   },
   boxShadowContainer: {
     alignItems: 'center', 
+    marginTop: '5%',
     flex: 4,
-  },
-  textHeader: {
-    fontFamily: 'Cairo-Light',
-    fontSize: 26,
-    letterSpacing: 0.8,
-    paddingLeft: '9%',
-    color: '#1a1f3e',
-    flex: 0.75, 
   },
   contentContainer: {
     width: '82%',
