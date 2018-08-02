@@ -31,13 +31,13 @@ class Coins extends Component {
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>
           <View style={styles.NavBarButton}>
-            <BackWithMenuNav 
+            <BackWithMenuNav
               showMenu={true}
               showBack={true}
               navigation={this.props.navigation}
               backPage={'mainStack'}
             />
-          </View>         
+          </View>
           <View style={styles.tabNavContainer}>
             <TwoTabNavigator
               leftTabScreen={'AddCoin'}
@@ -46,7 +46,7 @@ class Coins extends Component {
               rightTabText={'Tokens'}
               navigation={this.props.navigation}
             />
-          </View>          
+          </View>
           <View style={styles.coinListContainer}>
             <ScrollView  >
                 <CoinList type={'tokens'} />
@@ -63,7 +63,7 @@ class Coins extends Component {
                     <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                 </View>
             </View>
-          </View>        
+          </View>
         </View>
       </SafeAreaView>
     );
@@ -75,7 +75,7 @@ class Coins extends Component {
  */
 const styles = StyleSheet.create({
   safeAreaView: {
-    flex: 1, 
+    flex: 1,
     backgroundColor: '#fafbfe'
   },
   mainContainer: {
@@ -83,22 +83,22 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafbfe',
   },
   NavBarButton: {
-    flex: 0.5, 
+    flex: 0.5,
     justifyContent: 'center',
     paddingBottom: '2%',
   },
-  tabNavContainer: { 
-    flex: 0.5, 
-    justifyContent: 'center', 
-    marginBottom: '2%', 
+  tabNavContainer: {
+    flex: 0.5,
+    justifyContent: 'center',
+    marginBottom: '2%',
   },
   coinListContainer: {
     alignItems: 'stretch',
-    width: '100%',
     marginLeft: '9%',
-    flex:5,
-    paddingBottom: "2.5%",
-    paddingTop: "2.5%",
+    marginRight: '9%',
+    flex: 5,
+    paddingBottom: '2.5%',
+    paddingTop: '2.5%',
   },
   btnContainer: {
     flex: 1,
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '82%',
-    height: Dimensions.get('window').height * 0.082,  
+    height: Dimensions.get('window').height * 0.082,
   },
   footerGrandparentContainer: {
     alignItems: 'center',
