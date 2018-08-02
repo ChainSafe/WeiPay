@@ -44,11 +44,10 @@ class Portfolio extends Component {
     this.props.navigation.dispatch(navigateToAddToken);
   };
   renderListItemPress(token, navigation){
-    console.log("IN itemPress");
-    console.log(token);
+    console.log("IN itemPress")
+    console.log(token)
     this.props.addTokenInfo(token)
-    const navigateToAddToken = NavigationActions.navigate({ routeName: 'coinSend' });
-    navigation.dispatch(navigateToAddToken);
+    navigation.navigate("coinSend")
     
   }
 
