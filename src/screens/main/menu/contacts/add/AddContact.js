@@ -10,7 +10,7 @@ import ContactTabNavigator from '../../../../../components/customPageNavs/Contac
 import LinearButton from '../../../../../components/LinearGradient/LinearButton'
 import ClearButton from '../../../../../components/LinearGradient/ClearButton'
 import BoxShadowCard from '../../../../../components/ShadowCards/BoxShadowCard'
-import Modal from 'react-native-modal'
+
 import barcode from '../../../../../assets/icons/barcode.png'
 import RNPickerSelect from 'react-native-picker-select';
 /**

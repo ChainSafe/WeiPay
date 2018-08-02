@@ -149,7 +149,7 @@ class Contacts extends Component {
         <View style={styles.mainContainer}>
           <BackWithMenuNav
             showMenu={true}
-            showBack={false}
+            showBack={true}
             navigation={this.props.navigation}
             backPage={"mainStack"}
           />
