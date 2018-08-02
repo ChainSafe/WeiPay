@@ -37,28 +37,26 @@ class Portfolio extends Component {
     this.props.navigation.dispatch(navigateToAddToken);
   };
 
-  renderItemPress = (token) => {
-    //this.props.addTokenInfo(token)
-
+  renderItemPress = () => {
     const navigateToAddToken = NavigationActions.navigate({ routeName: 'coinSend' });
     this.props.navigation.dispatch(navigateToAddToken);
   };
-  renderListItemPress(token, navigation){
-    console.log("IN itemPress")
-    console.log(token)
-    this.props.addTokenInfo(token)
-    navigation.navigate("coinSend")
-    
-  }
+ 
 
   /**
    * Returns a ListItem component specific to the properties of the token parameter
    */
   renderRow = (token) => {
+
     return (
-      <View style={styles.listItemParentContainer}>
         <TouchableOpacity
-          onPress={() => this.renderListItemPress(token, this.props.navigation)}>
+          onPress={() => {
+            this.props.addTokenInfo(token)
+            this.props.navigation.navigate("coinSend")
+            //this.renderItemPress()
+            }}
+          style={styles.listItemParentContainer}
+          >
           <View>
             <BoxShadowCard customStyles={{ flex: 1 }}>
               <View style={[styles.contentContainer]}>
@@ -90,7 +88,7 @@ class Portfolio extends Component {
             </BoxShadowCard>
           </View>
         </TouchableOpacity >
-      </View>
+      
     );
   }
 
@@ -116,7 +114,7 @@ class Portfolio extends Component {
           </View>
           <View style={styles.scrollViewContainer}>
             <ScrollView style={styles.scrollView} >
-                <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false} />
+                <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}/>
             </ScrollView>
           </View>
           <View style={styles.btnContainer} >

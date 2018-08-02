@@ -35,7 +35,6 @@ const navigator = DrawerNavigator({
   Portfolio: {
     screen: StackNavigator({
       portfolioScreen: { screen: Portfolio },
-      coinSend: { screen: CoinSend },
       coinReceive: { screen: CoinReceive },
       coinHistory: { screen: CoinHistory },
       QCodeScanner: { screen: QrCodeScanner },
@@ -62,6 +61,8 @@ const navigator = DrawerNavigator({
   },
   AddToken: { screen: AddToken },
   AddCoin: { screen: AddCoin },
+  coinSend: { screen: CoinSend },
+
 }, {
   headerMode: 'none',
   lazy: true,
