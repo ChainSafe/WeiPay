@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight, Dimensions, TouchableWithoutFeedback, Keyboard, SafeAreaView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { Icon, Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-import { CardSection } from '../../../../components/common/CardSection';
+import { connect } from 'react-redux';
 import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
+import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard'
+import LinearButton from '../../../../components/LinearGradient/LinearButton'
 
 const navigate = () => {
   const navigateToPassphrase = NavigationActions.reset({
@@ -20,31 +22,10 @@ class BackupPhrase extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { isPhraseSelected: false };
-  }
-
-  /**
-   * Method is used navigate back to the main portfolio page
-   */
-  static navigationOptions = ({ navigation, NavigationActions }) => {
-    const navigate = () => {
-      const navigateToPassphrase = NavigationActions.reset({
-        index: 0,
-        actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
-      });
-      this.props.navigation.dispatch(navigateToPassphrase);
+    this.state = { 
+      isPhraseSelected: false,
+      phrase: this.props.mnemonic 
     };
-
-    return {
-      title: 'Backup Phrase',
-      headerLeft:
-        <Icon
-          name='chevron-left'
-          size={35}
-          color='#007AFF'
-          onPress={() => navigation.navigate('Drawer')}
-        />
-    }
   }
 
   /**
@@ -58,53 +39,57 @@ class BackupPhrase extends Component {
   }
 
   /**
-   * returns a component containing the passphrase if and only if the local state is enabled to display
-   * it
-   */
-  renderPassphrase = () => {
-    if (this.state.isPhraseSelected) {
-      return (
-        <CardSection >
-          <Text style={styles.recovered}> cat Ten Other words gucci fam love some new words hello world </Text>
-        </CardSection>
-      )
-    }
-    else { return null; }
-  }
-
-  /**
    * Returns a component that allows the user to view the passphrase
    */
   render() {
     return (
-      <View style={styles.mainContainer}>
-        <BackWithMenuNav 
-          showMenu={true}
-          showBack={true}
-          navigation={this.props.navigation}
-          backPage={"mainStack"}
-
-        />
-
-        <View style={styles.contentContainer} >
-          <Text style={styles.title} > Your Wallet is secure now  </Text>
-          <Text style={styles.description} > To view your backup passphrase, continue.</Text>
-          {this.renderPassphrase()}
-          <View style={styles.btnContainer} >
-            <Button
-              disabled={this.state.isPhraseSelected}
-              title='Show Backup Passphrase'
-              icon={{ size: 28 }}
-              buttonStyle={{
-                backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100, width: 300,
-                height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginBottom: 20, marginTop: 5.5
-              }}
-              textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
-              onPress={this.displayPassphrase.bind(this)}
-            />
-          </View>
+      <SafeAreaView style={styles.safeAreaView}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.mainContainer}>
+              <View style={styles.navContainer}>        
+                <BackWithMenuNav
+                    showMenu={false}
+                    showBack={true}
+                    navigation={this.props.navigation}
+                  />
+              </View>
+              <Text style={styles.textHeader}>Backup Passphrase</Text>
+              <View style={styles.boxShadowContainer}>
+                <View style={styles.contentContainer}>
+                    <BoxShadowCard>
+                      {
+                        this.state.isPhraseSelected 
+                        ? 
+                        <View> 
+                            <Text style={styles.cardText} >Please save this passphrase somewhere safe!</Text>
+                            <Text style={styles.mnemonicText} >{this.state.phrase}</Text>
+                        </View>                      
+                        : <Text style={styles.cardText} >To view your recovery passphrase, select the button below</Text>
+                      }
+                      
+                    </BoxShadowCard>
+                </View>
+              </View>
+            <View style={styles.btnContainer}>
+                {
+                    this.state.isPhraseSelected 
+                    ? null
+                    : <LinearButton
+                          onClickFunction={this.displayPassphrase.bind(this)}
+                          buttonText= 'Show Recovery Passphrase'
+                          customStyles={styles.button}
+                          buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
+                      />
+                }
+                <View style={styles.footerGrandparentContainer}>
+                    <View style={styles.footerParentContainer} >
+                        <Text style={styles.textFooter} >Powered by ChainSafe </Text>
+                    </View>
+                </View>
+            </View>            
         </View>
-      </View>
+      </TouchableWithoutFeedback>
+    </SafeAreaView>
     )
   }
 }
@@ -113,32 +98,83 @@ class BackupPhrase extends Component {
  * Styles used in the BackupPhrase screen
  */
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1, 
+    backgroundColor: '#fafbfe'
+  },
   mainContainer: {
     flex: 1,
-    justifyContent: 'flex-start',
+    backgroundColor: '#fafbfe',
+    justifyContent: 'center',
+    width: '100%',
+  },
+  navContainer: {
+    flex: 0.75,
+  },
+  boxShadowContainer: {
+    alignItems: 'center', 
+    flex: 3
+  },
+  textHeader: {
+    fontFamily: 'Cairo-Light',
+    fontSize: 26,
+    letterSpacing: 0.8,
+    paddingLeft: '9%',
+    color: '#1a1f3e',
+    flex: 0.75, 
   },
   contentContainer: {
+    width: '82%',
     flex: 1,
-    marginTop: 25,
+  },
+  cardText: {
+    paddingBottom: '7.5%',
+    paddingTop: '7.5%',
+    paddingLeft: '7.5%',
+    paddingRight: '7.55%',
+    fontFamily: 'WorkSans-Light',
+    color: '#000000',
+    letterSpacing: 0.4,
+    fontSize: 16,
+  },
+  mnemonicText: {
+    paddingTop: '2.5%',
+    paddingLeft: '7.5%',
+    paddingRight: '7.55%',
+    fontFamily: 'WorkSans-Light',
+    letterSpacing: 0.4,
+    color: '#12c1a2',
+    fontSize: 14,
   },
   btnContainer: {
-    flex: 1,
+    flex:2,
+    alignItems: 'stretch',
     justifyContent: 'flex-end',
-    // alignItems: 'center'
+    width: '100%',
   },
-  title: {
-    alignSelf: "center",
-    fontWeight: '300'
+  button: {
+    width: '82%',
+    height: Dimensions.get('window').height * 0.082,  
   },
-  description: {
-    alignSelf: "center",
-    fontWeight: '200',
-    paddingBottom: 15
+  footerGrandparentContainer: {
+    alignItems: 'center',
+    marginBottom: '3%',
+    marginTop: '3%',
   },
-  recovered: {
-    width: Dimensions.get('window').width - 80,
-    padding: 10
-  }
+  footerParentContainer: {
+    alignItems: 'center',
+  },
+  textFooter: {
+    fontFamily: 'WorkSans-Regular',
+    fontSize: 11,
+    color: '#c0c0c0',
+  },
 })
 
-export default BackupPhrase
+const mapStateToProps = ({ newWallet }) => {
+  const mnemonic = newWallet.wallet.mnemonic;
+  const debugMode = newWallet.debugMode;
+  return { mnemonic, debugMode }
+}
+
+export default connect(mapStateToProps, null)(BackupPhrase)

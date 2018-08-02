@@ -43,7 +43,12 @@ class CoinReceive extends Component {
         </View>
 
         <View style={navHeaderContainer}>
-          <CoinSendTabNavigator navigation={this.props.navigation} />
+          <CoinSendTabNavigator 
+          navigation={this.props.navigation}
+          sendActive={false}
+          activityActive={false}
+          receiveActive={true} 
+           />
         </View>
 
           <View style={contentContainer} >
@@ -80,7 +85,6 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    // alignItems: 'center',
     justifyContent: 'flex-start',
     backgroundColor: '#fafbfe',
   },
@@ -88,11 +92,10 @@ const styles = StyleSheet.create({
     flex: 0.75,
   },
   navHeaderContainer: {
-    flex: 0.75,
+    flex: 0.3,
   },
   contentContainer: {
-    // marginTop: '10%',
-    flex:5,
+    flex:4.25,
     justifyContent: 'center',
     alignItems: 'center',
   },
