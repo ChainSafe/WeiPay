@@ -189,7 +189,6 @@ class CoinSend extends Component {
     const {
       mainContainer,
       safeAreaView,
-      textHeader,
       contentContainer,
       cardText,
       txtWalletName,
@@ -240,6 +239,7 @@ class CoinSend extends Component {
                       inputStyle={styles.formInput}
                       value={this.state.inputValue}
                     />
+
                   </View>
                   <FormInput
                     placeholder={"Amount"}
@@ -251,38 +251,82 @@ class CoinSend extends Component {
                     Transaction Fee Total {this.state.value} Eth
                   </Text>
                 </BoxShadowCard>
-                  </View>
-                </View>
-                <View style={styles.btnContainer}>
-                  <View style={{flexDirection:"row"}}>
-                    <View style={{ flex: 1}}>
-                      <ClearButton
-                        onClickFunction={this.resetFields}
-                        buttonText="Reset"
-                        customStyles={{marginLeft:'0%', marginRight:'1.75%', height: Dimensions.get('window').height * 0.082}}
-                        // buttonStateEnabled={this.state.buttonDisabled}
+
+              </View>
+              <View style={styles.navHeaderContainer}>
+                <CoinSendTabNavigator
+                  navigation={this.props.navigation}
+                  sendActive={true}
+                  activityActive={false}
+                  receiveActive={false}
+                />
+              </View>
+              <View style={styles.boxShadowContainer}>
+                <View style={contentContainer}>
+                  <BoxShadowCard>
+                    <Text style={cardText}>
+                      Send Ether by scanning someone's QR code or public address.
+                    </Text>
+                    <View style= {styles.barcodeImageContainer}>
+                      <TouchableOpacity
+                        onPress= {() => this.navigate()} >
+                        <Image
+                          source={require('../../../../assets/icons/barcode.png')}
+                          style={styles.barcodeImage}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                    <View style={styles.topFormInput}>
+                      <FormInput
+                        placeholder={"Public Address"}
+                        onChangeText={this.renderAddress.bind(this)}
+                        ref={ref => this.inputAddress = ref}
+                        inputStyle={styles.formInput}
                       />
                     </View>
-                    <View style={{flex:1 }}>
-                      <LinearButton
-                        onClickFunction={
-                          this.props.token.type === "ERC20" ? this.sendERC20Transaction : this.sendTransaction
-                                      }
-                        buttonText="Send"
-                        customStyles={{marginLeft: '0%', marginLeft:'1.75%', height: Dimensions.get('window').height * 0.082}}
-                        // buttonStateEnabled={this.state.buttonDisabled}
-                      />
-                    </View>
+                    <FormInput
+                      placeholder={"Amount"}
+                      onChangeText={this.renderValue.bind(this)}
+                      ref={ref => this.inputAmount = ref}
+                      inputStyle={styles.formInput}
+                    />
+                    <Text style={styles.transactionFee} >
+                      Transaction Fee Total {this.state.value} Eth
+                    </Text>
+                  </BoxShadowCard>
+                  >>>>>>> bd3b91e7ad3bfeb713f5fca2ca5e3cfb9793ef0a
+                </View>
+              </View>
+              <View style={styles.btnContainer}>
+                <View style={{flexDirection:"row"}}>
+                  <View style={{ flex: 1}}>
+                    <ClearButton
+                      onClickFunction={this.resetFields}
+                      buttonText="Reset"
+                      customStyles={{marginLeft:'0%', marginRight:'1.75%', height: Dimensions.get('window').height * 0.082}}
+                      // buttonStateEnabled={this.state.buttonDisabled}
+                    />
                   </View>
-                  <View style={footerGrandparentContainer}>
-                    <View style={footerParentContainer} >
-                        <Text style={textFooter} >Powered by ChainSafe </Text>
-                    </View>
+                  <View style={{flex:1 }}>
+                    <LinearButton
+                      onClickFunction={
+                        this.props.token.type === "ERC20" ? this.sendERC20Transaction : this.sendTransaction
+                      }
+                      buttonText="Send"
+                      customStyles={{marginLeft: '0%', marginLeft:'1.75%', height: Dimensions.get('window').height * 0.082}}
+                      // buttonStateEnabled={this.state.buttonDisabled}
+                    />
                   </View>
                 </View>
+                <View style={footerGrandparentContainer}>
+                  <View style={footerParentContainer} >
+                    <Text style={textFooter} >Powered by ChainSafe </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
           </View>
         </TouchableWithoutFeedback>
-
        </SafeAreaView>
 
     )
@@ -301,7 +345,7 @@ const styles = StyleSheet.create({
     flex: 0.75,
   },
   navHeaderContainer: {
-    flex: 0.75,
+    flex: 0.3,
   },
   mainContainer: {
     flex: 1,
@@ -310,6 +354,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   boxShadowContainer: {
+<<<<<<< HEAD
     alignItems: 'center',
     flex: 4,
   },
@@ -320,6 +365,11 @@ const styles = StyleSheet.create({
     paddingLeft: '9%',
     color: '#1a1f3e',
     flex: 0.75,
+  },
+
+    alignItems: 'center',
+    marginTop: '5%',
+    flex: 4,
   },
   contentContainer: {
     width: '82%',

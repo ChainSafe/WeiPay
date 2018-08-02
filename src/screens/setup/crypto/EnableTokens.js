@@ -84,7 +84,6 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     backgroundColor: '#fafbfe',
-    width: '100%',
   },
   headerContainer: {
     flex:1,
@@ -98,8 +97,8 @@ const styles = StyleSheet.create({
   },
   coinListContainer: {
     alignItems: 'stretch',
-    width: '100%',
     marginLeft: '9%',
+    marginRight: '9%',
     flex:5,
     paddingBottom: "2.5%",
   },

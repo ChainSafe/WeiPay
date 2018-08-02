@@ -26,6 +26,7 @@
     "react-native-picker-select": "^4.1.0",
     "react-native-qrcode": "^0.2.6",
     "react-native-radio-buttons-group": "^1.0.7",
+    "react-native-responsive-fontsize": "^0.1.2",
     "react-native-shadow": "^1.2.2",
     "react-native-svg": "^6.4.1",
     "react-native-vector-icons": "^4.6.0",
