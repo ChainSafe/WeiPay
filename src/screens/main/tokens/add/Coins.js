@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Dimensions, Text, SafeAreaView, ScrollView } from 'react-native';
-import { Icon } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import CoinList from '../../../../components/tokens/CoinList';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
