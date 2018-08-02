@@ -7,6 +7,7 @@ import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCr
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
+import RF from "react-native-responsive-fontsize"
 
 /**
  * Initial setup screen used to allow the user to give their wallet a name after
@@ -49,9 +50,11 @@ class CreateWalletName extends Component {
      */
     render() {
       const {
-        mainContainer,
         safeAreaView,
+        mainContainer,
+        navContainer,
         textHeader,
+        boxShadowContainer,
         contentContainer,
         cardContainer,
         cardText,
@@ -67,7 +70,7 @@ class CreateWalletName extends Component {
         <SafeAreaView style={safeAreaView}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={mainContainer}>
-                <View style={styles.navContainer}>        
+                <View style={navContainer}>        
                   <BackWithMenuNav
                       showMenu={false}
                       showBack={true}
@@ -76,7 +79,7 @@ class CreateWalletName extends Component {
                     />
                 </View>
                 <Text style={textHeader}>Wallet Name</Text>
-                <View style={styles.boxShadowContainer}>
+                <View style={boxShadowContainer}>
                   <View style={contentContainer}>
                       <BoxShadowCard>
                           <Text style={cardText}>
@@ -96,7 +99,6 @@ class CreateWalletName extends Component {
                       buttonText= 'Next'
                       customStyles={button}
                       buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
-
                   />
                   <View style={footerGrandparentContainer}>
                       <View style={footerParentContainer} >
@@ -134,10 +136,10 @@ const styles = StyleSheet.create({
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
-    fontSize: 26,
+    fontSize: RF(4),
     letterSpacing: 0.8,
     paddingLeft: '9%',
-    color: '#1a1f3e',
+    color: 'black',
     flex: 0.75, 
   },
   contentContainer: {
