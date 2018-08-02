@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Dimensions, Image } from 'react-native';
+import {
+ Text, View, StyleSheet, TouchableOpacity, Dimensions, Image 
+} from 'react-native';
 import { connect } from 'react-redux';
-import RF from "react-native-responsive-fontsize"
-import { CheckBox, ListItem, Icon, } from 'react-native-elements'
+import RF from 'react-native-responsive-fontsize';
+import { CheckBox, ListItem, Icon } from 'react-native-elements';
 import { CardSection } from '../common/CardSection';
 import { Card } from '../common/Card';
 import { addTokenToSetup } from '../../actions/ActionCreator';
@@ -21,6 +23,7 @@ class CoinListItem extends Component {
   constructor() {
     super();
     this.state = {
+      oldCheckedState: false,
       checked: false,
     };
   }
@@ -29,11 +32,22 @@ class CoinListItem extends Component {
    * Upon selecting this coin,
    *  "addTokenToSetup" action is executed in order to add this item to the global state variable
    *  In-class boolean state variable is the opposite of what it used to be
-   * @param {Object} coin 
+   * @param {Object} coin
    */
   renderPress(coin) {
     this.props.addTokenToSetup(coin);
-    this.setState({ checked: !(this.state.checked) });
+    this.setState({ oldCheckedState: this.state.checked, checked: !(this.state.checked) });
+  }
+
+  renderStatePicture(coin) {
+    if (coin.selected === true && this.state.oldCheckedState === false) {
+      return require('../../assets/images/added.png')
+    } else if (coin.selected === false && this.state.oldCheckedState === true) {
+      return require ('../../assets/images/delete.png')
+    } else {
+      return require('../../assets/images/add2.png')
+    }
+
   }
 
   /**
@@ -43,16 +57,16 @@ class CoinListItem extends Component {
   render() {
     const { coin } = this.props;
     const { title } = styles;
-    const { checked } = this.state
+    const { checked } = this.state;
 
     return (
       <View style={styles.listItemParentContainer}>
         <TouchableOpacity
-          onPress={() => this.renderPress(coin)}>
+          onPress={() => {return this.renderPress(coin)}}>
           <View style={[coin.selected ? null : null]}>
-            <BoxShadowCard customStyles={{flex:1}} containerStyling={coin.selected ? {borderColor: 'black', borderWidth: 1} : null} > 
+            <BoxShadowCard customStyles={{ flex: 1 }} containerStyling={(coin.selected) ? { borderColor: '#27c997', borderWidth: 1 } : (this.state.oldCheckedState ? {borderColor: 'red', borderWidth: 1} : null)} >
               {/* <ListItem
-                hideChevron 
+                hideChevron
                 key={coin.id}
                 roundAvatar
                 avatar={ require('../../assets/images/eth.png') }
@@ -60,7 +74,7 @@ class CoinListItem extends Component {
                   <View style={styles.titleContainer} >
                     <Text style={styles.coinItemSymbolText}>{coin.symbol}</Text>
                       <View style={styles.checkboxContainer} >
-                        <CheckBox 
+                        <CheckBox
                           center
                           iconRight
                           iconType='material'
@@ -93,9 +107,9 @@ class CoinListItem extends Component {
                   </View>
                 </View>
 
-                <View style={{flex: 5,}}>
-                  <View style={{justifyContent:'center', flex:1}}>
-                    
+                <View style={{ flex: 5  }}>
+                  <View style={{ justifyContent: 'center', flex: 1 }}>
+
                     <View style={styles.mainTitleContainer}>
                       <Text style={styles.mainTitleText} >{coin.symbol}</Text>
                     </View>
@@ -103,18 +117,18 @@ class CoinListItem extends Component {
                     <View style={styles.subtitleContainer}>
                       <Text style={styles.subTitleText} >{coin.title}</Text>
                     </View>
-                  
+
                   </View>
                 </View>
 
-                <View style={{flex: 1, }}>
-                  <View style={{flex:1,justifyContent: 'center', alignItems:"center"}}>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <Image
                       style={{
-                        height: Dimensions.get('window').height * 0.035, 
+                        height: Dimensions.get('window').height * 0.035,
                         width: Dimensions.get('window').width * 0.035,
-                        justifyContent: 'center'}}
-                      source={require('../../assets/images/delete.png') }
+                        justifyContent: 'center' } }
+                      source={this.renderStatePicture(coin)}
                     />
                   </View>
                 </View>
@@ -127,7 +141,7 @@ class CoinListItem extends Component {
           </View>
         </TouchableOpacity >
       </View>
-    )
+    );
   }
 }
 
@@ -175,7 +189,7 @@ const styles = StyleSheet.create({
   mainTitleContainer: {
     flex: 0.5,
     justifyContent: 'flex-end',
-    //backgroundColor: 'green',
+    // backgroundColor: 'green',
     paddingTop: '1.5%',
 
   },
@@ -185,10 +199,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Cairo-Regular',
     letterSpacing: 0.5,
     color: 'black',
-  },  
+  },
 
   subtitleContainer: {
-    //backgroundColor: 'red',
+    // backgroundColor: 'red',
     flex: 0.5,
     justifyContent: 'flex-start',
     paddingBottom: '1.5%',
@@ -198,10 +212,8 @@ const styles = StyleSheet.create({
     fontSize: RF(2),
     fontFamily: 'Cairo-Regular',
     letterSpacing: 0.5,
-    
+
   },
-
-
 
 
   titleContainer: {
@@ -262,17 +274,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: '2.5%',
   },
-  
+
 });
 
 /**
  * This function is not being used
- * @param {Object} state 
+ * @param {Object} state
  */
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     tokenList: state.newWallet.tokens,
-  }
+  };
 };
 
-export default connect(mapStateToProps, { addTokenToSetup })(CoinListItem)
+export default connect(mapStateToProps, { addTokenToSetup })(CoinListItem);
