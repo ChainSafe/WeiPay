@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Dimensions, Text, SafeAreaView, ScrollView } from 'react-native';
-import { Icon } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import CoinList from '../../../../components/tokens/CoinList';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
@@ -96,8 +95,8 @@ const styles = StyleSheet.create({
   },
   coinListContainer: {
     alignItems: 'stretch',
-    width: '100%',
     marginLeft: '9%',
+    marginRight: '9%',
     flex:5,
     paddingBottom: "2.5%",
     paddingTop: "2.5%",
