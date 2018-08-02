@@ -84,7 +84,7 @@ class CreateWalletName extends Component {
                         <View style={styles.contentContainer}>
                             <BoxShadowCard>
                                 <Text style={styles.cardText}>
-                                    Create a name for your wallet, for example: My Wallet
+                                    Create a name for your wallet, for example: <Text style={{ color: '#12c1a2' }}>My Wallet</Text>
                                 </Text>
                                 <FormInput
                                     placeholder={'Ex. My Wallet'}
