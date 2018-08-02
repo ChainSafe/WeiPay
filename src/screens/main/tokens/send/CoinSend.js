@@ -201,130 +201,86 @@ class CoinSend extends Component {
 
     return (
       <SafeAreaView style={styles.safeAreaView}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={mainContainer}>
-            <View style={styles.navContainer}>
-              <BackWithMenuNav
-                showMenu={true}
-                showBack={true}
-                navigation={this.props.navigation}
-                backPage={"mainStack"}
-              />
-            </View>
-            <View style={styles.navHeaderContainer}>
-              <CoinSendTabNavigator
-                navigation={this.props.navigation}
-              />
-            </View>
-            <View style={styles.boxShadowContainer}>
-              <View style={contentContainer}>
-                <BoxShadowCard>
-                  <Text style={cardText}>
-                    Send Ether by scanning someone's QR code or public address.
-                  </Text>
-                  <View style= {styles.barcodeImageContainer}>
-                    <TouchableOpacity
-                      onPress= {() => this.navigate()} >
-                      <Image
-                        source={require('../../../../assets/icons/barcode.png')}
-                        style={styles.barcodeImage}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                  <View style={styles.topFormInput}>
-                    <FormInput
-                      placeholder={"Public Address"}
-                      onChangeText={this.renderAddress.bind(this)}
-                      ref={ref => this.inputAddress = ref}
-                      inputStyle={styles.formInput}
-                      value={this.state.inputValue}
+         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={mainContainer}>
+                <View style={styles.navContainer}>
+                  <BackWithMenuNav
+                     showMenu={true}
+                     showBack={true}
+                     navigation={this.props.navigation}
+                     backPage={"mainStack"}
                     />
-
+                </View>
+                <View style={styles.navHeaderContainer}>
+                  <CoinSendTabNavigator
+                      navigation={this.props.navigation}
+                      sendActive={true}
+                      activityActive={false}
+                      receiveActive={false}
+                    />
+                </View>
+                <View style={styles.boxShadowContainer}>
+                  <View style={contentContainer}>
+                      <BoxShadowCard>
+                          <Text style={cardText}>
+                              Send Ether by scanning someone's QR code or public address.
+                          </Text>
+                          <View style= {styles.barcodeImageContainer}>
+                            <TouchableOpacity
+                              onPress= {() => this.navigate()} >
+                              <Image
+                                  source={require('../../../../assets/icons/barcode.png')}
+                                  style={styles.barcodeImage}
+                              />
+                          </TouchableOpacity>
+                        </View>
+                        <View style={styles.topFormInput}>
+                          <FormInput
+                              placeholder={"Public Address"}
+                              onChangeText={this.renderAddress.bind(this)}
+                              ref={ref => this.inputAddress = ref}
+                              inputStyle={styles.formInput}
+                            />
+                        </View>
+                          <FormInput
+                            placeholder={"Amount"}
+                            onChangeText={this.renderValue.bind(this)}
+                            ref={ref => this.inputAmount = ref}
+                            inputStyle={styles.formInput}
+                          />
+                          <Text style={styles.transactionFee} >
+                            Transaction Fee Total {this.state.value} Eth
+                          </Text>
+                      </BoxShadowCard>
                   </View>
-                  <FormInput
-                    placeholder={"Amount"}
-                    onChangeText={this.renderValue.bind(this)}
-                    ref={ref => this.inputAmount = ref}
-                    inputStyle={styles.formInput}
-                  />
-                  <Text style={styles.transactionFee} >
-                    Transaction Fee Total {this.state.value} Eth
-                  </Text>
-                </BoxShadowCard>
-
-              </View>
-              <View style={styles.navHeaderContainer}>
-                <CoinSendTabNavigator
-                  navigation={this.props.navigation}
-                  sendActive={true}
-                  activityActive={false}
-                  receiveActive={false}
-                />
-              </View>
-              <View style={styles.boxShadowContainer}>
-                <View style={contentContainer}>
-                  <BoxShadowCard>
-                    <Text style={cardText}>
-                      Send Ether by scanning someone's QR code or public address.
-                    </Text>
-                    <View style= {styles.barcodeImageContainer}>
-                      <TouchableOpacity
-                        onPress= {() => this.navigate()} >
-                        <Image
-                          source={require('../../../../assets/icons/barcode.png')}
-                          style={styles.barcodeImage}
-                        />
-                      </TouchableOpacity>
-                    </View>
-                    <View style={styles.topFormInput}>
-                      <FormInput
-                        placeholder={"Public Address"}
-                        onChangeText={this.renderAddress.bind(this)}
-                        ref={ref => this.inputAddress = ref}
-                        inputStyle={styles.formInput}
+                </View>
+                <View style={styles.btnContainer}>
+                  <View style={{flexDirection:"row"}}>
+                    <View style={{ flex: 1}}>
+                      <ClearButton
+                        onClickFunction={this.resetFields}
+                        buttonText="Reset"
+                        customStyles={{marginLeft:'0%', marginRight:'1.75%', height: Dimensions.get('window').height * 0.082}}
+                        // buttonStateEnabled={this.state.buttonDisabled}
                       />
                     </View>
-                    <FormInput
-                      placeholder={"Amount"}
-                      onChangeText={this.renderValue.bind(this)}
-                      ref={ref => this.inputAmount = ref}
-                      inputStyle={styles.formInput}
-                    />
-                    <Text style={styles.transactionFee} >
-                      Transaction Fee Total {this.state.value} Eth
-                    </Text>
-                  </BoxShadowCard>
-                  >>>>>>> bd3b91e7ad3bfeb713f5fca2ca5e3cfb9793ef0a
-                </View>
-              </View>
-              <View style={styles.btnContainer}>
-                <View style={{flexDirection:"row"}}>
-                  <View style={{ flex: 1}}>
-                    <ClearButton
-                      onClickFunction={this.resetFields}
-                      buttonText="Reset"
-                      customStyles={{marginLeft:'0%', marginRight:'1.75%', height: Dimensions.get('window').height * 0.082}}
-                      // buttonStateEnabled={this.state.buttonDisabled}
-                    />
+                    <View style={{flex:1 }}>
+                      <LinearButton
+                        onClickFunction={
+                          this.props.token.type === "ERC20" ? this.sendERC20Transaction : this.sendTransaction
+                                      }
+                        buttonText="Send"
+                        customStyles={{marginLeft: '0%', marginLeft:'1.75%', height: Dimensions.get('window').height * 0.082}}
+                        // buttonStateEnabled={this.state.buttonDisabled}
+                      />
+                    </View>
                   </View>
-                  <View style={{flex:1 }}>
-                    <LinearButton
-                      onClickFunction={
-                        this.props.token.type === "ERC20" ? this.sendERC20Transaction : this.sendTransaction
-                      }
-                      buttonText="Send"
-                      customStyles={{marginLeft: '0%', marginLeft:'1.75%', height: Dimensions.get('window').height * 0.082}}
-                      // buttonStateEnabled={this.state.buttonDisabled}
-                    />
+                  <View style={footerGrandparentContainer}>
+                    <View style={footerParentContainer} >
+                        <Text style={textFooter} >Powered by ChainSafe </Text>
+                    </View>
                   </View>
                 </View>
-                <View style={footerGrandparentContainer}>
-                  <View style={footerParentContainer} >
-                    <Text style={textFooter} >Powered by ChainSafe </Text>
-                  </View>
-                </View>
-              </View>
-            </View>
           </View>
         </TouchableWithoutFeedback>
        </SafeAreaView>
@@ -332,7 +288,6 @@ class CoinSend extends Component {
     )
   }
 }
-
 /**
  * Styles for CoinSend screen
  */
@@ -354,19 +309,6 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   boxShadowContainer: {
-<<<<<<< HEAD
-    alignItems: 'center',
-    flex: 4,
-  },
-  textHeader: {
-    fontFamily: 'Cairo-Light',
-    fontSize: 26,
-    letterSpacing: 0.8,
-    paddingLeft: '9%',
-    color: '#1a1f3e',
-    flex: 0.75,
-  },
-
     alignItems: 'center',
     marginTop: '5%',
     flex: 4,
@@ -446,7 +388,6 @@ const styles = StyleSheet.create({
   },
 
 })
-
 /**
  * Reterives the wallet created/reterived during the initial
  * process, and the Data collected from the QrCode component.
@@ -461,5 +402,4 @@ const mapStateToProps = state => {
     token: state.newWallet.current_token
   }
 }
-
 export default connect(mapStateToProps, { getQRCodeData, qrScannerInvoker, addTokenInfo })(CoinSend);
