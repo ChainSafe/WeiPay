@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard'
+import RF from "react-native-responsive-fontsize"
 
 /**
  * Screen used to display the passphrase (mnemonic)
@@ -139,8 +140,9 @@ const styles = StyleSheet.create({
   },
   textFooter: {
     fontFamily: 'WorkSans-Regular',
-    fontSize: 11,
+    fontSize: RF(1.7),
     color: '#c0c0c0',
+    letterSpacing: 0.5
   },
 });
 

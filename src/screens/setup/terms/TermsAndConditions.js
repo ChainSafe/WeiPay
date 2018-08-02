@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Regular',
     fontSize: RF(1.7),
     color: '#c0c0c0',
+    letterSpacing: 0.5
   },
 });
 

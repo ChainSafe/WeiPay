@@ -155,8 +155,9 @@ const styles = StyleSheet.create({
     paddingLeft: '7.5%',
     paddingRight: '7.55%',
     fontFamily: 'WorkSans-Light',
+    letterSpacing: 0.4,
     color: '#000000',
-    fontSize: 16,
+    fontSize: RF(2.5),
   },
   txtWalletName: {
     width: '100%',
@@ -185,8 +186,9 @@ const styles = StyleSheet.create({
   },
   textFooter: {
     fontFamily: 'WorkSans-Regular',
-    fontSize: 11,
+    fontSize: RF(1.7),
     color: '#c0c0c0',
+    letterSpacing: 0.5
   },
 });
 

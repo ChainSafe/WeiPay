@@ -4,6 +4,7 @@ import QRCode from 'react-native-qrcode';
 import { connect } from 'react-redux';
 import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
+import RF from "react-native-responsive-fontsize"
 
 /**
  * React Component
@@ -140,9 +141,10 @@ const styles = StyleSheet.create({
   },
   textFooter: {
     fontFamily: 'WorkSans-Regular',
-    fontSize: 11,
     marginBottom: '3.5%',
     color: '#c0c0c0',
+    fontSize: RF(1.7),
+    letterSpacing: 0.5
   },
 });
 

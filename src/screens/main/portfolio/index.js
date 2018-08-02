@@ -8,6 +8,7 @@ import { NavigationActions } from "react-navigation";
 import {addTokenInfo} from '../../../actions/ActionCreator';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
+import RF from "react-native-responsive-fontsize"
 
 /**
  * Screen is used to display the wallet portfolio of the user, which contains the 
@@ -245,10 +246,11 @@ const styles = StyleSheet.create({
   },
   textFooter : {
     fontFamily: "WorkSans-Regular",
-    fontSize: 11,
+    fontSize: RF(1.7),
     marginBottom: '3.5%',
     alignItems: 'center' ,
-    color: '#c0c0c0'
+    color: '#c0c0c0',
+    letterSpacing: 0.5
   }
 })
 
