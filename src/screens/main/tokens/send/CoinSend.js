@@ -27,7 +27,7 @@ class CoinSend extends Component {
    * Initializes State to keep track of the
    * value that is being sent, the address the value is being sent to,
    * and the default value.
-   * @param {Object} props 
+   * @param {Object} props
    */
   constructor(props) {
     super(props);
@@ -74,7 +74,7 @@ class CoinSend extends Component {
 
   /**
    * Sets the address to which the coin/tokens are being sent to
-   * @param {String} addressInput 
+   * @param {String} addressInput
    */
   renderAddress(addressInput) {
     var add = addressInput.trim();
@@ -85,9 +85,9 @@ class CoinSend extends Component {
   }
 
   /**
-   * Error checks the value inputted to be sent. Sets the Value to 0 if the value input is 
+   * Error checks the value inputted to be sent. Sets the Value to 0 if the value input is
    * either lower than 0 or is not a number
-   * @param {String} valueInput 
+   * @param {String} valueInput
    */
   renderValue(valueInput) {
     if (!isNaN(valueInput)) {
@@ -202,60 +202,61 @@ class CoinSend extends Component {
 
     return (
       <SafeAreaView style={styles.safeAreaView}>
-         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={mainContainer}>
-                <View style={styles.navContainer}>        
-                  <BackWithMenuNav
-                     showMenu={true}
-                     showBack={true}
-                     navigation={this.props.navigation}
-                     backPage={"mainStack"}
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={mainContainer}>
+            <View style={styles.navContainer}>
+              <BackWithMenuNav
+                showMenu={true}
+                showBack={true}
+                navigation={this.props.navigation}
+                backPage={"mainStack"}
+              />
+            </View>
+            <View style={styles.navHeaderContainer}>
+              <CoinSendTabNavigator
+                navigation={this.props.navigation}
+              />
+            </View>
+            <View style={styles.boxShadowContainer}>
+              <View style={contentContainer}>
+                <BoxShadowCard>
+                  <Text style={cardText}>
+                    Send Ether by scanning someone's QR code or public address.
+                  </Text>
+                  <View style= {styles.barcodeImageContainer}>
+                    <TouchableOpacity
+                      onPress= {() => this.navigate()} >
+                      <Image
+                        source={require('../../../../assets/icons/barcode.png')}
+                        style={styles.barcodeImage}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.topFormInput}>
+                    <FormInput
+                      placeholder={"Public Address"}
+                      onChangeText={this.renderAddress.bind(this)}
+                      ref={ref => this.inputAddress = ref}
+                      inputStyle={styles.formInput}
+                      value={this.state.inputValue}
                     />
-                </View>
-                <View style={styles.navHeaderContainer}>
-                  <CoinSendTabNavigator 
-                    navigation={this.props.navigation} 
+                  </View>
+                  <FormInput
+                    placeholder={"Amount"}
+                    onChangeText={this.renderValue.bind(this)}
+                    ref={ref => this.inputAmount = ref}
+                    inputStyle={styles.formInput}
                   />
-                </View>
-                <View style={styles.boxShadowContainer}>
-                  <View style={contentContainer}>
-                      <BoxShadowCard>
-                          <Text style={cardText}>
-                              Send Ether by scanning someone's QR code or public address.
-                          </Text>
-                          <View style= {styles.barcodeImageContainer}>
-                            <TouchableOpacity
-                              onPress= {() => this.navigate()} >
-                              <Image
-                                  source={require('../../../../assets/icons/barcode.png')}
-                                  style={styles.barcodeImage}
-                              /> 
-                          </TouchableOpacity>
-                        </View>
-                        <View style={styles.topFormInput}>
-                          <FormInput
-                              placeholder={"Public Address"}
-                              onChangeText={this.renderAddress.bind(this)}                  
-                              ref={ref => this.inputAddress = ref}
-                              inputStyle={styles.formInput}
-                            />
-                        </View>
-                          <FormInput
-                            placeholder={"Amount"}
-                            onChangeText={this.renderValue.bind(this)}
-                            ref={ref => this.inputAmount = ref}
-                            inputStyle={styles.formInput}
-                          /> 
-                          <Text style={styles.transactionFee} > 
-                            Transaction Fee Total {this.state.value} Eth
-                          </Text>                    
-                      </BoxShadowCard>
+                  <Text style={styles.transactionFee} >
+                    Transaction Fee Total {this.state.value} Eth
+                  </Text>
+                </BoxShadowCard>
                   </View>
                 </View>
                 <View style={styles.btnContainer}>
                   <View style={{flexDirection:"row"}}>
                     <View style={{ flex: 1}}>
-                      <ClearButton 
+                      <ClearButton
                         onClickFunction={this.resetFields}
                         buttonText="Reset"
                         customStyles={{marginLeft:'0%', marginRight:'1.75%', height: Dimensions.get('window').height * 0.082}}
@@ -263,9 +264,9 @@ class CoinSend extends Component {
                       />
                     </View>
                     <View style={{flex:1 }}>
-                      <LinearButton 
+                      <LinearButton
                         onClickFunction={
-                          this.props.token.type === "ERC20" ? this.sendERC20Transaction : this.sendTransaction  
+                          this.props.token.type === "ERC20" ? this.sendERC20Transaction : this.sendTransaction
                                       }
                         buttonText="Send"
                         customStyles={{marginLeft: '0%', marginLeft:'1.75%', height: Dimensions.get('window').height * 0.082}}
@@ -283,7 +284,7 @@ class CoinSend extends Component {
         </TouchableWithoutFeedback>
 
        </SafeAreaView>
-      
+
     )
   }
 }
@@ -293,7 +294,7 @@ class CoinSend extends Component {
  */
 const styles = StyleSheet.create({
   safeAreaView: {
-    flex: 1, 
+    flex: 1,
     backgroundColor: '#fafbfe'
   },
   navContainer: {
@@ -309,7 +310,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   boxShadowContainer: {
-    alignItems: 'center', 
+    alignItems: 'center',
     flex: 4,
   },
   textHeader: {
@@ -318,26 +319,26 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
     paddingLeft: '9%',
     color: '#1a1f3e',
-    flex: 0.75, 
+    flex: 0.75,
   },
   contentContainer: {
     width: '82%',
     flex: 1,
   },
   barcodeImageContainer: {
-    paddingTop: '5%', 
+    paddingTop: '5%',
     paddingBottom:'5%',
     paddingLeft: '7.5%',
   },
   barcodeImage: {
-    height: 70, 
+    height: 70,
     width: 70,
   },
-  formInput:{ 
-    width:'100%', 
-    flexWrap: 'wrap', 
-    color:'#12c1a2', 
-    fontSize:16, 
+  formInput:{
+    width:'100%',
+    flexWrap: 'wrap',
+    color:'#12c1a2',
+    fontSize:16,
     fontFamily: 'WorkSans-Light',
     letterSpacing:0.4
   },
@@ -365,7 +366,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     color: '#12c1a2',
     letterSpacing: 0.4,
-    fontFamily: 'WorkSans-Regular',  
+    fontFamily: 'WorkSans-Regular',
   },
   btnContainer: {
     flex: 1.25,
@@ -378,7 +379,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '82%',
-    height: Dimensions.get('window').height * 0.082,  
+    height: Dimensions.get('window').height * 0.082,
   },
   footerGrandparentContainer: {
     alignItems: 'center',
@@ -393,15 +394,15 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: '#c0c0c0',
   },
-  
+
 })
 
 /**
  * Reterives the wallet created/reterived during the initial
  * process, and the Data collected from the QrCode component.
- * 
+ *
  * Returns the wallet and the data as an object
- * @param {Object} state 
+ * @param {Object} state
  */
 const mapStateToProps = state => {
   return {

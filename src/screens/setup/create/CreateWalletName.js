@@ -69,48 +69,48 @@ class CreateWalletName extends Component {
 
       return (
         <SafeAreaView style={styles.safeAreaView}>
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={styles.mainContainer} >
-                    <View style={styles.navContainer}>
-                        <BackWithMenuNav
-                            showMenu={false}
-                            showBack={true}
-                            navigation={this.props.navigation}
-                            backPage={'createOrRestore'}
-                        />
-                    </View>
-                    <Text style={styles.textHeader} >Wallet Name</Text>
-                    <View style={styles.boxShadowContainer}>
-                        <View style={styles.contentContainer}>
-                            <BoxShadowCard>
-                                <Text style={styles.cardText}>
-                                    Create a name for your wallet, for example: My Wallet
-                                </Text>
-                                <FormInput
-                                    placeholder={'Ex. My Wallet'}
-                                    onChangeText={this.getWalletName.bind(this)}
-                                    inputStyle={styles.txtWalletName}
-                                />
-                            </BoxShadowCard>
-                        </View>
-                    </View>
-                    <View style={btnContainer}>
-                        <LinearButton
-                            onClickFunction={this.navigate}
-                            buttonText="Next"
-                            customStyles={button}
-                            buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
-                        />
-                        <View style={styles.footerGrandparentContainer} >
-                            <View style={styles.footerParentContainer} >
-                                <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.mainContainer} >
+              <View style={styles.navContainer}>
+                <BackWithMenuNav
+                  showMenu={false}
+                  showBack={true}
+                  navigation={this.props.navigation}
+                  backPage={'createOrRestore'}
+                />
               </View>
-            </TouchableWithoutFeedback>
+              <Text style={styles.textHeader} >Wallet Name</Text>
+              <View style={styles.boxShadowContainer}>
+                <View style={styles.contentContainer}>
+                  <BoxShadowCard>
+                    <Text style={styles.cardText}>
+                      Create a name for your wallet, for example: My Wallet
+                    </Text>
+                    <FormInput
+                      placeholder={'Ex. My Wallet'}
+                      onChangeText={this.getWalletName.bind(this)}
+                      inputStyle={styles.txtWalletName}
+                    />
+                  </BoxShadowCard>
+                </View>
+              </View>
+              <View style={btnContainer}>
+                <LinearButton
+                  onClickFunction={this.navigate}
+                  buttonText="Next"
+                  customStyles={button}
+                  buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
+                />
+                <View style={styles.footerGrandparentContainer} >
+                  <View style={styles.footerParentContainer} >
+                    <Text style={styles.textFooter} >Powered by ChainSafe </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+
+            
+          </TouchableWithoutFeedback>
         </SafeAreaView>
       );
     }

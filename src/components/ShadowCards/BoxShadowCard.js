@@ -5,7 +5,7 @@ import LinearGradient  from 'react-native-linear-gradient'
 
 
 const BoxShadowCard = (props) => {
-    
+
         return (
         <LinearGradient
                 colors={['transparent', 'rgba(109, 108, 108,.05)', 'transparent']}
@@ -14,7 +14,7 @@ const BoxShadowCard = (props) => {
             <View style={[styles.ChildContainerStyles]}>
                 {props.children}
             </View>
-        </LinearGradient>   
+        </LinearGradient>
     );
 }
 
@@ -29,12 +29,12 @@ const styles = StyleSheet.create({
     bottom: 0,
     height: '100%',
     zIndex: 0,
-    borderRadius: 10, 
+    borderRadius: 10,
   },
-  
+
   ChildContainerStyles: {
     backgroundColor: 'white',
-    flex: 1, 
+    flex: 1,
     borderRadius: 10,
     margin: '1%',
     marginTop: '2%',

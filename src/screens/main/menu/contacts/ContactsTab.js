@@ -7,7 +7,7 @@ import _ from 'lodash';
 import AddFirstContact from './add/AddFirstContact';
 import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
 import ContactTabNavigator from '../../../../components/customPageNavs/ContactTabNavigator'
-
+import SelectedContact from './SelectedContact'
 
 
 /**
@@ -36,7 +36,11 @@ class ContactsTab extends Component {
 
   constructor(props) {
     super(props)
-    this.state = { active: true }
+    this.state = {
+      active: true,
+      selectedContact: false,
+      contact: null
+    }
   }
 
   /**
@@ -70,16 +74,19 @@ class ContactsTab extends Component {
    * properties in the "user" object parameter.
    *
    * @param {Object} user
-   */
-  navigate = (user) => {
-    let addresses = user.contactAddress
-    const navigateToCreateOrRestore = NavigationActions.navigate({
-      routeName: 'contactAddresses',
-      params: { addresses }
-    });
-    debugger
-    this.props.navigation.dispatch(navigateToCreateOrRestore);
-  };
+  //  */
+  // navigate = (user) => {
+  //   let addresses = user.contactAddress
+  //   let name = user.name
+  //   let tokenName = user.tokenName
+  //
+  //   const navigateToCreateOrRestore = NavigationActions.navigate({
+  //     routeName: 'contactAddresses',
+  //     params: { addresses, name, tokenName  }
+  //   });
+  //
+  //   this.props.navigation.dispatch(navigateToCreateOrRestore);
+  // };
 
   /**
    * Method is used to create an interactable item for the listView specific to
@@ -87,43 +94,49 @@ class ContactsTab extends Component {
    *
    * @param {Object} user
    */
-  renderRow = (user) => {
+  renderRow = () => {
     return (
-      <View style={{marginTop:'3%'}}>
-        <ListItem
-          key={user.name}
-          title={
-            <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
-              <Text style={{
-                fontSize:16,
-                fontFamily: "Cairo-Regular",
-                alignItems:"flex-start",
-                flex:1,
-                width:'90%',
-                letterSpacing: 0.5,
-                top: '1%'
-              }}>
-                {user.name}
-              </Text>
+      this.props.contacts.map(contact =>
+        <View style={{marginTop:'3%'}} key={contact.name}>
+          <ListItem
+            key={contact.name}
+            title={
+              <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
+                <Text style={{
+                  fontSize:16,
+                  fontFamily: "Cairo-Regular",
+                  alignItems:"flex-start",
+                  flex:1,
+                  width:'90%',
+                  letterSpacing: 0.5,
+                  top: '1%'
+                }}>
+                  {contact.name}
+                </Text>
 
-            </View>
-          }
-          containerStyle = {{
-            borderRadius: 10,
-            width: '90%',
-            height: 55,
-            backgroundColor: '#ffffff',
-            justifyContent:"center",
-            borderWidth:0.5,
-            borderColor: '#F8F8FF',
-            shadowColor: '#F8F8FF',
-            shadowOffset: { width: 1, height: 1},
-            shadowOpacity:20,
-            shadowRadius: 10,
-          }}
-          onPress={() => this.navigate(user)}
-        />
-      </View>
+              </View>
+            }
+            containerStyle = {{
+              borderRadius: 10,
+              width: '90%',
+              height: 55,
+              backgroundColor: '#ffffff',
+              justifyContent:"center",
+              borderWidth:0.5,
+              borderColor: '#F8F8FF',
+              shadowColor: '#F8F8FF',
+              shadowOffset: { width: 1, height: 1},
+              shadowOpacity:20,
+              shadowRadius: 10,
+            }}
+            onPress={
+              () => {
+                this.setState({ selectedContact: true })
+                this.setState({ contact })
+              }}
+          />
+        </View>
+      )
     )
   }
 
@@ -134,10 +147,12 @@ class ContactsTab extends Component {
   render() {
     const show = this.props.contacts.length === 0 ?
         <AddFirstContact setAddContact={this.props.setAddContact}/>
-      :
+      : this.state.selectedContact === true ?
+        <SelectedContact contact={this.state.contact} navigation={this.props.navigation}/>
 
+      :
         <View style={styles.list}>
-          <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false} />
+          {this.renderRow()}
         </View>
 
 

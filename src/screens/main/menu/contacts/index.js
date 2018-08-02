@@ -85,7 +85,7 @@ class Contacts extends Component {
 
   displayContactTab() {
     if (this.state.tab === 'contacts'){
-      return <ContactsTab setAddContact={() => this.setState({ tab: 'addcontact' })}/>
+      return <ContactsTab setAddContact={() => this.setState({ tab: 'addcontact' })} navigation={this.props.navigation}/>
     }
     if (this.state.tab === 'addcontact'){
       return <AddContact navigation={this.props.navigation} />

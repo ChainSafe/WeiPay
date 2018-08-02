@@ -34,13 +34,13 @@ class AddContact extends Component {
     let contactNameHolder = ""
     let contactAddressHolder = {}
 
-    if ("ContactAddresses" in this.props.currentContact) {
-      contactAddressHolder = this.props.currentContact.ContactAddresses
-      contactNameHolder = this.props.currentContact.name
-    } else {
-      this.props.tokens.map(token => contactAddressHolder[token.title] = "")
-      this.renderAddContact = this.renderAddContact.bind(this);
-    }
+    // if ("ContactAddresses" in this.props.currentContact) {
+    //   contactAddressHolder = this.props.currentContact.ContactAddresses
+    //   contactNameHolder = this.props.currentContact.name
+    // } else {
+    //   this.props.tokens.map(token => contactAddressHolder[token.title] = "")
+    //   this.renderAddContact = this.renderAddContact.bind(this);
+    // }
 
     let tokens = []
     this.inputRefs = {};
@@ -55,9 +55,10 @@ class AddContact extends Component {
       disabled: true,
       clear: false,
       contactName: contactNameHolder,
-      contactAddress: contactAddressHolder,
+      contactAddress: {},
       tokenName: undefined,
-      tokens
+      tokens,
+      contactAddressInput: ""
     }
   }
 
@@ -77,12 +78,12 @@ class AddContact extends Component {
   /**
    * Method deletes and clears up any entered inputs made in the inputfields.
    */
-  clear() {
-    this.setState({ contactName: "" })
-    let newcontactAddress = {}
-    this.props.tokens.map(token => newcontactAddress[token.title] = "")
-    this.setState({ contactAddress: newcontactAddress })
-  }
+  // clear() {
+  //   this.setState({ contactName: "" })
+  //   let newcontactAddress = {}
+  //   this.props.tokens.map(token => newcontactAddress[token.title] = "")
+  //   this.setState({ contactAddress: newcontactAddress })
+  // }
 
   /**
    * This Method is used to update the contact name in the global
@@ -104,14 +105,14 @@ class AddContact extends Component {
    * @param {String} coinName
    * @param {Object} coin
    */
-  renderAddress(address, coinName, coin) {
-    let copy = Object.assign({}, this.state.contactAddress)
-    copy[coinName] = address
-    this.setState({ contactAddress: copy })
-    var coinAddress = {}
-    coinAddress[coinName] = address
-    this.props.addingContact(coinAddress)
-  }
+  // renderAddress(address, coinName, coin) {
+  //   let copy = Object.assign({}, this.state.contactAddress)
+  //   copy[coinName] = address
+  //   this.setState({ contactAddress: copy })
+  //   var coinAddress = {}
+  //   coinAddress[coinName] = address
+  //   this.props.addingContact(coinAddress)
+  // }
 
   navigate = () => {
     const navigateToQrScanner = NavigationActions.navigate({
@@ -136,7 +137,27 @@ class AddContact extends Component {
     this.setState({ isModalVisible: !this.state.isModalVisible });
 
   addContact() {
-    this.props.completeContact(this.state.contactName, this.state.contactAddress);
+
+    this.props.completeContact(this.state.contactName, this.state.contactAddress, this.state.tokenName);
+    this.setState({ contactName: "" })
+    this.setState({ contactAddressInput: "" })
+  }
+
+  clear() {
+    this.setState({ contactName: "" })
+    this.setState({ contactAddressInput: "" })
+  }
+
+  addAnotherCoinAddress() {
+
+    this.setState({ contactAddressInput: "" })
+  }
+
+  renderAddress(address) {
+    let copy = Object.assign({}, this.state.contactAddress)
+    copy[this.state.tokenName] = address
+    this.setState({ contactAddressInput: address })
+    this.setState({ contactAddress: copy })
   }
 
   /**
@@ -157,6 +178,7 @@ class AddContact extends Component {
                 placeholder={"Contact's Name"}
                 onChangeText={name => this.setState({ contactName: name})}
                 inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2'}}
+                value={this.state.contactName}
               />
             </View>
             <View style={{flex: 1, marginLeft: '7%'}}>
@@ -188,22 +210,27 @@ class AddContact extends Component {
             <View style={{flex: 1}}>
               <FormInput
                 placeholder={"WeiPay Address"}
-                onChangeText={address => this.setState({ contactAddress: address})}
+                onChangeText={ address => this.renderAddress(address)}
                 inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2'}}
+                value={this.state.contactAddressInput}
+                editable={!!this.state.tokenName}
               />
             </View>
           </BoxShadowCard>
         </View>
         <View style={{flex: 0.2}} />
         <View style={styles.anotherCoinContainer} >
-          <BoxShadowCard>
-            <Text style={styles.cardText}>+ Add another coin address</Text>
-          </BoxShadowCard>
-        </View>
+          <TouchableOpacity onPress={this.addAnotherCoinAddress.bind(this)} disabled={!this.state.tokenName}>
+            <BoxShadowCard>
+              <Text style={styles.cardText}>+ Add another coin address</Text>
+            </BoxShadowCard>
+          </TouchableOpacity>
+          </View>
         <View style={{flex: 0.1}} />
         <View style={styles.btnContainer}>
           <ClearButton
             buttonText='Clear'
+            onClickFunction={this.clear.bind(this)}
             customStyles={styles.clearButton}
           />
           <LinearButton
