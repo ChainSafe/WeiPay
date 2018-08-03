@@ -33,7 +33,7 @@ class Portfolio extends Component {
   }
 
   navigate = () => {
-    const navigateToAddToken = NavigationActions.navigate({ routeName: 'AddCoin' });
+    const navigateToAddToken = NavigationActions.navigate({ routeName: "coinHistory" });
     this.props.navigation.dispatch(navigateToAddToken);
   };
 
@@ -52,8 +52,12 @@ class Portfolio extends Component {
         <TouchableOpacity
           onPress={() => {
             this.props.addTokenInfo(token)
-            this.props.navigation.navigate("coinSend")
-            //this.renderItemPress()
+            if(token.type === "PortfolioToken") {
+              this.props.navigation.navigate("coinReceive")
+            }
+            else {
+              this.props.navigation.navigate("coinReceive")
+              }
             }}
           style={styles.listItemParentContainer}
           >
@@ -71,10 +75,10 @@ class Portfolio extends Component {
                 <View style={{ flex: 5 }}>
                   <View style={{ justifyContent: 'center', flex: 1 }}>
                     <View style={styles.mainTitleContainer}>
-                      <Text style={styles.mainTitleText} >{token.symbol}</Text>
+                      <Text style={styles.mainTitleText}> {token.symbol} </Text>
                     </View>
                     <View style={styles.subtitleContainer}>
-                      <Text style={styles.subTitleText} >{token.title}</Text>
+                      <Text style={styles.subTitleText}> {token.title} </Text>
                     </View>
                   </View>
                 </View>
@@ -125,7 +129,7 @@ class Portfolio extends Component {
               />
           </View>
           <View style={styles.footerContainer}>
-            <Text style={styles.textFooter} >Powered by ChainSafe </Text>
+            <Text style={styles.textFooter}  >Powered by ChainSafe </Text>
           </View>
         </View>
       </SafeAreaView>
