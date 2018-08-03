@@ -131,7 +131,7 @@ class ContactsTab extends Component {
             }}
             onPress={
               () => {
-                this.setState({ selectedContact: true })
+                this.props.selectedContactTrue()
                 this.setState({ contact })
               }}
           />
@@ -147,7 +147,7 @@ class ContactsTab extends Component {
   render() {
     const show = this.props.contacts.length === 0 ?
         <AddFirstContact setAddContact={this.props.setAddContact}/>
-      : this.state.selectedContact === true ?
+      : this.props.selectedContact === true ?
         <SelectedContact contact={this.state.contact} navigation={this.props.navigation}/>
 
       :

@@ -5,7 +5,7 @@ import { Icon, Button, FormLabel, FormInput, FormValidationMessage, List, ListIt
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import AddFirstContact from './add/AddFirstContact';
-import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
+import ContactBackWithMenuNav from "../../../../components/customPageNavs/ContactBackWithMenuNav"
 import ContactTabNavigator from '../../../../components/customPageNavs/ContactTabNavigator'
 import ContactsTab from './ContactsTab'
 import AddContact from './add/AddContact'
@@ -38,7 +38,8 @@ class Contacts extends Component {
     super(props)
     this.state = {
       active: true,
-      tab: 'contacts'
+      tab: 'contacts',
+      selectedContact: false
     }
   }
 
@@ -85,7 +86,14 @@ class Contacts extends Component {
 
   displayContactTab() {
     if (this.state.tab === 'contacts'){
-      return <ContactsTab setAddContact={() => this.setState({ tab: 'addcontact' })} navigation={this.props.navigation}/>
+      return (
+        <ContactsTab
+          setAddContact={() => this.setState({ tab: 'addcontact' })}
+          navigation={this.props.navigation}
+          selectedContact={this.state.selectedContact}
+          selectedContactTrue={() => this.setState({ selectedContact: true})}
+        />
+      )
     }
     if (this.state.tab === 'addcontact'){
       return <AddContact navigation={this.props.navigation} />
@@ -147,11 +155,12 @@ class Contacts extends Component {
 
       return (
         <View style={styles.mainContainer}>
-          <BackWithMenuNav
+          <ContactBackWithMenuNav
             showMenu={true}
-            showBack={true}
+            showBack={this.state.selectedContact}
             navigation={this.props.navigation}
             backPage={"mainStack"}
+            backButton={() => this.setState({ selectedContact: false })}
           />
           <ContactTabNavigator
             Active={this.state.active}
