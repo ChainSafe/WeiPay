@@ -87,7 +87,6 @@ class RecoverWallet extends Component {
         navContainer,
         contentContainer,
         boxShadowContainer,
-        cardContainer,
         cardText,
         txtMnemonic,
         btnContainer,

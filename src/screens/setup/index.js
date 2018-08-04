@@ -56,8 +56,8 @@ class CreateOrRestore extends Component {
       return (
         <SafeAreaView style={safeAreaView}>
           <View style={mainContainer}>
-              <Text style={textHeader} > WeiPay</Text>
-              <Text style={textHeaderDescription} > ERC20 Token Wallet </Text>
+              <Text style={textHeader}>WeiPay</Text>
+              <Text style={textHeaderDescription}>ERC20 Token Wallet </Text>
               <View style={btnContainer} >
                   <View style={btnCreate}>
                       <LinearButton

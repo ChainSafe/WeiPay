@@ -54,10 +54,12 @@ class CreateWalletName extends Component {
      */
     render() {
       const {
+        safeAreaView,
         mainContainer,
         textHeader,
+        navContainer,
         contentContainer,
-        cardContainer,
+        boxShadowContainer,
         cardText,
         txtWalletName,
         btnContainer,
@@ -66,14 +68,12 @@ class CreateWalletName extends Component {
         footerParentContainer,
         textFooter,
       } = styles;
-      console.log(this.props.debugMode);
-      
-
+     
       return (
-        <SafeAreaView style={styles.safeAreaView}>
+        <SafeAreaView style={safeAreaView}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={styles.mainContainer} >
-                    <View style={styles.navContainer}>        
+                <View style={mainContainer} >
+                    <View style={navContainer}>        
                         <BackWithMenuNav
                             showMenu={false}
                             showBack={true}
@@ -81,11 +81,11 @@ class CreateWalletName extends Component {
                             backPage={'createOrRestore'}
                         />
                     </View>                    
-                    <Text style={styles.textHeader} >Wallet Name</Text>
-                    <View style={styles.boxShadowContainer}>
-                        <View style={styles.contentContainer}>
+                    <Text style={textHeader} >Wallet Name</Text>
+                    <View style={boxShadowContainer}>
+                        <View style={contentContainer}>
                             <BoxShadowCard>
-                                <Text style={styles.cardText}>
+                                <Text style={cardText}>
                                     Create a name for your wallet, for example: My Wallet
                                 </Text>
                                 <FormInput
@@ -103,9 +103,9 @@ class CreateWalletName extends Component {
                             customStyles={button}
                             buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
                         />
-                        <View style={styles.footerGrandparentContainer} >    
-                            <View style={styles.footerParentContainer} >
-                                <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
+                        <View style={footerGrandparentContainer} >    
+                            <View style={footerParentContainer} >
+                                <Text style={textFooter} >Powered by ChainSafe </Text> 
                             </View>  
                         </View> 
                     </View>                   

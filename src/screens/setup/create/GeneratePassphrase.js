@@ -28,7 +28,6 @@ class GeneratePassphrase extends Component {
         textHeader,
         contentContainer,
         boxShadowContainer,
-        cardContainer,
         cardText,
         textMnemonic,
         btnContainer,

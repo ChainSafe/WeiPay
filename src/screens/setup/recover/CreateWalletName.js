@@ -56,7 +56,6 @@ class CreateWalletName extends Component {
         textHeader,
         boxShadowContainer,
         contentContainer,
-        cardContainer,
         cardText,
         txtWalletName,
         btnContainer,
@@ -145,9 +144,6 @@ const styles = StyleSheet.create({
   contentContainer: {
     width: '82%',
     flex: 1,
-  },
-  cardContainer: {
-    width: '82%',
   },
   cardText: {
     paddingBottom: '20%',

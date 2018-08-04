@@ -46,9 +46,9 @@ class EnableCrypto extends Component {
       } = styles;
 
       return (
-        <SafeAreaView style={styles.safeAreaView}>
+        <SafeAreaView style={safeAreaView}>
             <View style={mainContainer}>
-              <View style={styles.headerContainer}>
+              <View style={headerContainer}>
                  <Text style={textHeader}>Enable Tokens </Text>
               </View>              
               <View style={coinListContainer}>

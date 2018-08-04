@@ -88,10 +88,12 @@ class ConfirmPassphrase extends Component {
       const { selectedTags, scrambledTags } = this.state;
 
       const {
+        safeAreaView,
         mainContainer,
+        navContainer,
         textHeader,
         contentContainer,
-        cardContainer,
+        boxShadowContainer,
         cardText,
         tagContainer,
         cardButtonContainer,
@@ -107,9 +109,9 @@ class ConfirmPassphrase extends Component {
       } = styles;
 
       return (
-        <SafeAreaView style={styles.safeAreaView}>
+        <SafeAreaView style={safeAreaView}>
           <View style={mainContainer}>
-            <View style={styles.navContainer}>
+            <View style={navContainer}>
               <BackWithMenuNav
                 showMenu={false}
                 showBack={true}
@@ -118,7 +120,7 @@ class ConfirmPassphrase extends Component {
               />
           </View>
           <Text style={textHeader}>Confirm Passphrase</Text>           
-          <View style={styles.boxShadowContainer}>
+          <View style={boxShadowContainer}>
             <View style={contentContainer} >
                 <BoxShadowCard>
                     <Text style={cardText}>
@@ -232,10 +234,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: "center",
     alignItems: "center",
-  },
-  cardContainer: {
-    width: '80%',
-    height: '90%',   
   },
   selectedTextContainer: {
     paddingTop: '5%',
