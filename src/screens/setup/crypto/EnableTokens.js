@@ -87,12 +87,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafbfe',
   },
   headerContainer: {
-    flex:1, 
-    justifyContent:"flex-end"
+    flex: 1, 
+    justifyContent: "center"
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
-    fontSize: 26,
+    fontSize: RF(4),
     marginLeft: '9%',
     color: '#1a1f3e',
   },
@@ -100,11 +100,11 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     marginLeft: '9%',
     marginRight: '9%',
-    flex:5,
+    flex: 4,
     paddingBottom: "2.5%",
   },
   btnContainer: {
-    flex: 1.25,
+    flex: 1,
     width: '100%',
   },
   button: {
@@ -113,8 +113,8 @@ const styles = StyleSheet.create({
   },
   footerGrandparentContainer: {
     alignItems: 'center',
-    marginBottom: '3%',
-    marginTop: '3%',
+    marginBottom: '5%',
+    marginTop: '5%',
   },
   footerParentContainer: {
     alignItems: 'center',

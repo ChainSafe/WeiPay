@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   },
   textHeader: {       
     fontFamily: "Cairo-Light",
-    fontSize: 26,        
+    fontSize: RF(4),      
     paddingLeft: '9%',
     color: '#1a1f3e',
     flex: 0.75,

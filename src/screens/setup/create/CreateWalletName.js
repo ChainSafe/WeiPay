@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
         width: '100%',   
     },
     navContainer: {
-        flex: 0.75,
+        flex: 0.65,
     },
     boxShadowContainer: {
         alignItems: 'center', 
@@ -136,11 +136,11 @@ const styles = StyleSheet.create({
     },
     textHeader: {
         fontFamily: 'Cairo-Light',
-        fontSize: 26,
+        fontSize: RF(4),
         letterSpacing: 0.8,
         paddingLeft: '9%',
         color: '#1a1f3e',
-        flex: 0.75, 
+        flex: 0.65, 
     },
     contentContainer: {
         flex: 1,
@@ -155,14 +155,14 @@ const styles = StyleSheet.create({
         color: '#000000',
         lineHeight: 22,
         letterSpacing: 0.4,
-        fontSize: 16,
+        fontSize: RF(2.4),
     },
     txtWalletName: {
         width: '100%',
         flexWrap: 'wrap',
         color: '#12c1a2',
         letterSpacing: 0.4,
-        fontSize: 16,
+        fontSize: RF(2.4),
         fontFamily: 'WorkSans-Regular',  
     },
     btnContainer: {
@@ -177,8 +177,8 @@ const styles = StyleSheet.create({
     },
     footerGrandparentContainer: {
         alignItems: 'center',
-        marginBottom: '3%',
-        marginTop: '3%',
+        marginBottom: '5%',
+        marginTop: '5%',
     },
     footerParentContainer: {
         alignItems: 'center',

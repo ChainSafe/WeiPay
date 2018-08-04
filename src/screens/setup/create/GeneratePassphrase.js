@@ -27,6 +27,7 @@ class GeneratePassphrase extends Component {
         mainContainer,
         textHeader,
         contentContainer,
+        boxShadowContainer,
         cardContainer,
         cardText,
         textMnemonic,
@@ -49,7 +50,7 @@ class GeneratePassphrase extends Component {
                 />
               </View>
               <Text style={textHeader} >Your Passphrase</Text>
-              <View style={{alignItems:"center", flex: 3}}>
+              <View style={boxShadowContainer}>
                 <View style={contentContainer} >
                     <BoxShadowCard >
                         <Text style={cardText}>
@@ -91,17 +92,21 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   navContainer: {
-    flex: 0.75,
+    flex: 0.65,
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
-    fontSize: 26,
+    fontSize: RF(4),
     paddingLeft: '9%',
     color: '#1a1f3e',
-    flex:0.75,
+    flex:0.65,
   },
   contentContainer: {
     width: '83%',
+  },
+  boxShadowContainer: {
+    alignItems:"center", 
+    flex: 3
   },
   cardText: {
     paddingBottom: '10%',
@@ -111,12 +116,13 @@ const styles = StyleSheet.create({
     paddingRight: '5%',
     fontFamily: 'WorkSans-Light',
     color: '#000000',
-    fontSize: 16,
+    fontSize: RF(2.4),
   },
   textMnemonic: {
     paddingLeft: '5%',
     paddingRight: '5%',
     color: '#12c1a2',
+    fontSize: RF(2.4),
     lineHeight: 26,
     letterSpacing: 0.4,
   },
@@ -132,8 +138,8 @@ const styles = StyleSheet.create({
   },
   footerGrandparentContainer: {
     alignItems: 'center',
-    marginBottom: '3%',
-    marginTop: '3%'
+    marginBottom: '5%',
+    marginTop: '5%'
   },
   footerParentContainer: {
     alignItems: 'center',

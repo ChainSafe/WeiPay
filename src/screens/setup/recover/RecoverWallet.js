@@ -84,7 +84,9 @@ class RecoverWallet extends Component {
       const {
         mainContainer,
         textHeader,
+        navContainer,
         contentContainer,
+        boxShadowContainer,
         cardContainer,
         cardText,
         txtMnemonic,
@@ -99,7 +101,7 @@ class RecoverWallet extends Component {
         <SafeAreaView style={styles.safeAreaView}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <View style={mainContainer}>
-                <View style={{flex: 0.75}}>        
+                <View style={navContainer}>        
                   <BackWithMenuNav
                       showMenu={false}
                       showBack={true}
@@ -108,7 +110,7 @@ class RecoverWallet extends Component {
                   />
                 </View>
                 <Text style={textHeader} >Recovery Passphrase</Text>
-                <View style={{alignItems: 'center', flex: 3}}>
+                <View style={boxShadowContainer}>
                   <View style={contentContainer} >
                       <BoxShadowCard>
                           <Text style={cardText}>
@@ -155,13 +157,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafbfe',
     width: '100%',
   },
+  navContainer: {
+    flex: 0.65,
+  },
   textHeader: {
     fontFamily: 'Cairo-Light',
-    fontSize: 26,
+    fontSize: RF(4),
     letterSpacing: 0.8,
     paddingLeft: '9%',
     color: '#1a1f3e',
-    flex: 0.75,
+    flex: 0.65,
+  },
+  boxShadowContainer:{
+    alignItems: 'center', 
+    flex: 3
   },
   contentContainer: {
     width: '82%',
@@ -174,13 +183,14 @@ const styles = StyleSheet.create({
     paddingRight: '7.5%',
     fontFamily: 'WorkSans-Light',
     color: '#000000',
-    fontSize: 16,
+    fontSize: RF(2.4),
   },
   txtMnemonic: {
     width: '100%',
     flexWrap: 'wrap',
     color: '#12c1a2',
     letterSpacing: 0.4,
+    fontSize: RF(2.4),
     fontFamily: 'WorkSans-Regular',
   },
   btnContainer: {
@@ -195,8 +205,8 @@ const styles = StyleSheet.create({
   },
   footerGrandparentContainer: {
     alignItems: 'center',
-    marginBottom: '3%',
-    marginTop: '3%',
+    marginBottom: '5%',
+    marginTop: '5%',
   },
   footerParentContainer: {
     alignItems: 'center',

@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
 import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard'
 import LinearButton from '../../../../components/LinearGradient/LinearButton'
+import RF from "react-native-responsive-fontsize"
 
 const navigate = () => {
   const navigateToPassphrase = NavigationActions.reset({
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
-    fontSize: 26,
+    fontSize: RF(4),
     letterSpacing: 0.8,
     paddingLeft: '9%',
     color: '#1a1f3e',
