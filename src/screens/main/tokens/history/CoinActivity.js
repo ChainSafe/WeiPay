@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Cairo-Regular',
     color: 'black',
     fontSize: RF(2.1),
-    lineHeight: RF(2.5),
+    lineHeight: RF(2.6),
     letterSpacing: 0.4,
   },
   addressValue: {

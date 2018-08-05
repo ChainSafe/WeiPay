@@ -112,15 +112,17 @@ const styles = StyleSheet.create({
   addressTitle: {
     fontFamily: 'Cairo-Regular',
     color: 'black',
-    fontSize: 13,
-    lineHeight: 17,
+    fontSize: RF(2.1),
+    lineHeight: RF(2.6),
+    letterSpacing: 0.6,
   },
   addressValue: {
-    fontSize: 13,
+    fontSize: RF(2.1),
+    lineHeight: RF(2.6),
+    letterSpacing: 0.6,
     fontFamily: 'Cairo-Light',
     color: 'black',
     justifyContent: 'center',
-    lineHeight: 17,
   },
   imageContainer: {
     justifyContent: 'center',
