@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafbfe'
   },
   navContainer: {
-    flex: 0.75,
+    flex: 0.65,
   },
   navHeaderContainer: {
     flex: 0.3,
@@ -311,8 +311,8 @@ const styles = StyleSheet.create({
   },
   boxShadowContainer: {
     alignItems: 'center', 
-    marginTop: '5%',
-    flex: 4,
+    marginTop: '15%',
+    flex: 4.25,
   },
   contentContainer: {
     width: '82%',
@@ -352,7 +352,7 @@ const styles = StyleSheet.create({
     paddingRight: '7.55%',
     fontFamily: 'WorkSans-Light',
     color: '#000000',
-    fontSize: 16,
+    fontSize: RF(2.4),
   },
   txtWalletName: {
     width: '100%',
@@ -362,7 +362,7 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Regular',  
   },
   btnContainer: {
-    flex: 1.25,
+    flex: 1,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     width: '82%',

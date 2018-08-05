@@ -33,25 +33,22 @@ class CoinReceive extends Component {
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={mainContainer}>
-
-        <View style={navContainer}>        
-          <BackWithMenuNav
-            showMenu={true}
-            showBack={true}
+          <View style={navContainer}>        
+            <BackWithMenuNav
+              showMenu={true}
+              showBack={true}
+              navigation={this.props.navigation}
+              backPage={'mainStack'}
+            />
+          </View>
+          <View style={navHeaderContainer}>
+            <CoinSendTabNavigator 
             navigation={this.props.navigation}
-            backPage={'mainStack'}
-          />
-        </View>
-
-        <View style={navHeaderContainer}>
-          <CoinSendTabNavigator 
-          navigation={this.props.navigation}
-          sendActive={false}
-          activityActive={false}
-          receiveActive={true} 
-           />
-        </View>
-
+            sendActive={false}
+            activityActive={false}
+            receiveActive={true} 
+            />
+          </View>
           <View style={contentContainer} >
             <View style={imageContainer}>
               <QRCode
@@ -63,13 +60,13 @@ class CoinReceive extends Component {
             <View style={addressContainer}>
                 <Text style={addressTitle}>Address: </Text>
                 <Text style={addressValue}>{this.props.walletAddress}</Text>
-            </View>
+            </View>            
           </View>
           <View style={footerGrandparentContainer}>
-                <View style={footerParentContainer}>
-                    <Text style={textFooter} >Powered by ChainSafe </Text>
-                </View>
+            <View style={footerParentContainer}>
+                <Text style={textFooter} >Powered by ChainSafe </Text>
             </View>
+          </View>
         </View>
       </SafeAreaView>
     );
@@ -90,7 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafbfe',
   },
   navContainer: {
-    flex: 0.75,
+    flex: 0.65,
   },
   navHeaderContainer: {
     flex: 0.3,
@@ -128,8 +125,8 @@ const styles = StyleSheet.create({
   imageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: '2.5%',
-    paddingBottom: '2.5%',
+    marginTop: '30%',
+    paddingBottom: '5%',
   },
   footerGrandparentContainer: {
     alignItems: 'center',
@@ -141,7 +138,7 @@ const styles = StyleSheet.create({
   },
   textFooter: {
     fontFamily: 'WorkSans-Regular',
-    marginBottom: '3.5%',
+    marginBottom: '5%',
     color: '#c0c0c0',
     fontSize: RF(1.7),
     letterSpacing: 0.5
