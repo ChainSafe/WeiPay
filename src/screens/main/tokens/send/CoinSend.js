@@ -200,90 +200,91 @@ class CoinSend extends Component {
     } = styles;
 
     return (
-      <SafeAreaView style={styles.safeAreaView}>
-         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={mainContainer}>
-                <View style={styles.navContainer}>        
-                  <BackWithMenuNav
-                     showMenu={true}
-                     showBack={true}
-                     navigation={this.props.navigation}
-                     backPage={"mainStack"}
-                    />
-                </View>
-                <View style={styles.navHeaderContainer}>
-                  <CoinSendTabNavigator 
-                      navigation={this.props.navigation}
-                      sendActive={true}
-                      activityActive={false}
-                      receiveActive={false} 
-                    />
-                </View>
-                <View style={styles.boxShadowContainer}>
-                  <View style={contentContainer}>
-                      <BoxShadowCard>
-                          <Text style={cardText}>
-                              Send Ether by scanning someone's QR code or public address.
-                          </Text>
-                          <View style= {styles.barcodeImageContainer}>
-                            <TouchableOpacity
-                              onPress= {() => this.navigate()} >
-                              <Image
-                                  source={require('../../../../assets/icons/barcode.png')}
-                                  style={styles.barcodeImage}
-                              /> 
-                          </TouchableOpacity>
-                        </View>
-                        <View style={styles.topFormInput}>
-                          <FormInput
-                              placeholder={"Public Address"}
-                              onChangeText={this.renderAddress.bind(this)}                  
-                              ref={ref => this.inputAddress = ref}
-                              inputStyle={styles.formInput}
-                            />
-                        </View>
-                          <FormInput
-                            placeholder={"Amount"}
-                            onChangeText={this.renderValue.bind(this)}
-                            ref={ref => this.inputAmount = ref}
-                            inputStyle={styles.formInput}
-                          /> 
-                          <Text style={styles.transactionFee} > 
-                            Transaction Fee Total {this.state.value} Eth
-                          </Text>                    
-                      </BoxShadowCard>
-                  </View>
-                </View>
-                <View style={styles.btnContainer}>
-                  <View style={{flexDirection:"row"}}>
-                    <View style={{ flex: 1}}>
-                      <ClearButton 
-                        onClickFunction={this.resetFields}
-                        buttonText="Reset"
-                        customStyles={{marginLeft:'0%', marginRight:'1.75%', height: Dimensions.get('window').height * 0.082}}
-                        // buttonStateEnabled={this.state.buttonDisabled}
-                      />
-                    </View>
-                    <View style={{flex:1 }}>
-                      <LinearButton 
-                        onClickFunction={
-                          this.props.token.type === "ERC20" ? this.sendERC20Transaction : this.sendTransaction  
-                                      }
-                        buttonText="Send"
-                        customStyles={{marginLeft: '0%', marginLeft:'1.75%', height: Dimensions.get('window').height * 0.082}}
-                        // buttonStateEnabled={this.state.buttonDisabled}
-                      />
-                    </View>
-                  </View>
-                  <View style={footerGrandparentContainer}>
-                    <View style={footerParentContainer} >
-                        <Text style={textFooter} >Powered by ChainSafe </Text>
-                    </View>
-                  </View>
-                </View>
-          </View>
-        </TouchableWithoutFeedback>
-       </SafeAreaView>
+      <View>
+        <Text>hello</Text>
+        </View>
+      // <SafeAreaView style={styles.safeAreaView}>
+      //    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      //       <View style={mainContainer}>
+      //           <View style={styles.navContainer}>        
+      //             <BackWithMenuNav
+      //                showMenu={true}
+      //                showBack={true}
+      //                navigation={this.props.navigation}
+      //                backPage={"mainStack"}
+      //               />
+      //           </View>
+      //           <View style={styles.navHeaderContainer}>
+      //             <CoinSendTabNavigator 
+      //                 navigation={this.props.navigation}
+      //                 sendActive={true}
+      //                 activityActive={false}
+      //                 receiveActive={false} 
+      //               />
+      //           </View>
+      //           <View style={styles.boxShadowContainer}>
+      //             <View style={contentContainer}>
+      //               <BoxShadowCard>
+      //                 <Text style={cardText}>
+      //                     Send Ether by scanning someone's QR code or public address.
+      //                 </Text>
+      //                 <View style= {styles.barcodeImageContainer}>
+      //                   <TouchableOpacity
+      //                     onPress= {() => this.navigate()} >
+      //                     <Image
+      //                       source={require('../../../../assets/icons/barcode.png')}
+      //                       style={styles.barcodeImage}
+      //                     /> 
+      //                   </TouchableOpacity>
+      //                 </View>
+      //                 <View style={styles.topFormInput}>
+      //                   <FormInput
+      //                       placeholder={"Public Address"}
+      //                       onChangeText={this.renderAddress.bind(this)}                  
+      //                       ref={ref => this.inputAddress = ref}
+      //                       inputStyle={styles.formInput}
+      //                     />
+      //                 </View>
+      //                 <FormInput
+      //                     placeholder={"Amount"}
+      //                     onChangeText={this.renderValue.bind(this)}
+      //                     ref={ref => this.inputAmount = ref}
+      //                     inputStyle={styles.formInput}
+      //                   /> 
+      //                 <Text style={styles.transactionFee}> 
+      //                   Transaction Fee Total {this.state.value} Eth
+      //                 </Text>                    
+      //               </BoxShadowCard>
+      //             </View>
+      //           </View>
+      //           <View style={styles.btnContainer}>
+      //             <View style={{flexDirection:"row"}}>
+      //               <View style={{ flex: 1}}>
+      //                 <ClearButton 
+      //                   onClickFunction={this.resetFields}
+      //                   buttonText="Reset"
+      //                   customStyles={{marginLeft:'0%', marginRight:'1.75%', height: Dimensions.get('window').height * 0.082}}
+      //                   // buttonStateEnabled={this.state.buttonDisabled}
+      //                 />
+      //               </View>
+      //               <View style={{flex:1 }}>
+      //                 <LinearButton 
+      //                   onClickFunction={this.props.token.type === "ERC20" ? this.sendERC20Transaction : this.sendTransaction}
+      //                   buttonText="Send"
+      //                   customStyles={{marginLeft: '0%', marginLeft:'1.75%', height: Dimensions.get('window').height * 0.082}}
+      //                   // buttonStateEnabled={this.state.buttonDisabled}
+      //                 />
+      //               </View>
+      //             </View>
+      //             <View style={footerGrandparentContainer}>
+      //               <View style={footerParentContainer} >
+      //                   <Text style={textFooter} >Powered by ChainSafe </Text>
+      //               </View>
+      //             </View>
+      //           </View>
+      //       </View>
+      //     </TouchableWithoutFeedback>
+      //  </SafeAreaView>
       
     )
   }
