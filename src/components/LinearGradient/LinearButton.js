@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, StyleSheet, TextInput, Text, Dimensions } from "react-native";
 import LinearGradient  from 'react-native-linear-gradient'
-
+import RF from "react-native-responsive-fontsize"
 
 /**
  * Component must have the following props:
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     },
     textStyles: {
         fontFamily: "Cairo-Regular",
-        fontSize: 16,
+        fontSize: RF(2.5),
         color: "#ffffff",
         letterSpacing: 0.4
     },

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { restoreWallet } from '../../actions/ActionCreator';
 import LinearButton from '../../components/LinearGradient/LinearButton';
 import ClearButton from '../../components/LinearGradient/ClearButton';
+import RF from "react-native-responsive-fontsize"
 
 /**
  * Initial setup screen used to allow the user to either restore a previously
@@ -40,21 +41,23 @@ class CreateOrRestore extends Component {
      */
     render() {
       const {
+        safeAreaView,
         mainContainer,
         textHeader,
         textHeaderDescription,
         btnContainer,
         btnCreate,       
-        button,
-        footerContainer,
+        button,  
+        footerGrandparentContainer,
+        footerParentContainer,
         textFooter,
       } = styles;
 
       return (
-        <SafeAreaView style={styles.safeAreaView}>
+        <SafeAreaView style={safeAreaView}>
           <View style={mainContainer}>
-              <Text style={textHeader} > WeiPay</Text>
-              <Text style={textHeaderDescription} > ERC20 Token Wallet </Text>
+              <Text style={textHeader}>WeiPay</Text>
+              <Text style={textHeaderDescription}>ERC20 Token Wallet </Text>
               <View style={btnContainer} >
                   <View style={btnCreate}>
                       <LinearButton
@@ -70,8 +73,10 @@ class CreateOrRestore extends Component {
                       unlockButton={true}
                   />              
               </View>
-              <View style={footerContainer}>
-                  <Text style={textFooter} >Powered by ChainSafe </Text>
+              <View style={footerGrandparentContainer}>
+                  <View style={footerParentContainer} >
+                    <Text style={textFooter} >Powered by ChainSafe </Text>
+                  </View>
               </View>
           </View>
         </SafeAreaView>
@@ -97,15 +102,15 @@ const styles = StyleSheet.create({
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
-    fontSize: 34,
-    marginBottom: '-0.1%',
+    fontSize: RF(5.3),
+    marginBottom: '-2%',
     letterSpacing: 1.1,
     color: '#1a1f3e',
   },
   textHeaderDescription: {
     color: '#1a1f3e',
     fontFamily: 'Cairo-Regular',
-    fontSize: 14,
+    fontSize: RF(2.1),
     letterSpacing: 2.5,
   },
   btnContainer: {
@@ -121,17 +126,21 @@ const styles = StyleSheet.create({
     marginBottom: '3.5%',
     marginTop: '7.5%',
   },
-  footerContainer: {
+  footerGrandparentContainer: {
     alignItems: 'center',
+    justifyContent: 'flex-end',
     position: 'absolute',
     bottom: '5%',
-    flex: 1,
-    justifyContent: 'flex-end',
+    flex: 1.25,
+  },
+  footerParentContainer: {
+    alignItems: 'center',
   },
   textFooter: {
     fontFamily: 'WorkSans-Regular',
-    fontSize: 11,
+    fontSize: RF(1.7),
     color: '#c0c0c0',
+    letterSpacing: 0.5
   },
 });
 

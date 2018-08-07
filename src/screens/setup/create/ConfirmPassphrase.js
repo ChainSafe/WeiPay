@@ -6,6 +6,7 @@ import LinearButton from '../../../components/LinearGradient/LinearButton';
 import ClearButton from '../../../components/LinearGradient/ClearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard'
+import RF from "react-native-responsive-fontsize"
 
 const shuffle = require('shuffle-array');
 
@@ -87,10 +88,12 @@ class ConfirmPassphrase extends Component {
       const { selectedTags, scrambledTags } = this.state;
 
       const {
+        safeAreaView,
         mainContainer,
+        navContainer,
         textHeader,
         contentContainer,
-        cardContainer,
+        boxShadowContainer,
         cardText,
         tagContainer,
         cardButtonContainer,
@@ -106,9 +109,9 @@ class ConfirmPassphrase extends Component {
       } = styles;
 
       return (
-        <SafeAreaView style={styles.safeAreaView}>
+        <SafeAreaView style={safeAreaView}>
           <View style={mainContainer}>
-            <View style={styles.navContainer}>
+            <View style={navContainer}>
               <BackWithMenuNav
                 showMenu={false}
                 showBack={true}
@@ -117,7 +120,7 @@ class ConfirmPassphrase extends Component {
               />
           </View>
           <Text style={textHeader}>Confirm Passphrase</Text>           
-          <View style={styles.boxShadowContainer}>
+          <View style={boxShadowContainer}>
             <View style={contentContainer} >
                 <BoxShadowCard>
                     <Text style={cardText}>
@@ -173,7 +176,6 @@ class ConfirmPassphrase extends Component {
                 </View>
             </View>
         </View>
-
          </SafeAreaView>
       );
     }
@@ -190,18 +192,18 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   navContainer: {
-    flex: 0.75,
+    flex: 0.65,
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
-    fontSize: 26,
+    fontSize: RF(4),
     paddingLeft: '9%',
     color: '#1a1f3e',
-    flex:0.75,
+    flex:0.65,
   },
   boxShadowContainer: {
     alignItems:"center", 
-    flex: 4
+    flex: 3.75
   },
   contentContainer: {
     width: '82%'
@@ -214,7 +216,7 @@ const styles = StyleSheet.create({
     paddingRight: '5%',
     fontFamily: 'WorkSans-Light',
     color: '#000000',
-    fontSize: 16,
+    fontSize: RF(2.4),
   },
   tagContainer: {
     flexDirection: 'row',
@@ -233,10 +235,6 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
   },
-  cardContainer: {
-    width: '80%',
-    height: '90%',   
-  },
   selectedTextContainer: {
     paddingTop: '5%',
     paddingLeft: '5%',
@@ -249,7 +247,7 @@ const styles = StyleSheet.create({
     paddingRight: '1.75%',
   },
   selectedWordText: {
-    fontSize: 14,
+    fontSize: RF(2.1),
     lineHeight: 22,
     color: '#27c997',
     fontFamily: 'WorkSans-Regular',
@@ -262,20 +260,21 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'stretch',
     alignContent: 'flex-end',
-    flex:1
+    flex:1.25
   },
   footerGrandparentContainer: {
     alignItems: 'center',
-    marginBottom: '2.5%',
-    marginTop: '2.5%'
+    marginBottom: '5%',
+    marginTop: '5%'
   },
   footerParentContainer: {
     alignItems: 'center',
   },
   textFooter: {
     fontFamily: 'WorkSans-Regular',
-    fontSize: 11,
+    fontSize: RF(1.7),
     color: '#c0c0c0',
+    letterSpacing: 0.5
   },
 });
 

@@ -8,6 +8,7 @@ import { NavigationActions } from "react-navigation";
 import {addTokenInfo} from '../../../actions/ActionCreator';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
+import RF from "react-native-responsive-fontsize"
 
 /**
  * Screen is used to display the wallet portfolio of the user, which contains the 
@@ -98,7 +99,7 @@ class Portfolio extends Component {
               navigation={this.props.navigation}
             />
           </View>
-          <Text style={styles.textHeader} >DIGI WALLET []-[]</Text>
+          <Text style={styles.textHeader}>Holdings</Text>
           <View style={styles.accountValueHeader}>
               <Text style={styles.headerValue}>0$</Text>   
               <Text style={styles.headerValueCurrency}> USD</Text> 
@@ -143,10 +144,11 @@ const styles = StyleSheet.create({
   },
   textHeader: {       
     fontFamily: "Cairo-Light",
-    fontSize: 26,        
+    fontSize: RF(4),      
     paddingLeft: '9%',
     color: '#1a1f3e',
     flex: 0.75,
+    letterSpacing: 0.8,
     justifyContent: 'center',
   },
   accountValueHeader:{
@@ -157,7 +159,7 @@ const styles = StyleSheet.create({
     fontFamily: "WorkSans-Medium",  
     marginLeft: '9%',
     color: '#27c997',
-    fontSize: 21,  
+    fontSize: RF(3),  
   },   
   headerValueCurrency : {
     fontSize:11,
@@ -241,14 +243,15 @@ const styles = StyleSheet.create({
   footerContainer: {
     alignItems:"center",
     justifyContent: 'flex-end',
-    flex: 0.5,
+    flex: 1,
   },
   textFooter : {
     fontFamily: "WorkSans-Regular",
-    fontSize: 11,
-    marginBottom: '3.5%',
+    fontSize: RF(1.7),
+    marginBottom: '5%',
     alignItems: 'center' ,
-    color: '#c0c0c0'
+    color: '#c0c0c0',
+    letterSpacing: 0.5
   }
 })
 

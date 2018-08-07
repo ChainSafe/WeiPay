@@ -156,23 +156,23 @@ const styles = StyleSheet.create({
   mainTitleContainer: {
     flex: 0.5,
     justifyContent: 'flex-end',
-    paddingTop: '1.5%',
+    paddingTop: '3.5%',
   },
   mainTitleText: {
-    fontSize: RF(3),
+    fontSize: RF(2.4),
     fontFamily: 'Cairo-Regular',
     letterSpacing: 0.5,
-    color: 'black',
+    color: '#061f46',
   },
   subtitleContainer: {
     flex: 0.5,
     justifyContent: 'flex-start',
-    paddingBottom: '1.5%',
+    paddingBottom: '4.5%',
   },
-
   subTitleText: {
-    fontSize: RF(2),
+    fontSize: RF(1.6),
     fontFamily: 'Cairo-Regular',
+    color: '#061f46',
     letterSpacing: 0.5,
   },
 });

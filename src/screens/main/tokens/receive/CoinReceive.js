@@ -4,6 +4,7 @@ import QRCode from 'react-native-qrcode';
 import { connect } from 'react-redux';
 import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
+import RF from "react-native-responsive-fontsize"
 
 /**
  * React Component
@@ -32,25 +33,22 @@ class CoinReceive extends Component {
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={mainContainer}>
-
-        <View style={navContainer}>        
-          <BackWithMenuNav
-            showMenu={true}
-            showBack={true}
+          <View style={navContainer}>        
+            <BackWithMenuNav
+              showMenu={true}
+              showBack={true}
+              navigation={this.props.navigation}
+              backPage={'mainStack'}
+            />
+          </View>
+          <View style={navHeaderContainer}>
+            <CoinSendTabNavigator 
             navigation={this.props.navigation}
-            backPage={'mainStack'}
-          />
-        </View>
-
-        <View style={navHeaderContainer}>
-          <CoinSendTabNavigator 
-          navigation={this.props.navigation}
-          sendActive={false}
-          activityActive={false}
-          receiveActive={true} 
-           />
-        </View>
-
+            sendActive={false}
+            activityActive={false}
+            receiveActive={true} 
+            />
+          </View>
           <View style={contentContainer} >
             <View style={imageContainer}>
               <QRCode
@@ -62,13 +60,13 @@ class CoinReceive extends Component {
             <View style={addressContainer}>
                 <Text style={addressTitle}>Address: </Text>
                 <Text style={addressValue}>{this.props.walletAddress}</Text>
-            </View>
+            </View>            
           </View>
           <View style={footerGrandparentContainer}>
-                <View style={footerParentContainer}>
-                    <Text style={textFooter} >Powered by ChainSafe </Text>
-                </View>
+            <View style={footerParentContainer}>
+                <Text style={textFooter} >Powered by ChainSafe </Text>
             </View>
+          </View>
         </View>
       </SafeAreaView>
     );
@@ -89,7 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafbfe',
   },
   navContainer: {
-    flex: 0.75,
+    flex: 0.65,
   },
   navHeaderContainer: {
     flex: 0.3,
@@ -114,21 +112,23 @@ const styles = StyleSheet.create({
   addressTitle: {
     fontFamily: 'Cairo-Regular',
     color: 'black',
-    fontSize: 13,
-    lineHeight: 17,
+    fontSize: RF(2.1),
+    lineHeight: RF(2.6),
+    letterSpacing: 0.6,
   },
   addressValue: {
-    fontSize: 13,
+    fontSize: RF(2.1),
+    lineHeight: RF(2.6),
+    letterSpacing: 0.6,
     fontFamily: 'Cairo-Light',
     color: 'black',
     justifyContent: 'center',
-    lineHeight: 17,
   },
   imageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: '2.5%',
-    paddingBottom: '2.5%',
+    marginTop: '30%',
+    paddingBottom: '5%',
   },
   footerGrandparentContainer: {
     alignItems: 'center',
@@ -140,9 +140,10 @@ const styles = StyleSheet.create({
   },
   textFooter: {
     fontFamily: 'WorkSans-Regular',
-    fontSize: 11,
-    marginBottom: '3.5%',
+    marginBottom: '5%',
     color: '#c0c0c0',
+    fontSize: RF(1.7),
+    letterSpacing: 0.5
   },
 });
 

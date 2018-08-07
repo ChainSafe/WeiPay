@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
 import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard'
 import LinearButton from '../../../../components/LinearGradient/LinearButton'
+import RF from "react-native-responsive-fontsize"
 
 const navigate = () => {
   const navigateToPassphrase = NavigationActions.reset({
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
-    fontSize: 26,
+    fontSize: RF(4),
     letterSpacing: 0.8,
     paddingLeft: '9%',
     color: '#1a1f3e',
@@ -135,7 +136,8 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Light',
     color: '#000000',
     letterSpacing: 0.4,
-    fontSize: 16,
+    fontSize: RF(2.4),
+    lineHeight: RF(2.8),
   },
   mnemonicText: {
     paddingTop: '2.5%',
@@ -144,7 +146,8 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Light',
     letterSpacing: 0.4,
     color: '#12c1a2',
-    fontSize: 14,
+    fontSize: RF(2.2),
+    lineHeight: RF(3),
   },
   btnContainer: {
     flex:2,
@@ -158,16 +161,17 @@ const styles = StyleSheet.create({
   },
   footerGrandparentContainer: {
     alignItems: 'center',
-    marginBottom: '3%',
-    marginTop: '3%',
+    marginBottom: '5%',
+    marginTop: '5%',
   },
   footerParentContainer: {
     alignItems: 'center',
   },
   textFooter: {
     fontFamily: 'WorkSans-Regular',
-    fontSize: 11,
+    fontSize: RF(1.7),
     color: '#c0c0c0',
+    letterSpacing: 0.5
   },
 })
 
