@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, StyleSheet, TextInput, Text, Platform, Image } from "react-native";
+import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
 import { NavigationActions } from "react-navigation";
 
 class CoinSendTabNavigator extends Component {
@@ -61,7 +61,7 @@ class CoinSendTabNavigator extends Component {
                     style={styles.headerButton}
                     onPress={this.navigateToReceive}>                                    
                     <Text style={[styles.headerReceive, styles.fullHeight, this.props.receiveActive ? styles.greenShade : null]} >Receive</Text>
-                    <View style={this.props.receiveActive ? styles.receiveLine : null}> </View>
+                    <View style={this.props.receiveActive ? styles.receiveLine : null}></View>
                 </TouchableOpacity>
             </View>
         );
