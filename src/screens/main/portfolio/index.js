@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import {
- View, Text, FlatList, StyleSheet, AsyncStorage, ListView, Image, TouchableOpacity, ScrollView, Platform, Dimensions, SafeAreaView 
+ View, Text, StyleSheet, ListView, Image, TouchableOpacity, ScrollView, Dimensions, SafeAreaView 
 } from 'react-native';
-import { StackNavigator, DrawerNavigator, TabNavigator } from 'react-navigation';
-import { List, ListItem, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from "react-navigation";
@@ -33,7 +31,7 @@ class Portfolio extends Component {
   }
 
   navigate = () => {
-    const navigateToAddToken = NavigationActions.navigate({ routeName: "coinHistory" });
+    const navigateToAddToken = NavigationActions.navigate({ routeName: "AddCoin" });
     this.props.navigation.dispatch(navigateToAddToken);
   };
 
@@ -42,21 +40,19 @@ class Portfolio extends Component {
     this.props.navigation.dispatch(navigateToAddToken);
   };
  
-
   /**
    * Returns a ListItem component specific to the properties of the token parameter
    */
   renderRow = (token) => {
-
     return (
         <TouchableOpacity
           onPress={() => {
             this.props.addTokenInfo(token)
             if(token.type === "PortfolioToken") {
-              this.props.navigation.navigate("coinReceive")
+              this.props.navigation.navigate("coinSend")
             }
             else {
-              this.props.navigation.navigate("coinReceive")
+              this.props.navigation.navigate("coinSend")
               }
             }}
           style={styles.listItemParentContainer}
@@ -92,7 +88,6 @@ class Portfolio extends Component {
             </BoxShadowCard>
           </View>
         </TouchableOpacity >
-      
     );
   }
 
@@ -175,7 +170,7 @@ const styles = StyleSheet.create({
   mainTitleContainer: {
     flex: 0.5,
     justifyContent: 'flex-end',
-    paddingTop: '1.5%',
+    paddingTop: '2.5%',
   },
   mainTitleText: {
     fontSize: RF(3),
