@@ -203,8 +203,6 @@ const styles = StyleSheet.create({
     color: 'black',
     paddingRight: '1.75%',
   },
-  // ^ Portfolio List Styling
-  // v Screen Styling
   safeAreaView: {
     flex: 1,
     backgroundColor: '#fafbfe',
