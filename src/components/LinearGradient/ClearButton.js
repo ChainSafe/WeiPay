@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, StyleSheet, TextInput, Text, Dimensions } from "react-native";
 import PropTypes from 'prop-types'
+import RF from "react-native-responsive-fontsize"
 
 /**
  * Component must have the following props:
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     },
     textStyles: {
         fontFamily: "Cairo-Regular",
-        fontSize: 16,
+        fontSize: RF(2.5),
         color: "#27c997",
         letterSpacing: 0.4
     }

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import CoinList from '../../../components/tokens/CoinList';
 import LinearButton from '../../../components/LinearGradient/LinearButton'
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
+import RF from "react-native-responsive-fontsize"
 
 /**
  * Screen used to aquire the tokens/coins that the user wants to use
@@ -45,9 +46,9 @@ class EnableCrypto extends Component {
       } = styles;
 
       return (
-        <SafeAreaView style={styles.safeAreaView}>
+        <SafeAreaView style={safeAreaView}>
             <View style={mainContainer}>
-              <View style={styles.headerContainer}>
+              <View style={headerContainer}>
                  <Text style={textHeader}>Enable Tokens </Text>
               </View>              
               <View style={coinListContainer}>
@@ -86,12 +87,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafbfe',
   },
   headerContainer: {
-    flex:1, 
-    justifyContent:"flex-end"
+    flex: 1, 
+    justifyContent: "center"
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
-    fontSize: 26,
+    fontSize: RF(4),
     marginLeft: '9%',
     color: '#1a1f3e',
   },
@@ -99,11 +100,11 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     marginLeft: '9%',
     marginRight: '9%',
-    flex:5,
+    flex: 4,
     paddingBottom: "2.5%",
   },
   btnContainer: {
-    flex: 1.25,
+    flex: 1,
     width: '100%',
   },
   button: {
@@ -112,16 +113,17 @@ const styles = StyleSheet.create({
   },
   footerGrandparentContainer: {
     alignItems: 'center',
-    marginBottom: '3%',
-    marginTop: '3%',
+    marginBottom: '5%',
+    marginTop: '5%',
   },
   footerParentContainer: {
     alignItems: 'center',
   },
   textFooter: {
     fontFamily: 'WorkSans-Regular',
-    fontSize: 11,
+    fontSize: RF(1.7),
     color: '#c0c0c0',
+    letterSpacing: 0.5
   },
 });
 

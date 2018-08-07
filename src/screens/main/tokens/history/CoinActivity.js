@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native';
 import { CardSection } from '../../../../components/common/CardSection';
 import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
+import RF from "react-native-responsive-fontsize"
 
 const axios = require('axios');
 const ethers = require('ethers');
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   navContainer: {
-    flex: 0.75,
+    flex: 0.65,
   },
   navHeaderContainer: {
     flex: 0.3,
@@ -166,15 +167,17 @@ const styles = StyleSheet.create({
   addressTitle: {
     fontFamily: 'Cairo-Regular',
     color: 'black',
-    fontSize: 13,
-    lineHeight: 17,
+    fontSize: RF(2.1),
+    lineHeight: RF(2.6),
+    letterSpacing: 0.4,
   },
   addressValue: {
-    fontSize: 13,
+    fontSize: RF(2.1),
     fontFamily: 'Cairo-Light',
     color: 'black',
     justifyContent: 'center',
-    lineHeight: 17,
+    lineHeight: RF(2.6),
+    letterSpacing: 0.4,
   },
   amountContainer: {
     flexDirection: 'row',
@@ -183,15 +186,17 @@ const styles = StyleSheet.create({
   amountTitle: {
     fontFamily: 'Cairo-Regular',
     color: 'black',
-    fontSize: 13,
-    lineHeight: 16,
+    fontSize: RF(2.1),
+    lineHeight: RF(2.6),
+    letterSpacing: 0.4,
   },
   amountValue: {
-    fontSize: 13,
+    fontSize: RF(2.1),
     fontFamily: 'Cairo-Light',
     color: 'black',
     justifyContent: 'center',
-    lineHeight: 16,
+    lineHeight: RF(2.6),
+    letterSpacing: 0.4,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -211,7 +216,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#b3b3b3'
   },
   type: {
-    fontSize: 16,
+    fontSize: RF(2.4),
     letterSpacing: 0.5,
     fontFamily: 'Cairo-Regular',
     alignItems: 'flex-start',
@@ -220,7 +225,7 @@ const styles = StyleSheet.create({
     top: 0,
   },
   date: {
-    fontSize: 11,
+    fontSize: RF(1.7),
     letterSpacing: 0.4,
     fontFamily: 'Cairo-Light',
     top: '1.75%',

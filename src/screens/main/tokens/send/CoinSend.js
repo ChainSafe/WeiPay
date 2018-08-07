@@ -12,7 +12,7 @@ import LinearButton from '../../../../components/LinearGradient/LinearButton';
 import ClearButton from '../../../../components/LinearGradient/ClearButton'
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard';
-
+import RF from "react-native-responsive-fontsize"
 
 const ethers = require('ethers');
 const utils = ethers.utils;
@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafbfe'
   },
   navContainer: {
-    flex: 0.75,
+    flex: 0.65,
   },
   navHeaderContainer: {
     flex: 0.3,
@@ -311,8 +311,8 @@ const styles = StyleSheet.create({
   },
   boxShadowContainer: {
     alignItems: 'center', 
-    marginTop: '5%',
-    flex: 4,
+    marginTop: '15%',
+    flex: 4.25,
   },
   contentContainer: {
     width: '82%',
@@ -352,7 +352,7 @@ const styles = StyleSheet.create({
     paddingRight: '7.55%',
     fontFamily: 'WorkSans-Light',
     color: '#000000',
-    fontSize: 16,
+    fontSize: RF(2.4),
   },
   txtWalletName: {
     width: '100%',
@@ -362,7 +362,7 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Regular',  
   },
   btnContainer: {
-    flex: 1.25,
+    flex: 1,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     width: '82%',
@@ -384,10 +384,10 @@ const styles = StyleSheet.create({
   },
   textFooter: {
     fontFamily: 'WorkSans-Regular',
-    fontSize: 11,
+    fontSize: RF(1.7),
     color: '#c0c0c0',
+    letterSpacing: 0.5
   },
-  
 })
 
 /**
