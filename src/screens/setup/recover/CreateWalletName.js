@@ -57,6 +57,7 @@ class CreateWalletName extends Component {
         cardText,
         txtWalletName,
         btnContainer,
+        defaultGreenColor,
         button,
         footerGrandparentContainer,
         footerParentContainer,
@@ -80,7 +81,10 @@ class CreateWalletName extends Component {
                   <View style={contentContainer}>
                       <BoxShadowCard>
                           <Text style={cardText}>
-                              Create a name for your wallet, for example: <Text style={{ color: '#12c1a2' }}>My Wallet</Text>
+                              Create a name for your wallet, for example: 
+                              <Text style={defaultGreenColor}>
+                                My Wallet
+                              </Text>
                           </Text>
                           <FormInput
                               placeholder={'Ex. My Wallet'}
@@ -185,6 +189,9 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Regular',
     fontSize: 11,
     color: '#c0c0c0',
+  },
+  defaultGreenColor: {
+    color: '#12c1a2',
   },
 });
 
