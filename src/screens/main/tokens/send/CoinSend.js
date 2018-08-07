@@ -221,37 +221,37 @@ class CoinSend extends Component {
                 </View>
                 <View style={styles.boxShadowContainer}>
                   <View style={contentContainer}>
-                      <BoxShadowCard>
-                          <Text style={cardText}>
-                              Send Ether by scanning someone's QR code or public address.
-                          </Text>
-                          <View style= {styles.barcodeImageContainer}>
-                            <TouchableOpacity
-                              onPress= {() => this.navigate()} >
-                              <Image
-                                  source={require('../../../../assets/icons/barcode.png')}
-                                  style={styles.barcodeImage}
-                              /> 
-                          </TouchableOpacity>
-                        </View>
-                        <View style={styles.topFormInput}>
-                          <FormInput
-                              placeholder={"Public Address"}
-                              onChangeText={this.renderAddress.bind(this)}                  
-                              ref={ref => this.inputAddress = ref}
-                              inputStyle={styles.formInput}
-                            />
-                        </View>
-                          <FormInput
-                            placeholder={"Amount"}
-                            onChangeText={this.renderValue.bind(this)}
-                            ref={ref => this.inputAmount = ref}
-                            inputStyle={styles.formInput}
+                    <BoxShadowCard>
+                      <Text style={cardText}>
+                          Send Ether by scanning someone's QR code or public address.
+                      </Text>
+                      <View style= {styles.barcodeImageContainer}>
+                        <TouchableOpacity
+                          onPress= {() => this.navigate()} >
+                          <Image
+                            source={require('../../../../assets/icons/barcode.png')}
+                            style={styles.barcodeImage}
                           /> 
-                          <Text style={styles.transactionFee} > 
-                            Transaction Fee Total {this.state.value} Eth
-                          </Text>                    
-                      </BoxShadowCard>
+                        </TouchableOpacity>
+                      </View>
+                      <View style={styles.topFormInput}>
+                        <FormInput
+                            placeholder={"Public Address"}
+                            onChangeText={this.renderAddress.bind(this)}                  
+                            ref={ref => this.inputAddress = ref}
+                            inputStyle={styles.formInput}
+                          />
+                      </View>
+                      <FormInput
+                          placeholder={"Amount"}
+                          onChangeText={this.renderValue.bind(this)}
+                          ref={ref => this.inputAmount = ref}
+                          inputStyle={styles.formInput}
+                        /> 
+                      <Text style={styles.transactionFee}> 
+                        Transaction Fee Total {this.state.value} Eth
+                      </Text>                    
+                    </BoxShadowCard>
                   </View>
                 </View>
                 <View style={styles.btnContainer}>
@@ -266,9 +266,7 @@ class CoinSend extends Component {
                     </View>
                     <View style={{flex:1 }}>
                       <LinearButton 
-                        onClickFunction={
-                          this.props.token.type === "ERC20" ? this.sendERC20Transaction : this.sendTransaction  
-                                      }
+                        onClickFunction={this.props.token.type === "ERC20" ? this.sendERC20Transaction : this.sendTransaction}
                         buttonText="Send"
                         customStyles={{marginLeft: '0%', marginLeft:'1.75%', height: Dimensions.get('window').height * 0.082}}
                         // buttonStateEnabled={this.state.buttonDisabled}
@@ -281,10 +279,9 @@ class CoinSend extends Component {
                     </View>
                   </View>
                 </View>
-          </View>
-        </TouchableWithoutFeedback>
+            </View>
+          </TouchableWithoutFeedback>
        </SafeAreaView>
-      
     )
   }
 }

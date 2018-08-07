@@ -61,7 +61,7 @@ class CoinSendTabNavigator extends Component {
                     style={styles.headerButton}
                     onPress={this.navigateToReceive}>                                    
                     <Text style={[styles.headerReceive, styles.fullHeight, this.props.receiveActive ? styles.greenShade : null]} >Receive</Text>
-                    <View style={this.props.receiveActive ? styles.receiveLine : null}> </View>
+                    <View style={this.props.receiveActive ? styles.receiveLine : null}></View>
                 </TouchableOpacity>
             </View>
         );
