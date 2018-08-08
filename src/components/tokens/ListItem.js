@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import { addTokenToSetup } from '../../actions/ActionCreator';
 import BoxShadowCard from '../ShadowCards/BoxShadowCard';
+
+const axios = require('axios');
+
 /**
  * React Component
  * Class is used to create a single item of the
@@ -69,7 +72,7 @@ class CoinListItem extends Component {
 
   /**
    * Returns a component that is based on the properties of the coin
-   * prop and it can be selected or unselected by the user.
+   * prop and it can be selected or unselected by the user
    */
   render() {
     const { coin } = this.props;
@@ -85,21 +88,25 @@ class CoinListItem extends Component {
                   <View style={styles.imageContainer} >
                     <Image
                       style={styles.img}
-                      source={require('../../assets/images/eth.png') }
+                      // source={require('../../assets/images/eth.png') }
+                      source={{ uri: coin.logo.src} }
                     />
                   </View>
                 </View>
-                <View style={{ flex: 5  }}>
+                <View style={{ flex: 4, backgroundColor:"red"  }}>
                   <View style={{ justifyContent: 'center', flex: 1 }}>
-                    <View style={styles.mainTitleContainer}>
+                    <Text style={styles.mainTitleText} >{coin.symbol}</Text>
+                    <Text style={styles.subTitleText} >{coin.name}</Text>
+
+                    {/* <View style={styles.mainTitleContainer}>
                       <Text style={styles.mainTitleText} >{coin.symbol}</Text>
                     </View>
                     <View style={styles.subtitleContainer}>
-                      <Text style={styles.subTitleText} >{coin.title}</Text>
-                    </View>
+                      <Text style={styles.subTitleText} >{coin.name}</Text>
+                    </View> */}
                   </View>
                 </View>
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 1, backgroundColor:'purple'}}>
                   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <Image
                       style={{
@@ -141,16 +148,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   imgMainContainer: {
-    flex: 1,
+    flex: 1.25,
     alignItems: 'center',
+    // backgroundColor: "blue"
   },
   imageContainer: {
     flex: 1,
     justifyContent: 'center',
   },
   img: {
-    height: Dimensions.get('window').height * 0.05,
-    width: Dimensions.get('window').width * 0.05,
+    height: Dimensions.get('window').height * 0.06,
+    width: Dimensions.get('window').width * 0.1,
     justifyContent: 'center',
   },
   mainTitleContainer: {
@@ -158,18 +166,18 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     paddingTop: '1.5%',
   },
+
+  subtitleContainer: {
+    flex: 0.5,
+    justifyContent: 'flex-start',
+    paddingBottom: '1.5%',
+  },
   mainTitleText: {
     fontSize: RF(3),
     fontFamily: 'Cairo-Regular',
     letterSpacing: 0.5,
     color: 'black',
   },
-  subtitleContainer: {
-    flex: 0.5,
-    justifyContent: 'flex-start',
-    paddingBottom: '1.5%',
-  },
-
   subTitleText: {
     fontSize: RF(2),
     fontFamily: 'Cairo-Regular',
