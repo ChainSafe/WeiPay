@@ -74,7 +74,7 @@ class Portfolio extends Component {
                       <Text style={styles.mainTitleText}> {token.symbol} </Text>
                     </View>
                     <View style={styles.subtitleContainer}>
-                      <Text style={styles.subTitleText}> {token.title} </Text>
+                      <Text style={styles.subTitleText}> {token.name} </Text>
                     </View>
                   </View>
                 </View>
