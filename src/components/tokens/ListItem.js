@@ -166,14 +166,15 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   mainTitleText: {
-    fontSize: RF(3),
+    fontSize: RF(2.4),
     fontFamily: 'Cairo-Regular',
     letterSpacing: 0.5,
-    color: 'black',
+    color: '#061f46',
   },
   subTitleText: {
-    fontSize: RF(2),
+    fontSize: RF(1.6),
     fontFamily: 'Cairo-Regular',
+    color: '#061f46',
     letterSpacing: 0.5,
   },
 });

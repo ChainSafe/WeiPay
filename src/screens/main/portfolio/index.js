@@ -1,31 +1,32 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, AsyncStorage, ListView, Image, TouchableOpacity, ScrollView, Platform, Dimensions, SafeAreaView } from 'react-native';
-import { StackNavigator, DrawerNavigator, TabNavigator } from 'react-navigation';
-import { List, ListItem, Icon } from 'react-native-elements';
+import {
+ View, Text, StyleSheet, ListView, Image, TouchableOpacity, ScrollView, Dimensions, SafeAreaView 
+} from 'react-native';
 import { connect } from 'react-redux';
-import LinearButton from '../../../components/LinearGradient/LinearButton';
+import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from "react-navigation";
-import {addTokenInfo} from '../../../actions/ActionCreator';
+import LinearButton from '../../../components/LinearGradient/LinearButton';
+import { addTokenInfo } from '../../../actions/ActionCreator';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 
+
 /**
- * Screen is used to display the wallet portfolio of the user, which contains the 
+ * Screen is used to display the wallet portfolio of the user, which contains the
  * tokens and the balance of the wallet
  */
 class Portfolio extends Component {
-
   /**
    * LifeCycle Method (executes before the component has been rendered)
    * Sets the list of tokens reterived from the global state variable as the
    * data source for the listView
    */
   componentWillMount() {
-    let data = this.props.newWallet.tokens
-    console.log(this.props.newWallet.tokens);    
+    const data = this.props.newWallet.tokens;
+    console.log(this.props.newWallet.tokens);
     const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    })
+      rowHasChanged: (r1, r2) => {return r1 !== r2},
+    });
     this.dataSource = ds.cloneWithRows(data);
   }
 
@@ -34,53 +35,60 @@ class Portfolio extends Component {
     this.props.navigation.dispatch(navigateToAddToken);
   };
 
+  renderItemPress = () => {
+    const navigateToAddToken = NavigationActions.navigate({ routeName: 'coinSend' });
+    this.props.navigation.dispatch(navigateToAddToken);
+  };
+ 
   /**
    * Returns a ListItem component specific to the properties of the token parameter
    */
   renderRow = (token) => {
     return (
-      <View style={styles.listItemContainer}>
-        <BoxShadowCard>
-          <ListItem
-            roundAvatar
-            avatar={{ uri: token.avatar_url }}
-            key={token.id}
-            title= {
-              <View style={styles.listItemSymbolRowContiner}>
-                <Text style={styles.listItemSymbolText}>
-                  {token.symbol}
-                </Text>
-                <Text style={styles.listItemCoinCount}> 
-                  23 
-                </Text>
-              </View>
-            }      
-            onPress={() => {
-              this.props.addTokenInfo(token)
-              if(token.type === "PortfolioToken") {
-                this.props.navigation.navigate("coinSend")
+        <TouchableOpacity
+          onPress={() => {
+            this.props.addTokenInfo(token)
+            if(token.type === "PortfolioToken") {
+              this.props.navigation.navigate("coinSend")
+            }
+            else {
+              this.props.navigation.navigate("coinSend")
               }
-              else {
-                this.props.navigation.navigate("coinSend")
-              }
-            }
-            }
-            subtitle={
-              <View style={styles.listItemSubtitleContainer}>
-                <Text style={styles.lisItemSubtitleName}>
-                  {token.title}
-                </Text>
-                <Text style={styles.listItemSubtitleValue}> 
-                    $2444 
-                  </Text>
+            }}
+          style={styles.listItemParentContainer}
+          >
+          <View>
+            <BoxShadowCard customStyles={{ flex: 1 }}>
+              <View style={[styles.contentContainer]}>
+                <View style={styles.imgMainContainer} >
+                  <View style={styles.imageContainer} >
+                    <Image
+                      style={styles.img}
+                      source={require('../../../assets/images/eth.png') }
+                    />
+                  </View>
+                </View>
+                <View style={{ flex: 5 }}>
+                  <View style={{ justifyContent: 'center', flex: 1 }}>
+                    <View style={styles.mainTitleContainer}>
+                      <Text style={styles.mainTitleText}> {token.symbol} </Text>
+                    </View>
+                    <View style={styles.subtitleContainer}>
+                      <Text style={styles.subTitleText}> {token.title} </Text>
+                    </View>
+                  </View>
+                </View>
+                <View style={{ flex: 1, justifyContent: 'center', paddingBottom: '1.5%', paddingTop: '1.5%', paddingRight: '5%',  }}>
+                  <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
+                    <Text style={styles.listItemCryptoValue}>0</Text>
+                    <Text style={styles.listItemFiatValue}>$2444</Text>
+                  </View>
+                </View>
               </View>
-            }
-            containerStyle = {styles.listItem}
-            avatarStyle = {styles.avitarStyle}
-          />
-        </BoxShadowCard>
-      </View>
-    )
+            </BoxShadowCard>
+          </View>
+        </TouchableOpacity >
+    );
   }
 
   /**
@@ -91,36 +99,36 @@ class Portfolio extends Component {
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer} >
-          <View style={styles.navBar}>  
-            <BackWithMenuNav         
+          <View style={styles.navBar}>
+            <BackWithMenuNav
               showMenu={true}
               showBack={false}
               navigation={this.props.navigation}
             />
           </View>
-          <Text style={styles.textHeader} >DIGI WALLET []-[]</Text>
+          <Text style={styles.textHeader}>Holdings</Text>
           <View style={styles.accountValueHeader}>
-              <Text style={styles.headerValue}>0$</Text>   
-              <Text style={styles.headerValueCurrency}> USD</Text> 
+              <Text style={styles.headerValue}>0$</Text>
+              <Text style={styles.headerValueCurrency}> USD</Text>
           </View>
           <View style={styles.scrollViewContainer}>
             <ScrollView style={styles.scrollView} >
-                <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}  />
+                <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}/>
             </ScrollView>
           </View>
           <View style={styles.btnContainer} >
-              <LinearButton 
+              <LinearButton
                 onClickFunction={this.navigate}
                 buttonText="Add Token or Coin"
                 customStyles={styles.button}
-              />         
+              />
           </View>
           <View style={styles.footerContainer}>
-            <Text style={styles.textFooter} >Powered by ChainSafe </Text>
+            <Text style={styles.textFooter}  >Powered by ChainSafe </Text>
           </View>
         </View>
       </SafeAreaView>
-    )
+    );
   }
 }
 
@@ -128,127 +136,140 @@ class Portfolio extends Component {
  * Styles used in the "Portfolio" screen
  */
 const styles = StyleSheet.create({
-  safeAreaView: {
-    flex: 1, 
-    backgroundColor: '#fafbfe'
-  },
-  mainContainer : {
+
+  contentContainer: {
     flex: 1,
-    backgroundColor: "#fafbfe",
-    width:"100%", 
+    flexDirection: 'row',
+  },
+  containerSelected: {
+    borderWidth: 1,
+    borderColor: 'black',
+    width: '83%',
+  },
+  containerDeselect: {
+    width: '83%',
+  },
+  listItemParentContainer: {
+    marginLeft: '0.25%',
+    height: Dimensions.get('window').height * 0.1,
+    flex: 1,
+  },
+  imgMainContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  imageContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  img: {
+    height: Dimensions.get('window').height * 0.05,
+    width: Dimensions.get('window').width * 0.05,
+    justifyContent: 'center',
+  },
+  mainTitleContainer: {
+    flex: 0.5,
+    justifyContent: 'flex-end',
+    paddingTop: '2.5%',
+  },
+  mainTitleText: {
+    fontSize: RF(3),
+    fontFamily: 'Cairo-Regular',
+    letterSpacing: 0.5,
+    color: 'black',
+  },
+  subtitleContainer: {
+    flex: 0.5,
+    justifyContent: 'flex-start',
+    paddingBottom: '1.5%',
+  },
+  subTitleText: {
+    fontSize: RF(2),
+    fontFamily: 'Cairo-Regular',
+    letterSpacing: 0.5,
+  },
+  listItemFiatValue: {
+    alignItems: 'flex-end',
+    fontSize: RF(2),
+    fontFamily: 'WorkSans-Light',
+    paddingRight: '1.75%',
+    letterSpacing: 0.4,
+  },
+  listItemCryptoValue: {
+    alignItems: 'flex-end',
+    fontSize: RF(3),
+    fontFamily: 'Cairo-Regular',
+    letterSpacing: 0.5,
+    color: 'black',
+    paddingRight: '1.75%',
+  },
+  safeAreaView: {
+    flex: 1,
+    backgroundColor: '#fafbfe',
+  },
+  mainContainer: {
+    flex: 1,
+    backgroundColor: '#fafbfe',
+    width: '100%',
   },
   navBar: {
     flex: 0.75,
-    paddingBottom: '2%'
+    paddingBottom: '2%',
   },
   textHeader: {       
     fontFamily: "Cairo-Light",
-    fontSize: 26,        
+    fontSize: RF(4),      
     paddingLeft: '9%',
     color: '#1a1f3e',
     flex: 0.75,
+    letterSpacing: 0.8,
     justifyContent: 'center',
   },
-  accountValueHeader:{
+  accountValueHeader: {
     flexDirection: 'row',
     flex: 0.5,
   },
-  headerValue : {   
-    fontFamily: "WorkSans-Medium",  
+  headerValue: {
+    fontFamily: 'WorkSans-Medium',
     marginLeft: '9%',
     color: '#27c997',
-    fontSize: 21,  
+    fontSize: RF(3),  
   },   
   headerValueCurrency : {
     fontSize:11,
     fontFamily: "WorkSans-Regular", 
     color: '#27c997',
-    justifyContent:'center', 
+    justifyContent: 'center',
   },
-  scrollViewContainer:{
-    alignItems:"stretch", 
-    width:"100%", 
+  scrollViewContainer: {
+    alignItems: 'stretch',
+    width: '100%',
     paddingLeft: '9%',
     paddingRight: '9%',
     flex: 6,
-  },
-  scrollView:{
-    flex: 1,
-  },
-  listItemContainer:{
-    flex: 1,
-    alignItems: 'stretch',
-    height: Dimensions.get('window').height * 0.1,
-    marginTop: '5%',
-  },
-  listItem:{      
-    backgroundColor: '#ffffff',
-    justifyContent:"center",
-    borderWidth: 0,
-    borderBottomWidth: 0,
-  },
-  listItemSymbolRowContiner:{
-    flexDirection:'row', 
-    justifyContent:"center", 
-    marginLeft:'5%'
-  },
-  listItemSymbolText:{
-    fontSize:16,
-    fontFamily: "Cairo-Regular",  
-    alignItems:"flex-start",
-    flex:1,
-    width:'90%',
-    letterSpacing: 0.5,  
-    top: '1%'    
-  },
-  listItemCoinCount:{
-    alignItems:"flex-end",
-    fontSize:16,
-    fontFamily: "WorkSans-Regular",   
-    letterSpacing: 0.5,  
-    top: '3.5%'   
-  },
-  listItemSubtitleContainer:{
-    flexDirection:'row', 
-    justifyContent:"center", 
-    marginLeft:'5%'
-  },
-  lisItemSubtitleName:{
-    fontSize:11, 
-    fontFamily: "Cairo-Light",             
-    alignItems:"flex-start",
-    flex:1,
-    width:'90%',  
-    letterSpacing: 0.4,     
-  },
-  listItemSubtitleValue:{
-    alignItems:"flex-end",
-    fontSize:11,
-    fontFamily: "WorkSans-Light",            
-    paddingRight: '1.75%',
-    letterSpacing: 0.4,     
   },
   btnContainer: {
     alignItems: 'stretch',
     width: '100%',
     justifyContent: 'flex-end',
-    flex:1,
+    flex: 1,
   },
   button: {
     width: '82%',
     height: Dimensions.get('window').height * 0.082,
   },
   footerContainer: {
-    alignItems:"center",
+    alignItems: 'center',
     justifyContent: 'flex-end',
-    flex: 0.5,
+    flex: 1,
   },
   textFooter : {
     fontFamily: "WorkSans-Regular",
-    fontSize: 11,
-    marginBottom: '3.5%',
+    fontSize: RF(1.7),
+    marginBottom: '5%',
     alignItems: 'center' ,
-    color: '#c0c0c0'
+    color: '#c0c0c0',
+    letterSpacing: 0.5
   }
 })
 
@@ -256,10 +277,10 @@ const styles = StyleSheet.create({
  * Method is used  to reterive the newWallet object
  * from the global state variable.
  * Returns an object containing that reterived object
- * @param {Object} param0 
+ * @param {Object} param0
  */
 function mapStateToProps({ newWallet }) {
-  return { newWallet }
+  return { newWallet };
 }
 
-export default connect(mapStateToProps, {addTokenInfo})(Portfolio);
+export default connect(mapStateToProps, { addTokenInfo })(Portfolio);

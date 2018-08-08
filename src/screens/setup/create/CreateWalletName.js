@@ -7,6 +7,8 @@ import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCr
 import LinearButton   from '../../../components/LinearGradient/LinearButton'
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard'
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
+import RF from "react-native-responsive-fontsize"
+
 const ethers = require('ethers');
 
 /**
@@ -52,26 +54,27 @@ class CreateWalletName extends Component {
      */
     render() {
       const {
+        safeAreaView,
         mainContainer,
         textHeader,
+        navContainer,
         contentContainer,
-        cardContainer,
+        boxShadowContainer,
         cardText,
         txtWalletName,
         btnContainer,
         button,
+        defaultGreenColor,
         footerGrandparentContainer,
         footerParentContainer,
         textFooter,
       } = styles;
-      console.log(this.props.debugMode);
-      
-
+     
       return (
-        <SafeAreaView style={styles.safeAreaView}>
+        <SafeAreaView style={safeAreaView}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={styles.mainContainer} >
-                    <View style={styles.navContainer}>        
+                <View style={mainContainer} >
+                    <View style={navContainer}>        
                         <BackWithMenuNav
                             showMenu={false}
                             showBack={true}
@@ -79,12 +82,15 @@ class CreateWalletName extends Component {
                             backPage={'createOrRestore'}
                         />
                     </View>                    
-                    <Text style={styles.textHeader} >Wallet Name</Text>
-                    <View style={styles.boxShadowContainer}>
-                        <View style={styles.contentContainer}>
+                    <Text style={textHeader} >Wallet Name</Text>
+                    <View style={boxShadowContainer}>
+                        <View style={contentContainer}>
                             <BoxShadowCard>
                                 <Text style={styles.cardText}>
-                                    Create a name for your wallet, for example: My Wallet
+                                    Create a name for your wallet, for example: 
+                                    <Text style={defaultGreenColor}>
+                                        My Wallet
+                                    </Text>
                                 </Text>
                                 <FormInput
                                     placeholder={'Ex. My Wallet'}
@@ -101,9 +107,9 @@ class CreateWalletName extends Component {
                             customStyles={button}
                             buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
                         />
-                        <View style={styles.footerGrandparentContainer} >    
-                            <View style={styles.footerParentContainer} >
-                                <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
+                        <View style={footerGrandparentContainer} >    
+                            <View style={footerParentContainer} >
+                                <Text style={textFooter} >Powered by ChainSafe </Text> 
                             </View>  
                         </View> 
                     </View>                   
@@ -126,7 +132,7 @@ const styles = StyleSheet.create({
         width: '100%',   
     },
     navContainer: {
-        flex: 0.75,
+        flex: 0.65,
     },
     boxShadowContainer: {
         alignItems: 'center', 
@@ -134,11 +140,11 @@ const styles = StyleSheet.create({
     },
     textHeader: {
         fontFamily: 'Cairo-Light',
-        fontSize: 26,
+        fontSize: RF(4),
         letterSpacing: 0.8,
         paddingLeft: '9%',
         color: '#1a1f3e',
-        flex: 0.75, 
+        flex: 0.65, 
     },
     contentContainer: {
         flex: 1,
@@ -153,14 +159,14 @@ const styles = StyleSheet.create({
         color: '#000000',
         lineHeight: 22,
         letterSpacing: 0.4,
-        fontSize: 16,
+        fontSize: RF(2.4),
     },
     txtWalletName: {
         width: '100%',
         flexWrap: 'wrap',
         color: '#12c1a2',
         letterSpacing: 0.4,
-        fontSize: 16,
+        fontSize: RF(2.4),
         fontFamily: 'WorkSans-Regular',  
     },
     btnContainer: {
@@ -175,16 +181,20 @@ const styles = StyleSheet.create({
     },
     footerGrandparentContainer: {
         alignItems: 'center',
-        marginBottom: '3%',
-        marginTop: '3%',
+        marginBottom: '5%',
+        marginTop: '5%',
     },
     footerParentContainer: {
         alignItems: 'center',
     },
     textFooter: {
         fontFamily: 'WorkSans-Regular',
-        fontSize: 11,
+        fontSize: RF(1.7),
         color: '#c0c0c0',
+        letterSpacing: 0.5
+    },
+    defaultGreenColor: {
+        color: '#12c1a2'
     },
 })
 

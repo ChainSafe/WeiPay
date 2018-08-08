@@ -7,6 +7,7 @@ import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCr
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
+import RF from "react-native-responsive-fontsize"
 
 /**
  * Initial setup screen used to allow the user to give their wallet a name after
@@ -49,14 +50,16 @@ class CreateWalletName extends Component {
      */
     render() {
       const {
-        mainContainer,
         safeAreaView,
+        mainContainer,
+        navContainer,
         textHeader,
+        boxShadowContainer,
         contentContainer,
-        cardContainer,
         cardText,
         txtWalletName,
         btnContainer,
+        defaultGreenColor,
         button,
         footerGrandparentContainer,
         footerParentContainer,
@@ -67,7 +70,7 @@ class CreateWalletName extends Component {
         <SafeAreaView style={safeAreaView}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={mainContainer}>
-                <View style={styles.navContainer}>        
+                <View style={navContainer}>        
                   <BackWithMenuNav
                       showMenu={false}
                       showBack={true}
@@ -76,11 +79,14 @@ class CreateWalletName extends Component {
                     />
                 </View>
                 <Text style={textHeader}>Wallet Name</Text>
-                <View style={styles.boxShadowContainer}>
+                <View style={boxShadowContainer}>
                   <View style={contentContainer}>
                       <BoxShadowCard>
                           <Text style={cardText}>
-                              Create a name for your wallet, for example: My Wallet
+                              Create a name for your wallet, for example: 
+                              <Text style={defaultGreenColor}>
+                                My Wallet
+                              </Text>
                           </Text>
                           <FormInput
                               placeholder={'Ex. My Wallet'}
@@ -96,7 +102,6 @@ class CreateWalletName extends Component {
                       buttonText= 'Next'
                       customStyles={button}
                       buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
-
                   />
                   <View style={footerGrandparentContainer}>
                       <View style={footerParentContainer} >
@@ -126,7 +131,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   navContainer: {
-    flex: 0.75,
+    flex: 0.65,
   },
   boxShadowContainer: {
     alignItems: 'center', 
@@ -134,18 +139,15 @@ const styles = StyleSheet.create({
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
-    fontSize: 26,
+    fontSize: RF(4),
     letterSpacing: 0.8,
     paddingLeft: '9%',
-    color: '#1a1f3e',
-    flex: 0.75, 
+    color: 'black',
+    flex: 0.65, 
   },
   contentContainer: {
     width: '82%',
     flex: 1,
-  },
-  cardContainer: {
-    width: '82%',
   },
   cardText: {
     paddingBottom: '20%',
@@ -153,11 +155,13 @@ const styles = StyleSheet.create({
     paddingLeft: '7.5%',
     paddingRight: '7.55%',
     fontFamily: 'WorkSans-Light',
+    letterSpacing: 0.4,
     color: '#000000',
-    fontSize: 16,
+    fontSize: RF(2.4),
   },
   txtWalletName: {
     width: '100%',
+    fontSize: RF(2.4),
     flexWrap: 'wrap',
     color: '#12c1a2',
     letterSpacing: 0.4,
@@ -175,16 +179,20 @@ const styles = StyleSheet.create({
   },
   footerGrandparentContainer: {
     alignItems: 'center',
-    marginBottom: '3%',
-    marginTop: '3%',
+    marginBottom: '5%',
+    marginTop: '5%',
   },
   footerParentContainer: {
     alignItems: 'center',
   },
   textFooter: {
     fontFamily: 'WorkSans-Regular',
-    fontSize: 11,
+    fontSize: RF(1.7),
     color: '#c0c0c0',
+    letterSpacing: 0.5
+  },
+  defaultGreenColor: {
+    color: '#12c1a2',
   },
 });
 
