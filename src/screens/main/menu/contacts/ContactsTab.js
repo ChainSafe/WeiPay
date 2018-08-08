@@ -5,16 +5,16 @@ import { Icon, Button, FormLabel, FormInput, FormValidationMessage, List, ListIt
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import AddFirstContact from './add/AddFirstContact';
-import ContactBackWithMenuNav from "../../../../components/customPageNavs/ContactBackWithMenuNav"
+import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
 import ContactTabNavigator from '../../../../components/customPageNavs/ContactTabNavigator'
-import ContactsTab from './ContactsTab'
-import AddContact from './add/AddContact'
+import SelectedContact from './SelectedContact'
+
 
 /**
  * Screen that displays all the contacts that have been added to
  * the wallet
  */
-class Contacts extends Component {
+class ContactsTab extends Component {
 
   /**
    * Sets the screen title to "Contacts".
@@ -38,8 +38,8 @@ class Contacts extends Component {
     super(props)
     this.state = {
       active: true,
-      tab: 'contacts',
-      selectedContact: false
+      selectedContact: false,
+      contact: null
     }
   }
 
@@ -74,31 +74,19 @@ class Contacts extends Component {
    * properties in the "user" object parameter.
    *
    * @param {Object} user
-   */
-  navigate = (user) => {
-    let addresses = user.contactAddress
-    const navigateToCreateOrRestore = NavigationActions.navigate({
-      routeName: 'contactAddresses',
-      params: { addresses }
-    });
-    this.props.navigation.dispatch(navigateToCreateOrRestore);
-  };
-
-  displayContactTab() {
-    if (this.state.tab === 'contacts'){
-      return (
-        <ContactsTab
-          setAddContact={() => this.setState({ tab: 'addcontact' })}
-          navigation={this.props.navigation}
-          selectedContact={this.state.selectedContact}
-          selectedContactTrue={() => this.setState({ selectedContact: true})}
-        />
-      )
-    }
-    if (this.state.tab === 'addcontact'){
-      return <AddContact navigation={this.props.navigation} />
-    }
-  }
+  //  */
+  // navigate = (user) => {
+  //   let addresses = user.contactAddress
+  //   let name = user.name
+  //   let tokenName = user.tokenName
+  //
+  //   const navigateToCreateOrRestore = NavigationActions.navigate({
+  //     routeName: 'contactAddresses',
+  //     params: { addresses, name, tokenName  }
+  //   });
+  //
+  //   this.props.navigation.dispatch(navigateToCreateOrRestore);
+  // };
 
   /**
    * Method is used to create an interactable item for the listView specific to
@@ -106,43 +94,49 @@ class Contacts extends Component {
    *
    * @param {Object} user
    */
-  renderRow = (user) => {
+  renderRow = () => {
     return (
-      <View style={{marginTop:'3%'}}>
-        <ListItem
-          key={user.name}
-          title={
-            <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
-              <Text style={{
-                fontSize:16,
-                fontFamily: "Cairo-Regular",
-                alignItems:"flex-start",
-                flex:1,
-                width:'90%',
-                letterSpacing: 0.5,
-                top: '1%'
-              }}>
-                {user.name}
-              </Text>
+      this.props.contacts.map(contact =>
+        <View style={{marginTop:'3%'}} key={contact.name}>
+          <ListItem
+            key={contact.name}
+            title={
+              <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
+                <Text style={{
+                  fontSize:16,
+                  fontFamily: "Cairo-Regular",
+                  alignItems:"flex-start",
+                  flex:1,
+                  width:'90%',
+                  letterSpacing: 0.5,
+                  top: '1%'
+                }}>
+                  {contact.name}
+                </Text>
 
-            </View>
-          }
-          containerStyle = {{
-            borderRadius: 10,
-            width: '90%',
-            height: 55,
-            backgroundColor: '#ffffff',
-            justifyContent:"center",
-            borderWidth:0.5,
-            borderColor: '#F8F8FF',
-            shadowColor: '#F8F8FF',
-            shadowOffset: { width: 1, height: 1},
-            shadowOpacity:20,
-            shadowRadius: 10,
-          }}
-          onPress={() => this.navigate(user)}
-        />
-      </View>
+              </View>
+            }
+            containerStyle = {{
+              borderRadius: 10,
+              width: '90%',
+              height: 55,
+              backgroundColor: '#ffffff',
+              justifyContent:"center",
+              borderWidth:0.5,
+              borderColor: '#F8F8FF',
+              shadowColor: '#F8F8FF',
+              shadowOffset: { width: 1, height: 1},
+              shadowOpacity:20,
+              shadowRadius: 10,
+            }}
+            onPress={
+              () => {
+                this.props.selectedContactTrue()
+                this.setState({ contact })
+              }}
+          />
+        </View>
+      )
     )
   }
 
@@ -151,31 +145,18 @@ class Contacts extends Component {
    * variable is greater than 0.
    */
   render() {
+    const show = this.props.contacts.length === 0 ?
+        <AddFirstContact setAddContact={this.props.setAddContact}/>
+      : this.props.selectedContact === true ?
+        <SelectedContact contact={this.state.contact} navigation={this.props.navigation}/>
 
-
-      return (
-        <View style={styles.mainContainer}>
-          <ContactBackWithMenuNav
-            showMenu={true}
-            showBack={this.state.selectedContact}
-            navigation={this.props.navigation}
-            backPage={"mainStack"}
-            backButton={() => this.setState({ selectedContact: false })}
-          />
-          <ContactTabNavigator
-            Active={this.state.active}
-            navigation={this.props.navigation}
-            setContact={() => this.setState({ tab: 'contacts' })}
-            setAddContact={() => this.setState({ tab: 'addcontact' })}
-            tab={this.state.tab}
-          />
-          {this.displayContactTab()}
-
-          <View style={{ alignItems:'center', marginTop: '-5%', flex: 0.08, }} >
-            <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-          </View>
+      :
+        <View style={styles.list}>
+          {this.renderRow()}
         </View>
-      )
+
+
+      return show
   }
 }
 
@@ -206,13 +187,9 @@ const styles = StyleSheet.create({
     marginLeft: '0.25%',
   },
   list: {
+    marginTop: '4%',
+    flex: 1,
     marginLeft: '9%'
-  },
-  textFooter : {
-    fontFamily: "WorkSans-Regular",
-    fontSize: 11,
-    marginTop: '3.5%',
-    color: '#c0c0c0'
   }
 })
 
@@ -225,4 +202,4 @@ function mapStateToProps({ contacts }) {
   return { contacts: contacts.contacts }
 }
 
-export default connect(mapStateToProps)(Contacts);
+export default connect(mapStateToProps)(ContactsTab);

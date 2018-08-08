@@ -94,10 +94,11 @@ export function addingContact(contact) {
  * @param {String} contactName
  * @param {Object} contactAddress
  */
-export function completeContact(contactName, contactAddress) {
+export function completeContact(contactName, contactAddress, tokenName) {
   const contact = {};
   contact.name = contactName;
   contact.contactAddress = contactAddress;
+  contact.tokenName = tokenName
 
   return (dispatch) => {
     dispatch({ type: actionTypes.COMPLETE_CONTACT, payload: contact });
@@ -148,4 +149,3 @@ export function enterDebug() {
     dispatch({ type: actionTypes.DEBUG_MODE, payload: '' });
   };
 }
-

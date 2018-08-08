@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import { Button } from 'react-native-elements';
-
+import { Text, View, StyleSheet, Dimensions } from 'react-native';
+import { Button, Card } from 'react-native-elements';
+import LinearButton from '../../../../../components/LinearGradient/LinearButton'
+import BoxShadowCard from '../../../../../components/ShadowCards/BoxShadowCard'
 /**
  * React-Native
  * Temporary Screen used until a contact is added
@@ -14,20 +15,24 @@ class AddFirstContact extends Component {
    */
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.fontStyle}>
-          You can save your friend's cryptocurrency addresses for fast, easy transactions
-        </Text>
-        <Button
-          title='Add your first contact'
-          icon={{ size: 28 }}
-          buttonStyle={{
-            backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100, width: 300,
-            height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginBottom: 5, marginTop: 5.5
-          }}
-          textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
-          onPress={() => this.props.navigate('addContact')}
-        />
+      <View style={styles.mainContainer}>
+        <View style={{flex: 1}} />
+        <View style={styles.contentContainer} >
+          <BoxShadowCard>
+            <Text style={styles.cardText}>
+              You can save your friend's cryptocurrency addresses for fast, easy transactions
+            </Text>
+          </BoxShadowCard>
+        </View>
+
+        <View style={styles.btnContainer}>
+          <LinearButton
+            onClickFunction={this.props.setAddContact}
+            buttonText="Add your first contact"
+            customStyles={styles.button}
+          />
+        </View>
+
       </View>
     )
   }
@@ -37,25 +42,39 @@ class AddFirstContact extends Component {
  * Styles used in the temporary screen used before any contact has been added
  */
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
     flex: 1,
+    paddingTop: '5%',
+    backgroundColor: "#fafbfe",
+    width: '100%',
+    height: '100%',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
-  fontStyle: {
-    fontSize: 17,
-    padding: 5,
-    textAlign: 'center'
+  contentContainer : {
+    width: '82%',
+    flex: 1.3,
+    justifyContent: 'center'
   },
-  buttonStyle: {
-    backgroundColor: 'blue',
-    borderRadius: 10,
-    width: 225,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 5.5,
-    marginTop: 5.5
+  cardText : {
+    paddingBottom: '5%',
+    paddingTop: '12%',
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    fontFamily: "WorkSans-Light",
+    color: '#000000',
+    fontSize: 16,
+  },
+  btnContainer: {
+    flex: 1.6,
+    alignItems: 'stretch',
+    width: '100%',
+    justifyContent: 'flex-end',
+    marginBottom: '2%'
+  },
+  button: {
+    width: '82%',
+    height: Dimensions.get('window').height * 0.082
   }
 })
 

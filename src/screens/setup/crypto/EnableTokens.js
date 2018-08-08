@@ -37,7 +37,7 @@ class EnableCrypto extends Component {
         mainContainer,
         headerContainer,
         textHeader,
-        coinListContainer,      
+        coinListContainer,
         btnContainer,
         button,
         footerGrandparentContainer,
@@ -50,7 +50,7 @@ class EnableCrypto extends Component {
             <View style={mainContainer}>
               <View style={headerContainer}>
                  <Text style={textHeader}>Enable Tokens </Text>
-              </View>              
+              </View>
               <View style={coinListContainer}>
                   <ScrollView >
                       <CoinList />
@@ -67,7 +67,7 @@ class EnableCrypto extends Component {
                         <Text style={textFooter} >Powered by ChainSafe </Text>
                     </View>
                 </View>
-              </View>              
+              </View>
             </View>
         </SafeAreaView>
       );
@@ -79,7 +79,7 @@ class EnableCrypto extends Component {
  */
 const styles = StyleSheet.create({
   safeAreaView: {
-    flex: 1, 
+    flex: 1,
     backgroundColor: '#fafbfe'
   },
   mainContainer: {
@@ -87,8 +87,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafbfe',
   },
   headerContainer: {
-    flex: 1, 
-    justifyContent: "center"
+    flex:1,
+    justifyContent:"flex-end"
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
@@ -106,10 +106,17 @@ const styles = StyleSheet.create({
   btnContainer: {
     flex: 1,
     width: '100%',
+    flex:1
   },
   button: {
     width: '82%',
-    height: Dimensions.get('window').height * 0.082,  
+    height: Dimensions.get('window').height * 0.082,
+  },
+  footerGrandparentContainer: {
+    alignItems: 'center',
+    // backgroundColor:"yellow",
+    marginBottom: '2.5%',
+    marginTop: '2.5%'
   },
   footerGrandparentContainer: {
     alignItems: 'center',
@@ -125,6 +132,16 @@ const styles = StyleSheet.create({
     color: '#c0c0c0',
     letterSpacing: 0.5
   },
+  // footerContainer: {
+  //   alignItems: 'center',
+  // },
+  // textFooter: {
+  //   fontFamily: 'WorkSans-Regular',
+  //   fontSize: 11,
+  //   marginBottom: '3.5%',
+  //   alignItems: 'center',
+  //   color: '#c0c0c0',
+  // },
 });
 
 /**

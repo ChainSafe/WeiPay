@@ -32,7 +32,7 @@ class CoinListItem extends Component {
   renderPress(coin) {
     if (this.state.totalTaps == 0) {
       this.props.addTokenToSetup(coin);
-      this.setState({ checked: !(this.state.checked), totalTaps: 1 });  
+      this.setState({ checked: !(this.state.checked), totalTaps: 1 });
     } else if (this.state.totalTaps == 1) {
       this.setState({ totalTaps: 2 })
     }else if (this.state.totalTaps == 2) {
@@ -43,9 +43,9 @@ class CoinListItem extends Component {
 
   /**
    * Determines the right icon of the list item
-   * @param {Object} coin 
+   * @param {Object} coin
    */
-  renderStatePicture(coin) {    
+  renderStatePicture(coin) {
     if (coin.selected == false) {
       return require('../../assets/images/add2.png')
     }else if (this.state.totalTaps == 1 && (coin.selected)) {
@@ -57,7 +57,7 @@ class CoinListItem extends Component {
 
   /**
    * Determines the container border styling of the list item
-   * @param {Object} coin 
+   * @param {Object} coin
    */
   renderBoxContainerStyling(coin) {
     if (this.state.totalTaps == 1 && (coin.selected)) {
@@ -73,8 +73,10 @@ class CoinListItem extends Component {
    */
   render() {
     const { coin } = this.props;
-    
+
     return (
+
+
       <View style={styles.listItemParentContainer}>
         <TouchableOpacity
           onPress={() => {return this.renderPress(coin)}}>
@@ -105,7 +107,7 @@ class CoinListItem extends Component {
                       style={{
                         height: Dimensions.get('window').height * 0.035,
                         width: Dimensions.get('window').width * 0.035,
-                        justifyContent: 'center' } }
+                      justifyContent: 'center' } }
                       source={this.renderStatePicture(coin)}
                     />
                   </View>
@@ -113,7 +115,7 @@ class CoinListItem extends Component {
               </View>
             </BoxShadowCard>
           </View>
-        </TouchableOpacity >
+        </TouchableOpacity>
       </View>
     );
   }
