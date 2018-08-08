@@ -31,7 +31,7 @@ class Portfolio extends Component {
   }
 
   navigate = () => {
-    const navigateToAddToken = NavigationActions.navigate({ routeName: "AddCoin" });
+    const navigateToAddToken = NavigationActions.navigate({ routeName: "Tokens" });
     this.props.navigation.dispatch(navigateToAddToken);
   };
 
