@@ -50,7 +50,7 @@ const navigator = DrawerNavigator({
       },
     }),
   },
-  backupPhrase: { screen: BackupPhrase },
+  Backup: { screen: BackupPhrase },
   Contacts: {
     screen: StackNavigator({
       contacts: { screen: Contacts },
@@ -60,8 +60,7 @@ const navigator = DrawerNavigator({
       headerMode: 'none',
     }),
   },
-  AddToken: { screen: AddToken },
-  AddCoin: { screen: AddCoin },
+  Tokens: { screen: AddToken },
 }, {
   headerMode: 'none',
   lazy: true,
