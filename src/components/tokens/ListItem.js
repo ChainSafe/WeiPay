@@ -87,26 +87,23 @@ class CoinListItem extends Component {
                 <View style={styles.imgMainContainer} >
                   <View style={styles.imageContainer} >
                     <Image
-                      style={styles.img}
-                      // source={require('../../assets/images/eth.png') }
+                      style={styles.img}            
                       source={{ uri: coin.logo.src} }
                     />
                   </View>
                 </View>
-                <View style={{ flex: 4, backgroundColor:"red"  }}>
-                  <View style={{ justifyContent: 'center', flex: 1 }}>
-                    <Text style={styles.mainTitleText} >{coin.symbol}</Text>
-                    <Text style={styles.subTitleText} >{coin.name}</Text>
-
-                    {/* <View style={styles.mainTitleContainer}>
+                <View style={{ flex: 4  }}>
+                  <View style={{ justifyContent: 'center', flex: 1 }}>                       
+                    <View style={styles.mainTitleContainer}>
                       <Text style={styles.mainTitleText} >{coin.symbol}</Text>
                     </View>
                     <View style={styles.subtitleContainer}>
                       <Text style={styles.subTitleText} >{coin.name}</Text>
-                    </View> */}
+                    </View>
+                   
                   </View>
                 </View>
-                <View style={{ flex: 1, backgroundColor:'purple'}}>
+                <View style={{ flex: 1 }}>
                   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <Image
                       style={{
@@ -164,13 +161,12 @@ const styles = StyleSheet.create({
   mainTitleContainer: {
     flex: 0.5,
     justifyContent: 'flex-end',
-    paddingTop: '1.5%',
+    // backgroundColor: "purple"
   },
-
   subtitleContainer: {
     flex: 0.5,
     justifyContent: 'flex-start',
-    paddingBottom: '1.5%',
+    // backgroundColor: "yellow"
   },
   mainTitleText: {
     fontSize: RF(3),
