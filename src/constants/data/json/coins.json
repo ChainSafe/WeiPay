@@ -1,5 +1,6 @@
 [
     {
+        "id": 0,
         "type": "PortfolioCoin",
         "selected": false,
         "symbol": "ETH",
@@ -35,6 +36,7 @@
         }
     },
     {
+        "id": 1,
         "type": "ERC20",
         "selected": false,
         "symbol": "TRX",
@@ -70,6 +72,7 @@
         }
     },
     {
+        "id": 2,
         "type": "ERC20",
         "selected": false,
         "symbol": "BNB",
@@ -105,6 +108,7 @@
         }
     },
     {
+        "id": 3,
         "type": "ERC20",
         "selected": false,
         "symbol": "SUB",
