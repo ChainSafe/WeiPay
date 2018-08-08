@@ -147,7 +147,6 @@ const styles = StyleSheet.create({
   imgMainContainer: {
     flex: 1.25,
     alignItems: 'center',
-    // backgroundColor: "blue"
   },
   imageContainer: {
     flex: 1,
@@ -161,12 +160,10 @@ const styles = StyleSheet.create({
   mainTitleContainer: {
     flex: 0.5,
     justifyContent: 'flex-end',
-    // backgroundColor: "purple"
   },
   subtitleContainer: {
     flex: 0.5,
     justifyContent: 'flex-start',
-    // backgroundColor: "yellow"
   },
   mainTitleText: {
     fontSize: RF(3),
