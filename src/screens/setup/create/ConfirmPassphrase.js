@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Dimensions, SafeAreaView } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Dimensions, SafeAreaView, Alert } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
@@ -66,9 +66,11 @@ class ConfirmPassphrase extends Component {
 
     addWord(wordItem, scrambledListIndex) {
       this.setState((prevState) => {
-        prevState.scrambledTags[scrambledListIndex].selected = true;
-        prevState.selectedTags.push({ 'wordItem': wordItem, 'scrambledWordIndex': scrambledListIndex });
-        return prevState;
+        if(!prevState.scrambledTags[scrambledListIndex].selected) {
+          prevState.scrambledTags[scrambledListIndex].selected = true;
+          prevState.selectedTags.push({ 'wordItem': wordItem, 'scrambledWordIndex': scrambledListIndex });
+          return prevState;
+        }       
       });
     }
 
@@ -78,6 +80,40 @@ class ConfirmPassphrase extends Component {
         prevState.selectedTags.splice(appendedWordIndex, 1);
         return prevState;
       });
+    }
+
+    validatePassphrase = () => {
+      const { scrambledTags, selectedTags } = this.state;
+      var passphraseIncomplete = true;
+      var count = 0;
+      if(selectedTags.length == 12) {
+        for(let i = 0; i < selectedTags.length; i++) {       
+          if(selectedTags[i].wordItem.index == i) {
+            count++;
+          }
+        }
+        if(count == 12) {
+          this.navigate();
+        } else {
+          Alert.alert(
+            'Passphrase Error',
+            'You did not enter the right passphrase in the correct order. Please try again.',
+            [
+                { text: 'OK', onPress: () => console.log('OK Pressed') },
+            ],
+            { cancelable: false }
+          )
+        }
+      } else {
+          Alert.alert(
+            'Passphrase Error',
+            'You have no selected all of the words within the passphrase. Please complete ordering all words',
+            [
+                { text: 'OK', onPress: () => console.log('OK Pressed') },
+            ],
+            { cancelable: false }
+        )
+      }
     }
 
     /**
@@ -116,7 +152,7 @@ class ConfirmPassphrase extends Component {
                 showMenu={false}
                 showBack={true}
                 navigation={this.props.navigation}
-                backPage={'createWalletName'}
+                backPage={'generatePassphrase'}
               />
           </View>
           <Text style={textHeader}>Confirm Passphrase</Text>           
@@ -164,7 +200,7 @@ class ConfirmPassphrase extends Component {
             </View>
             <View style={btnContainer}>
                 <LinearButton
-                    onClickFunction={this.navigate}
+                    onClickFunction={this.validatePassphrase}
                     buttonText= 'Next'
                     customStyles={button}
                     // buttonStateEnabled={this.state.buttonDisabled}
