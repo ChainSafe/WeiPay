@@ -8,6 +8,7 @@ import { CardSection } from '../../../../components/common/CardSection';
 import { getQRCodeData } from '../../../../actions/ActionCreator'
 import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
 import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard'
+import LinearButton from '../../../../components/LinearGradient/LinearButton';
 
 class ContactAddresses extends Component {
   componentWillMount() {
@@ -28,10 +29,10 @@ class ContactAddresses extends Component {
   }
 
   navigate = address => {
-  
+
     const navigateToCreateOrRestore = NavigationActions.navigate({
-      routeName: 'coinSend',
-      params: { address }
+      routeName: 'editContact',
+      params: { contact: this.props.contact }
     });
     this.props.navigation.dispatch(navigateToCreateOrRestore);
   };
@@ -89,6 +90,14 @@ class ContactAddresses extends Component {
           <ScrollView style={styles.scrollView} >
             <ListView dataSource={this.dataSource} renderRow={this.renderRow.bind(this)} removeClippedSubviews={false}  />
           </ScrollView>
+
+        </View>
+        <View style={styles.btnContainer}>
+          <LinearButton
+            buttonText='Edit Contact'
+            customStyles={styles.button}
+            onClickFunction={this.navigate}
+          />
         </View>
       </View>
     )
@@ -125,6 +134,14 @@ const styles = StyleSheet.create({
   },
   scrollView:{
     flex: 1,
+  },
+  btnContainer: {
+    flex: 1,
+    width: '100%'
+  },
+  button: {
+    width: '82%',
+    height: Dimensions.get('window').height * 0.082,
   },
 })
 

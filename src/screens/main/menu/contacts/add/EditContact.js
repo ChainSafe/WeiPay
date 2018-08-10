@@ -18,7 +18,7 @@ import RNPickerSelect from 'react-native-picker-select';
  * This screen is used to add a new contact to the wallet contact list.
  *
  */
-class AddContact extends Component {
+class EditContact extends Component {
 
   /**
    * Initializes the current token list stored in state as the datasource
@@ -28,22 +28,16 @@ class AddContact extends Component {
    * @param {Object} props
    */
   constructor(props) {
+
     super(props);
-    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
-    let contactNameHolder = ""
-    let contactAddressHolder = {}
-
-    // if ("ContactAddresses" in this.props.currentContact) {
-    //   contactAddressHolder = this.props.currentContact.ContactAddresses
-    //   contactNameHolder = this.props.currentContact.name
-    // } else {
-    //   this.props.tokens.map(token => contactAddressHolder[token.title] = "")
-    //   this.renderAddContact = this.renderAddContact.bind(this);
-    // }
 
     let tokens = []
     this.inputRefs = {};
+    let contact = props.navigation.state.params.contact
+    let contactName = contact.name
+    let contactAddress = contact.contactAddress
+
     this.props.tokens.map(token => {
       let tokenName = {}
       tokenName.value = token.title
@@ -54,8 +48,8 @@ class AddContact extends Component {
     this.state = {
       disabled: true,
       clear: false,
-      contactName: contactNameHolder,
-      contactAddress: {},
+      contactName,
+      contactAddress,
       tokenName: undefined,
       tokens,
       contactAddressInput: ""
@@ -105,14 +99,14 @@ class AddContact extends Component {
    * @param {String} coinName
    * @param {Object} coin
    */
-  // renderAddress(address, coinName, coin) {
-  //   let copy = Object.assign({}, this.state.contactAddress)
-  //   copy[coinName] = address
-  //   this.setState({ contactAddress: copy })
-  //   var coinAddress = {}
-  //   coinAddress[coinName] = address
-  //   this.props.addingContact(coinAddress)
-  // }
+  renderAddress(address, coin) {
+    let copy = Object.assign({}, this.state.contactAddress)
+    copy[coinName] = address
+    this.setState({ contactAddress: copy })
+    var coinAddress = {}
+    coinAddress[coinName] = address
+    this.props.addingContact(coinAddress)
+  }
 
   navigate = () => {
     const navigateToQrScanner = NavigationActions.navigate({
@@ -133,19 +127,20 @@ class AddContact extends Component {
     });
   }
 
-  _toggleModal = () =>
-    this.setState({ isModalVisible: !this.state.isModalVisible });
 
-  addContact() {
-
-    this.props.completeContact(this.state.contactName, this.state.contactAddress, this.state.tokenName);
+  editContact() {
+    this.props.editContact(this.state.contactName, this.state.contactAddress);
     this.setState({ contactName: "" })
-    this.setState({ contactAddressInput: "" })
+    let newcontactAddress = {}
+    this.props.tokens.map(token => newcontactAddress[token.title] = "")
+    this.setState({ contactAddress: newcontactAddress })
   }
 
   clear() {
     this.setState({ contactName: "" })
-    this.setState({ contactAddressInput: "" })
+    let newcontactAddress = {}
+    this.props.tokens.map(token => newcontactAddress[token.title] = "")
+    this.setState({ contactAddress: newcontactAddress })
   }
 
   addAnotherCoinAddress() {
@@ -156,8 +151,9 @@ class AddContact extends Component {
   renderAddress(address) {
     let copy = Object.assign({}, this.state.contactAddress)
     copy[this.state.tokenName] = address
-    this.setState({ contactAddressInput: address })
     this.setState({ contactAddress: copy })
+    this.setState({ contactAddressInput: address })
+
   }
 
   /**
@@ -167,13 +163,20 @@ class AddContact extends Component {
     return (
       <View style={styles.mainContainer}>
         <View style={{flex: 0.2}} />
+        <BackWithMenuNav
+          showMenu={true}
+          showBack={this.state.selectedContact}
+          navigation={this.props.navigation}
+          backPage={"contacts"}
+          showBack={true}
+        />
         <View style={styles.contentContainer} >
-          <BoxShadowCard style={{ padding: '130%' }}>
+          <BoxShadowCard style={{ padding: '160%' }}>
             <Text style={styles.cardText}>
               Add contact by scanning QR code, or pasting in contact's WeiPay Address
             </Text>
 
-            <View style={{flex: 1}}>
+            <View style={{backgroundColor: 'none'}}>
               <FormInput
                 placeholder={"Contact's Name"}
                 onChangeText={name => this.setState({ contactName: name})}
@@ -181,13 +184,13 @@ class AddContact extends Component {
                 value={this.state.contactName}
               />
             </View>
-            <View style={{flex: 1, marginLeft: '7%'}}>
+            <View style={{marginLeft: '5%', marginTop: '5%'}}>
               <Image
                 source={require('../../../../../assets/icons/barcode.png')}
-                style={{flex: 1, width: '20%', }}
+                style={{height: 70, width: 70}}
               />
             </View>
-            <View style={{flex: .8}}>
+            <View style={{backgroundColor: 'none', marginRight: '5%'}}>
               <RNPickerSelect
                 placeholder={{
                     label: 'Coin Type',
@@ -207,37 +210,34 @@ class AddContact extends Component {
                 }}
               />
             </View>
-            <View style={{flex: 1}}>
+            <View style={{ backgroundColor: 'none'}}>
               <FormInput
                 placeholder={"WeiPay Address"}
                 onChangeText={ address => this.renderAddress(address)}
                 inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2'}}
-                value={this.state.contactAddressInput}
+                value={this.state.contactAddress[this.state.tokenName]}
                 editable={!!this.state.tokenName}
               />
             </View>
           </BoxShadowCard>
         </View>
-        <View style={{flex: 0.2}} />
-        <View style={styles.anotherCoinContainer} >
-          <TouchableOpacity onPress={this.addAnotherCoinAddress.bind(this)} disabled={!this.state.tokenName}>
-            <BoxShadowCard>
-              <Text style={styles.cardText}>+ Add another coin address</Text>
-            </BoxShadowCard>
-          </TouchableOpacity>
-        </View>
-        <View style={{flex: 0.1}} />
-        <View style={styles.btnContainer}>
-          <ClearButton
-            buttonText='Clear'
-            onClickFunction={this.clear.bind(this)}
-            customStyles={styles.clearButton}
-          />
-          <LinearButton
-            buttonText='Add Contact'
-            onClickFunction={this.addContact.bind(this)}
-            customStyles={styles.addButton}
-          />
+
+        <View style={{flex: 0.6, justifyContent: 'flex-end'}}>
+          <View style={styles.btnContainer}>
+            <ClearButton
+              buttonText='Clear'
+              onClickFunction={this.clear.bind(this)}
+              customStyles={styles.clearButton}
+            />
+            <LinearButton
+              buttonText='Edit Contact'
+              onClickFunction={this.editContact.bind(this)}
+              customStyles={styles.addButton}
+            />
+          </View>
+          <View style={{ alignItems:'center', marginTop: '-5%', flex: .3, }} >
+            <Text style={styles.textFooter} >Powered by ChainSafe </Text>
+          </View>
         </View>
       </View>
     );
@@ -267,7 +267,7 @@ const styles = StyleSheet.create({
   },
   contentContainer : {
     alignItems: 'center',
-    flex: 2,
+    flex: 1.6,
     width: '82%',
   },
   anotherCoinContainer: {
@@ -299,7 +299,7 @@ const styles = StyleSheet.create({
     width: '80%',
     justifyContent: 'flex-end',
     marginLeft: '1.5%',
-    marginBottom: '8%'
+    marginBottom: '8%',
   },
   modal: {
      height: '40%',
@@ -340,51 +340,4 @@ const mapStateToProps = ({ contacts, newWallet }) => {
   }
 }
 
-export default connect(mapStateToProps, actions)(AddContact)
-
-        // <ScrollView style={{ height: '75%' }} >
-        //   <View style={styles.contentContainer} >
-        //     <BoxShadowCard>
-        //       <Text style={styles.cardText}>
-        //         Add contact by scanning QR code, or pasting in contact's WeiPay Address
-        //       </Text>
-        //     </BoxShadowCard>
-        //   </View>
-        //   <AddContactList
-        //     contactName={this.state.contactName}
-        //     dataSource={this.state.dataSource}
-        //     renderAddress={this.renderAddress.bind(this)}
-        //     renderName={this.renderName.bind(this)}
-        //     contactAddress={this.state.contactAddress}
-        //     navigate={this.props.navigation.navigate}
-        //   />
-        // </ScrollView>
-                // <View style={styles.container}>
-                //   <View style={styles.buttonContainer}>
-                //     <Button
-                //       small
-                //       disabled={this.state.contactName === "" || this.isEmptyObject(this.state.contactAddress)}
-                //       title='Add Contact'
-                //       icon={{ size: 20 }}
-                //       buttonStyle={{
-                //         backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100,
-                //         height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginBottom: 5, marginTop: 5.5
-                //       }}
-                //       textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
-                //       onPress={() => this.renderAddContact()}
-                //     />
-                //   </View>
-                //   <View style={styles.buttonContainer}>
-                //     <Button
-                //       small
-                //       title='Clear'
-                //       icon={{ size: 20 }}
-                //       buttonStyle={{
-                //         backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100,
-                //         height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginBottom: 5, marginTop: 5.5
-                //       }}
-                //       textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
-                //       onPress={() => this.clear()}
-                //     />
-                //   </View>
-                // </View>
+export default connect(mapStateToProps, actions)(EditContact)

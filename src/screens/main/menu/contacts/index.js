@@ -146,6 +146,11 @@ class Contacts extends Component {
     )
   }
 
+  setAddContact = () => {
+    this.setState({ tab: 'addcontact' })
+    this.setState({ selectedContact: false })
+  }
+
   /**
    * Returns a list of contacts if and only if the length of the contact list reterived from the global state
    * variable is greater than 0.
@@ -166,7 +171,7 @@ class Contacts extends Component {
             Active={this.state.active}
             navigation={this.props.navigation}
             setContact={() => this.setState({ tab: 'contacts' })}
-            setAddContact={() => this.setState({ tab: 'addcontact' })}
+            setAddContact={this.setAddContact}
             tab={this.state.tab}
           />
           {this.displayContactTab()}
