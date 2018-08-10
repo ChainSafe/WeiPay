@@ -1,7 +1,8 @@
 [
-
     {
+        "id": 0,
         "type": "PortfolioCoin",
+        "selected": false,
         "symbol": "ETH",
         "address": "",
         "decimals": 18,
@@ -9,7 +10,7 @@
         "ens_address": "",
         "website": "",
         "logo": {
-            "src": "",
+            "src": "https://pbs.twimg.com/profile_images/626149701189042177/LWpxKEv3_bigger.png",
             "width": "",
             "height": "",
             "ipfs_hash": ""
@@ -35,41 +36,9 @@
         }
     },
     {
+        "id": 1,
         "type": "ERC20",
-        "symbol": "EOS",
-        "address": "0x86Fa049857E0209aa7D9e616F7eb3b3B78ECfdb0",
-        "decimals": 18,
-        "name": "EOS",
-        "ens_address": "",
-        "website": "https://eos.io",
-        "logo": {
-            "src": "",
-            "width": "",
-            "height": "",
-            "ipfs_hash": ""
-        },
-        "support": {
-            "email": "eos@block.one",
-            "url": ""
-        },
-        "social": {
-            "blog": "",
-            "chat": "",
-            "facebook": "",
-            "forum": "",
-            "github": "",
-            "gitter": "",
-            "instagram": "",
-            "linkedin": "",
-            "reddit": "",
-            "slack": "",
-            "telegram": "",
-            "twitter": "",
-            "youtube": ""
-        }
-    },
-    {
-        "type": "ERC20",
+        "selected": false,
         "symbol": "TRX",
         "address": "0xf230b790E05390FC8295F4d3F60332c93BEd42e2",
         "decimals": 6,
@@ -77,7 +46,7 @@
         "ens_address": "",
         "website": "https://tronlab.com/en.html",
         "logo": {
-            "src": "",
+            "src": "https://etherscan.io/token/images/tronlab_28.png",
             "width": "",
             "height": "",
             "ipfs_hash": ""
@@ -103,7 +72,9 @@
         }
     },
     {
+        "id": 2,
         "type": "ERC20",
+        "selected": false,
         "symbol": "BNB",
         "address": "0xB8c77482e45F1F44dE1745F52C74426C631bDD52",
         "decimals": 18,
@@ -137,41 +108,9 @@
         }
     },
     {
+        "id": 3,
         "type": "ERC20",
-        "symbol": "VET",
-        "address": "0xD850942eF8811f2A866692A623011bDE52a462C1",
-        "decimals": 18,
-        "name": "Vechain",
-        "ens_address": "",
-        "website": "https://tokensale.vechain.com/en",
-        "logo": {
-            "src": "",
-            "width": "",
-            "height": "",
-            "ipfs_hash": ""
-        },
-        "support": {
-            "email": "support@vechain.com",
-            "url": ""
-        },
-        "social": {
-            "blog": "",
-            "chat": "http://u.wechat.com/MH_e7eabTidsPXiG842RsHM",
-            "facebook": "",
-            "forum": "",
-            "github": "https://github.com/vechain-team",
-            "gitter": "",
-            "instagram": "",
-            "linkedin": "",
-            "reddit": "",
-            "slack": "https://vechainofficial.slack.com",
-            "telegram": "",
-            "twitter": "",
-            "youtube": ""
-        }
-    },
-    {
-        "type": "ERC20",
+        "selected": false,
         "symbol": "SUB",
         "address": "0x12480E24eb5bec1a9D4369CaB6a80caD3c0A377A",
         "decimals": 2,
@@ -179,7 +118,7 @@
         "ens_address": "",
         "website": "https://substratum.net",
         "logo": {
-            "src": "",
+            "src": "https://etherscan.io/token/images/substratum2_28.png",
             "width": "",
             "height": "",
             "ipfs_hash": ""

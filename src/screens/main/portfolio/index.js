@@ -31,7 +31,7 @@ class Portfolio extends Component {
   }
 
   navigate = () => {
-    const navigateToAddToken = NavigationActions.navigate({ routeName: "AddCoin" });
+    const navigateToAddToken = NavigationActions.navigate({ routeName: "Tokens" });
     this.props.navigation.dispatch(navigateToAddToken);
   };
 
@@ -64,7 +64,7 @@ class Portfolio extends Component {
                   <View style={styles.imageContainer} >
                     <Image
                       style={styles.img}
-                      source={require('../../../assets/images/eth.png') }
+                      source={ {uri: token.logo.src} }
                     />
                   </View>
                 </View>
@@ -74,7 +74,7 @@ class Portfolio extends Component {
                       <Text style={styles.mainTitleText}> {token.symbol} </Text>
                     </View>
                     <View style={styles.subtitleContainer}>
-                      <Text style={styles.subTitleText}> {token.title} </Text>
+                      <Text style={styles.subTitleText}> {token.name} </Text>
                     </View>
                   </View>
                 </View>
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   imgMainContainer: {
-    flex: 1,
+    flex: 1.25,
     alignItems: 'center',
   },
   imageContainer: {
@@ -163,8 +163,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   img: {
-    height: Dimensions.get('window').height * 0.05,
-    width: Dimensions.get('window').width * 0.05,
+    height: Dimensions.get('window').height * 0.06,
+    width: Dimensions.get('window').width * 0.1,
     justifyContent: 'center',
   },
   mainTitleContainer: {
