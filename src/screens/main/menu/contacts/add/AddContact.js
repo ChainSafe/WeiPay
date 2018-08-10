@@ -43,11 +43,12 @@ class AddContact extends Component {
     // }
 
     let tokens = []
-    this.inputRefs = {};
+    this.inputRefs =
+
     this.props.tokens.map(token => {
       let tokenName = {}
-      tokenName.value = token.title
-      tokenName.label = token.title
+      tokenName.value = token.name
+      tokenName.label = token.name
       tokens.push(tokenName)
     })
 
@@ -149,7 +150,7 @@ class AddContact extends Component {
   }
 
   addAnotherCoinAddress() {
-
+    this.setState({ tokenName: 'null'})
     this.setState({ contactAddressInput: "" })
   }
 
@@ -201,7 +202,7 @@ class AddContact extends Component {
                 }}
 
                 style={{ ...pickerSelectStyles }}
-                value={this.state.favColor}
+                value={this.state.tokenName}
                 ref={(el) => {
                     this.inputRefs.picker = el;
                 }}

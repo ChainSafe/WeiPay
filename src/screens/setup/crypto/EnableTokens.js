@@ -47,28 +47,28 @@ class EnableCrypto extends Component {
 
       return (
         <SafeAreaView style={safeAreaView}>
-            <View style={mainContainer}>
-              <View style={headerContainer}>
-                 <Text style={textHeader}>Enable Tokens </Text>
-              </View>
-              <View style={coinListContainer}>
-                  <ScrollView >
-                      <CoinList />
-                  </ScrollView>
-              </View>
-              <View style={btnContainer} >
-                <LinearButton
-                    onClickFunction={this.navigate}
-                    buttonText= 'Add'
-                    customStyles={button}
-                  />
-                <View style={footerGrandparentContainer}>
-                    <View style={footerParentContainer} >
-                        <Text style={textFooter} >Powered by ChainSafe </Text>
-                    </View>
+          <View style={mainContainer}>
+            <View style={headerContainer}>
+              <Text style={textHeader}>Enable Tokens </Text>
+            </View>
+            <View style={coinListContainer}>
+              <ScrollView >
+                <CoinList />
+              </ScrollView>
+            </View>
+            <View style={btnContainer} >
+              <LinearButton
+                onClickFunction={this.navigate}
+                buttonText= 'Add'
+                customStyles={button}
+              />
+              <View style={footerGrandparentContainer}>
+                <View style={footerParentContainer} >
+                  <Text style={textFooter} >Powered by ChainSafe </Text>
                 </View>
               </View>
             </View>
+          </View>
         </SafeAreaView>
       );
     }

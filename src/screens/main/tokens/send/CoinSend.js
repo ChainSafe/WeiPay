@@ -64,7 +64,8 @@ class CoinSend extends Component {
    * Sets the state to the hold the wallet address
    */
   componentWillMount() {
-    if (this.props.navigation.state.params) {
+
+    if (!!this.props.navigation.state.params) {
       let contactAddress = this.props.navigation.state.params.address
       if (contactAddress) {
         this.setState({ inputValue: contactAddress })
@@ -81,6 +82,7 @@ class CoinSend extends Component {
     console.log(add)
     this.setState({ inputValue: add, toAddress: add })
     //this.setState({ toAddress: add });
+    
     this.props.getQRCodeData(addressInput)
   }
 
@@ -240,6 +242,7 @@ class CoinSend extends Component {
                       onChangeText={this.renderAddress.bind(this)}
                       ref={ref => this.inputAddress = ref}
                       inputStyle={styles.formInput}
+                      value={this.state.inputValue}
                     />
                   </View>
                   <FormInput

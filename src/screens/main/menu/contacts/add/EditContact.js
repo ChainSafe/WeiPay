@@ -13,6 +13,7 @@ import BoxShadowCard from '../../../../../components/ShadowCards/BoxShadowCard'
 
 import barcode from '../../../../../assets/icons/barcode.png'
 import RNPickerSelect from 'react-native-picker-select';
+import RF from "react-native-responsive-fontsize"
 /**
  * Is a full screen react component
  * This screen is used to add a new contact to the wallet contact list.
@@ -40,8 +41,8 @@ class EditContact extends Component {
 
     this.props.tokens.map(token => {
       let tokenName = {}
-      tokenName.value = token.title
-      tokenName.label = token.title
+      tokenName.value = token.name
+      tokenName.label = token.name
       tokens.push(tokenName)
     })
 
@@ -50,7 +51,7 @@ class EditContact extends Component {
       clear: false,
       contactName,
       contactAddress,
-      tokenName: undefined,
+      tokenName: null,
       tokens,
       contactAddressInput: ""
     }
@@ -130,10 +131,7 @@ class EditContact extends Component {
 
   editContact() {
     this.props.editContact(this.state.contactName, this.state.contactAddress);
-    this.setState({ contactName: "" })
-    let newcontactAddress = {}
-    this.props.tokens.map(token => newcontactAddress[token.title] = "")
-    this.setState({ contactAddress: newcontactAddress })
+    this.props.navigation.navigate('contacts')
   }
 
   clear() {
@@ -143,9 +141,8 @@ class EditContact extends Component {
     this.setState({ contactAddress: newcontactAddress })
   }
 
-  addAnotherCoinAddress() {
-
-    this.setState({ contactAddressInput: "" })
+  editAnotherCoinAddress() {
+    this.setState({ tokenName: 'null'})
   }
 
   renderAddress(address) {
@@ -175,14 +172,10 @@ class EditContact extends Component {
             <Text style={styles.cardText}>
               Add contact by scanning QR code, or pasting in contact's WeiPay Address
             </Text>
-
-            <View style={{backgroundColor: 'none'}}>
-              <FormInput
-                placeholder={"Contact's Name"}
-                onChangeText={name => this.setState({ contactName: name})}
-                inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2'}}
-                value={this.state.contactName}
-              />
+            <View >
+              <Text style={styles.cardText}>
+                {this.state.contactName}
+              </Text>
             </View>
             <View style={{marginLeft: '5%', marginTop: '5%'}}>
               <Image
@@ -190,7 +183,7 @@ class EditContact extends Component {
                 style={{height: 70, width: 70}}
               />
             </View>
-            <View style={{backgroundColor: 'none', marginRight: '5%'}}>
+            <View style={{marginRight: '5%'}}>
               <RNPickerSelect
                 placeholder={{
                     label: 'Coin Type',
@@ -204,13 +197,13 @@ class EditContact extends Component {
                 }}
 
                 style={{ ...pickerSelectStyles }}
-                value={this.state.favColor}
+                value={this.state.tokenName}
                 ref={(el) => {
                     this.inputRefs.picker = el;
                 }}
               />
             </View>
-            <View style={{ backgroundColor: 'none'}}>
+            <View>
               <FormInput
                 placeholder={"WeiPay Address"}
                 onChangeText={ address => this.renderAddress(address)}
@@ -221,22 +214,24 @@ class EditContact extends Component {
             </View>
           </BoxShadowCard>
         </View>
-
-        <View style={{flex: 0.6, justifyContent: 'flex-end'}}>
-          <View style={styles.btnContainer}>
-            <ClearButton
-              buttonText='Clear'
-              onClickFunction={this.clear.bind(this)}
-              customStyles={styles.clearButton}
-            />
-            <LinearButton
-              buttonText='Edit Contact'
-              onClickFunction={this.editContact.bind(this)}
-              customStyles={styles.addButton}
-            />
-          </View>
-          <View style={{ alignItems:'center', marginTop: '-5%', flex: .3, }} >
-            <Text style={styles.textFooter} >Powered by ChainSafe </Text>
+        <View style={{flex: 0.2}} />
+        <View style={styles.anotherCoinContainer} >
+          <TouchableOpacity onPress={this.editAnotherCoinAddress.bind(this)} disabled={!this.state.tokenName}>
+            <BoxShadowCard>
+              <Text style={styles.cardText}>+ Edit or add another coin address</Text>
+            </BoxShadowCard>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.btnContainer} >
+          <LinearButton
+            onClickFunction={this.editContact.bind(this)}
+            buttonText= 'Edit Contact'
+            customStyles={styles.button}
+          />
+          <View style={styles.footerGrandparentContainer}>
+            <View style={styles.footerParentContainer} >
+              <Text style={styles.textFooter} >Powered by ChainSafe </Text>
+            </View>
           </View>
         </View>
       </View>
@@ -258,9 +253,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  buttonContainer: {
-    flex: 1,
-  },
   section: {
     flexDirection: 'column',
     backgroundColor: 'red'
@@ -271,8 +263,8 @@ const styles = StyleSheet.create({
     width: '82%',
   },
   anotherCoinContainer: {
-    flex: .4,
-    width: '82%'
+    flex: 0.3,
+    width: '82%',
   },
   cardText : {
     paddingBottom: '5%',
@@ -283,34 +275,33 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontSize: 16,
   },
-  clearButton: {
-    width: Dimensions.get('window').height * 0.225,
+  button: {
+    width: '82%',
     height: Dimensions.get('window').height * 0.082,
-    marginLeft: '5%'
-  },
-  addButton: {
-    width: Dimensions.get('window').height * 0.225,
-    height: Dimensions.get('window').height * 0.082,
-    marginLeft: '0%'
   },
   btnContainer: {
-    flex: 0.3,
-    flexDirection: 'row',
-    width: '80%',
+    flex: 0.8,
+    width: '100%',
     justifyContent: 'flex-end',
-    marginLeft: '1.5%',
-    marginBottom: '8%',
   },
   modal: {
      height: '40%',
      borderRadius: 4
   },
-  textFooter : {
-    fontFamily: "WorkSans-Regular",
-    fontSize: 11,
-    marginTop: '3.5%',
-    color: '#c0c0c0'
-  }
+  footerGrandparentContainer: {
+    alignItems: 'center',
+    marginBottom: '5%',
+    marginTop: '5%',
+  },
+  footerParentContainer: {
+    alignItems: 'center',
+  },
+  textFooter: {
+    fontFamily: 'WorkSans-Regular',
+    fontSize: RF(1.7),
+    color: '#c0c0c0',
+    letterSpacing: 0.5
+  },
 });
 
 const pickerSelectStyles = StyleSheet.create({

@@ -28,7 +28,17 @@ class ContactAddresses extends Component {
 
   }
 
-  navigate = address => {
+  navigateToCoinSend = address => {
+
+    const navigateToCreateOrRestore = NavigationActions.navigate({
+        routeName: 'coinSend',
+        params: { address }
+      });
+      this.props.navigation.dispatch(navigateToCreateOrRestore);
+    };
+
+
+  navigateToEditContact = () => {
 
     const navigateToCreateOrRestore = NavigationActions.navigate({
       routeName: 'editContact',
@@ -41,11 +51,11 @@ class ContactAddresses extends Component {
     return (
       <View style={styles.listItemContainer}>
 
-          <TouchableOpacity onPress={() => this.navigate(address[Object.keys(address)[0]])}>
-            <BoxShadowCard>
-              <View style={{flexDirection: 'row', flex: 1}}>
-                <View style={{flex: 0.1, marginTop: '-4%'}}>
-                  <Image
+        <TouchableOpacity onPress={() => this.navigateToCoinSend(address[Object.keys(address)[0]])}>
+          <BoxShadowCard>
+            <View style={{flexDirection: 'row', flex: 1}}>
+              <View style={{flex: 0.1, marginTop: '-4%'}}>
+                <Image
                     source={require('../../../../assets/images/eth.png')}
                     style={{
                       flex: 1,
@@ -96,7 +106,7 @@ class ContactAddresses extends Component {
           <LinearButton
             buttonText='Edit Contact'
             customStyles={styles.button}
-            onClickFunction={this.navigate}
+            onClickFunction={this.navigateToEditContact}
           />
         </View>
       </View>
