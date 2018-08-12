@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "ios:beta": "fastlane ios beta",
+    "android:beta": "fastlane android beta",
     "test": "jest"
   },
   "dependencies": {

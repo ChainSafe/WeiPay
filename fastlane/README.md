@@ -16,6 +16,11 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## iOS
+### ios slack_testflight
+```
+fastlane ios slack_testflight
+```
+Slack notification for succesful build to TestFlight
 ### ios certificates
 ```
 fastlane ios certificates
@@ -26,6 +31,20 @@ Fetch certificates and provisioning profiles
 fastlane ios beta
 ```
 Ship to Testflight.
+
+----
+
+## Android
+### android slack_playstore
+```
+fastlane android slack_playstore
+```
+Slack notification for succesful build to Playstore
+### android beta
+```
+fastlane android beta
+```
+Ship to Playstore Beta.
 
 ----
 
