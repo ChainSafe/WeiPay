@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import {
- View, Text, StyleSheet, FlatList 
-} from 'react-native';
+import { View, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native';
 import { CardSection } from '../../../../components/common/CardSection';
 import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
+import RF from "react-native-responsive-fontsize"
 
 const axios = require('axios');
 const ethers = require('ethers');
 const moment = require('moment');
-
 const utils = ethers.utils;
 
 /**
@@ -80,48 +78,57 @@ class CoinActivity extends Component {
       amountContainer,
       amountTitle,
       amountValue,
-
-
-     
     } = styles;
 
     return (
-      <View style={mainContainer}>
-        <BackWithMenuNav
-          showMenu={true}
-          showBack={true}
-          navigation={this.props.navigation}
-          backPage={'mainStack'}
-        />
-        <CoinSendTabNavigator navigation={this.props.navigation} />
-        <FlatList
-          data={this.state.data}
-          keyExtractor={(x, i) => i.toString()}
-          style={{ flex: 1, width: '100%', backgroundColor: '#fafbfe' }}
-          renderItem={({ item }) => <CardSection>
-              <View style={itemStyle}>
-                <View>
+      <SafeAreaView style={styles.safeAreaView}>
+        <View style={mainContainer}>
+          <View style={styles.navContainer}>        
+              <BackWithMenuNav
+                  showMenu={true}
+                  showBack={true}
+                  navigation={this.props.navigation}
+                  backPage={'mainStack'}
+                />
+            </View>
+            <View style={[styles.navHeaderContainer]}>
+              <CoinSendTabNavigator 
+                navigation={this.props.navigation}
+                sendActive={false}
+                activityActive={true}
+                receiveActive={false} 
+              />
+          </View>
+          <View style={styles.listContainer}>
+            <FlatList
+              data={this.state.data}
+              keyExtractor={(x, i) => i.toString()}
+              style={{ flex: 1, width: '100%', backgroundColor: '#fafbfe' }}
+              renderItem={({ item }) =>              
+                <View style={itemStyle}>
                   <View>
-                    <View style={headerContainer}>
-                      <Text style={type}>
-                        {item.type}
-                      </Text>
-                       <Text style={date}>{item.timeStamp}</Text>
-                    </View>
-                    <View style={addressContainer}>
-                        <Text style={addressTitle}>Address: </Text>
-                        <Text style={addressValue}>{item.address}</Text>
-                    </View>
-                    <View style={amountContainer}>
-                        <Text style={amountTitle}>Amount: </Text>
-                        <Text style={amountValue}>{item.value}</Text>
+                    <View>
+                      <View style={headerContainer}>
+                        <Text style={type}>
+                          {item.type}
+                        </Text>
+                        <Text style={date}>{item.timeStamp}</Text>
+                      </View>
+                      <View style={addressContainer}>
+                          <Text style={addressTitle}>Address: </Text>
+                          <Text style={addressValue}>{item.address}</Text>
+                      </View>
+                      <View style={amountContainer}>
+                          <Text style={amountTitle}>Amount: </Text>
+                          <Text style={amountValue}>{item.value}</Text>
+                      </View>
                     </View>
                   </View>
                 </View>
-              </View>
-            </CardSection>
-          } />
-      </View >
+              } />
+          </View>
+        </View >
+      </SafeAreaView>
     );
   }
 }
@@ -132,11 +139,25 @@ export default CoinActivity;
  * Style
  */
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1, 
+    backgroundColor: '#fafbfe'
+  },
   mainContainer: {
     flex: 1,
     backgroundColor: '#fafbfe',
     width: '100%',
-    paddingTop: '2.5%',
+  },
+  navContainer: {
+    flex: 0.65,
+  },
+  navHeaderContainer: {
+    flex: 0.3,
+  },
+  listContainer: {
+    flex: 5.25,
+    marginTop: '0%',
+    paddingTop: '7%',
   },
   addressContainer: {
     flexDirection: 'row',
@@ -146,15 +167,17 @@ const styles = StyleSheet.create({
   addressTitle: {
     fontFamily: 'Cairo-Regular',
     color: 'black',
-    fontSize: 13,
-    lineHeight: 17,
+    fontSize: RF(2.1),
+    lineHeight: RF(2.6),
+    letterSpacing: 0.4,
   },
   addressValue: {
-    fontSize: 13,
+    fontSize: RF(2.1),
     fontFamily: 'Cairo-Light',
     color: 'black',
     justifyContent: 'center',
-    lineHeight: 17,
+    lineHeight: RF(2.6),
+    letterSpacing: 0.4,
   },
   amountContainer: {
     flexDirection: 'row',
@@ -163,32 +186,37 @@ const styles = StyleSheet.create({
   amountTitle: {
     fontFamily: 'Cairo-Regular',
     color: 'black',
-    fontSize: 13,
-    lineHeight: 16,
+    fontSize: RF(2.1),
+    lineHeight: RF(2.6),
+    letterSpacing: 0.4,
   },
   amountValue: {
-    fontSize: 13,
+    fontSize: RF(2.1),
     fontFamily: 'Cairo-Light',
     color: 'black',
     justifyContent: 'center',
-    lineHeight: 16,
+    lineHeight: RF(2.6),
+    letterSpacing: 0.4,
   },
   headerContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     paddingBottom: '1.5%',
   },
-  itemStyle: {
-    padding: 5,
-    marginTop: 5,
-    marginBottom: 5,
+  itemStyle: {  
+    paddingBottom: '5%',
+    paddingLeft: '2.5%',
+    paddingRight: '2.5%',
+    marginBottom: '5%',
     marginLeft: '7.5%',
     marginRight: '7.5%',
     flex: 1,
     width: '82%',
+    borderBottomWidth: 1, 
+    borderBottomColor: '#b3b3b3'
   },
   type: {
-    fontSize: 16,
+    fontSize: RF(2.4),
     letterSpacing: 0.5,
     fontFamily: 'Cairo-Regular',
     alignItems: 'flex-start',
@@ -197,7 +225,7 @@ const styles = StyleSheet.create({
     top: 0,
   },
   date: {
-    fontSize: 11,
+    fontSize: RF(1.7),
     letterSpacing: 0.4,
     fontFamily: 'Cairo-Light',
     top: '1.75%',

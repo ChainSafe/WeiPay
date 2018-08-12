@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, StyleSheet, Dimensions } from 'react-native';
+import { Alert, Text, View, ScrollView, StyleSheet, Dimensions, SafeAreaView, TouchableWithoutFeedback } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux';
 import { Terms } from '../../../constants/Terms';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
+import { enterDebug } from '../../../actions/ActionCreator';
+import RF from "react-native-responsive-fontsize"
 
 /**
  * Initial terms and condition screen when the app is oppened for the first time.
@@ -24,33 +27,45 @@ class TermsAndConditions extends Component {
      */
     render() {
       const {
+        safeAreaView,
         mainContainer,
+        headerContainer,
         textHeader,
+        scrollViewContainer,
         scrollView,
         textBody,
         btnContainer,
         button,
-        footerContainer,
+        footerGrandparentContainer,
+        footerParentContainer,
         textFooter,
       } = styles;
 
       return (
-            <View style={mainContainer}>
-                <Text style={textHeader} >Terms & Conditions </Text>
-                <ScrollView style={scrollView}>
-                    <Text style={textBody} >{Terms}</Text>
-                </ScrollView>                
-                <View style={btnContainer}>
-                    <LinearButton
-                        onClickFunction={this.navigate}
-                        buttonText='Agree'
-                        customStyles={button}
-                    />
-                </View>
-                <View style={footerContainer}>
-                    <Text style={textFooter}>Powered by ChainSafe </Text> 
-                </View>
+        <SafeAreaView style={safeAreaView}>
+          <View style={mainContainer}>
+            <View style={headerContainer} >
+              <Text style={textHeader} onPress={this.props.enterDebug} >Terms & Conditions </Text>
             </View>
+            <View style={styles.scrollViewContainer} >
+              <ScrollView style={scrollView}>
+                  <Text style={textBody} >{Terms}</Text>
+              </ScrollView>
+            </View>
+            <View style={btnContainer}>
+                <LinearButton
+                    onClickFunction={this.navigate}
+                    buttonText='Agree'
+                    customStyles={button}
+                />
+                <View style={footerGrandparentContainer}>
+                  <View style={footerParentContainer} >
+                    <Text style={textFooter} >Powered by ChainSafe </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+        </SafeAreaView>
       );
     }
 }
@@ -59,52 +74,68 @@ class TermsAndConditions extends Component {
  * Styles used in the terms and condition screen
  */
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1,
+    backgroundColor: '#fafbfe',
+  },
   mainContainer: {
     flex: 1,
     backgroundColor: '#fafbfe',
     width: '100%',
     height: '100%',
   },
+  headerContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
   textHeader: {
     fontFamily: 'Cairo-Light',
-    fontSize: 26,
+    fontSize: RF(4),
     paddingLeft: '9%',
-    paddingBottom: '2.5%',
-    marginTop: '9%',
     letterSpacing: 0.8,
     color: '#1a1f3e',
+    fontWeight: '200'
   },
-  scrollView:{
+  scrollViewContainer: {
+    flex: 5,
+    paddingBottom: '2.5%',
+    paddingTop: '2.5%',
+  },
+  scrollView: {
     height: '60%',
-    flex: 3
   },
   textBody: {
     fontFamily: 'WorkSans-Light',
-    fontSize: 12,
+    fontSize: RF(1.8),
     paddingLeft: '10%',
     paddingRight: '10%',
-    lineHeight: 16,
+    lineHeight: RF(2.5),
+    color: 'black',
+    fontWeight: '300'
   },
   btnContainer: {
-    marginTop: '5%',
-    marginBottom: '3.5%',
     width: '100%',
+    flex: 1.25,
+    marginTop: '2.5%'
   },
   button: {
     width: '82%',
-    height: Dimensions.get('window').height * 0.082,  
+    height: Dimensions.get('window').height * 0.082,
   },
-  footerContainer: {
+  footerGrandparentContainer: {
+    alignItems: 'center',
+    marginBottom: '5%',
+    marginTop: '5%',
+  },
+  footerParentContainer: {
     alignItems: 'center',
   },
   textFooter: {
     fontFamily: 'WorkSans-Regular',
-    fontSize: 12,
-    paddingBottom: '5%',
-    justifyContent: 'center', 
-    alignItems: 'center',
+    fontSize: RF(1.7),
     color: '#c0c0c0',
+    letterSpacing: 0.5
   },
 });
 
-export default TermsAndConditions;
+export default connect(null, { enterDebug })(TermsAndConditions);

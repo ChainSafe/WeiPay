@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, Dimensions } from 'react-native';
 import QRCode from 'react-native-qrcode';
 import { connect } from 'react-redux';
 import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
+import RF from "react-native-responsive-fontsize"
 
 /**
  * React Component
@@ -20,6 +21,8 @@ class CoinReceive extends Component {
       contentContainer,
       imageContainer,
       addressContainer,
+      navContainer,
+      navHeaderContainer,
       addressTitle,
       addressValue,
       footerGrandparentContainer,
@@ -28,33 +31,44 @@ class CoinReceive extends Component {
     } = styles;
 
     return (
-      <View style={mainContainer}>
-        <BackWithMenuNav
-          showMenu={true}
-          showBack={true}
-          navigation={this.props.navigation}
-          backPage={'mainStack'}
-        />
-        <CoinSendTabNavigator navigation={this.props.navigation} />
-        <View style={contentContainer} >
-          <View style={imageContainer}>
-            <QRCode
-              value={this.props.walletAddress}
-              size={280}
-              bgColor='#27c997'
-              fgColor='#fafbfe' />
+      <SafeAreaView style={styles.safeAreaView}>
+        <View style={mainContainer}>
+          <View style={navContainer}>        
+            <BackWithMenuNav
+              showMenu={true}
+              showBack={true}
+              navigation={this.props.navigation}
+              backPage={'mainStack'}
+            />
           </View>
-          <View style={addressContainer}>
-              <Text style={addressTitle}>Address: </Text>
-              <Text style={addressValue}>{this.props.walletAddress}</Text>
+          <View style={navHeaderContainer}>
+            <CoinSendTabNavigator 
+            navigation={this.props.navigation}
+            sendActive={false}
+            activityActive={false}
+            receiveActive={true} 
+            />
+          </View>
+          <View style={contentContainer} >
+            <View style={imageContainer}>
+              <QRCode
+                value={this.props.walletAddress}
+                size={ 225}
+                bgColor='#27c997'
+                fgColor='#fafbfe' />
+            </View>
+            <View style={addressContainer}>
+                <Text style={addressTitle}>Address: </Text>
+                <Text style={addressValue}>{this.props.walletAddress}</Text>
+            </View>            
+          </View>
+          <View style={footerGrandparentContainer}>
+            <View style={footerParentContainer}>
+                <Text style={textFooter} >Powered by ChainSafe </Text>
+            </View>
           </View>
         </View>
-         <View style={footerGrandparentContainer}>
-              <View style={footerParentContainer}>
-                  <Text style={textFooter} >Powered by ChainSafe </Text>
-              </View>
-          </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }
@@ -63,15 +77,23 @@ class CoinReceive extends Component {
  * Styles
  */
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1, 
+    backgroundColor: '#fafbfe'
+  },
   mainContainer: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingTop: '2.5%',
     backgroundColor: '#fafbfe',
   },
+  navContainer: {
+    flex: 0.65,
+  },
+  navHeaderContainer: {
+    flex: 0.3,
+  },
   contentContainer: {
-    marginTop: 25,
+    flex:4.25,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -84,27 +106,29 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     paddingBottom: '1.5%',
-    paddingTop: '2.5%',
-    width: 280,
+    paddingTop: '10%',
+    width: 225,
   },
   addressTitle: {
     fontFamily: 'Cairo-Regular',
     color: 'black',
-    fontSize: 13,
-    lineHeight: 17,
+    fontSize: RF(2.1),
+    lineHeight: RF(2.6),
+    letterSpacing: 0.6,
   },
   addressValue: {
-    fontSize: 13,
+    fontSize: RF(2.1),
+    lineHeight: RF(2.6),
+    letterSpacing: 0.6,
     fontFamily: 'Cairo-Light',
     color: 'black',
     justifyContent: 'center',
-    lineHeight: 17,
   },
   imageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: '2.5%',
-    paddingBottom: '2.5%',
+    marginTop: '30%',
+    paddingBottom: '5%',
   },
   footerGrandparentContainer: {
     alignItems: 'center',
@@ -116,9 +140,10 @@ const styles = StyleSheet.create({
   },
   textFooter: {
     fontFamily: 'WorkSans-Regular',
-    fontSize: 11,
-    marginBottom: '3.5%',
+    marginBottom: '5%',
     color: '#c0c0c0',
+    fontSize: RF(1.7),
+    letterSpacing: 0.5
   },
 });
 

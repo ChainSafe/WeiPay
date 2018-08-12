@@ -7,6 +7,7 @@ import { NavigationActions } from "react-navigation";
 import { getQRCodeData } from '../../../actions/ActionCreator'
 import { saveAddContactInputs } from '../../../actions/ActionCreator'
 import ContactAddresses from '../menu/contacts/SelectedContact';
+import RF from "react-native-responsive-fontsize"
 
 /**
  * React Component

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Dimensions, SafeAreaView, Alert } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import ClearButton from '../../../components/LinearGradient/ClearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard'
+import RF from "react-native-responsive-fontsize"
 
 const shuffle = require('shuffle-array');
 
@@ -65,9 +66,11 @@ class ConfirmPassphrase extends Component {
 
     addWord(wordItem, scrambledListIndex) {
       this.setState((prevState) => {
-        prevState.scrambledTags[scrambledListIndex].selected = true;
-        prevState.selectedTags.push({ 'wordItem': wordItem, 'scrambledWordIndex': scrambledListIndex });
-        return prevState;
+        if(!prevState.scrambledTags[scrambledListIndex].selected) {
+          prevState.scrambledTags[scrambledListIndex].selected = true;
+          prevState.selectedTags.push({ 'wordItem': wordItem, 'scrambledWordIndex': scrambledListIndex });
+          return prevState;
+        }       
       });
     }
 
@@ -79,6 +82,40 @@ class ConfirmPassphrase extends Component {
       });
     }
 
+    validatePassphrase = () => {
+      const { scrambledTags, selectedTags } = this.state;
+      var passphraseIncomplete = true;
+      var count = 0;
+      if(selectedTags.length == 12) {
+        for(let i = 0; i < selectedTags.length; i++) {       
+          if(selectedTags[i].wordItem.index == i) {
+            count++;
+          }
+        }
+        if(count == 12) {
+          this.navigate();
+        } else {
+          Alert.alert(
+            'Passphrase Error',
+            'You did not enter the right passphrase in the correct order. Please try again.',
+            [
+                { text: 'OK', onPress: () => console.log('OK Pressed') },
+            ],
+            { cancelable: false }
+          )
+        }
+      } else {
+          Alert.alert(
+            'Passphrase Error',
+            'You have no selected all of the words within the passphrase. Please complete ordering all words',
+            [
+                { text: 'OK', onPress: () => console.log('OK Pressed') },
+            ],
+            { cancelable: false }
+        )
+      }
+    }
+
     /**
      * Returns the screen required for the user to go about selecting the tags
      * in the correct order
@@ -87,10 +124,12 @@ class ConfirmPassphrase extends Component {
       const { selectedTags, scrambledTags } = this.state;
 
       const {
+        safeAreaView,
         mainContainer,
+        navContainer,
         textHeader,
         contentContainer,
-        cardContainer,
+        boxShadowContainer,
         cardText,
         tagContainer,
         cardButtonContainer,
@@ -106,18 +145,18 @@ class ConfirmPassphrase extends Component {
       } = styles;
 
       return (
-        <View style={mainContainer}>
-          <View style={{flex:0.75, backgroundColor:'purple'}}>
-            <BackWithMenuNav
+        <SafeAreaView style={safeAreaView}>
+          <View style={mainContainer}>
+            <View style={navContainer}>
+              <BackWithMenuNav
                 showMenu={false}
                 showBack={true}
                 navigation={this.props.navigation}
-                backPage={'createWalletName'}
-            />
+                backPage={'generatePassphrase'}
+              />
           </View>
-          <Text style={textHeader}>Confirm Passphrase</Text>
-           
-          <View style={{alignItems:"center", flex: 4}}>
+          <Text style={textHeader}>Confirm Passphrase</Text>           
+          <View style={boxShadowContainer}>
             <View style={contentContainer} >
                 <BoxShadowCard>
                     <Text style={cardText}>
@@ -159,11 +198,9 @@ class ConfirmPassphrase extends Component {
                 </BoxShadowCard>
               </View>
             </View>
-
-
             <View style={btnContainer}>
                 <LinearButton
-                    onClickFunction={this.navigate}
+                    onClickFunction={this.validatePassphrase}
                     buttonText= 'Next'
                     customStyles={button}
                     // buttonStateEnabled={this.state.buttonDisabled}
@@ -175,41 +212,47 @@ class ConfirmPassphrase extends Component {
                 </View>
             </View>
         </View>
+         </SafeAreaView>
       );
     }
 }
 
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1, 
+    backgroundColor: '#fafbfe'
+  },
   mainContainer: {
     flex: 1,
     backgroundColor: '#fafbfe',
     width: '100%',
-    // paddingTop: '5%',
+  },
+  navContainer: {
+    flex: 0.65,
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
-    fontSize: 26,
+    fontSize: RF(4),
     paddingLeft: '9%',
-    // paddingBottom: '3%',
     color: '#1a1f3e',
-    flex:0.75,
-    backgroundColor: "blue"
+    flex:0.65,
+  },
+  boxShadowContainer: {
+    alignItems:"center", 
+    flex: 3.75
   },
   contentContainer: {
-    // alignItems: 'center',
-    // flex: 1,
-    backgroundColor: "green",
     width: '82%'
   },
   cardText: {
-    paddingBottom: '10%',
+    paddingBottom: '5%',
     lineHeight: 22,
     paddingTop: '5%',
     paddingLeft: '5%',
     paddingRight: '5%',
     fontFamily: 'WorkSans-Light',
     color: '#000000',
-    fontSize: 16,
+    fontSize: RF(2.4),
   },
   tagContainer: {
     flexDirection: 'row',
@@ -220,18 +263,13 @@ const styles = StyleSheet.create({
     alignContent: 'space-around',
   },
   cardButtonContainer: {
-    paddingBottom: '2%',
-    paddingRight: '1.75%',
-    // flex:1
+    paddingBottom: '1%',
   },
   cardButton: {
-    height: 32,
-    // height: '33%',
-     justifyContent: 'center',
-  },
-  cardContainer: {
-    width: '80%',
-    height: '90%',   
+    height: Dimensions.get('window').height * 0.05,  
+    justifyContent: 'center',
+    alignContent: "center",
+    alignItems: "center",
   },
   selectedTextContainer: {
     paddingTop: '5%',
@@ -245,7 +283,7 @@ const styles = StyleSheet.create({
     paddingRight: '1.75%',
   },
   selectedWordText: {
-    fontSize: 14,
+    fontSize: RF(2.1),
     lineHeight: 22,
     color: '#27c997',
     fontFamily: 'WorkSans-Regular',
@@ -258,22 +296,21 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'stretch',
     alignContent: 'flex-end',
-    backgroundColor: "red",
-    flex:1
+    flex:1.25
   },
   footerGrandparentContainer: {
     alignItems: 'center',
-    backgroundColor:"yellow",
-    marginBottom: '2.5%',
-    marginTop: '2.5%'
+    marginBottom: '5%',
+    marginTop: '5%'
   },
   footerParentContainer: {
     alignItems: 'center',
   },
   textFooter: {
     fontFamily: 'WorkSans-Regular',
-    fontSize: 11,
+    fontSize: RF(1.7),
     color: '#c0c0c0',
+    letterSpacing: 0.5
   },
 });
 
@@ -284,7 +321,8 @@ const styles = StyleSheet.create({
  */
 const mapStateToProps = ({ newWallet }) => {
   const mnemonic = newWallet.wallet.mnemonic;
-  return { mnemonic }
+  const debugMode = newWallet.debugMode;
+  return { mnemonic, debugMode }
 }
 
 export default connect(mapStateToProps, null)(ConfirmPassphrase)

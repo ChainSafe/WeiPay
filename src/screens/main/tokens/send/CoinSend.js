@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Alert, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, Alert, TouchableOpacity, Image, SafeAreaView, TouchableWithoutFeedback, Dimensions, Keyboard } from 'react-native';
 import { connect } from 'react-redux';
 import { FormInput, Button, Card } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
@@ -11,6 +11,8 @@ import ERC20ABI from '../../../../constants/data/json/ERC20ABI.json';
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
 import ClearButton from '../../../../components/LinearGradient/ClearButton'
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
+import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard';
+import RF from "react-native-responsive-fontsize"
 
 const ethers = require('ethers');
 const utils = ethers.utils;
@@ -40,20 +42,20 @@ class CoinSend extends Component {
      * Using the Provider (which is connected to the ethereum network) to get the wallet balance and
      * checks if the wallet has funds available to be sent
      */
-    provider.getBalance(this.props.wallet.address).then(function (balance) {
-      const etherString = utils.formatEther(balance);
-      console.log('Current Wallet Balance' + etherString);
-      if (etherString == 0) {
-        Alert.alert(
-          'No Ether Alert',
-          'You need to uncomment the code in the constructor and change the private key to one from your local testrpc to fund this account.',
-          [
-            { text: 'OK', onPress: () => console.log('OK Pressed') },
-          ],
-          { cancelable: false }
-        )
-      }
-    });
+    // provider.getBalance(this.props.wallet.address).then(function (balance) {
+    //   const etherString = utils.formatEther(balance);
+    //   console.log('Current Wallet Balance' + etherString);
+    //   if (etherString == 0) {
+    //     Alert.alert(
+    //       'No Ether Alert',
+    //       'You need to uncomment the code in the constructor and change the private key to one from your local testrpc to fund this account.',
+    //       [
+    //         { text: 'OK', onPress: () => console.log('OK Pressed') },
+    //       ],
+    //       { cancelable: false }
+    //     )
+    //   }
+    // });
   }
 
   /**
@@ -184,90 +186,104 @@ class CoinSend extends Component {
    * Returns the complete form required to send a transaction
    */
   render() {
+    const {
+      mainContainer,
+      safeAreaView,
+      contentContainer,
+      cardText,
+      txtWalletName,
+      btnContainer,
+      button,
+      footerGrandparentContainer,
+      footerParentContainer,
+      textFooter,
+    } = styles;
+
     return (
-
-      <View style={styles.mainContainer}>
-
-        <View style={{paddingBottom: '10%'}}>
-          <View style={{marginBottom: '4%'}}>
-            <BackWithMenuNav 
-              showMenu={true}
-              showBack={true}
-              navigation={this.props.navigation}
-              backPage={"mainStack"}
-            />  
+      <SafeAreaView style={styles.safeAreaView}>
+         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={mainContainer}>
+                <View style={styles.navContainer}>        
+                  <BackWithMenuNav
+                     showMenu={true}
+                     showBack={true}
+                     navigation={this.props.navigation}
+                     backPage={"mainStack"}
+                    />
+                </View>
+                <View style={styles.navHeaderContainer}>
+                  <CoinSendTabNavigator 
+                      navigation={this.props.navigation}
+                      sendActive={true}
+                      activityActive={false}
+                      receiveActive={false} 
+                    />
+                </View>
+                <View style={styles.boxShadowContainer}>
+                  <View style={contentContainer}>
+                      <BoxShadowCard>
+                          <Text style={cardText}>
+                              Send Ether by scanning someone's QR code or public address.
+                          </Text>
+                          <View style= {styles.barcodeImageContainer}>
+                            <TouchableOpacity
+                              onPress= {() => this.navigate()} >
+                              <Image
+                                  source={require('../../../../assets/icons/barcode.png')}
+                                  style={styles.barcodeImage}
+                              /> 
+                          </TouchableOpacity>
+                        </View>
+                        <View style={styles.topFormInput}>
+                          <FormInput
+                              placeholder={"Public Address"}
+                              onChangeText={this.renderAddress.bind(this)}                  
+                              ref={ref => this.inputAddress = ref}
+                              inputStyle={styles.formInput}
+                            />
+                        </View>
+                          <FormInput
+                            placeholder={"Amount"}
+                            onChangeText={this.renderValue.bind(this)}
+                            ref={ref => this.inputAmount = ref}
+                            inputStyle={styles.formInput}
+                          /> 
+                          <Text style={styles.transactionFee} > 
+                            Transaction Fee Total {this.state.value} Eth
+                          </Text>                    
+                      </BoxShadowCard>
+                  </View>
+                </View>
+                <View style={styles.btnContainer}>
+                  <View style={{flexDirection:"row"}}>
+                    <View style={{ flex: 1}}>
+                      <ClearButton 
+                        onClickFunction={this.resetFields}
+                        buttonText="Reset"
+                        customStyles={{marginLeft:'0%', marginRight:'1.75%', height: Dimensions.get('window').height * 0.082}}
+                        // buttonStateEnabled={this.state.buttonDisabled}
+                      />
+                    </View>
+                    <View style={{flex:1 }}>
+                      <LinearButton 
+                        onClickFunction={
+                          this.props.token.type === "ERC20" ? this.sendERC20Transaction : this.sendTransaction  
+                                      }
+                        buttonText="Send"
+                        customStyles={{marginLeft: '0%', marginLeft:'1.75%', height: Dimensions.get('window').height * 0.082}}
+                        // buttonStateEnabled={this.state.buttonDisabled}
+                      />
+                    </View>
+                  </View>
+                  <View style={footerGrandparentContainer}>
+                    <View style={footerParentContainer} >
+                        <Text style={textFooter} >Powered by ChainSafe </Text>
+                    </View>
+                  </View>
+                </View>
           </View>
-
-          <CoinSendTabNavigator 
-            navigation={this.props.navigation} 
-          />
-        </View>
-
-        <View style={styles.contentContainer}>
-          <Text style={styles.cardText}>
-            Send Ether by scanning someone's QR code or public address.
-          </Text>
-
-          <View style= {styles.barcodeImageContainer}>
-              <TouchableOpacity
-                onPress= {() => this.navigate()} >
-                <Image
-                    source={require('../../../../assets/icons/barcode.png')}
-                    style={styles.barcodeImage}
-                /> 
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.topFormInput}>
-            <FormInput
-                placeholder={"Public Address"}
-                onChangeText={this.renderAddress.bind(this)}                  
-                ref={ref => this.inputAddress = ref}
-                inputStyle={styles.formInput}
-              />
-              <FormInput
-                placeholder={"Amount"}
-                onChangeText={this.renderValue.bind(this)}
-                ref={ref => this.inputAmount = ref}
-                inputStyle={styles.formInput}
-              /> 
-              <Text style={styles.transactionFee} > 
-                Transaction Fee Total {this.state.value} Eth
-              </Text>
-          </View>
-        </View>
-
-         <View style={styles.btnContainer}>
-
-            <View style={{ flex: 1, marginRight: '4.5%'}}>
-              <ClearButton 
-                onClickFunction={this.resetFields}
-                buttonText="Reset"
-                customStyles={{marginLeft: '0%'}}
-                // buttonStateEnabled={this.state.buttonDisabled}
-              />
-            </View>
-
-            <View style={styles.subBtnContainer}>
-              <LinearButton 
-                onClickFunction={
-                  this.props.token.type === "ERC20" ? this.sendERC20Transaction : this.sendTransaction  
-                              }
-                buttonText="Send"
-                customStyles={{marginLeft: '0%'}}
-                // buttonStateEnabled={this.state.buttonDisabled}
-              />
-            </View>
-          
-          </View>
-
-          <View style={styles.footerParentContainer} >
-              <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
-          </View> 
-
-
-
-      </View>
+        </TouchableWithoutFeedback>
+       </SafeAreaView>
       
     )
   }
@@ -277,44 +293,39 @@ class CoinSend extends Component {
  * Styles for CoinSend screen
  */
 const styles = StyleSheet.create({
-
-  subBtnContainer: {
-    flex: 1,  
-    marginLeft:'4.5%'
+  safeAreaView: {
+    flex: 1, 
+    backgroundColor: '#fafbfe'
+  },
+  navContainer: {
+    flex: 0.65,
+  },
+  navHeaderContainer: {
+    flex: 0.3,
   },
   mainContainer: {
     flex: 1,
-    alignItems: 'stretch',
-    backgroundColor: "#fafbfe",
+    backgroundColor: '#fafbfe',
+    justifyContent: 'center',
+    width: '100%',
   },
-  contentContainer: {    
-    backgroundColor: '#ffffff',
-    alignContent: 'flex-start',
-    marginLeft: '9%',
-    marginRight: '9%',
-    borderRadius: 10,
-    borderColor: 'black',
-    borderWidth: 1
-  
+  boxShadowContainer: {
+    alignItems: 'center', 
+    marginTop: '15%',
+    flex: 4.25,
+  },
+  contentContainer: {
+    width: '82%',
+    flex: 1,
   },
   barcodeImageContainer: {
     paddingTop: '5%', 
     paddingBottom:'5%',
-    paddingLeft: '5%',
+    paddingLeft: '7.5%',
   },
   barcodeImage: {
-    height:75, 
-    width:75
-  },
-  cardText : {
-    paddingBottom: '2.5%',
-    paddingTop: '8%',
-    paddingLeft: '5%',
-    paddingRight: '5%',
-    fontFamily: 'WorkSans-Light',  
-    color: '#000000',
-    fontSize: 16,
-    lineHeight: 22
+    height: 70, 
+    width: 70,
   },
   formInput:{ 
     width:'100%', 
@@ -325,42 +336,58 @@ const styles = StyleSheet.create({
     letterSpacing:0.4
   },
   topFormInput:{
-    paddingBottom: '6%'
+    paddingBottom: '3%'
   },
   transactionFee : {
     fontFamily: 'WorkSans-Light',
     fontSize: 9,
     letterSpacing: 0.3,
     paddingLeft: '7%',
-    paddingTop: '0.4%'
+    paddingTop: '1.5%'
   },
-  qr: {
-    marginLeft: 5,
-    marginTop: 10
+  cardText: {
+    paddingBottom: '5%',
+    paddingTop: '7.5%',
+    paddingLeft: '7.5%',
+    paddingRight: '7.55%',
+    fontFamily: 'WorkSans-Light',
+    color: '#000000',
+    fontSize: RF(2.4),
+  },
+  txtWalletName: {
+    width: '100%',
+    flexWrap: 'wrap',
+    color: '#12c1a2',
+    letterSpacing: 0.4,
+    fontFamily: 'WorkSans-Regular',  
   },
   btnContainer: {
     flex: 1,
-    flexDirection: 'row',
+    alignItems: 'stretch',
+    justifyContent: 'flex-end',
+    width: '82%',
     alignContent: 'center',
     marginLeft: '9%',
     marginRight: '9%',
-    marginTop: '5%'
   },
   button: {
-    width: '100%'
+    width: '82%',
+    height: Dimensions.get('window').height * 0.082,  
   },
-  footerGrandparentContainer : {
-    alignItems:'center'
+  footerGrandparentContainer: {
+    alignItems: 'center',
+    marginBottom: '5%',
+    marginTop: '5%',
   },
-  footerParentContainer :{ 
-      alignItems:'center'
+  footerParentContainer: {
+    alignItems: 'center',
   },
-  textFooter : {
-      fontFamily: 'WorkSans-Regular',
-      fontSize: 11,      
-      marginTop: '3.5%',      
-      color: '#c0c0c0'
-  }
+  textFooter: {
+    fontFamily: 'WorkSans-Regular',
+    fontSize: RF(1.7),
+    color: '#c0c0c0',
+    letterSpacing: 0.5
+  },
 })
 
 /**

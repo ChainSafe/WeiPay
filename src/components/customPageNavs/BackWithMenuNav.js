@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, StyleSheet, TextInput, Text, Platform, Image } from "react-native";
+import { View, TouchableOpacity, StyleSheet, Dimensions, TextInput, Text, Platform, Image } from "react-native";
 import { NavigationActions } from "react-navigation";
 
 class BackWithMenuNav extends Component {
@@ -33,7 +33,7 @@ class BackWithMenuNav extends Component {
                     onPress={this.navigateBack} >
                     <Image
                       source={require('../../assets/icons/back.png')}
-                      style={{height:20, width:20}}
+                      style={styles.btnBack}
                     />
                   </TouchableOpacity>
                 </View> : null}
@@ -43,7 +43,7 @@ class BackWithMenuNav extends Component {
                     onPress={this.navigateMenu} >
                     <Image
                       source={require('../../assets/icons/menu.png')}
-                      style={{height:13, width:22}}
+                      style={styles.btnMenu}
                     />
                   </TouchableOpacity>
                 </View> : null}
@@ -55,10 +55,10 @@ class BackWithMenuNav extends Component {
 const styles = StyleSheet.create({
     container:{
         flexDirection: 'row',
-        marginTop: Platform.OS === 'ios' ? '5%' : '2%',
+        marginTop: Platform.OS === 'ios' ? '3.5%' : '2%',
         marginRight: '9%',
         marginLeft: '9%',
-        height: Platform.OS === 'ios' ? 45 : 40,
+        height: Platform.OS === 'ios' ? 40 : 40,
         justifyContent:'center'
     },
      boxContainer:{
@@ -72,7 +72,15 @@ const styles = StyleSheet.create({
      boxTwo: {
         alignItems:'flex-end',
         zIndex: 100
-    }
+    },
+    btnBack: {
+        height: Dimensions.get('window').height * 0.03,  
+        width: Dimensions.get('window').width * 0.05,  
+    },
+    btnMenu: {
+        height: Dimensions.get('window').height * 0.02,  
+        width: Dimensions.get('window').width * 0.05,  
+    },
 })
 
 export default BackWithMenuNav

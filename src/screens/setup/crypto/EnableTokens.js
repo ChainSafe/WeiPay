@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Dimensions, SafeAreaView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import CoinList from '../../../components/tokens/CoinList';
 import LinearButton from '../../../components/LinearGradient/LinearButton'
+import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
+import RF from "react-native-responsive-fontsize"
 
 /**
  * Screen used to aquire the tokens/coins that the user wants to use
@@ -31,35 +33,43 @@ class EnableCrypto extends Component {
      */
     render() {
       const {
+        safeAreaView,
         mainContainer,
+        headerContainer,
         textHeader,
-        coinListContainer,
-        scrollView,
+        coinListContainer,      
         btnContainer,
         button,
-        footerContainer,
-        textFooter,
+        footerGrandparentContainer,
+        footerParentContainer,
+        textFooter
       } = styles;
 
       return (
+        <SafeAreaView style={safeAreaView}>
             <View style={mainContainer}>
-                <Text style={textHeader}>Enable Tokens </Text>
-                <View style={coinListContainer}>
-                    <ScrollView style={scrollView} >
-                        <CoinList />
-                    </ScrollView>
+              <View style={headerContainer}>
+                 <Text style={textHeader}>Enable Tokens </Text>
+              </View>              
+              <View style={coinListContainer}>
+                  <ScrollView >
+                      <CoinList />
+                  </ScrollView>
+              </View>
+              <View style={btnContainer} >
+                <LinearButton
+                    onClickFunction={this.navigate}
+                    buttonText= 'Add'
+                    customStyles={button}
+                  />
+                <View style={footerGrandparentContainer}>
+                    <View style={footerParentContainer} >
+                        <Text style={textFooter} >Powered by ChainSafe </Text>
+                    </View>
                 </View>
-                <View style={btnContainer} >
-                    <LinearButton
-                        onClickFunction={this.navigate}
-                        buttonText= 'Add'
-                        customStyles={button}
-                    />
-                </View>
-                <View style={footerContainer}>
-                    <Text style={textFooter} >Powered by ChainSafe </Text>
-                </View>
+              </View>              
             </View>
+        </SafeAreaView>
       );
     }
 }
@@ -68,46 +78,52 @@ class EnableCrypto extends Component {
  * Styles used in the EnableTokens screen
  */
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1, 
+    backgroundColor: '#fafbfe'
+  },
   mainContainer: {
     flex: 1,
     backgroundColor: '#fafbfe',
-    width: '100%',
+  },
+  headerContainer: {
+    flex: 1, 
+    justifyContent: "center"
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
-    fontSize: 26,
+    fontSize: RF(4),
     marginLeft: '9%',
-    marginTop: '10%',
-    paddingBottom: '2.5%',
     color: '#1a1f3e',
   },
   coinListContainer: {
     alignItems: 'stretch',
-    width: '100%',
     marginLeft: '9%',
-    marginBottom: '2.5%',
-  },
-  scrollView: {
-    height: '70%',
+    marginRight: '9%',
+    flex: 4,
+    paddingBottom: "2.5%",
   },
   btnContainer: {
-    marginTop: '5%',
-    marginBottom: '3.5%',
+    flex: 1,
     width: '100%',
   },
   button: {
     width: '82%',
     height: Dimensions.get('window').height * 0.082,  
   },
-  footerContainer: {
+  footerGrandparentContainer: {
+    alignItems: 'center',
+    marginBottom: '5%',
+    marginTop: '5%',
+  },
+  footerParentContainer: {
     alignItems: 'center',
   },
   textFooter: {
     fontFamily: 'WorkSans-Regular',
-    fontSize: 11,
-    marginBottom: '3.5%',
-    alignItems: 'center',
+    fontSize: RF(1.7),
     color: '#c0c0c0',
+    letterSpacing: 0.5
   },
 });
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableWithoutFeedback, StyleSheet, Text, Keyboard, Platform, Dimensions } from 'react-native';
+import { View, TouchableWithoutFeedback, StyleSheet, Text, Keyboard, Platform, Dimensions, SafeAreaView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput, Card } from 'react-native-elements';
@@ -7,6 +7,8 @@ import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCr
 import LinearButton   from '../../../components/LinearGradient/LinearButton'
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard'
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
+import RF from "react-native-responsive-fontsize"
+
 const ethers = require('ethers');
 
 /**
@@ -39,7 +41,11 @@ class CreateWalletName extends Component {
      */
     getWalletName(name) {
       this.props.newWalletNameEntry(name);
-      this.setState({ buttonDisabled: false });
+      if (name !== '') {
+        this.setState({ buttonDisabled: false });
+      } else {
+        this.setState({ buttonDisabled: true });
+      }
     }
 
     /**
@@ -48,23 +54,27 @@ class CreateWalletName extends Component {
      */
     render() {
       const {
+        safeAreaView,
         mainContainer,
         textHeader,
+        navContainer,
         contentContainer,
-        cardContainer,
+        boxShadowContainer,
         cardText,
         txtWalletName,
         btnContainer,
         button,
+        defaultGreenColor,
         footerGrandparentContainer,
         footerParentContainer,
         textFooter,
       } = styles;
-
+     
       return (
+        <SafeAreaView style={safeAreaView}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={styles.mainContainer} >
-                    <View style={{flex: 0.75}}>        
+                <View style={mainContainer} >
+                    <View style={navContainer}>        
                         <BackWithMenuNav
                             showMenu={false}
                             showBack={true}
@@ -72,12 +82,15 @@ class CreateWalletName extends Component {
                             backPage={'createOrRestore'}
                         />
                     </View>                    
-                    <Text style={styles.textHeader} >Wallet Name</Text>
-                    <View style={{alignItems: 'center' ,  flex: 3}}>
-                        <View style={styles.contentContainer}>
+                    <Text style={textHeader} >Wallet Name</Text>
+                    <View style={boxShadowContainer}>
+                        <View style={contentContainer}>
                             <BoxShadowCard>
                                 <Text style={styles.cardText}>
-                                    Create a name for your wallet, for example: My Wallet
+                                    Create a name for your wallet, for example: 
+                                    <Text style={defaultGreenColor}>
+                                        My Wallet
+                                    </Text>
                                 </Text>
                                 <FormInput
                                     placeholder={'Ex. My Wallet'}
@@ -87,83 +100,102 @@ class CreateWalletName extends Component {
                             </BoxShadowCard>
                         </View>
                     </View>
-
                     <View style={btnContainer}>
                         <LinearButton
                             onClickFunction={this.navigate}
                             buttonText="Next"
                             customStyles={button}
-                            // buttonStateEnabled={this.state.buttonDisabled}
+                            buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
                         />
-                    </View>
-                    <View style={styles.footerGrandparentContainer} >    
-                        <View style={styles.footerParentContainer} >
-                            <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
-                        </View>  
-                    </View> 
+                        <View style={footerGrandparentContainer} >    
+                            <View style={footerParentContainer} >
+                                <Text style={textFooter} >Powered by ChainSafe </Text> 
+                            </View>  
+                        </View> 
+                    </View>                   
                 </View>
             </TouchableWithoutFeedback>
+        </SafeAreaView>
       );
     }
 }
 
 const styles = StyleSheet.create({
+    safeAreaView: {
+        flex: 1, 
+        backgroundColor: '#fafbfe'
+    },
     mainContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#fafbfe',
-    width: '100%',   
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: '#fafbfe',
+        width: '100%',   
+    },
+    navContainer: {
+        flex: 0.65,
+    },
+    boxShadowContainer: {
+        alignItems: 'center', 
+        flex: 3,
     },
     textHeader: {
-    fontFamily: 'Cairo-Light',
-    fontSize: 26,
-    paddingLeft: '10%',
-    color: '#1a1f3e',
-    flex: 0.75, 
+        fontFamily: 'Cairo-Light',
+        fontSize: RF(4),
+        letterSpacing: 0.8,
+        paddingLeft: '9%',
+        color: '#1a1f3e',
+        flex: 0.65, 
     },
     contentContainer: {
-    flex: 1,
-    width: '82%',
-    },
-    cardContainer: {
-    width: '82%',
+        flex: 1,
+        width: '82%',
     },
     cardText: {
-    paddingBottom: '20%',
-    paddingTop: '7.5%',
-    paddingLeft: '7.5%',
-    paddingRight: '7.5%',
-    fontFamily: 'WorkSans-Light',
-    color: '#000000',
-    fontSize: 16,
+        paddingBottom: '20%',
+        paddingTop: '7.5%',
+        paddingLeft: '7.5%',
+        paddingRight: '7.5%',
+        fontFamily: 'WorkSans-Light',
+        color: '#000000',
+        lineHeight: 22,
+        letterSpacing: 0.4,
+        fontSize: RF(2.4),
     },
     txtWalletName: {
-    width: '100%',
-    flexWrap: 'wrap',
-    color: '#12c1a2',
+        width: '100%',
+        flexWrap: 'wrap',
+        color: '#12c1a2',
+        letterSpacing: 0.4,
+        fontSize: RF(2.4),
+        fontFamily: 'WorkSans-Regular',  
     },
     btnContainer: {
-    flex: 2,
-    alignItems: 'stretch',
-    justifyContent: 'flex-end',
-    width: '100%',
+        flex: 2,
+        alignItems: 'stretch',
+        justifyContent: 'flex-end',
+        width: '100%',
     },
     button: {
-    width: '82%',
-    height: Dimensions.get('window').height * 0.082,  
+        width: '82%',
+        height: Dimensions.get('window').height * 0.082,  
     },
     footerGrandparentContainer: {
-    alignItems: 'center',
-    marginBottom: '2.5%',
-    marginTop: '2.5%',
+        alignItems: 'center',
+        marginBottom: '5%',
+        marginTop: '5%',
     },
     footerParentContainer: {
-    alignItems: 'center',
+        alignItems: 'center',
     },
     textFooter: {
-    fontFamily: 'WorkSans-Regular',
-    fontSize: 11,
-    color: '#c0c0c0',},
+        fontFamily: 'WorkSans-Regular',
+        fontSize: RF(1.7),
+        color: '#c0c0c0',
+        letterSpacing: 0.5
+    },
+    defaultGreenColor: {
+        color: '#12c1a2'
+    },
 })
 
 /**
@@ -172,7 +204,8 @@ const styles = StyleSheet.create({
  */
 const mapStateToProps = ({ newWallet }) => {
   const { walletName } = newWallet;
-  return { walletName };
+  const debugMode = newWallet.debugMode
+  return { walletName, debugMode };
 };
 
 export default connect(mapStateToProps, { newWalletNameEntry, newWalletCreation })(CreateWalletName);
