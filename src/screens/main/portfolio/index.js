@@ -66,7 +66,7 @@ class Portfolio extends Component {
                     />
                   </View>
                 </View>
-                <View style={{ flex: 5 }}>
+                <View style={{ flex: 3 }}>
                   <View style={{ justifyContent: 'center', flex: 1 }}>
                     <View style={styles.mainTitleContainer}>
                       <Text style={styles.mainTitleText}> {token.symbol} </Text>
@@ -76,10 +76,10 @@ class Portfolio extends Component {
                     </View>
                   </View>
                 </View>
-                <View style={{ flex: 1, justifyContent: 'center', paddingBottom: '1.5%', paddingTop: '1.5%', paddingRight: '5%',  }}>
-                  <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
+                <View style={{ flex: 3, justifyContent: 'center', paddingBottom: '1.5%', paddingTop: '1.5%', paddingRight: '5%',  }}>
+                  <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'flex-end' }}>
                     <Text style={styles.listItemCryptoValue}>0</Text>
-                    <Text style={styles.listItemFiatValue}>$2444</Text>
+                    <Text style={styles.listItemFiatValue}>$2444432</Text>
                   </View>
                 </View>
               </View>
@@ -109,8 +109,9 @@ class Portfolio extends Component {
               <Text style={styles.headerValue}>0$</Text>
               <Text style={styles.headerValueCurrency}> USD</Text>
           </View>
+
           <View style={styles.scrollViewContainer}>
-            <ScrollView style={styles.scrollView} >
+            <ScrollView >
                 <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}/>
             </ScrollView>
           </View>
@@ -136,7 +137,6 @@ class Portfolio extends Component {
  * Styles used in the "Portfolio" screen
  */
 const styles = StyleSheet.create({
-
   contentContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -144,13 +144,13 @@ const styles = StyleSheet.create({
   containerSelected: {
     borderWidth: 1,
     borderColor: 'black',
-    width: '83%',
+    width: '84%',
   },
   containerDeselect: {
-    width: '83%',
+    width: '84%',
   },
   listItemParentContainer: {
-    marginLeft: '0.25%',
+    // marginLeft: '0.25%',
     height: Dimensions.get('window').height * 0.1,
     flex: 1,
   },
