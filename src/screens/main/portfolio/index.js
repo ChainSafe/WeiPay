@@ -42,39 +42,59 @@ class Portfolio extends Component {
    * Returns a ListItem component specific to the properties of the token parameter
    */
   renderRow = (token) => {
+
+    const {
+      listItemParentContainer,
+      boxShadowContainer,
+      contentContainer,
+      imgMainContainer,
+      imageContainer,
+      img,
+      listItemTextComponentContainer,
+      listItemTextComponent,
+      mainTitleContainer,
+      mainTitleText,
+      subtitleContainer,
+      subTitleText,
+      listItemValueContainer,
+      listItemValueComponent,
+      listItemCryptoValue,
+      listItemFiatValue
+    } = styles;
+
     return (
         <TouchableOpacity
           onPress={() => {
             this.props.addTokenInfo(token)
             this.props.navigation.navigate("coinSend")      
           }}
-          style={styles.listItemParentContainer}
+          style={listItemParentContainer}
           >
           <View>
-            <BoxShadowCard customStyles={styles.boxShadowContainer}>
-              <View style={[styles.contentContainer]}>
-                <View style={styles.imgMainContainer} >
-                  <View style={styles.imageContainer} >
+            <BoxShadowCard customStyles={boxShadowContainer}>
+              <View style={contentContainer}>
+                <View style={imgMainContainer} >
+                  <View style={imageContainer} >
                     <Image
-                      style={styles.img}
+                      style={img}
                       source={ { uri: token.logo.src } }
                     />
                   </View>
                 </View>
-                <View style={styles.listItemTextComponentContainer}>
-                  <View style={ styles.listItemTextComponent }>
-                    <View style={styles.mainTitleContainer}>
-                      <Text style={styles.mainTitleText}> {token.symbol} </Text>
+                <View style={listItemTextComponentContainer}>
+                  <View style={ listItemTextComponent }>
+                    <View style={mainTitleContainer}>
+                      <Text style={mainTitleText}> {token.symbol} </Text>
                     </View>
-                    <View style={styles.subtitleContainer}>
-                      <Text style={styles.subTitleText}> {token.name} </Text>
+                    <View style={subtitleContainer}>
+                      <Text style={subTitleText}> {token.name} </Text>
                     </View>
                   </View>
                 </View>
-                <View style={ styles.listItemValueContainer }>
-                  <View style={ styles.listItemValueComponent }>
-                    <Text style={styles.listItemCryptoValue}>0</Text>
-                    <Text style={styles.listItemFiatValue}>$2444432</Text>
+                <View style={ listItemValueContainer }>
+                  <View style={ listItemValueComponent }>
+                    <Text style={listItemCryptoValue}>0</Text>
+                    <Text style={listItemFiatValue}>$2444432</Text>
                   </View>
                 </View>
               </View>
@@ -89,35 +109,52 @@ class Portfolio extends Component {
    * The component also provides the option to add/delete tokens
    */
   render() {
+
+    const { 
+      safeAreaView,
+      mainContainer,
+      navBar,
+      textHeader,
+      accountValueHeader,
+      headerValue,
+      headerValueCurrency,
+      scrollViewContainer,
+      btnContainer,
+      button,
+      footerGrandparentContainer,
+      footerParentContainer,
+      textFooter,      
+    } = styles;
+
     return (
-      <SafeAreaView style={styles.safeAreaView}>
-        <View style={styles.mainContainer} >
-          <View style={styles.navBar}>
+      <SafeAreaView style={safeAreaView}>
+        <View style={mainContainer} >
+          <View style={navBar}>
             <BackWithMenuNav
               showMenu={true}
               showBack={false}
               navigation={this.props.navigation}
             />
           </View>
-          <Text style={styles.textHeader}>Holdings</Text>
-          <View style={styles.accountValueHeader}>
-              <Text style={styles.headerValue}>0$</Text>
-              <Text style={styles.headerValueCurrency}> USD</Text>
+          <Text style={textHeader}>Holdings</Text>
+          <View style={accountValueHeader}>
+              <Text style={headerValue}>0$</Text>
+              <Text style={headerValueCurrency}> USD</Text>
           </View>
-          <View style={styles.scrollViewContainer}>
+          <View style={scrollViewContainer}>
             <ScrollView >
                 <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}/>
             </ScrollView>
           </View>
-          <View style={styles.btnContainer} >
+          <View style={btnContainer} >
               <LinearButton
                 onClickFunction={this.navigate}
                 buttonText="Add Token or Coin"
-                customStyles={styles.button}
+                customStyles={button}
               />
-              <View style={styles.footerGrandparentContainer}>
-                  <View style={styles.footerParentContainer} >
-                      <Text style={styles.textFooter} >Powered by ChainSafe </Text>
+              <View style={footerGrandparentContainer}>
+                  <View style={footerParentContainer} >
+                      <Text style={textFooter} >Powered by ChainSafe </Text>
                   </View>
               </View>
           </View>         
@@ -127,9 +164,6 @@ class Portfolio extends Component {
   }
 }
 
-/**
- * Styles used in the "Portfolio" screen
- */
 const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
@@ -288,19 +322,6 @@ const styles = StyleSheet.create({
     color: '#c0c0c0',
     letterSpacing: 0.5
   },
-  // footerContainer: {
-  //   alignItems: 'center',
-  //   justifyContent: 'flex-end',
-  //   flex: 1,
-  // },
-  // textFooter : {
-  //   fontFamily: "WorkSans-Regular",
-  //   fontSize: RF(1.7),
-  //   marginBottom: '5%',
-  //   alignItems: 'center' ,
-  //   color: '#c0c0c0',
-  //   letterSpacing: 0.5
-  // }
 })
 
 /**
