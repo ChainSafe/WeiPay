@@ -45,15 +45,14 @@ class CoinSendTabNavigator extends Component {
             <View style={styles.tabHeader}  >
               <TouchableOpacity
                 style={this.props.tab === 'contacts' ? styles.headerButtonOneActive : styles.headerButtonOne}
-                onPress={this.props.setContact} >
+                onPress={this.props.setContactTab} >
                 <Text style={styles.headerContact}>Contacts</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={this.props.tab === 'addcontact' ? styles.headerButtonTwoActive : styles.headerButtonTwo}
-                onPress={this.props.setAddContact}>
+                onPress={this.props.setAddContactTab}>
                 <Text style={styles.headerAddContact}>Add Contact</Text>
               </TouchableOpacity>
-
             </View>
         );
     }

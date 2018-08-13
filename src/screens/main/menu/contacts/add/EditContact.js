@@ -35,7 +35,7 @@ class EditContact extends Component {
 
     let tokens = []
     this.inputRefs = {};
-    let contact = props.navigation.state.params.contact
+    let contact = this.props.contact
     let contactName = contact.name
     let contactAddress = contact.contactAddress
 
@@ -131,7 +131,7 @@ class EditContact extends Component {
 
   editContact() {
     this.props.editContact(this.state.contactName, this.state.contactAddress);
-    this.props.navigation.navigate('contacts')
+    this.props.setSelectedContactFalse()
   }
 
   clear() {
@@ -160,13 +160,7 @@ class EditContact extends Component {
     return (
       <View style={styles.mainContainer}>
         <View style={{flex: 0.2}} />
-        <BackWithMenuNav
-          showMenu={true}
-          showBack={this.state.selectedContact}
-          navigation={this.props.navigation}
-          backPage={"contacts"}
-          showBack={true}
-        />
+
         <View style={styles.contentContainer} >
           <BoxShadowCard style={{ padding: '160%' }}>
             <Text style={styles.cardText}>
@@ -222,17 +216,13 @@ class EditContact extends Component {
             </BoxShadowCard>
           </TouchableOpacity>
         </View>
+        <View style={{flex: 0.2}} />
         <View style={styles.btnContainer} >
           <LinearButton
             onClickFunction={this.editContact.bind(this)}
             buttonText= 'Edit Contact'
             customStyles={styles.button}
           />
-          <View style={styles.footerGrandparentContainer}>
-            <View style={styles.footerParentContainer} >
-              <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-            </View>
-          </View>
         </View>
       </View>
     );
@@ -259,7 +249,7 @@ const styles = StyleSheet.create({
   },
   contentContainer : {
     alignItems: 'center',
-    flex: 1.6,
+    flex: 1.8,
     width: '82%',
   },
   anotherCoinContainer: {
@@ -280,9 +270,8 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height * 0.082,
   },
   btnContainer: {
-    flex: 0.8,
+    flex: 0.4,
     width: '100%',
-    justifyContent: 'flex-end',
   },
   modal: {
      height: '40%',

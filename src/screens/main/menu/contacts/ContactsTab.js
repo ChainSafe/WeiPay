@@ -146,9 +146,9 @@ class ContactsTab extends Component {
    */
   render() {
     const show = this.props.contacts.length === 0 ?
-        <AddFirstContact setAddContact={this.props.setAddContact}/>
+        <AddFirstContact setAddContactTab={this.props.setAddContactTab}/>
       : this.props.selectedContact === true ?
-        <SelectedContact contact={this.state.contact} navigation={this.props.navigation}/>
+        <SelectedContact contact={this.state.contact} setSelectedContactFalse={this.props.setSelectedContactFalse} navigation={this.props.navigation}/>
 
       :
         <View style={styles.list}>

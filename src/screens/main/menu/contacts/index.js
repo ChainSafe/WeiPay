@@ -88,10 +88,11 @@ class Contacts extends Component {
     if (this.state.tab === 'contacts'){
       return (
         <ContactsTab
-          setAddContact={() => this.setState({ tab: 'addcontact' })}
+          setAddContactTab={() => this.setState({ tab: 'addcontact' })}
           navigation={this.props.navigation}
           selectedContact={this.state.selectedContact}
           selectedContactTrue={() => this.setState({ selectedContact: true})}
+          setSelectedContactFalse={() => this.setState({ selectedContact: false})}
         />
       )
     }
@@ -146,12 +147,12 @@ class Contacts extends Component {
     )
   }
 
-  setAddContact = () => {
+  setAddContactTab = () => {
     this.setState({ tab: 'addcontact' })
     this.setState({ selectedContact: false })
   }
 
-  setContact = () => {
+  setContactTab = () => {
     this.setState({ tab: 'contacts' })
     this.setState({ selectedContact: false })
   }
@@ -160,8 +161,6 @@ class Contacts extends Component {
    * variable is greater than 0.
    */
   render() {
-
-
       return (
         <View style={styles.mainContainer}>
           <ContactBackWithMenuNav
@@ -174,12 +173,11 @@ class Contacts extends Component {
           <ContactTabNavigator
             Active={this.state.active}
             navigation={this.props.navigation}
-            setContact={this.setContact}
-            setAddContact={this.setAddContact}
+            setContactTab={this.setContactTab}
+            setAddContactTab={this.setAddContactTab}
             tab={this.state.tab}
           />
           {this.displayContactTab()}
-
           <View style={{ alignItems:'center', marginTop: '-5%', flex: 0.08, }} >
             <Text style={styles.textFooter} >Powered by ChainSafe </Text>
           </View>

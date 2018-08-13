@@ -27,7 +27,7 @@ class AddFirstContact extends Component {
 
         <View style={styles.btnContainer}>
           <LinearButton
-            onClickFunction={this.props.setAddContact}
+            onClickFunction={this.props.setAddContactTab}
             buttonText="Add your first contact"
             customStyles={styles.button}
           />

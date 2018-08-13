@@ -31,8 +31,8 @@ class AddContact extends Component {
     super(props);
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
-    let contactNameHolder = ""
-    let contactAddressHolder = {}
+    let contactName = ""
+    let contactAddress = {}
 
     // if ("ContactAddresses" in this.props.currentContact) {
     //   contactAddressHolder = this.props.currentContact.ContactAddresses
@@ -55,9 +55,9 @@ class AddContact extends Component {
     this.state = {
       disabled: true,
       clear: false,
-      contactName: contactNameHolder,
-      contactAddress: {},
-      tokenName: undefined,
+      contactName,
+      contactAddress,
+      tokenName: null,
       tokens,
       contactAddressInput: ""
     }
@@ -141,12 +141,14 @@ class AddContact extends Component {
 
     this.props.completeContact(this.state.contactName, this.state.contactAddress, this.state.tokenName);
     this.setState({ contactName: "" })
-    this.setState({ contactAddressInput: "" })
+    this.setState({ contactAddress: {} })
+    this.setState({ tokenName: 'null'})
   }
 
   clear() {
     this.setState({ contactName: "" })
-    this.setState({ contactAddressInput: "" })
+    this.setState({ contactAddress: {} })
+    this.setState({ tokenName: 'null'})
   }
 
   addAnotherCoinAddress() {
@@ -213,7 +215,7 @@ class AddContact extends Component {
                 placeholder={"WeiPay Address"}
                 onChangeText={ address => this.renderAddress(address)}
                 inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2'}}
-                value={this.state.contactAddressInput}
+                value={this.state.contactAddress[this.state.tokenName]}
                 editable={!!this.state.tokenName}
               />
             </View>

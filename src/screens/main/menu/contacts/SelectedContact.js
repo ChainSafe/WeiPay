@@ -9,8 +9,13 @@ import { getQRCodeData } from '../../../../actions/ActionCreator'
 import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
 import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard'
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
+import EditContact from './add/EditContact';
 
 class ContactAddresses extends Component {
+  state = {
+    editContact: false
+  }
+
   componentWillMount() {
 
     let addresses = this.props.contact.contactAddress
@@ -56,32 +61,32 @@ class ContactAddresses extends Component {
             <View style={{flexDirection: 'row', flex: 1}}>
               <View style={{flex: 0.1, marginTop: '-4%'}}>
                 <Image
-                    source={require('../../../../assets/images/eth.png')}
-                    style={{
+                  source={require('../../../../assets/images/eth.png')}
+                  style={{
                       flex: 1,
-                      width: Dimensions.get('window').height * 0.025,
+                    width: Dimensions.get('window').height * 0.025,
                       resizeMode: 'contain',
                       marginBottom: '5%',
                       marginLeft: '55%'
-                    }
-                    }
-                  />
-                </View>
-                <View style={{flex: 1, marginLeft: '5%', marginTop: '2.5%',}}>
-                  <Text style={{fontSize: 14, fontFamily: 'WorkSans-Regular',}}>{Object.keys(address)[0]} Address</Text>
-                  <Text style={{fontSize: 10, fontFamily: 'WorkSans-Regular', marginTop: '5%'}}>{address[Object.keys(address)[0]]}</Text>
-                </View>
-                <View style={{flex: 0.3,}}>
-                  <Image
-                    source={require('../../../../assets/icons/barcode.png')}
-                    style={{
+                  }
+                  }
+                />
+              </View>
+              <View style={{flex: 1, marginLeft: '5%', marginTop: '2.5%',}}>
+                <Text style={{fontSize: 14, fontFamily: 'WorkSans-Regular',}}>{Object.keys(address)[0]} Address</Text>
+                <Text style={{fontSize: 10, fontFamily: 'WorkSans-Regular', marginTop: '5%'}}>{address[Object.keys(address)[0]]}</Text>
+              </View>
+              <View style={{flex: 0.3,}}>
+                <Image
+                  source={require('../../../../assets/icons/barcode.png')}
+                  style={{
                       flex: 1,
-                      width: Dimensions.get('window').height * 0.07,
+                    width: Dimensions.get('window').height * 0.07,
                       resizeMode: 'contain',
                       marginBottom: '15%',
                       marginLeft: '0%'
-                    }
-                    }
+                  }
+                  }
                   />
                 </View>
               </View>
@@ -91,10 +96,15 @@ class ContactAddresses extends Component {
     )
   }
 
-  render() {
+  renderSelectedContactOrEditedContact = () => {
+    if (this.state.editContact === true) {
+      return (
+        <EditContact contact={this.props.contact} setSelectedContactFalse={this.props.setSelectedContactFalse}/>
+      )
+    }
+
     return (
       <View style={styles.mainContainer}>
-
         <View style={styles.scrollViewContainer}>
           <Text style={{ fontSize: 15 }}>{this.props.contact.name}</Text>
           <ScrollView style={styles.scrollView} >
@@ -106,10 +116,17 @@ class ContactAddresses extends Component {
           <LinearButton
             buttonText='Edit Contact'
             customStyles={styles.button}
-            onClickFunction={this.navigateToEditContact}
+            onClickFunction={() => this.setState({ editContact: true })}
           />
         </View>
       </View>
+
+    )
+  }
+
+  render() {
+    return (
+      this.renderSelectedContactOrEditedContact()
     )
   }
 }
@@ -147,7 +164,7 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     flex: 1,
-    width: '100%'
+    width: '100%',
   },
   button: {
     width: '82%',
