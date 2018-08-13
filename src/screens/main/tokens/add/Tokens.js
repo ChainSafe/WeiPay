@@ -28,10 +28,24 @@ class Coins extends Component {
    * Contains tha CoinList Component
    */
   render() {
+
+    const {
+      safeAreaView,
+      mainContainer,
+      NavBarButton,
+      tabNavContainer,
+      coinListContainer,
+      btnContainer,
+      button,
+      footerGrandparentContainer,
+      footerParentContainer,
+      textFooter,
+    } = styles;
+
     return (
-      <SafeAreaView style={styles.safeAreaView}>
-        <View style={styles.mainContainer}>
-          <View style={styles.NavBarButton}>
+      <SafeAreaView style={safeAreaView}>
+        <View style={mainContainer}>
+          <View style={NavBarButton}>
             <BackWithMenuNav
               showMenu={true}
               showBack={true}
@@ -39,7 +53,7 @@ class Coins extends Component {
               backPage={'mainStack'}
             />
           </View>
-          <View style={styles.tabNavContainer}>
+          <View style={tabNavContainer}>
             <TwoTabNavigator
               leftTabScreen={'Coins'}
               leftTabText={'Coins'}
@@ -48,21 +62,20 @@ class Coins extends Component {
               navigation={this.props.navigation}
             />
           </View>
-          <View style={styles.coinListContainer}>
+          <View style={coinListContainer}>
             <ScrollView  >
-                <CoinList type={'tokens'} />
-                {/* <CoinList /> */}
+                <CoinList type={'tokens'} />      
             </ScrollView>
           </View>
-          <View style={styles.btnContainer}>
+          <View style={btnContainer}>
             <LinearButton
               onClickFunction={this.navigate}
               buttonText='Add Tokens'
-              customStyles={styles.button}
+              customStyles={button}
             />
-            <View style={styles.footerGrandparentContainer}>
-                <View style={styles.footerParentContainer} >
-                    <Text style={styles.textFooter} >Powered by ChainSafe </Text>
+            <View style={footerGrandparentContainer}>
+                <View style={footerParentContainer} >
+                    <Text style={textFooter} >Powered by ChainSafe </Text>
                 </View>
             </View>
           </View>
@@ -113,8 +126,8 @@ const styles = StyleSheet.create({
   },
   footerGrandparentContainer: {
     alignItems: 'center',
-    marginBottom: '3%',
-    marginTop: '3%',
+    marginBottom: '5%',
+    marginTop: '5%',
   },
   footerParentContainer: {
     alignItems: 'center',
