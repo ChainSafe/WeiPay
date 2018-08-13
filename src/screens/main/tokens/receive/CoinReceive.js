@@ -17,12 +17,13 @@ class CoinReceive extends Component {
    */
   render() {
     const {
+      safeAreaView,
       mainContainer,
+      navContainer,
+      navHeaderContainer,
       contentContainer,
       imageContainer,
       addressContainer,
-      navContainer,
-      navHeaderContainer,
       addressTitle,
       addressValue,
       footerGrandparentContainer,
@@ -31,7 +32,7 @@ class CoinReceive extends Component {
     } = styles;
 
     return (
-      <SafeAreaView style={styles.safeAreaView}>
+      <SafeAreaView style={safeAreaView}>
         <View style={mainContainer}>
           <View style={navContainer}>        
             <BackWithMenuNav

@@ -67,7 +67,12 @@ class CoinActivity extends Component {
    */
   render() {
     const {
+      safeAreaView,
       mainContainer,
+      navContainer,
+      navHeaderContainer,
+      listContainer,
+      flatListComponent,
       itemStyle,
       headerContainer,
       type,
@@ -81,7 +86,7 @@ class CoinActivity extends Component {
     } = styles;
 
     return (
-      <SafeAreaView style={styles.safeAreaView}>
+      <SafeAreaView style={safeAreaView}>
         <View style={mainContainer}>
           <View style={styles.navContainer}>        
               <BackWithMenuNav
@@ -91,7 +96,7 @@ class CoinActivity extends Component {
                   backPage={'mainStack'}
                 />
             </View>
-            <View style={[styles.navHeaderContainer]}>
+            <View style={navHeaderContainer}>
               <CoinSendTabNavigator 
                 navigation={this.props.navigation}
                 sendActive={false}
@@ -99,11 +104,11 @@ class CoinActivity extends Component {
                 receiveActive={false} 
               />
           </View>
-          <View style={styles.listContainer}>
+          <View style={listContainer}>
             <FlatList
               data={this.state.data}
               keyExtractor={(x, i) => i.toString()}
-              style={{ flex: 1, width: '100%', backgroundColor: '#fafbfe' }}
+              style={flatListComponent}
               renderItem={({ item }) =>              
                 <View style={itemStyle}>
                   <View>
@@ -157,7 +162,11 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 5.25,
     marginTop: '12%',
-    // paddingTop: '10%',
+  },
+  flatListComponent: {
+    flex: 1, 
+    width: '100%', 
+    backgroundColor: '#fafbfe', 
   },
   addressContainer: {
     flexDirection: 'row',
