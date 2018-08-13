@@ -49,7 +49,7 @@ class BackupPhrase extends Component {
           <View style={styles.mainContainer}>
               <View style={styles.navContainer}>        
                 <BackWithMenuNav
-                    showMenu={false}
+                    showMenu={true}
                     showBack={true}
                     navigation={this.props.navigation}
                   />
