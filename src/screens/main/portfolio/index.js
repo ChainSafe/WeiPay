@@ -228,6 +228,7 @@ const styles = StyleSheet.create({
   accountValueHeader: {
     flexDirection: 'row',
     flex: 0.5,
+    alignItems: "center"
   },
   headerValue: {
     fontFamily: 'WorkSans-Medium',
