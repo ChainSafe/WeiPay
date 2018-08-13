@@ -40,9 +40,9 @@ class Coins extends Component {
           </View>          
           <View style={styles.tabNavContainer}>
             <TwoTabNavigator
-              leftTabScreen={'AddCoin'}
+              leftTabScreen={'Coins'}
               leftTabText={'Coins'}
-              rightTabScreen={'AddToken'}
+              rightTabScreen={'Tokens'}
               rightTabText={'Tokens'}
               Active={true}
               navigation={this.props.navigation}
@@ -85,14 +85,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafbfe',
   },
   NavBarButton: {
-    flex: 0.75, 
+    flex: 0.65, 
     justifyContent: 'center',
     paddingBottom: '2%',
   },
   tabNavContainer: { 
-    flex: 0.75, 
+    flex: 0.3, 
     justifyContent: 'center',
-    marginBottom: '2%', 
+    marginBottom: '2%',
   },
   coinListContainer: {
     alignItems: 'stretch',
