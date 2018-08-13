@@ -31,6 +31,7 @@
     "react-navigation": "1.0.0-beta.15",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
+    "redux-persist": "^5.10.0",
     "redux-thunk": "^2.2.0",
     "render-if": "^0.1.1",
     "shuffle-array": "^1.0.1"
