@@ -51,6 +51,7 @@ class Coins extends Component {
           <View style={styles.coinListContainer}>
             <ScrollView  >
                 <CoinList type={'tokens'} />
+                {/* <CoinList /> */}
             </ScrollView>
           </View>
           <View style={styles.btnContainer}>

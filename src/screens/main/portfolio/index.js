@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import {
- View, Text, StyleSheet, ListView, Image, TouchableOpacity, ScrollView, Dimensions, SafeAreaView 
-} from 'react-native';
+import { View, Text, StyleSheet, ListView, Image, TouchableOpacity, ScrollView, Dimensions, SafeAreaView, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from "react-navigation";
@@ -68,7 +66,7 @@ class Portfolio extends Component {
                     />
                   </View>
                 </View>
-                <View style={{ flex: 5 }}>
+                <View style={{ flex: 3 }}>
                   <View style={{ justifyContent: 'center', flex: 1 }}>
                     <View style={styles.mainTitleContainer}>
                       <Text style={styles.mainTitleText}> {token.symbol} </Text>
@@ -78,10 +76,10 @@ class Portfolio extends Component {
                     </View>
                   </View>
                 </View>
-                <View style={{ flex: 1, justifyContent: 'center', paddingBottom: '1.5%', paddingTop: '1.5%', paddingRight: '5%',  }}>
-                  <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
+                <View style={{ flex: 3, justifyContent: 'center', paddingBottom: '1.5%', paddingTop: '1.5%', paddingRight: '5%',  }}>
+                  <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'flex-end' }}>
                     <Text style={styles.listItemCryptoValue}>0</Text>
-                    <Text style={styles.listItemFiatValue}>$2444</Text>
+                    <Text style={styles.listItemFiatValue}>$2444432</Text>
                   </View>
                 </View>
               </View>
@@ -111,8 +109,9 @@ class Portfolio extends Component {
               <Text style={styles.headerValue}>0$</Text>
               <Text style={styles.headerValueCurrency}> USD</Text>
           </View>
+
           <View style={styles.scrollViewContainer}>
-            <ScrollView style={styles.scrollView} >
+            <ScrollView >
                 <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}/>
             </ScrollView>
           </View>
@@ -122,10 +121,12 @@ class Portfolio extends Component {
                 buttonText="Add Token or Coin"
                 customStyles={styles.button}
               />
-          </View>
-          <View style={styles.footerContainer}>
-            <Text style={styles.textFooter}  >Powered by ChainSafe </Text>
-          </View>
+              <View style={styles.footerGrandparentContainer}>
+                  <View style={styles.footerParentContainer} >
+                      <Text style={styles.textFooter} >Powered by ChainSafe </Text>
+                  </View>
+              </View>
+          </View>         
         </View>
       </SafeAreaView>
     );
@@ -136,7 +137,6 @@ class Portfolio extends Component {
  * Styles used in the "Portfolio" screen
  */
 const styles = StyleSheet.create({
-
   contentContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -144,13 +144,13 @@ const styles = StyleSheet.create({
   containerSelected: {
     borderWidth: 1,
     borderColor: 'black',
-    width: '83%',
+    width: '84%',
   },
   containerDeselect: {
-    width: '83%',
+    width: '84%',
   },
   listItemParentContainer: {
-    marginLeft: '0.25%',
+    // marginLeft: '0.25%',
     height: Dimensions.get('window').height * 0.1,
     flex: 1,
   },
@@ -163,8 +163,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   img: {
-    height: Dimensions.get('window').height * 0.06,
-    width: Dimensions.get('window').width * 0.1,
+    height: Platform.OS === 'ios' ? Dimensions.get('window').height * 0.0524 : Dimensions.get('window').height * 0.057,
+    width: Dimensions.get('window').width * 0.093,
     justifyContent: 'center',
   },
   mainTitleContainer: {
@@ -258,19 +258,33 @@ const styles = StyleSheet.create({
     width: '82%',
     height: Dimensions.get('window').height * 0.082,
   },
-  footerContainer: {
+  footerGrandparentContainer: {
     alignItems: 'center',
-    justifyContent: 'flex-end',
-    flex: 1,
-  },
-  textFooter : {
-    fontFamily: "WorkSans-Regular",
-    fontSize: RF(1.7),
     marginBottom: '5%',
-    alignItems: 'center' ,
+    marginTop: '5%',
+  },
+  footerParentContainer: {
+    alignItems: 'center',
+  },
+  textFooter: {
+    fontFamily: 'WorkSans-Regular',
+    fontSize: RF(1.7),
     color: '#c0c0c0',
     letterSpacing: 0.5
-  }
+  },
+  // footerContainer: {
+  //   alignItems: 'center',
+  //   justifyContent: 'flex-end',
+  //   flex: 1,
+  // },
+  // textFooter : {
+  //   fontFamily: "WorkSans-Regular",
+  //   fontSize: RF(1.7),
+  //   marginBottom: '5%',
+  //   alignItems: 'center' ,
+  //   color: '#c0c0c0',
+  //   letterSpacing: 0.5
+  // }
 })
 
 /**

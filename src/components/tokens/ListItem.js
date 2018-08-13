@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Dimensions, Image } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Dimensions, Image, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import { addTokenToSetup } from '../../actions/ActionCreator';
@@ -153,9 +153,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   img: {
-    height: Dimensions.get('window').height * 0.06,
-    width: Dimensions.get('window').width * 0.1,
-    justifyContent: 'center',
+    height: Platform.OS === 'ios' ? Dimensions.get('window').height * 0.0524 : Dimensions.get('window').height * 0.057,
+    width: Dimensions.get('window').width * 0.093,
   },
   mainTitleContainer: {
     flex: 0.5,
