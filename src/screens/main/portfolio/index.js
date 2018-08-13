@@ -122,10 +122,12 @@ class Portfolio extends Component {
                 buttonText="Add Token or Coin"
                 customStyles={styles.button}
               />
-          </View>
-          <View style={styles.footerContainer}>
-            <Text style={styles.textFooter}  >Powered by ChainSafe </Text>
-          </View>
+              <View style={styles.footerGrandparentContainer}>
+                  <View style={styles.footerParentContainer} >
+                      <Text style={styles.textFooter} >Powered by ChainSafe </Text>
+                  </View>
+              </View>
+          </View>         
         </View>
       </SafeAreaView>
     );
@@ -163,8 +165,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   img: {
-    height: Dimensions.get('window').height * 0.06,
-    width: Dimensions.get('window').width * 0.1,
+    height: Dimensions.get('window').height * 0.0524,
+    width: Dimensions.get('window').width * 0.093,
     justifyContent: 'center',
   },
   mainTitleContainer: {
@@ -258,19 +260,33 @@ const styles = StyleSheet.create({
     width: '82%',
     height: Dimensions.get('window').height * 0.082,
   },
-  footerContainer: {
+  footerGrandparentContainer: {
     alignItems: 'center',
-    justifyContent: 'flex-end',
-    flex: 1,
-  },
-  textFooter : {
-    fontFamily: "WorkSans-Regular",
-    fontSize: RF(1.7),
     marginBottom: '5%',
-    alignItems: 'center' ,
+    marginTop: '5%',
+  },
+  footerParentContainer: {
+    alignItems: 'center',
+  },
+  textFooter: {
+    fontFamily: 'WorkSans-Regular',
+    fontSize: RF(1.7),
     color: '#c0c0c0',
     letterSpacing: 0.5
-  }
+  },
+  // footerContainer: {
+  //   alignItems: 'center',
+  //   justifyContent: 'flex-end',
+  //   flex: 1,
+  // },
+  // textFooter : {
+  //   fontFamily: "WorkSans-Regular",
+  //   fontSize: RF(1.7),
+  //   marginBottom: '5%',
+  //   alignItems: 'center' ,
+  //   color: '#c0c0c0',
+  //   letterSpacing: 0.5
+  // }
 })
 
 /**

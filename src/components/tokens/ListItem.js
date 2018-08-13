@@ -153,9 +153,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   img: {
-    height: Dimensions.get('window').height * 0.06,
-    width: Dimensions.get('window').width * 0.1,
-    justifyContent: 'center',
+    height: Dimensions.get('window').height * 0.0524,
+    width: Dimensions.get('window').width * 0.093,
   },
   mainTitleContainer: {
     flex: 0.5,
