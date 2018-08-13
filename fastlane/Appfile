@@ -1,0 +1,2 @@
+json_key_file "./playstore-api-key.json"
+package_name "com.chainsafe.weipay"

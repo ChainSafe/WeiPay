@@ -4,6 +4,29 @@ before_all do
 end
 
 platform :ios do
+  before_all do
+    version_number = get_version_number(xcodeproj: "./ios/weipay.xcodeproj", target: "WeiPay")
+    build_number = get_build_number(xcodeproj: "./ios/weipay.xcodeproj")
+    ENV["VERSION_NUMBER"] = version_number + "." + build_number
+  end
+
+  desc 'Slack notification for succesful build to TestFlight'
+  lane :slack_testflight do
+    slack(
+      message: "A new build has been uploaded to TestFlight!",
+      success: true,
+      slack_url: "https://hooks.slack.com/services/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",
+      attachment_properties: {
+        fields: [
+          {
+             title: "Version number",
+             value: ENV["VERSION_NUMBER"],
+          },
+        ]
+      }
+    )
+  end
+
   desc 'Fetch certificates and provisioning profiles'
     lane :certificates do
       match(app_identifier: 'io.chainsafe.weipay', type: 'development', readonly: true)
@@ -13,6 +36,7 @@ platform :ios do
   desc 'Build the iOS application.'
     private_lane :build do
       certificates
+      increment_build_number(xcodeproj: "./ios/weipay.xcodeproj")
       gym(scheme: 'WeiPay', project: './ios/weipay.xcodeproj')
     end
 
@@ -20,9 +44,40 @@ platform :ios do
     lane :beta do
       build
       pilot(username: 'superadmin@chainsafe.io')
+      slack_testflight
     end
 end
 
 platform :android do
-  # Android Lanes
+  desc 'Slack notification for succesful build to Playstore'
+  lane :slack_playstore do
+    slack(
+      message: "A new build has been uploaded to the PlayStore",
+      success: true,
+      slack_url: "https://hooks.slack.com/services/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",
+      attachment_properties: {
+        fields: [
+          {
+             title: "Build number",
+             value: ENV["BUILD_NUMBER"],
+          },
+        ]
+      }
+    )
+  end
+
+ desc 'Build the Android application.'
+  private_lane :build do
+    gradle(task: 'clean', project_dir: 'android/')
+    gradle(task: 'assemble', build_type: 'Release', project_dir: 'android/')
+  end
+
+  desc 'Ship to Playstore Beta.'
+  lane :beta do
+    build
+    supply(track: 'beta', track_promote_to: 'beta')
+    git_commit(path: ['./android/gradle.properties'], message: 'Bump versionCode')
+    push_to_git_remote
+    slack_playstore
+  end
 end
