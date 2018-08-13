@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import {
- View, Text, StyleSheet, ListView, Image, TouchableOpacity, ScrollView, Dimensions, SafeAreaView 
-} from 'react-native';
+import { View, Text, StyleSheet, ListView, Image, TouchableOpacity, ScrollView, Dimensions, SafeAreaView, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from "react-navigation";
@@ -165,7 +163,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   img: {
-    height: Dimensions.get('window').height * 0.0524,
+    height: Platform.OS === 'ios' ? Dimensions.get('window').height * 0.0524 : Dimensions.get('window').height * 0.057,
     width: Dimensions.get('window').width * 0.093,
     justifyContent: 'center',
   },
