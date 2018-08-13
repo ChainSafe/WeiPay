@@ -84,8 +84,8 @@ class ConfirmPassphrase extends Component {
 
     validatePassphrase = () => {
       const { scrambledTags, selectedTags } = this.state;
-      var passphraseIncomplete = true;
-      var count = 0;
+      let passphraseIncomplete = true;
+      let count = 0;
       if(selectedTags.length == 12) {
         for(let i = 0; i < selectedTags.length; i++) {       
           if(selectedTags[i].wordItem.index == i) {
@@ -128,8 +128,8 @@ class ConfirmPassphrase extends Component {
         mainContainer,
         navContainer,
         textHeader,
-        contentContainer,
         boxShadowContainer,
+        contentContainer,
         cardText,
         tagContainer,
         cardButtonContainer,

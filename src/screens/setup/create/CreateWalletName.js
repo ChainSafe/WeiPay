@@ -86,7 +86,7 @@ class CreateWalletName extends Component {
                     <View style={boxShadowContainer}>
                         <View style={contentContainer}>
                             <BoxShadowCard>
-                                <Text style={styles.cardText}>
+                                <Text style={cardText}>
                                     Create a name for your wallet, for example: 
                                     <Text style={defaultGreenColor}>
                                         My Wallet

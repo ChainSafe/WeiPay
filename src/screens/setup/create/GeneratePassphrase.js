@@ -24,7 +24,9 @@ class GeneratePassphrase extends Component {
       const { walletInfo } = this.props;
 
       const {
+        safeAreaView,
         mainContainer,
+        navContainer,
         textHeader,
         contentContainer,
         boxShadowContainer,
@@ -38,9 +40,9 @@ class GeneratePassphrase extends Component {
       } = styles;
 
       return (
-        <SafeAreaView style={styles.safeAreaView}>
+        <SafeAreaView style={safeAreaView}>
           <View style={mainContainer}>
-            <View style={styles.navContainer}>
+            <View style={navContainer}>
               <BackWithMenuNav
                   showMenu={false}
                   showBack={true}
