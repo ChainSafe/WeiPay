@@ -160,7 +160,6 @@ class EditContact extends Component {
     return (
       <View style={styles.mainContainer}>
         <View style={{flex: 0.2}} />
-
         <View style={styles.contentContainer} >
           <BoxShadowCard style={{ padding: '160%' }}>
             <Text style={styles.cardText}>
