@@ -76,40 +76,53 @@ class CoinListItem extends Component {
    */
   render() {
     const { coin } = this.props;
+
+    const {
+      boxShadownContainer,
+      contentContainer,
+      imgMainContainer,
+      imageContainer,
+      img,
+      listItemTextContainer,
+      listItemTextComponent,
+      mainTitleContainer,
+      mainTitleText,
+      subtitleContainer,
+      subTitleText,
+      listItemIconContainer,
+      listItemIconComponent,
+      listItemIcon,
+    } = styles;
     
     return (
       <View style={styles.listItemParentContainer}>
         <TouchableOpacity
           onPress={() => {return this.renderPress(coin)}}>
           <View style={[coin.selected ? null : null]}>
-            <BoxShadowCard customStyles={{ flex: 1 }} containerStyling={this.renderBoxContainerStyling(coin)}>
-              <View style={[styles.contentContainer]}>
-                <View style={styles.imgMainContainer} >
-                  <View style={styles.imageContainer} >
+            <BoxShadowCard customStyles={boxShadownContainer} containerStyling={this.renderBoxContainerStyling(coin)}>
+              <View style={[contentContainer]}>
+                <View style={imgMainContainer} >
+                  <View style={imageContainer} >
                     <Image
-                      style={styles.img}            
+                      style={img}            
                       source={{ uri: coin.logo.src} }
                     />
                   </View>
                 </View>
-                <View style={{ flex: 4  }}>
-                  <View style={{ justifyContent: 'center', flex: 1 }}>                       
-                    <View style={styles.mainTitleContainer}>
-                      <Text style={styles.mainTitleText} >{coin.symbol}</Text>
+                <View style={listItemTextContainer}>
+                  <View style={listItemTextComponent}>                       
+                    <View style={mainTitleContainer}>
+                      <Text style={mainTitleText} >{coin.symbol}</Text>
                     </View>
-                    <View style={styles.subtitleContainer}>
-                      <Text style={styles.subTitleText} >{coin.name}</Text>
-                    </View>
-                   
+                    <View style={subtitleContainer}>
+                      <Text style={subTitleText} >{coin.name}</Text>
+                    </View>                   
                   </View>
                 </View>
-                <View style={{ flex: 1 }}>
-                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={listItemIconContainer}>
+                  <View style={listItemIconComponent}>
                     <Image
-                      style={{
-                        height: Dimensions.get('window').height * 0.035,
-                        width: Dimensions.get('window').width * 0.035,
-                        justifyContent: 'center' } }
+                      style={ listItemIcon }
                       source={this.renderStatePicture(coin)}
                     />
                   </View>
@@ -127,6 +140,9 @@ class CoinListItem extends Component {
  * Component Styles
  */
 const styles = StyleSheet.create({
+  boxShadownContainer: {
+    flex: 1, 
+  },
   contentContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -138,6 +154,13 @@ const styles = StyleSheet.create({
   },
   containerDeselect: {
     width: '83%',
+  },
+  listItemTextContainer: {
+    flex: 4, 
+  },
+  listItemTextComponent: {
+    justifyContent: 'center', 
+    flex: 1,
   },
   listItemParentContainer: {
     marginLeft: '0.25%',
@@ -163,6 +186,19 @@ const styles = StyleSheet.create({
   subtitleContainer: {
     flex: 0.5,
     justifyContent: 'flex-start',
+  },
+  listItemIconContainer: {
+    flex: 1,
+  },
+  listItemIconComponent: {
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center',
+  },
+  listItemIcon: {
+    height: Dimensions.get('window').height * 0.035,
+    width: Dimensions.get('window').width * 0.035,
+    justifyContent: 'center',
   },
   mainTitleText: {
     fontSize: RF(2.4),
