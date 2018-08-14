@@ -77,10 +77,8 @@ class CoinSend extends Component {
    * @param {String} addressInput 
    */
   renderAddress(addressInput) {
-    var add = addressInput.trim();
-    console.log(add)
-    this.setState({ inputValue: add, toAddress: add })
-    //this.setState({ toAddress: add });
+    var add = addressInput.trim();    
+    this.setState({ inputValue: add, toAddress: add })    
     this.props.getQRCodeData(addressInput)
   }
 
@@ -100,12 +98,10 @@ class CoinSend extends Component {
           ],
           { cancelable: false }
         )
-      } else {
-        console.log('is a number ' + valueInput)
+      } else {   
         this.setState({ value: valueInput });
       }
-    } else {
-      console.log('not a number ' + valueInput)
+    } else {   
       this.setState({ value: 0 });
     }
   }
@@ -126,24 +122,18 @@ class CoinSend extends Component {
     const currentWallet = this.props.wallet;
     currentWallet.provider = provider;
     const sendPromise = currentWallet.send(receivingAddress, amount);
-    sendPromise.then(function (transactionHash) {
-      console.log(transactionHash);
+    sendPromise.then(function (transactionHash) {     
       provider.getBalance(currentWallet.address).then(function (balance) {
-        const etherString = utils.formatEther(balance);
-        console.log('currentWallet Balance: ' + etherString);
+        const etherString = utils.formatEther(balance);        
       });
       provider.getBalance(receivingAddress).then(function (balance) {
-        const etherString = utils.formatEther(balance);
-        console.log('receiving account Balance: ' + etherString);
+        const etherString = utils.formatEther(balance);   
       });
     });
   }
 
-  sendERC20Transaction = () => {
-    console.log('IN SEND TRANSACTION FUNCTION')
+  sendERC20Transaction = () => { 
     const val = this.state.value
-    console.log('THE val is')
-    console.log(val)
     const toAddr = this.state.toAddress
     const currentWallet = this.props.wallet;
     const contract = new ethers.Contract(this.props.token.address, ERC20ABI, currentWallet)
@@ -154,7 +144,6 @@ class CoinSend extends Component {
     };
     var sendPromise = contract.functions.transfer(this.state.toAddress, val, overrideOptions)
     sendPromise.then((transaction) => {
-        console.log(transaction.hash);
         this.setState({ txHash: transaction.hash })
         this.openModal()
     });
@@ -186,23 +175,10 @@ class CoinSend extends Component {
    * Returns the complete form required to send a transaction
    */
   render() {
-    const {
-      mainContainer,
-      safeAreaView,
-      contentContainer,
-      cardText,
-      txtWalletName,
-      btnContainer,
-      button,
-      footerGrandparentContainer,
-      footerParentContainer,
-      textFooter,
-    } = styles;
-
     return (
       <SafeAreaView style={styles.safeAreaView}>
          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={mainContainer}>
+            <View style={styles.mainContainer}>
                 <View style={styles.navContainer}>        
                   <BackWithMenuNav
                      showMenu={true}
@@ -220,9 +196,9 @@ class CoinSend extends Component {
                     />
                 </View>
                 <View style={styles.boxShadowContainer}>
-                  <View style={contentContainer}>
+                  <View style={styles.contentContainer}>
                       <BoxShadowCard>
-                          <Text style={cardText}>
+                          <Text style={styles.cardText}>
                               Send Ether by scanning someone's QR code or public address.
                           </Text>
                           <View style= {styles.barcodeImageContainer}>
@@ -255,12 +231,12 @@ class CoinSend extends Component {
                   </View>
                 </View>
                 <View style={styles.btnContainer}>
-                  <View style={{flexDirection:"row"}}>
-                    <View style={{ flex: 1}}>
+                  <View style={styles.btnRow}>
+                    <View style={styles.btnTopReset}>
                       <ClearButton 
                         onClickFunction={this.resetFields}
                         buttonText="Reset"
-                        customStyles={{marginLeft:'0%', marginRight:'1.75%', height: Dimensions.get('window').height * 0.082}}
+                        customStyles={styles.btnCustom}
                         // buttonStateEnabled={this.state.buttonDisabled}
                       />
                     </View>
@@ -270,21 +246,20 @@ class CoinSend extends Component {
                           this.props.token.type === "ERC20" ? this.sendERC20Transaction : this.sendTransaction  
                                       }
                         buttonText="Send"
-                        customStyles={{marginLeft: '0%', marginLeft:'1.75%', height: Dimensions.get('window').height * 0.082}}
+                        customStyles={styles.btnCustom}
                         // buttonStateEnabled={this.state.buttonDisabled}
                       />
                     </View>
                   </View>
-                  <View style={footerGrandparentContainer}>
-                    <View style={footerParentContainer} >
-                        <Text style={textFooter} >Powered by ChainSafe </Text>
+                  <View style={styles.footerGrandparentContainer}>
+                    <View style={styles.footerParentContainer} >
+                        <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                     </View>
                   </View>
                 </View>
           </View>
         </TouchableWithoutFeedback>
-       </SafeAreaView>
-      
+       </SafeAreaView>      
     )
   }
 }
@@ -370,9 +345,16 @@ const styles = StyleSheet.create({
     marginLeft: '9%',
     marginRight: '9%',
   },
-  button: {
-    width: '82%',
-    height: Dimensions.get('window').height * 0.082,  
+  btnRow: {
+    flexDirection:"row",
+  },
+  btnTopReset: {
+    flex: 1,
+  },
+  btnCustom: {
+    marginLeft:'0%', 
+    marginRight:'1.75%', 
+    height: Dimensions.get('window').height * 0.082,
   },
   footerGrandparentContainer: {
     alignItems: 'center',

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native';
+import { View, Text, StyleSheet, Alert, SafeAreaView } from 'react-native';
 import { connect } from 'react-redux';
 import { FormInput, FormLabel, Button } from 'react-native-elements';
 import Camera from 'react-native-camera';
@@ -55,36 +55,30 @@ class QrCodeScanner extends Component {
         }
     };
 
-
-
     /**
      * Returns a screen with the react-native-camera component as the background
      *  - a text box to  see the text that was scanned
      *  - a button to go back to the invoking screen and fill in the input field
      */
     render() {
-
         return (
-            <View style={styles.container}>
-                <Camera
-                    style={styles.preview}
-                    onBarCodeRead={this.onBarCodeRead}
-                    ref={cam => this.camera = cam}
-                    aspect={Camera.constants.Aspect.fill}
-                >
-                    <Text style={{
-                        backgroundColor: 'white'
-                    }}
-
-                    >{this.state.qrcode}</Text>
-
-                    <Button
-                        title='Next'
-                        style={styles.buttonStyle}
-                        onPress={() => this.props.navigation.goBack()}
-                    />
-                </Camera>
-            </View>
+            <SafeAreaView style={styles.safeAreaView}>
+                <View style={styles.container}>
+                    <Camera
+                        style={styles.preview}
+                        onBarCodeRead={this.onBarCodeRead}
+                        ref={cam => this.camera = cam}
+                        aspect={Camera.constants.Aspect.fill}
+                    >
+                        <Text style={styles.textStyle}>{this.state.qrcode}</Text>
+                        <Button
+                            title='Next'
+                            style={styles.buttonStyle}
+                            onPress={() => this.props.navigation.goBack()}
+                        />
+                    </Camera>
+                </View>
+            </SafeAreaView>
         )
     }
 }
@@ -93,18 +87,18 @@ class QrCodeScanner extends Component {
  * Styles for QrCode Scanner component
  */
 const styles = StyleSheet.create({
-    mainContainer: {
+    safeAreaView: {
+        flex: 1, 
+        backgroundColor: '#fafbfe'
+    },
+    container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'flex-start'
+        flexDirection: 'row',
     },
-    contentContainer: {
-        marginTop: 25
+    textStyle: {
+        backgroundColor: 'white'
     },
-    form: {
-        width: 340
-    },
-    btnContainer: {
+    preview: {
         flex: 1,
         justifyContent: 'flex-end',
         alignItems: 'center'
@@ -113,15 +107,6 @@ const styles = StyleSheet.create({
         backgroundColor: "blue",
         padding: 10
     },
-    container: {
-        flex: 1,
-        flexDirection: 'row',
-    },
-    preview: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'center'
-    }
 })
 
 /**

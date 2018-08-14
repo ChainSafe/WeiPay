@@ -8,16 +8,12 @@ import RF from "react-native-responsive-fontsize"
  *      onClickFunction
  *      buttonText
  *      buttonStateEnabled
- * 
  * Optional props:
  *      customStyles
  *      customTextStyles
- *      
- *      
  */
 
 class LinearButton extends Component {
-
     render() {
         return (
             <View>

@@ -84,8 +84,8 @@ class ConfirmPassphrase extends Component {
 
     validatePassphrase = () => {
       const { scrambledTags, selectedTags } = this.state;
-      var passphraseIncomplete = true;
-      var count = 0;
+      let passphraseIncomplete = true;
+      let count = 0;
       if(selectedTags.length == 12) {
         for(let i = 0; i < selectedTags.length; i++) {       
           if(selectedTags[i].wordItem.index == i) {
@@ -122,32 +122,10 @@ class ConfirmPassphrase extends Component {
      */
     render() {
       const { selectedTags, scrambledTags } = this.state;
-
-      const {
-        safeAreaView,
-        mainContainer,
-        navContainer,
-        textHeader,
-        contentContainer,
-        boxShadowContainer,
-        cardText,
-        tagContainer,
-        cardButtonContainer,
-        cardButton,
-        selectedTextContainer,
-        cardSelectedButtonContainer,
-        selectedWordText,
-        btnContainer,
-        button,
-        footerGrandparentContainer,
-        footerParentContainer,
-        textFooter,
-      } = styles;
-
       return (
-        <SafeAreaView style={safeAreaView}>
-          <View style={mainContainer}>
-            <View style={navContainer}>
+        <SafeAreaView style={styles.safeAreaView}>
+          <View style={styles.mainContainer}>
+            <View style={styles.navContainer}>
               <BackWithMenuNav
                 showMenu={false}
                 showBack={true}
@@ -155,23 +133,23 @@ class ConfirmPassphrase extends Component {
                 backPage={'generatePassphrase'}
               />
           </View>
-          <Text style={textHeader}>Confirm Passphrase</Text>           
-          <View style={boxShadowContainer}>
-            <View style={contentContainer} >
+          <Text style={styles.textHeader}>Confirm Passphrase</Text>           
+          <View style={styles.boxShadowContainer}>
+            <View style={styles.contentContainer} >
                 <BoxShadowCard>
-                    <Text style={cardText}>
+                    <Text style={styles.cardText}>
                         Please assemble your passphrase in the correct order.
                     </Text>
-                    <View style={tagContainer} >
+                    <View style={styles.tagContainer} >
                         {
                             scrambledTags.map((item, index) => {
                               return (
-                                <View key={item.wordItem.index} style={cardButtonContainer}>
+                                <View key={item.wordItem.index} style={styles.cardButtonContainer}>
                                     <ClearButton
                                         buttonText={item.wordItem.word}
                                         key={item.wordItem.index}
                                         onClickFunction={() => this.addWord(item.wordItem, index)}
-                                        customStyles={cardButton}
+                                        customStyles={styles.cardButton}
                                         unlockButton={this.state.scrambledTags[index].selected}
                                         />
                                 </View>
@@ -179,14 +157,14 @@ class ConfirmPassphrase extends Component {
                             })
                         }
                     </View>
-                    <View style={selectedTextContainer} >
+                    <View style={styles.selectedTextContainer} >
                         {
                             selectedTags.map((item, index) => {
                               return (
-                                <View key={item.wordItem.index} style={cardSelectedButtonContainer}>
+                                <View key={item.wordItem.index} style={styles.cardSelectedButtonContainer}>
                                     <TouchableOpacity
                                         onPress={() => this.removeWord(item, index)}>
-                                        <Text style={selectedWordText}>
+                                        <Text style={styles.selectedWordText}>
                                             {item.wordItem.word}
                                         </Text>
                                     </TouchableOpacity>
@@ -198,16 +176,16 @@ class ConfirmPassphrase extends Component {
                 </BoxShadowCard>
               </View>
             </View>
-            <View style={btnContainer}>
+            <View style={styles.btnContainer}>
                 <LinearButton
                     onClickFunction={this.validatePassphrase}
                     buttonText= 'Next'
-                    customStyles={button}
+                    customStyles={styles.button}
                     // buttonStateEnabled={this.state.buttonDisabled}
                 />
-                <View style={footerGrandparentContainer}>
-                    <View style={footerParentContainer}>
-                        <Text style={textFooter} >Powered by ChainSafe </Text>
+                <View style={styles.footerGrandparentContainer}>
+                    <View style={styles.footerParentContainer}>
+                        <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                     </View>
                 </View>
             </View>

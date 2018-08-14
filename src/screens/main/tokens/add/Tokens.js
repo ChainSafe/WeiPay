@@ -49,9 +49,8 @@ class Coins extends Component {
             />
           </View>
           <View style={styles.coinListContainer}>
-            <ScrollView  >
-                <CoinList type={'tokens'} />
-                {/* <CoinList /> */}
+            <ScrollView>
+                <CoinList type={'tokens'} />      
             </ScrollView>
           </View>
           <View style={styles.btnContainer}>
@@ -113,8 +112,8 @@ const styles = StyleSheet.create({
   },
   footerGrandparentContainer: {
     alignItems: 'center',
-    marginBottom: '3%',
-    marginTop: '3%',
+    marginBottom: '5%',
+    marginTop: '5%',
   },
   footerParentContainer: {
     alignItems: 'center',

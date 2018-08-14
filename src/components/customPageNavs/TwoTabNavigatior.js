@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, StyleSheet, TextInput, Text, Platform, Image } from "react-native";
 import { NavigationActions } from "react-navigation";
+import RF from "react-native-responsive-fontsize"
 
 class TwoTabNavigator extends Component {
 
@@ -17,8 +18,7 @@ class TwoTabNavigator extends Component {
      */
     navigateLeftFunc = () => {
         const navigateLeft = NavigationActions.navigate({
-            routeName: this.props.leftTabScreen,
-            params: { name: "Shubhnik" }
+            routeName: this.props.leftTabScreen,            
         });
         this.props.navigation.dispatch(navigateLeft);
     }
@@ -28,8 +28,7 @@ class TwoTabNavigator extends Component {
      */
     navigateRightFunc = () => {
         const navigateRight = NavigationActions.navigate({
-            routeName: this.props.rightTabScreen,
-            params: { name: "Shubhnik" }
+            routeName: this.props.rightTabScreen,           
         });
         this.props.navigation.dispatch(navigateRight);
     }
@@ -39,7 +38,7 @@ class TwoTabNavigator extends Component {
      */
     render() {
         return (
-            <View style={styles.tabHeader}  >
+            <View style={styles.tabHeader}>
                 <TouchableOpacity 
                     style={this.props.Active ? styles.headerButtonOneActive : styles.headerButtonOne}
                     onPress={this.navigateLeftFunc} >
@@ -49,8 +48,7 @@ class TwoTabNavigator extends Component {
                     style={!this.props.Active ? styles.headerButtonTwoActive : styles.headerButtonTwo}
                     onPress={this.navigateRightFunc}>
                     <Text style={styles.headerAddContact}>{this.props.rightTabScreen}</Text>
-                </TouchableOpacity>
-                
+                </TouchableOpacity>                
             </View>
         );
     }
@@ -63,19 +61,18 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         borderBottomWidth: 1,
         borderBottomColor: '#b3b3b3',
-        //paddingBottom: '2%',
         marginRight: '9%',
         marginLeft: '9%',
     },
     headerContact :{
         alignSelf:'flex-start',
-        fontSize: 19,
+        fontSize: RF(3.3),
         fontFamily: "Cairo-Light", 
         letterSpacing: 0.6,     
     },
     headerAddContact: { 
         alignSelf:'flex-end',
-        fontSize: 19,
+        fontSize: RF(3.3),
         fontFamily: "Cairo-Light", 
         letterSpacing: 0.6, 
     },
@@ -99,8 +96,6 @@ const styles = StyleSheet.create({
         borderBottomColor: '#27c997',
         padding: '2%'
     },
-
-
-})
+});
 
 export default TwoTabNavigator

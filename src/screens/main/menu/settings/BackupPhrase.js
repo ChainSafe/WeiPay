@@ -44,7 +44,7 @@ class BackupPhrase extends Component {
    */
   render() {
     return (
-      <SafeAreaView style={styles.safeAreaView}>
+      <SafeAreaView style={ styles.safeAreaView }>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.mainContainer}>
               <View style={styles.navContainer}>        

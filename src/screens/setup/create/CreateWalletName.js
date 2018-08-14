@@ -52,29 +52,12 @@ class CreateWalletName extends Component {
      * Main Component
      * Returns the form required for the user to set the name of their wallet
      */
-    render() {
-      const {
-        safeAreaView,
-        mainContainer,
-        textHeader,
-        navContainer,
-        contentContainer,
-        boxShadowContainer,
-        cardText,
-        txtWalletName,
-        btnContainer,
-        button,
-        defaultGreenColor,
-        footerGrandparentContainer,
-        footerParentContainer,
-        textFooter,
-      } = styles;
-     
+    render() {   
       return (
-        <SafeAreaView style={safeAreaView}>
+        <SafeAreaView style={styles.safeAreaView}>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={mainContainer} >
-                    <View style={navContainer}>        
+                <View style={styles.mainContainer} >
+                    <View style={styles.navContainer}>        
                         <BackWithMenuNav
                             showMenu={false}
                             showBack={true}
@@ -82,13 +65,13 @@ class CreateWalletName extends Component {
                             backPage={'createOrRestore'}
                         />
                     </View>                    
-                    <Text style={textHeader} >Wallet Name</Text>
-                    <View style={boxShadowContainer}>
-                        <View style={contentContainer}>
+                    <Text style={styles.textHeader} >Wallet Name</Text>
+                    <View style={styles.boxShadowContainer}>
+                        <View style={styles.contentContainer}>
                             <BoxShadowCard>
                                 <Text style={styles.cardText}>
                                     Create a name for your wallet, for example: 
-                                    <Text style={defaultGreenColor}>
+                                    <Text style={styles.defaultGreenColor}>
                                         My Wallet
                                     </Text>
                                 </Text>
@@ -100,16 +83,16 @@ class CreateWalletName extends Component {
                             </BoxShadowCard>
                         </View>
                     </View>
-                    <View style={btnContainer}>
+                    <View style={styles.btnContainer}>
                         <LinearButton
                             onClickFunction={this.navigate}
                             buttonText="Next"
-                            customStyles={button}
+                            customStyles={styles.button}
                             buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
                         />
-                        <View style={footerGrandparentContainer} >    
-                            <View style={footerParentContainer} >
-                                <Text style={textFooter} >Powered by ChainSafe </Text> 
+                        <View style={styles.footerGrandparentContainer} >    
+                            <View style={styles.footerParentContainer} >
+                                <Text style={styles.textFooter} >Powered by ChainSafe </Text> 
                             </View>  
                         </View> 
                     </View>                   

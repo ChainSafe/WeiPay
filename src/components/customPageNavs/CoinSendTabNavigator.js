@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
 import { NavigationActions } from "react-navigation";
+import RF from "react-native-responsive-fontsize";
 
 class CoinSendTabNavigator extends Component {
 
@@ -9,8 +10,7 @@ class CoinSendTabNavigator extends Component {
      */
     navigateToHistory = () => {
         const navigateHistory = NavigationActions.navigate({
-          routeName: "coinHistory",
-          params: { name: "Shubhnik" }
+          routeName: "coinHistory",         
         });
         this.props.navigation.dispatch(navigateHistory);  
     }
@@ -20,8 +20,7 @@ class CoinSendTabNavigator extends Component {
      */
     navigateToSend = () => {
         const navigateCoinSend = NavigationActions.navigate({
-            routeName: "coinSend",
-            params: { name: "Shubhnik" }
+            routeName: "coinSend",       
         });
         this.props.navigation.dispatch(navigateCoinSend);
     }
@@ -31,8 +30,7 @@ class CoinSendTabNavigator extends Component {
      */
     navigateToReceive = () => {
         const navigateCoinReceive = NavigationActions.navigate({
-            routeName: "coinReceive",
-            params: { name: "Shubhnik" }
+            routeName: "coinReceive",        
         });
         this.props.navigation.dispatch(navigateCoinReceive);
     }
@@ -48,15 +46,13 @@ class CoinSendTabNavigator extends Component {
                     onPress={this.navigateToSend} >                   
                     <Text style={[styles.headerSend, styles.fullHeight , this.props.sendActive ? styles.greenShade : null ]}>Send</Text>
                     <View style={this.props.sendActive ? styles.sendLine : null }></View>
-                </TouchableOpacity>
-         
+                </TouchableOpacity>         
                 <TouchableOpacity 
                     style={ styles.headerButton}
                     onPress={this.navigateToHistory}>                   
                     <Text style={[styles.headerActivity, styles.fullHeight, this.props.activityActive ? styles.greenShade : null]}>Activity</Text>
                     <View style={this.props.activityActive ? styles.activityLine : null}></View>
-                </TouchableOpacity>
-             
+                </TouchableOpacity>             
                 <TouchableOpacity 
                     style={styles.headerButton}
                     onPress={this.navigateToReceive}>                                    
@@ -81,19 +77,19 @@ const styles = StyleSheet.create({
     },
     headerSend :{
         alignSelf:'flex-start',
-        fontSize: 19,
+        fontSize: RF(3.3),
         fontFamily: "Cairo-Light", 
         letterSpacing: 0.6,     
     },
     headerActivity: {
         alignSelf:'center',
-        fontSize: 19,
+        fontSize: RF(3.3),
         fontFamily: "Cairo-Light", 
         letterSpacing: 0.6, 
     },
     headerReceive: { 
         alignSelf:'flex-end',
-        fontSize: 19,
+        fontSize: RF(3.3),
         fontFamily: "Cairo-Light", 
         letterSpacing: 0.6, 
     },
@@ -123,7 +119,6 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1.5, 
         marginLeft:'20%'
     },
-
-})
+});
 
 export default CoinSendTabNavigator

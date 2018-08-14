@@ -12,8 +12,6 @@ import RF from "react-native-responsive-fontsize"
  *      customStyles
  *      customTextStyles
  *      unlockButton -> home screen active button
- *      
- *      
  */
 
 class ClearButton extends Component {
@@ -77,8 +75,8 @@ const styles = StyleSheet.create({
         fontSize: RF(2.5),
         color: "#27c997",
         letterSpacing: 0.4
-    }
-})
+    },
+});
   
 
 export default ClearButton
