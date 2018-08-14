@@ -12,12 +12,20 @@ import RF from "react-native-responsive-fontsize"
  *      customStyles
  *      customTextStyles
  *      unlockButton -> home screen active button
- *      
- *      
  */
 
 class ClearButton extends Component {
     render() {
+
+        const {
+            buttonStyles,
+            buttonActive,
+            buttonInactive,
+            textStyles,
+            textActive,
+            textInactive,
+        } = styles;
+
         return (
             <View>
                 <TouchableOpacity 
@@ -26,17 +34,17 @@ class ClearButton extends Component {
                 >
                     <View                        
                         style={[
-                            styles.buttonStyles, 
+                            buttonStyles, 
                             this.props.customStyles,                            
-                            this.props.unlockButton ? styles.buttonActive : styles.buttonInactive
+                            this.props.unlockButton ? buttonActive : buttonInactive
                         ]}
                         >
                         <Text
                             style={[
-                                styles.textStyles, 
+                                textStyles, 
                                 this.props.customTextStyles,
-                                this.props.buttonStateEnabled ? styles.textActive : styles.textInactive,
-                                this.props.unlockButton ? styles.textActive : styles.textInactive
+                                this.props.buttonStateEnabled ? textActive : textInactive,
+                                this.props.unlockButton ? textActive : textInactive
                             ]}
                         >{this.props.buttonText}</Text>
                         
@@ -77,8 +85,8 @@ const styles = StyleSheet.create({
         fontSize: RF(2.5),
         color: "#27c997",
         letterSpacing: 0.4
-    }
-})
+    },
+});
   
 
 export default ClearButton
