@@ -25,25 +25,35 @@ class BackWithMenuNav extends Component {
      *      showBack: type=boolean, Determines if the back icon will be displayed on Main header
      */
     render() {
+
+        const {
+            container,
+            boxContainer,
+            boxOne,
+            btnBack,
+            boxTwo,
+            btnMenu,
+        } = styles;
+
         return (
-            <View style={styles.container}>
+            <View style={container}>
               { this.props.showBack ?
-                <View style={[styles.boxContainer, styles.boxOne]}>
+                <View style={[boxContainer, boxOne]}>
                   <TouchableOpacity
                     onPress={this.navigateBack} >
                     <Image
                       source={require('../../assets/icons/back.png')}
-                      style={styles.btnBack}
+                      style={btnBack}
                     />
                   </TouchableOpacity>
                 </View> : null}
               { this.props.showMenu ?
-                <View style={[styles.boxContainer, styles.boxTwo]} >
+                <View style={[boxContainer, boxTwo]} >
                   <TouchableOpacity
                     onPress={this.navigateMenu} >
                     <Image
                       source={require('../../assets/icons/menu.png')}
-                      style={styles.btnMenu}
+                      style={btnMenu}
                     />
                   </TouchableOpacity>
                 </View> : null}

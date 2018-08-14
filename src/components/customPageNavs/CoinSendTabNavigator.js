@@ -90,19 +90,19 @@ const styles = StyleSheet.create({
     },
     headerSend :{
         alignSelf:'flex-start',
-        fontSize: RF(3.4),
+        fontSize: RF(3.3),
         fontFamily: "Cairo-Light", 
         letterSpacing: 0.6,     
     },
     headerActivity: {
         alignSelf:'center',
-        fontSize: RF(3.4),
+        fontSize: RF(3.3),
         fontFamily: "Cairo-Light", 
         letterSpacing: 0.6, 
     },
     headerReceive: { 
         alignSelf:'flex-end',
-        fontSize: RF(3.4),
+        fontSize: RF(3.3),
         fontFamily: "Cairo-Light", 
         letterSpacing: 0.6, 
     },

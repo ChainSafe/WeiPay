@@ -18,8 +18,7 @@ class TwoTabNavigator extends Component {
      */
     navigateLeftFunc = () => {
         const navigateLeft = NavigationActions.navigate({
-            routeName: this.props.leftTabScreen,
-            params: { name: "Shubhnik" }
+            routeName: this.props.leftTabScreen,            
         });
         this.props.navigation.dispatch(navigateLeft);
     }
@@ -29,8 +28,7 @@ class TwoTabNavigator extends Component {
      */
     navigateRightFunc = () => {
         const navigateRight = NavigationActions.navigate({
-            routeName: this.props.rightTabScreen,
-            params: { name: "Shubhnik" }
+            routeName: this.props.rightTabScreen,           
         });
         this.props.navigation.dispatch(navigateRight);
     }
@@ -79,13 +77,13 @@ const styles = StyleSheet.create({
     },
     headerContact :{
         alignSelf:'flex-start',
-        fontSize: RF(3.4),
+        fontSize: RF(3.3),
         fontFamily: "Cairo-Light", 
         letterSpacing: 0.6,     
     },
     headerAddContact: { 
         alignSelf:'flex-end',
-        fontSize: RF(3.4),
+        fontSize: RF(3.3),
         fontFamily: "Cairo-Light", 
         letterSpacing: 0.6, 
     },
@@ -109,8 +107,6 @@ const styles = StyleSheet.create({
         borderBottomColor: '#27c997',
         padding: '2%'
     },
-
-
-})
+});
 
 export default TwoTabNavigator
