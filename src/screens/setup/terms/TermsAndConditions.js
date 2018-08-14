@@ -47,7 +47,7 @@ class TermsAndConditions extends Component {
             <View style={headerContainer} >
               <Text style={textHeader} onPress={this.props.enterDebug} >Terms & Conditions </Text>
             </View>
-            <View style={styles.scrollViewContainer} >
+            <View style={scrollViewContainer} >
               <ScrollView style={scrollView}>
                   <Text style={textBody} >{Terms}</Text>
               </ScrollView>

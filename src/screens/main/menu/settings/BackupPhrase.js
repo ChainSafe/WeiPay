@@ -43,48 +43,65 @@ class BackupPhrase extends Component {
    * Returns a component that allows the user to view the passphrase
    */
   render() {
+
+    const { 
+      safeAreaView,
+      mainContainer,
+      navContainer,
+      textHeader,
+      boxShadowContainer,
+      contentContainer,
+      cardText,
+      mnemonicText,
+      btnContainer,
+      button,
+      footerGrandparentContainer,
+      footerParentContainer,
+      textFooter,
+    } = styles;
+
     return (
-      <SafeAreaView style={styles.safeAreaView}>
+      <SafeAreaView style={ safeAreaView }>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.mainContainer}>
-              <View style={styles.navContainer}>        
+          <View style={mainContainer}>
+              <View style={navContainer}>        
                 <BackWithMenuNav
                     showMenu={true}
                     showBack={true}
                     navigation={this.props.navigation}
                   />
               </View>
-              <Text style={styles.textHeader}>Backup Passphrase</Text>
-              <View style={styles.boxShadowContainer}>
-                <View style={styles.contentContainer}>
+              <Text style={textHeader}>Backup Passphrase</Text>
+              <View style={boxShadowContainer}>
+                <View style={contentContainer}>
                     <BoxShadowCard>
                       {
                         this.state.isPhraseSelected 
                         ? 
                         <View> 
-                            <Text style={styles.cardText} >Please save this passphrase somewhere safe!</Text>
-                            <Text style={styles.mnemonicText} >{this.state.phrase}</Text>
+                            <Text style={cardText} >Please save this passphrase somewhere safe!</Text>
+                            <Text style={mnemonicText} >{this.state.phrase}</Text>
                         </View>                      
-                        : <Text style={styles.cardText} >To view your recovery passphrase, select the button below</Text>
+                        : <Text style={cardText} >To view your recovery passphrase, select the button below</Text>
                       }
                       
                     </BoxShadowCard>
                 </View>
               </View>
-            <View style={styles.btnContainer}>
+            <View style={btnContainer}>
                 {
                     this.state.isPhraseSelected 
                     ? null
                     : <LinearButton
                           onClickFunction={this.displayPassphrase.bind(this)}
                           buttonText= 'Show Recovery Passphrase'
-                          customStyles={styles.button}
+                          customStyles={button}
                           buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
                       />
                 }
-                <View style={styles.footerGrandparentContainer}>
-                    <View style={styles.footerParentContainer} >
-                        <Text style={styles.textFooter} >Powered by ChainSafe </Text>
+                <View style={footerGrandparentContainer}>
+                    <View style={footerParentContainer} >
+                        <Text style={textFooter} >Powered by ChainSafe </Text>
                     </View>
                 </View>
             </View>            
