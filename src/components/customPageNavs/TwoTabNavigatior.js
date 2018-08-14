@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, StyleSheet, TextInput, Text, Platform, Image } from "react-native";
 import { NavigationActions } from "react-navigation";
+import RF from "react-native-responsive-fontsize"
 
 class TwoTabNavigator extends Component {
 
@@ -38,19 +39,29 @@ class TwoTabNavigator extends Component {
      * Component the contains the tab navigation for the main Wallet Functionality
      */
     render() {
+
+        const {
+            tabHeader,
+            headerButtonOneActive,
+            headerButtonOne,
+            headerContact,
+            headerButtonTwoActive,
+            headerButtonTwo,
+            headerAddContact,
+        } = styles;
+
         return (
-            <View style={styles.tabHeader}  >
+            <View style={tabHeader}  >
                 <TouchableOpacity 
-                    style={this.props.Active ? styles.headerButtonOneActive : styles.headerButtonOne}
+                    style={this.props.Active ? headerButtonOneActive : headerButtonOne}
                     onPress={this.navigateLeftFunc} >
-                    <Text style={styles.headerContact}>{this.props.leftTabText}</Text>
+                    <Text style={headerContact}>{this.props.leftTabText}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity 
-                    style={!this.props.Active ? styles.headerButtonTwoActive : styles.headerButtonTwo}
+                    style={!this.props.Active ? headerButtonTwoActive : headerButtonTwo}
                     onPress={this.navigateRightFunc}>
-                    <Text style={styles.headerAddContact}>{this.props.rightTabScreen}</Text>
-                </TouchableOpacity>
-                
+                    <Text style={headerAddContact}>{this.props.rightTabScreen}</Text>
+                </TouchableOpacity>                
             </View>
         );
     }
@@ -63,19 +74,18 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         borderBottomWidth: 1,
         borderBottomColor: '#b3b3b3',
-        //paddingBottom: '2%',
         marginRight: '9%',
         marginLeft: '9%',
     },
     headerContact :{
         alignSelf:'flex-start',
-        fontSize: 19,
+        fontSize: RF(3.4),
         fontFamily: "Cairo-Light", 
         letterSpacing: 0.6,     
     },
     headerAddContact: { 
         alignSelf:'flex-end',
-        fontSize: 19,
+        fontSize: RF(3.4),
         fontFamily: "Cairo-Light", 
         letterSpacing: 0.6, 
     },
