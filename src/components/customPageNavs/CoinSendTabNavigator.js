@@ -132,7 +132,6 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1.5, 
         marginLeft:'20%'
     },
-
-})
+});
 
 export default CoinSendTabNavigator
