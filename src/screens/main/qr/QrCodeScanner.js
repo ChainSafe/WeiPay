@@ -61,28 +61,19 @@ class QrCodeScanner extends Component {
      *  - a button to go back to the invoking screen and fill in the input field
      */
     render() {
-
-        const { 
-            safeAreaView,
-            container,
-            preview,
-            textStyle,
-            buttonStyle,
-        } = styles;
-
         return (
-            <SafeAreaView style={safeAreaView}>
-                <View style={container}>
+            <SafeAreaView style={styles.safeAreaView}>
+                <View style={styles.container}>
                     <Camera
-                        style={preview}
+                        style={styles.preview}
                         onBarCodeRead={this.onBarCodeRead}
                         ref={cam => this.camera = cam}
                         aspect={Camera.constants.Aspect.fill}
                     >
-                        <Text style={textStyle}>{this.state.qrcode}</Text>
+                        <Text style={styles.textStyle}>{this.state.qrcode}</Text>
                         <Button
                             title='Next'
-                            style={buttonStyle}
+                            style={styles.buttonStyle}
                             onPress={() => this.props.navigation.goBack()}
                         />
                     </Camera>

@@ -37,28 +37,17 @@ class TwoTabNavigator extends Component {
      * Component the contains the tab navigation for the main Wallet Functionality
      */
     render() {
-
-        const {
-            tabHeader,
-            headerButtonOneActive,
-            headerButtonOne,
-            headerContact,
-            headerButtonTwoActive,
-            headerButtonTwo,
-            headerAddContact,
-        } = styles;
-
         return (
-            <View style={tabHeader}  >
+            <View style={styles.tabHeader}>
                 <TouchableOpacity 
-                    style={this.props.Active ? headerButtonOneActive : headerButtonOne}
+                    style={this.props.Active ? styles.headerButtonOneActive : styles.headerButtonOne}
                     onPress={this.navigateLeftFunc} >
-                    <Text style={headerContact}>{this.props.leftTabText}</Text>
+                    <Text style={styles.headerContact}>{this.props.leftTabText}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity 
-                    style={!this.props.Active ? headerButtonTwoActive : headerButtonTwo}
+                    style={!this.props.Active ? styles.headerButtonTwoActive : styles.headerButtonTwo}
                     onPress={this.navigateRightFunc}>
-                    <Text style={headerAddContact}>{this.props.rightTabScreen}</Text>
+                    <Text style={styles.headerAddContact}>{this.props.rightTabScreen}</Text>
                 </TouchableOpacity>                
             </View>
         );

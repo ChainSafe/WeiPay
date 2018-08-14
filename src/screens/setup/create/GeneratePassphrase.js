@@ -22,27 +22,10 @@ class GeneratePassphrase extends Component {
 
     render() {
       const { walletInfo } = this.props;
-
-      const {
-        safeAreaView,
-        mainContainer,
-        navContainer,
-        textHeader,
-        contentContainer,
-        boxShadowContainer,
-        cardText,
-        textMnemonic,
-        btnContainer,
-        button,
-        footerGrandparentContainer,
-        footerParentContainer,
-        textFooter,
-      } = styles;
-
       return (
-        <SafeAreaView style={safeAreaView}>
-          <View style={mainContainer}>
-            <View style={navContainer}>
+        <SafeAreaView style={styles.safeAreaView}>
+          <View style={styles.mainContainer}>
+            <View style={styles.navContainer}>
               <BackWithMenuNav
                   showMenu={false}
                   showBack={true}
@@ -50,29 +33,29 @@ class GeneratePassphrase extends Component {
                   backPage={'createWalletName'}
                 />
               </View>
-              <Text style={textHeader} >Your Passphrase</Text>
-              <View style={boxShadowContainer}>
-                <View style={contentContainer} >
+              <Text style={styles.textHeader} >Your Passphrase</Text>
+              <View style={styles.boxShadowContainer}>
+                <View style={styles.contentContainer} >
                     <BoxShadowCard >
-                        <Text style={cardText}>
+                        <Text style={styles.cardText}>
                             Please write down your 12 word passphrase. You will need it to verify your wallet.
                         </Text>
-                        <Text style={textMnemonic}>
+                        <Text style={styles.textMnemonic}>
                             {walletInfo.wallet.mnemonic}
                         </Text>
                       </BoxShadowCard>
                   </View>
               </View>
-              <View style={btnContainer}>
+              <View style={styles.btnContainer}>
                 <LinearButton
                     onClickFunction={this.navigate}
                     buttonText="Next"
-                    customStyles={button}
+                    customStyles={styles.button}
                     // buttonStateEnabled={this.state.buttonDisabled}
                 />
-                <View style={footerGrandparentContainer}>
-                  <View style={footerParentContainer}>
-                      <Text style={textFooter} >Powered by ChainSafe </Text>
+                <View style={styles.footerGrandparentContainer}>
+                  <View style={styles.footerParentContainer}>
+                      <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                   </View>
                 </View>
             </View>          

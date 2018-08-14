@@ -80,27 +80,12 @@ class RecoverWallet extends Component {
     /**
      * Returns the form required to recover the wallet
      */
-    render() {
-      const {
-        mainContainer,
-        textHeader,
-        navContainer,
-        contentContainer,
-        boxShadowContainer,
-        cardText,
-        txtMnemonic,
-        btnContainer,
-        button,
-        footerGrandparentContainer,
-        footerParentContainer,
-        textFooter,
-      } = styles;
-        
+    render() {        
       return (
         <SafeAreaView style={styles.safeAreaView}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-              <View style={mainContainer}>
-                <View style={navContainer}>        
+              <View style={styles.mainContainer}>
+                <View style={styles.navContainer}>        
                   <BackWithMenuNav
                       showMenu={false}
                       showBack={true}
@@ -108,31 +93,31 @@ class RecoverWallet extends Component {
                       backPage={'createWalletNameRecovered'}
                   />
                 </View>
-                <Text style={textHeader} >Recovery Passphrase</Text>
-                <View style={boxShadowContainer}>
-                  <View style={contentContainer} >
+                <Text style={styles.textHeader} >Recovery Passphrase</Text>
+                <View style={styles.boxShadowContainer}>
+                  <View style={styles.contentContainer} >
                       <BoxShadowCard>
-                          <Text style={cardText}>
+                          <Text style={styles.cardText}>
                               Enter your 12 word recovery passphrase to recover your wallet.
                           </Text>
                           <FormInput
                               placeholder={'Ex. man friend love long phrase ... '}
                               onChangeText={this.renderRecoveryKey.bind(this)}
-                              inputStyle={txtMnemonic}
+                              inputStyle={styles.txtMnemonic}
                           />
                       </BoxShadowCard>
                   </View>
                 </View>
-                <View style={btnContainer}>
+                <View style={styles.btnContainer}>
                   <LinearButton
                       onClickFunction={this.navigate }
                       buttonText= 'Recover'
-                      customStyles={button}
+                      customStyles={styles.button}
                       buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
                   />
-                  <View style={footerGrandparentContainer}>
-                      <View style={footerParentContainer}>
-                          <Text style={textFooter} >Powered by ChainSafe </Text>
+                  <View style={styles.footerGrandparentContainer}>
+                      <View style={styles.footerParentContainer}>
+                          <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                       </View>
                   </View>
                 </View>              

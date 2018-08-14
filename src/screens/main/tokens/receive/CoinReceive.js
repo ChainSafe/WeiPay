@@ -16,25 +16,10 @@ class CoinReceive extends Component {
    * and QrCode
    */
   render() {
-    const {
-      safeAreaView,
-      mainContainer,
-      navContainer,
-      navHeaderContainer,
-      contentContainer,
-      imageContainer,
-      addressContainer,
-      addressTitle,
-      addressValue,
-      footerGrandparentContainer,
-      footerParentContainer,
-      textFooter,
-    } = styles;
-
     return (
-      <SafeAreaView style={safeAreaView}>
-        <View style={mainContainer}>
-          <View style={navContainer}>        
+      <SafeAreaView style={styles.safeAreaView}>
+        <View style={styles.mainContainer}>
+          <View style={styles.navContainer}>        
             <BackWithMenuNav
               showMenu={true}
               showBack={true}
@@ -42,7 +27,7 @@ class CoinReceive extends Component {
               backPage={'mainStack'}
             />
           </View>
-          <View style={navHeaderContainer}>
+          <View style={styles.navHeaderContainer}>
             <CoinSendTabNavigator 
             navigation={this.props.navigation}
             sendActive={false}
@@ -50,22 +35,22 @@ class CoinReceive extends Component {
             receiveActive={true} 
             />
           </View>
-          <View style={contentContainer} >
-            <View style={imageContainer}>
+          <View style={styles.contentContainer} >
+            <View style={styles.imageContainer}>
               <QRCode
                 value={this.props.walletAddress}
                 size={ 225}
                 bgColor='#27c997'
                 fgColor='#fafbfe' />
             </View>
-            <View style={addressContainer}>
-                <Text style={addressTitle}>Address: </Text>
-                <Text style={addressValue}>{this.props.walletAddress}</Text>
+            <View style={styles.addressContainer}>
+                <Text style={styles.addressTitle}>Address: </Text>
+                <Text style={styles.addressValue}>{this.props.walletAddress}</Text>
             </View>            
           </View>
-          <View style={footerGrandparentContainer}>
-            <View style={footerParentContainer}>
-                <Text style={textFooter} >Powered by ChainSafe </Text>
+          <View style={styles.footerGrandparentContainer}>
+            <View style={styles.footerParentContainer}>
+                <Text style={styles.textFooter} >Powered by ChainSafe </Text>
             </View>
           </View>
         </View>

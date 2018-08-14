@@ -109,52 +109,35 @@ class Portfolio extends Component {
    * The component also provides the option to add/delete tokens
    */
   render() {
-
-    const { 
-      safeAreaView,
-      mainContainer,
-      navBar,
-      textHeader,
-      accountValueHeader,
-      headerValue,
-      headerValueCurrency,
-      scrollViewContainer,
-      btnContainer,
-      button,
-      footerGrandparentContainer,
-      footerParentContainer,
-      textFooter,      
-    } = styles;
-
     return (
-      <SafeAreaView style={safeAreaView}>
-        <View style={mainContainer} >
-          <View style={navBar}>
+      <SafeAreaView style={styles.safeAreaView}>
+        <View style={styles.mainContainer} >
+          <View style={styles.navBar}>
             <BackWithMenuNav
               showMenu={true}
               showBack={false}
               navigation={this.props.navigation}
             />
           </View>
-          <Text style={textHeader}>Holdings</Text>
-          <View style={accountValueHeader}>
-              <Text style={headerValue}>0$</Text>
-              <Text style={headerValueCurrency}> USD</Text>
+          <Text style={styles.textHeader}>Holdings</Text>
+          <View style={styles.accountValueHeader}>
+              <Text style={styles.headerValue}>0$</Text>
+              <Text style={styles.headerValueCurrency}> USD</Text>
           </View>
-          <View style={scrollViewContainer}>
+          <View style={styles.scrollViewContainer}>
             <ScrollView >
                 <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}/>
             </ScrollView>
           </View>
-          <View style={btnContainer} >
+          <View style={styles.btnContainer} >
               <LinearButton
                 onClickFunction={this.navigate}
                 buttonText="Add Token or Coin"
-                customStyles={button}
+                customStyles={styles.button}
               />
-              <View style={footerGrandparentContainer}>
-                  <View style={footerParentContainer} >
-                      <Text style={textFooter} >Powered by ChainSafe </Text>
+              <View style={styles.footerGrandparentContainer}>
+                  <View style={styles.footerParentContainer} >
+                      <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                   </View>
               </View>
           </View>         

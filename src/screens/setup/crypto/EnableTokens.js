@@ -32,39 +32,26 @@ class EnableCrypto extends Component {
      * which stays disabled until at least one coin/token has been selected.
      */
     render() {
-      const {
-        safeAreaView,
-        mainContainer,
-        headerContainer,
-        textHeader,
-        coinListContainer,      
-        btnContainer,
-        button,
-        footerGrandparentContainer,
-        footerParentContainer,
-        textFooter
-      } = styles;
-
       return (
-        <SafeAreaView style={safeAreaView}>
-            <View style={mainContainer}>
-              <View style={headerContainer}>
-                 <Text style={textHeader}>Enable Tokens </Text>
+        <SafeAreaView style={styles.safeAreaView}>
+            <View style={styles.mainContainer}>
+              <View style={styles.headerContainer}>
+                 <Text style={styles.textHeader}>Enable Tokens </Text>
               </View>              
-              <View style={coinListContainer}>
+              <View style={styles.coinListContainer}>
                   <ScrollView >
                       <CoinList />
                   </ScrollView>
               </View>
-              <View style={btnContainer} >
+              <View style={styles.btnContainer} >
                 <LinearButton
                     onClickFunction={this.navigate}
                     buttonText= 'Add'
-                    customStyles={button}
+                    customStyles={styles.button}
                   />
-                <View style={footerGrandparentContainer}>
-                    <View style={footerParentContainer} >
-                        <Text style={textFooter} >Powered by ChainSafe </Text>
+                <View style={styles.footerGrandparentContainer}>
+                    <View style={styles.footerParentContainer} >
+                        <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                     </View>
                 </View>
               </View>              

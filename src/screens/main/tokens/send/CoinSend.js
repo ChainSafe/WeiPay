@@ -175,34 +175,11 @@ class CoinSend extends Component {
    * Returns the complete form required to send a transaction
    */
   render() {
-    const {
-      safeAreaView,
-      mainContainer,
-      navContainer,
-      navHeaderContainer, 
-      contentContainer,
-      boxShadowContainer,
-      cardText,
-      barcodeImageContainer,
-      barcodeImage,
-      topFormInput,
-      formInput,
-      transactionFee,
-      txtWalletName,
-      btnContainer,
-      btnRow,
-      btnTopReset,
-      btnCustom,
-      footerGrandparentContainer,
-      footerParentContainer,
-      textFooter,
-    } = styles;
-
     return (
-      <SafeAreaView style={safeAreaView}>
+      <SafeAreaView style={styles.safeAreaView}>
          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={mainContainer}>
-                <View style={navContainer}>        
+            <View style={styles.mainContainer}>
+                <View style={styles.navContainer}>        
                   <BackWithMenuNav
                      showMenu={true}
                      showBack={true}
@@ -210,7 +187,7 @@ class CoinSend extends Component {
                      backPage={"mainStack"}
                     />
                 </View>
-                <View style={navHeaderContainer}>
+                <View style={styles.navHeaderContainer}>
                   <CoinSendTabNavigator 
                       navigation={this.props.navigation}
                       sendActive={true}
@@ -218,48 +195,48 @@ class CoinSend extends Component {
                       receiveActive={false} 
                     />
                 </View>
-                <View style={boxShadowContainer}>
-                  <View style={contentContainer}>
+                <View style={styles.boxShadowContainer}>
+                  <View style={styles.contentContainer}>
                       <BoxShadowCard>
-                          <Text style={cardText}>
+                          <Text style={styles.cardText}>
                               Send Ether by scanning someone's QR code or public address.
                           </Text>
-                          <View style= {barcodeImageContainer}>
+                          <View style= {styles.barcodeImageContainer}>
                             <TouchableOpacity
                               onPress= {() => this.navigate()} >
                               <Image
                                   source={require('../../../../assets/icons/barcode.png')}
-                                  style={barcodeImage}
+                                  style={styles.barcodeImage}
                               /> 
                           </TouchableOpacity>
                         </View>
-                        <View style={topFormInput}>
+                        <View style={styles.topFormInput}>
                           <FormInput
                               placeholder={"Public Address"}
                               onChangeText={this.renderAddress.bind(this)}                  
                               ref={ref => this.inputAddress = ref}
-                              inputStyle={formInput}
+                              inputStyle={styles.formInput}
                             />
                         </View>
                           <FormInput
                             placeholder={"Amount"}
                             onChangeText={this.renderValue.bind(this)}
                             ref={ref => this.inputAmount = ref}
-                            inputStyle={formInput}
+                            inputStyle={styles.formInput}
                           /> 
-                          <Text style={transactionFee} > 
+                          <Text style={styles.transactionFee} > 
                             Transaction Fee Total {this.state.value} Eth
                           </Text>                    
                       </BoxShadowCard>
                   </View>
                 </View>
                 <View style={styles.btnContainer}>
-                  <View style={btnRow}>
-                    <View style={btnTopReset}>
+                  <View style={styles.btnRow}>
+                    <View style={styles.btnTopReset}>
                       <ClearButton 
                         onClickFunction={this.resetFields}
                         buttonText="Reset"
-                        customStyles={btnCustom}
+                        customStyles={styles.btnCustom}
                         // buttonStateEnabled={this.state.buttonDisabled}
                       />
                     </View>
@@ -269,21 +246,20 @@ class CoinSend extends Component {
                           this.props.token.type === "ERC20" ? this.sendERC20Transaction : this.sendTransaction  
                                       }
                         buttonText="Send"
-                        customStyles={btnCustom}
+                        customStyles={styles.btnCustom}
                         // buttonStateEnabled={this.state.buttonDisabled}
                       />
                     </View>
                   </View>
-                  <View style={footerGrandparentContainer}>
-                    <View style={footerParentContainer} >
-                        <Text style={textFooter} >Powered by ChainSafe </Text>
+                  <View style={styles.footerGrandparentContainer}>
+                    <View style={styles.footerParentContainer} >
+                        <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                     </View>
                   </View>
                 </View>
           </View>
         </TouchableWithoutFeedback>
-       </SafeAreaView>
-      
+       </SafeAreaView>      
     )
   }
 }

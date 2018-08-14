@@ -14,14 +14,7 @@ import RF from "react-native-responsive-fontsize"
  */
 
 class LinearButton extends Component {
-
     render() {
-
-        const {
-            buttonStyles,
-            textStyles,
-        } = styles;
-
         return (
             <View>
                 <TouchableOpacity 
@@ -31,10 +24,10 @@ class LinearButton extends Component {
                     <LinearGradient 
                         colors={!this.props.buttonStateEnabled ? gradientColors.Enabled : gradientColors.Disabled} 
                         start={{x: 0, y: 0}} end={{x: 1, y: 1}}
-                        style={[buttonStyles, this.props.customStyles]}
+                        style={[styles.buttonStyles, this.props.customStyles]}
                         >
                         <Text
-                            style={[textStyles, this.props.customTextStyles]}
+                            style={[styles.textStyles, this.props.customTextStyles]}
                         >{this.props.buttonText}</Text>   
                     </LinearGradient>
                 </TouchableOpacity>

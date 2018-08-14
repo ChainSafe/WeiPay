@@ -16,16 +16,6 @@ import RF from "react-native-responsive-fontsize"
 
 class ClearButton extends Component {
     render() {
-
-        const {
-            buttonStyles,
-            buttonActive,
-            buttonInactive,
-            textStyles,
-            textActive,
-            textInactive,
-        } = styles;
-
         return (
             <View>
                 <TouchableOpacity 
@@ -34,17 +24,17 @@ class ClearButton extends Component {
                 >
                     <View                        
                         style={[
-                            buttonStyles, 
+                            styles.buttonStyles, 
                             this.props.customStyles,                            
-                            this.props.unlockButton ? buttonActive : buttonInactive
+                            this.props.unlockButton ? styles.buttonActive : styles.buttonInactive
                         ]}
                         >
                         <Text
                             style={[
-                                textStyles, 
+                                styles.textStyles, 
                                 this.props.customTextStyles,
-                                this.props.buttonStateEnabled ? textActive : textInactive,
-                                this.props.unlockButton ? textActive : textInactive
+                                this.props.buttonStateEnabled ? styles.textActive : styles.textInactive,
+                                this.props.unlockButton ? styles.textActive : styles.textInactive
                             ]}
                         >{this.props.buttonText}</Text>
                         

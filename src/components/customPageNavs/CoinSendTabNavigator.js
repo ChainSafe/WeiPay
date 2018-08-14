@@ -39,38 +39,25 @@ class CoinSendTabNavigator extends Component {
      * Component the contains the tab navigation for the main Wallet Functionality
      */
     render() {
-
-        const {
-            tabHeader,
-            headerButton,
-            headerSend,
-            fullHeight,
-            greenShade,
-            headerActivity,
-            activityLine,
-            headerReceive,
-            receiveLine,
-        } = styles;
-
         return (
-            <View style={tabHeader}>
+            <View style={styles.tabHeader}>
                 <TouchableOpacity 
-                    style={headerButton}
+                    style={styles.headerButton}
                     onPress={this.navigateToSend} >                   
-                    <Text style={[headerSend, fullHeight , this.props.sendActive ? greenShade : null ]}>Send</Text>
+                    <Text style={[styles.headerSend, styles.fullHeight , this.props.sendActive ? styles.greenShade : null ]}>Send</Text>
                     <View style={this.props.sendActive ? styles.sendLine : null }></View>
                 </TouchableOpacity>         
                 <TouchableOpacity 
-                    style={ headerButton}
+                    style={ styles.headerButton}
                     onPress={this.navigateToHistory}>                   
-                    <Text style={[headerActivity, fullHeight, this.props.activityActive ? greenShade : null]}>Activity</Text>
-                    <View style={this.props.activityActive ? activityLine : null}></View>
+                    <Text style={[styles.headerActivity, styles.fullHeight, this.props.activityActive ? styles.greenShade : null]}>Activity</Text>
+                    <View style={this.props.activityActive ? styles.activityLine : null}></View>
                 </TouchableOpacity>             
                 <TouchableOpacity 
-                    style={headerButton}
+                    style={styles.headerButton}
                     onPress={this.navigateToReceive}>                                    
-                    <Text style={[headerReceive, fullHeight, this.props.receiveActive ? greenShade : null]} >Receive</Text>
-                    <View style={this.props.receiveActive ? receiveLine : null}></View>
+                    <Text style={[styles.headerReceive, styles.fullHeight, this.props.receiveActive ? styles.greenShade : null]} >Receive</Text>
+                    <View style={this.props.receiveActive ? styles.receiveLine : null}></View>
                 </TouchableOpacity>
             </View>
         );

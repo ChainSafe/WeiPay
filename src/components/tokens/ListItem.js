@@ -75,54 +75,36 @@ class CoinListItem extends Component {
    * prop and it can be selected or unselected by the user
    */
   render() {
-    const { coin } = this.props;
-
-    const {
-      boxShadownContainer,
-      contentContainer,
-      imgMainContainer,
-      imageContainer,
-      img,
-      listItemTextContainer,
-      listItemTextComponent,
-      mainTitleContainer,
-      mainTitleText,
-      subtitleContainer,
-      subTitleText,
-      listItemIconContainer,
-      listItemIconComponent,
-      listItemIcon,
-    } = styles;
-    
+    const { coin } = this.props;    
     return (
       <View style={styles.listItemParentContainer}>
         <TouchableOpacity
           onPress={() => {return this.renderPress(coin)}}>
           <View style={[coin.selected ? null : null]}>
-            <BoxShadowCard customStyles={boxShadownContainer} containerStyling={this.renderBoxContainerStyling(coin)}>
-              <View style={[contentContainer]}>
-                <View style={imgMainContainer} >
-                  <View style={imageContainer} >
+            <BoxShadowCard customStyles={styles.boxShadownContainer} containerStyling={this.renderBoxContainerStyling(coin)}>
+              <View style={[styles.contentContainer]}>
+                <View style={styles.imgMainContainer} >
+                  <View style={styles.imageContainer} >
                     <Image
-                      style={img}            
+                      style={styles.img}            
                       source={{ uri: coin.logo.src} }
                     />
                   </View>
                 </View>
-                <View style={listItemTextContainer}>
-                  <View style={listItemTextComponent}>                       
-                    <View style={mainTitleContainer}>
-                      <Text style={mainTitleText} >{coin.symbol}</Text>
+                <View style={styles.listItemTextContainer}>
+                  <View style={styles.listItemTextComponent}>                       
+                    <View style={styles.mainTitleContainer}>
+                      <Text style={styles.mainTitleText} >{coin.symbol}</Text>
                     </View>
-                    <View style={subtitleContainer}>
-                      <Text style={subTitleText} >{coin.name}</Text>
+                    <View style={styles.subtitleContainer}>
+                      <Text style={styles.subTitleText} >{coin.name}</Text>
                     </View>                   
                   </View>
                 </View>
-                <View style={listItemIconContainer}>
-                  <View style={listItemIconComponent}>
+                <View style={styles.listItemIconContainer}>
+                  <View style={styles.listItemIconComponent}>
                     <Image
-                      style={ listItemIcon }
+                      style={ styles.listItemIcon }
                       source={this.renderStatePicture(coin)}
                     />
                   </View>

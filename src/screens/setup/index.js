@@ -40,42 +40,29 @@ class CreateOrRestore extends Component {
      * buttons
      */
     render() {
-      const {
-        safeAreaView,
-        mainContainer,
-        textHeader,
-        textHeaderDescription,
-        btnContainer,
-        btnCreate,       
-        button,  
-        footerGrandparentContainer,
-        footerParentContainer,
-        textFooter,
-      } = styles;
-
       return (
-        <SafeAreaView style={safeAreaView}>
-          <View style={mainContainer}>
-              <Text style={textHeader}>WeiPay</Text>
-              <Text style={textHeaderDescription}>ERC20 Token Wallet </Text>
-              <View style={btnContainer} >
-                  <View style={btnCreate}>
+        <SafeAreaView style={styles.safeAreaView}>
+          <View style={styles.mainContainer}>
+              <Text style={styles.textHeader}>WeiPay</Text>
+              <Text style={styles.textHeaderDescription}>ERC20 Token Wallet </Text>
+              <View style={styles.btnContainer} >
+                  <View style={styles.btnCreate}>
                       <LinearButton
                           onClickFunction={this.navigateCreate}
                           buttonText= 'Create Wallet'
-                          customStyles={button}
+                          customStyles={styles.button}
                       />
                   </View>           
                   <ClearButton
                       onClickFunction={this.navigateRestore}
                       buttonText= 'Restore Wallet'
-                      customStyles={button}
+                      customStyles={styles.button}
                       unlockButton={true}
                   />              
               </View>
-              <View style={footerGrandparentContainer}>
-                  <View style={footerParentContainer} >
-                    <Text style={textFooter} >Powered by ChainSafe </Text>
+              <View style={styles.footerGrandparentContainer}>
+                  <View style={styles.footerParentContainer} >
+                    <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                   </View>
               </View>
           </View>

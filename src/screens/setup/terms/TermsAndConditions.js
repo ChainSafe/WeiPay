@@ -26,41 +26,26 @@ class TermsAndConditions extends Component {
      * Returns the scrollable component that displays the terms and conditions with a submit button
      */
     render() {
-      const {
-        safeAreaView,
-        mainContainer,
-        headerContainer,
-        textHeader,
-        scrollViewContainer,
-        scrollView,
-        textBody,
-        btnContainer,
-        button,
-        footerGrandparentContainer,
-        footerParentContainer,
-        textFooter,
-      } = styles;
-
       return (
-        <SafeAreaView style={safeAreaView}>
-          <View style={mainContainer}>
-            <View style={headerContainer} >
-              <Text style={textHeader} onPress={this.props.enterDebug} >Terms & Conditions </Text>
+        <SafeAreaView style={styles.safeAreaView}>
+          <View style={styles.mainContainer}>
+            <View style={styles.headerContainer} >
+              <Text style={styles.textHeader} onPress={this.props.enterDebug} >Terms & Conditions </Text>
             </View>
-            <View style={scrollViewContainer} >
-              <ScrollView style={scrollView}>
-                  <Text style={textBody} >{Terms}</Text>
+            <View style={styles.scrollViewContainer} >
+              <ScrollView style={styles.scrollView}>
+                  <Text style={styles.textBody} >{Terms}</Text>
               </ScrollView>
             </View>
-            <View style={btnContainer}>
+            <View style={styles.btnContainer}>
                 <LinearButton
                     onClickFunction={this.navigate}
                     buttonText='Agree'
-                    customStyles={button}
+                    customStyles={styles.button}
                 />
-                <View style={footerGrandparentContainer}>
-                  <View style={footerParentContainer} >
-                    <Text style={textFooter} >Powered by ChainSafe </Text>
+                <View style={styles.footerGrandparentContainer}>
+                  <View style={styles.footerParentContainer} >
+                    <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                   </View>
                 </View>
               </View>

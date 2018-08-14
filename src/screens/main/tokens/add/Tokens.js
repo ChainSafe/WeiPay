@@ -28,24 +28,10 @@ class Coins extends Component {
    * Contains tha CoinList Component
    */
   render() {
-
-    const {
-      safeAreaView,
-      mainContainer,
-      NavBarButton,
-      tabNavContainer,
-      coinListContainer,
-      btnContainer,
-      button,
-      footerGrandparentContainer,
-      footerParentContainer,
-      textFooter,
-    } = styles;
-
     return (
-      <SafeAreaView style={safeAreaView}>
-        <View style={mainContainer}>
-          <View style={NavBarButton}>
+      <SafeAreaView style={styles.safeAreaView}>
+        <View style={styles.mainContainer}>
+          <View style={styles.NavBarButton}>
             <BackWithMenuNav
               showMenu={true}
               showBack={true}
@@ -53,7 +39,7 @@ class Coins extends Component {
               backPage={'mainStack'}
             />
           </View>
-          <View style={tabNavContainer}>
+          <View style={styles.tabNavContainer}>
             <TwoTabNavigator
               leftTabScreen={'Coins'}
               leftTabText={'Coins'}
@@ -62,20 +48,20 @@ class Coins extends Component {
               navigation={this.props.navigation}
             />
           </View>
-          <View style={coinListContainer}>
-            <ScrollView  >
+          <View style={styles.coinListContainer}>
+            <ScrollView>
                 <CoinList type={'tokens'} />      
             </ScrollView>
           </View>
-          <View style={btnContainer}>
+          <View style={styles.btnContainer}>
             <LinearButton
               onClickFunction={this.navigate}
               buttonText='Add Tokens'
-              customStyles={button}
+              customStyles={styles.button}
             />
-            <View style={footerGrandparentContainer}>
-                <View style={footerParentContainer} >
-                    <Text style={textFooter} >Powered by ChainSafe </Text>
+            <View style={styles.footerGrandparentContainer}>
+                <View style={styles.footerParentContainer} >
+                    <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                 </View>
             </View>
           </View>
