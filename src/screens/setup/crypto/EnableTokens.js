@@ -37,7 +37,7 @@ class EnableCrypto extends Component {
         mainContainer,
         headerContainer,
         textHeader,
-        coinListContainer,      
+        coinListContainer,
         btnContainer,
         button,
         footerGrandparentContainer,
@@ -50,7 +50,7 @@ class EnableCrypto extends Component {
             <View style={mainContainer}>
               <View style={headerContainer}>
                  <Text style={textHeader}>Enable Tokens </Text>
-              </View>              
+              </View>
               <View style={coinListContainer}>
                   <ScrollView >
                       <CoinList />
@@ -67,7 +67,7 @@ class EnableCrypto extends Component {
                         <Text style={textFooter} >Powered by ChainSafe </Text>
                     </View>
                 </View>
-              </View>              
+              </View>
             </View>
         </SafeAreaView>
       );
@@ -79,7 +79,7 @@ class EnableCrypto extends Component {
  */
 const styles = StyleSheet.create({
   safeAreaView: {
-    flex: 1, 
+    flex: 1,
     backgroundColor: '#fafbfe'
   },
   mainContainer: {
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafbfe',
   },
   headerContainer: {
-    flex: 1, 
+    flex: 1,
     justifyContent: "center"
   },
   textHeader: {
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '82%',
-    height: Dimensions.get('window').height * 0.082,  
+    height: Dimensions.get('window').height * 0.082,
   },
   footerGrandparentContainer: {
     alignItems: 'center',

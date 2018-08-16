@@ -35,7 +35,7 @@ class CoinListItem extends Component {
   renderPress(coin) {
     if (this.state.totalTaps == 0) {
       this.props.addTokenToSetup(coin);
-      this.setState({ checked: !(this.state.checked), totalTaps: 1 });  
+      this.setState({ checked: !(this.state.checked), totalTaps: 1 });
     } else if (this.state.totalTaps == 1) {
       this.setState({ totalTaps: 2 })
     }else if (this.state.totalTaps == 2) {
@@ -46,9 +46,9 @@ class CoinListItem extends Component {
 
   /**
    * Determines the right icon of the list item
-   * @param {Object} coin 
+   * @param {Object} coin
    */
-  renderStatePicture(coin) {    
+  renderStatePicture(coin) {
     if (coin.selected == false) {
       return require('../../assets/images/add2.png')
     }else if (this.state.totalTaps == 1 && (coin.selected)) {
@@ -60,7 +60,7 @@ class CoinListItem extends Component {
 
   /**
    * Determines the container border styling of the list item
-   * @param {Object} coin 
+   * @param {Object} coin
    */
   renderBoxContainerStyling(coin) {
     if (this.state.totalTaps == 1 && (coin.selected)) {
@@ -76,7 +76,19 @@ class CoinListItem extends Component {
    */
   render() {
     const { coin } = this.props;
-    
+    let statePictureStyle = {
+      height: Dimensions.get('window').height * 0.035,
+      width: Dimensions.get('window').width * 0.035,
+      justifyContent: 'center'
+    }
+    if (this.state.totalTaps == 2 && coin.selected) {
+      statePictureStyle = {
+        height: Dimensions.get('window').height * 0.03,
+        width: Dimensions.get('window').width * 0.03,
+        justifyContent: 'center'
+      }
+    }
+
     return (
       <View style={styles.listItemParentContainer}>
         <TouchableOpacity
@@ -87,29 +99,26 @@ class CoinListItem extends Component {
                 <View style={styles.imgMainContainer} >
                   <View style={styles.imageContainer} >
                     <Image
-                      style={styles.img}            
+                      style={styles.img}
                       source={{ uri: coin.logo.src} }
                     />
                   </View>
                 </View>
-                <View style={{ flex: 4  }}>
-                  <View style={{ justifyContent: 'center', flex: 1 }}>                       
+                <View style={{ flex: 4, }}>
+                  <View style={{ justifyContent: 'center', flex: 1 }}>
                     <View style={styles.mainTitleContainer}>
                       <Text style={styles.mainTitleText} >{coin.symbol}</Text>
                     </View>
                     <View style={styles.subtitleContainer}>
                       <Text style={styles.subTitleText} >{coin.name}</Text>
                     </View>
-                   
+
                   </View>
                 </View>
                 <View style={{ flex: 1 }}>
-                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginBottom: '7%' }}>
                     <Image
-                      style={{
-                        height: Dimensions.get('window').height * 0.035,
-                        width: Dimensions.get('window').width * 0.035,
-                        justifyContent: 'center' } }
+                      style={statePictureStyle}
                       source={this.renderStatePicture(coin)}
                     />
                   </View>
@@ -117,7 +126,7 @@ class CoinListItem extends Component {
               </View>
             </BoxShadowCard>
           </View>
-        </TouchableOpacity >
+        </TouchableOpacity>
       </View>
     );
   }
@@ -159,10 +168,12 @@ const styles = StyleSheet.create({
   mainTitleContainer: {
     flex: 0.5,
     justifyContent: 'flex-end',
+    marginTop: '4%'
   },
   subtitleContainer: {
     flex: 0.5,
     justifyContent: 'flex-start',
+    marginBottom: '7%'
   },
   mainTitleText: {
     fontSize: RF(2.4),
