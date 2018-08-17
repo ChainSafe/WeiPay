@@ -104,6 +104,16 @@ export function completeContact(contactName, contactAddress) {
   };
 }
 
+export function editContact(contactName, contactAddress) {
+  const contact = {};
+  contact.name = contactName;
+  contact.contactAddress = contactAddress;
+
+  return (dispatch) => {
+    dispatch({ type: actionTypes.EDIT_CONTACT, payload: contact });
+  };
+}
+
 
 /**
  * returns an action that contains the data reterived by using the QrScanner
@@ -148,4 +158,3 @@ export function enterDebug() {
     dispatch({ type: actionTypes.DEBUG_MODE, payload: '' });
   };
 }
-

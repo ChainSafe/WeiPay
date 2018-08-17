@@ -46,34 +46,35 @@ class CreateOrRestore extends Component {
         textHeader,
         textHeaderDescription,
         btnContainer,
-        btnCreate,       
-        button,  
-        footerGrandparentContainer,
-        footerParentContainer,
+        btnCreate,
+        button,
+        footerContainer,
         textFooter,
+        footerGrandparentContainer,
+        footerParentContainer
       } = styles;
 
       return (
         <SafeAreaView style={safeAreaView}>
           <View style={mainContainer}>
-              <Text style={textHeader}>WeiPay</Text>
-              <Text style={textHeaderDescription}>ERC20 Token Wallet </Text>
-              <View style={btnContainer} >
-                  <View style={btnCreate}>
-                      <LinearButton
-                          onClickFunction={this.navigateCreate}
-                          buttonText= 'Create Wallet'
-                          customStyles={button}
-                      />
-                  </View>           
-                  <ClearButton
-                      onClickFunction={this.navigateRestore}
-                      buttonText= 'Restore Wallet'
-                      customStyles={button}
-                      unlockButton={true}
-                  />              
+            <Text style={textHeader}>WeiPay</Text>
+            <Text style={textHeaderDescription}>ERC20 Token Wallet </Text>
+            <View style={btnContainer} >
+              <View style={btnCreate}>
+                <LinearButton
+                  onClickFunction={this.navigateCreate}
+                  buttonText= 'Create Wallet'
+                  customStyles={button}
+                />
               </View>
-              <View style={footerGrandparentContainer}>
+              <ClearButton
+                onClickFunction={this.navigateRestore}
+                buttonText= 'Restore Wallet'
+                customStyles={button}
+                unlockButton={true}
+              />
+            </View>
+            <View style={footerGrandparentContainer}>
                   <View style={footerParentContainer} >
                     <Text style={textFooter} >Powered by ChainSafe </Text>
                   </View>
@@ -89,7 +90,7 @@ class CreateOrRestore extends Component {
  */
 const styles = StyleSheet.create({
   safeAreaView: {
-    flex: 1, 
+    flex: 1,
     backgroundColor: '#fafbfe'
   },
   mainContainer: {
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '82%',
-    height: Dimensions.get('window').height * 0.082,  
+    height: Dimensions.get('window').height * 0.082,
   },
   btnCreate: {
     marginBottom: '3.5%',

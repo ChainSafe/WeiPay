@@ -15,6 +15,7 @@ export const QRSCANNER_DATA = 'qrscanner_data';
 export const ADD_CONTACT = 'adding_contacts';
 export const ADDING_CONTACT = 'adding_contact';
 export const COMPLETE_CONTACT = 'complete_contact';
+export const EDIT_CONTACT = 'edit_contact'
 export const CONTACT_ADDRESS = 'contact_address';
 export const QRSCANNER_PAGE_INVOKER = 'qrscanner_page_invoker';
 export const SAVING_ADDCONTACT_INPUTS = 'saving_addContact_inputs';
