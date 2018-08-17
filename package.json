@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "enzyme": "^3.4.3",
+    "enzyme-adapter-react-16": "^1.2.0",
     "ethers": "^3.0.17",
     "moment": "^2.22.2",
     "prop-types": "^15.6.2",
