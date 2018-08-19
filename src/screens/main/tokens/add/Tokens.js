@@ -41,9 +41,9 @@ class Coins extends Component {
           </View>
           <View style={styles.tabNavContainer}>
             <TwoTabNavigator
-              leftTabScreen={'AddCoin'}
+              leftTabScreen={'Coins'}
               leftTabText={'Coins'}
-              rightTabScreen={'AddToken'}
+              rightTabScreen={'Tokens'}
               rightTabText={'Tokens'}
               navigation={this.props.navigation}
             />
@@ -51,6 +51,7 @@ class Coins extends Component {
           <View style={styles.coinListContainer}>
             <ScrollView  >
                 <CoinList type={'tokens'} />
+                {/* <CoinList /> */}
             </ScrollView>
           </View>
           <View style={styles.btnContainer}>
@@ -84,12 +85,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fafbfe',
   },
   NavBarButton: {
-    flex: 0.5,
+    flex: 0.65,
     justifyContent: 'center',
     paddingBottom: '2%',
   },
   tabNavContainer: {
-    flex: 0.5,
+    flex: 0.3,
     justifyContent: 'center',
     marginBottom: '2%',
   },

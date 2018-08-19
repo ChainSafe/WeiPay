@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Alert, Text, View, ScrollView, StyleSheet, Dimensions, SafeAreaView, TouchableWithoutFeedback } from 'react-native';
+import {
+ Alert, Text, View, ScrollView, StyleSheet, Dimensions, SafeAreaView, TouchableWithoutFeedback
+} from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { Terms } from '../../../constants/Terms';
@@ -42,30 +44,30 @@ class TermsAndConditions extends Component {
       } = styles;
 
       return (
-        <SafeAreaView style={safeAreaView}>
-          <View style={mainContainer}>
-            <View style={headerContainer} >
-              <Text style={textHeader} onPress={this.props.enterDebug} >Terms & Conditions </Text>
-            </View>
-            <View style={styles.scrollViewContainer} >
-              <ScrollView style={scrollView}>
-                  <Text style={textBody} >{Terms}</Text>
-              </ScrollView>
-            </View>
-            <View style={btnContainer}>
-                <LinearButton
-                    onClickFunction={this.navigate}
-                    buttonText='Agree'
-                    customStyles={button}
-                />
-                <View style={footerGrandparentContainer}>
-                  <View style={footerParentContainer} >
-                    <Text style={textFooter} >Powered by ChainSafe </Text>
+                <SafeAreaView style={styles.safeAreaView}>
+                  <View style={mainContainer}>
+                    <View style={styles.headerContainer} >
+                      <Text style={textHeader} onPress={this.props.enterDebug} >Terms & Conditions </Text>
+                    </View>
+                    <View style={styles.scrollViewContainer} >
+                      <ScrollView style={scrollView}>
+                        <Text style={textBody} >{Terms}</Text>
+                      </ScrollView>
+                    </View>
+                    <View style={btnContainer}>
+                      <LinearButton
+                        onClickFunction={this.navigate}
+                        buttonText='Agree'
+                        customStyles={button}
+                      />
+                      <View style={footerGrandparentContainer}>
+                        <View style={footerParentContainer} >
+                          <Text style={textFooter} >Powered by ChainSafe </Text>
+                        </View>
+                      </View>
+                    </View>
                   </View>
-                </View>
-              </View>
-            </View>
-        </SafeAreaView>
+                </SafeAreaView>
       );
     }
 }

@@ -45,6 +45,17 @@ export default (state = INITIAL_STATE, action) => {
 
       return { ...state, contacts: newContact, currentContact: {} };
 
+    case actions.EDIT_CONTACT:
+      let nameIndex = state.contacts.map(contact => contact.name).indexOf(action.payload.name)
+
+      let editedContactList = [
+        ...state.contacts.slice(0,nameIndex),
+        action.payload,
+        ...state.contacts.slice(nameIndex + 1)
+      ]
+
+      return { ...state, contacts: editedContactList }
+
     default:
       return state;
   }

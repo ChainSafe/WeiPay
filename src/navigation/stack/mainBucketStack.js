@@ -1,6 +1,7 @@
 import { StackNavigator, DrawerNavigator, DrawerItems } from 'react-navigation';
 import Contacts from '../../screens/main/menu/contacts/index';
 import AddContact from '../../screens/main/menu/contacts/add/AddContact';
+import EditContact from '../../screens/main/menu/contacts/add/EditContact';
 import Portfolio from '../../screens/main/portfolio/index';
 import CoinSend from '../../screens/main/tokens/send/CoinSend';
 import CoinHistory from '../../screens/main/tokens/history/CoinActivity';
@@ -16,9 +17,9 @@ import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
 const CustomDrawerContentComponent = props => (
   <View style={styles.customContainer}>
     <View>
-      <DrawerItems 
-        {...props} 
-        activeBackgroundColor={'#f3f3f3'}  
+      <DrawerItems
+        {...props}
+        activeBackgroundColor={'#f3f3f3'}
         labelStyle={styles.labelText}
       />
     </View>
@@ -53,12 +54,14 @@ const navigator = DrawerNavigator({
   Contacts: {
     screen: StackNavigator({
       contacts: { screen: Contacts },
+      editContact: { screen: EditContact},
       addContact: { screen: AddContact },
     },
     {
       headerMode: 'none',
     }),
   },
+  Coins: { screen: AddCoin },
   Tokens: { screen: AddToken },
 }, {
   headerMode: 'none',
@@ -71,15 +74,14 @@ export default navigator;
 
 const styles = StyleSheet.create({
   customContainer: {
-    flex: 1, 
+    flex: 1,
     backgroundColor: "white" ,
   },
   labelText:{
-    fontSize:16, 
+    fontSize:16,
     letterSpacing:0.6,
-    fontFamily: "Cairo-Light", 
-    color:"black", 
+    fontFamily: "Cairo-Light",
+    color:"black",
     fontWeight:'200',
   },
 })
-

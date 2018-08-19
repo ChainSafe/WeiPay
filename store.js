@@ -1,10 +1,23 @@
 import { createStore, applyMiddleware } from 'redux';
 import AppReducer from './src/reducers'
 import thunk from 'redux-thunk'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+
+const persistConfig = {
+  key: 'root',
+  storage,
+  persist: (...options) => persistNative(...options),
+  whitelist: ['contacts']
+}
+
+const persistedReducer = persistReducer(persistConfig, AppReducer)
 
 const store = createStore(
-    AppReducer,
-    applyMiddleware(thunk)
+    persistedReducer,
+    applyMiddleware(thunk),
 );
 
-export default store;
+let persistor = persistStore(store)
+
+export { store, persistor }

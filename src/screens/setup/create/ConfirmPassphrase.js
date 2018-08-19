@@ -155,8 +155,8 @@ class ConfirmPassphrase extends Component {
                 backPage={'generatePassphrase'}
               />
           </View>
-          <Text style={textHeader}>Confirm Passphrase</Text>           
-          <View style={boxShadowContainer}>
+          <Text style={textHeader}>Confirm Passphrase</Text>
+          <View style={styles.boxShadowContainer}>
             <View style={contentContainer} >
                 <BoxShadowCard>
                     <Text style={cardText}>
@@ -219,7 +219,7 @@ class ConfirmPassphrase extends Component {
 
 const styles = StyleSheet.create({
   safeAreaView: {
-    flex: 1, 
+    flex: 1,
     backgroundColor: '#fafbfe'
   },
   mainContainer: {
@@ -238,8 +238,8 @@ const styles = StyleSheet.create({
     flex:0.65,
   },
   boxShadowContainer: {
-    alignItems:"center", 
-    flex: 3.75
+    alignItems:"center",
+    flex: 4
   },
   contentContainer: {
     width: '82%'
@@ -266,10 +266,14 @@ const styles = StyleSheet.create({
     paddingBottom: '1%',
   },
   cardButton: {
-    height: Dimensions.get('window').height * 0.05,  
+    height: Dimensions.get('window').height * 0.05,
     justifyContent: 'center',
     alignContent: "center",
     alignItems: "center",
+  },
+  cardContainer: {
+    width: '80%',
+    height: '90%',
   },
   selectedTextContainer: {
     paddingTop: '5%',
@@ -290,7 +294,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '82%',
-    height: Dimensions.get('window').height * 0.082,  
+    height: Dimensions.get('window').height * 0.082,
   },
   btnContainer: {
     justifyContent: 'flex-end',

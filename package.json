@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "ios:beta": "fastlane ios beta",
+    "android:beta": "fastlane android beta",
     "test": "jest"
   },
   "dependencies": {
@@ -20,8 +21,10 @@
     "react-native-keyboard-aware-scroll-view": "^0.6.0",
     "react-native-keyboard-aware-view": "0.0.14",
     "react-native-linear-gradient": "^2.4.0",
+    "react-native-modal": "^6.5.0",
     "react-native-modal-dropdown": "^0.6.2",
     "react-native-permissions": "^1.1.1",
+    "react-native-picker-select": "^4.2.0",
     "react-native-qrcode": "^0.2.6",
     "react-native-radio-buttons-group": "^1.0.7",
     "react-native-responsive-fontsize": "^0.1.2",
@@ -31,6 +34,7 @@
     "react-navigation": "1.0.0-beta.15",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
+    "redux-persist": "^5.10.0",
     "redux-thunk": "^2.2.0",
     "render-if": "^0.1.1",
     "shuffle-array": "^1.0.1"

@@ -19,8 +19,8 @@ class CoinList extends Component {
         let data = this.props.coins
         if (this.props.type === 'coins') {
             data = this.props.coins.filter(coin => coin.type === 'PortfolioCoin')
-        } else if (this.props.type === 'tokens') {
-            data = this.props.coins.filter(coin => coin.type === 'PortfolioToken')
+        } else if (this.props.type === 'tokens' ) {
+            data = this.props.coins.filter(coin => coin.type === 'ERC20')
         }
         const ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2

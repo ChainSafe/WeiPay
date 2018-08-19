@@ -156,8 +156,8 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     flex: 5.25,
-    marginTop: '0%',
-    paddingTop: '7%',
+    marginTop: '12%',
+    // paddingTop: '10%',
   },
   addressContainer: {
     flexDirection: 'row',
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Cairo-Regular',
     color: 'black',
     fontSize: RF(2.1),
-    lineHeight: RF(2.6),
+    lineHeight: RF(2.7),
     letterSpacing: 0.4,
   },
   addressValue: {
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Cairo-Light',
     color: 'black',
     justifyContent: 'center',
-    lineHeight: RF(2.6),
+    lineHeight: RF(2.7),
     letterSpacing: 0.4,
   },
   amountContainer: {

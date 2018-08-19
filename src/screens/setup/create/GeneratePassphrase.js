@@ -35,6 +35,7 @@ class GeneratePassphrase extends Component {
         footerGrandparentContainer,
         footerParentContainer,
         textFooter,
+        navFlex
       } = styles;
 
       return (
@@ -73,7 +74,7 @@ class GeneratePassphrase extends Component {
                       <Text style={textFooter} >Powered by ChainSafe </Text>
                   </View>
                 </View>
-            </View>          
+            </View>
           </View>
         </SafeAreaView>
       );
@@ -82,7 +83,7 @@ class GeneratePassphrase extends Component {
 
 const styles = StyleSheet.create({
   safeAreaView: {
-    flex: 1, 
+    flex: 1,
     backgroundColor: '#fafbfe'
   },
   mainContainer: {
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '82%',
-    height: Dimensions.get('window').height * 0.082,  
+    height: Dimensions.get('window').height * 0.082,
   },
   footerGrandparentContainer: {
     alignItems: 'center',
