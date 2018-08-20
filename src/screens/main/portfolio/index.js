@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ListView, Image, TouchableOpacity, ScrollView, Dimensions, SafeAreaView, Platform } from 'react-native';
+import { View, Text, StyleSheet, ListView, Image, TouchableOpacity, ScrollView, Dimensions, SafeAreaView, Platform, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from "react-navigation";
@@ -14,6 +14,10 @@ import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
  * tokens and the balance of the wallet
  */
 class Portfolio extends Component {
+
+  state = {
+    data: this.props.newWallet.tokens
+  }
   /**
    * LifeCycle Method (executes before the component has been rendered)
    * Sets the list of tokens reterived from the global state variable as the
@@ -106,7 +110,13 @@ class Portfolio extends Component {
           </View>
           <View style={styles.scrollViewContainer}>
             <ScrollView >
-                <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}/>
+                {/* <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}/> */}
+                <FlatList
+                  data={this.state.data}
+                  showsVerticalScrollIndicator={false}
+                  renderItem={({item}) => this.renderRow(item)}
+                />
+
             </ScrollView>
           </View>
           <View style={styles.btnContainer} >
