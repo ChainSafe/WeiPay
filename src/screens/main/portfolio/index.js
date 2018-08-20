@@ -19,17 +19,9 @@ const utils = ethers.utils;
  * tokens and the balance of the wallet
  */
 class Portfolio extends Component {
-
-
-  // constructor(props){
-  //   super(props)
-  //   console.log('In portfolio');
-  //   console.log(this.props.newWallet.wallet.address);
-  //   this.state = {
-  //     balance: 0
-  //   }
-  // }
-
+  state = {
+    balance: this.props.newWallet.balance
+  }
 
   /**
    * LifeCycle Method (executes before the component has been rendered)
@@ -85,6 +77,7 @@ class Portfolio extends Component {
         console.log(check);
         
         await this.props.getTokenBalance(check)
+
     }
   }
     catch(err) {
@@ -171,11 +164,12 @@ class Portfolio extends Component {
    * The component also provides the option to add/delete tokens
    */
   render() {
-
-    console.log(this.props.newWallet);
+    console.log('In render');
+    console.log(this.props.newWallet.balance);
+    console.log(this.props.newWallet.tokens);
     
+    console.log('In render');
     
-
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer} >
