@@ -13,6 +13,7 @@ const INITIAL_STATE = {
   QrScannerInvoker: '',
   current_token: {},
   debugMode: false,
+  balance: '',
 };
 
 /**
@@ -43,6 +44,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, current_token: action.payload };
     case actions.DEBUG_MODE:
       return { ...state, debugMode: true };
+    case action.ETHBALANCE:
+      return { ...state, balance: action.payload };
     default:
       return state;
   }

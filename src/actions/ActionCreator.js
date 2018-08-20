@@ -158,3 +158,9 @@ export function enterDebug() {
     dispatch({ type: actionTypes.DEBUG_MODE, payload: '' });
   };
 }
+
+export function getTokenBalance(balance) {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.ETHBALANCE, payload: balance });
+  };
+}

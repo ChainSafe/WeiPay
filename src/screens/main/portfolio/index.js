@@ -4,16 +4,33 @@ import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from "react-navigation";
 import LinearButton from '../../../components/LinearGradient/LinearButton';
-import { addTokenInfo } from '../../../actions/ActionCreator';
+import { addTokenInfo, getTokenBalance } from '../../../actions/ActionCreator';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
+import ERC20ABI from '../../../constants/data/json/ERC20ABI.json';
+import Provider from '../../../constants/Providers';
 
+
+const ethers = require('ethers');
+const utils = ethers.utils;
 
 /**
  * Screen is used to display the wallet portfolio of the user, which contains the
  * tokens and the balance of the wallet
  */
 class Portfolio extends Component {
+
+
+  // constructor(props){
+  //   super(props)
+  //   console.log('In portfolio');
+  //   console.log(this.props.newWallet.wallet.address);
+  //   this.state = {
+  //     balance: 0
+  //   }
+  // }
+
+
   /**
    * LifeCycle Method (executes before the component has been rendered)
    * Sets the list of tokens reterived from the global state variable as the
@@ -37,6 +54,70 @@ class Portfolio extends Component {
     const navigateToAddToken = NavigationActions.navigate({ routeName: 'coinSend' });
     this.props.navigation.dispatch(navigateToAddToken);
   };
+
+  // shouldComponentUpdate (nextProps, nextState) {
+
+  //   console.log('In life cycle');
+    
+  //   console.log(this.props.newWallet.balance);
+  //   console.log(nextProps.newWallet.balance);
+    
+  //   console.log('In life cycle');
+    
+    
+  //   if (this.props.newWallet.balance === nextProps.newWallet.balance){
+  //     console.log('updating');
+  //     return true
+  //   }
+  //   return false
+  // }
+
+  getTokenBalance= async(token) => {
+    try {
+      const currentWallet = await this.props.newWallet.wallet;
+    console.log(currentWallet.address);
+    console.log(token.symbol);
+    try {
+      if (token.address === '') {
+        const balance = await Provider.getBalance(currentWallet.address)
+        console.log('Getting Balance');
+        const check = String(utils.formatEther(balance))
+        console.log(check);
+        
+        await this.props.getTokenBalance(check)
+    }
+  }
+    catch(err) {
+      console.log(err)
+    }
+  }
+    catch(e) {
+      console.log(e)
+    }
+  }
+    // if (token.address === '') {
+    //   await Provider.getBalance(currentWallet.address).then((balance) => {
+    //     console.log('Getting Balance');
+    //     const check = String(utils.formatEther(balance))
+    //     console.log(check);
+        
+    //     this.props.getTokenBalance(check)
+    //   }).catch((err) => {
+    //     console.log(err);
+    //   });
+    //}
+
+    // ---- This code works when the wallet provider have been changed to the mainnetwork
+    // const contract = new ethers.Contract(token.address, ERC20ABI, currentWallet)
+    // contract.balanceOf(currentWallet.address).then(function(balance) {
+    // var text = ethers.utils.formatEther(balance);
+    // console.log("Balance Before:", text);
+    // return text
+    // })
+    // return 'NA';
+
+  //}
+
  
   /**
    * Returns a ListItem component specific to the properties of the token parameter
@@ -46,7 +127,8 @@ class Portfolio extends Component {
         <TouchableOpacity
           onPress={() => {
             this.props.addTokenInfo(token)
-            this.props.navigation.navigate("coinSend")      
+            //this.props.navigation.navigate("coinSend")
+            this.getTokenBalance(token)      
           }}
           style={styles.listItemParentContainer}
           >
@@ -73,7 +155,7 @@ class Portfolio extends Component {
                 </View>
                 <View style={ styles.listItemValueContainer }>
                   <View style={ styles.listItemValueComponent }>
-                    <Text style={styles.listItemCryptoValue}>0</Text>
+                    <Text style={styles.listItemCryptoValue}>{this.props.newWallet.balance}</Text>
                     <Text style={styles.listItemFiatValue}>$2444432</Text>
                   </View>
                 </View>
@@ -89,6 +171,11 @@ class Portfolio extends Component {
    * The component also provides the option to add/delete tokens
    */
   render() {
+
+    console.log(this.props.newWallet);
+    
+    
+
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer} >
@@ -99,7 +186,8 @@ class Portfolio extends Component {
               navigation={this.props.navigation}
             />
           </View>
-          <Text style={styles.textHeader}>Holdings</Text>
+          <Text style={styles.textHeader} onPress={() => {console.log(this.props.newWallet.balance);
+          }}>Holdings</Text>
           <View style={styles.accountValueHeader}>
               <Text style={styles.headerValue}>0$</Text>
               <Text style={styles.headerValueCurrency}> USD</Text>
@@ -313,4 +401,4 @@ function mapStateToProps({ newWallet }) {
   return { newWallet };
 }
 
-export default connect(mapStateToProps, { addTokenInfo })(Portfolio);
+export default connect(mapStateToProps, { addTokenInfo, getTokenBalance })(Portfolio);
