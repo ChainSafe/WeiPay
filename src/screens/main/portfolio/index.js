@@ -109,18 +109,17 @@ class Portfolio extends Component {
               <Text style={styles.headerValueCurrency}> USD</Text>
           </View>
           <View style={styles.scrollViewContainer}>
-            <ScrollView >
-                {/* <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false}/> */}
                 <FlatList
                   data={this.state.data}
                   showsVerticalScrollIndicator={false}
                   renderItem={({item}) => this.renderRow(item)}
+                  keyExtractor={item => item.id}
                 />
-
-            </ScrollView>
+           
           </View>
-          <View style={styles.btnContainer} >
-              <LinearButton
+                 
+          <View style={styles.btnContainer}>
+            <LinearButton
                 onClickFunction={this.navigate}
                 buttonText="Add Token or Coin"
                 customStyles={styles.button}
@@ -130,7 +129,8 @@ class Portfolio extends Component {
                       <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                   </View>
               </View>
-          </View>         
+
+            </View>
         </View>
       </SafeAreaView>
     );
@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
   accountValueHeader: {
     flexDirection: 'row',
     flex: 0.5,
-    alignItems: "center"
+    alignItems: "center",
   },
   headerValue: {
     fontFamily: 'WorkSans-Medium',
@@ -275,10 +275,8 @@ const styles = StyleSheet.create({
     flex: 6,
   },
   btnContainer: {
-    alignItems: 'stretch',
-    width: '100%',
-    justifyContent: 'flex-end',
-    flex: 1,
+    flex: 1.5,
+    paddingTop: '3%',
   },
   button: {
     width: '82%',

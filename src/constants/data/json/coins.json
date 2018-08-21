@@ -144,7 +144,7 @@
         }
     },
     {
-        "id": 3,
+        "id": 4,
         "type": "ERC20",
         "selected": false,
         "symbol": "SUB1",
@@ -180,7 +180,79 @@
         }
     },
     {
-        "id": 3,
+        "id": 5,
+        "type": "ERC20",
+        "selected": false,
+        "symbol": "SUB2",
+        "address": "0x12480E24eb5bec1a9D4369CaB6a80caD3c0A377A",
+        "decimals": 2,
+        "name": "Substratum",
+        "ens_address": "",
+        "website": "https://substratum.net",
+        "logo": {
+            "src": "https://etherscan.io/token/images/substratum2_28.png",
+            "width": "",
+            "height": "",
+            "ipfs_hash": ""
+        },
+        "support": {
+            "email": "",
+            "url": ""
+        },
+        "social": {
+            "blog": "",
+            "chat": "",
+            "facebook": "",
+            "forum": "",
+            "github": "",
+            "gitter": "",
+            "instagram": "",
+            "linkedin": "",
+            "reddit": "https://www.reddit.com/r/SubstratumNetwork",
+            "slack": "http://x.co/SubSlack",
+            "telegram": "",
+            "twitter": "https://twitter.com/SubstratumNet",
+            "youtube": ""
+        }
+    },
+    {
+        "id": 6,
+        "type": "ERC20",
+        "selected": false,
+        "symbol": "SUB2",
+        "address": "0x12480E24eb5bec1a9D4369CaB6a80caD3c0A377A",
+        "decimals": 2,
+        "name": "Substratum",
+        "ens_address": "",
+        "website": "https://substratum.net",
+        "logo": {
+            "src": "https://etherscan.io/token/images/substratum2_28.png",
+            "width": "",
+            "height": "",
+            "ipfs_hash": ""
+        },
+        "support": {
+            "email": "",
+            "url": ""
+        },
+        "social": {
+            "blog": "",
+            "chat": "",
+            "facebook": "",
+            "forum": "",
+            "github": "",
+            "gitter": "",
+            "instagram": "",
+            "linkedin": "",
+            "reddit": "https://www.reddit.com/r/SubstratumNetwork",
+            "slack": "http://x.co/SubSlack",
+            "telegram": "",
+            "twitter": "https://twitter.com/SubstratumNet",
+            "youtube": ""
+        }
+    },
+    {
+        "id": 7,
         "type": "ERC20",
         "selected": false,
         "symbol": "SUB2",
