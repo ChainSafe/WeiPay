@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
         width: '82%',
     },
     cardText: {
-      paddingBottom: '20%',
+      paddingBottom: '15%',
       paddingTop: '10%',
       paddingLeft: '10%',
       paddingRight: '10%',

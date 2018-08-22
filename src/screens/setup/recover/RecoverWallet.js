@@ -115,11 +115,13 @@ class RecoverWallet extends Component {
                           <Text style={cardText}>
                               Enter your 12 word recovery passphrase to recover your wallet.
                           </Text>
-                          <FormInput
-                              placeholder={'Ex. man friend love long phrase ... '}
-                              onChangeText={this.renderRecoveryKey.bind(this)}
-                              inputStyle={txtMnemonic}
-                          />
+                          <View style={styles.formInputContainer}>
+                            <FormInput
+                                placeholder={'Ex. man friend love long phrase ... '}
+                                onChangeText={this.renderRecoveryKey.bind(this)}
+                                inputStyle={txtMnemonic}
+                            />
+                          </View>
                       </BoxShadowCard>
                   </View>
                 </View>
@@ -169,20 +171,22 @@ const styles = StyleSheet.create({
   },
   boxShadowContainer:{
     alignItems: 'center', 
-    flex: 3
+    flex: 2.5
   },
   contentContainer: {
     width: '82%',
     flex: 1,
   },
   cardText: {
-    paddingBottom: '20%',
-    paddingTop: '7.5%',
-    paddingLeft: '7.5%',
-    paddingRight: '7.5%',
-    fontFamily: 'WorkSans-Light',
-    color: '#000000',
-    fontSize: RF(2.4),
+      paddingBottom: '15%',
+      paddingTop: '10%',
+      paddingLeft: '10%',
+      paddingRight: '10%',
+      fontFamily: 'WorkSans-Light',
+      letterSpacing: 0.4,
+      lineHeight: RF(3.9),
+      color: '#000000',
+      fontSize: RF(2.4),
   },
   txtMnemonic: {
     width: '100%',
@@ -192,8 +196,12 @@ const styles = StyleSheet.create({
     fontSize: RF(2.4),
     fontFamily: 'WorkSans-Regular',
   },
+  formInputContainer: {
+    width: '90%',
+    marginLeft: '5%',
+  },
   btnContainer: {
-    flex: 2,
+    flex: 2.5,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     width: '100%',

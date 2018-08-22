@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cardText: {
-    paddingBottom: '20%',
+    paddingBottom: '15%',
     paddingTop: '10%',
     paddingLeft: '10%',
     paddingRight: '10%',
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Regular',  
   },
   formInputContainer: {
-    width: '90%',
+    width: '92%',
     marginLeft: '5%',
   },
   btnContainer: {
