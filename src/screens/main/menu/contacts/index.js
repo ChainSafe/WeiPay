@@ -16,24 +16,6 @@ import AddContact from './add/AddContact'
  */
 class Contacts extends Component {
 
-  /**
-   * Sets the screen title to "Contacts".
-   */
-  // static navigationOptions = ({ navigation }) => {
-  //   return {
-  //     title: 'Contacts',
-  //     headerRight: (
-  //       <View style={{ paddingRight: 15 }}>
-  //         <Icon
-  //           name="menu"
-  //           onPress={() => navigation.navigate('DrawerOpen')}
-  //           title="SideMenu"
-  //         />
-  //       </View>
-  //     )
-  //   }
-  // }
-
   constructor(props) {
     super(props)
     this.state = {
