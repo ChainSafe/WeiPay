@@ -169,6 +169,7 @@ const styles = StyleSheet.create({
         letterSpacing: 0.4,
         fontSize: 16,
         fontFamily: 'WorkSans-Regular',
+        borderBottomWidth: 0.001
     },
     btnContainer: {
         flex: 2,
