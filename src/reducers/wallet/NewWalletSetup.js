@@ -32,10 +32,11 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, walletName: action.payload };
     case actions.ADD_TOKEN_SETUP:
       const current = state.tokens;
+      const selectedToken = { ...action.payload, balance: 10}
       let newTokens = [];
       const index = current.map(token => token.id).indexOf(action.payload.id);
       if (index === -1) {      
-        newTokens = [...current, action.payload];
+        newTokens = [...current, selectedToken];
       } else { 
         newTokens = [...current.slice(0, index), ...current.slice(index + 1)];     
       }    

@@ -52,327 +52,26 @@ class Portfolio extends Component {
 
   getTokenBalance= async() => {
 
-    let newData =   [
-        {
-            "id": 0,
-            "balance": 0,
-            "type": "PortfolioCoin",
-            "selected": false,
-            "symbol": "ETH",
-            "address": "",
-            "decimals": 18,
-            "name": "Ethereum",
-            "ens_address": "",
-            "website": "",
-            "logo": {
-                "src": "https://pbs.twimg.com/profile_images/626149701189042177/LWpxKEv3_bigger.png",
-                "width": "",
-                "height": "",
-                "ipfs_hash": ""
-            },
-            "support": {
-                "email": "",
-                "url": ""
-            },
-            "social": {
-                "blog": "",
-                "chat": "",
-                "facebook": "",
-                "forum": "",
-                "github": "",
-                "gitter": "",
-                "instagram": "",
-                "linkedin": "",
-                "reddit": "",
-                "slack": "",
-                "telegram": "",
-                "twitter": "",
-                "youtube": ""
-            }
-        },
-        {
-            "id": 1,
-            "balance": 0,
-            "type": "ERC20",
-            "selected": false,
-            "symbol": "TRX",
-            "address": "0xf230b790E05390FC8295F4d3F60332c93BEd42e2",
-            "decimals": 6,
-            "name": "Tron Lab Token",
-            "ens_address": "",
-            "website": "https://tronlab.com/en.html",
-            "logo": {
-                "src": "https://etherscan.io/token/images/tronlab_28.png",
-                "width": "",
-                "height": "",
-                "ipfs_hash": ""
-            },
-            "support": {
-                "email": "service@tronlab.com",
-                "url": ""
-            },
-            "social": {
-                "blog": "",
-                "chat": "",
-                "facebook": "https://www.facebook.com/TronFoundation-144555002795817",
-                "forum": "",
-                "github": "",
-                "gitter": "",
-                "instagram": "",
-                "linkedin": "",
-                "reddit": "",
-                "slack": "https://tronfoundation.slack.com",
-                "telegram": "https://t.me/joinchat/GIjGvkK7dhnO8gapCPfqew",
-                "twitter": "https://twitter.com/tronfoundation",
-                "youtube": ""
-            }
-        },
-        {
-            "id": 2,
-            "balance": 0,
-            "type": "ERC20",
-            "selected": false,
-            "symbol": "BNB",
-            "address": "0xB8c77482e45F1F44dE1745F52C74426C631bDD52",
-            "decimals": 18,
-            "name": "BNB",
-            "ens_address": "",
-            "website": "https://www.binance.com",
-            "logo": {
-                "src": "https://etherscan.io/token/images/binance_28.png",
-                "width": 28,
-                "height": 28,
-                "ipfs_hash": ""
-            },
-            "support": {
-                "email": "support@binance.zendesk.com",
-                "url": ""
-            },
-            "social": {
-                "blog": "",
-                "chat": "",
-                "facebook": "https://www.facebook.com/binance2017",
-                "forum": "",
-                "github": "",
-                "gitter": "",
-                "instagram": "",
-                "linkedin": "",
-                "reddit": "https://www.reddit.com/r/binance",
-                "slack": "",
-                "telegram": "",
-                "twitter": "https://twitter.com/binance_2017",
-                "youtube": ""
-            }
-        },
-        {
-            "id": 3,
-            "balance": 0,
-            "type": "ERC20",
-            "selected": false,
-            "symbol": "SUB",
-            "address": "0x12480E24eb5bec1a9D4369CaB6a80caD3c0A377A",
-            "decimals": 2,
-            "name": "Substratum",
-            "ens_address": "",
-            "website": "https://substratum.net",
-            "logo": {
-                "src": "https://etherscan.io/token/images/substratum2_28.png",
-                "width": "",
-                "height": "",
-                "ipfs_hash": ""
-            },
-            "support": {
-                "email": "",
-                "url": ""
-            },
-            "social": {
-                "blog": "",
-                "chat": "",
-                "facebook": "",
-                "forum": "",
-                "github": "",
-                "gitter": "",
-                "instagram": "",
-                "linkedin": "",
-                "reddit": "https://www.reddit.com/r/SubstratumNetwork",
-                "slack": "http://x.co/SubSlack",
-                "telegram": "",
-                "twitter": "https://twitter.com/SubstratumNet",
-                "youtube": ""
-            }
-        },
-        {
-            "id": 4,
-            "balance": 0,
-            "type": "ERC20",
-            "selected": false,
-            "symbol": "SUB1",
-            "address": "0x12480E24eb5bec1a9D4369CaB6a80caD3c0A377A",
-            "decimals": 2,
-            "name": "Substratum",
-            "ens_address": "",
-            "website": "https://substratum.net",
-            "logo": {
-                "src": "https://etherscan.io/token/images/substratum2_28.png",
-                "width": "",
-                "height": "",
-                "ipfs_hash": ""
-            },
-            "support": {
-                "email": "",
-                "url": ""
-            },
-            "social": {
-                "blog": "",
-                "chat": "",
-                "facebook": "",
-                "forum": "",
-                "github": "",
-                "gitter": "",
-                "instagram": "",
-                "linkedin": "",
-                "reddit": "https://www.reddit.com/r/SubstratumNetwork",
-                "slack": "http://x.co/SubSlack",
-                "telegram": "",
-                "twitter": "https://twitter.com/SubstratumNet",
-                "youtube": ""
-            }
-        },
-        {
-            "id": 5,
-            "balance": 0,
-            "type": "ERC20",
-            "selected": false,
-            "symbol": "SUB2",
-            "address": "0x12480E24eb5bec1a9D4369CaB6a80caD3c0A377A",
-            "decimals": 2,
-            "name": "Substratum",
-            "ens_address": "",
-            "website": "https://substratum.net",
-            "logo": {
-                "src": "https://etherscan.io/token/images/substratum2_28.png",
-                "width": "",
-                "height": "",
-                "ipfs_hash": ""
-            },
-            "support": {
-                "email": "",
-                "url": ""
-            },
-            "social": {
-                "blog": "",
-                "chat": "",
-                "facebook": "",
-                "forum": "",
-                "github": "",
-                "gitter": "",
-                "instagram": "",
-                "linkedin": "",
-                "reddit": "https://www.reddit.com/r/SubstratumNetwork",
-                "slack": "http://x.co/SubSlack",
-                "telegram": "",
-                "twitter": "https://twitter.com/SubstratumNet",
-                "youtube": ""
-            }
-        },
-        {
-            "id": 6,
-            "balance": 0,
-            "type": "ERC20",
-            "selected": false,
-            "symbol": "SUB2",
-            "address": "0x12480E24eb5bec1a9D4369CaB6a80caD3c0A377A",
-            "decimals": 2,
-            "name": "Substratum",
-            "ens_address": "",
-            "website": "https://substratum.net",
-            "logo": {
-                "src": "https://etherscan.io/token/images/substratum2_28.png",
-                "width": "",
-                "height": "",
-                "ipfs_hash": ""
-            },
-            "support": {
-                "email": "",
-                "url": ""
-            },
-            "social": {
-                "blog": "",
-                "chat": "",
-                "facebook": "",
-                "forum": "",
-                "github": "",
-                "gitter": "",
-                "instagram": "",
-                "linkedin": "",
-                "reddit": "https://www.reddit.com/r/SubstratumNetwork",
-                "slack": "http://x.co/SubSlack",
-                "telegram": "",
-                "twitter": "https://twitter.com/SubstratumNet",
-                "youtube": ""
-            }
-        },
-        {
-            "id": 7,
-            "balance": 0,
-            "type": "ERC20",
-            "selected": false,
-            "symbol": "SUB2",
-            "address": "0x12480E24eb5bec1a9D4369CaB6a80caD3c0A377A",
-            "decimals": 2,
-            "name": "Substratum",
-            "ens_address": "",
-            "website": "https://substratum.net",
-            "logo": {
-                "src": "https://etherscan.io/token/images/substratum2_28.png",
-                "width": "",
-                "height": "",
-                "ipfs_hash": ""
-            },
-            "support": {
-                "email": "",
-                "url": ""
-            },
-            "social": {
-                "blog": "",
-                "chat": "",
-                "facebook": "",
-                "forum": "",
-                "github": "",
-                "gitter": "",
-                "instagram": "",
-                "linkedin": "",
-                "reddit": "https://www.reddit.com/r/SubstratumNetwork",
-                "slack": "http://x.co/SubSlack",
-                "telegram": "",
-                "twitter": "https://twitter.com/SubstratumNet",
-                "youtube": ""
-            }
-        }
-        ]
-
-
-
     const token = this.state.data[0]
-    console.log('Checking');
+    //console.log('Checking');
     
-    console.log(this.state.data[0]);
-    console.log('Checking');
+    //console.log(this.state.data[0]);
+    //console.log('Checking');
     
 
     try {
       const currentWallet = await this.props.newWallet.wallet;
-    console.log(currentWallet.address);
-    console.log(token.symbol);
+    //console.log(currentWallet.address);
+    //console.log(token.symbol);
     try {
       if (token.address === '') {
         const balance = await Provider.getBalance(currentWallet.address)
-        console.log('Getting Balance');
+        //console.log('Getting Balance');
         const check = String(utils.formatEther(balance))
-        console.log(check);
+        //console.log(check);
         
         await this.props.getTokenBalance(check)
-        this.setState({ refresh: false, data: newData})
+        this.setState({ refresh: false})
 
     }
   }
@@ -469,11 +168,11 @@ class Portfolio extends Component {
    * The component also provides the option to add/delete tokens
    */
   render() {
-    console.log('In render');
-    console.log(this.props.newWallet.balance);
-    console.log(this.props.newWallet.tokens);
+    // console.log('In render');
+    // console.log(this.props.newWallet.balance);
+    // console.log(this.props.newWallet.tokens);
     
-    console.log('In render');
+    // console.log('In render');
     
     return (
       <SafeAreaView style={styles.safeAreaView}>
