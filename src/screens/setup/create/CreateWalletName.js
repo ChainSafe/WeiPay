@@ -144,12 +144,13 @@ const styles = StyleSheet.create({
       fontSize: RF(2.4),
     },
     txtWalletName: {
-      width: '100%',
-      fontSize: RF(2.4),
-      flexWrap: 'wrap',
-      color: '#12c1a2',
-      letterSpacing: 0.4,
-      fontFamily: 'WorkSans-Regular', 
+        width: '100%',
+        flexWrap: 'wrap',
+        color: '#12c1a2',
+        letterSpacing: 0.4,
+        fontSize: 16,
+        fontFamily: 'WorkSans-Regular',
+        borderBottomWidth: 0.001
     },
     formInputContainer: {
       width: '90%',

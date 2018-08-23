@@ -195,6 +195,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.4,
     fontSize: RF(2.4),
     fontFamily: 'WorkSans-Regular',
+    borderBottomWidth: 0.001
   },
   formInputContainer: {
     width: '90%',
