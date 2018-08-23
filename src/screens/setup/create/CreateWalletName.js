@@ -53,25 +53,6 @@ class CreateWalletName extends Component {
      * Returns the form required for the user to set the name of their wallet
      */
     render() {
-      const {
-        safeAreaView,
-        mainContainer,
-        textHeader,
-        navContainer,
-        contentContainer,
-        boxShadowContainer,
-        cardText,
-        txtWalletName,
-        btnContainer,
-        button,
-        defaultGreenColor,
-        footerGrandparentContainer,
-        footerParentContainer,
-        textFooter,
-      } = styles;
-      console.log(this.props.debugMode);
-
-
       return (
         <SafeAreaView style={styles.safeAreaView}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -91,19 +72,21 @@ class CreateWalletName extends Component {
                     <Text style={styles.cardText}>
                       Create a name for your wallet, for example: My Wallet
                     </Text>
-                    <FormInput
-                      placeholder={'Ex. My Wallet'}
-                      onChangeText={this.getWalletName.bind(this)}
-                      inputStyle={styles.txtWalletName}
-                    />
+                    <View style={styles.formInputContainer}>
+                      <FormInput
+                        placeholder={'Ex. My Wallet'}
+                        onChangeText={this.getWalletName.bind(this)}
+                        inputStyle={styles.txtWalletName}
+                      />
+                    </View>
                   </BoxShadowCard>
                 </View>
               </View>
-              <View style={btnContainer}>
+              <View style={styles.btnContainer}>
                 <LinearButton
                   onClickFunction={this.navigate}
                   buttonText="Next"
-                  customStyles={button}
+                  customStyles={styles.button}
                   buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
                 />
                 <View style={styles.footerGrandparentContainer} >
@@ -113,8 +96,6 @@ class CreateWalletName extends Component {
                 </View>
               </View>
             </View>
-
-
           </TouchableWithoutFeedback>
         </SafeAreaView>
       );
@@ -137,7 +118,7 @@ const styles = StyleSheet.create({
     },
     boxShadowContainer: {
         alignItems: 'center',
-        flex: 3,
+        flex: 2.5,
     },
     textHeader: {
         fontFamily: 'Cairo-Light',
@@ -152,15 +133,15 @@ const styles = StyleSheet.create({
         width: '82%',
     },
     cardText: {
-        paddingBottom: '20%',
-        paddingTop: '7.5%',
-        paddingLeft: '7.5%',
-        paddingRight: '7.5%',
-        fontFamily: 'WorkSans-Light',
-        color: '#000000',
-        lineHeight: 22,
-        letterSpacing: 0.4,
-        fontSize: RF(2.4),
+      paddingBottom: '15%',
+      paddingTop: '10%',
+      paddingLeft: '10%',
+      paddingRight: '10%',
+      fontFamily: 'WorkSans-Light',
+      letterSpacing: 0.4,
+      lineHeight: RF(3.9),
+      color: '#000000',
+      fontSize: RF(2.4),
     },
     txtWalletName: {
         width: '100%',
@@ -171,8 +152,12 @@ const styles = StyleSheet.create({
         fontFamily: 'WorkSans-Regular',
         borderBottomWidth: 0.001
     },
+    formInputContainer: {
+      width: '90%',
+      marginLeft: '5%',
+    },
     btnContainer: {
-        flex: 2,
+        flex: 2.5,
         alignItems: 'stretch',
         justifyContent: 'flex-end',
         width: '100%',
