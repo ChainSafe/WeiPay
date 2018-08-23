@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {
-  View, Text, StyleSheet, ListView, Image, TouchableOpacity, ScrollView, Dimensions, SafeAreaView, Platform, FlatList,
+  View, Text, StyleSheet, Image, TouchableOpacity, Dimensions, SafeAreaView, Platform, FlatList,
 } from 'react-native';
 import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from 'react-navigation';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
-import { addTokenInfo, getTokenBalance, updateTokenBalance } from '../../../actions/ActionCreator';
+import { addTokenInfo, updateTokenBalance } from '../../../actions/ActionCreator';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 import ERC20ABI from '../../../constants/data/json/ERC20ABI.json';
@@ -24,23 +24,8 @@ const utils = ethers.utils;
 class Portfolio extends Component {
   state = {
     data: this.props.newWallet.tokens,
-    balance: this.props.newWallet.balance,
     refresh: false,
   }
-
-  /**
-   * LifeCycle Method (executes before the component has been rendered)
-   * Sets the list of tokens reterived from the global state variable as the
-   * data source for the listView
-   */
-  // componentWillMount() {
-  //   const data = this.props.newWallet.tokens;
-  //   console.log(this.props.newWallet.tokens);
-  //   const ds = new ListView.DataSource({
-  //     rowHasChanged: (r1, r2) => {return r1 !== r2},
-  //   });
-  //   this.dataSource = ds.cloneWithRows(data);
-  // }
 
   navigate = () => {
     const navigateToAddToken = NavigationActions.navigate({ routeName: 'Tokens' });
@@ -64,7 +49,6 @@ class Portfolio extends Component {
           if (token.address === '') {
             const balance = await Provider.getBalance(currentWallet.address);
             const check = String(utils.formatEther(balance));
-            await this.props.getTokenBalance(check);
             await this.props.updateTokenBalance(token.id, check);
             this.setState({ refresh: false });
           } else if (token.address !== '') {
@@ -375,4 +359,4 @@ function mapStateToProps({ newWallet }) {
   return { newWallet };
 }
 
-export default connect(mapStateToProps, { addTokenInfo, getTokenBalance, updateTokenBalance })(Portfolio);
+export default connect(mapStateToProps, { addTokenInfo, updateTokenBalance })(Portfolio);

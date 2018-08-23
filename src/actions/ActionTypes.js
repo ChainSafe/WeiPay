@@ -21,5 +21,4 @@ export const QRSCANNER_PAGE_INVOKER = 'qrscanner_page_invoker';
 export const SAVING_ADDCONTACT_INPUTS = 'saving_addContact_inputs';
 export const ADD_TOKEN_INFO = 'add_token_info';
 export const DEBUG_MODE = 'debug_mode';
-export const ETHBALANCE = 'ethbalance';
 export const UPDATE_TOKEN_BALANCE = 'update_token_balance';
