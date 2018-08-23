@@ -136,9 +136,7 @@ class Portfolio extends Component {
               navigation={this.props.navigation}
             />
           </View>
-          <Text style={styles.textHeader} onPress={() => {
-            console.log(this.props.newWallet.balance);
-          }}>Holdings</Text>
+          <Text style={styles.textHeader}>Holdings</Text>
           <View style={styles.accountValueHeader}>
               <Text style={styles.headerValue}>0$</Text>
               <Text style={styles.headerValueCurrency}> USD</Text>
