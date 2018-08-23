@@ -54,11 +54,9 @@ class Portfolio extends Component {
 
   getTokenBalance= async () => {
     const tokenLen = this.props.newWallet.tokens.length;
-    console.log(tokenLen);
-
-    for (let i = 0; i < tokenLen; i += 1) {
-      //console.log(i);
     
+    for (let i = 0; i < tokenLen; i += 1) {
+
       const token = this.state.data[i];
       try {
         const currentWallet = await this.props.newWallet.wallet;
@@ -93,8 +91,7 @@ class Portfolio extends Component {
         <TouchableOpacity
           onPress={() => {
             this.props.addTokenInfo(token);
-            // this.props.navigation.navigate("coinSend")
-            this.getTokenBalance(token);
+            this.props.navigation.navigate("coinSend")
           }}
           style={styles.listItemParentContainer}
           >
@@ -144,12 +141,7 @@ class Portfolio extends Component {
    * The component also provides the option to add/delete tokens
    */
   render() {
-    // console.log('In render');
-    // console.log(this.props.newWallet.balance);
-    // console.log(this.props.newWallet.tokens);
-
-    // console.log('In render');
-
+  
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer} >
@@ -284,7 +276,7 @@ const styles = StyleSheet.create({
   },
   listItemCryptoValue: {
     alignItems: 'flex-end',
-    fontSize: RF(3),
+    fontSize: RF(1.5),
     fontFamily: 'Cairo-Regular',
     letterSpacing: 0.5,
     color: 'black',
