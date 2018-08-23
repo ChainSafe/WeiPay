@@ -32,7 +32,7 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, walletName: action.payload };
     case actions.ADD_TOKEN_SETUP:
       const current = state.tokens;
-      const selectedToken = { ...action.payload, balance: 10}
+      const selectedToken = { ...action.payload, balance: 0}
       let newTokens = [];
       const index = current.map(token => token.id).indexOf(action.payload.id);
       if (index === -1) {      
@@ -49,8 +49,16 @@ export default (state = INITIAL_STATE, action) => {
       console.log('IN reducer');
       console.log(action.payload);
       console.log('IN reducer');   
-      
       return { ...state, balance: action.payload };
+    case actions.UPDATE_TOKEN_BALANCE:
+      const token = state.tokens[action.payload.tokenID];
+      const updatedToken = { ...token, balance: action.payload.balance }
+      const previousTokens = state.tokens;
+      previousTokens[action.payload.tokenID] = updatedToken;
+      
+      return { ...state, tokens: previousTokens };
+      
+      
     default:
       return state;
   }

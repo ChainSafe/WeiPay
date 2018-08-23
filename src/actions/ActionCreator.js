@@ -164,3 +164,9 @@ export function getTokenBalance(balance) {
     dispatch({ type: actionTypes.ETHBALANCE, payload: balance });
   };
 }
+
+export function updateTokenBalance(tokenID, balance) {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.UPDATE_TOKEN_BALANCE, payload: { tokenID, balance } });
+  };
+}

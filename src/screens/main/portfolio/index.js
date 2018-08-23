@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ListView, Image, TouchableOpacity, ScrollView, Dimensions, SafeAreaView, Platform, FlatList } from 'react-native';
+import {
+  View, Text, StyleSheet, ListView, Image, TouchableOpacity, ScrollView, Dimensions, SafeAreaView, Platform, FlatList,
+} from 'react-native';
 import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
-import { NavigationActions } from "react-navigation";
+import { NavigationActions } from 'react-navigation';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
-import { addTokenInfo, getTokenBalance } from '../../../actions/ActionCreator';
+import { addTokenInfo, getTokenBalance, updateTokenBalance } from '../../../actions/ActionCreator';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 import ERC20ABI from '../../../constants/data/json/ERC20ABI.json';
@@ -12,6 +14,7 @@ import Provider from '../../../constants/Providers';
 
 
 const ethers = require('ethers');
+
 const utils = ethers.utils;
 
 /**
@@ -19,7 +22,6 @@ const utils = ethers.utils;
  * tokens and the balance of the wallet
  */
 class Portfolio extends Component {
-
   state = {
     data: this.props.newWallet.tokens,
     balance: this.props.newWallet.balance,
@@ -31,17 +33,17 @@ class Portfolio extends Component {
    * Sets the list of tokens reterived from the global state variable as the
    * data source for the listView
    */
-  componentWillMount() {
-    const data = this.props.newWallet.tokens;
-    console.log(this.props.newWallet.tokens);
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => {return r1 !== r2},
-    });
-    this.dataSource = ds.cloneWithRows(data);
-  }
+  // componentWillMount() {
+  //   const data = this.props.newWallet.tokens;
+  //   console.log(this.props.newWallet.tokens);
+  //   const ds = new ListView.DataSource({
+  //     rowHasChanged: (r1, r2) => {return r1 !== r2},
+  //   });
+  //   this.dataSource = ds.cloneWithRows(data);
+  // }
 
   navigate = () => {
-    const navigateToAddToken = NavigationActions.navigate({ routeName: "Tokens" });
+    const navigateToAddToken = NavigationActions.navigate({ routeName: 'Tokens' });
     this.props.navigation.dispatch(navigateToAddToken);
   };
 
@@ -50,63 +52,39 @@ class Portfolio extends Component {
     this.props.navigation.dispatch(navigateToAddToken);
   };
 
-  getTokenBalance= async() => {
+  getTokenBalance= async () => {
+    const tokenLen = this.props.newWallet.tokens.length;
+    console.log(tokenLen);
 
-    const token = this.state.data[0]
-    //console.log('Checking');
+    for (let i = 0; i < tokenLen; i += 1) {
+      //console.log(i);
     
-    //console.log(this.state.data[0]);
-    //console.log('Checking');
-    
-
-    try {
-      const currentWallet = await this.props.newWallet.wallet;
-    //console.log(currentWallet.address);
-    //console.log(token.symbol);
-    try {
-      if (token.address === '') {
-        const balance = await Provider.getBalance(currentWallet.address)
-        //console.log('Getting Balance');
-        const check = String(utils.formatEther(balance))
-        //console.log(check);
-        
-        await this.props.getTokenBalance(check)
-        this.setState({ refresh: false})
-
+      const token = this.state.data[i];
+      try {
+        const currentWallet = await this.props.newWallet.wallet;
+        try {
+          if (token.address === '') {
+            const balance = await Provider.getBalance(currentWallet.address);
+            const check = String(utils.formatEther(balance));
+            await this.props.getTokenBalance(check);
+            await this.props.updateTokenBalance(token.id, check);
+            this.setState({ refresh: false });
+          } else if (token.address !== '') {
+            const contract = new ethers.Contract(token.address, ERC20ABI, currentWallet);
+            await contract.balanceOf(currentWallet.address).then((balance) => {
+              const tokenBalance = String(ethers.utils.formatEther(balance));
+              this.props.updateTokenBalance(token.id, tokenBalance);
+            });
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
-    catch(err) {
-      console.log(err)
-    }
-  }
-    catch(e) {
-      console.log(e)
-    }
-  }
-    // if (token.address === '') {
-    //   await Provider.getBalance(currentWallet.address).then((balance) => {
-    //     console.log('Getting Balance');
-    //     const check = String(utils.formatEther(balance))
-    //     console.log(check);
-        
-    //     this.props.getTokenBalance(check)
-    //   }).catch((err) => {
-    //     console.log(err);
-    //   });
-    //}
 
-    // ---- This code works when the wallet provider have been changed to the mainnetwork
-    // const contract = new ethers.Contract(token.address, ERC20ABI, currentWallet)
-    // contract.balanceOf(currentWallet.address).then(function(balance) {
-    // var text = ethers.utils.formatEther(balance);
-    // console.log("Balance Before:", text);
-    // return text
-    // })
-    // return 'NA';
-
-  //}
-
- 
   /**
    * Returns a ListItem component specific to the properties of the token parameter
    */
@@ -114,9 +92,9 @@ class Portfolio extends Component {
     return (
         <TouchableOpacity
           onPress={() => {
-            this.props.addTokenInfo(token)
-            //this.props.navigation.navigate("coinSend")
-            this.getTokenBalance(token)      
+            this.props.addTokenInfo(token);
+            // this.props.navigation.navigate("coinSend")
+            this.getTokenBalance(token);
           }}
           style={styles.listItemParentContainer}
           >
@@ -143,7 +121,7 @@ class Portfolio extends Component {
                 </View>
                 <View style={ styles.listItemValueContainer }>
                   <View style={ styles.listItemValueComponent }>
-                    <Text style={styles.listItemCryptoValue}>{this.state.balance}</Text>
+                    <Text style={styles.listItemCryptoValue}>{token.balance}</Text>
                     <Text style={styles.listItemFiatValue}>$2444432</Text>
                   </View>
                 </View>
@@ -155,12 +133,10 @@ class Portfolio extends Component {
   }
 
   handleListRefresh = () => {
-    this.setState({ 
-      refresh: true},
-    () =>{
-      this.getTokenBalance()
-    }
-    )
+    this.setState({refresh: true },
+    () => {
+      this.getTokenBalance();
+    } );
   }
 
   /**
@@ -171,9 +147,9 @@ class Portfolio extends Component {
     // console.log('In render');
     // console.log(this.props.newWallet.balance);
     // console.log(this.props.newWallet.tokens);
-    
+
     // console.log('In render');
-    
+
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer} >
@@ -184,7 +160,8 @@ class Portfolio extends Component {
               navigation={this.props.navigation}
             />
           </View>
-          <Text style={styles.textHeader} onPress={() => {console.log(this.props.newWallet.balance);
+          <Text style={styles.textHeader} onPress={() => {
+            console.log(this.props.newWallet.balance);
           }}>Holdings</Text>
           <View style={styles.accountValueHeader}>
               <Text style={styles.headerValue}>0$</Text>
@@ -194,15 +171,15 @@ class Portfolio extends Component {
             <FlatList
               data={this.state.data}
               showsVerticalScrollIndicator={false}
-              renderItem={({item}) => this.renderRow(item)}
-              keyExtractor={item => String(item.id)}
+              renderItem={({ item }) => { return this.renderRow(item) ;}}
+              keyExtractor={(item) => { return String(item.id) ;}}
               refreshing={this.state.refresh}
               onRefresh={this.handleListRefresh}
               extraData={this.props}
             />
-           
+
           </View>
-                 
+
           <View style={styles.btnContainer}>
             <LinearButton
                 onClickFunction={this.navigate}
@@ -239,27 +216,27 @@ const styles = StyleSheet.create({
     width: '84%',
   },
   boxShadowContainer: {
-    flex: 1, 
+    flex: 1,
   },
   listItemParentContainer: {
     height: Dimensions.get('window').height * 0.1,
     flex: 1,
   },
   listItemTextComponent: {
-    justifyContent: 'center', 
-    flex: 1, 
+    justifyContent: 'center',
+    flex: 1,
   },
   listItemValueContainer: {
-    flex: 3, 
-    justifyContent: 'center', 
-    paddingBottom: '1.5%', 
-    paddingTop: '1.5%', 
+    flex: 3,
+    justifyContent: 'center',
+    paddingBottom: '1.5%',
+    paddingTop: '1.5%',
     paddingRight: '5%',
   },
   listItemValueComponent: {
-    flex: 1, 
-    justifyContent: 'flex-start', 
-    alignItems: 'flex-end', 
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end',
   },
   imgMainContainer: {
     flex: 1.25,
@@ -326,9 +303,9 @@ const styles = StyleSheet.create({
     flex: 0.75,
     paddingBottom: '2%',
   },
-  textHeader: {       
-    fontFamily: "Cairo-Light",
-    fontSize: RF(4),      
+  textHeader: {
+    fontFamily: 'Cairo-Light',
+    fontSize: RF(4),
     paddingLeft: '9%',
     color: '#1a1f3e',
     flex: 0.75,
@@ -338,17 +315,17 @@ const styles = StyleSheet.create({
   accountValueHeader: {
     flexDirection: 'row',
     flex: 0.5,
-    alignItems: "center",
+    alignItems: 'center',
   },
   headerValue: {
     fontFamily: 'WorkSans-Medium',
     marginLeft: '9%',
     color: '#27c997',
-    fontSize: RF(3),  
-  },   
-  headerValueCurrency : {
-    fontSize:11,
-    fontFamily: "WorkSans-Regular", 
+    fontSize: RF(3),
+  },
+  headerValueCurrency: {
+    fontSize: 11,
+    fontFamily: 'WorkSans-Regular',
     color: '#27c997',
     justifyContent: 'center',
   },
@@ -379,7 +356,7 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Regular',
     fontSize: RF(1.7),
     color: '#c0c0c0',
-    letterSpacing: 0.5
+    letterSpacing: 0.5,
   },
   // footerContainer: {
   //   alignItems: 'center',
@@ -394,7 +371,7 @@ const styles = StyleSheet.create({
   //   color: '#c0c0c0',
   //   letterSpacing: 0.5
   // }
-})
+});
 
 /**
  * Method is used  to reterive the newWallet object
@@ -406,4 +383,4 @@ function mapStateToProps({ newWallet }) {
   return { newWallet };
 }
 
-export default connect(mapStateToProps, { addTokenInfo, getTokenBalance })(Portfolio);
+export default connect(mapStateToProps, { addTokenInfo, getTokenBalance, updateTokenBalance })(Portfolio);
