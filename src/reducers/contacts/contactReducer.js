@@ -19,20 +19,16 @@ export default (state = INITIAL_STATE, action) => {
       // Object.keys(contact)[0]
       const actionKey = Object.keys(action.payload)[0];
       const actionKeyValue = action.payload[Object.keys(action.payload)[0]];
-
       if (actionKey in contact) {
         contact[actionKey] = actionKeyValue;
       } else {
         contact[actionKey] = actionKeyValue;
       }
-
       return { ...state, currentContact: contact };
-
     case actions.COMPLETE_CONTACT:
       var old = state.contacts;
       const newContact = [...state.contacts, action.payload];
       return { ...state, contacts: newContact, currentContact: {} };
-
     case actions.EDIT_CONTACT:
       let nameIndex = state.contacts.map(contact => contact.name).indexOf(action.payload.name)
       let editedContactList = [
