@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     color: '#12c1a2',
     letterSpacing: 0.4,
     fontFamily: 'WorkSans-Regular',  
-    borderBottomWidth: 0.0001
+    borderBottomWidth: 0.0001,
   },
   formInputContainer: {
     width: '92%',

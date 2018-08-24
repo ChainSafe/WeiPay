@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
 import { NavigationActions } from "react-navigation";
+import RF from "react-native-responsive-fontsize"
 
 class CoinSendTabNavigator extends Component {
 
@@ -81,19 +82,19 @@ const styles = StyleSheet.create({
     },
     headerSend :{
         alignSelf:'flex-start',
-        fontSize: 19,
+        fontSize: RF(2.8),
         fontFamily: "Cairo-Light", 
         letterSpacing: 0.6,     
     },
     headerActivity: {
         alignSelf:'center',
-        fontSize: 19,
+        fontSize: RF(2.8),
         fontFamily: "Cairo-Light", 
         letterSpacing: 0.6, 
     },
     headerReceive: { 
         alignSelf:'flex-end',
-        fontSize: 19,
+        fontSize: RF(2.8),
         fontFamily: "Cairo-Light", 
         letterSpacing: 0.6, 
     },
