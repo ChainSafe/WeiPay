@@ -223,7 +223,6 @@ class CoinSend extends Component {
                       />
                     </TouchableOpacity>
                   </View>
-
                   <View style={styles.inputContainer}>
                     <View style={styles.formInputContainer}>
                         <FormInput
@@ -246,29 +245,6 @@ class CoinSend extends Component {
                         Transaction Fee Total {this.state.value} Eth
                       </Text>    
                   </View>
-
-
-                  {/* <View style={styles.topFormInput}>
-                    <FormInput
-                      placeholder={"Public Address"}
-                      onChangeText={this.renderAddress.bind(this)}
-                      ref={ref => this.inputAddress = ref}
-                      inputStyle={styles.formInput}
-                      value={this.state.inputValue}
-                    />
-                  </View>
-                  <View style={styles.formInputContainer}>
-                    <FormInput
-                      placeholder={"Amount"}
-                      onChangeText={this.renderValue.bind(this)}
-                      ref={ref => this.inputAmount = ref}
-                      inputStyle={styles.formInput}
-                    />
-                    <Text style={styles.transactionFee} >
-                      Transaction Fee Total {this.state.value} Eth
-                    </Text>
-                  </View> */}
-                
                 </BoxShadowCard>
               </View>
             </View>
@@ -302,7 +278,6 @@ class CoinSend extends Component {
           </View>
         </TouchableWithoutFeedback>
        </SafeAreaView>
-
     )
   }
 }
@@ -354,11 +329,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height * 0.1,
     width: Dimensions.get('window').width * 0.18,
   },
-  inputContainer: {
-    // backgroundColor: "blue",
-  },
   formAmount: {
-    // backgroundColor: "green",
     width: "90%",
     fontSize: RF(2.2),
     color:'#12c1a2',
@@ -367,7 +338,6 @@ const styles = StyleSheet.create({
     letterSpacing:0.4
   },
   formAddress: {
-    // backgroundColor: "red",
     width: "90%",
     fontSize: RF(2.2),
     color:'#12c1a2',
@@ -377,7 +347,6 @@ const styles = StyleSheet.create({
     paddingBottom: '3%',
   },
   displayFeeText: {
-    // backgroundColor: "purple",
     width: "90%",
     marginLeft:'10.5%',
     fontSize: RF(1.4),
@@ -388,33 +357,6 @@ const styles = StyleSheet.create({
   formInputContainer: {    
     marginLeft: '4.5%',
   },
-
-
-
-  // formInput:{
-  //   width:'100%',
-  //   flexWrap: 'wrap',
-  //   color:'#12c1a2',
-  //   fontSize: RF(2.2),
-  //   fontFamily: 'WorkSans-Light',
-  //   letterSpacing:0.4
-  // },
-  // topFormInput:{
-  //   paddingBottom: '3%',
-  //   width: '90%',
-  //   marginLeft: '4%',
-  // },
-  // formInputContainer: {
-  //   width: '90%',
-  //   marginLeft: '4%',
-  // },
-  // transactionFee : {
-  //   fontFamily: 'WorkSans-Light',
-  //   fontSize: RF(1.4),
-  //   letterSpacing: 0.3,
-  //   paddingLeft: '7.5%',
-  //   paddingTop: '2%'
-  // },
   btnContainer: {
     flex: 1.25,
     alignItems: 'stretch',
