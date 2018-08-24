@@ -31,10 +31,11 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, walletName: action.payload };
     case actions.ADD_TOKEN_SETUP:
       const current = state.tokens;
+      const selectedToken = { ...action.payload, balance: 0}
       let newTokens = [];
       const index = current.map(token => token.id).indexOf(action.payload.id);
       if (index === -1) {      
-        newTokens = [...current, action.payload];
+        newTokens = [...current, selectedToken];
       } else { 
         newTokens = [...current.slice(0, index), ...current.slice(index + 1)];     
       }    
@@ -43,6 +44,15 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, current_token: action.payload };
     case actions.DEBUG_MODE:
       return { ...state, debugMode: true };
+    case actions.UPDATE_TOKEN_BALANCE:
+      const token = state.tokens[action.payload.tokenID];
+      const updatedToken = { ...token, balance: action.payload.balance }
+      const previousTokens = state.tokens;
+      previousTokens[action.payload.tokenID] = updatedToken;
+      
+      return { ...state, tokens: previousTokens };
+      
+      
     default:
       return state;
   }

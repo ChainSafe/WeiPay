@@ -158,3 +158,9 @@ export function enterDebug() {
     dispatch({ type: actionTypes.DEBUG_MODE, payload: '' });
   };
 }
+
+export function updateTokenBalance(tokenID, balance) {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.UPDATE_TOKEN_BALANCE, payload: { tokenID, balance } });
+  };
+}
