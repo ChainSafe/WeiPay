@@ -188,23 +188,10 @@ class CoinSend extends Component {
    * Returns the complete form required to send a transaction
    */
   render() {
-    const {
-      mainContainer,
-      safeAreaView,
-      contentContainer,
-      cardText,
-      txtWalletName,
-      btnContainer,
-      button,
-      footerGrandparentContainer,
-      footerParentContainer,
-      textFooter,
-    } = styles;
-
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={mainContainer}>
+          <View style={styles.mainContainer}>
             <View style={styles.navContainer}>
               <BackWithMenuNav
                 showMenu={true}
@@ -222,9 +209,9 @@ class CoinSend extends Component {
               />
             </View>
             <View style={styles.boxShadowContainer}>
-              <View style={contentContainer}>
+              <View style={styles.contentContainer}>
                 <BoxShadowCard>
-                  <Text style={cardText}>
+                  <Text style={styles.cardText}>
                     Send Ether by scanning someone's QR code or public address.
                   </Text>
                   <View style= {styles.barcodeImageContainer}>
@@ -236,7 +223,32 @@ class CoinSend extends Component {
                       />
                     </TouchableOpacity>
                   </View>
-                  <View style={styles.topFormInput}>
+
+                  <View style={styles.inputContainer}>
+                    <View style={styles.formInputContainer}>
+                        <FormInput
+                          placeholder={"Public Address"}
+                          onChangeText={this.renderAddress.bind(this)}
+                          ref={ref => this.inputAddress = ref}
+                          inputStyle={styles.formAddress}
+                          value={this.state.inputValue}
+                        />
+                      </View>
+                      <View style={styles.formInputContainer}>
+                        <FormInput
+                          placeholder={"Amount"}
+                          onChangeText={this.renderValue.bind(this)}
+                          ref={ref => this.inputAmount = ref}
+                          inputStyle={styles.formAmount}
+                        />
+                      </View>
+                      <Text style={styles.displayFeeText} >
+                        Transaction Fee Total {this.state.value} Eth
+                      </Text>    
+                  </View>
+
+
+                  {/* <View style={styles.topFormInput}>
                     <FormInput
                       placeholder={"Public Address"}
                       onChangeText={this.renderAddress.bind(this)}
@@ -245,15 +257,18 @@ class CoinSend extends Component {
                       value={this.state.inputValue}
                     />
                   </View>
-                  <FormInput
-                    placeholder={"Amount"}
-                    onChangeText={this.renderValue.bind(this)}
-                    ref={ref => this.inputAmount = ref}
-                    inputStyle={styles.formInput}
-                  />
-                  <Text style={styles.transactionFee} >
-                    Transaction Fee Total {this.state.value} Eth
-                  </Text>
+                  <View style={styles.formInputContainer}>
+                    <FormInput
+                      placeholder={"Amount"}
+                      onChangeText={this.renderValue.bind(this)}
+                      ref={ref => this.inputAmount = ref}
+                      inputStyle={styles.formInput}
+                    />
+                    <Text style={styles.transactionFee} >
+                      Transaction Fee Total {this.state.value} Eth
+                    </Text>
+                  </View> */}
+                
                 </BoxShadowCard>
               </View>
             </View>
@@ -278,9 +293,9 @@ class CoinSend extends Component {
                   />
                 </View>
               </View>
-              <View style={footerGrandparentContainer}>
-                <View style={footerParentContainer} >
-                  <Text style={textFooter} >Powered by ChainSafe </Text>
+              <View style={styles.footerGrandparentContainer}>
+                <View style={styles.footerParentContainer} >
+                  <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                 </View>
                   </View>
                 </View>
@@ -313,58 +328,95 @@ const styles = StyleSheet.create({
   },
   boxShadowContainer: {
     alignItems: 'center',
-    marginTop: '5%',
-    flex: 4,
+    marginTop: '10%',
+    flex: 3.75,
   },
   contentContainer: {
     width: '82%',
     flex: 1,
   },
+  cardText: {
+    paddingBottom: '5%',
+    paddingTop: '10%',
+    paddingLeft: '10%',
+    paddingRight: '10%',
+    fontFamily: 'WorkSans-Light',
+    fontSize: RF(2.4),
+    color: '#000000',
+    letterSpacing: 0.4,
+  },
   barcodeImageContainer: {
     paddingTop: '5%',
     paddingBottom:'5%',
-    paddingLeft: '7.5%',
+    paddingLeft: '10%',
   },
   barcodeImage: {
-    height: 70,
-    width: 70,
+    height: Dimensions.get('window').height * 0.1,
+    width: Dimensions.get('window').width * 0.18,
   },
-  formInput:{
-    width:'100%',
-    flexWrap: 'wrap',
+  inputContainer: {
+    // backgroundColor: "blue",
+  },
+  formAmount: {
+    // backgroundColor: "green",
+    width: "90%",
+    fontSize: RF(2.2),
     color:'#12c1a2',
-    fontSize:16,
+    flexWrap: 'wrap',
     fontFamily: 'WorkSans-Light',
     letterSpacing:0.4
   },
-  topFormInput:{
-    paddingBottom: '3%'
-  },
-  transactionFee : {
-    fontFamily: 'WorkSans-Light',
-    fontSize: 9,
-    letterSpacing: 0.3,
-    paddingLeft: '7%',
-    paddingTop: '1.5%'
-  },
-  cardText: {
-    paddingBottom: '5%',
-    paddingTop: '7.5%',
-    paddingLeft: '7.5%',
-    paddingRight: '7.55%',
-    fontFamily: 'WorkSans-Light',
-    color: '#000000',
-    fontSize: RF(2.4),
-  },
-  txtWalletName: {
-    width: '100%',
+  formAddress: {
+    // backgroundColor: "red",
+    width: "90%",
+    fontSize: RF(2.2),
+    color:'#12c1a2',
     flexWrap: 'wrap',
-    color: '#12c1a2',
-    letterSpacing: 0.4,
-    fontFamily: 'WorkSans-Regular',
+    fontFamily: 'WorkSans-Light',
+    letterSpacing:0.4,
+    paddingBottom: '3%',
   },
+  displayFeeText: {
+    // backgroundColor: "purple",
+    width: "90%",
+    marginLeft:'10.5%',
+    fontSize: RF(1.4),
+    letterSpacing: 0.3,
+    fontFamily: 'WorkSans-Light',
+    marginTop: '2%',
+  },
+  formInputContainer: {    
+    marginLeft: '4.5%',
+  },
+
+
+
+  // formInput:{
+  //   width:'100%',
+  //   flexWrap: 'wrap',
+  //   color:'#12c1a2',
+  //   fontSize: RF(2.2),
+  //   fontFamily: 'WorkSans-Light',
+  //   letterSpacing:0.4
+  // },
+  // topFormInput:{
+  //   paddingBottom: '3%',
+  //   width: '90%',
+  //   marginLeft: '4%',
+  // },
+  // formInputContainer: {
+  //   width: '90%',
+  //   marginLeft: '4%',
+  // },
+  // transactionFee : {
+  //   fontFamily: 'WorkSans-Light',
+  //   fontSize: RF(1.4),
+  //   letterSpacing: 0.3,
+  //   paddingLeft: '7.5%',
+  //   paddingTop: '2%'
+  // },
   btnContainer: {
-    flex: 1,
+    flex: 1.25,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     width: '82%',

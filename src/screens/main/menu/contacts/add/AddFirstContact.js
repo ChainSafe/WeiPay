@@ -3,6 +3,9 @@ import { Text, View, StyleSheet, Dimensions } from 'react-native';
 import { Button, Card } from 'react-native-elements';
 import LinearButton from '../../../../../components/LinearGradient/LinearButton'
 import BoxShadowCard from '../../../../../components/ShadowCards/BoxShadowCard'
+import RF from "react-native-responsive-fontsize"
+
+
 /**
  * React-Native
  * Temporary Screen used until a contact is added
@@ -57,13 +60,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   cardText : {
-    paddingBottom: '5%',
-    paddingTop: '12%',
-    paddingLeft: '5%',
-    paddingRight: '5%',
-    fontFamily: "WorkSans-Light",
+    paddingTop: '10%',
+    paddingLeft: '10%',
+    paddingRight: '10%',
+    fontFamily: 'WorkSans-Light',
+    letterSpacing: 0.4,
+    lineHeight: RF(3.9),
     color: '#000000',
-    fontSize: 16,
+    fontSize: RF(2.4),
   },
   btnContainer: {
     flex: 1.6,
