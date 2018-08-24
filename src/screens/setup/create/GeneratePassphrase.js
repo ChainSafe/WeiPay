@@ -22,25 +22,10 @@ class GeneratePassphrase extends Component {
 
     render() {
       const { walletInfo } = this.props;
-
-      const {
-        mainContainer,
-        textHeader,
-        contentContainer,
-        boxShadowContainer,
-        cardText,
-        textMnemonic,
-        btnContainer,
-        button,
-        footerGrandparentContainer,
-        footerParentContainer,
-        textFooter,
-        navFlex
-      } = styles;
-
+      
       return (
         <SafeAreaView style={styles.safeAreaView}>
-          <View style={mainContainer}>
+          <View style={styles.mainContainer}>
             <View style={styles.navContainer}>
               <BackWithMenuNav
                   showMenu={false}
@@ -49,29 +34,29 @@ class GeneratePassphrase extends Component {
                   backPage={'createWalletName'}
                 />
               </View>
-              <Text style={textHeader} >Your Passphrase</Text>
-              <View style={boxShadowContainer}>
-                <View style={contentContainer} >
+              <Text style={styles.textHeader} >Your Passphrase</Text>
+              <View style={styles.boxShadowContainer}>
+                <View style={styles.contentContainer} >
                     <BoxShadowCard >
-                        <Text style={cardText}>
+                        <Text style={styles.cardText}>
                             Please write down your 12 word passphrase. You will need it to verify your wallet.
                         </Text>
-                        <Text style={textMnemonic}>
+                        <Text style={styles.textMnemonic}>
                             {walletInfo.wallet.mnemonic}
                         </Text>
                       </BoxShadowCard>
                   </View>
               </View>
-              <View style={btnContainer}>
+              <View style={styles.btnContainer}>
                 <LinearButton
                     onClickFunction={this.navigate}
                     buttonText="Next"
-                    customStyles={button}
+                    customStyles={styles.button}
                     // buttonStateEnabled={this.state.buttonDisabled}
                 />
-                <View style={footerGrandparentContainer}>
-                  <View style={footerParentContainer}>
-                      <Text style={textFooter} >Powered by ChainSafe </Text>
+                <View style={styles.footerGrandparentContainer}>
+                  <View style={styles.footerParentContainer}>
+                      <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                   </View>
                 </View>
             </View>
@@ -109,21 +94,21 @@ const styles = StyleSheet.create({
     flex: 3
   },
   cardText: {
-    paddingBottom: '10%',
-    lineHeight: 22,
-    paddingTop: '5%',
-    paddingLeft: '5%',
-    paddingRight: '5%',
+    paddingBottom: '7.5%',
+    lineHeight: RF(3.9),
+    paddingTop: '10%',
+    paddingLeft: '10%',
+    paddingRight: '10%',
     fontFamily: 'WorkSans-Light',
     color: '#000000',
     fontSize: RF(2.4),
   },
   textMnemonic: {
-    paddingLeft: '5%',
-    paddingRight: '5%',
+    paddingLeft: '10%',
+    paddingRight: '10%',
     color: '#12c1a2',
     fontSize: RF(2.4),
-    lineHeight: 26,
+    lineHeight: RF(4.1),
     letterSpacing: 0.4,
   },
   btnContainer: {

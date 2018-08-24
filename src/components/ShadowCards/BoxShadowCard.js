@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   ChildContainerStyles: {
     backgroundColor: 'white',
     flex: 1,
-    borderRadius: 10,
+    borderRadius: 20,
     margin: '1%',
   },
 
