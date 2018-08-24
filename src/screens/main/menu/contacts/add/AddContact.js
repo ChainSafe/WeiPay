@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ListView, View, Text, StyleSheet, TextInput, ScrollView, Dimensions, TouchableOpacity, Picker, Image } from 'react-native';
+import { ListView, View, Text, StyleSheet, TextInput, ScrollView, Dimensions, TouchableOpacity, Picker, Image, SafeAreaView } from 'react-native';
 import { Button, List, ListItem, Card, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { NavigationActions } from "react-navigation";
@@ -13,6 +13,7 @@ import BoxShadowCard from '../../../../../components/ShadowCards/BoxShadowCard'
 
 import barcode from '../../../../../assets/icons/barcode.png'
 import RNPickerSelect from 'react-native-picker-select';
+import RF from "react-native-responsive-fontsize"
 /**
  * Is a full screen react component
  * This screen is used to add a new contact to the wallet contact list.
@@ -168,89 +169,97 @@ class AddContact extends Component {
    */
   render() {
     return (
-      <View style={styles.mainContainer}>
-        <View style={{flex: 0.2}} />
-        <View style={styles.contentContainer} >
-          <BoxShadowCard style={{ padding: '130%' }}>
-            <Text style={styles.cardText}>
-              Add contact by scanning QR code, or pasting in contact's WeiPay Address
-            </Text>
+      <SafeAreaView style={styles.safeAreaView}>
+        <View style={styles.mainContainer}>
+          <View style={{flex: 0.2}} />
+          <View style={styles.contentContainer} >
+            <BoxShadowCard >
+              <Text style={styles.cardText}>
+                Add contact by scanning QR code, or pasting in contact's WeiPay Address
+              </Text>
 
-            <View style={{flex: 1}}>
-              <FormInput
-                placeholder={"Contact's Name"}
-                onChangeText={name => this.setState({ contactName: name})}
-                inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2'}}
-                value={this.state.contactName}
-              />
-            </View>
-            <View style={{flex: 1, marginLeft: '7%'}}>
-              <Image
-                source={require('../../../../../assets/icons/barcode.png')}
-                style={{flex: 1, width: '20%', }}
-              />
-            </View>
-            <View style={{flex: .8}}>
-              <RNPickerSelect
-                placeholder={{
+              <View style={{flex: 1, paddingLeft: '3%', paddingRight: '3%',}}>
+                <FormInput
+                  placeholder={"Contact's Name"}
+                  onChangeText={name => this.setState({ contactName: name})}
+                  inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2', fontFamily: 'WorkSans-Light'}}
+                  placeholderTextColor={'black'}
+                  value={this.state.contactName}
+                />
+              </View>
+              <View style={{flex: 1, marginLeft: '10%'}}>
+                <Image
+                  source={require('../../../../../assets/icons/barcode.png')}
+                  style={{flex: 1, width: '20%', }}
+                />
+              </View>
+              <View style={{flex: .8}}>
+                <RNPickerSelect
+                  placeholder={{
                     label: 'Coin Type',
                     value: null,
-                }}
-                items={this.state.tokens}
-                onValueChange={(value) => {
-                  this.setState({
+                  }}
+                  items={this.state.tokens}
+                  onValueChange={(value) => {
+                    this.setState({
                       tokenName: value,
-                  });
-                }}
+                    });
+                  }}
 
-                style={{ ...pickerSelectStyles }}
-                value={this.state.tokenName}
-                ref={(el) => {
+                  style={pickerStyle}
+                  value={this.state.tokenName}
+                  ref={(el) => {
                     this.inputRefs.picker = el;
-                }}
-              />
-            </View>
-            <View style={{flex: 1}}>
-              <FormInput
-                placeholder={"WeiPay Address"}
-                onChangeText={ address => this.renderAddress(address)}
-                inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2'}}
-                value={this.state.contactAddress[this.state.tokenName]}
-                editable={!!this.state.tokenName}
-              />
-            </View>
-          </BoxShadowCard>
-        </View>
-        <View style={{flex: 0.2}} />
-        <View style={styles.anotherCoinContainer} >
-          <TouchableOpacity onPress={this.addAnotherCoinAddress.bind(this)} disabled={!this.state.tokenName}>
-            <BoxShadowCard>
-              <Text style={styles.cardText}>+ Add another coin address</Text>
+                  }}
+                />
+              </View>
+              <View style={{flex: 1, paddingLeft: '3%', paddingRight: '3%'}}>
+                <FormInput
+                  placeholder={"WeiPay Address"}
+                  onChangeText={ address => this.renderAddress(address)}
+                  inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2', fontFamily: 'WorkSans-Light'}}
+                  value={this.state.contactAddress[this.state.tokenName]}
+                  editable={!!this.state.tokenName}
+                  placeholderTextColor={'black'}
+                />
+              </View>
             </BoxShadowCard>
-          </TouchableOpacity>
+          </View>
+          <View style={{flex: 0.05}} />
+          <View style={styles.anotherCoinContainer} >
+            <TouchableOpacity onPress={this.addAnotherCoinAddress.bind(this)} disabled={!this.state.tokenName}>
+              <BoxShadowCard>
+                <Text style={styles.cardText}>+ Add another coin address</Text>
+              </BoxShadowCard>
+            </TouchableOpacity>
+          </View>
+          <View style={{flex: 0.2}} />
+          <View style={styles.btnContainer}>
+            <ClearButton
+              buttonText='Clear'
+              onClickFunction={this.clear.bind(this)}
+              customStyles={styles.clearButton}
+            />
+            <LinearButton
+              buttonText='Add Contact'
+              onClickFunction={this.addContact.bind(this)}
+              customStyles={styles.addButton}
+            />
+          </View>
         </View>
-        <View style={{flex: 0.1}} />
-        <View style={styles.btnContainer}>
-          <ClearButton
-            buttonText='Clear'
-            onClickFunction={this.clear.bind(this)}
-            customStyles={styles.clearButton}
-          />
-          <LinearButton
-            buttonText='Add Contact'
-            onClickFunction={this.addContact.bind(this)}
-            customStyles={styles.addButton}
-          />
-        </View>
-      </View>
+      </SafeAreaView>
     );
   }
 }
 
-/**
+          /**
  * Styles used in addContact file
  */
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1,
+    backgroundColor: '#fafbfe',
+  },
   mainContainer: {
     alignItems: 'center',
     flex: 1
@@ -269,9 +278,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'red'
   },
   contentContainer : {
-    alignItems: 'center',
-    flex: 2,
-    width: '82%',
+    flex: 2.3,
+    width: '82%'
   },
   anotherCoinContainer: {
     flex: .4,
@@ -280,11 +288,13 @@ const styles = StyleSheet.create({
   cardText : {
     paddingBottom: '5%',
     paddingTop: '5%',
-    paddingLeft: '5%',
-    paddingRight: '5%',
-    fontFamily: "WorkSans-Light",
+    paddingLeft: '10%',
+    paddingRight: '10%',
+    fontFamily: 'WorkSans-Light',
     color: '#000000',
-    fontSize: 16,
+    lineHeight: 22,
+    letterSpacing: 0.4,
+    fontSize: RF(2.4),
   },
   clearButton: {
     width: Dimensions.get('window').height * 0.225,
@@ -316,19 +326,55 @@ const styles = StyleSheet.create({
   }
 });
 
-const pickerSelectStyles = StyleSheet.create({
-  inputIOS: {
-      fontSize: 17,
-      fontFamily: "WorkSans-Light",
-      paddingTop: 13,
-      paddingHorizontal: 10,
-      paddingBottom: 12,
-      borderRadius: 4,
-      backgroundColor: 'white',
-      color: 'black',
-      marginLeft: '3.5%'
-  },
-});
+// const pickerSelectStyles = StyleSheet.create({
+//   inputIOS: {
+//     fontSize: RF(2.6),
+//     fontFamily: "WorkSans-Light",
+//     paddingLeft: '5%',
+//     paddingRight: '5%',
+//     paddingTop: 13,
+//     paddingHorizontal: 10,
+//     paddingBottom: 12,
+//     borderRadius: 4,
+//     color: 'black',
+//     marginLeft: '3.5%'
+//   },
+//   placeholderColor: 'black'
+// });
+
+const pickerStyle = {
+	inputIOS: {
+    fontSize: RF(2.6),
+    fontFamily: "WorkSans-Light",
+    paddingLeft: '6%',
+    paddingRight: '20%',
+    paddingTop: 13,
+    paddingHorizontal: 10,
+    paddingBottom: 12,
+    borderRadius: 4,
+    color: 'black',
+    marginLeft: '3.5%'
+	},
+	inputAndroid: {
+		color: 'black',
+	},
+	placeholderColor: 'black',
+	underline: { borderTopWidth: 0 },
+	icon: {
+		position: 'absolute',
+		backgroundColor: 'transparent',
+		borderTopWidth: 5,
+		borderTopColor: '#00000099',
+		borderRightWidth: 5,
+		borderRightColor: 'transparent',
+		borderLeftWidth: 5,
+		borderLeftColor: 'transparent',
+		width: 0,
+		height: 0,
+		top: 20,
+		right: 15,
+	},
+};
 /**
  * Reterives the token list from the state variable
  * Returns an object containing the token list
