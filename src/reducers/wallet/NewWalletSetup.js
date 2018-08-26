@@ -13,6 +13,7 @@ const INITIAL_STATE = {
   QrScannerInvoker: '',
   current_token: {},
   debugMode: false,
+  txnFee: 0,
 };
 
 /**
@@ -49,10 +50,9 @@ export default (state = INITIAL_STATE, action) => {
       const updatedToken = { ...token, balance: action.payload.balance }
       const previousTokens = state.tokens;
       previousTokens[action.payload.tokenID] = updatedToken;
-      
       return { ...state, tokens: previousTokens };
-      
-      
+    case actions.TXN_FEE:
+      return { ...state, txnFee: action.payload };
     default:
       return state;
   }
