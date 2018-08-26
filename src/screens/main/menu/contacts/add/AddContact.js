@@ -142,20 +142,24 @@ class AddContact extends Component {
   render() {
     return (
       <SafeAreaView style={styles.safeAreaView}>
-        <View style={styles.mainContainer}>
-          <View style={{flex: 0.2}} />
+        <View style={styles.mainContainer}>       
           <View style={styles.contentContainer} >
             <BoxShadowCard >
               <Text style={styles.cardText}>
                 Add contact by scanning QR code, or pasting in contact's WeiPay Address
               </Text>
-
-              <View style={{flex: 1, paddingLeft: '3%', paddingRight: '3%',}}>
+              <View style={styles.topFormInput}>
                 <FormInput
                   placeholder={"Contact's Name"}
                   onChangeText={name => this.setState({ contactName: name})}
-                  inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2', fontFamily: 'WorkSans-Light'}}
-                  placeholderTextColor={'black'}
+                  inputStyle={{    
+                    fontSize: RF(2.4),
+                    flexWrap: 'wrap',
+                    color: '#12c1a2',
+                    letterSpacing: 0.4,
+                    fontFamily: 'WorkSans-Regular',  
+                    borderBottomWidth: 0.0001,
+                  }}                 
                   value={this.state.contactName}
                 />
               </View>
@@ -177,7 +181,6 @@ class AddContact extends Component {
                       tokenName: value,
                     });
                   }}
-
                   style={pickerStyle}
                   value={this.state.tokenName}
                   ref={(el) => {
@@ -196,28 +199,26 @@ class AddContact extends Component {
                 />
               </View>
             </BoxShadowCard>
-          </View>
-          <View style={{flex: 0.05}} />
+          </View>  
           <View style={styles.anotherCoinContainer} >
-            <TouchableOpacity onPress={this.addAnotherCoinAddress.bind(this)} disabled={!this.state.tokenName}>
-              <BoxShadowCard>
-                <Text style={styles.cardText}>+ Add another coin address</Text>
-              </BoxShadowCard>
-            </TouchableOpacity>
-          </View>
-          <View style={{flex: 0.2}} />
-          <View style={styles.btnContainer}>
-            <ClearButton
-              buttonText='Clear'
-              onClickFunction={this.clear.bind(this)}
-              customStyles={styles.clearButton}
-            />
-            <LinearButton
-              buttonText='Add Contact'
-              onClickFunction={this.addContact.bind(this)}
-              customStyles={styles.addButton}
-            />
-          </View>
+              <TouchableOpacity onPress={this.addAnotherCoinAddress.bind(this)} disabled={!this.state.tokenName}>
+                <BoxShadowCard>
+                  <Text style={styles.btnTextAddAnother}>+ Add another coin address</Text>
+                </BoxShadowCard>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.btnContainer}>
+              <ClearButton
+                buttonText='Clear'
+                onClickFunction={this.clear.bind(this)}
+                customStyles={styles.clearButton}
+              />
+              <LinearButton
+                buttonText='Add Contact'
+                onClickFunction={this.addContact.bind(this)}
+                customStyles={styles.addButton}
+              />
+            </View>
         </View>
       </SafeAreaView>
     );
@@ -242,6 +243,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  topFormInput: {
+    flex: 1, 
+    paddingLeft: '3%', 
+    paddingRight: '3%',
+  },
   buttonContainer: {
     flex: 1,
   },
@@ -255,7 +261,8 @@ const styles = StyleSheet.create({
   },
   anotherCoinContainer: {
     flex: .4,
-    width: '82%'
+    width: '82%',
+    justifyContent: 'center',
   },
   cardText : {
     paddingBottom: '5%',
@@ -267,6 +274,13 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     letterSpacing: 0.4,
     fontSize: RF(2.4),
+  },
+  btnTextAddAnother: {
+    letterSpacing: 0.4,
+    fontSize: RF(2.4),
+    fontFamily: 'Cairo-Light',
+    marginLeft: '5%',
+    marginTop: "2.5%",
   },
   clearButton: {
     width: Dimensions.get('window').height * 0.225,
