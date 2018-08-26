@@ -132,18 +132,20 @@ class AddContact extends Component {
   render() {
     return (
       <SafeAreaView style={styles.safeAreaView}>
-       <ScrollView contentContainerStyle={{flex:1}}>
         <View style={styles.mainContainer}>       
           <View style={styles.contentContainer} >
             <BoxShadowCard >
-              <Text style={styles.cardText}>
-                Add contact by scanning QR code, or pasting in contact's WeiPay Address
-              </Text>
+              <View style={styles.cardTextContainer}>
+                <Text style={styles.cardText}>
+                  Add contact with QR code or Public Address
+                </Text>
+              </View>
               <View style={styles.topFormInput}>
                 <FormInput
                   placeholder={"Contact's Name"}
                   onChangeText={name => this.setState({ contactName: name})}
-                  inputStyle={styles.inputContactName}                 
+                  inputStyle={styles.inputContactName}  
+                  placeholderTextColor={'#b3b3b3'}               
                   value={this.state.contactName}
                 />
               </View>
@@ -177,37 +179,36 @@ class AddContact extends Component {
                   placeholder={"Public Address"}
                   onChangeText={ address => this.renderAddress(address)}
                   inputStyle={styles.inputAddressText}
+                  placeholderTextColor={'#b3b3b3'}  
                   value={this.state.contactAddress[this.state.tokenName]}
                   editable={!!this.state.tokenName}               
                 />
               </View>
-
-            </BoxShadowCard>
-          </View>  
-
-          <View style={styles.anotherCoinContainer} >
-              <TouchableOpacity onPress={this.addAnotherCoinAddress.bind(this)} disabled={!this.state.tokenName}>
-                <BoxShadowCard>
-                  <Text style={styles.btnTextAddAnother}>+ Add another coin address</Text>
-                </BoxShadowCard>
+              <TouchableOpacity 
+                style={styles.addAnotherText} 
+                onPress={this.addAnotherCoinAddress.bind(this)} 
+                disabled={!this.state.tokenName}>                    
+                  <Text style={styles.anotherText}> +  Add Another Coin </Text>                          
               </TouchableOpacity>
-            </View>
-            <View style={styles.btnContainer}>
+            </BoxShadowCard>            
+          </View>  
+          <View style={styles.btnContainer}>
+            <View style={styles.btnFlex}>
               <ClearButton
                 buttonText='Clear'
                 onClickFunction={this.clear.bind(this)}
                 customStyles={styles.clearButton}
               />
+            </View>
+            <View style={styles.btnFlex}>
               <LinearButton
                 buttonText='Add Contact'
                 onClickFunction={this.addContact.bind(this)}
                 customStyles={styles.addButton}
               />
             </View>
-
-
+          </View>
         </View>
-        </ScrollView>
       </SafeAreaView>
     );
   }
@@ -223,138 +224,116 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     alignItems: 'center',
-    flex: 1
+    flex: 0.9,
+    justifyContent: 'center',
   },
   contentContainer : {
     marginTop: '7.5%',
     flex: 2.3,
     width: '82%'
   },
-  cardText : {
-    paddingBottom: '5%',
-    paddingTop: '10%',
+  cardTextContainer: {
+    flex: .4,
     paddingLeft: '10%',
     paddingRight: '10%',
+    paddingTop: '10%',
+  },
+  cardText : {
     fontFamily: 'WorkSans-Light',
     color: '#000000',
-    lineHeight: 22,
+    lineHeight: RF(3.9),
     letterSpacing: 0.4,
     fontSize: RF(2.5),
+    flexWrap: 'wrap', 
   },
   topFormInput: {
-    flex: 1, 
+    flex: .3, 
     paddingLeft: '3%', 
-    paddingRight: '3%',
-    marginBottom: '2%'
+    paddingRight: '3%',  
+    paddingTop:"2.5%",
+    justifyContent: 'center'
   },
-  inputContactName:{
+  inputContactName: {
     fontSize: RF(2.5),
     flexWrap: 'wrap',
     color: '#12c1a2',
     letterSpacing: 0.4,
-    fontFamily: 'WorkSans-Regular',  
+    fontFamily: 'WorkSans-Light',  
     borderBottomWidth: 0.0001,
   },
+  coinInfoContainerMid:{
+    flex: .3, 
+    flexDirection: 'row',
+  },
   barcodeContainer: {
-    flex: 1, 
+    flex: .4, 
     marginLeft: '9%',
-    marginBottom: '2%'
+    marginBottom: '2%',
+    marginTop:"10%",
+    justifyContent: 'center',
   },
   barcodeImg: {
     height: Dimensions.get('window').height * 0.1,
     width: Dimensions.get('window').width * 0.18,
   },
   pickerContainer: {
-    flex: .8,
-    marginTop: '2.5%',
+    justifyContent: 'center',
+    flex: .3, 
+  },
+  addInputContainer:{
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flex:1
   },
   inputAddressContainer: {
-    flex: 1, 
+    flex: .3, 
     paddingLeft: '3%', 
     paddingRight: '3%',
-    // marginBottom: '5%',
+    justifyContent: 'center',    
   },
   inputAddressText: {
     width:'100%', 
     flexWrap: 'wrap', 
     color:'#12c1a2', 
-    fontFamily: 'WorkSans-Light'
+    fontFamily: 'WorkSans-Light',
+    fontSize: RF(2.5),
   },
-
-
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+  addAnotherText: {
+    flex: 0.3, 
+    justifyContent: 'center',  
   },
- 
-  buttonContainer: {
-    flex: 1,
-  },
-
-  section: {
-    flexDirection: 'column',
-    backgroundColor: 'red'
-  },
-
-  anotherCoinContainer: {
-    flex: .4,
-    width: '82%',
-    justifyContent: 'center',
-  },
-  btnTextAddAnother: {
-    letterSpacing: 0.4,
-    fontSize: RF(2.4),
-    fontFamily: 'Cairo-Light',
-    marginLeft: '5%',
-    marginTop: "2.5%",
-  },
-  clearButton: {
-    width: Dimensions.get('window').height * 0.225,
-    height: Dimensions.get('window').height * 0.082,
-    marginLeft: '5%'
+  clearButton: {  
+    marginLeft:'0%', 
+    marginRight:'1.75%', 
+    height: Dimensions.get('window').height * 0.082
   },
   addButton: {
-    width: Dimensions.get('window').height * 0.225,
-    height: Dimensions.get('window').height * 0.082,
-    marginLeft: '0%'
+    marginLeft:'0%', 
+    marginRight:'1.75%', 
+    height: Dimensions.get('window').height * 0.082
+  },
+  anotherText: {
+    marginLeft:"9%", 
+    color: '#27c997', 
+    fontFamily: 'WorkSans-Regular',
+  },
+  btnFlex: {
+    flex:1,
   },
   btnContainer: {
-    flex: 0.3,
+    flex: 0.1,
     flexDirection: 'row',
-    width: '80%',
+    alignItems: 'stretch',
     justifyContent: 'flex-end',
-    marginLeft: '1.5%',
-    marginBottom: '8%'
+    width: '82%',
+    marginBottom: '2.5%',
+    marginTop: '2.5%',
   },
   modal: {
      height: '40%',
      borderRadius: 4
   },
-  textFooter : {
-    fontFamily: "WorkSans-Regular",
-    fontSize: 11,
-    marginTop: '3.5%',
-    color: '#c0c0c0'
-  }
 });
-
-// const pickerSelectStyles = StyleSheet.create({
-//   inputIOS: {
-//     fontSize: RF(2.6),
-//     fontFamily: "WorkSans-Light",
-//     paddingLeft: '5%',
-//     paddingRight: '5%',
-//     paddingTop: 13,
-//     paddingHorizontal: 10,
-//     paddingBottom: 12,
-//     borderRadius: 4,
-//     color: 'black',
-//     marginLeft: '3.5%'
-//   },
-//   placeholderColor: 'black'
-// });
 
 const pickerStyle = {
 	inputIOS: {
@@ -370,14 +349,6 @@ const pickerStyle = {
     marginLeft: '3.5%'
 	},
 	inputAndroid: {
-    // fontSize: RF(2.6),
-    // fontFamily: "WorkSans-Light",
-    // paddingLeft: '6%',
-    // paddingRight: '20%',
-    // paddingTop: 13,
-    // paddingHorizontal: 10,
-    // paddingBottom: 12,
-    // borderRadius: 4,
     color: 'black',
     marginLeft: '5%'
 	},
