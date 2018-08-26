@@ -36,7 +36,8 @@ class CoinSend extends Component {
       toAddress: '',
       value: 0,
       resetInput: false,
-      inputValue: ''
+      inputValue: '',
+      txnFee: 0,
     }
 
     /**
@@ -163,6 +164,26 @@ class CoinSend extends Component {
     });
   }
 
+  getTxnFee = async() => {
+    try {
+      let gasPriceString = await Provider.getGasPrice().then(function(gasPrice) {
+        // gasPrice is a BigNumber; convert it to a decimal string
+        gasPriceString = gasPrice.toString();
+        // console.log("Current gas price: " + gasPriceString);
+        // console.log("Price in Eth: " + utils.formatEther(gasPrice));
+        const gasPriceEth = utils.formatEther(gasPrice)
+        const txnFee = 21000 * gasPriceEth
+        console.log(txnFee);
+      });
+      await this.setState({txnFee: gasPriceString})
+      
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+
   /**
    * Is used to reset the input fields
    */
@@ -189,19 +210,7 @@ class CoinSend extends Component {
    * Returns the complete form required to send a transaction
    */
   render() {
-    let gasPriceString = 0
-    Provider.getGasPrice().then(function(gasPrice) {
-      // gasPrice is a BigNumber; convert it to a decimal string
-      gasPriceString = gasPrice.toString();
-      console.log("Current gas price: " + gasPriceString);
-      console.log("Price in Eth: " + utils.formatEther(gasPrice));
-      const gasPriceEth = utils.formatEther(gasPrice)
-      const txnFee = 21000 * gasPriceEth
-      console.log("Transaction Fee: " + txnFee);
-      
-  });
-
-
+    
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
