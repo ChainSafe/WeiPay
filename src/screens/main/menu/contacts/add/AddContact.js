@@ -78,16 +78,6 @@ class AddContact extends Component {
   }
 
   /**
-   * Method deletes and clears up any entered inputs made in the inputfields.
-   */
-  // clear() {
-  //   this.setState({ contactName: "" })
-  //   let newcontactAddress = {}
-  //   this.props.tokens.map(token => newcontactAddress[token.title] = "")
-  //   this.setState({ contactAddress: newcontactAddress })
-  // }
-
-  /**
    * This Method is used to update the contact name in the global
    * and local state variable when ever the contactName inputfield changes.
    * @param {String} name
@@ -97,24 +87,6 @@ class AddContact extends Component {
     var contact = { name: name }
     this.props.addingContact(contact)
   }
-
-  /**
-   * This method is passed in as a prop to the AddContactList component.
-   * Creates an object with the coinName as the only key, and address as the value of
-   * coinName.
-   * Adds this object to the local and Global state variable
-   * @param {String} address
-   * @param {String} coinName
-   * @param {Object} coin
-   */
-  // renderAddress(address, coinName, coin) {
-  //   let copy = Object.assign({}, this.state.contactAddress)
-  //   copy[coinName] = address
-  //   this.setState({ contactAddress: copy })
-  //   var coinAddress = {}
-  //   coinAddress[coinName] = address
-  //   this.props.addingContact(coinAddress)
-  // }
 
   navigate = () => {
     const navigateToQrScanner = NavigationActions.navigate({
@@ -287,7 +259,7 @@ const styles = StyleSheet.create({
   },
   cardText : {
     paddingBottom: '5%',
-    paddingTop: '5%',
+    paddingTop: '10%',
     paddingLeft: '10%',
     paddingRight: '10%',
     fontFamily: 'WorkSans-Light',
