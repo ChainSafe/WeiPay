@@ -59,8 +59,7 @@ class Portfolio extends Component {
             });
           }
         } catch (err) {
-          this.props.updateTokenBalance(token.id, "0.0");
-          //console.log(err);
+          this.props.updateTokenBalance(token.id, '0.0');
         }
       } catch (e) {
         console.log(e);
@@ -76,7 +75,7 @@ class Portfolio extends Component {
         <TouchableOpacity
           onPress={() => {
             this.props.addTokenInfo(token);
-            this.props.navigation.navigate("coinSend")
+            this.props.navigation.navigate('coinSend')
           }}
           style={styles.listItemParentContainer}
           >
@@ -152,9 +151,7 @@ class Portfolio extends Component {
               onRefresh={this.handleListRefresh}
               extraData={this.props}
             />
-
           </View>
-
           <View style={styles.btnContainer}>
             <LinearButton
                 onClickFunction={this.navigate}
@@ -166,7 +163,6 @@ class Portfolio extends Component {
                       <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                   </View>
               </View>
-
             </View>
         </View>
       </SafeAreaView>
