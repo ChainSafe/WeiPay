@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ListView } from 'react-native';
+import { View, Text, StyleSheet, ListView, SafeAreaView, TouchableWithoutFeedback, Dimensions, Keyboard } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { Icon, Button, FormLabel, FormInput, FormValidationMessage, List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -144,26 +144,30 @@ class Contacts extends Component {
    */
   render() {
       return (
-        <View style={styles.mainContainer}>
-          <ContactBackWithMenuNav
-            showMenu={true}
-            showBack={this.state.selectedContact}
-            navigation={this.props.navigation}
-            backPage={"mainStack"}
-            backButton={() => this.setState({ selectedContact: false })}
-          />
-          <ContactTabNavigator
-            Active={this.state.active}
-            navigation={this.props.navigation}
-            setContactTab={this.setContactTab}
-            setAddContactTab={this.setAddContactTab}
-            tab={this.state.tab}
-          />
-          {this.displayContactTab()}
-          <View style={{ alignItems:'center', marginTop: '-5%', flex: 0.08, }} >
-            <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-          </View>
-        </View>
+        <SafeAreaView style={styles.safeAreaView}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.mainContainer}>
+              <ContactBackWithMenuNav
+                showMenu={true}
+                showBack={this.state.selectedContact}
+                navigation={this.props.navigation}
+                backPage={"mainStack"}
+                backButton={() => this.setState({ selectedContact: false })}
+              />
+              <ContactTabNavigator
+                Active={this.state.active}
+                navigation={this.props.navigation}
+                setContactTab={this.setContactTab}
+                setAddContactTab={this.setAddContactTab}
+                tab={this.state.tab}
+              />
+              {this.displayContactTab()}
+              <View style={{ alignItems:'center', marginTop: '-5%', flex: 0.08, }} >
+                <Text style={styles.textFooter} >Powered by ChainSafe </Text>
+              </View>
+            </View>
+          </TouchableWithoutFeedback>
+        </SafeAreaView>
       )
   }
 }
@@ -172,6 +176,10 @@ class Contacts extends Component {
  * Styles are not being in this file
  */
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1,
+    backgroundColor: '#fafbfe'
+  },
   mainContainer: {
     flex: 1,
     alignItems: 'stretch',
