@@ -55,7 +55,7 @@ class Portfolio extends Component {
             const contract = new ethers.Contract(token.address, ERC20ABI, currentWallet);
             await contract.balanceOf(currentWallet.address).then((balance) => {
               const tokenBalance = String(ethers.utils.formatEther(balance));
-              this.props.updateTokenBalance(i, tokenBalance);
+              this.props.updateTokenBalance(i, String(balance));
             });
           }
         } catch (err) {
