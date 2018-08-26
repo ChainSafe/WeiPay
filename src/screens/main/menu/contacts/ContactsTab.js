@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ListView } from 'react-native';
+import { View, Text, StyleSheet, ListView, Dimensions } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { Icon, Button, FormLabel, FormInput, FormValidationMessage, List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -8,8 +8,8 @@ import AddFirstContact from './add/AddFirstContact';
 import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
 import ContactTabNavigator from '../../../../components/customPageNavs/ContactTabNavigator'
 import SelectedContact from './SelectedContact'
-
-
+import RF from "react-native-responsive-fontsize"
+import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard';
 /**
  * Screen that displays all the contacts that have been added to
  * the wallet
@@ -52,25 +52,6 @@ class ContactsTab extends Component {
   }
 
   /**
-   * Method is used to navigate to a screen specific to the
-   * properties in the "user" object parameter.
-   *
-   * @param {Object} user
-  //  */
-  // navigate = (user) => {
-  //   let addresses = user.contactAddress
-  //   let name = user.name
-  //   let tokenName = user.tokenName
-  //
-  //   const navigateToCreateOrRestore = NavigationActions.navigate({
-  //     routeName: 'contactAddresses',
-  //     params: { addresses, name, tokenName  }
-  //   });
-  //
-  //   this.props.navigation.dispatch(navigateToCreateOrRestore);
-  // };
-
-  /**
    * Method is used to create an interactable item for the listView specific to
    * the name property of the "user" object
    *
@@ -79,23 +60,78 @@ class ContactsTab extends Component {
   renderRow = () => {
     return (
       this.props.contacts.map(contact =>
-        <View style={{marginTop:'3%'}} key={contact.name}>
-          <ListItem
+        <View style={{
+          marginTop:'3%', 
+          height: Dimensions.get('window').height * 0.1,
+          width: Dimensions.get('window').width * 0.85,
+        }} key={contact.name}>
+        <BoxShadowCard> 
+
+        <ListItem
+          chevronColor="#000000"
             key={contact.name}
             title={
               <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
                 <Text style={{
-                  fontSize:16,
+                  fontSize: RF(2.4),
                   fontFamily: "Cairo-Regular",
                   alignItems:"flex-start",
                   flex:1,
-                  width:'90%',
+                  width: '90%',
                   letterSpacing: 0.5,
-                  top: '1%'
+                  top:'1%'
                 }}>
                   {contact.name}
                 </Text>
+              </View>
+            }
+            containerStyle = {{            
+              borderWidth:0,
+              // borderBottomColor: 'none',
+              borderBottomWidth: 0,
+            }}
+            onPress={
+              () => {
+                this.props.selectedContactTrue()
+                this.setState({ contact })
+              }}
+          /> 
 
+          {/* <View style={{
+            flexDirection:'row', 
+            justifyContent:"center", 
+            marginLeft:'5%',          
+          }}> 
+            <Text style={{
+              fontSize: RF(2.4),
+              fontFamily: "Cairo-Regular",
+              alignItems:"flex-start",
+              flex:1,
+              width: '90%',
+              letterSpacing: 0.5,
+              top:'1%'
+            }}>
+              {contact.name}
+            </Text>
+          </View> */}
+
+        </BoxShadowCard>
+          {/* <ListItem
+          chevronColor="#000000"
+            key={contact.name}
+            title={
+              <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
+                <Text style={{
+                  fontSize: RF(2.4),
+                  fontFamily: "Cairo-Regular",
+                  alignItems:"flex-start",
+                  flex:1,
+                  width: '90%',
+                  letterSpacing: 0.5,
+                  top:'1%'
+                }}>
+                  {contact.name}
+                </Text>
               </View>
             }
             containerStyle = {{
@@ -116,7 +152,7 @@ class ContactsTab extends Component {
                 this.props.selectedContactTrue()
                 this.setState({ contact })
               }}
-          />
+          /> */}
         </View>
       )
     )
