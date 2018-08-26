@@ -49,17 +49,18 @@ class Portfolio extends Component {
           if (token.address === '') {
             const balance = await Provider.getBalance(currentWallet.address);
             const check = String(utils.formatEther(balance));
-            await this.props.updateTokenBalance(token.id, check);
+            await this.props.updateTokenBalance(i, check);
             this.setState({ refresh: false });
           } else if (token.address !== '') {
             const contract = new ethers.Contract(token.address, ERC20ABI, currentWallet);
             await contract.balanceOf(currentWallet.address).then((balance) => {
               const tokenBalance = String(ethers.utils.formatEther(balance));
-              this.props.updateTokenBalance(token.id, tokenBalance);
+              this.props.updateTokenBalance(i, tokenBalance);
             });
           }
         } catch (err) {
-          console.log(err);
+          this.props.updateTokenBalance(token.id, "0.0");
+          //console.log(err);
         }
       } catch (e) {
         console.log(e);

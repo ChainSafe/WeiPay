@@ -44,12 +44,29 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, current_token: action.payload };
     case actions.DEBUG_MODE:
       return { ...state, debugMode: true };
+
+
+
+
+
+
+
     case actions.UPDATE_TOKEN_BALANCE:
+
+
+
+      console.log(action.payload.tokenID);
+      
       const token = state.tokens[action.payload.tokenID];
       const updatedToken = { ...token, balance: action.payload.balance }
-      const previousTokens = state.tokens;
+      const previousTokens = state.tokens;      
       previousTokens[action.payload.tokenID] = updatedToken;
+      console.log(previousTokens);
       
+
+
+
+
       return { ...state, tokens: previousTokens };
       
       
