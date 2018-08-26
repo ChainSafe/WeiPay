@@ -34,15 +34,6 @@ class AddContact extends Component {
 
     let contactName = ""
     let contactAddress = {}
-
-    // if ("ContactAddresses" in this.props.currentContact) {
-    //   contactAddressHolder = this.props.currentContact.ContactAddresses
-    //   contactNameHolder = this.props.currentContact.name
-    // } else {
-    //   this.props.tokens.map(token => contactAddressHolder[token.title] = "")
-    //   this.renderAddContact = this.renderAddContact.bind(this);
-    // }
-
     let tokens = []
     this.inputRefs =
 
@@ -111,7 +102,6 @@ class AddContact extends Component {
     this.setState({ isModalVisible: !this.state.isModalVisible });
 
   addContact() {
-
     this.props.completeContact(this.state.contactName, this.state.contactAddress, this.state.tokenName);
     this.setState({ contactName: "" })
     this.setState({ contactAddress: {} })
@@ -142,6 +132,7 @@ class AddContact extends Component {
   render() {
     return (
       <SafeAreaView style={styles.safeAreaView}>
+       <ScrollView contentContainerStyle={{flex:1}}>
         <View style={styles.mainContainer}>       
           <View style={styles.contentContainer} >
             <BoxShadowCard >
@@ -152,24 +143,17 @@ class AddContact extends Component {
                 <FormInput
                   placeholder={"Contact's Name"}
                   onChangeText={name => this.setState({ contactName: name})}
-                  inputStyle={{    
-                    fontSize: RF(2.4),
-                    flexWrap: 'wrap',
-                    color: '#12c1a2',
-                    letterSpacing: 0.4,
-                    fontFamily: 'WorkSans-Regular',  
-                    borderBottomWidth: 0.0001,
-                  }}                 
+                  inputStyle={styles.inputContactName}                 
                   value={this.state.contactName}
                 />
               </View>
-              <View style={{flex: 1, marginLeft: '10%'}}>
+              <View style={styles.barcodeContainer}>
                 <Image
                   source={require('../../../../../assets/icons/barcode.png')}
-                  style={{flex: 1, width: '20%', }}
+                  style={styles.barcodeImg}
                 />
               </View>
-              <View style={{flex: .8}}>
+              <View style={styles.pickerContainer}>
                 <RNPickerSelect
                   placeholder={{
                     label: 'Coin Type',
@@ -188,18 +172,19 @@ class AddContact extends Component {
                   }}
                 />
               </View>
-              <View style={{flex: 1, paddingLeft: '3%', paddingRight: '3%'}}>
+              <View style={styles.inputAddressContainer}>
                 <FormInput
-                  placeholder={"WeiPay Address"}
+                  placeholder={"Public Address"}
                   onChangeText={ address => this.renderAddress(address)}
-                  inputStyle={{width:'100%', flexWrap: 'wrap', color:'#12c1a2', fontFamily: 'WorkSans-Light'}}
+                  inputStyle={styles.inputAddressText}
                   value={this.state.contactAddress[this.state.tokenName]}
-                  editable={!!this.state.tokenName}
-                  placeholderTextColor={'black'}
+                  editable={!!this.state.tokenName}               
                 />
               </View>
+
             </BoxShadowCard>
           </View>  
+
           <View style={styles.anotherCoinContainer} >
               <TouchableOpacity onPress={this.addAnotherCoinAddress.bind(this)} disabled={!this.state.tokenName}>
                 <BoxShadowCard>
@@ -219,7 +204,10 @@ class AddContact extends Component {
                 customStyles={styles.addButton}
               />
             </View>
+
+
         </View>
+        </ScrollView>
       </SafeAreaView>
     );
   }
@@ -237,32 +225,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1
   },
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  topFormInput: {
-    flex: 1, 
-    paddingLeft: '3%', 
-    paddingRight: '3%',
-  },
-  buttonContainer: {
-    flex: 1,
-  },
-  section: {
-    flexDirection: 'column',
-    backgroundColor: 'red'
-  },
   contentContainer : {
+    marginTop: '7.5%',
     flex: 2.3,
     width: '82%'
-  },
-  anotherCoinContainer: {
-    flex: .4,
-    width: '82%',
-    justifyContent: 'center',
   },
   cardText : {
     paddingBottom: '5%',
@@ -273,7 +239,69 @@ const styles = StyleSheet.create({
     color: '#000000',
     lineHeight: 22,
     letterSpacing: 0.4,
-    fontSize: RF(2.4),
+    fontSize: RF(2.5),
+  },
+  topFormInput: {
+    flex: 1, 
+    paddingLeft: '3%', 
+    paddingRight: '3%',
+    marginBottom: '2%'
+  },
+  inputContactName:{
+    fontSize: RF(2.5),
+    flexWrap: 'wrap',
+    color: '#12c1a2',
+    letterSpacing: 0.4,
+    fontFamily: 'WorkSans-Regular',  
+    borderBottomWidth: 0.0001,
+  },
+  barcodeContainer: {
+    flex: 1, 
+    marginLeft: '9%',
+    marginBottom: '2%'
+  },
+  barcodeImg: {
+    height: Dimensions.get('window').height * 0.1,
+    width: Dimensions.get('window').width * 0.18,
+  },
+  pickerContainer: {
+    flex: .8,
+    marginTop: '2.5%',
+  },
+  inputAddressContainer: {
+    flex: 1, 
+    paddingLeft: '3%', 
+    paddingRight: '3%',
+    // marginBottom: '5%',
+  },
+  inputAddressText: {
+    width:'100%', 
+    flexWrap: 'wrap', 
+    color:'#12c1a2', 
+    fontFamily: 'WorkSans-Light'
+  },
+
+
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+ 
+  buttonContainer: {
+    flex: 1,
+  },
+
+  section: {
+    flexDirection: 'column',
+    backgroundColor: 'red'
+  },
+
+  anotherCoinContainer: {
+    flex: .4,
+    width: '82%',
+    justifyContent: 'center',
   },
   btnTextAddAnother: {
     letterSpacing: 0.4,
@@ -342,9 +370,18 @@ const pickerStyle = {
     marginLeft: '3.5%'
 	},
 	inputAndroid: {
-		color: 'black',
+    // fontSize: RF(2.6),
+    // fontFamily: "WorkSans-Light",
+    // paddingLeft: '6%',
+    // paddingRight: '20%',
+    // paddingTop: 13,
+    // paddingHorizontal: 10,
+    // paddingBottom: 12,
+    // borderRadius: 4,
+    color: 'black',
+    marginLeft: '5%'
 	},
-	placeholderColor: 'black',
+	// placeholderColor: 'black',
 	underline: { borderTopWidth: 0 },
 	icon: {
 		position: 'absolute',
@@ -376,50 +413,3 @@ const mapStateToProps = ({ contacts, newWallet }) => {
 }
 
 export default connect(mapStateToProps, actions)(AddContact)
-
-        // <ScrollView style={{ height: '75%' }} >
-        //   <View style={styles.contentContainer} >
-        //     <BoxShadowCard>
-        //       <Text style={styles.cardText}>
-        //         Add contact by scanning QR code, or pasting in contact's WeiPay Address
-        //       </Text>
-        //     </BoxShadowCard>
-        //   </View>
-        //   <AddContactList
-        //     contactName={this.state.contactName}
-        //     dataSource={this.state.dataSource}
-        //     renderAddress={this.renderAddress.bind(this)}
-        //     renderName={this.renderName.bind(this)}
-        //     contactAddress={this.state.contactAddress}
-        //     navigate={this.props.navigation.navigate}
-        //   />
-        // </ScrollView>
-                // <View style={styles.container}>
-                //   <View style={styles.buttonContainer}>
-                //     <Button
-                //       small
-                //       disabled={this.state.contactName === "" || this.isEmptyObject(this.state.contactAddress)}
-                //       title='Add Contact'
-                //       icon={{ size: 20 }}
-                //       buttonStyle={{
-                //         backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100,
-                //         height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginBottom: 5, marginTop: 5.5
-                //       }}
-                //       textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
-                //       onPress={() => this.renderAddContact()}
-                //     />
-                //   </View>
-                //   <View style={styles.buttonContainer}>
-                //     <Button
-                //       small
-                //       title='Clear'
-                //       icon={{ size: 20 }}
-                //       buttonStyle={{
-                //         backgroundColor: 'transparent', borderColor: '#2a2a2a', borderWidth: 1, borderRadius: 100,
-                //         height: 50, padding: 10, alignItems: 'center', justifyContent: 'center', marginBottom: 5, marginTop: 5.5
-                //       }}
-                //       textStyle={{ textAlign: 'center', color: '#2a2a2a', fontSize: 15 }}
-                //       onPress={() => this.clear()}
-                //     />
-                //   </View>
-                // </View>
