@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Alert, TouchableOpacity, Image, SafeAreaView, T
 import { connect } from 'react-redux';
 import { FormInput, Button, Card } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
+import RF from "react-native-responsive-fontsize"
 import { getQRCodeData, addTokenInfo } from '../../../../actions/ActionCreator';
 import provider from '../../../../constants/Providers';
 import { qrScannerInvoker } from '../../../../actions/ActionCreator'
@@ -12,7 +13,7 @@ import LinearButton from '../../../../components/LinearGradient/LinearButton';
 import ClearButton from '../../../../components/LinearGradient/ClearButton'
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard';
-import RF from "react-native-responsive-fontsize"
+import Provider from '../../../../constants/Providers';
 
 const ethers = require('ethers');
 const utils = ethers.utils;
@@ -188,6 +189,19 @@ class CoinSend extends Component {
    * Returns the complete form required to send a transaction
    */
   render() {
+    let gasPriceString = 0
+    Provider.getGasPrice().then(function(gasPrice) {
+      // gasPrice is a BigNumber; convert it to a decimal string
+      gasPriceString = gasPrice.toString();
+      console.log("Current gas price: " + gasPriceString);
+      console.log("Price in Eth: " + utils.formatEther(gasPrice));
+      const gasPriceEth = utils.formatEther(gasPrice)
+      const txnFee = 21000 * gasPriceEth
+      console.log("Transaction Fee: " + txnFee);
+      
+  });
+
+
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
