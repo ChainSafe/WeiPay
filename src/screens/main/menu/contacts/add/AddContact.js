@@ -250,7 +250,6 @@ const styles = StyleSheet.create({
     flex: .3, 
     paddingLeft: '3%', 
     paddingRight: '3%',  
-    paddingTop:"2.5%",
     justifyContent: 'center'
   },
   inputContactName: {
@@ -301,6 +300,7 @@ const styles = StyleSheet.create({
   addAnotherText: {
     flex: 0.3, 
     justifyContent: 'center',  
+    paddingTop:'2.5%'
   },
   clearButton: {  
     marginLeft:'0%', 
@@ -316,6 +316,7 @@ const styles = StyleSheet.create({
     marginLeft:"9%", 
     color: '#27c997', 
     fontFamily: 'WorkSans-Regular',
+    fontSize: RF(2.5),
   },
   btnFlex: {
     flex:1,
