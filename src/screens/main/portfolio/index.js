@@ -37,38 +37,36 @@ class Portfolio extends Component {
     this.props.navigation.dispatch(navigateToAddToken);
   };
 
-  
-
-  getTokenBalance = async () => {
+  tokenBalanceLoop = async () => {
     const tokenLen = this.props.newWallet.tokens.length;
-    console.log(this.state.data);
-    
-    
-    for (let i = 0; i < tokenLen; i += 1) {
+    for (let i = 0; i < (tokenLen); i += 1) {
+      this.getTokenBalance(i);
+    }
+  }
 
-      const token = this.state.data[i];
-      console.log(token.id);
-      
+  getTokenBalance = async (tokenIndex) => {
+    
+    const token = this.state.data[tokenIndex];
+    //console.log(token.id);
+
+    try {
+      const currentWallet = this.props.newWallet.wallet;
       try {
-        const currentWallet = await this.props.newWallet.wallet;
-        try {
-          if (token.address === '') {
-            const balance = await Provider.getBalance(currentWallet.address);
-            const check = String(utils.formatEther(balance));
-            await this.props.updateTokenBalance(i, check);
-            this.setState({ refresh: false });
-          } else if (token.address !== '') {
-            const contract = new ethers.Contract(token.address, ERC20ABI, currentWallet);
-            const balance = await contract.balanceOf(currentWallet.address);
-            await this.props.updateTokenBalance(i, String(balance));
-            
-          }
-        } catch (err) {
-          this.props.updateTokenBalance(token.id, '0.0');
+        if (token.address === '') {
+          const balance = await Provider.getBalance(currentWallet.address);
+          const check = String(utils.formatEther(balance));
+          await this.props.updateTokenBalance(tokenIndex, check);
+          this.setState({ refresh: false });
+        } else if (token.address !== '') {
+          const contract = new ethers.Contract(token.address, ERC20ABI, currentWallet);
+          const balance = await contract.balanceOf(currentWallet.address);
+          await this.props.updateTokenBalance(tokenIndex, String(balance));
         }
-      } catch (e) {
-        console.log(e);
+      } catch (err) {
+        this.props.updateTokenBalance(tokenIndex, '0.0');
       }
+    } catch (e) {
+      console.log(e);
     }
   }
 
@@ -80,7 +78,7 @@ class Portfolio extends Component {
         <TouchableOpacity
           onPress={() => {
             this.props.addTokenInfo(token);
-            this.props.navigation.navigate('coinSend')
+            this.props.navigation.navigate('coinSend');
           }}
           style={styles.listItemParentContainer}
           >
@@ -119,10 +117,10 @@ class Portfolio extends Component {
   }
 
   handleListRefresh = () => {
-    this.setState({refresh: true },
-    () => {
-      this.getTokenBalance();
-    } );
+    this.setState({ refresh: true },
+      () => {
+        this.tokenBalanceLoop();
+      });
   }
 
   /**
@@ -130,7 +128,6 @@ class Portfolio extends Component {
    * The component also provides the option to add/delete tokens
    */
   render() {
-  
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer} >
@@ -150,8 +147,8 @@ class Portfolio extends Component {
             <FlatList
               data={this.state.data}
               showsVerticalScrollIndicator={false}
-              renderItem={({ item }) => { return this.renderRow(item) ;}}
-              keyExtractor={(item) => { return String(item.id) ;}}
+              renderItem={({ item }) => { return this.renderRow(item); }}
+              keyExtractor={(item) => { return String(item.id); }}
               refreshing={this.state.refresh}
               onRefresh={this.handleListRefresh}
               extraData={this.props}
