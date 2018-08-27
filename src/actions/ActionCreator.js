@@ -164,3 +164,9 @@ export function updateTokenBalance(tokenID, balance) {
     dispatch({ type: actionTypes.UPDATE_TOKEN_BALANCE, payload: { tokenID, balance } });
   };
 }
+
+export function updateTxnFee(fee) {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.TXN_FEE, payload: fee });
+  };
+}
