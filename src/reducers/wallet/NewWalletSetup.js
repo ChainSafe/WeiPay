@@ -45,15 +45,8 @@ export default (state = INITIAL_STATE, action) => {
     case actions.DEBUG_MODE:
       return { ...state, debugMode: true };
     case actions.UPDATE_TOKEN_BALANCE:      
-      let token = state.tokens[action.payload.tokenID];
+      const token = state.tokens[action.payload.tokenID];
       const updatedToken = { ...token, balance: action.payload.balance }
-      console.log('Index Received: ');
-      console.log(action.payload);
-      console.log("Token to refresh:");
-      console.log(token);
-      console.log("Updated Token: ");
-      console.log(updatedToken);
-      
       const previousTokens = state.tokens;      
       previousTokens[action.payload.tokenID] = updatedToken;
       return { ...state, tokens: previousTokens };      
