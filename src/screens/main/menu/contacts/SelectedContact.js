@@ -51,7 +51,22 @@ class ContactAddresses extends Component {
       <View style={styles.listItemContainer}>
         <TouchableOpacity onPress={() => this.navigateToCoinSend(address[Object.keys(address)[0]])}>
           <BoxShadowCard>
-            <View style={styles.boxContainer}>
+
+            <View style={styles.mainListItemContentContainter}>
+              <View style={styles.mainListItemIconContainer}>
+            
+              </View>
+              <View style={styles.mainListItemTextContainer}>
+                <Text style={styles.CoinTypeText}>{Object.keys(address)[0]} </Text>
+                <Text style={styles.textAddressText}>{address[Object.keys(address)[0]]}</Text>
+              </View>
+              <View style={styles.mainListItemBarcodeContainer}>
+               
+              </View>
+            </View>
+
+
+            {/* <View style={styles.boxContainer}>
               <View style={styles.iconImgContainer}>
                 <Image
                   source={require('../../../../assets/images/eth.png')}
@@ -68,7 +83,9 @@ class ContactAddresses extends Component {
                   style={styles.barcodeImg}                  
                   />
               </View>
-            </View>
+            </View> */}
+
+
           </BoxShadowCard>
         </TouchableOpacity>
       </View>
@@ -124,11 +141,49 @@ const styles = StyleSheet.create({
   contactName: {
     fontSize: RF(2.8),
     fontFamily: 'Cairo-Regular',
-    letterSpacing: 0.6
+    letterSpacing: 0.6,
+    paddingLeft: '1%',
+  },
+  listItemContainer: {
+    flex: 1,
+    alignItems: 'stretch',
+    height: Dimensions.get('window').height * 0.12,
+    // marginTop: '0%',
+    backgroundColor: 'blue'
   },
   scrollView:{
     flex: 1,
   },
+
+  mainListItemContentContainter: {
+    flex:1,
+    flexDirection: 'row',
+    backgroundColor: 'blue'
+  },
+  mainListItemIconContainer: {
+    flex:1.25,
+    backgroundColor: 'green'
+  },
+  mainListItemTextContainer: {
+    flex:5,
+    backgroundColor: 'purple',
+    flexDirection: 'column',
+  }, 
+  mainListItemBarcodeContainer: {
+    flex:2,
+    backgroundColor: 'yellow'
+  },
+  CoinTypeText: {
+    fontSize: RF(2.8),
+    letterSpacing: 0.5,
+    fontFamily: 'Cairo-Regular'
+  },
+  textAddressText: {
+    fontSize: RF(2.1),  
+    letterSpacing: 0.4,
+    fontFamily: 'Cairo-Light'
+  },
+
   btnContainer: {
     flex: 1.2,
     width: '100%',
@@ -138,26 +193,28 @@ const styles = StyleSheet.create({
     width: '82%',
     height: Dimensions.get('window').height * 0.082,
   },
-
   boxContainer: {
     flexDirection: 'row', 
-    flex: 1
+    flex: 1,
+    backgroundColor: 'green'
   },
   iconImgContainer: {
     flex: 0.1, 
-    marginTop: '-4%'
+    // marginTop: '-4%'
+    backgroundColor: 'purple',
   },
   iconImgItem: {
     flex: 1,
     width: Dimensions.get('window').height * 0.025,
     resizeMode: 'contain',
-    marginBottom: '5%',
-    marginLeft: '55%'
+    // marginBottom: '5%',
+    // marginLeft: '55%'
   },
   textContainer: {
     flex: 1, 
-    marginLeft: '5%', 
-    marginTop: '2.5%'
+    // marginLeft: '5%', 
+    // marginTop: '2.5%',
+    backgroundColor: 'yellow',
   },
   coinType: {
     fontSize: 14, 
@@ -178,26 +235,11 @@ const styles = StyleSheet.create({
     marginBottom: '15%',
     marginLeft: '0%'
   },
-
-
-
-
-  title: {
-    fontWeight: "bold",
-    fontSize: 13,
-    color: "black",
-    textShadowRadius: 3
-  },
-  address: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  listItemContainer: {
-    flex: 1,
-    alignItems: 'stretch',
-    height: Dimensions.get('window').height * 0.12,
-    marginTop: '0%',
-  },
 })
+
+// function mapStateToProps({ contacts }) {
+//   return { contacts: contacts.contacts }
+// }
+
 
 export default connect(null, { getQRCodeData })(ContactAddresses)
