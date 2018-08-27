@@ -65,94 +65,36 @@ class ContactsTab extends Component {
           height: Dimensions.get('window').height * 0.1,
           width: Dimensions.get('window').width * 0.85,
         }} key={contact.name}>
-        <BoxShadowCard> 
-
-        <ListItem
-          chevronColor="#000000"
-            key={contact.name}
-            title={
-              <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
-                <Text style={{
-                  fontSize: RF(2.4),
-                  fontFamily: "Cairo-Regular",
-                  alignItems:"flex-start",
-                  flex:1,
-                  width: '90%',
-                  letterSpacing: 0.5,
-                  top:'1%'
-                }}>
-                  {contact.name}
-                </Text>
-              </View>
-            }
-            containerStyle = {{            
-              borderWidth:0,
-              // borderBottomColor: 'none',
-              borderBottomWidth: 0,
-            }}
-            onPress={
-              () => {
-                this.props.selectedContactTrue()
-                this.setState({ contact })
-              }}
-          /> 
-
-          {/* <View style={{
-            flexDirection:'row', 
-            justifyContent:"center", 
-            marginLeft:'5%',          
-          }}> 
-            <Text style={{
-              fontSize: RF(2.4),
-              fontFamily: "Cairo-Regular",
-              alignItems:"flex-start",
-              flex:1,
-              width: '90%',
-              letterSpacing: 0.5,
-              top:'1%'
-            }}>
-              {contact.name}
-            </Text>
-          </View> */}
-
-        </BoxShadowCard>
-          {/* <ListItem
-          chevronColor="#000000"
-            key={contact.name}
-            title={
-              <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
-                <Text style={{
-                  fontSize: RF(2.4),
-                  fontFamily: "Cairo-Regular",
-                  alignItems:"flex-start",
-                  flex:1,
-                  width: '90%',
-                  letterSpacing: 0.5,
-                  top:'1%'
-                }}>
-                  {contact.name}
-                </Text>
-              </View>
-            }
-            containerStyle = {{
-              borderRadius: 10,
-              width: '90%',
-              height: 55,
-              backgroundColor: '#ffffff',
-              justifyContent:"center",
-              borderWidth:0.5,
-              borderColor: '#F8F8FF',
-              shadowColor: '#F8F8FF',
-              shadowOffset: { width: 1, height: 1},
-              shadowOpacity:20,
-              shadowRadius: 10,
-            }}
-            onPress={
-              () => {
-                this.props.selectedContactTrue()
-                this.setState({ contact })
-              }}
-          /> */}
+          <BoxShadowCard> 
+            <ListItem
+              chevronColor="#000000"
+                key={contact.name}
+                title={
+                  <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
+                    <Text style={{
+                      fontSize: RF(2.4),
+                      fontFamily: "Cairo-Regular",
+                      alignItems:"flex-start",
+                      flex:1,
+                      width: '90%',
+                      letterSpacing: 0.5,
+                      top:'1%'
+                    }}>
+                      {contact.name}
+                    </Text>
+                  </View>
+                }
+                containerStyle = {{            
+                  borderWidth:0,            
+                  borderBottomWidth: 0,
+                }}
+                onPress={
+                  () => {
+                    this.props.selectedContactTrue()
+                    this.setState({ contact })
+                  }}
+            /> 
+          </BoxShadowCard>
         </View>
       )
     )
@@ -167,12 +109,10 @@ class ContactsTab extends Component {
         <AddFirstContact setAddContactTab={this.props.setAddContactTab}/>
       : this.props.selectedContact === true ?
         <SelectedContact contact={this.state.contact} setSelectedContactFalse={this.props.setSelectedContactFalse} navigation={this.props.navigation}/>
-
       :
         <View style={styles.list}>
           {this.renderRow()}
         </View>
-
       return show
   }
 }

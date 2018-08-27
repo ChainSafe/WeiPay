@@ -65,8 +65,7 @@ const styles = StyleSheet.create({
         width:'82%',
         justifyContent:'center',
         borderBottomWidth: 1,
-        borderBottomColor: '#b3b3b3',
-        //paddingBottom: '2%',
+        borderBottomColor: '#b3b3b3',  
         marginRight: '9%',
         marginLeft: '9%',
     },
@@ -102,8 +101,6 @@ const styles = StyleSheet.create({
         borderBottomColor: '#27c997',
         padding: '2%'
     },
-
-
 })
 
 export default CoinSendTabNavigator
