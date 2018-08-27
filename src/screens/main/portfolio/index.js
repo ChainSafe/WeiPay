@@ -37,12 +37,18 @@ class Portfolio extends Component {
     this.props.navigation.dispatch(navigateToAddToken);
   };
 
-  getTokenBalance= async () => {
+  
+
+  getTokenBalance = async () => {
     const tokenLen = this.props.newWallet.tokens.length;
+    console.log(this.state.data);
+    
     
     for (let i = 0; i < tokenLen; i += 1) {
 
       const token = this.state.data[i];
+      console.log(token.id);
+      
       try {
         const currentWallet = await this.props.newWallet.wallet;
         try {
@@ -53,10 +59,9 @@ class Portfolio extends Component {
             this.setState({ refresh: false });
           } else if (token.address !== '') {
             const contract = new ethers.Contract(token.address, ERC20ABI, currentWallet);
-            await contract.balanceOf(currentWallet.address).then((balance) => {
-              const tokenBalance = String(ethers.utils.formatEther(balance));
-              this.props.updateTokenBalance(i, String(balance));
-            });
+            const balance = await contract.balanceOf(currentWallet.address);
+            await this.props.updateTokenBalance(i, String(balance));
+            
           }
         } catch (err) {
           this.props.updateTokenBalance(token.id, '0.0');

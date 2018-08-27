@@ -112,7 +112,7 @@
         "type": "ERC20",
         "selected": false,
         "symbol": "SUB",
-        "address": "0x12480E24eb5bec1a9D4369CaB6a80caD3c0A377A",
+        "address": "0xd26114cd6EE289AccF82350c8d8487fedB8A0C07",
         "decimals": 2,
         "name": "Substratum",
         "ens_address": "",
