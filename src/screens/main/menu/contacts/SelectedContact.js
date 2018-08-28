@@ -62,53 +62,22 @@ class ContactAddresses extends Component {
       }
   }
 
-
-    return (
+   return (
       <View style={styles.listItemContainer}>
         <TouchableOpacity onPress={() => this.navigateToCoinSend(address[Object.keys(address)[0]])}>
           <BoxShadowCard>
-
             <View style={styles.mainListItemContentContainter}>
               <View style={styles.mainListItemIconContainer}>
                 <Image
                      source={{uri: url}}
-                     style={{
-                       width:15, 
-                       height: 15,                      
-                    }}
+                     style={styles.iconImage}
                 />
-
               </View>
               <View style={styles.mainListItemTextContainer}>
                 <Text style={styles.CoinTypeText}>{Object.keys(address)[0]} </Text>
                 <Text style={styles.textAddressText}>{address[Object.keys(address)[0]]}</Text>
-              </View>
-              <View style={styles.mainListItemBarcodeContainer}>
-               
-              </View>
+              </View>              
             </View>
-
-
-            {/* <View style={styles.boxContainer}>
-              <View style={styles.iconImgContainer}>
-                <Image
-                  source={require('../../../../assets/images/eth.png')}
-                  style= {styles.iconImgItem}
-                />
-              </View>
-              <View style={styles.textContainer}>
-                <Text style={styles.coinType}>{Object.keys(address)[0]} Address</Text>
-                <Text style={styles.textAddress}>{address[Object.keys(address)[0]]}</Text>
-              </View>
-              <View style={styles.barcodeImageContainer}>
-                <Image
-                  source={require('../../../../assets/icons/barcode.png')}
-                  style={styles.barcodeImg}                  
-                  />
-              </View>
-            </View> */}
-
-
           </BoxShadowCard>
         </TouchableOpacity>
       </View>
@@ -159,7 +128,6 @@ const styles = StyleSheet.create({
     paddingLeft: '9%',
     paddingRight: '9%',
     flex: 6,
-    backgroundColor: 'red',
   },
   contactName: {
     fontSize: RF(2.8),
@@ -171,76 +139,55 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'stretch',
     height: Dimensions.get('window').height * 0.12,
-    // marginTop: '0%',
-    backgroundColor: 'blue'
   },
   scrollView:{
     flex: 1,
   },
-
   mainListItemContentContainter: {
     flex:1,
     flexDirection: 'row',
-    backgroundColor: 'blue'
+    justifyContent: 'flex-start',
+    alignItems: 'center'
   },
   mainListItemIconContainer: {
     flex: 1.25,
-    backgroundColor: 'green',
-    alignItems: 'center',
-    alignSelf: 'center',
-    justifyContent: 'flex-start',
+    alignContent: 'center',
+    marginTop: 0,
+    marginLeft: '7.5%',     
   },
   mainListItemTextContainer: {
     flex:5,
-    backgroundColor: 'purple',
     flexDirection: 'column',
+    paddingLeft: '2.5%', 
+    paddingRight: '2.5%',  
+    paddingBottom: '2%',
+    paddingTop: '2%'  
   }, 
-  mainListItemBarcodeContainer: {
-    flex:2,
-    backgroundColor: 'yellow'
+  iconImage: {
+    height: Dimensions.get('window').height * 0.04,
+    width: Dimensions.get('window').width * 0.07,      
+    alignItems: 'center' ,  
   },
   CoinTypeText: {
-    fontSize: RF(2.8),
+    fontSize: RF(2.4),
     letterSpacing: 0.5,
-    fontFamily: 'Cairo-Regular'
+    fontFamily: 'Cairo-Regular',
+    marginBottom: 0,
+    paddingBottom: 0,
   },
   textAddressText: {
-    fontSize: RF(2.1),  
+    fontSize: RF(1.7),  
     letterSpacing: 0.4,
-    fontFamily: 'Cairo-Light'
+    fontFamily: 'Cairo-Light',
+    flexWrap: 'wrap',
   },
-
   btnContainer: {
     flex: 1.2,
     width: '100%',
-    backgroundColor: 'blue',
   },
   button: {
     width: '82%',
     height: Dimensions.get('window').height * 0.082,
-  },
-  boxContainer: {
-    flexDirection: 'row', 
-    flex: 1,
-    backgroundColor: 'green'
-  },
-  iconImgContainer: {
-    flex: 0.1, 
-    // marginTop: '-4%'
-    backgroundColor: 'purple',
-  },
-  iconImgItem: {
-    flex: 1,
-    width: Dimensions.get('window').height * 0.025,
-    resizeMode: 'contain',
-    // marginBottom: '5%',
-    // marginLeft: '55%'
-  },
-  textContainer: {
-    flex: 1, 
-    // marginLeft: '5%', 
-    // marginTop: '2.5%',
-    backgroundColor: 'yellow',
   },
   coinType: {
     fontSize: 14, 
@@ -266,6 +213,5 @@ const styles = StyleSheet.create({
 function mapStateToProps({ contacts }) {
   return { contacts: contacts.contacts }
 }
-
 
 export default connect(null, { getQRCodeData })(ContactAddresses)
