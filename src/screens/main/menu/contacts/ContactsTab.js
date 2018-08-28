@@ -10,6 +10,7 @@ import ContactTabNavigator from '../../../../components/customPageNavs/ContactTa
 import SelectedContact from './SelectedContact'
 import RF from "react-native-responsive-fontsize"
 import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard';
+
 /**
  * Screen that displays all the contacts that have been added to
  * the wallet
@@ -60,41 +61,26 @@ class ContactsTab extends Component {
   renderRow = () => {
     return (
       this.props.contacts.map(contact =>
-        <View style={{
-          marginTop:'3%', 
-          height: Dimensions.get('window').height * 0.1,
-          width: Dimensions.get('window').width * 0.85,
-        }} key={contact.name}>
+        <View style={styles.mainListItemContainer} key={contact.name}>
           <BoxShadowCard> 
             <ListItem
               chevronColor="#000000"
-                key={contact.name}
-                title={
-                  <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
-                    <Text style={{
-                      fontSize: RF(2.4),
-                      fontFamily: "Cairo-Regular",
-                      alignItems:"flex-start",
-                      flex:1,
-                      width: '90%',
-                      letterSpacing: 0.5,
-                      top:'1%'
-                    }}>
-                      {contact.name}
-                    </Text>
-                  </View>
+              key={contact.name}
+              title={
+                <View style={styles.listItemContainer}>
+                  <Text style={styles.contactNameText}>
+                    {contact.name}
+                  </Text>
+                </View>
                 }
-                containerStyle = {{            
-                  borderWidth:0,            
-                  borderBottomWidth: 0,
-                }}
+                containerStyle = {styles.containerStyle}
                 onPress={
                   () => {
                     this.props.selectedContactTrue()
                     this.setState({ contact })
                   }}
-            /> 
-          </BoxShadowCard>
+             /> 
+            </BoxShadowCard>
         </View>
       )
     )
@@ -127,6 +113,29 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingTop: '2.5%',
     backgroundColor: "#fafbfe",
+  },
+  mainListItemContainer: {
+    marginTop:'3%', 
+    height: Dimensions.get('window').height * 0.1,
+    width: Dimensions.get('window').width * 0.85,
+  },
+  listItemContainer: {
+    flexDirection:'row', 
+    justifyContent:"center", 
+    marginLeft:'5%'
+  },
+  contactNameText: {
+    fontSize: RF(2.4),
+    fontFamily: "Cairo-Regular",
+    alignItems:"flex-start",
+    flex:1,
+    width: '90%',
+    letterSpacing: 0.5,
+    top:'1%'
+  },
+  containerStyle: {
+    borderWidth:0,            
+    borderBottomWidth: 0,
   },
   contentContainer: {
     marginTop: 25

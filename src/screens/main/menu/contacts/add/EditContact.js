@@ -10,17 +10,16 @@ import ContactTabNavigator from '../../../../../components/customPageNavs/Contac
 import LinearButton from '../../../../../components/LinearGradient/LinearButton'
 import ClearButton from '../../../../../components/LinearGradient/ClearButton'
 import BoxShadowCard from '../../../../../components/ShadowCards/BoxShadowCard'
-
 import barcode from '../../../../../assets/icons/barcode.png'
 import RNPickerSelect from 'react-native-picker-select';
 import RF from "react-native-responsive-fontsize"
+
 /**
  * Is a full screen react component
  * This screen is used to add a new contact to the wallet contact list.
  *
  */
 class EditContact extends Component {
-
   /**
    * Initializes the current token list stored in state as the datasource
    * for the scrollListView.
@@ -29,23 +28,18 @@ class EditContact extends Component {
    * @param {Object} props
    */
   constructor(props) {
-
     super(props);
-
-
     let tokens = []
     this.inputRefs = {};
     let contact = this.props.contact
     let contactName = contact.name
     let contactAddress = contact.contactAddress
-
     this.props.tokens.map(token => {
       let tokenName = {}
       tokenName.value = token.name
       tokenName.label = token.name
       tokens.push(tokenName)
     })
-
     this.state = {
       disabled: true,
       clear: false,
@@ -117,7 +111,6 @@ class EditContact extends Component {
       return o[x] === '' || o[x] === null;
     });
   }
-
 
   editContact() {
     this.props.editContact(this.state.contactName, this.state.contactAddress);
@@ -217,7 +210,6 @@ class EditContact extends Component {
               customStyles={styles.btnUpdate}
               />
           </View>
-          
         </View>
       </View>
     </SafeAreaView>
@@ -358,7 +350,6 @@ const pickerStyle = {
     color: 'black',
     marginLeft: '5%'
 	},
-	// placeholderColor: 'black',
 	underline: { borderTopWidth: 0 },
 	icon: {
 		position: 'absolute',

@@ -9,6 +9,7 @@ import ContactBackWithMenuNav from "../../../../components/customPageNavs/Contac
 import ContactTabNavigator from '../../../../components/customPageNavs/ContactTabNavigator'
 import ContactsTab from './ContactsTab'
 import AddContact from './add/AddContact'
+import RF from "react-native-responsive-fontsize"
 
 /**
  * Screen that displays all the contacts that have been added to
@@ -91,38 +92,17 @@ class Contacts extends Component {
    */
   renderRow = (user) => {
     return (
-      <View style={{marginTop:'3%'}}>
+      <View style={styles.rowContainer}>
         <ListItem
           key={user.name}
           title={
-            <View style={{flexDirection:'row', justifyContent:"center", marginLeft:'5%'}}>
-              <Text style={{
-                fontSize:16,
-                fontFamily: "Cairo-Regular",
-                alignItems:"flex-start",
-                flex:1,
-                width:'90%',
-                letterSpacing: 0.5,
-                top: '1%'
-              }}>
+            <View style={styles.listItemContainer}>
+              <Text style={styles.listItemText}>
                 {user.name}
               </Text>
-
             </View>
           }
-          containerStyle = {{
-            borderRadius: 10,
-            width: '90%',
-            height: 55,
-            backgroundColor: '#ffffff',
-            justifyContent:"center",
-            borderWidth:0.5,
-            borderColor: '#F8F8FF',
-            shadowColor: '#F8F8FF',
-            shadowOffset: { width: 1, height: 1},
-            shadowOpacity:20,
-            shadowRadius: 10,
-          }}
+          containerStyle = {styles.listItemContainerStyle}
           onPress={() => this.navigate(user)}
         />
       </View>
@@ -162,7 +142,7 @@ class Contacts extends Component {
                 tab={this.state.tab}
               />
               {this.displayContactTab()}
-              <View style={{ alignItems:'center', marginTop: '-5%', flex: 0.08, }} >
+              <View style={styles.footerContainer} >
                 <Text style={styles.textFooter} >Powered by ChainSafe </Text>
               </View>
             </View>
@@ -179,6 +159,9 @@ const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
     backgroundColor: '#fafbfe'
+  },
+  rowContainer: {
+    marginTop:'3%'
   },
   mainContainer: {
     flex: 1,
@@ -198,9 +181,36 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center'
   },
+  listItemContainer: {
+    flexDirection:'row', 
+    justifyContent:"center", 
+    marginLeft:'5%'
+  },
   listItem: {
     marginTop: '2.5%',
     marginLeft: '0.25%',
+  },
+  listItemText: {
+    fontSize: RF(2.4),
+    fontFamily: "Cairo-Regular",
+    alignItems:"flex-start",
+    flex:1,
+    width:'90%',
+    letterSpacing: 0.5,
+    top: '1%'
+  },
+  listItemContainerStyle: {
+    borderRadius: 10,
+    width: '90%',
+    height: 55,
+    backgroundColor: '#ffffff',
+    justifyContent:"center",
+    borderWidth:0.5,
+    borderColor: '#F8F8FF',
+    shadowColor: '#F8F8FF',
+    shadowOffset: { width: 1, height: 1},
+    shadowOpacity:20,
+    shadowRadius: 10,
   },
   list: {
     marginLeft: '9%'
@@ -210,7 +220,12 @@ const styles = StyleSheet.create({
     fontSize: 11,
     marginTop: '3.5%',
     color: '#c0c0c0'
-  }
+  },
+  footerContainer: {
+    alignItems:'center', 
+    marginTop: '-5%', 
+    flex: 0.08, 
+  },
 })
 
 /**

@@ -106,8 +106,6 @@ class AddContact extends Component {
     this.setState({ isModalVisible: !this.state.isModalVisible });
 
   addContact() {
-    console.log(this.state.contactAddress);
-    
     this.props.completeContact(this.state.contactName, this.state.contactAddress, this.state.tokenImages);
     this.setState({ contactName: "" })
     this.setState({ contactAddress: {} })
@@ -127,46 +125,26 @@ class AddContact extends Component {
   }
 
   getTokenIMG = async (token) => {
-
+    let url;
     await this.setState({
       tokenName: token,
     });
-
-
-    let url;
-    console.log(token);
-    console.log(this.state.tokenName);
-    
-    
     for(let i = 0; i < this.state.tokens.length; i++) {
       if(token == this.state.tokens[i].value) {
         url = this.state.tokens[i].img;
       }
     }
     this.setState({ tokenIMG: url, })
-    console.log(this.state.tokenIMG);
-    
-
   }
 
   renderAddress(address) {
     let copy = Object.assign({}, this.state.contactAddress)
     let copyIMG = Object.assign({}, this.state.tokenImages)
-    
-    //console.log( this.state.tokens )
-    
-
     copy[this.state.tokenName] = address
     copyIMG[this.state.tokenName] = this.state.tokenIMG
-    console.log(copy);
-    
-
     this.setState({ contactAddressInput: address })
     this.setState({ contactAddress: copy })
     this.setState({ tokenImages: copyIMG })
-    
-    console.log(this.state.contactAddress);
-    
   }
 
   /**
@@ -205,10 +183,7 @@ class AddContact extends Component {
                     value: null,
                   }}
                   items={this.state.tokens}
-                  onValueChange={(value) => {
-                    // this.setState({
-                    //   tokenName: value,
-                    // });
+                  onValueChange={(value) => {              
                     this.getTokenIMG(value)
                   }}
                   style={pickerStyle}
@@ -223,8 +198,7 @@ class AddContact extends Component {
                   placeholder={"Public Address"}
                   onChangeText={ address => this.renderAddress(address)}
                   inputStyle={styles.inputAddressText}
-                  placeholderTextColor={'#b3b3b3'}  
-                  // value={this.state.contactAddress[this.state.tokenName]}
+                  placeholderTextColor={'#b3b3b3'}                  
                   value={this.state.contactAddress[this.state.tokenName]}
                   editable={!!this.state.tokenName}               
                 />
@@ -259,7 +233,7 @@ class AddContact extends Component {
   }
 }
 
-          /**
+/**
  * Styles used in addContact file
  */
 const styles = StyleSheet.create({
@@ -398,7 +372,6 @@ const pickerStyle = {
     color: 'black',
     marginLeft: '5%'
 	},
-	// placeholderColor: 'black',
 	underline: { borderTopWidth: 0 },
 	icon: {
 		position: 'absolute',
