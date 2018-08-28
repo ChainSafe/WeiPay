@@ -5,6 +5,8 @@ import {
   TouchableOpacity, // Pressable container
   View, // Container component
 } from 'react-native';
+import RF from 'react-native-responsive-fontsize';
+
 
 
 export default class Tabs extends Component {
@@ -33,7 +35,7 @@ export default class Tabs extends Component {
                 // Required key prop for components generated returned by map iterator
                 key={index}
               >
-                <Text style={styles.tabText}>
+                <Text style={ index === this.state.activeTab ? styles.tabTextActive : styles.tabText}>
                   {title}
                 </Text>
               </TouchableOpacity>},)}
@@ -55,26 +57,39 @@ const styles = StyleSheet.create({
   // Tabs row container
   tabsContainer: {
     flexDirection: 'row', // Arrange tabs in a row
-    paddingTop: 30, // Top padding
+    //paddingTop: 30, // Top padding
   },
   // Individual tab container
   tabContainer: {
     flex: 1, // Take up equal amount of space for each tab
-    paddingVertical: 15, // Vertical padding
+    //paddingVertical: 15, // Vertical padding
     borderBottomWidth: 3, // Add thick border at the bottom
     borderBottomColor: 'transparent', // Transparent border for inactive tabs
+    backgroundColor: 'yellow',
   },
   // Active tab container
   tabContainerActive: {
-    borderBottomColor: '#FFFFFF', // White bottom border for active tabs
+    borderBottomColor: '#12c1a2', // White bottom border for active tabs
   },
   // Tab text
   tabText: {
-    color: '#FFFFFF',
-    fontFamily: 'Avenir',
-    fontWeight: 'bold',
-    textAlign: 'center',
+    // color: '#FFFFFF',
+    // fontFamily: 'Avenir',
+    // fontWeight: 'bold',
+    // textAlign: 'center',
+    alignSelf:'center',
+    fontSize: RF(2.8),
+    fontFamily: 'Cairo-Light', 
+    letterSpacing: 0.6, 
   },
+  tabTextActive: {
+    alignSelf:'center',
+    fontSize: RF(2.8),
+    fontFamily: 'Cairo-Light', 
+    letterSpacing: 0.6, 
+    color: '#12c1a2',
+  },
+
   // Content container
   contentContainer: {
     flex: 1, // Take up all available space

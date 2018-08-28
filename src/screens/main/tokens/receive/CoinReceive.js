@@ -33,7 +33,7 @@ class CoinReceive extends Component {
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={mainContainer}>
-          <View style={navContainer}>        
+          {/* <View style={navContainer}>        
             <BackWithMenuNav
               showMenu={true}
               showBack={true}
@@ -48,7 +48,7 @@ class CoinReceive extends Component {
             activityActive={false}
             receiveActive={true} 
             />
-          </View>
+          </View> */}
           <View style={contentContainer} >
             <View style={imageContainer}>
               <QRCode

@@ -66,14 +66,14 @@ class CoinSend extends Component {
    * Executes before the Component has been rendered
    * Sets the state to the hold the wallet address
    */
-  componentWillMount() {
-    if (this.props.navigation.state.params) {
-      const contactAddress = this.props.navigation.state.params.address;
-      if (contactAddress) {
-        this.setState({ inputValue: contactAddress });
-      }
-    }
-  }
+  // componentWillMount() {
+  //   if (this.props.navigation.state.params) {
+  //     const contactAddress = this.props.navigation.state.params.address;
+  //     if (contactAddress) {
+  //       this.setState({ inputValue: contactAddress });
+  //     }
+  //   }
+  // }
 
   /**
    * Sets the address to which the coin/tokens are being sent to
@@ -194,7 +194,7 @@ class CoinSend extends Component {
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.mainContainer}>
-            <View style={styles.navContainer}>
+            {/* <View style={styles.navContainer}>
               <BackWithMenuNav
                 showMenu={true}
                 showBack={true}
@@ -209,7 +209,7 @@ class CoinSend extends Component {
                 activityActive={false}
                 receiveActive={false}
               />
-            </View>
+            </View> */}
             <View style={styles.boxShadowContainer}>
               <View style={styles.contentContainer}>
                 <BoxShadowCard>
