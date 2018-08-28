@@ -38,9 +38,11 @@ class AddContact extends Component {
     this.inputRefs =
 
     this.props.tokens.map(token => {
+      console.log(token.logo.src)
       let tokenName = {}
       tokenName.value = token.name
       tokenName.label = token.name
+      tokenName.img = token.logo.src
       tokens.push(tokenName)
     })
 
@@ -49,7 +51,9 @@ class AddContact extends Component {
       clear: false,
       contactName,
       contactAddress,
+      tokenImages: {},
       tokenName: null,
+      tokenIMG: '',
       tokens,
       contactAddressInput: ""
     }
@@ -102,10 +106,13 @@ class AddContact extends Component {
     this.setState({ isModalVisible: !this.state.isModalVisible });
 
   addContact() {
-    this.props.completeContact(this.state.contactName, this.state.contactAddress, this.state.tokenName);
+    console.log(this.state.contactAddress);
+    
+    this.props.completeContact(this.state.contactName, this.state.contactAddress, this.state.tokenImages);
     this.setState({ contactName: "" })
     this.setState({ contactAddress: {} })
     this.setState({ tokenName: 'null'})
+    this.setState({ tokenImages: {}})
   }
 
   clear() {
@@ -119,11 +126,47 @@ class AddContact extends Component {
     this.setState({ contactAddressInput: "" })
   }
 
+  getTokenIMG = async (token) => {
+
+    await this.setState({
+      tokenName: token,
+    });
+
+
+    let url;
+    console.log(token);
+    console.log(this.state.tokenName);
+    
+    
+    for(let i = 0; i < this.state.tokens.length; i++) {
+      if(token == this.state.tokens[i].value) {
+        url = this.state.tokens[i].img;
+      }
+    }
+    this.setState({ tokenIMG: url, })
+    console.log(this.state.tokenIMG);
+    
+
+  }
+
   renderAddress(address) {
     let copy = Object.assign({}, this.state.contactAddress)
+    let copyIMG = Object.assign({}, this.state.tokenImages)
+    
+    //console.log( this.state.tokens )
+    
+
     copy[this.state.tokenName] = address
+    copyIMG[this.state.tokenName] = this.state.tokenIMG
+    console.log(copy);
+    
+
     this.setState({ contactAddressInput: address })
     this.setState({ contactAddress: copy })
+    this.setState({ tokenImages: copyIMG })
+    
+    console.log(this.state.contactAddress);
+    
   }
 
   /**
@@ -163,9 +206,10 @@ class AddContact extends Component {
                   }}
                   items={this.state.tokens}
                   onValueChange={(value) => {
-                    this.setState({
-                      tokenName: value,
-                    });
+                    // this.setState({
+                    //   tokenName: value,
+                    // });
+                    this.getTokenIMG(value)
                   }}
                   style={pickerStyle}
                   value={this.state.tokenName}
@@ -180,6 +224,7 @@ class AddContact extends Component {
                   onChangeText={ address => this.renderAddress(address)}
                   inputStyle={styles.inputAddressText}
                   placeholderTextColor={'#b3b3b3'}  
+                  // value={this.state.contactAddress[this.state.tokenName]}
                   value={this.state.contactAddress[this.state.tokenName]}
                   editable={!!this.state.tokenName}               
                 />
