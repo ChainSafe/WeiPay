@@ -37,7 +37,7 @@ class Portfolio extends Component {
     const navigateToAddToken = NavigationActions.navigate({ routeName: 'coinSend' });
     this.props.navigation.dispatch(navigateToAddToken);
   };
- 
+
   /**
    * Returns a ListItem component specific to the properties of the token parameter
    */
@@ -46,10 +46,10 @@ class Portfolio extends Component {
         <TouchableOpacity
           onPress={() => {
             this.props.addTokenInfo(token)
-            this.props.navigation.navigate("coinSend")      
+            this.props.navigation.navigate("coinSend")
           }}
           style={styles.listItemParentContainer}
-          >
+        >
           <View>
             <BoxShadowCard customStyles={styles.boxShadowContainer}>
               <View style={[styles.contentContainer]}>
@@ -80,7 +80,7 @@ class Portfolio extends Component {
               </View>
             </BoxShadowCard>
           </View>
-        </TouchableOpacity >
+        </TouchableOpacity>
     );
   }
 
@@ -120,7 +120,7 @@ class Portfolio extends Component {
                       <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                   </View>
               </View>
-          </View>         
+          </View>
         </View>
       </SafeAreaView>
     );
@@ -144,27 +144,26 @@ const styles = StyleSheet.create({
     width: '84%',
   },
   boxShadowContainer: {
-    flex: 1, 
+    flex: 1,
   },
   listItemParentContainer: {
     height: Dimensions.get('window').height * 0.1,
     flex: 1,
   },
   listItemTextComponent: {
-    justifyContent: 'center', 
-    flex: 1, 
+    justifyContent: 'center',
+    flex: 1,
   },
   listItemValueContainer: {
-    flex: 3, 
-    justifyContent: 'center', 
-    paddingBottom: '1.5%', 
-    paddingTop: '1.5%', 
+    flex: 3,
+    justifyContent: 'center',
+    paddingBottom: '1.5%',
+    paddingTop: '1.5%',
     paddingRight: '5%',
   },
   listItemValueComponent: {
-    flex: 1, 
-    justifyContent: 'flex-start', 
-    alignItems: 'flex-end', 
+    flex: 1,
+    alignItems: 'flex-end',
   },
   imgMainContainer: {
     flex: 1.25,
@@ -185,38 +184,48 @@ const styles = StyleSheet.create({
   mainTitleContainer: {
     flex: 0.5,
     justifyContent: 'flex-end',
-    paddingTop: '2.5%',
+    paddingTop: '9%',
   },
   mainTitleText: {
-    fontSize: RF(3),
+    fontSize: RF(2.4),
     fontFamily: 'Cairo-Regular',
     letterSpacing: 0.5,
-    color: 'black',
+    color: '#061f46',
   },
   subtitleContainer: {
     flex: 0.5,
     justifyContent: 'flex-start',
-    paddingBottom: '1.5%',
+    paddingBottom: '9%',
+    paddingLeft: '1.5%'
   },
   subTitleText: {
-    fontSize: RF(2),
+    fontSize: RF(1.6),
+    paddingLeft: '.5%',
     fontFamily: 'Cairo-Regular',
+    color: '#061f46',
     letterSpacing: 0.5,
   },
   listItemFiatValue: {
-    alignItems: 'flex-end',
-    fontSize: RF(2),
+    fontSize: RF(1.7),
     fontFamily: 'WorkSans-Light',
     paddingRight: '1.75%',
     letterSpacing: 0.4,
+    paddingBottom: '20%'
   },
   listItemCryptoValue: {
     alignItems: 'flex-end',
-    fontSize: RF(3),
+    fontSize: RF(2.7),
     fontFamily: 'Cairo-Regular',
     letterSpacing: 0.5,
     color: 'black',
     paddingRight: '1.75%',
+
+  },
+  listItemCryptoContainer: {
+    paddingTop: '5%'
+  },
+  listItemFiatContainer: {
+
   },
   safeAreaView: {
     flex: 1,
@@ -231,9 +240,9 @@ const styles = StyleSheet.create({
     flex: 0.75,
     paddingBottom: '2%',
   },
-  textHeader: {       
+  textHeader: {
     fontFamily: "Cairo-Light",
-    fontSize: RF(4),      
+    fontSize: RF(4),
     paddingLeft: '9%',
     color: '#1a1f3e',
     flex: 0.75,
@@ -249,11 +258,11 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Medium',
     marginLeft: '9%',
     color: '#27c997',
-    fontSize: RF(3),  
-  },   
+    fontSize: RF(3),
+  },
   headerValueCurrency : {
     fontSize:11,
-    fontFamily: "WorkSans-Regular", 
+    fontFamily: "WorkSans-Regular",
     color: '#27c997',
     justifyContent: 'center',
   },

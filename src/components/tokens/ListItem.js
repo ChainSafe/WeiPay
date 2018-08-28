@@ -183,6 +183,7 @@ const styles = StyleSheet.create({
   },
   subTitleText: {
     fontSize: RF(1.6),
+    paddingLeft: '.5%',
     fontFamily: 'Cairo-Regular',
     color: '#061f46',
     letterSpacing: 0.5,
