@@ -9,16 +9,16 @@ import RF from "react-native-responsive-fontsize"
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
 import { getQRCodeData, addTokenInfo } from '../../../../actions/ActionCreator';
 import provider from '../../../../constants/Providers';
-import { qrScannerInvoker } from '../../../../actions/ActionCreator'
-import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator'
+import { qrScannerInvoker, updateTxnFee } from '../../../../actions/ActionCreator';
+import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator';
 import ERC20ABI from '../../../../constants/data/json/ERC20ABI.json';
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
-import ClearButton from '../../../../components/LinearGradient/ClearButton'
+import ClearButton from '../../../../components/LinearGradient/ClearButton';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard';
+import Provider from '../../../../constants/Providers';
 
 const ethers = require('ethers');
-
 const utils = ethers.utils;
 
 /**
@@ -39,6 +39,7 @@ class CoinSend extends Component {
       value: 0,
       resetInput: false,
       inputValue: '',
+      txnFee: this.props.txnFee,
     };
 
     /**
@@ -164,6 +165,21 @@ class CoinSend extends Component {
     });
   }
 
+  getTxnFee = async () => {
+    try {
+      let gasPriceString = await Provider.getGasPrice().then((gasPrice) => {
+        gasPriceString = gasPrice.toString();
+        const gasPriceEth = utils.formatEther(gasPrice)
+        const txnFee = 21000 * gasPriceEth
+        return txnFee;
+      });
+      await this.props.updateTxnFee(gasPriceString);
+      await this.setState({txnFee: gasPriceString})
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   /**
    * Is used to reset the input fields
    */
@@ -228,7 +244,7 @@ class CoinSend extends Component {
                         />
                       </View>
                       <Text style={styles.displayFeeText} >
-                        Transaction Fee Total {this.state.value} Eth
+                        Transaction Fee Total {this.state.txnFee} Eth
                       </Text>
                   </View>
                 </BoxShadowCard>
@@ -385,6 +401,9 @@ const mapStateToProps = (state) => {
     wallet: state.newWallet.wallet,
     addressData: state.newWallet.QrData,
     token: state.newWallet.current_token,
+    txnFee: state.newWallet.txnFee,
   };
 };
-export default connect(mapStateToProps, { getQRCodeData, qrScannerInvoker, addTokenInfo })(CoinSend);
+export default connect(mapStateToProps, {
+ getQRCodeData, qrScannerInvoker, addTokenInfo, updateTxnFee,
+})(CoinSend);
