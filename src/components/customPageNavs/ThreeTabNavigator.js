@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
     letterSpacing: 0.6, 
     color: '#12c1a2',
   },
-
   // Content container
   contentContainer: {
     flex: 1, // Take up all available space
