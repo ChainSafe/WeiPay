@@ -13,6 +13,7 @@ const INITIAL_STATE = {
   QrScannerInvoker: '',
   current_token: {},
   debugMode: false,
+  txnFee: 0,
 };
 
 /**
@@ -38,21 +39,20 @@ export default (state = INITIAL_STATE, action) => {
         newTokens = [...current, selectedToken];
       } else { 
         newTokens = [...current.slice(0, index), ...current.slice(index + 1)];     
-      }    
+      }
       return { ...state, tokens: newTokens };
     case actions.ADD_TOKEN_INFO:
       return { ...state, current_token: action.payload };
     case actions.DEBUG_MODE:
       return { ...state, debugMode: true };
-    case actions.UPDATE_TOKEN_BALANCE:
+    case actions.UPDATE_TOKEN_BALANCE:      
       const token = state.tokens[action.payload.tokenID];
       const updatedToken = { ...token, balance: action.payload.balance }
-      const previousTokens = state.tokens;
+      const previousTokens = state.tokens;      
       previousTokens[action.payload.tokenID] = updatedToken;
-      
       return { ...state, tokens: previousTokens };
-      
-      
+    case actions.TXN_FEE:
+      return { ...state, txnFee: action.payload };
     default:
       return state;
   }
