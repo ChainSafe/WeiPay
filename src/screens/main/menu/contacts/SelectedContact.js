@@ -10,9 +10,10 @@ import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuN
 import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard'
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
 import EditContact from './add/EditContact';
-import RF from "react-native-responsive-fontsize"
+import RF from "react-native-responsive-fontsize";
 
 class ContactAddresses extends Component {
+  
   state = {
     editContact: false
   }
@@ -47,6 +48,21 @@ class ContactAddresses extends Component {
   };
 
   renderRow(address) {
+    console.log(this.props.contact);
+    const contactInfo = this.props.contact.images;
+    let url; 
+
+    for (var key in contactInfo) {
+      if (contactInfo.hasOwnProperty(key)) {
+          if(key == Object.keys(address)[0]) {
+            console.log(key + " -> " + contactInfo[key]);
+            console.log(Object.keys(address)[0]);  
+            url = contactInfo[key];
+          }       
+      }
+  }
+
+
     return (
       <View style={styles.listItemContainer}>
         <TouchableOpacity onPress={() => this.navigateToCoinSend(address[Object.keys(address)[0]])}>
@@ -54,7 +70,14 @@ class ContactAddresses extends Component {
 
             <View style={styles.mainListItemContentContainter}>
               <View style={styles.mainListItemIconContainer}>
-            
+                <Image
+                     source={{uri: url}}
+                     style={{
+                       width:15, 
+                       height: 15,                      
+                    }}
+                />
+
               </View>
               <View style={styles.mainListItemTextContainer}>
                 <Text style={styles.CoinTypeText}>{Object.keys(address)[0]} </Text>
@@ -161,8 +184,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue'
   },
   mainListItemIconContainer: {
-    flex:1.25,
-    backgroundColor: 'green'
+    flex: 1.25,
+    backgroundColor: 'green',
+    alignItems: 'center',
+    alignSelf: 'center',
+    justifyContent: 'flex-start',
   },
   mainListItemTextContainer: {
     flex:5,
@@ -237,9 +263,9 @@ const styles = StyleSheet.create({
   },
 })
 
-// function mapStateToProps({ contacts }) {
-//   return { contacts: contacts.contacts }
-// }
+function mapStateToProps({ contacts }) {
+  return { contacts: contacts.contacts }
+}
 
 
 export default connect(null, { getQRCodeData })(ContactAddresses)
