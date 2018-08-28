@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imageContainer: {
-    flex: 0.2,
+    flex: 10,
     justifyContent: 'center',
   },
   img: {
