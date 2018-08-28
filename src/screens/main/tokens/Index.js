@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
     // Tab content container
     content: {
       flex: 1,                            // Take up all available space
-      justifyContent: 'center',           // Center vertically
-      alignItems: 'center',               // Center horizontally
+    //   justifyContent: 'center',           // Center vertically
+    //   alignItems: 'center',               // Center horizontally
       backgroundColor: '#fafbfe',         // Darker background for content area
     },
   });

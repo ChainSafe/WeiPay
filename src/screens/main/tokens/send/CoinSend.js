@@ -194,22 +194,6 @@ class CoinSend extends Component {
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.mainContainer}>
-            {/* <View style={styles.navContainer}>
-              <BackWithMenuNav
-                showMenu={true}
-                showBack={true}
-                navigation={this.props.navigation}
-                backPage={'mainStack'}
-              />
-            </View>
-            <View style={styles.navHeaderContainer}>
-              <CoinSendTabNavigator
-                navigation={this.props.navigation}
-                sendActive={true}
-                activityActive={false}
-                receiveActive={false}
-              />
-            </View> */}
             <View style={styles.boxShadowContainer}>
               <View style={styles.contentContainer}>
                 <BoxShadowCard>
@@ -275,8 +259,8 @@ class CoinSend extends Component {
                 <View style={styles.footerParentContainer} >
                   <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                 </View>
-                  </View>
-                </View>
+              </View>
+            </View>
           </View>
         </TouchableWithoutFeedback>
        </SafeAreaView>
@@ -307,6 +291,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: '10%',
     flex: 3.75,
+    width: '100%',
   },
   contentContainer: {
     width: '82%',

@@ -57,15 +57,12 @@ const styles = StyleSheet.create({
   // Tabs row container
   tabsContainer: {
     flexDirection: 'row', // Arrange tabs in a row
-    //paddingTop: 30, // Top padding
   },
   // Individual tab container
   tabContainer: {
     flex: 1, // Take up equal amount of space for each tab
-    //paddingVertical: 15, // Vertical padding
     borderBottomWidth: 3, // Add thick border at the bottom
     borderBottomColor: 'transparent', // Transparent border for inactive tabs
-    backgroundColor: 'yellow',
   },
   // Active tab container
   tabContainerActive: {
@@ -73,10 +70,6 @@ const styles = StyleSheet.create({
   },
   // Tab text
   tabText: {
-    // color: '#FFFFFF',
-    // fontFamily: 'Avenir',
-    // fontWeight: 'bold',
-    // textAlign: 'center',
     alignSelf:'center',
     fontSize: RF(2.8),
     fontFamily: 'Cairo-Light', 
