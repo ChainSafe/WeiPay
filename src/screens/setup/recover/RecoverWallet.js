@@ -42,12 +42,20 @@ class RecoverWallet extends Component {
       try {
         // const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
         // wallet.provider = provider;
-        let mnemonic, wallet;
-        mnemonic = this.state.mnemonic.trim();
-        wallet = ethers.Wallet.fromMnemonic(mnemonic);
-        wallet.provider = provider;
-        this.props.newWalletCreation(wallet); //pass state to redux to save it
-        this.props.navigation.dispatch(navigateToTokens);
+        if (this.props.debugMode === true) {
+          const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
+          wallet.provider = provider;
+          this.props.newWalletCreation(wallet); //pass state to redux to save it
+          this.props.navigation.dispatch(navigateToTokens);
+        }else {
+          let mnemonic, wallet;
+          mnemonic = this.state.mnemonic.trim();
+          wallet = ethers.Wallet.fromMnemonic(mnemonic);
+          wallet.provider = provider;
+          this.props.newWalletCreation(wallet); //pass state to redux to save it
+          this.props.navigation.dispatch(navigateToTokens);
+        }
+        
       } catch (err) {
         Alert.alert(
           'Mnemonic Error',
@@ -120,8 +128,7 @@ class RecoverWallet extends Component {
                                 placeholder={'Ex. man friend love long phrase ... '}
                                 onChangeText={this.renderRecoveryKey.bind(this)}
                                 inputStyle={txtMnemonic}
-                                autoCapitalize='no'
-                                autoCorrect='off'
+
                             />
                           </View>
                       </BoxShadowCard>

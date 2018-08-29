@@ -83,22 +83,6 @@ class CoinActivity extends Component {
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={mainContainer}>
-          <View style={styles.navContainer}>        
-              <BackWithMenuNav
-                  showMenu={true}
-                  showBack={true}
-                  navigation={this.props.navigation}
-                  backPage={'mainStack'}
-                />
-            </View>
-            <View style={[styles.navHeaderContainer]}>
-              <CoinSendTabNavigator 
-                navigation={this.props.navigation}
-                sendActive={false}
-                activityActive={true}
-                receiveActive={false} 
-              />
-          </View>
           <View style={styles.listContainer}>
             <FlatList
               data={this.state.data}
