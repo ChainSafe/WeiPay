@@ -1588,7 +1588,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.chainsafe.weipay;
 				PRODUCT_NAME = WeiPay;
 				PROVISIONING_PROFILE = "346d6a33-5b0c-4ac7-8e61-604671416d9c";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development io.chainsafe.weipay";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1620,7 +1620,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.chainsafe.weipay;
 				PRODUCT_NAME = WeiPay;
 				PROVISIONING_PROFILE = "346d6a33-5b0c-4ac7-8e61-604671416d9c";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.chainsafe.weipay";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
