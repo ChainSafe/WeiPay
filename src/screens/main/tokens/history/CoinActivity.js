@@ -66,45 +66,31 @@ class CoinActivity extends Component {
    * Returns a component holding a list of transactions that have been occured
    */
   render() {
-    const {
-      mainContainer,
-      itemStyle,
-      headerContainer,
-      type,
-      date,
-      addressContainer,
-      addressTitle,
-      addressValue,
-      amountContainer,
-      amountTitle,
-      amountValue,
-    } = styles;
-
     return (
       <SafeAreaView style={styles.safeAreaView}>
-        <View style={mainContainer}>
+        <View style={styles.mainContainer}>
           <View style={styles.listContainer}>
             <FlatList
               data={this.state.data}
               keyExtractor={(x, i) => i.toString()}
-              style={{ flex: 1, width: '100%', backgroundColor: '#fafbfe' }}
+              style={styles.flatListStyle}
               renderItem={({ item }) =>              
-                <View style={itemStyle}>
+                <View style={styles.itemStyle}>
                   <View>
                     <View>
-                      <View style={headerContainer}>
-                        <Text style={type}>
+                      <View style={styles.headerContainer}>
+                        <Text style={styles.type}>
                           {item.type}
                         </Text>
-                        <Text style={date}>{item.timeStamp}</Text>
+                        <Text style={styles.date}>{item.timeStamp}</Text>
                       </View>
-                      <View style={addressContainer}>
-                          <Text style={addressTitle}>Address: </Text>
-                          <Text style={addressValue}>{item.address}</Text>
+                      <View style={styles.addressContainer}>
+                          <Text style={styles.addressTitle}>Address: </Text>
+                          <Text style={styles.addressValue}>{item.address}</Text>
                       </View>
-                      <View style={amountContainer}>
-                          <Text style={amountTitle}>Amount: </Text>
-                          <Text style={amountValue}>{item.value}</Text>
+                      <View style={styles.amountContainer}>
+                          <Text style={styles.amountTitle}>Amount: </Text>
+                          <Text style={styles.amountValue}>{item.value}</Text>
                       </View>
                     </View>
                   </View>
@@ -138,10 +124,14 @@ const styles = StyleSheet.create({
   navHeaderContainer: {
     flex: 0.3,
   },
+  flatListStyle: {
+    flex: 1, 
+    width: '100%', 
+    backgroundColor: '#fafbfe'
+  },
   listContainer: {
     flex: 5.25,
     marginTop: '12%',
-    // paddingTop: '10%',
   },
   addressContainer: {
     flexDirection: 'row',
