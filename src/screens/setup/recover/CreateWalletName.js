@@ -48,29 +48,12 @@ class CreateWalletName extends Component {
      * Main Component
      * Returns the form required for the user to set the name of their wallet
      */
-    render() {
-      const {
-        safeAreaView,
-        mainContainer,
-        navContainer,
-        textHeader,
-        boxShadowContainer,
-        contentContainer,
-        cardText,
-        txtWalletName,
-        btnContainer,
-        defaultGreenColor,
-        button,
-        footerGrandparentContainer,
-        footerParentContainer,
-        textFooter,
-      } = styles;
-
+    render() {     
       return (
-        <SafeAreaView style={safeAreaView}>
+        <SafeAreaView style={styles.safeAreaView}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={mainContainer}>
-                <View style={navContainer}>        
+            <View style={styles.mainContainer}>
+                <View style={styles.navContainer}>        
                   <BackWithMenuNav
                       showMenu={false}
                       showBack={true}
@@ -78,40 +61,39 @@ class CreateWalletName extends Component {
                       backPage={'createOrRestore'}
                     />
                 </View>
-                <Text style={textHeader}>Wallet Name</Text>
-                <View style={boxShadowContainer}>
-                  <View style={contentContainer}>
+                <Text style={styles.textHeader}>Wallet Name</Text>
+                <View style={styles.boxShadowContainer}>
+                  <View style={styles.contentContainer}>
                       <BoxShadowCard>
-                          <Text style={cardText}>
-                              Create a name for your wallet, for example:      
-                              <Text style={defaultGreenColor}>
-                                My Wallet
-                              </Text>
+                          <Text style={styles.cardText}>
+                              Create a name for your wallet, for example: My Wallet                              
                           </Text>
-                          <FormInput
-                              placeholder={'Ex. My Wallet'}
-                              onChangeText={this.getWalletName.bind(this)}
-                              inputStyle={txtWalletName}
-                          />
+                          <View style={styles.formInputContainer}>
+                            <FormInput
+                                placeholder={'Ex. My Wallet'}
+                                onChangeText={this.getWalletName.bind(this)}
+                                inputStyle={styles.txtWalletName}
+                            />
+                          </View>
                       </BoxShadowCard>
                   </View>
                 </View>
-              <View style={btnContainer}>
-                  <LinearButton
-                      onClickFunction={this.navigate }
-                      buttonText= 'Next'
-                      customStyles={button}
-                      buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
-                  />
-                  <View style={footerGrandparentContainer}>
-                      <View style={footerParentContainer} >
-                          <Text style={textFooter} >Powered by ChainSafe </Text>
-                      </View>
-                  </View>
-              </View>            
-          </View>
-        </TouchableWithoutFeedback>
-      </SafeAreaView>
+                <View style={styles.btnContainer}>
+                    <LinearButton
+                        onClickFunction={ this.navigate }
+                        buttonText= 'Next'
+                        customStyles={styles.button}
+                        buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
+                    />
+                    <View style={styles.footerGrandparentContainer}>
+                        <View style={styles.footerParentContainer} >
+                            <Text style={styles.textFooter} >Powered by ChainSafe </Text>
+                        </View>
+                    </View>
+                </View>            
+            </View>
+          </TouchableWithoutFeedback>
+        </SafeAreaView>
       );
     }
 }
@@ -135,7 +117,7 @@ const styles = StyleSheet.create({
   },
   boxShadowContainer: {
     alignItems: 'center', 
-    flex: 3
+    flex: 2.5
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
@@ -150,12 +132,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cardText: {
-    paddingBottom: '20%',
-    paddingTop: '7.5%',
-    paddingLeft: '7.5%',
-    paddingRight: '7.55%',
+    paddingBottom: '15%',
+    paddingTop: '10%',
+    paddingLeft: '10%',
+    paddingRight: '10%',
     fontFamily: 'WorkSans-Light',
     letterSpacing: 0.4,
+    lineHeight: RF(3.9),
     color: '#000000',
     fontSize: RF(2.4),
   },
@@ -166,9 +149,14 @@ const styles = StyleSheet.create({
     color: '#12c1a2',
     letterSpacing: 0.4,
     fontFamily: 'WorkSans-Regular',  
+    borderBottomWidth: 0.0001,
+  },
+  formInputContainer: {
+    width: '92%',
+    marginLeft: '5%',
   },
   btnContainer: {
-    flex:2,
+    flex:2.5,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     width: '100%',

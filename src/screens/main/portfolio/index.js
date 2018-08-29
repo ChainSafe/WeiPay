@@ -73,12 +73,8 @@ class Portfolio extends Component {
                 </View>
                 <View style={ styles.listItemValueContainer }>
                   <View style={ styles.listItemValueComponent }>
-                    <View style={{ paddingBottom: '5%', flex: 1}}>
-                      <Text style={styles.listItemCryptoValue}>0</Text>
-                    </View>
-                    <View style={{ paddingBottom: '8%', flex: 1}}>
-                      <Text style={styles.listItemFiatValue}>$2444432</Text>
-                    </View>
+                    <Text style={styles.listItemCryptoValue}>0</Text>
+                    <Text style={styles.listItemFiatValue}>$2444432</Text>
                   </View>
                 </View>
               </View>
@@ -157,7 +153,6 @@ const styles = StyleSheet.create({
   listItemTextComponent: {
     justifyContent: 'center',
     flex: 1,
-    paddingBottom: '1%'
   },
   listItemValueContainer: {
     flex: 3,
@@ -168,6 +163,7 @@ const styles = StyleSheet.create({
   },
   listItemValueComponent: {
     flex: 1,
+    justifyContent: 'flex-start',
     alignItems: 'flex-end',
   },
   imgMainContainer: {
@@ -175,7 +171,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imageContainer: {
-    flex: 10,
+    flex: 1,
     justifyContent: 'center',
   },
   img: {
@@ -189,48 +185,38 @@ const styles = StyleSheet.create({
   mainTitleContainer: {
     flex: 0.5,
     justifyContent: 'flex-end',
-    marginTop: '7%',
+    paddingTop: '2.5%',
   },
   mainTitleText: {
-    fontSize: RF(2.4),
+    fontSize: RF(3),
     fontFamily: 'Cairo-Regular',
     letterSpacing: 0.5,
-    color: '#061f46',
+    color: 'black',
   },
   subtitleContainer: {
     flex: 0.5,
     justifyContent: 'flex-start',
-    marginBottom: '7%',
-    paddingLeft: '1.5%'
+    paddingBottom: '1.5%',
   },
   subTitleText: {
-    fontSize: RF(1.6),
-    paddingLeft: '.5%',
+    fontSize: RF(2),
     fontFamily: 'Cairo-Regular',
-    color: '#061f46',
     letterSpacing: 0.5,
   },
   listItemFiatValue: {
-    fontSize: RF(1.7),
+    alignItems: 'flex-end',
+    fontSize: RF(2),
     fontFamily: 'WorkSans-Light',
     paddingRight: '1.75%',
     letterSpacing: 0.4,
-    paddingBottom: '20%'
   },
   listItemCryptoValue: {
     alignItems: 'flex-end',
-    fontSize: RF(2.7),
+    fontSize: RF(3),
     fontFamily: 'Cairo-Regular',
     letterSpacing: 0.5,
     color: 'black',
     paddingRight: '1.75%',
-
-  },
-  listItemCryptoContainer: {
-    paddingTop: '5%'
-  },
-  listItemFiatContainer: {
-
   },
   safeAreaView: {
     flex: 1,

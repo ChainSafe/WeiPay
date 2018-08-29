@@ -10,7 +10,7 @@ import EnableTokens from '../../screens/setup/crypto/EnableTokens';
 import mainBucketNavigation from './mainBucketStack';
 import addContact from '../../screens/main/menu/contacts/add/AddContact';
 import contacts from '../../screens/main/menu/contacts/index';
-
+import ContactAddresses from '../../screens/main/menu/contacts/SelectedContact';
 /**
  * Constant contains all the screens that can be navigated to using the
  * navigate method from any class

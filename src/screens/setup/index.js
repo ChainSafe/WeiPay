@@ -48,9 +48,10 @@ class CreateOrRestore extends Component {
         btnContainer,
         btnCreate,
         button,
-        footerGrandparentContainer,
-        footerParentContainer,
+        footerContainer,
         textFooter,
+        footerGrandparentContainer,
+        footerParentContainer
       } = styles;
 
       return (
@@ -71,9 +72,9 @@ class CreateOrRestore extends Component {
                 buttonText= 'Restore Wallet'
                 customStyles={button}
                 unlockButton={true}
-              />              
-              </View>
-              <View style={footerGrandparentContainer}>
+              />
+            </View>
+            <View style={footerGrandparentContainer}>
                   <View style={footerParentContainer} >
                     <Text style={textFooter} >Powered by ChainSafe </Text>
                   </View>

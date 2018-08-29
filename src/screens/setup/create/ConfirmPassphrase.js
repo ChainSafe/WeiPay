@@ -122,32 +122,10 @@ class ConfirmPassphrase extends Component {
      */
     render() {
       const { selectedTags, scrambledTags } = this.state;
-
-      const {
-        safeAreaView,
-        mainContainer,
-        navContainer,
-        textHeader,
-        contentContainer,
-        boxShadowContainer,
-        cardText,
-        tagContainer,
-        cardButtonContainer,
-        cardButton,
-        selectedTextContainer,
-        cardSelectedButtonContainer,
-        selectedWordText,
-        btnContainer,
-        button,
-        footerGrandparentContainer,
-        footerParentContainer,
-        textFooter,
-      } = styles;
-
       return (
-        <SafeAreaView style={safeAreaView}>
-          <View style={mainContainer}>
-            <View style={navContainer}>
+        <SafeAreaView style={styles.safeAreaView}>
+          <View style={styles.mainContainer}>
+            <View style={styles.navContainer}>
               <BackWithMenuNav
                 showMenu={false}
                 showBack={true}
@@ -155,23 +133,21 @@ class ConfirmPassphrase extends Component {
                 backPage={'generatePassphrase'}
               />
           </View>
-          <Text style={textHeader}>Confirm Passphrase</Text>           
-          <View style={boxShadowContainer}>
-            <View style={contentContainer} >
+          <Text style={styles.textHeader}>Confirm Passphrase</Text>
+          <View style={styles.boxShadowContainer}>
+            <View style={styles.contentContainer} >
                 <BoxShadowCard>
-                    <Text style={cardText}>
-                        Please assemble your passphrase in the correct order.
-                    </Text>
-                    <View style={tagContainer} >
+                    <Text style={styles.cardText}>Select the correct order.</Text>
+                    <View style={styles.tagContainer} >
                         {
                             scrambledTags.map((item, index) => {
                               return (
-                                <View key={item.wordItem.index} style={cardButtonContainer}>
+                                <View key={item.wordItem.index} style={styles.cardButtonContainer}>
                                     <ClearButton
                                         buttonText={item.wordItem.word}
                                         key={item.wordItem.index}
                                         onClickFunction={() => this.addWord(item.wordItem, index)}
-                                        customStyles={cardButton}
+                                        customStyles={styles.cardButton}
                                         unlockButton={this.state.scrambledTags[index].selected}
                                         />
                                 </View>
@@ -179,14 +155,14 @@ class ConfirmPassphrase extends Component {
                             })
                         }
                     </View>
-                    <View style={selectedTextContainer} >
+                    <View style={styles.selectedTextContainer} >
                         {
                             selectedTags.map((item, index) => {
                               return (
-                                <View key={item.wordItem.index} style={cardSelectedButtonContainer}>
+                                <View key={item.wordItem.index} style={styles.cardSelectedButtonContainer}>
                                     <TouchableOpacity
                                         onPress={() => this.removeWord(item, index)}>
-                                        <Text style={selectedWordText}>
+                                        <Text style={styles.selectedWordText}>
                                             {item.wordItem.word}
                                         </Text>
                                     </TouchableOpacity>
@@ -198,16 +174,16 @@ class ConfirmPassphrase extends Component {
                 </BoxShadowCard>
               </View>
             </View>
-            <View style={btnContainer}>
+            <View style={styles.btnContainer}>
                 <LinearButton
                     onClickFunction={this.validatePassphrase}
                     buttonText= 'Next'
-                    customStyles={button}
+                    customStyles={styles.button}
                     // buttonStateEnabled={this.state.buttonDisabled}
                 />
-                <View style={footerGrandparentContainer}>
-                    <View style={footerParentContainer}>
-                        <Text style={textFooter} >Powered by ChainSafe </Text>
+                <View style={styles.footerGrandparentContainer}>
+                    <View style={styles.footerParentContainer}>
+                        <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                     </View>
                 </View>
             </View>
@@ -219,7 +195,7 @@ class ConfirmPassphrase extends Component {
 
 const styles = StyleSheet.create({
   safeAreaView: {
-    flex: 1, 
+    flex: 1,
     backgroundColor: '#fafbfe'
   },
   mainContainer: {
@@ -238,18 +214,18 @@ const styles = StyleSheet.create({
     flex:0.65,
   },
   boxShadowContainer: {
-    alignItems:"center", 
-    flex: 3.75
+    alignItems:"center",
+    flex: 4
   },
   contentContainer: {
     width: '82%'
   },
   cardText: {
     paddingBottom: '5%',
-    lineHeight: 22,
-    paddingTop: '5%',
-    paddingLeft: '5%',
-    paddingRight: '5%',
+    lineHeight: RF(3.9),
+    paddingTop: '10%',
+    paddingLeft: '10%',
+    paddingRight: '10%',
     fontFamily: 'WorkSans-Light',
     color: '#000000',
     fontSize: RF(2.4),
@@ -258,23 +234,27 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-    marginLeft: '2.5%',
-    marginRight: '2.5%',
+    marginLeft: '7%',
+    marginRight: '7%',
     alignContent: 'space-around',
   },
   cardButtonContainer: {
-    paddingBottom: '1%',
+    paddingBottom: '2.5%',
   },
   cardButton: {
-    height: Dimensions.get('window').height * 0.05,  
+    height: Dimensions.get('window').height * 0.05,
     justifyContent: 'center',
     alignContent: "center",
     alignItems: "center",
   },
+  cardContainer: {
+    width: '80%',
+    height: '90%',
+  },
   selectedTextContainer: {
     paddingTop: '5%',
-    paddingLeft: '5%',
-    paddingRight: '5%',
+    paddingLeft: '10%',
+    paddingRight: '10%',
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
@@ -290,7 +270,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '82%',
-    height: Dimensions.get('window').height * 0.082,  
+    height: Dimensions.get('window').height * 0.082,
   },
   btnContainer: {
     justifyContent: 'flex-end',

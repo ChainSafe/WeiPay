@@ -18,25 +18,44 @@ const ethers = require('ethers');
 class RecoverWallet extends Component {
 
     /**
+     * Set the local state to keep track of the mnemonic entered to recover the wallet
+     * @param {Object} props
+     */
+    constructor(props) {
+      super(props);
+      this.state = {
+        mnemonic: '',
+        value: '',
+        buttonDisabled: true,
+      };
+    }
+
+    /**
      * Navigates the state to view the enableTokens screen if the mnemonic entered
      * is valid otherwise an error is displayed
      */
     navigate = () => {
       const navigateToTokens = NavigationActions.navigate({
         routeName: 'enableTokens',
-      });
+    });
 
       try {
-        /*
-                Hardcoded to private key for testing
-                var mnemonic, wallet;\
-                mnemonic = this.state.mnemonic.trim();
-                wallet = ethers.Wallet.fromMnemonic(mnemonic);
-            */
-        const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
-        wallet.provider = provider;
-        this.props.newWalletCreation(wallet); //pass state to redux to save it
-        this.props.navigation.dispatch(navigateToTokens);
+        // const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
+        // wallet.provider = provider;
+        if (this.props.debugMode === true) {
+          const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
+          wallet.provider = provider;
+          this.props.newWalletCreation(wallet); //pass state to redux to save it
+          this.props.navigation.dispatch(navigateToTokens);
+        }else {
+          let mnemonic, wallet;
+          mnemonic = this.state.mnemonic.trim();
+          wallet = ethers.Wallet.fromMnemonic(mnemonic);
+          wallet.provider = provider;
+          this.props.newWalletCreation(wallet); //pass state to redux to save it
+          this.props.navigation.dispatch(navigateToTokens);
+        }
+        
       } catch (err) {
         Alert.alert(
           'Mnemonic Error',
@@ -49,18 +68,7 @@ class RecoverWallet extends Component {
       }
     };
 
-    /**
-     * Set the local state to keep track of the mnemonic entered to recover the wallet
-     * @param {Object} props
-     */
-    constructor(props) {
-      super(props);
-      this.state = {
-        mnemonic: '',
-        value: '',
-        buttonDisabled: true,
-      };
-    }
+
 
     /**
      * Updates the local state with the latest mnemonic that was inputted in the input field
@@ -115,11 +123,14 @@ class RecoverWallet extends Component {
                           <Text style={cardText}>
                               Enter your 12 word recovery passphrase to recover your wallet.
                           </Text>
-                          <FormInput
-                              placeholder={'Ex. man friend love long phrase ... '}
-                              onChangeText={this.renderRecoveryKey.bind(this)}
-                              inputStyle={txtMnemonic}
-                          />
+                          <View style={styles.formInputContainer}>
+                            <FormInput
+                                placeholder={'Ex. man friend love long phrase ... '}
+                                onChangeText={this.renderRecoveryKey.bind(this)}
+                                inputStyle={txtMnemonic}
+
+                            />
+                          </View>
                       </BoxShadowCard>
                   </View>
                 </View>
@@ -169,20 +180,22 @@ const styles = StyleSheet.create({
   },
   boxShadowContainer:{
     alignItems: 'center', 
-    flex: 3
+    flex: 2.5
   },
   contentContainer: {
     width: '82%',
     flex: 1,
   },
   cardText: {
-    paddingBottom: '20%',
-    paddingTop: '7.5%',
-    paddingLeft: '7.5%',
-    paddingRight: '7.5%',
-    fontFamily: 'WorkSans-Light',
-    color: '#000000',
-    fontSize: RF(2.4),
+      paddingBottom: '15%',
+      paddingTop: '10%',
+      paddingLeft: '10%',
+      paddingRight: '10%',
+      fontFamily: 'WorkSans-Light',
+      letterSpacing: 0.4,
+      lineHeight: RF(3.9),
+      color: '#000000',
+      fontSize: RF(2.4),
   },
   txtMnemonic: {
     width: '100%',
@@ -191,9 +204,14 @@ const styles = StyleSheet.create({
     letterSpacing: 0.4,
     fontSize: RF(2.4),
     fontFamily: 'WorkSans-Regular',
+    borderBottomWidth: 0.001
+  },
+  formInputContainer: {
+    width: '90%',
+    marginLeft: '5%',
   },
   btnContainer: {
-    flex: 2,
+    flex: 2.5,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     width: '100%',

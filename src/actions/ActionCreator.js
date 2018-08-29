@@ -94,13 +94,26 @@ export function addingContact(contact) {
  * @param {String} contactName
  * @param {Object} contactAddress
  */
-export function completeContact(contactName, contactAddress) {
+export function completeContact(contactName, contactAddress, images) {
+  const contact = {};
+  contact.name = contactName;
+  contact.contactAddress = contactAddress;
+  contact.images = images
+  console.log(contact);
+  
+
+  return (dispatch) => {
+    dispatch({ type: actionTypes.COMPLETE_CONTACT, payload: contact });
+  };
+}
+
+export function editContact(contactName, contactAddress) {
   const contact = {};
   contact.name = contactName;
   contact.contactAddress = contactAddress;
 
   return (dispatch) => {
-    dispatch({ type: actionTypes.COMPLETE_CONTACT, payload: contact });
+    dispatch({ type: actionTypes.EDIT_CONTACT, payload: contact });
   };
 }
 
@@ -149,3 +162,14 @@ export function enterDebug() {
   };
 }
 
+export function updateTokenBalance(tokenID, balance) {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.UPDATE_TOKEN_BALANCE, payload: { tokenID, balance } });
+  };
+}
+
+export function updateTxnFee(fee) {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.TXN_FEE, payload: fee });
+  };
+}

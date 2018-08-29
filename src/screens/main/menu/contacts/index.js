@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ListView } from 'react-native';
+import { View, Text, StyleSheet, ListView, SafeAreaView, TouchableWithoutFeedback, Dimensions, Keyboard } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { Icon, Button, FormLabel, FormInput, FormValidationMessage, List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import AddFirstContact from './add/AddFirstContact';
-import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
+import ContactBackWithMenuNav from "../../../../components/customPageNavs/ContactBackWithMenuNav"
 import ContactTabNavigator from '../../../../components/customPageNavs/ContactTabNavigator'
-
-
+import ContactsTab from './ContactsTab'
+import AddContact from './add/AddContact'
+import RF from "react-native-responsive-fontsize"
 
 /**
  * Screen that displays all the contacts that have been added to
@@ -16,32 +17,18 @@ import ContactTabNavigator from '../../../../components/customPageNavs/ContactTa
  */
 class Contacts extends Component {
 
-  /**
-   * Sets the screen title to "Contacts".
-   */
-  // static navigationOptions = ({ navigation }) => {
-  //   return {
-  //     title: 'Contacts',
-  //     headerRight: (
-  //       <View style={{ paddingRight: 15 }}>
-  //         <Icon
-  //           name="menu"
-  //           onPress={() => navigation.navigate('DrawerOpen')}
-  //           title="SideMenu"
-  //         />
-  //       </View>
-  //     )
-  //   }
-  // }
-
   constructor(props) {
     super(props)
-    this.state = { active: true }
+    this.state = {
+      active: true,
+      tab: 'contacts',
+      selectedContact: false
+    }
   }
 
   /**
    * LifeCycle method (executes before the screen has been rendered)
-   * Sets the "contacts" data reterived from the global state variable as the 
+   * Sets the "contacts" data reterived from the global state variable as the
    * data source for the list view
    */
   componentWillMount() {
@@ -54,7 +41,7 @@ class Contacts extends Component {
 
   /**
    * LifeCycle method (executes only when the state has been changed)
-   * Re-sets the "contacts" data reterived from the global state variable as the 
+   * Re-sets the "contacts" data reterived from the global state variable as the
    * data source for the list view
    */
   componentWillReceiveProps(nextProps) {
@@ -66,9 +53,9 @@ class Contacts extends Component {
   }
 
   /**
-   * Method is used to navigate to a screen specific to the 
+   * Method is used to navigate to a screen specific to the
    * properties in the "user" object parameter.
-   * 
+   *
    * @param {Object} user
    */
   navigate = (user) => {
@@ -80,53 +67,88 @@ class Contacts extends Component {
     this.props.navigation.dispatch(navigateToCreateOrRestore);
   };
 
+  displayContactTab() {
+    if (this.state.tab === 'contacts'){
+      return (
+        <ContactsTab
+          setAddContactTab={() => this.setState({ tab: 'addcontact' })}
+          navigation={this.props.navigation}
+          selectedContact={this.state.selectedContact}
+          selectedContactTrue={() => this.setState({ selectedContact: true})}
+          setSelectedContactFalse={() => this.setState({ selectedContact: false})}
+        />
+      )
+    }
+    if (this.state.tab === 'addcontact'){
+      return <AddContact navigation={this.props.navigation} />
+    }
+  }
+
   /**
    * Method is used to create an interactable item for the listView specific to
    * the name property of the "user" object
-   * 
+   *
    * @param {Object} user
    */
   renderRow = (user) => {
     return (
-      <ListItem
-        key={user.name}
-        title={user.name}
-        onPress={() => this.navigate(user)}
-      />
+      <View style={styles.rowContainer}>
+        <ListItem
+          key={user.name}
+          title={
+            <View style={styles.listItemContainer}>
+              <Text style={styles.listItemText}>
+                {user.name}
+              </Text>
+            </View>
+          }
+          containerStyle = {styles.listItemContainerStyle}
+          onPress={() => this.navigate(user)}
+        />
+      </View>
     )
   }
 
+  setAddContactTab = () => {
+    this.setState({ tab: 'addcontact' })
+    this.setState({ selectedContact: false })
+  }
+
+  setContactTab = () => {
+    this.setState({ tab: 'contacts' })
+    this.setState({ selectedContact: false })
+  }
   /**
-   * Returns a list of contacts if and only if the length of the contact list reterived from the global state 
+   * Returns a list of contacts if and only if the length of the contact list reterived from the global state
    * variable is greater than 0.
    */
   render() {
-    const show = this.props.contacts.length === 0 ?
-      <View style={styles.mainContainer}>
-        <BackWithMenuNav 
-          showMenu={true}
-          showBack={false}
-          navigation={this.props.navigation}
-          backPage={"mainStack"}
-        />
-        <ContactTabNavigator 
-          Active={this.state.active}
-          navigation={this.props.navigation} 
-        />
-        <AddFirstContact navigate={this.props.navigation.navigate} />
-      </View>
-      :
-      <View style={styles.mainContainer}>
-        <ContactTabNavigator />
-        <BackWithMenuNav 
-            showMenu={true}
-            showBack={false}
-            navigation={this.props.navigation}
-            backPage={"mainStack"}
-          />
-        <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false} />
-      </View>
-    return show
+      return (
+        <SafeAreaView style={styles.safeAreaView}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.mainContainer}>
+              <ContactBackWithMenuNav
+                showMenu={true}
+                showBack={this.state.selectedContact}
+                navigation={this.props.navigation}
+                backPage={"mainStack"}
+                backButton={() => this.setState({ selectedContact: false })}
+              />
+              <ContactTabNavigator
+                Active={this.state.active}
+                navigation={this.props.navigation}
+                setContactTab={this.setContactTab}
+                setAddContactTab={this.setAddContactTab}
+                tab={this.state.tab}
+              />
+              {this.displayContactTab()}
+              <View style={styles.footerContainer} >
+                <Text style={styles.textFooter} >Powered by ChainSafe </Text>
+              </View>
+            </View>
+          </TouchableWithoutFeedback>
+        </SafeAreaView>
+      )
   }
 }
 
@@ -134,6 +156,13 @@ class Contacts extends Component {
  * Styles are not being in this file
  */
 const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1,
+    backgroundColor: '#fafbfe'
+  },
+  rowContainer: {
+    marginTop:'3%'
+  },
   mainContainer: {
     flex: 1,
     alignItems: 'stretch',
@@ -152,16 +181,60 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center'
   },
+  listItemContainer: {
+    flexDirection:'row', 
+    justifyContent:"center", 
+    marginLeft:'5%'
+  },
+  listItem: {
+    marginTop: '2.5%',
+    marginLeft: '0.25%',
+  },
+  listItemText: {
+    fontSize: RF(2.4),
+    fontFamily: "Cairo-Regular",
+    alignItems:"flex-start",
+    flex:1,
+    width:'90%',
+    letterSpacing: 0.5,
+    top: '1%'
+  },
+  listItemContainerStyle: {
+    borderRadius: 10,
+    width: '90%',
+    height: 55,
+    backgroundColor: '#ffffff',
+    justifyContent:"center",
+    borderWidth:0.5,
+    borderColor: '#F8F8FF',
+    shadowColor: '#F8F8FF',
+    shadowOffset: { width: 1, height: 1},
+    shadowOpacity:20,
+    shadowRadius: 10,
+  },
+  list: {
+    marginLeft: '9%'
+  },
+  textFooter : {
+    fontFamily: "WorkSans-Regular",
+    fontSize: 11,
+    marginTop: '3.5%',
+    color: '#c0c0c0'
+  },
+  footerContainer: {
+    alignItems:'center', 
+    marginTop: '-5%', 
+    flex: 0.08, 
+  },
 })
 
 /**
- * Method reterives the list contacts that is stored in the global 
+ * Method reterives the list contacts that is stored in the global
  * state variable and is returns an object with that information
- * @param {Object} param0 
+ * @param {Object} param0
  */
 function mapStateToProps({ contacts }) {
   return { contacts: contacts.contacts }
 }
 
 export default connect(mapStateToProps)(Contacts);
-

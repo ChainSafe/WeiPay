@@ -76,6 +76,7 @@ class CoinListItem extends Component {
    */
   render() {
     const { coin } = this.props;
+
     let statePictureStyle = {
       height: Dimensions.get('window').height * 0.035,
       width: Dimensions.get('window').width * 0.035,
@@ -88,6 +89,8 @@ class CoinListItem extends Component {
         justifyContent: 'center'
       }
     }
+  
+
 
     return (
       <View style={styles.listItemParentContainer}>
@@ -104,7 +107,7 @@ class CoinListItem extends Component {
                     />
                   </View>
                 </View>
-                <View style={{ flex: 4, }}>
+                <View style={{ flex: 4  }}>
                   <View style={{ justifyContent: 'center', flex: 1 }}>
                     <View style={styles.mainTitleContainer}>
                       <Text style={styles.mainTitleText} >{coin.symbol}</Text>

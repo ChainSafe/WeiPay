@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, StyleSheet, TextInput, Text, Platform, Image } from "react-native";
 import { NavigationActions } from "react-navigation";
+import RF from "react-native-responsive-fontsize"
 
 class CoinSendTabNavigator extends Component {
 
@@ -12,9 +13,9 @@ class CoinSendTabNavigator extends Component {
           routeName: "coinHistory",
           params: { name: "Shubhnik" }
         });
-        this.props.navigation.dispatch(navigateHistory);  
+        this.props.navigation.dispatch(navigateHistory);
     }
-    
+
     /**
      * Navigates to the coinSend Page
      */
@@ -43,17 +44,16 @@ class CoinSendTabNavigator extends Component {
     render() {
         return (
             <View style={styles.tabHeader}  >
-                <TouchableOpacity 
-                    style={this.props.Active ? styles.headerButtonOneActive : styles.headerButtonOne}
-                    onPress={this.navigateToContacts} >
-                    <Text style={styles.headerContact}>Contacts</Text>
-                </TouchableOpacity>
-                <TouchableOpacity 
-                    style={!this.props.Active ? styles.headerButtonTwoActive : styles.headerButtonTwo}
-                    onPress={this.navigateToAddContact}>
-                    <Text style={styles.headerAddContact}>Add Contact</Text>
-                </TouchableOpacity>
-                
+              <TouchableOpacity
+                style={this.props.tab === 'contacts' ? styles.headerButtonOneActive : styles.headerButtonOne}
+                onPress={this.props.setContactTab} >
+                <Text style={styles.headerContact}>Contacts</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={this.props.tab === 'addcontact' ? styles.headerButtonTwoActive : styles.headerButtonTwo}
+                onPress={this.props.setAddContactTab}>
+                <Text style={styles.headerAddContact}>Add Contact</Text>
+              </TouchableOpacity>
             </View>
         );
     }
@@ -61,26 +61,25 @@ class CoinSendTabNavigator extends Component {
 
 const styles = StyleSheet.create({
     tabHeader:{
-        flexDirection:'row',  
+        flexDirection:'row',
         width:'82%',
         justifyContent:'center',
         borderBottomWidth: 1,
-        borderBottomColor: '#b3b3b3',
-        //paddingBottom: '2%',
+        borderBottomColor: '#b3b3b3',  
         marginRight: '9%',
         marginLeft: '9%',
     },
     headerContact :{
         alignSelf:'flex-start',
-        fontSize: 19,
-        fontFamily: "Cairo-Light", 
-        letterSpacing: 0.6,     
+        fontSize: RF(2.8),
+        fontFamily: "Cairo-Light",
+        letterSpacing: 0.6,
     },
-    headerAddContact: { 
+    headerAddContact: {
         alignSelf:'flex-end',
-        fontSize: 19,
-        fontFamily: "Cairo-Light", 
-        letterSpacing: 0.6, 
+        fontSize: RF(2.8),
+        fontFamily: "Cairo-Light",
+        letterSpacing: 0.6,
     },
     headerButtonOne: {
         width: '50%',
@@ -102,8 +101,6 @@ const styles = StyleSheet.create({
         borderBottomColor: '#27c997',
         padding: '2%'
     },
-
-
 })
 
 export default CoinSendTabNavigator

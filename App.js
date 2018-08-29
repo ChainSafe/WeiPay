@@ -5,7 +5,8 @@ import {
   View
 } from 'react-native';
 import { Provider } from 'react-redux'
-import store from './store'
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './store'
 import AppNavigation from './src/navigation/stack'
 
 
@@ -13,7 +14,9 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <AppNavigation />
+        <PersistGate loading={null} persistor={persistor}>
+          <AppNavigation />
+        </PersistGate>
       </Provider>
     );
   }
