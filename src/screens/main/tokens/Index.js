@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import ThreeTabNavigator from '../../../components/customPageNavs/ThreeTabNavigator';
+import TabNavigator from '../../../components/customPageNavs/CustomTabNavigator';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import CoinSend from './send/CoinSend';
 import CoinActivity from './history/CoinActivity';
@@ -16,7 +16,7 @@ class TokenFunctionality extends Component {
                     navigation={this.props.navigation}
                     backPage={'mainStack'}
                 />
-                <ThreeTabNavigator>
+                <TabNavigator tabs={3}>
                     {/* First tab */}
                     <View title="SEND" style={styles.content}>
                       <CoinSend />
@@ -29,7 +29,7 @@ class TokenFunctionality extends Component {
                     <View title="RECEIVE" style={styles.content}>
                         <CoinReceive />
                     </View>
-                </ThreeTabNavigator>
+                </TabNavigator>
             </View>
     );
   }
