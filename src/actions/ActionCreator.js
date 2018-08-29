@@ -133,6 +133,12 @@ export function editContact(contactName, contactAddress) {
   };
 }
 
+export function contactsActiveTab(tabName) {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.ACTIVE_CONTACT_TAB, payload: tabName });
+  };
+}
+
 
 /**
  * returns an action that contains the data reterived by using the QrScanner

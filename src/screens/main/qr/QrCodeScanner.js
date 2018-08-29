@@ -81,7 +81,6 @@ class QrCodeScanner extends Component {
                     <Text style={{ backgroundColor: 'white' }}>
                         {this.state.qrcode}
                     </Text>
-
                     <Button
                         title='Next'
                         style={styles.buttonStyle}

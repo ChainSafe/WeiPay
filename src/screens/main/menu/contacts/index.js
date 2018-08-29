@@ -21,7 +21,7 @@ class Contacts extends Component {
     super(props)
     this.state = {
       active: true,
-      tab: 'contacts',
+      tab: this.props.activeTab,
       selectedContact: false
     }
   }
@@ -234,7 +234,10 @@ const styles = StyleSheet.create({
  * @param {Object} param0
  */
 function mapStateToProps({ contacts }) {
-  return { contacts: contacts.contacts }
+  return { 
+    contacts: contacts.contacts,
+    activeTab: contacts.activeTab,
+  };
 }
 
 export default connect(mapStateToProps)(Contacts);

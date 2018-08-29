@@ -7,7 +7,7 @@ const INITIAL_STATE = {
   addingContact: true,
   contactName: '',
   contactAddress: {},
-  activeTab: '',
+  activeTab: 'contacts',
 };
 
 /**
@@ -36,6 +36,9 @@ export default (state = INITIAL_STATE, action) => {
     case actions.SAVING_ADDCONTACT_INPUTS:
 
       return { ...state, incompleteContactInputs: action.payload };
+    
+    case actions.ACTIVE_CONTACT_TAB:
+      return { ...state, activeTab: action.payload };
 
     case actions.EDIT_CONTACT:
       const nameIndex = state.contacts.map(contact => {return contact.name}).indexOf(action.payload.name);

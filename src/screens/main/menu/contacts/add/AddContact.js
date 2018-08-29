@@ -81,9 +81,10 @@ class AddContact extends Component {
 
   navigate = () => {
     this.props.saveAddContactInputs(this.state.contactName, this.state.contactAddress, this.state.tokenImages);
+    this.props.qrScannerInvoker('Contacts');
+    this.props.contactsActiveTab('addcontact');
     const navigateToQrScanner = NavigationActions.navigate({
       routeName: 'QCodeScanner',
-      params: 'addContact',
     });
     this.props.navigation.dispatch(navigateToQrScanner);
   };
