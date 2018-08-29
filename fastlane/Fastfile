@@ -2,6 +2,7 @@ fastlane_version '2.53.1'
 
 platform :ios do
   before_all do
+    setup_circle_ci
     version_number = get_version_number(xcodeproj: "./ios/weipay.xcodeproj", target: "WeiPay")
     build_number = get_build_number(xcodeproj: "./ios/weipay.xcodeproj")
     ENV["VERSION_NUMBER"] = version_number + "." + build_number
