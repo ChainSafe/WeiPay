@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Cairo-Regular',
     color: 'black',
     fontSize: RF(2.1),
-    lineHeight: RF(2.7),
+    lineHeight: RF(3),
     letterSpacing: 0.4,
   },
   addressValue: {
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Cairo-Light',
     color: 'black',
     justifyContent: 'center',
-    lineHeight: RF(2.7),
+    lineHeight: RF(3),
     letterSpacing: 0.4,
   },
   amountContainer: {
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Cairo-Light',
     color: 'black',
     justifyContent: 'center',
-    lineHeight: RF(2.6),
+    lineHeight: RF(2.9),
     letterSpacing: 0.4,
   },
   headerContainer: {
