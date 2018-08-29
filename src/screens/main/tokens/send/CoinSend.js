@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import {
- View, Text, StyleSheet, Alert, TouchableOpacity, Image, SafeAreaView, TouchableWithoutFeedback, Dimensions, Keyboard
+ View, Text, StyleSheet, Alert, TouchableOpacity, Image, SafeAreaView, TouchableWithoutFeedback, Dimensions, Keyboard 
 } from 'react-native';
 import { connect } from 'react-redux';
 import { FormInput, Button, Card } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
-import RF from 'react-native-responsive-fontsize';
+import RF from "react-native-responsive-fontsize"
+import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
 import { getQRCodeData, addTokenInfo } from '../../../../actions/ActionCreator';
 import provider from '../../../../constants/Providers';
 import { qrScannerInvoker, updateTxnFee } from '../../../../actions/ActionCreator';
@@ -16,6 +17,7 @@ import ClearButton from '../../../../components/LinearGradient/ClearButton';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard';
 import Provider from '../../../../constants/Providers';
+
 const ethers = require('ethers');
 const utils = ethers.utils;
 
@@ -65,15 +67,14 @@ class CoinSend extends Component {
    * Executes before the Component has been rendered
    * Sets the state to the hold the wallet address
    */
-  componentWillMount() {
-    this.getTxnFee()
-    if (this.props.navigation.state.params) {
-      const contactAddress = this.props.navigation.state.params.address;
-      if (contactAddress) {
-        this.setState({ inputValue: contactAddress });
-      }
-    }
-  }
+  // componentWillMount() {
+  //   if (this.props.navigation.state.params) {
+  //     const contactAddress = this.props.navigation.state.params.address;
+  //     if (contactAddress) {
+  //       this.setState({ inputValue: contactAddress });
+  //     }
+  //   }
+  // }
 
   /**
    * Sets the address to which the coin/tokens are being sent to
@@ -209,22 +210,6 @@ class CoinSend extends Component {
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.mainContainer}>
-            <View style={styles.navContainer}>
-              <BackWithMenuNav
-                showMenu={true}
-                showBack={true}
-                navigation={this.props.navigation}
-                backPage={'mainStack'}
-              />
-            </View>
-            <View style={styles.navHeaderContainer}>
-              <CoinSendTabNavigator
-                navigation={this.props.navigation}
-                sendActive={true}
-                activityActive={false}
-                receiveActive={false}
-              />
-            </View>
             <View style={styles.boxShadowContainer}>
               <View style={styles.contentContainer}>
                 <BoxShadowCard>
@@ -233,8 +218,7 @@ class CoinSend extends Component {
                   </Text>
                   <View style= {styles.barcodeImageContainer}>
                     <TouchableOpacity
-                      onPress= {() => {console.log(this.props.txnFee);
-                      }} >
+                      onPress= {() => {return this.navigate()}} >
                       <Image
                         source={require('../../../../assets/icons/barcode.png')}
                         style={styles.barcodeImage}
@@ -291,8 +275,8 @@ class CoinSend extends Component {
                 <View style={styles.footerParentContainer} >
                   <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                 </View>
-                  </View>
-                </View>
+              </View>
+            </View>
           </View>
         </TouchableWithoutFeedback>
        </SafeAreaView>
@@ -323,6 +307,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: '10%',
     flex: 3.75,
+    width: '100%',
   },
   contentContainer: {
     width: '82%',

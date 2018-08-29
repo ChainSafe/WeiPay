@@ -76,7 +76,7 @@ class Portfolio extends Component {
         <TouchableOpacity
           onPress={() => {
             this.props.addTokenInfo(token);
-            this.props.navigation.navigate('coinSend');
+            this.props.navigation.navigate("TokenFunctionality")
           }}
           style={styles.listItemParentContainer}
           >
