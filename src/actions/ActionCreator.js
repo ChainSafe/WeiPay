@@ -98,14 +98,30 @@ export function completeContact(contactName, contactAddress, images) {
   const contact = {};
   contact.name = contactName;
   contact.contactAddress = contactAddress;
-  contact.images = images
+  contact.images = images;
   console.log(contact);
-  
+
 
   return (dispatch) => {
     dispatch({ type: actionTypes.COMPLETE_CONTACT, payload: contact });
   };
 }
+
+/**
+ * Contains the inputs made in the addCOntact screen
+ * @param {Object} completeInput
+ */
+export function saveAddContactInputs(contactName, contactAddress, images) {
+  const contact = {};
+  contact.name = contactName;
+  contact.contactAddress = contactAddress;
+  contact.images = images;
+
+  return (dispatch) => {
+    dispatch({ type: actionTypes.SAVING_ADDCONTACT_INPUTS, payload: contact });
+  };
+}
+
 
 export function editContact(contactName, contactAddress) {
   const contact = {};
@@ -136,17 +152,6 @@ export function getQRCodeData(data) {
 export function qrScannerInvoker(pageName) {
   return (dispatch) => {
     dispatch({ type: actionTypes.QRSCANNER_PAGE_INVOKER, payload: pageName });
-  };
-}
-
-
-/**
- * Contains the inputs made in the addCOntact screen
- * @param {Object} completeInput
- */
-export function saveAddContactInputs(completeInput) {
-  return (dispatch) => {
-    dispatch({ type: actionTypes.SAVING_ADDCONTACT_INPUTS, payload: completeInput });
   };
 }
 

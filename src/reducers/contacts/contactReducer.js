@@ -3,9 +3,11 @@ import * as actions from '../../actions/ActionTypes';
 const INITIAL_STATE = {
   contacts: [],
   currentContact: {},
+  incompleteContactInputs: { name: '', contactAddress: {}, images: {} },
   addingContact: true,
   contactName: '',
   contactAddress: {},
+  activeTab: '',
 };
 
 /**
@@ -25,19 +27,25 @@ export default (state = INITIAL_STATE, action) => {
         contact[actionKey] = actionKeyValue;
       }
       return { ...state, currentContact: contact };
+
     case actions.COMPLETE_CONTACT:
       var old = state.contacts;
       const newContact = [...state.contacts, action.payload];
       return { ...state, contacts: newContact, currentContact: {} };
-    case actions.EDIT_CONTACT:
-      let nameIndex = state.contacts.map(contact => contact.name).indexOf(action.payload.name)
-      let editedContactList = [
-        ...state.contacts.slice(0,nameIndex),
-        action.payload,
-        ...state.contacts.slice(nameIndex + 1)
-      ]
 
-      return { ...state, contacts: editedContactList }
+    case actions.SAVING_ADDCONTACT_INPUTS:
+
+      return { ...state, incompleteContactInputs: action.payload };
+
+    case actions.EDIT_CONTACT:
+      const nameIndex = state.contacts.map(contact => {return contact.name}).indexOf(action.payload.name);
+      const editedContactList = [
+        ...state.contacts.slice(0, nameIndex),
+        action.payload,
+        ...state.contacts.slice(nameIndex + 1),
+      ];
+
+      return { ...state, contacts: editedContactList };
 
     default:
       return state;
