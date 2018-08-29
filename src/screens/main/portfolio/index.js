@@ -73,10 +73,10 @@ class Portfolio extends Component {
                 </View>
                 <View style={ styles.listItemValueContainer }>
                   <View style={ styles.listItemValueComponent }>
-                    <View style={{ paddingTop: '3%', flex: 1}}>
+                    <View style={{ paddingBottom: '5%', flex: 1}}>
                       <Text style={styles.listItemCryptoValue}>0</Text>
                     </View>
-                    <View style={{ paddingBottom: '5%', flex: 1}}>
+                    <View style={{ paddingBottom: '8%', flex: 1}}>
                       <Text style={styles.listItemFiatValue}>$2444432</Text>
                     </View>
                   </View>
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   mainTitleContainer: {
     flex: 0.5,
     justifyContent: 'flex-end',
-    paddingTop: '8%',
+    marginTop: '7%',
   },
   mainTitleText: {
     fontSize: RF(2.4),
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
   subtitleContainer: {
     flex: 0.5,
     justifyContent: 'flex-start',
-    paddingBottom: '13%',
+    marginBottom: '7%',
     paddingLeft: '1.5%'
   },
   subTitleText: {
