@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native';
 import { CardSection } from '../../../../components/common/CardSection';
 import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
+import { connect } from 'react-redux';
 import RF from "react-native-responsive-fontsize"
 
 const axios = require('axios');
@@ -18,11 +19,14 @@ const utils = ethers.utils;
 class CoinActivity extends Component {
   constructor(props) {
     super(props);
+
+    console.log(this.props.wallet);
+
     this.state = {
       balance: '',
       loaded: false,
       data: [],
-      address: '0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a',
+      address: this.props.wallet.address,
     };
   }
 
@@ -33,6 +37,7 @@ class CoinActivity extends Component {
   getData = async (address) => {
     const url = `https://api.etherscan.io/api?module=account&action=txlist&address=${  address  }&page=1&offset=10&sort=asc&apikey=YJ1TRXBKAH9QZWINVFT83JMFBQI15X7UPR`;
     axios.get(url).then((response) => {
+      console.log(response.data.result)
       this.parseData(response.data.result);
     });
   }
@@ -102,8 +107,6 @@ class CoinActivity extends Component {
     );
   }
 }
-
-export default CoinActivity;
 
 /**
  * Style
@@ -206,3 +209,12 @@ const styles = StyleSheet.create({
     color: '#141f25',
   },
 });
+
+const mapStateToProps = (state) => {
+  return {
+    wallet: state.newWallet.wallet,  
+  };
+};
+
+
+export default connect(mapStateToProps, null)(CoinActivity);

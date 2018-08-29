@@ -41,25 +41,6 @@ class CoinSend extends Component {
       inputValue: '',
       txnFee: this.props.txnFee,
     };
-
-    /**
-     * Using the Provider (which is connected to the ethereum network) to get the wallet balance and
-     * checks if the wallet has funds available to be sent
-     */
-    // provider.getBalance(this.props.wallet.address).then(function (balance) {
-    //   const etherString = utils.formatEther(balance);
-    //   console.log('Current Wallet Balance' + etherString);
-    //   if (etherString == 0) {
-    //     Alert.alert(
-    //       'No Ether Alert',
-    //       'You need to uncomment the code in the constructor and change the private key to one from your local testrpc to fund this account.',
-    //       [
-    //         { text: 'OK', onPress: () => console.log('OK Pressed') },
-    //       ],
-    //       { cancelable: false }
-    //     )
-    //   }
-    // });
   }
 
   /**
@@ -404,6 +385,7 @@ const mapStateToProps = (state) => {
     txnFee: state.newWallet.txnFee,
   };
 };
+
 export default connect(mapStateToProps, {
  getQRCodeData, qrScannerInvoker, addTokenInfo, updateTxnFee,
 })(CoinSend);
