@@ -291,8 +291,8 @@ class CoinSend extends Component {
                 <View style={styles.footerParentContainer} >
                   <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                 </View>
-                  </View>
-                </View>
+              </View>
+            </View>
           </View>
         </TouchableWithoutFeedback>
        </SafeAreaView>

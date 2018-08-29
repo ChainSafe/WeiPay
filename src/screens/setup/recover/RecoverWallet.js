@@ -119,9 +119,7 @@ class RecoverWallet extends Component {
                             <FormInput
                                 placeholder={'Ex. man friend love long phrase ... '}
                                 onChangeText={this.renderRecoveryKey.bind(this)}
-                                inputStyle={txtMnemonic}
-                                autoCapitalize='no'
-                                autoCorrect='off'
+                                inputStyle={txtMnemonic}                                
                             />
                           </View>
                       </BoxShadowCard>
