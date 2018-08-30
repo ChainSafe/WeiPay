@@ -29,6 +29,8 @@ class AddContact extends Component {
     super(props);
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => { return r1 !== r2 ;} });
 
+    const current = this.props.currentContact;
+
     const contactName = '';
     const contactAddress = {};
     const tokens = [];
@@ -83,6 +85,7 @@ class AddContact extends Component {
     this.props.saveAddContactInputs(this.state.contactName, this.state.contactAddress, this.state.tokenImages);
     this.props.qrScannerInvoker('Contacts');
     this.props.contactsActiveTab('addcontact');
+    debugger;
     const navigateToQrScanner = NavigationActions.navigate({
       routeName: 'QCodeScanner',
     });
@@ -229,6 +232,7 @@ class AddContact extends Component {
         </View>
       </SafeAreaView>
     );
+
   }
 }
 
@@ -397,7 +401,6 @@ const mapStateToProps = ({ contacts, newWallet }) => {
   return {
     tokens: newWallet.tokens,
     currentContact: contacts.currentContact,
-    current: contacts.currentContact,
   };
 };
 

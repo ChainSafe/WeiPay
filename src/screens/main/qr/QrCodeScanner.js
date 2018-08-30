@@ -36,7 +36,7 @@ class QrCodeScanner extends Component {
   }
 
     navigate = () => {
-      debugger;
+      
       const navigateToCreateOrRestore = NavigationActions.navigate({
         routeName: 'Contacts',
       });
