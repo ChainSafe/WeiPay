@@ -29,11 +29,21 @@ class EditContact extends Component {
    */
   constructor(props) {
     super(props);
-    let tokens = []
+
+    console.log(')))))))))))))))');
+    
+    console.log(this.props.currentContact);
+    
+    console.log('((((((((((((((');
+    
     this.inputRefs = {};
-    let contact = this.props.contact
-    let contactName = contact.name
-    let contactAddress = contact.contactAddress
+    const current = this.props.currentContact;
+    let contactName = current.name;
+    let contactAddress = current.contactAddress;
+    let tokens = [];
+    // let contact = this.props.contact
+    // let contactName = contact.name
+    // let contactAddress = contact.contactAddress
     this.props.tokens.map(token => {
       let tokenName = {}
       tokenName.value = token.name
@@ -56,24 +66,24 @@ class EditContact extends Component {
    * state variable.
    * Also clears up the input fields.
    */
-  renderAddContact() {
-    this.props.completeContact(this.state.contactName, this.state.contactAddress);
-    this.setState({ contactName: "" })
-    let newcontactAddress = {}
-    this.props.tokens.map(token => newcontactAddress[token.title] = "")
-    this.setState({ contactAddress: newcontactAddress })
-  }
+  // renderAddContact() {
+  //   this.props.completeContact(this.state.contactName, this.state.contactAddress);
+  //   this.setState({ contactName: "" })
+  //   let newcontactAddress = {}
+  //   this.props.tokens.map(token => newcontactAddress[token.title] = "")
+  //   this.setState({ contactAddress: newcontactAddress })
+  // }
 
   /**
    * This Method is used to update the contact name in the global
    * and local state variable when ever the contactName inputfield changes.
    * @param {String} name
    */
-  renderName(name) {
-    this.setState({ contactName: name })
-    var contact = { name: name }
-    this.props.addingContact(contact)
-  }
+  // renderName(name) {
+  //   this.setState({ contactName: name })
+  //   var contact = { name: name }
+  //   this.props.addingContact(contact)
+  // }
 
   /**
    * This method is passed in as a prop to the AddContactList component.
@@ -94,6 +104,10 @@ class EditContact extends Component {
   }
 
   navigate = () => {
+
+    this.props.saveAddContactInputs(this.state.contactName, this.state.contactAddress, this.state.tokenImages);
+    this.props.qrScannerInvoker('Contacts');
+    this.props.qrScannerCoinInvoker(this.state.tokenName);
     const navigateToQrScanner = NavigationActions.navigate({
       routeName: 'QCodeScanner',
       params: "addContact"
@@ -160,10 +174,12 @@ class EditContact extends Component {
               />
             </View>
             <View style={styles.barcodeContainer}>
-              <Image
-                source={require('../../../../../assets/icons/barcode.png')}
-                style={styles.barcodeImg}
-              />
+              <TouchableOpacity onPress={() => { return this.navigate(); }}>
+                <Image
+                  source={require('../../../../../assets/icons/barcode.png')}
+                  style={styles.barcodeImg}
+                />
+              </TouchableOpacity>
             </View>
             <View style={styles.pickerContainer}>
               <RNPickerSelect
@@ -375,8 +391,7 @@ const pickerStyle = {
 const mapStateToProps = ({ contacts, newWallet }) => {
   return {
     tokens: newWallet.tokens,
-    currentContact: contacts.currentContact,
-    current: contacts.currentContact,
+    currentContact: contacts.incompleteContactInputs,
   }
 }
 

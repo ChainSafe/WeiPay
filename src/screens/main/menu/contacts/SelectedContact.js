@@ -5,7 +5,7 @@ import { Button } from 'react-native-elements'
 import { NavigationActions } from 'react-navigation';
 import { Card } from '../../../../components/common/Card';
 import { CardSection } from '../../../../components/common/CardSection';
-import { getQRCodeData } from '../../../../actions/ActionCreator'
+import * as actions from '../../../../actions/ActionCreator';
 import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
 import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard'
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
@@ -86,8 +86,9 @@ class ContactAddresses extends Component {
 
   renderSelectedContactOrEditedContact = () => {
     if (this.state.editContact === true) {
+      this.props.updateSavedContactInputs(this.props.contact);
       return (
-        <EditContact contact={this.props.contact} setSelectedContactFalse={this.props.setSelectedContactFalse}/>
+        <EditContact  navigation={this.props.navigation} contact={this.props.contact} setSelectedContactFalse={this.props.setSelectedContactFalse}/>
       )
     }
 
@@ -214,4 +215,4 @@ function mapStateToProps({ contacts }) {
   return { contacts: contacts.contacts }
 }
 
-export default connect(null, { getQRCodeData })(ContactAddresses)
+export default connect(null, actions)(ContactAddresses)
