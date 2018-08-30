@@ -50,14 +50,12 @@ class Contacts extends Component {
 
   setAddContactTab = () => {
     this.props.contactsActiveTab('addcontact')
-    debugger
     this.setState({ tab: 'addcontact' });
     this.setState({ selectedContact: false });
   }
 
   setContactTab = () => {
     this.props.contactsActiveTab('contacts');
-    debugger
     this.setState({ tab: 'contacts' });
     this.setState({ selectedContact: false });
   }

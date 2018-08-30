@@ -161,6 +161,16 @@ export function qrScannerInvoker(pageName) {
   };
 }
 
+/**
+ * Contains the name of the coin from which the QrScanner was invoked from
+ * @param {String} coinName
+ */
+export function qrScannerCoinInvoker(coinName) {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.QRSCANNER_COIN_INVOKER, payload: coinName });
+  };
+}
+
 export function addTokenInfo(tokenInfo) {
   return (dispatch) => {
     dispatch({ type: actionTypes.ADD_TOKEN_INFO, payload: tokenInfo });

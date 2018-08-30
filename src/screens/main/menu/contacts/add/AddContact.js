@@ -30,10 +30,10 @@ class AddContact extends Component {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => { return r1 !== r2 ;} });
 
     const current = this.props.currentContact;
-
-    const contactName = '';
-    const contactAddress = {};
-    const tokens = [];
+    
+    let contactName = current.name;
+    let contactAddress = current.contactAddress;
+    let tokens = [];
     this.inputRefs = this.props.tokens.map((token) => {
       console.log(token.logo.src);
       const tokenName = {};
@@ -84,8 +84,8 @@ class AddContact extends Component {
   navigate = () => {
     this.props.saveAddContactInputs(this.state.contactName, this.state.contactAddress, this.state.tokenImages);
     this.props.qrScannerInvoker('Contacts');
+    this.props.qrScannerCoinInvoker(this.state.tokenName);
     this.props.contactsActiveTab('addcontact');
-    debugger;
     const navigateToQrScanner = NavigationActions.navigate({
       routeName: 'QCodeScanner',
     });
@@ -400,7 +400,7 @@ const pickerStyle = {
 const mapStateToProps = ({ contacts, newWallet }) => {
   return {
     tokens: newWallet.tokens,
-    currentContact: contacts.currentContact,
+    currentContact: contacts.incompleteContactInputs,
   };
 };
 

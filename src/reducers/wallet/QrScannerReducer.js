@@ -1,8 +1,8 @@
 import * as actions from '../../actions/ActionTypes';
 
 const INITIAL_STATE = {
-  data: {},
   invoker: '',
+  coinInvoker: '',
 };
 
 /**
@@ -15,8 +15,8 @@ export default (state = INITIAL_STATE, action) => {
 
       return { ...state, invoker: action.payload };
 
-    case actions.SAVING_ADDCONTACT_INPUTS:
-      return { ...state, data: action.payload };
+    case actions.QRSCANNER_COIN_INVOKER:
+      return { ...state, coinInvoker: action.payload };
     default:
       return state;
   }
