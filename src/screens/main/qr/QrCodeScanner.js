@@ -35,9 +35,9 @@ class QrCodeScanner extends Component {
   }
 
     navigate = () => {
-    
+  
       const navigateToCreateOrRestore = NavigationActions.navigate({
-        routeName: 'Contacts',
+        routeName: this.state.invoker,
       });
       this.props.navigation.dispatch(navigateToCreateOrRestore);
     };
@@ -50,7 +50,7 @@ class QrCodeScanner extends Component {
      */
     onBarCodeRead = (e) => {
       this.setState({ qrcode: e.data });
-      if (this.state.invoker == 'CoinSend') {
+      if (this.state.invoker == 'TokenFunctionality') {
         this.props.getQRCodeData(e.data);
       } else {
         const oldInputs = this.state.previousInputs;
