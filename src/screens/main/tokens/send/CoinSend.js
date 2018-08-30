@@ -251,13 +251,11 @@ class CoinSend extends Component {
                         </TouchableOpacity>
                       </View>
                       <View style={styles.inputContainer}>
-
                         {
                           this.state.maliciousComment != "" ? 
                             <Text style={styles.maliciousCommentText}>Malicious - {this.state.maliciousComment} </Text>
                           : null
                         }
-
                         <View style={styles.formInputContainer}>
                             <FormInput
                               placeholder={'Public Address'}
