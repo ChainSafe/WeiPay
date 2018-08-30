@@ -86,6 +86,11 @@ export function addingContact(contact) {
   };
 }
 
+export function saveDataForCoinSend(contact) {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.CONTACT_ADDRESS_TO_COINSEND, payload: contact });
+  };
+}
 
 /**
  * returns an action that contains an object which contains the name

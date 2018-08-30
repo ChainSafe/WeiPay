@@ -26,3 +26,4 @@ export const ADD_TOKEN_INFO = 'add_token_info';
 export const DEBUG_MODE = 'debug_mode';
 export const UPDATE_TOKEN_BALANCE = 'update_token_balance';
 export const TXN_FEE = 'txn_fee';
+export const CONTACT_ADDRESS_TO_COINSEND = 'contact_address_to_coinsend';

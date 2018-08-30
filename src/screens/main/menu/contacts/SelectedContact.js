@@ -31,10 +31,24 @@ class ContactAddresses extends Component {
     this.dataSource = ds.cloneWithRows(data);
   }
 
-  navigateToCoinSend = address => {
+  navigateToCoinSend = (address, token) => {
+
+    for (var i = 0; i < (this.props.tokens.length - 1); i ++) {
+      console.log(address);
+      console.log(this.props.tokens);
+      
+      console.log(this.props.tokens[i].name);
+      if (token === this.props.tokens[i].name){
+        this.props.addTokenInfo(this.props.tokens[i])
+      }
+    }
+
+
+    debugger
+    this.props.getQRCodeData(address);
+    this.props.saveDataForCoinSend(address)
     const navigateToCreateOrRestore = NavigationActions.navigate({
-        routeName: 'coinSend',
-        params: { address }
+        routeName: 'TokenFunctionality',
       });
       this.props.navigation.dispatch(navigateToCreateOrRestore);
   };
@@ -64,7 +78,7 @@ class ContactAddresses extends Component {
 
    return (
       <View style={styles.listItemContainer}>
-        <TouchableOpacity onPress={() => this.navigateToCoinSend(address[Object.keys(address)[0]])}>
+        <TouchableOpacity onPress={() => this.navigateToCoinSend(address[Object.keys(address)[0]], Object.keys(address)[0] )}>
           <BoxShadowCard>
             <View style={styles.mainListItemContentContainter}>
               <View style={styles.mainListItemIconContainer}>
@@ -211,8 +225,8 @@ const styles = StyleSheet.create({
   },
 })
 
-function mapStateToProps({ contacts }) {
-  return { contacts: contacts.contacts }
+function mapStateToProps({ newWallet }) {
+  return { tokens: newWallet.tokens };
 }
 
-export default connect(null, actions)(ContactAddresses)
+export default connect(mapStateToProps, actions)(ContactAddresses)

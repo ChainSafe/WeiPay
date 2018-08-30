@@ -8,6 +8,7 @@ const INITIAL_STATE = {
   contactName: '',
   contactAddress: {},
   activeTab: 'contacts',
+  contactDataforCoinSend: '',
 };
 
 /**
@@ -40,14 +41,16 @@ export default (state = INITIAL_STATE, action) => {
     case actions.ACTIVE_CONTACT_TAB:
       return { ...state, activeTab: action.payload };
     case actions.EDIT_CONTACT:
-      const nameIndex = state.contacts.map(contact => {return contact.name}).indexOf(action.payload.name);
+      const nameIndex = state.contacts.map((contact) => { return contact.name ;}).indexOf(action.payload.name);
       const editedContactList = [
         ...state.contacts.slice(0, nameIndex),
         action.payload,
         ...state.contacts.slice(nameIndex + 1),
       ];
-
       return { ...state, contacts: editedContactList };
+
+    case actions.CONTACT_ADDRESS_TO_COINSEND:
+      return { ...state, contactDataforCoinSend: action.payload };
 
     default:
       return state;
