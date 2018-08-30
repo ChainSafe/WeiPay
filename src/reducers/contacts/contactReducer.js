@@ -34,12 +34,11 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, contacts: newContact, currentContact: {} };
 
     case actions.SAVING_ADDCONTACT_INPUTS:
-
       return { ...state, incompleteContactInputs: action.payload };
-    
+    case actions.UPDATE_SAVED_CONTACT_INPUTS:
+      return { ...state, incompleteContactInputs: action.payload };
     case actions.ACTIVE_CONTACT_TAB:
       return { ...state, activeTab: action.payload };
-
     case actions.EDIT_CONTACT:
       const nameIndex = state.contacts.map(contact => {return contact.name}).indexOf(action.payload.name);
       const editedContactList = [

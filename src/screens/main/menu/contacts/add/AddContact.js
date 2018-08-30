@@ -30,10 +30,14 @@ class AddContact extends Component {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => { return r1 !== r2 ;} });
 
     const current = this.props.currentContact;
+    console.log(current);
     
     let contactName = current.name;
     let contactAddress = current.contactAddress;
     let tokens = [];
+    // let contactName = '';
+    // let contactAddress = {};
+    // let tokens = [];
     this.inputRefs = this.props.tokens.map((token) => {
       console.log(token.logo.src);
       const tokenName = {};
@@ -41,6 +45,8 @@ class AddContact extends Component {
       tokenName.label = token.name;
       tokenName.img = token.logo.src;
       tokens.push(tokenName);
+      console.log(tokens);
+      
     });
 
     this.state = {
@@ -49,7 +55,7 @@ class AddContact extends Component {
       contactName,
       contactAddress,
       tokenImages: {},
-      tokenName: null,
+      tokenName: '',
       tokenIMG: '',
       tokens,
       contactAddressInput: '',
@@ -62,7 +68,7 @@ class AddContact extends Component {
    * Also clears up the input fields.
    */
   renderAddContact() {
-    this.props.completeContact(this.state.contactName, this.state.contactAddress);
+    this.props.completeContact(this.state.contactName, this.state.contactAddress, this.state.tokenImages);
     this.setState({ contactName: '' });
     const newcontactAddress = {};
     this.props.tokens.map((token) => { return newcontactAddress[token.title] = '' ;});
@@ -151,6 +157,7 @@ class AddContact extends Component {
    * Returns the form required to add a contact
    */
   render() {
+   
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>

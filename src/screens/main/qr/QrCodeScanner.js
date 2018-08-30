@@ -8,7 +8,7 @@ import Camera from 'react-native-camera';
 import { NavigationActions } from 'react-navigation';
 import RF from 'react-native-responsive-fontsize';
 import { getQRCodeData } from '../../../actions/ActionCreator';
-import { saveAddContactInputs } from '../../../actions/ActionCreator';
+import { updateSavedContactInputs } from '../../../actions/ActionCreator';
 import ContactAddresses from '../menu/contacts/SelectedContact';
 
 /**
@@ -35,7 +35,7 @@ class QrCodeScanner extends Component {
   }
 
     navigate = () => {
-      debugger;
+    
       const navigateToCreateOrRestore = NavigationActions.navigate({
         routeName: 'Contacts',
       });
@@ -54,11 +54,10 @@ class QrCodeScanner extends Component {
         this.props.getQRCodeData(e.data);
       } else {
         const oldInputs = this.state.previousInputs;
-        oldInputs[this.state.coinInvoker] = e.data;
-        const contactInputs = {};
-        contactInputs.name = this.state.currentContactName;
-        contactInputs.ContactAddresses = oldInputs;
-        this.props.saveAddContactInputs(contactInputs);
+        oldInputs.contactAddress[this.state.coinInvoker] = e.data;
+        const contactInputs = oldInputs;
+        // debugger;
+        this.props.updateSavedContactInputs(contactInputs);
       }
     };
 
@@ -76,6 +75,7 @@ class QrCodeScanner extends Component {
                     onBarCodeRead={this.onBarCodeRead}
                     ref={(cam) => { return this.camera = cam; }}
                     aspect={Camera.constants.Aspect.fill}
+                    showMarker={true}
                 >
                     <Text style={{ backgroundColor: 'white' }}>
                         {this.state.qrcode}
@@ -139,4 +139,4 @@ const mapStateToProps = ({ QrScanner, contacts }) => {
   };
 };
 
-export default connect(mapStateToProps, { getQRCodeData, saveAddContactInputs })(QrCodeScanner);
+export default connect(mapStateToProps, { getQRCodeData, updateSavedContactInputs })(QrCodeScanner);

@@ -122,6 +122,12 @@ export function saveAddContactInputs(contactName, contactAddress, images) {
   };
 }
 
+export function updateSavedContactInputs(newInfo) {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.UPDATE_SAVED_CONTACT_INPUTS, payload: newInfo });
+  };
+}
+
 
 export function editContact(contactName, contactAddress) {
   const contact = {};

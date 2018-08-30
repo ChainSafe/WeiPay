@@ -12,7 +12,6 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case actions.QRSCANNER_PAGE_INVOKER:
-
       return { ...state, invoker: action.payload };
 
     case actions.QRSCANNER_COIN_INVOKER:
