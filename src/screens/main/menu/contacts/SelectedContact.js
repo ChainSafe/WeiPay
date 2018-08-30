@@ -32,19 +32,11 @@ class ContactAddresses extends Component {
   }
 
   navigateToCoinSend = (address, token) => {
-
     for (var i = 0; i < (this.props.tokens.length - 1); i ++) {
-      console.log(address);
-      console.log(this.props.tokens);
-      
-      console.log(this.props.tokens[i].name);
       if (token === this.props.tokens[i].name){
         this.props.addTokenInfo(this.props.tokens[i])
       }
     }
-
-
-    debugger
     this.props.getQRCodeData(address);
     this.props.saveDataForCoinSend(address)
     const navigateToCreateOrRestore = NavigationActions.navigate({
@@ -62,15 +54,12 @@ class ContactAddresses extends Component {
   };
 
   renderRow(address) {
-    console.log(this.props.contact);
     const contactInfo = this.props.contact.images;
     let url; 
 
     for (var key in contactInfo) {
       if (contactInfo.hasOwnProperty(key)) {
           if(key == Object.keys(address)[0]) {
-            console.log(key + " -> " + contactInfo[key]);
-            console.log(Object.keys(address)[0]);  
             url = contactInfo[key];
           }       
       }

@@ -68,20 +68,6 @@ class CoinSend extends Component {
   }
 
   /**
-   * LifeCycle Method
-   * Executes before the Component has been rendered
-   * Sets the state to the hold the wallet address
-   */
-  // componentWillMount() {
-  //   if (this.props.navigation.state.params) {
-  //     const contactAddress = this.props.navigation.state.params.address;
-  //     if (contactAddress) {
-  //       this.setState({ inputValue: contactAddress });
-  //     }
-  //   }
-  // }
-
-  /**
    * Sets the address to which the coin/tokens are being sent to
    * @param {String} addressInput
    */

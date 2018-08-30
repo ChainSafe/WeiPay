@@ -104,9 +104,7 @@ export function completeContact(contactName, contactAddress, images) {
   contact.name = contactName;
   contact.contactAddress = contactAddress;
   contact.images = images;
-  console.log(contact);
-
-
+  
   return (dispatch) => {
     dispatch({ type: actionTypes.COMPLETE_CONTACT, payload: contact });
   };

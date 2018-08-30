@@ -28,25 +28,17 @@ class AddContact extends Component {
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => { return r1 !== r2 ;} });
-
     const current = this.props.currentContact;
-    console.log(current);
-    
     let contactName = current.name;
     let contactAddress = current.contactAddress;
     let tokens = [];
-    // let contactName = '';
-    // let contactAddress = {};
-    // let tokens = [];
+    
     this.inputRefs = this.props.tokens.map((token) => {
-      console.log(token.logo.src);
       const tokenName = {};
       tokenName.value = token.name;
       tokenName.label = token.name;
       tokenName.img = token.logo.src;
-      tokens.push(tokenName);
-      console.log(tokens);
-      
+      tokens.push(tokenName);      
     });
 
     this.state = {
