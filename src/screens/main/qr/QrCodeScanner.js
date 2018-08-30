@@ -30,6 +30,7 @@ class QrCodeScanner extends Component {
       qrcode: '',
       invoker: this.props.invoker,
       coinInvoker: this.props.coinInvoker,
+      previousInputs: this.props.currentContact,
     };
   }
 
@@ -49,16 +50,16 @@ class QrCodeScanner extends Component {
      */
     onBarCodeRead = (e) => {
       this.setState({ qrcode: e.data });
-      // if (this.state.invoker == "CoinSend") {
-      //     this.props.getQRCodeData(e.data)
-      // } else {
-      //     let oldInputs = this.state.previousInputs
-      //     oldInputs[this.state.coinInvoker] = e.data
-      //     let contactInputs = {}
-      //     contactInputs["name"] = this.state.currentContactName
-      //     contactInputs["ContactAddresses"] = oldInputs
-      //     this.props.saveAddContactInputs(contactInputs)
-      // }
+      if (this.state.invoker == 'CoinSend') {
+        this.props.getQRCodeData(e.data);
+      } else {
+        const oldInputs = this.state.previousInputs;
+        oldInputs[this.state.coinInvoker] = e.data;
+        const contactInputs = {};
+        contactInputs.name = this.state.currentContactName;
+        contactInputs.ContactAddresses = oldInputs;
+        this.props.saveAddContactInputs(contactInputs);
+      }
     };
 
 
@@ -73,7 +74,7 @@ class QrCodeScanner extends Component {
                 <Camera
                     style={styles.preview}
                     onBarCodeRead={this.onBarCodeRead}
-                    ref={(cam) => { return this.camera = cam ;}}
+                    ref={(cam) => { return this.camera = cam; }}
                     aspect={Camera.constants.Aspect.fill}
                 >
                     <Text style={{ backgroundColor: 'white' }}>
