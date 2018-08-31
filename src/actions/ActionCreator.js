@@ -100,23 +100,26 @@ export function completeContact(contactName, contactAddress, images) {
   contact.contactAddress = contactAddress;
   contact.images = images
   console.log(contact);
-  
+
 
   return (dispatch) => {
     dispatch({ type: actionTypes.COMPLETE_CONTACT, payload: contact });
   };
 }
 
-export function editContact(contactName, contactAddress) {
-  const contact = {};
-  contact.name = contactName;
-  contact.contactAddress = contactAddress;
+export function editContact(contactName) {
 
   return (dispatch) => {
-    dispatch({ type: actionTypes.EDIT_CONTACT, payload: contact });
+    dispatch({ type: actionTypes.EDIT_CONTACT, payload: contactName });
   };
 }
 
+export function deleteContact(contactName, contactAddress) {
+
+  return (dispatch) => {
+    dispatch({ type: actionTypes.DELETE_CONTACT, payload: contactName });
+  };
+}
 
 /**
  * returns an action that contains the data reterived by using the QrScanner

@@ -45,7 +45,7 @@ class Portfolio extends Component {
   }
 
   getTokenBalance = async (tokenIndex) => {
-    
+
     const token = this.state.data[tokenIndex];
     try {
       const currentWallet = this.props.newWallet.wallet;
@@ -79,7 +79,7 @@ class Portfolio extends Component {
             this.props.navigation.navigate("TokenFunctionality")
           }}
           style={styles.listItemParentContainer}
-          >
+        >
           <View>
             <BoxShadowCard customStyles={styles.boxShadowContainer}>
               <View style={[styles.contentContainer]}>
@@ -103,14 +103,18 @@ class Portfolio extends Component {
                 </View>
                 <View style={ styles.listItemValueContainer }>
                   <View style={ styles.listItemValueComponent }>
-                    <Text style={styles.listItemCryptoValue}>{token.balance}</Text>
-                    <Text style={styles.listItemFiatValue}>$2444432</Text>
+                    <View style={{ flex: 1, paddingTop: '0%',}}>
+                      <Text style={styles.listItemCryptoValue}>{token.balance}</Text>
+                    </View>
+                    <View style={{ flex: 1, paddingBottom: '5%',}}>
+                      <Text style={styles.listItemFiatValue}>$2444432</Text>
+                    </View>
                   </View>
                 </View>
               </View>
             </BoxShadowCard>
           </View>
-        </TouchableOpacity >
+        </TouchableOpacity>
     );
   }
 
@@ -228,34 +232,37 @@ const styles = StyleSheet.create({
   mainTitleContainer: {
     flex: 0.5,
     justifyContent: 'flex-end',
-    paddingTop: '2.5%',
+    paddingTop: '7%',
   },
   mainTitleText: {
-    fontSize: RF(3),
+    fontSize: RF(2.4),
     fontFamily: 'Cairo-Regular',
     letterSpacing: 0.5,
-    color: 'black',
+    color: '#061f46',
   },
   subtitleContainer: {
     flex: 0.5,
     justifyContent: 'flex-start',
-    paddingBottom: '1.5%',
+    paddingBottom: '11%',
+    paddingLeft: '2%'
   },
   subTitleText: {
-    fontSize: RF(2),
+    fontSize: RF(1.6),
+    paddingLeft: '.5%',
     fontFamily: 'Cairo-Regular',
+    color: '#061f46',
     letterSpacing: 0.5,
   },
   listItemFiatValue: {
     alignItems: 'flex-end',
-    fontSize: RF(2),
+    fontSize: RF(1.7),
     fontFamily: 'WorkSans-Light',
     paddingRight: '1.75%',
     letterSpacing: 0.4,
   },
   listItemCryptoValue: {
     alignItems: 'flex-end',
-    fontSize: RF(1.5),
+    fontSize: RF(2.7),
     fontFamily: 'Cairo-Regular',
     letterSpacing: 0.5,
     color: 'black',

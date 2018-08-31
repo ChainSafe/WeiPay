@@ -5,12 +5,13 @@ import { Button } from 'react-native-elements'
 import { NavigationActions } from 'react-navigation';
 import { Card } from '../../../../components/common/Card';
 import { CardSection } from '../../../../components/common/CardSection';
-import { getQRCodeData } from '../../../../actions/ActionCreator'
+import { getQRCodeData, deleteContact } from '../../../../actions/ActionCreator'
 import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
 import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard'
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
 import EditContact from './add/EditContact';
 import RF from "react-native-responsive-fontsize";
+
 
 class ContactAddresses extends Component {
 
@@ -62,6 +63,8 @@ class ContactAddresses extends Component {
       }
   }
 
+
+
    return (
       <View style={styles.listItemContainer}>
         <TouchableOpacity onPress={() => this.navigateToCoinSend(address[Object.keys(address)[0]])}>
@@ -102,9 +105,8 @@ class ContactAddresses extends Component {
         <View style={styles.btnContainer}>
           <View style={styles.btnFlex}>
             <LinearButton
-              buttonText='Clear'
-              onClickFunction={this.clear.bind(this)}
-              customStyles={styles.clearButton}
+              buttonText='Delete Contact'
+              onClickFunction={this.deleteContact.bind(this)}
             />
           </View>
           <View style={styles.btnFlex}>
@@ -115,23 +117,21 @@ class ContactAddresses extends Component {
             />
           </View>
         </View>
-        <View style={styles.btnContainer}>
-          <LinearButton
-            buttonText='Edit Contact'
-            customStyles={styles.button}
-            onClickFunction={() => this.setState({ editContact: true })}
-          />
-        </View>
       </View>
     )
   }
 
-  render() {
-    return (
-      this.renderSelectedContactOrEditedContact()
-    )
+  deleteContact() {
+    this.props.deleteContact(this.props.contact.name)
+    this.props.setSelectedContactFalse()
   }
-}
+
+  render() {
+      return (
+        this.renderSelectedContactOrEditedContact()
+      )
+    }
+  }
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
     marginLeft: '0%'
   },
   btnContainer: {
-    flex: 0.1,
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'flex-end',
@@ -242,4 +242,4 @@ function mapStateToProps({ contacts }) {
   return { contacts: contacts.contacts }
 }
 
-export default connect(null, { getQRCodeData })(ContactAddresses)
+export default connect(null, { getQRCodeData, deleteContact })(ContactAddresses)

@@ -30,7 +30,7 @@ export default (state = INITIAL_STATE, action) => {
       const newContact = [...state.contacts, action.payload];
       return { ...state, contacts: newContact, currentContact: {} };
     case actions.EDIT_CONTACT:
-      let nameIndex = state.contacts.map(contact => contact.name).indexOf(action.payload.name)
+      let nameIndex = state.contacts.map(contact => contact.name).indexOf(action.payload)
       let editedContactList = [
         ...state.contacts.slice(0,nameIndex),
         action.payload,
@@ -38,6 +38,15 @@ export default (state = INITIAL_STATE, action) => {
       ]
 
       return { ...state, contacts: editedContactList }
+
+    case actions.DELETE_CONTACT:
+      let deleteIndex = state.contacts.map(contact => contact.name).indexOf(action.payload)
+      let deletedContactList = [
+        ...state.contacts.slice(0,deleteIndex),
+        ...state.contacts.slice(deleteIndex + 1)
+      ]
+
+      return { ...state, contacts: deletedContactList }
 
     default:
       return state;
