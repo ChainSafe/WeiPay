@@ -57,7 +57,7 @@ export default class Tabs extends Component {
                 return <TouchableOpacity
                   style={[
                     styles.tabContainer,
-                    index === this.state.activeTab ? styles.tabContainerActive : [],
+                    index === this.state.activeTab ? styles.tabContainerActive : { borderBottomColor: '#bcbcbc', borderBottomWidth: 1 },
                   ]}
                   onPress={() => { return this.setState({ activeTab: index }); } }
                   key={index}
@@ -80,6 +80,8 @@ export default class Tabs extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginLeft: '9%',
+    marginRight: '9%',
   },
   tabsContainer: {
     flexDirection: 'row',
