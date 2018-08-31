@@ -33,7 +33,7 @@ class ContactAddresses extends Component {
 
   navigateToCoinSend = address => {
     const navigateToCreateOrRestore = NavigationActions.navigate({
-        routeName: 'coinSend',
+        routeName: 'TokenFunctionality',
         params: { address }
       });
       this.props.navigation.dispatch(navigateToCreateOrRestore);
