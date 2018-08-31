@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   incompleteContactInputs: { name: '', contactAddress: {}, images: {} },
   addingContact: true,
   contactName: '',
+  editContactState: false,
   contactAddress: {},
   activeTab: 'contacts',
   contactDataforCoinSend: '',
@@ -31,8 +32,9 @@ export default (state = INITIAL_STATE, action) => {
 
     case actions.COMPLETE_CONTACT:
       var old = state.contacts;
+      const initialVal = { name: '', contactAddress: {}, images: {} }
       const newContact = [...state.contacts, action.payload];
-      return { ...state, contacts: newContact, currentContact: {} };
+      return { ...state, contacts: newContact, currentContact: {}, incompleteContactInputs: initialVal };
 
     case actions.SAVING_ADDCONTACT_INPUTS:
       return { ...state, incompleteContactInputs: action.payload };
@@ -47,7 +49,7 @@ export default (state = INITIAL_STATE, action) => {
         action.payload,
         ...state.contacts.slice(nameIndex + 1),
       ];
-      return { ...state, contacts: editedContactList };
+      return { ...state, contacts: editedContactList, editContactState: true };
 
     case actions.CONTACT_ADDRESS_TO_COINSEND:
       return { ...state, contactDataforCoinSend: action.payload };

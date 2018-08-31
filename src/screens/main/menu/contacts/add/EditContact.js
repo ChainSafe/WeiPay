@@ -57,30 +57,6 @@ class EditContact extends Component {
   }
 
   /**
-   * Method used to add all the information inputted for the new contact into the global
-   * state variable.
-   * Also clears up the input fields.
-   */
-  // renderAddContact() {
-  //   this.props.completeContact(this.state.contactName, this.state.contactAddress);
-  //   this.setState({ contactName: "" })
-  //   let newcontactAddress = {}
-  //   this.props.tokens.map(token => newcontactAddress[token.title] = "")
-  //   this.setState({ contactAddress: newcontactAddress })
-  // }
-
-  /**
-   * This Method is used to update the contact name in the global
-   * and local state variable when ever the contactName inputfield changes.
-   * @param {String} name
-   */
-  // renderName(name) {
-  //   this.setState({ contactName: name })
-  //   var contact = { name: name }
-  //   this.props.addingContact(contact)
-  // }
-
-  /**
    * This method is passed in as a prop to the AddContactList component.
    * Creates an object with the coinName as the only key, and address as the value of
    * coinName.
@@ -104,7 +80,6 @@ class EditContact extends Component {
     this.props.qrScannerCoinInvoker(this.state.tokenName);
     const navigateToQrScanner = NavigationActions.navigate({
       routeName: 'QCodeScanner',
-      params: 'addContact',
     });
     this.props.navigation.dispatch(navigateToQrScanner);
   };
