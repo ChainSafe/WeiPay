@@ -77,21 +77,6 @@ class CoinListItem extends Component {
   render() {
     const { coin } = this.props;
 
-    let statePictureStyle = {
-      height: Dimensions.get('window').height * 0.035,
-      width: Dimensions.get('window').width * 0.035,
-      justifyContent: 'center'
-    }
-    if (this.state.totalTaps == 2 && coin.selected) {
-      statePictureStyle = {
-        height: Dimensions.get('window').height * 0.03,
-        width: Dimensions.get('window').width * 0.03,
-        justifyContent: 'center'
-      }
-    }
-  
-
-
     return (
       <View style={styles.listItemParentContainer}>
         <TouchableOpacity
@@ -119,9 +104,12 @@ class CoinListItem extends Component {
                   </View>
                 </View>
                 <View style={{ flex: 1 }}>
-                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginBottom: '7%' }}>
+                  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <Image
-                      style={statePictureStyle}
+                      style={{
+                        height: Dimensions.get('window').height * 0.035,
+                        width: Dimensions.get('window').width * 0.035,
+                      justifyContent: 'center' } }
                       source={this.renderStatePicture(coin)}
                     />
                   </View>
@@ -171,12 +159,10 @@ const styles = StyleSheet.create({
   mainTitleContainer: {
     flex: 0.5,
     justifyContent: 'flex-end',
-    marginTop: '4%'
   },
   subtitleContainer: {
     flex: 0.5,
     justifyContent: 'flex-start',
-    marginBottom: '7%'
   },
   mainTitleText: {
     fontSize: RF(2.4),
@@ -186,7 +172,6 @@ const styles = StyleSheet.create({
   },
   subTitleText: {
     fontSize: RF(1.6),
-    paddingLeft: '.5%',
     fontFamily: 'Cairo-Regular',
     color: '#061f46',
     letterSpacing: 0.5,
