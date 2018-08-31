@@ -8,7 +8,7 @@ const persistConfig = {
   key: 'root',
   storage,
   persist: (...options) => persistNative(...options),
-  whitelist: ['contacts']
+  whitelist: ['contacts', 'wallet', 'newWallet']
 }
 
 const persistedReducer = persistReducer(persistConfig, AppReducer)

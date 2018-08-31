@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native';
 import { CardSection } from '../../../../components/common/CardSection';
 import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
+import { connect } from 'react-redux';
 import RF from "react-native-responsive-fontsize"
 
 const axios = require('axios');
@@ -18,11 +19,14 @@ const utils = ethers.utils;
 class CoinActivity extends Component {
   constructor(props) {
     super(props);
+
+    console.log(this.props.wallet);
+
     this.state = {
       balance: '',
       loaded: false,
       data: [],
-      address: '0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a',
+      address: this.props.wallet.address,
     };
   }
 
@@ -33,6 +37,7 @@ class CoinActivity extends Component {
   getData = async (address) => {
     const url = `https://api.etherscan.io/api?module=account&action=txlist&address=${  address  }&page=1&offset=10&sort=asc&apikey=YJ1TRXBKAH9QZWINVFT83JMFBQI15X7UPR`;
     axios.get(url).then((response) => {
+      console.log(response.data.result)
       this.parseData(response.data.result);
     });
   }
@@ -66,61 +71,31 @@ class CoinActivity extends Component {
    * Returns a component holding a list of transactions that have been occured
    */
   render() {
-    const {
-      mainContainer,
-      itemStyle,
-      headerContainer,
-      type,
-      date,
-      addressContainer,
-      addressTitle,
-      addressValue,
-      amountContainer,
-      amountTitle,
-      amountValue,
-    } = styles;
-
     return (
       <SafeAreaView style={styles.safeAreaView}>
-        <View style={mainContainer}>
-          <View style={styles.navContainer}>        
-              <BackWithMenuNav
-                  showMenu={true}
-                  showBack={true}
-                  navigation={this.props.navigation}
-                  backPage={'mainStack'}
-                />
-            </View>
-            <View style={[styles.navHeaderContainer]}>
-              <CoinSendTabNavigator 
-                navigation={this.props.navigation}
-                sendActive={false}
-                activityActive={true}
-                receiveActive={false} 
-              />
-          </View>
+        <View style={styles.mainContainer}>
           <View style={styles.listContainer}>
             <FlatList
               data={this.state.data}
               keyExtractor={(x, i) => i.toString()}
-              style={{ flex: 1, width: '100%', backgroundColor: '#fafbfe' }}
+              style={styles.flatListStyle}
               renderItem={({ item }) =>              
-                <View style={itemStyle}>
+                <View style={styles.itemStyle}>
                   <View>
                     <View>
-                      <View style={headerContainer}>
-                        <Text style={type}>
+                      <View style={styles.headerContainer}>
+                        <Text style={styles.type}>
                           {item.type}
                         </Text>
-                        <Text style={date}>{item.timeStamp}</Text>
+                        <Text style={styles.date}>{item.timeStamp}</Text>
                       </View>
-                      <View style={addressContainer}>
-                          <Text style={addressTitle}>Address: </Text>
-                          <Text style={addressValue}>{item.address}</Text>
+                      <View style={styles.addressContainer}>
+                          <Text style={styles.addressTitle}>Address: </Text>
+                          <Text style={styles.addressValue}>{item.address}</Text>
                       </View>
-                      <View style={amountContainer}>
-                          <Text style={amountTitle}>Amount: </Text>
-                          <Text style={amountValue}>{item.value}</Text>
+                      <View style={styles.amountContainer}>
+                          <Text style={styles.amountTitle}>Amount: </Text>
+                          <Text style={styles.amountValue}>{item.value}</Text>
                       </View>
                     </View>
                   </View>
@@ -132,8 +107,6 @@ class CoinActivity extends Component {
     );
   }
 }
-
-export default CoinActivity;
 
 /**
  * Style
@@ -154,10 +127,14 @@ const styles = StyleSheet.create({
   navHeaderContainer: {
     flex: 0.3,
   },
+  flatListStyle: {
+    flex: 1, 
+    width: '100%', 
+    backgroundColor: '#fafbfe'
+  },
   listContainer: {
     flex: 5.25,
     marginTop: '12%',
-    // paddingTop: '10%',
   },
   addressContainer: {
     flexDirection: 'row',
@@ -168,7 +145,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Cairo-Regular',
     color: 'black',
     fontSize: RF(2.1),
-    lineHeight: RF(2.7),
+    lineHeight: RF(3),
     letterSpacing: 0.4,
   },
   addressValue: {
@@ -176,7 +153,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Cairo-Light',
     color: 'black',
     justifyContent: 'center',
-    lineHeight: RF(2.7),
+    lineHeight: RF(3),
     letterSpacing: 0.4,
   },
   amountContainer: {
@@ -195,7 +172,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Cairo-Light',
     color: 'black',
     justifyContent: 'center',
-    lineHeight: RF(2.6),
+    lineHeight: RF(2.9),
     letterSpacing: 0.4,
   },
   headerContainer: {
@@ -232,3 +209,12 @@ const styles = StyleSheet.create({
     color: '#141f25',
   },
 });
+
+const mapStateToProps = (state) => {
+  return {
+    wallet: state.newWallet.wallet,  
+  };
+};
+
+
+export default connect(mapStateToProps, null)(CoinActivity);

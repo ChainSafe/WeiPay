@@ -18,25 +18,44 @@ const ethers = require('ethers');
 class RecoverWallet extends Component {
 
     /**
+     * Set the local state to keep track of the mnemonic entered to recover the wallet
+     * @param {Object} props
+     */
+    constructor(props) {
+      super(props);
+      this.state = {
+        mnemonic: '',
+        value: '',
+        buttonDisabled: true,
+      };
+    }
+
+    /**
      * Navigates the state to view the enableTokens screen if the mnemonic entered
      * is valid otherwise an error is displayed
      */
     navigate = () => {
       const navigateToTokens = NavigationActions.navigate({
         routeName: 'enableTokens',
-      });
+    });
 
       try {
-        /*
-                Hardcoded to private key for testing
-                var mnemonic, wallet;\
-                mnemonic = this.state.mnemonic.trim();
-                wallet = ethers.Wallet.fromMnemonic(mnemonic);
-            */
-        const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
-        wallet.provider = provider;
-        this.props.newWalletCreation(wallet); //pass state to redux to save it
-        this.props.navigation.dispatch(navigateToTokens);
+        // const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
+        // wallet.provider = provider;
+        if (this.props.debugMode === true) {
+          const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
+          wallet.provider = provider;
+          this.props.newWalletCreation(wallet); //pass state to redux to save it
+          this.props.navigation.dispatch(navigateToTokens);
+        }else {
+          let mnemonic, wallet;
+          mnemonic = this.state.mnemonic.trim();
+          wallet = ethers.Wallet.fromMnemonic(mnemonic);
+          wallet.provider = provider;
+          this.props.newWalletCreation(wallet); //pass state to redux to save it
+          this.props.navigation.dispatch(navigateToTokens);
+        }
+        
       } catch (err) {
         Alert.alert(
           'Mnemonic Error',
@@ -49,18 +68,7 @@ class RecoverWallet extends Component {
       }
     };
 
-    /**
-     * Set the local state to keep track of the mnemonic entered to recover the wallet
-     * @param {Object} props
-     */
-    constructor(props) {
-      super(props);
-      this.state = {
-        mnemonic: '',
-        value: '',
-        buttonDisabled: true,
-      };
-    }
+
 
     /**
      * Updates the local state with the latest mnemonic that was inputted in the input field
@@ -120,6 +128,7 @@ class RecoverWallet extends Component {
                                 placeholder={'Ex. man friend love long phrase ... '}
                                 onChangeText={this.renderRecoveryKey.bind(this)}
                                 inputStyle={txtMnemonic}
+
                             />
                           </View>
                       </BoxShadowCard>

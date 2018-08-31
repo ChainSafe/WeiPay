@@ -12,7 +12,7 @@ const AppReducer = combineReducers({
   NavigationReducer,
   newWallet: NewWalletSetup,
   contacts: ContactsReducer,
-  QrScanner: QrScannerReducer,
+  QrScanner: QrScannerReducer
 });
 
 export default AppReducer;

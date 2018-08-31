@@ -78,8 +78,6 @@ class CoinListItem extends Component {
     const { coin } = this.props;
 
     return (
-
-
       <View style={styles.listItemParentContainer}>
         <TouchableOpacity
           onPress={() => {return this.renderPress(coin)}}>
@@ -89,20 +87,20 @@ class CoinListItem extends Component {
                 <View style={styles.imgMainContainer} >
                   <View style={styles.imageContainer} >
                     <Image
-                      style={styles.img}            
+                      style={styles.img}
                       source={{ uri: coin.logo.src} }
                     />
                   </View>
                 </View>
                 <View style={{ flex: 4  }}>
-                  <View style={{ justifyContent: 'center', flex: 1 }}>                       
+                  <View style={{ justifyContent: 'center', flex: 1 }}>
                     <View style={styles.mainTitleContainer}>
                       <Text style={styles.mainTitleText} >{coin.symbol}</Text>
                     </View>
                     <View style={styles.subtitleContainer}>
                       <Text style={styles.subTitleText} >{coin.name}</Text>
                     </View>
-                   
+
                   </View>
                 </View>
                 <View style={{ flex: 1 }}>
