@@ -80,11 +80,11 @@ export default class Tabs extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginLeft: '9%',
-    marginRight: '9%',
   },
   tabsContainer: {
     flexDirection: 'row',
+    marginLeft: '9%',
+    marginRight: '9%',
   },
   tabContainer: {
     flex: 1,
