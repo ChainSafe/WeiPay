@@ -5,7 +5,7 @@ import { Button } from 'react-native-elements'
 import { NavigationActions } from 'react-navigation';
 import { Card } from '../../../../components/common/Card';
 import { CardSection } from '../../../../components/common/CardSection';
-import { getQRCodeData } from '../../../../actions/ActionCreator'
+import * as actions from '../../../../actions/ActionCreator';
 import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
 import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard'
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
@@ -31,10 +31,16 @@ class ContactAddresses extends Component {
     this.dataSource = ds.cloneWithRows(data);
   }
 
-  navigateToCoinSend = address => {
+  navigateToCoinSend = (address, token) => {
+    for (var i = 0; i < (this.props.tokens.length - 1); i ++) {
+      if (token === this.props.tokens[i].name){
+        this.props.addTokenInfo(this.props.tokens[i])
+      }
+    }
+    this.props.getQRCodeData(address);
+    this.props.saveDataForCoinSend(address)
     const navigateToCreateOrRestore = NavigationActions.navigate({
         routeName: 'TokenFunctionality',
-        params: { address }
       });
       this.props.navigation.dispatch(navigateToCreateOrRestore);
   };
@@ -48,15 +54,12 @@ class ContactAddresses extends Component {
   };
 
   renderRow(address) {
-    console.log(this.props.contact);
     const contactInfo = this.props.contact.images;
     let url; 
 
     for (var key in contactInfo) {
       if (contactInfo.hasOwnProperty(key)) {
           if(key == Object.keys(address)[0]) {
-            console.log(key + " -> " + contactInfo[key]);
-            console.log(Object.keys(address)[0]);  
             url = contactInfo[key];
           }       
       }
@@ -64,7 +67,7 @@ class ContactAddresses extends Component {
 
    return (
       <View style={styles.listItemContainer}>
-        <TouchableOpacity onPress={() => this.navigateToCoinSend(address[Object.keys(address)[0]])}>
+        <TouchableOpacity onPress={() => this.navigateToCoinSend(address[Object.keys(address)[0]], Object.keys(address)[0] )}>
           <BoxShadowCard>
             <View style={styles.mainListItemContentContainter}>
               <View style={styles.mainListItemIconContainer}>
@@ -86,8 +89,9 @@ class ContactAddresses extends Component {
 
   renderSelectedContactOrEditedContact = () => {
     if (this.state.editContact === true) {
+      this.props.updateSavedContactInputs(this.props.contact);
       return (
-        <EditContact contact={this.props.contact} setSelectedContactFalse={this.props.setSelectedContactFalse}/>
+        <EditContact  navigation={this.props.navigation} contact={this.props.contact} setSelectedContactFalse={this.props.setSelectedContactFalse}/>
       )
     }
 
@@ -210,8 +214,8 @@ const styles = StyleSheet.create({
   },
 })
 
-function mapStateToProps({ contacts }) {
-  return { contacts: contacts.contacts }
+function mapStateToProps({ newWallet }) {
+  return { tokens: newWallet.tokens };
 }
 
-export default connect(null, { getQRCodeData })(ContactAddresses)
+export default connect(mapStateToProps, actions)(ContactAddresses)

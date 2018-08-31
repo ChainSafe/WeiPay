@@ -86,6 +86,11 @@ export function addingContact(contact) {
   };
 }
 
+export function saveDataForCoinSend(contact) {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.CONTACT_ADDRESS_TO_COINSEND, payload: contact });
+  };
+}
 
 /**
  * returns an action that contains an object which contains the name
@@ -98,14 +103,34 @@ export function completeContact(contactName, contactAddress, images) {
   const contact = {};
   contact.name = contactName;
   contact.contactAddress = contactAddress;
-  contact.images = images
-  console.log(contact);
+  contact.images = images;
   
-
   return (dispatch) => {
     dispatch({ type: actionTypes.COMPLETE_CONTACT, payload: contact });
   };
 }
+
+/**
+ * Contains the inputs made in the addCOntact screen
+ * @param {Object} completeInput
+ */
+export function saveAddContactInputs(contactName, contactAddress, images) {
+  const contact = {};
+  contact.name = contactName;
+  contact.contactAddress = contactAddress;
+  contact.images = images;
+
+  return (dispatch) => {
+    dispatch({ type: actionTypes.SAVING_ADDCONTACT_INPUTS, payload: contact });
+  };
+}
+
+export function updateSavedContactInputs(newInfo) {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.UPDATE_SAVED_CONTACT_INPUTS, payload: newInfo });
+  };
+}
+
 
 export function editContact(contactName, contactAddress) {
   const contact = {};
@@ -114,6 +139,12 @@ export function editContact(contactName, contactAddress) {
 
   return (dispatch) => {
     dispatch({ type: actionTypes.EDIT_CONTACT, payload: contact });
+  };
+}
+
+export function contactsActiveTab(tabName) {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.ACTIVE_CONTACT_TAB, payload: tabName });
   };
 }
 
@@ -139,14 +170,13 @@ export function qrScannerInvoker(pageName) {
   };
 }
 
-
 /**
- * Contains the inputs made in the addCOntact screen
- * @param {Object} completeInput
+ * Contains the name of the coin from which the QrScanner was invoked from
+ * @param {String} coinName
  */
-export function saveAddContactInputs(completeInput) {
+export function qrScannerCoinInvoker(coinName) {
   return (dispatch) => {
-    dispatch({ type: actionTypes.SAVING_ADDCONTACT_INPUTS, payload: completeInput });
+    dispatch({ type: actionTypes.QRSCANNER_COIN_INVOKER, payload: coinName });
   };
 }
 
