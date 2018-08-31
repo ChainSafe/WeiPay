@@ -13,7 +13,7 @@ import EditContact from './add/EditContact';
 import RF from "react-native-responsive-fontsize";
 
 class ContactAddresses extends Component {
-  
+
   state = {
     editContact: false
   }
@@ -50,15 +50,15 @@ class ContactAddresses extends Component {
   renderRow(address) {
     console.log(this.props.contact);
     const contactInfo = this.props.contact.images;
-    let url; 
+    let url;
 
     for (var key in contactInfo) {
       if (contactInfo.hasOwnProperty(key)) {
           if(key == Object.keys(address)[0]) {
             console.log(key + " -> " + contactInfo[key]);
-            console.log(Object.keys(address)[0]);  
+            console.log(Object.keys(address)[0]);
             url = contactInfo[key];
-          }       
+          }
       }
   }
 
@@ -76,7 +76,7 @@ class ContactAddresses extends Component {
               <View style={styles.mainListItemTextContainer}>
                 <Text style={styles.CoinTypeText}>{Object.keys(address)[0]} </Text>
                 <Text style={styles.textAddressText}>{address[Object.keys(address)[0]]}</Text>
-              </View>              
+              </View>
             </View>
           </BoxShadowCard>
         </TouchableOpacity>
@@ -98,6 +98,22 @@ class ContactAddresses extends Component {
           <ScrollView style={styles.scrollView} >
             <ListView dataSource={this.dataSource} renderRow={this.renderRow.bind(this)} removeClippedSubviews={false}  />
           </ScrollView>
+        </View>
+        <View style={styles.btnContainer}>
+          <View style={styles.btnFlex}>
+            <LinearButton
+              buttonText='Clear'
+              onClickFunction={this.clear.bind(this)}
+              customStyles={styles.clearButton}
+            />
+          </View>
+          <View style={styles.btnFlex}>
+            <LinearButton
+              buttonText='Edit Contact'
+              onClickFunction={() => this.setState({ editContact: true })}
+              customStyles={styles.addButton}
+            />
+          </View>
         </View>
         <View style={styles.btnContainer}>
           <LinearButton
@@ -153,20 +169,20 @@ const styles = StyleSheet.create({
     flex: 1.25,
     alignContent: 'center',
     marginTop: 0,
-    marginLeft: '7.5%',     
+    marginLeft: '7.5%',
   },
   mainListItemTextContainer: {
     flex:5,
     flexDirection: 'column',
-    paddingLeft: '2.5%', 
-    paddingRight: '2.5%',  
+    paddingLeft: '2.5%',
+    paddingRight: '2.5%',
     paddingBottom: '2%',
-    paddingTop: '2%'  
-  }, 
+    paddingTop: '2%'
+  },
   iconImage: {
     height: Dimensions.get('window').height * 0.04,
-    width: Dimensions.get('window').width * 0.07,      
-    alignItems: 'center' ,  
+    width: Dimensions.get('window').width * 0.07,
+    alignItems: 'center' ,
   },
   CoinTypeText: {
     fontSize: RF(2.4),
@@ -176,7 +192,7 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
   },
   textAddressText: {
-    fontSize: RF(1.7),  
+    fontSize: RF(1.7),
     letterSpacing: 0.4,
     fontFamily: 'Cairo-Light',
     flexWrap: 'wrap',
@@ -190,12 +206,12 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height * 0.082,
   },
   coinType: {
-    fontSize: 14, 
+    fontSize: 14,
     fontFamily: 'WorkSans-Regular'
   },
   textAddress: {
-    fontSize: 10, 
-    fontFamily: 'WorkSans-Regular', 
+    fontSize: 10,
+    fontFamily: 'WorkSans-Regular',
     marginTop: '5%'
   },
   barcodeImageContainer: {
@@ -207,6 +223,18 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginBottom: '15%',
     marginLeft: '0%'
+  },
+  btnContainer: {
+    flex: 0.1,
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    justifyContent: 'flex-end',
+    width: '82%',
+    marginBottom: '2.5%',
+    marginTop: '2.5%',
+  },
+  btnFlex: {
+    flex:1,
   },
 })
 

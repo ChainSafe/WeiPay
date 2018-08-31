@@ -153,7 +153,7 @@ class AddContact extends Component {
   render() {
     return (
       <SafeAreaView style={styles.safeAreaView}>
-        <View style={styles.mainContainer}>       
+        <View style={styles.mainContainer}>
           <View style={styles.contentContainer} >
             <BoxShadowCard >
               <View style={styles.cardTextContainer}>
@@ -165,8 +165,8 @@ class AddContact extends Component {
                 <FormInput
                   placeholder={"Contact's Name"}
                   onChangeText={name => this.setState({ contactName: name})}
-                  inputStyle={styles.inputContactName}  
-                  placeholderTextColor={'#b3b3b3'}               
+                  inputStyle={styles.inputContactName}
+                  placeholderTextColor={'#b3b3b3'}
                   value={this.state.contactName}
                 />
               </View>
@@ -183,7 +183,7 @@ class AddContact extends Component {
                     value: null,
                   }}
                   items={this.state.tokens}
-                  onValueChange={(value) => {              
+                  onValueChange={(value) => {
                     this.getTokenIMG(value)
                   }}
                   style={pickerStyle}
@@ -198,19 +198,19 @@ class AddContact extends Component {
                   placeholder={"Public Address"}
                   onChangeText={ address => this.renderAddress(address)}
                   inputStyle={styles.inputAddressText}
-                  placeholderTextColor={'#b3b3b3'}                  
+                  placeholderTextColor={'#b3b3b3'}
                   value={this.state.contactAddress[this.state.tokenName]}
-                  editable={!!this.state.tokenName}               
+                  editable={!!this.state.tokenName}
                 />
               </View>
-              <TouchableOpacity 
-                style={styles.addAnotherText} 
-                onPress={this.addAnotherCoinAddress.bind(this)} 
-                disabled={!this.state.tokenName}>                    
-                  <Text style={styles.anotherText}> +  Add Another Coin </Text>                          
+              <TouchableOpacity
+                style={styles.addAnotherText}
+                onPress={this.addAnotherCoinAddress.bind(this)}
+                disabled={!this.state.tokenName}>
+                <Text style={styles.anotherText}> +  Add Another Coin </Text>
               </TouchableOpacity>
-            </BoxShadowCard>            
-          </View>  
+            </BoxShadowCard>
+          </View>
           <View style={styles.btnContainer}>
             <View style={styles.btnFlex}>
               <ClearButton
@@ -263,12 +263,12 @@ const styles = StyleSheet.create({
     lineHeight: RF(3.9),
     letterSpacing: 0.4,
     fontSize: RF(2.5),
-    flexWrap: 'wrap', 
+    flexWrap: 'wrap',
   },
   topFormInput: {
-    flex: .3, 
-    paddingLeft: '3%', 
-    paddingRight: '3%',  
+    flex: .3,
+    paddingLeft: '3%',
+    paddingRight: '3%',
     justifyContent: 'center'
   },
   inputContactName: {
@@ -276,15 +276,15 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     color: '#12c1a2',
     letterSpacing: 0.4,
-    fontFamily: 'WorkSans-Light',  
+    fontFamily: 'WorkSans-Light',
     borderBottomWidth: 0.0001,
   },
   coinInfoContainerMid:{
-    flex: .3, 
+    flex: .3,
     flexDirection: 'row',
   },
   barcodeContainer: {
-    flex: .4, 
+    flex: .4,
     marginLeft: '9%',
     marginBottom: '2%',
     marginTop:"10%",
@@ -296,7 +296,7 @@ const styles = StyleSheet.create({
   },
   pickerContainer: {
     justifyContent: 'center',
-    flex: .3, 
+    flex: .3,
   },
   addInputContainer:{
     flexDirection: 'row',
@@ -304,36 +304,36 @@ const styles = StyleSheet.create({
     flex:1
   },
   inputAddressContainer: {
-    flex: .3, 
-    paddingLeft: '3%', 
+    flex: .3,
+    paddingLeft: '3%',
     paddingRight: '3%',
-    justifyContent: 'center',    
+    justifyContent: 'center',
   },
   inputAddressText: {
-    width:'100%', 
-    flexWrap: 'wrap', 
-    color:'#12c1a2', 
+    width:'100%',
+    flexWrap: 'wrap',
+    color:'#12c1a2',
     fontFamily: 'WorkSans-Light',
     fontSize: RF(2.5),
   },
   addAnotherText: {
-    flex: 0.3, 
-    justifyContent: 'center',  
+    flex: 0.3,
+    justifyContent: 'center',
     paddingTop:'2.5%'
   },
-  clearButton: {  
-    marginLeft:'0%', 
-    marginRight:'1.75%', 
+  clearButton: {
+    marginLeft:'0%',
+    marginRight:'1.75%',
     height: Dimensions.get('window').height * 0.082
   },
   addButton: {
-    marginLeft:'0%', 
-    marginRight:'1.75%', 
+    marginLeft:'0%',
+    marginRight:'1.75%',
     height: Dimensions.get('window').height * 0.082
   },
   anotherText: {
-    marginLeft:"9%", 
-    color: '#27c997', 
+    marginLeft:"9%",
+    color: '#27c997',
     fontFamily: 'WorkSans-Regular',
     fontSize: RF(2.5),
   },
