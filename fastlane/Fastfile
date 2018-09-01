@@ -1,17 +1,20 @@
 fastlane_version '2.53.1'
 
+before_all do
+  setup_circle_ci
+end
+
 platform :ios do
   before_all do
-    setup_circle_ci
     version_number = get_version_number(xcodeproj: "./ios/weipay.xcodeproj", target: "WeiPay")
     build_number = get_build_number(xcodeproj: "./ios/weipay.xcodeproj")
     ENV["VERSION_NUMBER"] = version_number + "." + build_number
   end
 
   desc 'Slack notification for succesful build to TestFlight'
-  lane :slack_testflight do
+  lane :slack_testflight do |values|
     slack(
-      message: "A new build has been uploaded to TestFlight!",
+      message: values[:msg],
       success: true,
       slack_url: "https://hooks.slack.com/services/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",
       attachment_properties: {
@@ -42,15 +45,15 @@ platform :ios do
     lane :beta do
       build
       pilot(username: 'superadmin@chainsafe.io')
-      slack_testflight
+      slack_testflight(msg: "A new build has been uploaded to TestFlight!")
     end
 end
 
 platform :android do
   desc 'Slack notification for succesful build to Playstore'
-  lane :slack_playstore do
+  lane :slack_playstore do |values|
     slack(
-      message: "A new build has been uploaded to the PlayStore",
+      message: values[:msg],
       success: true,
       slack_url: "https://hooks.slack.com/services/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",
       attachment_properties: {
@@ -73,9 +76,12 @@ platform :android do
   desc 'Ship to Playstore Beta.'
   lane :beta do
     build
-    supply(track: 'beta', track_promote_to: 'beta')
-    git_commit(path: ['./android/gradle.properties'], message: 'Bump versionCode')
-    push_to_git_remote
-    slack_playstore
+    supply(track: 'beta')
+    slack_playstore(msg: "A new build has been uploaded to the PlayStore")
+  end
+
+  desc 'Promote Beta to Production.'
+  lane :promote_prod do
+    supply(track: 'beta', track_promote_to: 'production')
   end
 end

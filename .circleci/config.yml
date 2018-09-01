@@ -32,7 +32,7 @@ jobs:
     working_directory: /Users/distiller/project
     environment:
       FL_OUTPUT_DIR: output
-      FASTLANE_LANE: ios beta
+      FASTLANE_LANE: android beta
     shell: /bin/bash --login -o pipefail
     steps:
       - checkout
