@@ -98,7 +98,7 @@ export default (state = INITIAL_STATE, action) => {
       }
       const oldTokens = state.tokens
       const updatedTokens = [ oldTokens, coinObj ]
-      return { ...state, tokens: updatedToken, newTokenAddress: '', newTokenName: '' };
+      return { ...state, tokens: updatedTokens, newTokenAddress: '', newTokenName: '' };
 
     default:
       return state;
