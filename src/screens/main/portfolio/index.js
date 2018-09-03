@@ -142,8 +142,8 @@ class Portfolio extends Component {
           </View>
           <Text style={styles.textHeader}>Holdings</Text>
           <View style={styles.accountValueHeader}>
-              <Text style={styles.headerValue}>0$</Text>
-              <Text style={styles.headerValueCurrency}> USD</Text>
+            <Text style={styles.headerValue}>0$</Text>
+            <Text style={styles.headerValueCurrency}> USD</Text>
           </View>
           <View style={styles.scrollViewContainer}>
             <FlatList
@@ -158,7 +158,7 @@ class Portfolio extends Component {
           </View>
           <View style={styles.btnContainer}>
             <LinearButton
-                onClickFunction={this.navigate}
+              onClickFunction={this.navigate}
                 buttonText="Add Token or Coin"
                 customStyles={styles.button}
               />
