@@ -14,6 +14,8 @@ const INITIAL_STATE = {
   current_token: {},
   debugMode: false,
   txnFee: 0,
+  newTokenName: '',
+  newTokenAddress: '',
 };
 
 /**
@@ -53,6 +55,51 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, tokens: previousTokens };
     case actions.TXN_FEE:
       return { ...state, txnFee: action.payload };
+    case actions.ADD_NEW_TOKEN_ADDRESS:
+      return { ...state, newTokenAddress: action.payload };
+    case actions.ADD_NEW_TOKEN_NAME:
+      return { ...state, newTokenName: action.payload };
+    case actions.COMPLETE_NEW_TOKEN:
+      const coinObj = {
+        "id": 0,
+        "type": "ERC20",
+        "selected": true,
+        "symbol": state.newTokenName,
+        "address": state.newTokenAddress,
+        "decimals": 18,
+        "name": state.newTokenName,
+        "ens_address": "",
+        "website": "",
+        "logo": {
+            "src": "",
+            "width": "",
+            "height": "",
+            "ipfs_hash": ""
+        },
+        "support": {
+            "email": "",
+            "url": ""
+        },
+        "social": {
+            "blog": "",
+            "chat": "",
+            "facebook": "",
+            "forum": "",
+            "github": "",
+            "gitter": "",
+            "instagram": "",
+            "linkedin": "",
+            "reddit": "",
+            "slack": "",
+            "telegram": "",
+            "twitter": "",
+            "youtube": ""
+        }
+      }
+      const oldTokens = state.tokens
+      const updatedTokens = [ oldTokens, coinObj ]
+      return { ...state, tokens: updatedToken, newTokenAddress: '', newTokenName: '' };
+
     default:
       return state;
   }

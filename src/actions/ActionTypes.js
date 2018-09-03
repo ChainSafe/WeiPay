@@ -23,3 +23,6 @@ export const ADD_TOKEN_INFO = 'add_token_info';
 export const DEBUG_MODE = 'debug_mode';
 export const UPDATE_TOKEN_BALANCE = 'update_token_balance';
 export const TXN_FEE = 'txn_fee';
+export const ADD_NEW_TOKEN_ADDRESS = 'add_new_token_address';
+export const ADD_NEW_TOKEN_NAME = 'add_new_token_name';
+export const COMPLETE_NEW_TOKEN = 'complete_new_token';

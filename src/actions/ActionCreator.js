@@ -162,14 +162,36 @@ export function enterDebug() {
   };
 }
 
+/**
+ * Returns an action that contains the tokenID from the token data with its
+ * updated balance (received through the provider)
+ * @param {String} tokenID 
+ * @param {String} balance 
+ */
 export function updateTokenBalance(tokenID, balance) {
   return (dispatch) => {
     dispatch({ type: actionTypes.UPDATE_TOKEN_BALANCE, payload: { tokenID, balance } });
   };
 }
 
+/**
+ * Returns an action with the updated transaction fee
+ * @param {String} fee 
+ */
 export function updateTxnFee(fee) {
   return (dispatch) => {
     dispatch({ type: actionTypes.TXN_FEE, payload: fee });
+  };
+}
+
+export function updateNewTokenAddress(address) {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.ADD_NEW_TOKEN_ADDRESS, payload: address });
+  };
+}
+
+export function updateNewTokenName(name) {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.ADD_NEW_TOKEN_NAME, payload: name });
   };
 }
