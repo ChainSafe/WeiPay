@@ -19,15 +19,15 @@ class TokenFunctionality extends Component {
                 <TabNavigator tabs={3}>
                     {/* First tab */}
                     <View title="SEND" style={styles.content}>
-                      <CoinSend />
+                      <CoinSend navigation={this.props.navigation} />
                     </View>
                     {/* Second tab */}
                     <View title="ACTIVITY" style={styles.content}>
-                        <CoinActivity />
+                        <CoinActivity navigation={this.props.navigation} />
                     </View>
                     {/* Third tab */}
                     <View title="RECEIVE" style={styles.content}>
-                        <CoinReceive />
+                        <CoinReceive navigation={this.props.navigation} />
                     </View>
                 </TabNavigator>
             </View>
