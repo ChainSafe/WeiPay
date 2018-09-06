@@ -17,10 +17,26 @@ import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard';
 const ethers = require('ethers');
 
 class NewToken extends Component {
-
   state = {
     tokenName: this.props.newTokenName,
     tokenAddress: this.props.newTokenAddress,
+  }
+
+  complete = () => {
+    this.props.completeNewToken();
+    console.log(this.props.tokens);
+  }
+
+
+  updateAddress(address) {
+    this.setState({ tokenAddress: address });
+    this.props.updateNewTokenAddress(address);
+  }
+
+  updateName(name) {
+    
+    this.setState({ tokenName: name });
+    this.props.updateNewTokenName(name);
   }
 
   render() {
@@ -34,7 +50,9 @@ class NewToken extends Component {
                             Enter ERC20 Token Address with it's name
                         </Text>
                         <View style= {styles.barcodeImageContainer}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => {
+                          console.log(this.props.tokens);
+                        }}>
                           <Image
                             source={require('../../../../assets/icons/barcode.png')}
                             style={styles.barcodeImage}
@@ -44,7 +62,7 @@ class NewToken extends Component {
                       <View style={styles.formInputContainer}>
                         <FormInput
                             placeholder={'Token Address'}
-                            onChangeText={() => { this.props.updateNewTokenAddress.bind(this); }}
+                            onChangeText={this.updateAddress.bind(this)}
                             // ref={ref => {return this.inputAddress = ref}}
                             inputStyle={styles.formAddress}
                             value={this.state.tokenAddress}
@@ -54,7 +72,7 @@ class NewToken extends Component {
                       <View style={styles.formInputContainer}>
                         <FormInput
                             placeholder={'Token Name'}
-                            onChangeText={this.props.updateNewTokenName.bind(this)}
+                            onChangeText={this.updateName.bind(this)}
                             // ref={ref => {return this.inputAddress = ref}}
                             inputStyle={styles.formAddress}
                             value={this.state.tokenName}
@@ -65,12 +83,14 @@ class NewToken extends Component {
                 </View>
 
               <View style={styles.btnContainer}>
-                <LinearButton
-                  onClickFunction={this.navigate}
-                  buttonText='Add New Token'
-                  customStyles={styles.button}
-                />
-                <View style={styles.footerGrandparentContainer}>
+
+                    <LinearButton
+                      onClickFunction={this.complete}
+                      buttonText='Add New Token'
+                      customStyles={styles.button}
+                    />
+                  
+                <View style={styles.footerGrandparentContainer}>  
                     <View style={styles.footerParentContainer} >
                         <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                     </View>
@@ -223,6 +243,7 @@ const mapStateToProps = (state) => {
   return {
     newTokenAddress: state.newWallet.newTokenAddress,
     newTokenName: state.newWallet.newTokenName,
+    tokens: state.newWallet.tokens,
   };
 };
 

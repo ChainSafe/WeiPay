@@ -56,8 +56,12 @@ export default (state = INITIAL_STATE, action) => {
     case actions.TXN_FEE:
       return { ...state, txnFee: action.payload };
     case actions.ADD_NEW_TOKEN_ADDRESS:
+      console.log(action.payload);
+      
       return { ...state, newTokenAddress: action.payload };
     case actions.ADD_NEW_TOKEN_NAME:
+      console.log(action.payload);
+      
       return { ...state, newTokenName: action.payload };
     case actions.COMPLETE_NEW_TOKEN:
       const coinObj = {
@@ -98,6 +102,7 @@ export default (state = INITIAL_STATE, action) => {
       }
       const oldTokens = state.tokens
       const updatedTokens = [ oldTokens, coinObj ]
+      
       return { ...state, tokens: updatedTokens, newTokenAddress: '', newTokenName: '' };
 
     default:

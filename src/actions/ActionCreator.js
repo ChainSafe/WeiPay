@@ -195,3 +195,9 @@ export function updateNewTokenName(name) {
     dispatch({ type: actionTypes.ADD_NEW_TOKEN_NAME, payload: name });
   };
 }
+
+export function completeNewToken() {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.COMPLETE_NEW_TOKEN, payload: '' });
+  };
+}
