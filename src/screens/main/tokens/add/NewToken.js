@@ -41,6 +41,19 @@ class NewToken extends Component {
     this.props.updateNewTokenName(name);
   }
 
+  /**
+   * Navigator
+   * Is used to navigate to the Qr-Code scanner
+   */
+  navigate = () => {
+    this.props.qrScannerInvoker('NewToken');
+    const navigateToQRScanner = NavigationActions.navigate({
+      routeName: 'QCodeScanner',
+    });
+    this.props.navigation.dispatch(navigateToQRScanner);
+  };
+
+
   render() {
     return (
           <SafeAreaView style={styles.safeAreaView}>
@@ -52,9 +65,7 @@ class NewToken extends Component {
                             Enter ERC20 Token Address with it's name
                         </Text>
                         <View style= {styles.barcodeImageContainer}>
-                        <TouchableOpacity onPress={() => {
-                          console.log(this.props.tokens);
-                        }}>
+                        <TouchableOpacity onPress={() => { return this.navigate(); }}>
                           <Image
                             source={require('../../../../assets/icons/barcode.png')}
                             style={styles.barcodeImage}
