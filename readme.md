@@ -89,3 +89,4 @@ https://stackoverflow.com/questions/39524148/requires-a-development-team-select-
 
 Linking vectors
 https://github.com/react-native-training/react-native-elements/issues/503
+
