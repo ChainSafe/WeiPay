@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import RF from 'react-native-responsive-fontsize';
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
+import { connect } from 'react-redux';
 
 
 /**

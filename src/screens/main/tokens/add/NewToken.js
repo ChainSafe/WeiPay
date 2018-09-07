@@ -23,10 +23,12 @@ class NewToken extends Component {
   }
 
   complete = () => {
-    this.setState({ tokenAddress: '' });
-    this.setState({ tokenName: '' });
-    this.props.completeNewToken();
-    console.log(this.props.tokens);
+    if (this.state.tokenAddress !== '' && this.state.tokenName !== '') {
+      this.setState({ tokenAddress: '' });
+      this.setState({ tokenName: '' });
+      this.props.completeNewToken();
+      console.log(this.props.tokens);
+    }
   }
 
 
@@ -36,7 +38,6 @@ class NewToken extends Component {
   }
 
   updateName(name) {
-    
     this.setState({ tokenName: name });
     this.props.updateNewTokenName(name);
   }
@@ -102,8 +103,8 @@ class NewToken extends Component {
                       buttonText='Add New Token'
                       customStyles={styles.button}
                     />
-                  
-                <View style={styles.footerGrandparentContainer}>  
+
+                <View style={styles.footerGrandparentContainer}>
                     <View style={styles.footerParentContainer} >
                         <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                     </View>
