@@ -14,6 +14,7 @@ import ContactAddresses from '../../screens/main/menu/contacts/SelectedContact';
 import QrCodeScanner from '../../screens/main/qr/QrCodeScanner';
 import BackupPhrase from '../../screens/main/menu/settings/BackupPhrase';
 import TokenFunctionality from '../../screens/main/tokens/Index';
+import AddingTokensOrCoins from '../../screens/main/tokens/add/Index';
 
 const CustomDrawerContentComponent = props => (
   <View style={styles.customContainer}>
@@ -40,6 +41,7 @@ const navigator = DrawerNavigator({
       coinHistory: { screen: CoinHistory },
       coinSend: { screen: CoinSend },
       TokenFunctionality: { screen: TokenFunctionality },
+      AddTokenFunctionality: { screen: AddingTokensOrCoins },
       QCodeScanner: { screen: QrCodeScanner },
       contactAddresses: { screen: ContactAddresses },
     },
