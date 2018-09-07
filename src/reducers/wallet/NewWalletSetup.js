@@ -99,13 +99,10 @@ export default (state = INITIAL_STATE, action) => {
         }
       }
       const oldTokens = state.tokens
-      oldTokens.push(coinObj);      // const updatedTokens = [ oldTokens, coinObj ]
+      oldTokens.push(coinObj);
 
       const oldcoinData = state.coinData
-      oldcoinData.push(coinObj);
-      
-      console.log(state.coinData);
-      
+      oldcoinData.push(coinObj);    
       
       return { ...state, coinData: oldcoinData, tokens: oldTokens, newTokenAddress: '', newTokenName: '' };
 
