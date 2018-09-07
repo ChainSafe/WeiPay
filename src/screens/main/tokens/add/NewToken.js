@@ -27,7 +27,6 @@ class NewToken extends Component {
       this.setState({ tokenAddress: '' });
       this.setState({ tokenName: '' });
       this.props.completeNewToken();
-      console.log(this.props.tokens);
     }
   }
 
