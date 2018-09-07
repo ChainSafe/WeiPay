@@ -7,9 +7,9 @@ import { FormInput, Button, Card } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import RF from "react-native-responsive-fontsize"
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
-import { getQRCodeData, addTokenInfo } from '../../../../actions/ActionCreator';
+// import { getQRCodeData, addTokenInfo, qrScannerInvoker, updateTxnFee } from '../../../../actions/ActionCreator';
+import * as action from '../../../../actions/ActionCreator';
 import provider from '../../../../constants/Providers';
-import { qrScannerInvoker, updateTxnFee } from '../../../../actions/ActionCreator';
 import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator';
 import ERC20ABI from '../../../../constants/data/json/ERC20ABI.json';
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
@@ -34,31 +34,22 @@ class CoinSend extends Component {
    * @param {Object} props
    */
   constructor(props) {
-    super(props);
+    super(props);   
+
+    // const addressFromContact = this.props.contactAddress;
+    const addressFromQRCode = this.props.addressData;
+    console.log(this.props.token);
+    
     this.state = {
-      toAddress: '',
+      toAddress: addressFromQRCode,
       value: 0,
       resetInput: false,
-      inputValue: '',
+      inputValue: addressFromQRCode,
       txnFee: this.props.txnFee,
       maliciousCheck: true,
       maliciousComment: ''
     };
   }
-
-  /**
-   * LifeCycle Method
-   * Executes before the Component has been rendered
-   * Sets the state to the hold the wallet address
-   */
-  // componentWillMount() {
-  //   if (this.props.navigation.state.params) {
-  //     const contactAddress = this.props.navigation.state.params.address;
-  //     if (contactAddress) {
-  //       this.setState({ inputValue: contactAddress });
-  //     }
-  //   }
-  // }
 
   /**
    * Sets the address to which the coin/tokens are being sent to
@@ -197,7 +188,8 @@ class CoinSend extends Component {
    * Is used to navigate to the Qr-Code scanner
    */
   navigate = () => {
-    this.props.qrScannerInvoker('CoinSend');
+    this.props.qrScannerInvoker('TokenFunctionality');
+    this.props.qrScannerCoinInvoker(this.props.token);
     const navigateToQRScanner = NavigationActions.navigate({
       routeName: 'QCodeScanner',
       params: { name: 'Shubhnik', invoker: 'CoinSend' },
@@ -449,9 +441,7 @@ const mapStateToProps = (state) => {
     addressData: state.newWallet.QrData,
     token: state.newWallet.current_token,
     txnFee: state.newWallet.txnFee,
+    contactAddress: state.contacts.contactDataforCoinSend,
   };
 };
-
-export default connect(mapStateToProps, {
- getQRCodeData, qrScannerInvoker, addTokenInfo, updateTxnFee,
-})(CoinSend);
+export default connect(mapStateToProps, action)(CoinSend);

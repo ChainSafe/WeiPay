@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import {
- View, Text, StyleSheet, Alert 
+  View, Text, StyleSheet,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { FormInput, FormLabel, Button } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import Camera from 'react-native-camera';
 import { NavigationActions } from 'react-navigation';
-import RF from "react-native-responsive-fontsize"
-import { getQRCodeData } from '../../../actions/ActionCreator'
-import { saveAddContactInputs } from '../../../actions/ActionCreator'
+import RF from 'react-native-responsive-fontsize';
+import { getQRCodeData } from '../../../actions/ActionCreator';
+import { updateSavedContactInputs } from '../../../actions/ActionCreator';
 import ContactAddresses from '../menu/contacts/SelectedContact';
 
 /**
@@ -29,11 +29,18 @@ class QrCodeScanner extends Component {
     this.state = {
       qrcode: '',
       invoker: this.props.invoker,
-      currentContactName: this.props.data.contactName,
-      previousInputs: this.props.data.allAddressInputs,
-      coinInvoker: this.props.data.coinName,
+      coinInvoker: this.props.coinInvoker,
+      previousInputs: this.props.currentContact,
     };
   }
+
+    navigate = () => {
+  
+      const navigateToCreateOrRestore = NavigationActions.navigate({
+        routeName: this.state.invoker,
+      });
+      this.props.navigation.dispatch(navigateToCreateOrRestore);
+    };
 
     /**
      * Method invoked whenever the camera scans a qrcode.
@@ -43,18 +50,14 @@ class QrCodeScanner extends Component {
      */
     onBarCodeRead = (e) => {
       this.setState({ qrcode: e.data });
-      if (this.state.invoker == 'CoinSend') {
-        this.props.getQRCodeData(e.data);
-      } else if (this.state.invoker === 'NewToken') {
+      if (this.state.invoker == 'TokenFunctionality') {
         this.props.getQRCodeData(e.data);
       } else {
         const oldInputs = this.state.previousInputs;
-        oldInputs[this.state.coinInvoker] = e.data;
-        const contactInputs = {};
-        contactInputs.name = this.state.currentContactName;
-        contactInputs.ContactAddresses = oldInputs;
-
-        this.props.saveAddContactInputs(contactInputs);
+        oldInputs.contactAddress[this.state.coinInvoker] = e.data;
+        const contactInputs = oldInputs;
+        // debugger;
+        this.props.updateSavedContactInputs(contactInputs);
       }
     };
 
@@ -70,19 +73,18 @@ class QrCodeScanner extends Component {
                 <Camera
                     style={styles.preview}
                     onBarCodeRead={this.onBarCodeRead}
-                    ref={cam => {return this.camera = cam}}
+                    ref={(cam) => { return this.camera = cam; }}
                     aspect={Camera.constants.Aspect.fill}
+                    showMarker={true}
                 >
-                    <Text style={{
-                      backgroundColor: 'white',
-                    }}
-
-                    >{this.state.qrcode}</Text>
-
+                    <Text style={{ backgroundColor: 'white' }}>
+                        {this.state.qrcode}
+                    </Text>
                     <Button
                         title='Next'
                         style={styles.buttonStyle}
-                        onPress={() => {return this.props.navigation.goBack()}}
+                        // onPress={() => this.props.navigation.goBack()}
+                        onPress={ () => { return this.navigate(); } }
                     />
                 </Camera>
             </View>
@@ -129,11 +131,12 @@ const styles = StyleSheet.create({
  * Reterives the name of the page that invoked the screen.
  * @param {Object} state
  */
-const mapStateToProps = ({ newWallet, QrScanner }) => {
+const mapStateToProps = ({ QrScanner, contacts }) => {
   return {
     invoker: QrScanner.invoker,
-    data: QrScanner.data,
+    coinInvoker: QrScanner.coinInvoker,
+    currentContact: contacts.incompleteContactInputs,
   };
 };
 
-export default connect(mapStateToProps, { getQRCodeData, saveAddContactInputs })(QrCodeScanner);
+export default connect(mapStateToProps, { getQRCodeData, updateSavedContactInputs })(QrCodeScanner);
