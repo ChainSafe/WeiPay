@@ -7,6 +7,7 @@ import { Button } from 'react-native-elements';
 import Camera from 'react-native-camera';
 import { NavigationActions } from 'react-navigation';
 import RF from 'react-native-responsive-fontsize';
+import * as actions from '../../../actions/ActionCreator';
 import { getQRCodeData } from '../../../actions/ActionCreator';
 import { updateSavedContactInputs } from '../../../actions/ActionCreator';
 import ContactAddresses from '../menu/contacts/SelectedContact';
@@ -50,13 +51,14 @@ class QrCodeScanner extends Component {
      */
     onBarCodeRead = (e) => {
       this.setState({ qrcode: e.data });
-      if (this.state.invoker == 'TokenFunctionality') {
+      if (this.state.invoker === 'TokenFunctionality') { // Coin Send page
         this.props.getQRCodeData(e.data);
+      } else if (this.state.invoker === 'AddTokenFunctionality') {
+        this.props.updateNewTokenAddress(e.data);
       } else {
         const oldInputs = this.state.previousInputs;
         oldInputs.contactAddress[this.state.coinInvoker] = e.data;
         const contactInputs = oldInputs;
-        // debugger;
         this.props.updateSavedContactInputs(contactInputs);
       }
     };
@@ -139,4 +141,4 @@ const mapStateToProps = ({ QrScanner, contacts }) => {
   };
 };
 
-export default connect(mapStateToProps, { getQRCodeData, updateSavedContactInputs })(QrCodeScanner);
+export default connect(mapStateToProps, actions)(QrCodeScanner);

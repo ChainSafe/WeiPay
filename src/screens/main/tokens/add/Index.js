@@ -27,7 +27,9 @@ class Index extends Component {
                     </View>
                     {/* Third tab */}
                     <View title="New Token" style={styles.content}>
-                        <NewToken />
+                        <NewToken
+                          navigation={this.props.navigation}
+                        />
                     </View>
                 </TabNavigator>
             </View>

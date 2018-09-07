@@ -6,11 +6,11 @@ import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import RF from 'react-native-responsive-fontsize';
-import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
+// import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
 import * as actions from '../../../../actions/ActionCreator';
-import Provider from '../../../../constants/Providers';
-import { qrScannerInvoker, updateTxnFee } from '../../../../actions/ActionCreator';
-import ERC20ABI from '../../../../constants/data/json/ERC20ABI.json';
+// import Provider from '../../../../constants/Providers';
+// import { qrScannerInvoker, updateTxnFee } from '../../../../actions/ActionCreator';
+// import ERC20ABI from '../../../../constants/data/json/ERC20ABI.json';
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
 import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard';
 
@@ -46,7 +46,7 @@ class NewToken extends Component {
    * Is used to navigate to the Qr-Code scanner
    */
   navigate = () => {
-    this.props.qrScannerInvoker('NewToken');
+    this.props.qrScannerInvoker('AddTokenFunctionality');
     const navigateToQRScanner = NavigationActions.navigate({
       routeName: 'QCodeScanner',
     });
@@ -257,6 +257,7 @@ const mapStateToProps = (state) => {
     newTokenAddress: state.newWallet.newTokenAddress,
     newTokenName: state.newWallet.newTokenName,
     tokens: state.newWallet.tokens,
+    QrCodeData: state.newWallet.QrData,
   };
 };
 
