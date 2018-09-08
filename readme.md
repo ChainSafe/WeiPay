@@ -5,119 +5,6 @@ WeiPay will support Ethereum out of the box with added support for ERC20 tokens 
 An api will be created to host token details on IPFS in order for any fork of the wallet to provide 
 uniform data to its users with the added benefits of reduced app storage space. 
 
-## WeiPay File Structure 
-
-* android
-* ios
-* src
-  + actions
-    + ActionCreator.js
-    + ActionTypes.js
-  + assets
-    + images.js
-      + btc.png
-      + eth.png
-      + QR-CODE.png
-  + components
-    + common
-      + Card.js
-      + CardSection.js
-      + Input.js
-      + Logo.js
-    + contacts
-      + AddContactList.js
-      + AddContactListItem.js
-    + tokens
-      + CoinList.js
-      + ListItem.js
-    + CurrencyList.js
-    + LanguageList.js
-  + constants
-    + config 
-      + ERC20
-    + data
-      + json
-        + coins.json
-        + fiatList.json
-        + languageList.json
-    + Layout.js
-    + Network.js
-    + Provider.js
-    + Terms.js 
-  + navigation
-    + drawer
-      + index
-    + stack
-      + index.js
-      + navigationStack.js
-  + reducers
-    + contacts
-      + contactsReducer.js
-    + fiat
-      + fiatListReducer.js
-     + language
-       + languageListReducer.js
-     + navigation
-        + navigationReducer.js
-     + settings
-        + settingsReducer.js
-    + wallet
-        + NewWalletSetup.js
-        + QrScannerReducer.js
-        + RestoreWalletReducer.js
-    + index.js
-  + screens
-    + menu 
-      + contacts
-        + add
-          + AddContact.js
-          + AddFirstContact.js
-        + index.js
-        + SelectedContact.js
-      + settings
-         + BackupPhrase.js
-         + ChangeCurrency.js
-         + index.js
-         + LanguageChange.js
-         + Search.js
-    + portfolio
-      + tabs
-         + PortfolioCoin.js
-         + PortfolioToken.js
-      + index.js
-    + qr
-      + QrCodeScanner.js
-    + tokens
-      + add
-        + Coins.js
-        + index.js
-        + Tokens.js
-      + history
-        + CoinActivity.js
-      + receive
-        + CoinReceive.js
-        + TokenReceive.js
-      + send
-        + CoinSend.js
-        + TokenSend.js
-     + setup
-      + create
-        + ConfirmPassphrase.js
-        + CreateWalletName.js
-        + GeneratePassphrase.js
-      + crypto
-        + EnableTokens.js
-      + recover
-        + CreateWalletName.js
-        + RecoverWallet.js
-      + terms
-        + TermsAndConditions.js
-      + index.js 
-* App.js
-* index.js
-* store.js
-* package.json
-
 # ESLINT installation
 + Locally install ESLINT module ```sudo npm install eslint --save-dev```
 + For VSCODE users install the ESLINT plugin
@@ -141,7 +28,8 @@ uniform data to its users with the added benefits of reduced app storage space.
 # How To:
 
 + ```git clone https://github.com/ChainSafe/WeiPay.git```
-+ ```npm install, sudo npm install``` (if on linux)
++ Navigate into the project directory
++ ```npm install, sudo npm install ./node_module``` (add 'sudo' if on linux)
 + ```react-native link```
 + ```git checkout -b yourBranchName```
 
@@ -174,15 +62,12 @@ uniform data to its users with the added benefits of reduced app storage space.
 
 ## Android 
 
- 1.  Enable the Developers options on the Android Device
- 2. Enable Usb debugging in the Developers option
+ 1.  Enable the Developers options on the Android Device by tapping 'Build Version' 5 times in About section
+ 2. Enable "Usb debugging" in the Developers option
  3. Run the following command in the project directory : ```adb reverse tcp:8081 tcp:8081```
 
 # To Build and Debug with Android Studio run the following Commands
-  
-If there is a react-native-camera folder in Android studio do the following first:
-* system terminal:  ```npm install react-native-camera --save```
-  
+   
   Commands:
     * Android studio terminal: './gradlew assembleDebug'
     * System terminal 1:
@@ -204,3 +89,4 @@ https://stackoverflow.com/questions/39524148/requires-a-development-team-select-
 
 Linking vectors
 https://github.com/react-native-training/react-native-elements/issues/503
+
