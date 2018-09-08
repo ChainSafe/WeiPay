@@ -55,13 +55,9 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, tokens: previousTokens };
     case actions.TXN_FEE:
       return { ...state, txnFee: action.payload };
-    case actions.ADD_NEW_TOKEN_ADDRESS:
-      console.log(action.payload);
-      
+    case actions.ADD_NEW_TOKEN_ADDRESS:      
       return { ...state, newTokenAddress: action.payload };
     case actions.ADD_NEW_TOKEN_NAME:
-      console.log(action.payload);
-      
       return { ...state, newTokenName: action.payload };
     case actions.COMPLETE_NEW_TOKEN:
       let lastID = state.tokens[state.tokens.length - 1].id + 1
@@ -104,11 +100,11 @@ export default (state = INITIAL_STATE, action) => {
       }
       const oldTokens = state.tokens
       oldTokens.push(coinObj);
-      console.log(oldTokens);
+
+      const oldcoinData = state.coinData
+      oldcoinData.push(coinObj);    
       
-      // const updatedTokens = [ oldTokens, coinObj ]
-      
-      return { ...state, tokens: oldTokens, newTokenAddress: '', newTokenName: '' };
+      return { ...state, coinData: oldcoinData, tokens: oldTokens, newTokenAddress: '', newTokenName: '' };
 
     default:
       return state;

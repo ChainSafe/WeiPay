@@ -19,9 +19,6 @@ const utils = ethers.utils;
 class CoinActivity extends Component {
   constructor(props) {
     super(props);
-
-    console.log(this.props.wallet);
-
     this.state = {
       balance: '',
       loaded: false,
@@ -37,7 +34,6 @@ class CoinActivity extends Component {
   getData = async (address) => {
     const url = `https://api.etherscan.io/api?module=account&action=txlist&address=${  address  }&page=1&offset=10&sort=asc&apikey=YJ1TRXBKAH9QZWINVFT83JMFBQI15X7UPR`;
     axios.get(url).then((response) => {
-      console.log(response.data.result)
       this.parseData(response.data.result);
     });
   }
