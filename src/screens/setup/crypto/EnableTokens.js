@@ -32,6 +32,7 @@ class EnableCrypto extends Component {
      * which stays disabled until at least one coin/token has been selected.
      */
     render() {
+
       const {
         safeAreaView,
         mainContainer,

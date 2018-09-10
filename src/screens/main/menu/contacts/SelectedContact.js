@@ -1,78 +1,81 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput, ListView, StyleSheet, Dimensions, ScrollView, Image, TouchableOpacity } from 'react-native';
-import { connect } from 'react-redux'
-import { Button } from 'react-native-elements'
+import {
+  Text, View, ListView, StyleSheet, Dimensions, ScrollView, Image, TouchableOpacity,
+} from 'react-native';
+import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
-import { Card } from '../../../../components/common/Card';
-import { CardSection } from '../../../../components/common/CardSection';
-import { getQRCodeData, deleteContact } from '../../../../actions/ActionCreator'
-import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
-import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard'
+
+import RF from 'react-native-responsive-fontsize';
+import * as actions from '../../../../actions/ActionCreator';
+import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard';
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
 import EditContact from './add/EditContact';
-import RF from "react-native-responsive-fontsize";
 
 
 class ContactAddresses extends Component {
 
   state = {
-    editContact: false
+    editContact: false,
   }
 
   componentWillMount() {
-    let addresses = this.props.contact.contactAddress
-    let data = []
-    for (let key of Object.keys(addresses)) {
-      address = { [key]: addresses[key] }
-      data.push(address)
+    const addresses = this.props.contact.contactAddress;
+    const data = [];
+    for (const key of Object.keys(addresses)) {
+      address = { [key]: addresses[key] };
+      data.push(address);
     }
-    let ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => { return r1 !== r2 ;},
     });
     this.dataSource = ds.cloneWithRows(data);
   }
 
-  navigateToCoinSend = address => {
+  navigateToCoinSend = (address, token) => {
+    for (let i = 0; i < (this.props.tokens.length - 1); i++) {
+      if (token === this.props.tokens[i].name) {
+        this.props.addTokenInfo(this.props.tokens[i]);
+      }
+    }
+    this.props.getQRCodeData(address);
+    this.props.saveDataForCoinSend(address);
     const navigateToCreateOrRestore = NavigationActions.navigate({
-        routeName: 'TokenFunctionality',
-        params: { address }
-      });
-      this.props.navigation.dispatch(navigateToCreateOrRestore);
+      routeName: 'TokenFunctionality',
+    });
+    this.props.navigation.dispatch(navigateToCreateOrRestore);
   };
 
   navigateToEditContact = () => {
     const navigateToCreateOrRestore = NavigationActions.navigate({
       routeName: 'editContact',
-      params: { contact: this.props.contact }
+      params: { contact: this.props.contact },
     });
     this.props.navigation.dispatch(navigateToCreateOrRestore);
   };
 
   renderRow(address) {
-    console.log(this.props.contact);
     const contactInfo = this.props.contact.images;
     let url;
 
-    for (var key in contactInfo) {
+    for (const key in contactInfo) {
       if (contactInfo.hasOwnProperty(key)) {
-          if(key == Object.keys(address)[0]) {
-            console.log(key + " -> " + contactInfo[key]);
-            console.log(Object.keys(address)[0]);
-            url = contactInfo[key];
-          }
+
+        if (key == Object.keys(address)[0]) {
+          url = contactInfo[key];
+        }
+
       }
-  }
-
-
+    }
 
    return (
+
       <View style={styles.listItemContainer}>
-        <TouchableOpacity onPress={() => this.navigateToCoinSend(address[Object.keys(address)[0]])}>
+        <TouchableOpacity onPress={() => { return this.navigateToCoinSend(address[Object.keys(address)[0]], Object.keys(address)[0]) ;}}>
           <BoxShadowCard>
             <View style={styles.mainListItemContentContainter}>
               <View style={styles.mainListItemIconContainer}>
                 <Image
-                     source={{uri: url}}
+                     source={{ uri: url }}
                      style={styles.iconImage}
                 />
               </View>
@@ -84,14 +87,15 @@ class ContactAddresses extends Component {
           </BoxShadowCard>
         </TouchableOpacity>
       </View>
-    )
+    );
   }
 
   renderSelectedContactOrEditedContact = () => {
     if (this.state.editContact === true) {
+      this.props.updateSavedContactInputs(this.props.contact);
       return (
-        <EditContact contact={this.props.contact} setSelectedContactFalse={this.props.setSelectedContactFalse}/>
-      )
+        <EditContact navigation={this.props.navigation} contact={this.props.contact} setSelectedContactFalse={this.props.setSelectedContactFalse}/>
+      );
     }
 
     return (
@@ -99,7 +103,7 @@ class ContactAddresses extends Component {
         <View style={styles.scrollViewContainer}>
           <Text style={styles.contactName}>{this.props.contact.name}</Text>
           <ScrollView style={styles.scrollView} >
-            <ListView dataSource={this.dataSource} renderRow={this.renderRow.bind(this)} removeClippedSubviews={false}  />
+            <ListView dataSource={this.dataSource} renderRow={this.renderRow.bind(this)} removeClippedSubviews={false} />
           </ScrollView>
         </View>
         <View style={styles.btnContainer}>
@@ -118,7 +122,7 @@ class ContactAddresses extends Component {
           </View>
         </View>
       </View>
-    )
+    );
   }
 
   deleteContact() {
@@ -127,20 +131,20 @@ class ContactAddresses extends Component {
   }
 
   render() {
-      return (
-        this.renderSelectedContactOrEditedContact()
-      )
-    }
+    return (
+      this.renderSelectedContactOrEditedContact()
+    );
   }
+}
 
 const styles = StyleSheet.create({
   mainContainer: {
-    flex: .95
+    flex: 0.95,
   },
-  scrollViewContainer:{
+  scrollViewContainer: {
     marginTop: '5%',
-    alignItems:"stretch",
-    width:"100%",
+    alignItems: 'stretch',
+    width: '100%',
     paddingLeft: '9%',
     paddingRight: '9%',
     flex: 6,
@@ -156,14 +160,14 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     height: Dimensions.get('window').height * 0.12,
   },
-  scrollView:{
+  scrollView: {
     flex: 1,
   },
   mainListItemContentContainter: {
-    flex:1,
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   mainListItemIconContainer: {
     flex: 1.25,
@@ -172,17 +176,17 @@ const styles = StyleSheet.create({
     marginLeft: '7.5%',
   },
   mainListItemTextContainer: {
-    flex:5,
+    flex: 5,
     flexDirection: 'column',
     paddingLeft: '2.5%',
     paddingRight: '2.5%',
     paddingBottom: '2%',
-    paddingTop: '2%'
+    paddingTop: '2%',
   },
   iconImage: {
     height: Dimensions.get('window').height * 0.04,
     width: Dimensions.get('window').width * 0.07,
-    alignItems: 'center' ,
+    alignItems: 'center',
   },
   CoinTypeText: {
     fontSize: RF(2.4),
@@ -207,22 +211,22 @@ const styles = StyleSheet.create({
   },
   coinType: {
     fontSize: 14,
-    fontFamily: 'WorkSans-Regular'
+    fontFamily: 'WorkSans-Regular',
   },
   textAddress: {
     fontSize: 10,
     fontFamily: 'WorkSans-Regular',
-    marginTop: '5%'
+    marginTop: '5%',
   },
   barcodeImageContainer: {
-    flex: 0.3
+    flex: 0.3,
   },
   barcodeImg: {
     flex: 1,
     width: Dimensions.get('window').height * 0.07,
     resizeMode: 'contain',
     marginBottom: '15%',
-    marginLeft: '0%'
+    marginLeft: '0%',
   },
   btnContainer: {
     flex: 1,
@@ -238,8 +242,8 @@ const styles = StyleSheet.create({
   },
 })
 
-function mapStateToProps({ contacts }) {
-  return { contacts: contacts.contacts }
+function mapStateToProps({ newWallet }) {
+  return { tokens: newWallet.tokens };
 }
 
-export default connect(null, { getQRCodeData, deleteContact })(ContactAddresses)
+export default connect(mapStateToProps, actions)(ContactAddresses);

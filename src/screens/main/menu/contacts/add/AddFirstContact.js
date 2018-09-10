@@ -26,7 +26,7 @@ class AddFirstContact extends Component {
               </Text>
             </BoxShadowCard>
           </View>
-          
+
           <View style={styles.btnContainer}>
             <LinearButton
               onClickFunction={this.props.setAddContactTab}

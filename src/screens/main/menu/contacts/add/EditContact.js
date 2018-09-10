@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
-import { ListView, View, Text, StyleSheet, TextInput, ScrollView, Dimensions, TouchableOpacity, Picker, SafeAreaView, Image } from 'react-native';
-import { Button, List, ListItem, Card, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
+import {
+ ListView, View, Text, StyleSheet, TextInput, ScrollView, Dimensions, TouchableOpacity, Picker, SafeAreaView, Image
+} from 'react-native';
+import {
+ Button, List, ListItem, Card, FormLabel, FormInput, FormValidationMessage
+} from 'react-native-elements';
 import { connect } from 'react-redux';
-import { NavigationActions } from "react-navigation";
+import { NavigationActions } from 'react-navigation';
+import RNPickerSelect from 'react-native-picker-select';
 import AddContactList from '../../../../../components/contacts/AddContactList';
 import * as actions from '../../../../../actions/ActionCreator';
 import BackWithMenuNav from '../../../../../components/customPageNavs/BackWithMenuNav'
@@ -11,8 +16,7 @@ import LinearButton from '../../../../../components/LinearGradient/LinearButton'
 import ClearButton from '../../../../../components/LinearGradient/ClearButton'
 import BoxShadowCard from '../../../../../components/ShadowCards/BoxShadowCard'
 import barcode from '../../../../../assets/icons/barcode.png'
-import RNPickerSelect from 'react-native-picker-select';
-import RF from "react-native-responsive-fontsize"
+import RF from 'react-native-responsive-fontsize';
 
 /**
  * Is a full screen react component
@@ -29,17 +33,18 @@ class EditContact extends Component {
    */
   constructor(props) {
     super(props);
-    let tokens = []
     this.inputRefs = {};
-    let contact = this.props.contact
-    let contactName = contact.name
-    let contactAddress = contact.contactAddress
-    this.props.tokens.map(token => {
-      let tokenName = {}
-      tokenName.value = token.name
-      tokenName.label = token.name
-      tokens.push(tokenName)
-    })
+    const current = this.props.currentContact;
+    const contactName = current.name;
+    const contactAddress = current.contactAddress;
+    const tokens = [];
+
+    this.props.tokens.map((token) => {
+      const tokenName = {};
+      tokenName.value = token.name;
+      tokenName.label = token.name;
+      tokens.push(tokenName);
+    });
     this.state = {
       disabled: true,
       clear: false,
@@ -47,32 +52,8 @@ class EditContact extends Component {
       contactAddress,
       tokenName: null,
       tokens,
-      contactAddressInput: ""
-    }
-  }
-
-  /**
-   * Method used to add all the information inputted for the new contact into the global
-   * state variable.
-   * Also clears up the input fields.
-   */
-  renderAddContact() {
-    this.props.completeContact(this.state.contactName, this.state.contactAddress);
-    this.setState({ contactName: "" })
-    let newcontactAddress = {}
-    this.props.tokens.map(token => newcontactAddress[token.title] = "")
-    this.setState({ contactAddress: newcontactAddress })
-  }
-
-  /**
-   * This Method is used to update the contact name in the global
-   * and local state variable when ever the contactName inputfield changes.
-   * @param {String} name
-   */
-  renderName(name) {
-    this.setState({ contactName: name })
-    var contact = { name: name }
-    this.props.addingContact(contact)
+      contactAddressInput: '',
+    };
   }
 
   /**
@@ -85,18 +66,20 @@ class EditContact extends Component {
    * @param {Object} coin
    */
   renderAddress(address, coin) {
-    let copy = Object.assign({}, this.state.contactAddress)
-    copy[coinName] = address
-    this.setState({ contactAddress: copy })
-    var coinAddress = {}
-    coinAddress[coinName] = address
-    this.props.addingContact(coinAddress)
+    const copy = Object.assign({}, this.state.contactAddress);
+    copy[coinName] = address;
+    this.setState({ contactAddress: copy });
+    let coinAddress = {};
+    coinAddress[coinName] = address;
+    this.props.addingContact(coinAddress);
   }
 
   navigate = () => {
+    this.props.saveAddContactInputs(this.state.contactName, this.state.contactAddress, this.state.tokenImages);
+    this.props.qrScannerInvoker('Contacts');
+    this.props.qrScannerCoinInvoker(this.state.tokenName);
     const navigateToQrScanner = NavigationActions.navigate({
       routeName: 'QCodeScanner',
-      params: "addContact"
     });
     this.props.navigation.dispatch(navigateToQrScanner);
   };
@@ -107,7 +90,7 @@ class EditContact extends Component {
    * @param {Object} o
    */
   isEmptyObject(o) {
-    return Object.keys(o).every(function (x) {
+    return Object.keys(o).every((x) => {
       return o[x] === '' || o[x] === null;
     });
   }
@@ -118,22 +101,21 @@ class EditContact extends Component {
   }
 
   clear() {
-    this.setState({ contactName: "" })
-    let newcontactAddress = {}
-    this.props.tokens.map(token => newcontactAddress[token.title] = "")
-    this.setState({ contactAddress: newcontactAddress })
+    this.setState({ contactName: '' });
+    const newcontactAddress = {};
+    this.props.tokens.map(token => {return newcontactAddress[token.title] = ""});
+    this.setState({ contactAddress: newcontactAddress });
   }
 
   editAnotherCoinAddress() {
-    this.setState({ tokenName: 'null'})
+    this.setState({ tokenName: 'null' });
   }
 
   renderAddress(address) {
-    let copy = Object.assign({}, this.state.contactAddress)
-    copy[this.state.tokenName] = address
-    this.setState({ contactAddress: copy })
-    this.setState({ contactAddressInput: address })
-
+    const copy = Object.assign({}, this.state.contactAddress);
+    copy[this.state.tokenName] = address;
+    this.setState({ contactAddress: copy });
+    this.setState({ contactAddressInput: address });
   }
 
   /**
@@ -153,17 +135,19 @@ class EditContact extends Component {
             <View style={styles.topFormInput}>
               <FormInput
                 placeholder={"Contact's Name"}
-                onChangeText={name => this.setState({ contactName: name})}
+                onChangeText={name => {return this.setState({ contactName: name})}}
                 inputStyle={styles.inputContactName}
                 placeholderTextColor={'#b3b3b3'}
                 value={this.state.contactName}
               />
             </View>
             <View style={styles.barcodeContainer}>
-              <Image
-                source={require('../../../../../assets/icons/barcode.png')}
-                style={styles.barcodeImg}
-              />
+              <TouchableOpacity onPress={() => { return this.navigate(); }}>
+                <Image
+                  source={require('../../../../../assets/icons/barcode.png')}
+                  style={styles.barcodeImg}
+                />
+              </TouchableOpacity>
             </View>
             <View style={styles.pickerContainer}>
               <RNPickerSelect
@@ -186,8 +170,8 @@ class EditContact extends Component {
             </View>
             <View style={styles.inputAddressContainer}>
               <FormInput
-                placeholder={"Public Address"}
-                onChangeText={ address => this.renderAddress(address)}
+                placeholder={'Public Address'}
+                onChangeText={ address => {return this.renderAddress(address)}}
                 inputStyle={styles.inputAddressText}
                 placeholderTextColor={'#b3b3b3'}
                 value={this.state.contactAddress[this.state.tokenName]}
@@ -230,18 +214,18 @@ const styles = StyleSheet.create({
     flex: 0.9,
     justifyContent: 'center',
   },
-  contentContainer : {
+  contentContainer: {
     marginTop: '7.5%',
     flex: 2.3,
-    width: '82%'
+    width: '82%',
   },
   cardTextContainer: {
-    flex: .4,
+    flex: 0.4,
     paddingLeft: '10%',
     paddingRight: '10%',
     paddingTop: '10%',
   },
-  cardText : {
+  cardText: {
     fontFamily: 'WorkSans-Light',
     color: '#000000',
     lineHeight: RF(3.9),
@@ -250,10 +234,10 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   topFormInput: {
-    flex: .3,
+    flex: 0.3,
     paddingLeft: '3%',
     paddingRight: '3%',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   inputContactName: {
     fontSize: RF(2.5),
@@ -263,15 +247,15 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Light',
     borderBottomWidth: 0.0001,
   },
-  coinInfoContainerMid:{
-    flex: .3,
+  coinInfoContainerMid: {
+    flex: 0.3,
     flexDirection: 'row',
   },
   barcodeContainer: {
-    flex: .4,
+    flex: 0.4,
     marginLeft: '9%',
     marginBottom: '2%',
-    marginTop:"10%",
+    marginTop: '10%',
     justifyContent: 'center',
   },
   barcodeImg: {
@@ -280,43 +264,43 @@ const styles = StyleSheet.create({
   },
   pickerContainer: {
     justifyContent: 'center',
-    flex: .3,
+    flex: 0.3,
   },
-  addInputContainer:{
+  addInputContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    flex:1
+    flex: 1,
   },
   inputAddressContainer: {
-    flex: .3,
+    flex: 0.3,
     paddingLeft: '3%',
     paddingRight: '3%',
     justifyContent: 'center',
   },
   inputAddressText: {
-    width:'100%',
+    width: '100%',
     flexWrap: 'wrap',
-    color:'#12c1a2',
+    color: '#12c1a2',
     fontFamily: 'WorkSans-Light',
     fontSize: RF(2.5),
   },
   addAnotherText: {
     flex: 0.3,
     justifyContent: 'center',
-    paddingTop:'2.5%'
+    paddingTop: '2.5%',
   },
   btnUpdate: {
-    marginLeft:'0%',
-    height: Dimensions.get('window').height * 0.082
+    marginLeft: '0%',
+    height: Dimensions.get('window').height * 0.082,
   },
   anotherText: {
-    marginLeft:"9%",
+    marginLeft: '9%',
     color: '#27c997',
     fontFamily: 'WorkSans-Regular',
     fontSize: RF(2.5),
   },
   btnFlex: {
-    flex:1,
+    flex: 1,
   },
   btnContainer: {
     flex: 0.1,
@@ -328,15 +312,15 @@ const styles = StyleSheet.create({
     marginTop: '2.5%',
   },
   modal: {
-     height: '40%',
-     borderRadius: 4
+    height: '40%',
+    borderRadius: 4,
   },
 });
 
 const pickerStyle = {
-	inputIOS: {
+  inputIOS: {
     fontSize: RF(2.6),
-    fontFamily: "WorkSans-Light",
+    fontFamily: 'WorkSans-Light',
     paddingLeft: '6%',
     paddingRight: '20%',
     paddingTop: 13,
@@ -344,27 +328,27 @@ const pickerStyle = {
     paddingBottom: 12,
     borderRadius: 4,
     color: 'black',
-    marginLeft: '3.5%'
-	},
-	inputAndroid: {
+    marginLeft: '3.5%',
+  },
+  inputAndroid: {
     color: 'black',
-    marginLeft: '5%'
-	},
-	underline: { borderTopWidth: 0 },
-	icon: {
-		position: 'absolute',
-		backgroundColor: 'transparent',
-		borderTopWidth: 5,
-		borderTopColor: '#00000099',
-		borderRightWidth: 5,
-		borderRightColor: 'transparent',
-		borderLeftWidth: 5,
-		borderLeftColor: 'transparent',
-		width: 0,
-		height: 0,
-		top: 20,
-		right: 15,
-	},
+    marginLeft: '5%',
+  },
+  underline: { borderTopWidth: 0 },
+  icon: {
+    position: 'absolute',
+    backgroundColor: 'transparent',
+    borderTopWidth: 5,
+    borderTopColor: '#00000099',
+    borderRightWidth: 5,
+    borderRightColor: 'transparent',
+    borderLeftWidth: 5,
+    borderLeftColor: 'transparent',
+    width: 0,
+    height: 0,
+    top: 20,
+    right: 15,
+  },
 };
 /**
  * Reterives the token list from the state variable
@@ -375,9 +359,8 @@ const pickerStyle = {
 const mapStateToProps = ({ contacts, newWallet }) => {
   return {
     tokens: newWallet.tokens,
-    currentContact: contacts.currentContact,
-    current: contacts.currentContact,
-  }
-}
+    currentContact: contacts.incompleteContactInputs,
+  };
+};
 
-export default connect(mapStateToProps, actions)(EditContact)
+export default connect(mapStateToProps, actions)(EditContact);
