@@ -126,6 +126,7 @@ class Portfolio extends Component {
    * The component also provides the option to add/delete tokens
    */
   render() {
+    this.tokenBalanceLoop();
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer} >
