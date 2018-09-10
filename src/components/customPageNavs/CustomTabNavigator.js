@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import RF from 'react-native-responsive-fontsize';
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
+import { connect } from 'react-redux';
 
 
 /**
@@ -57,7 +58,7 @@ export default class Tabs extends Component {
                 return <TouchableOpacity
                   style={[
                     styles.tabContainer,
-                    index === this.state.activeTab ? styles.tabContainerActive : [],
+                    index === this.state.activeTab ? styles.tabContainerActive : { borderBottomColor: '#bcbcbc', borderBottomWidth: 1 },
                   ]}
                   onPress={() => { return this.setState({ activeTab: index }); } }
                   key={index}
@@ -83,6 +84,8 @@ const styles = StyleSheet.create({
   },
   tabsContainer: {
     flexDirection: 'row',
+    marginLeft: '9%',
+    marginRight: '9%',
   },
   tabContainer: {
     flex: 1,

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import TabNavigator from '../../../components/customPageNavs/CustomTabNavigator';
-import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
-import CoinSend from './send/CoinSend';
-import CoinActivity from './history/CoinActivity';
-import CoinReceive from './receive/CoinReceive';
+import TabNavigator from '../../../../components/customPageNavs/CustomTabNavigator';
+import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
+import Coins from './Coins';
+import Tokens from './Tokens';
+import NewToken from './NewToken';
 
-class TokenFunctionality extends Component {
+class Index extends Component {
   render() {
     return (
             <View style={styles.container}>
@@ -18,16 +18,18 @@ class TokenFunctionality extends Component {
                 />
                 <TabNavigator tabs={3}>
                     {/* First tab */}
-                    <View title="SEND" style={styles.content}>
-                      <CoinSend navigation={this.props.navigation} />
+                    <View title="Coins" style={styles.content}>
+                      <Coins />
                     </View>
                     {/* Second tab */}
-                    <View title="ACTIVITY" style={styles.content}>
-                        <CoinActivity navigation={this.props.navigation} />
+                    <View title="Tokens" style={styles.content}>
+                        <Tokens />
                     </View>
                     {/* Third tab */}
-                    <View title="RECEIVE" style={styles.content}>
-                        <CoinReceive navigation={this.props.navigation} />
+                    <View title="New Token" style={styles.content}>
+                        <NewToken
+                          navigation={this.props.navigation}
+                        />
                     </View>
                 </TabNavigator>
             </View>
@@ -47,4 +49,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TokenFunctionality;
+export default Index;
