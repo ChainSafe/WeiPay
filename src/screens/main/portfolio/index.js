@@ -159,13 +159,13 @@ class Portfolio extends Component {
           <View style={styles.btnContainer}>
             <LinearButton
               onClickFunction={this.navigate}
-                buttonText="Add Token or Coin"
-                customStyles={styles.button}
-              />
-              <View style={styles.footerGrandparentContainer}>
-                  <View style={styles.footerParentContainer} >
-                      <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-                  </View>
+              buttonText="Add Token or Coin"
+              customStyles={styles.button}
+            />
+            <View style={styles.footerGrandparentContainer}>
+              <View style={styles.footerParentContainer} >
+                <Text style={styles.textFooter} >Powered by ChainSafe </Text>
+              </View>
               </View>
             </View>
         </View>
