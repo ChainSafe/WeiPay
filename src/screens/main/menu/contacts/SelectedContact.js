@@ -9,6 +9,7 @@ import RF from 'react-native-responsive-fontsize';
 import * as actions from '../../../../actions/ActionCreator';
 import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard';
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
+import ClearButton from '../../../../components/LinearGradient/ClearButton';
 import EditContact from './add/EditContact';
 
 
@@ -108,9 +109,10 @@ class ContactAddresses extends Component {
         </View>
         <View style={styles.btnContainer}>
           <View style={styles.btnFlex}>
-            <LinearButton
+            <ClearButton
               buttonText='Delete Contact'
               onClickFunction={this.deleteContact.bind(this)}
+              customStyles={styles.deleteButton}
             />
           </View>
           <View style={styles.btnFlex}>
@@ -140,6 +142,7 @@ class ContactAddresses extends Component {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 0.95,
+    alignItems: 'center'
   },
   scrollViewContainer: {
     marginTop: '5%',
@@ -228,12 +231,23 @@ const styles = StyleSheet.create({
     marginBottom: '15%',
     marginLeft: '0%',
   },
+  deleteButton: {
+    marginLeft: '0%',
+    marginRight: '1.75%',
+    height: Dimensions.get('window').height * 0.082,
+  },
+  addButton: {
+    marginLeft: '0%',
+    marginRight: '1.75%',
+    height: Dimensions.get('window').height * 0.082,
+  },
   btnContainer: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'flex-end',
-    width: '82%',
+    width: '85%',
+    marginLeft: '0.5%',
     marginBottom: '2.5%',
     marginTop: '2.5%',
   },
