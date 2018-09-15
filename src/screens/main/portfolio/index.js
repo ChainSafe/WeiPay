@@ -6,12 +6,12 @@ import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from 'react-navigation';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
-import { addTokenInfo, updateTokenBalance } from '../../../actions/ActionCreator';
+// import { addTokenInfo, updateTokenBalance } from '../../../actions/ActionCreator';
+import * as actions from '../../../actions/ActionCreator';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 import ERC20ABI from '../../../constants/data/json/ERC20ABI.json';
 import Provider from '../../../constants/Providers';
-
 
 const ethers = require('ethers');
 
@@ -22,9 +22,13 @@ const utils = ethers.utils;
  * tokens and the balance of the wallet
  */
 class Portfolio extends Component {
-  state = {
-    data: this.props.newWallet.tokens,
-    refresh: false,
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: this.props.newWallet.tokens,
+      refresh: false,
+      check: null,
+    };
   }
 
   navigate = () => {
@@ -45,7 +49,6 @@ class Portfolio extends Component {
   }
 
   getTokenBalance = async (tokenIndex) => {
-    
     const token = this.state.data[tokenIndex];
     try {
       const currentWallet = this.props.newWallet.wallet;
@@ -76,7 +79,7 @@ class Portfolio extends Component {
         <TouchableOpacity
           onPress={() => {
             this.props.addTokenInfo(token);
-            this.props.navigation.navigate("TokenFunctionality")
+            this.props.navigation.navigate('TokenFunctionality');
           }}
           style={styles.listItemParentContainer}
           >
@@ -125,7 +128,8 @@ class Portfolio extends Component {
    * Returns a component that displays all the tokens that the user had selected.
    * The component also provides the option to add/delete tokens
    */
-  render() {
+  render() {    
+
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer} >
@@ -354,4 +358,4 @@ function mapStateToProps({ newWallet }) {
   return { newWallet };
 }
 
-export default connect(mapStateToProps, { addTokenInfo, updateTokenBalance })(Portfolio);
+export default connect(mapStateToProps, actions)(Portfolio);

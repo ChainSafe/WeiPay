@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Dimensions, Text, SafeAreaView, ScrollView } from 'react-native';
-import SearchBar from 'react-native-searchbar'
+import {
+  View, StyleSheet, Dimensions, Text, SafeAreaView, ScrollView,
+} from 'react-native';
+import SearchBar from 'react-native-searchbar';
+import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
+import RF from 'react-native-responsive-fontsize';
 import CoinList from '../../../../components/tokens/CoinList';
-import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
-import TwoTabNavigator from '../../../../components/customPageNavs/TwoTabNavigatior';
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
-import RF from "react-native-responsive-fontsize"
 
 /**
  * React Screen Component
  * Screen to add more coins to the portfolio
  */
 class Coins extends Component {
+  state={
+    tokens: this.props.newWallet.allTokens,
+  }
+
+
   /**
    * Allows you to navigate to the navigation drawer
    */
@@ -24,10 +30,33 @@ class Coins extends Component {
     this.props.navigation.dispatch(navigateToPassphrase);
   };
 
+ 
+
+  handleChangeText(input){
+    
+    console.log(input);
+    //console.log(this.state.tokens["ETH"]);
+    
+    try {
+      console.log(this.state.tokens[input]);  
+    } catch (error) {
+      console.log("DNE");
+      
+    }
+
+    // if (this.props.newWallet.allTokens[symbol] != null) {
+    //   console.log(this.props.newWallet.allTokens[symbol]);
+    // } else {
+    //   console.log('Token does not exists');
+    // }
+  }
+
   /**
    * Contains tha CoinList Component
    */
   render() {
+    console.log(this.state.tokens["ETH"]);
+
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>
@@ -49,13 +78,14 @@ class Coins extends Component {
             />
           </View> */}
           <View style={{ flex: 0.95 }}>
-            <SearchBar  
+            <SearchBar
               showOnLoad
               hideBack
+              handleSearch={this.handleChangeText}
             />
-          </View>  
+          </View>
           <View style={styles.coinListContainer}>
-            <ScrollView  >
+            <ScrollView >
                 <CoinList type={'tokens'} />
                 {/* <CoinList /> */}
             </ScrollView>
@@ -84,10 +114,10 @@ class Coins extends Component {
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
-    backgroundColor: '#fafbfe'
+    backgroundColor: '#fafbfe',
   },
   mainContainer: {
-    flex: 1 ,
+    flex: 1,
     backgroundColor: '#fafbfe',
   },
   NavBarButton: {
@@ -129,8 +159,18 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Regular',
     fontSize: RF(1.7),
     color: '#c0c0c0',
-    letterSpacing: 0.5
+    letterSpacing: 0.5,
   },
 });
 
-export default Coins;
+/**
+ * Method is used  to reterive the newWallet object
+ * from the global state variable.
+ * Returns an object containing that reterived object
+ * @param {Object} param0
+ */
+function mapStateToProps({ newWallet }) {
+  return { newWallet };
+}
+
+export default connect(mapStateToProps, null)(Coins);

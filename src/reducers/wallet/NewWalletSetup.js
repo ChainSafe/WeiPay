@@ -1,6 +1,8 @@
 import { AsyncStorage } from 'react-native';
 import * as actions from '../../actions/ActionTypes';
 import data from '../../constants/data/json/coins.json';
+import tokenData from '../../constants/data/json/tokens.json';
+
 
 const INITIAL_STATE = {
   newWallet: false,
@@ -16,6 +18,7 @@ const INITIAL_STATE = {
   txnFee: 0,
   newTokenName: '',
   newTokenAddress: '',
+  allTokens: tokenData[0],
 };
 
 /**
@@ -105,6 +108,9 @@ export default (state = INITIAL_STATE, action) => {
       oldcoinData.push(coinObj);    
       
       return { ...state, coinData: oldcoinData, tokens: oldTokens, newTokenAddress: '', newTokenName: '' };
+    
+    case actions.ADD_ALL_POSSIBLE_TOKENS:
+      return { ...state, allTokens: action.payload };
 
     default:
       return state;

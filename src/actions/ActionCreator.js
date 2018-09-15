@@ -231,3 +231,9 @@ export function completeNewToken() {
     dispatch({ type: actionTypes.COMPLETE_NEW_TOKEN, payload: '' });
   };
 }
+
+export function addAlltokens(tokens) {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.ADD_ALL_POSSIBLE_TOKENS, payload: tokens });
+  };
+}
