@@ -47,12 +47,28 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, current_token: action.payload };
     case actions.DEBUG_MODE:
       return { ...state, debugMode: true };
+
     case actions.UPDATE_TOKEN_BALANCE:      
       const token = state.tokens[action.payload.tokenID];
-      const updatedToken = { ...token, balance: action.payload.balance }
-      const previousTokens = state.tokens;      
+      const updatedToken = { 
+        ...token, 
+        quantity: action.payload.quantity,
+        ethBalance: (action.payload.ethBalance * action.payload.quantity),
+        btcBalance: (action.payload.btcBalance * action.payload.quantity), 
+        usdBalance: (action.payload.usdBalance * action.payload.quantity), 
+        cadBalance: (action.payload.cadBalance * action.payload.quantity), 
+        eurBalance: (action.payload.eurBalance * action.payload.quantity)  
+      }
+      const previousTokens = state.tokens;    
+        
       previousTokens[action.payload.tokenID] = updatedToken;
+
+      console.log("update token balance");
+      
+      console.log(updatedToken);
+
       return { ...state, tokens: previousTokens };
+
     case actions.TXN_FEE:
       return { ...state, txnFee: action.payload };
     case actions.ADD_NEW_TOKEN_ADDRESS:      

@@ -198,10 +198,19 @@ export function enterDebug() {
  * @param {String} tokenID 
  * @param {String} balance 
  */
-export function updateTokenBalance(tokenID, balance) {
+export function updateTokenBalance(tokenID, quantity, ethBalance, btcBalance, usdBalance, cadBalance, eurBalance) {
   return (dispatch) => {
-    dispatch({ type: actionTypes.UPDATE_TOKEN_BALANCE, payload: { tokenID, balance } });
-  };
+    dispatch({ type: actionTypes.UPDATE_TOKEN_BALANCE, payload: { 
+      tokenID, 
+      quantity,
+      ethBalance,
+      btcBalance,
+      usdBalance,
+      cadBalance,
+      eurBalance
+    } 
+  });
+ };
 }
 
 /**
