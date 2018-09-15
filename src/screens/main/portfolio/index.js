@@ -14,6 +14,7 @@ import Provider from '../../../constants/Providers';
 
 
 const ethers = require('ethers');
+import axios from 'axios'
 
 const utils = ethers.utils;
 
@@ -39,26 +40,67 @@ class Portfolio extends Component {
 
   tokenBalanceLoop = async () => {
     const tokenLen = this.props.newWallet.tokens.length;
+    console.log("length " + tokenLen);
+    
     for (let i = 0; i < (tokenLen); i += 1) {
-      this.getTokenBalance(i);
+      console.log(i);
+      await this.getTokenBalance(i);
     }
+  }
+
+  getConversions = async (symbol, balance) => {
+
+    var usd, eth, btc, cad, eur;
+    console.log("in get conversions");
+    
+    let response = await axios.get(
+      `https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD,CAD,ETH,BTC,EUR`
+    )
+
+    let prices = response.data;
+    console.log("get conversions function - " + symbol);
+    console.log("prices", balance);
+    console.log(prices);
+    
   }
 
   getTokenBalance = async (tokenIndex) => {
     
     const token = this.state.data[tokenIndex];
+    // console.log(token);
+    // console.log(token.address);
+    
+    let prices;
     try {
       const currentWallet = this.props.newWallet.wallet;
       try {
         if (token.address === '') {
+          // console.log("ETH - " + token.address);
+          // console.log(token.symbol);          
           const balance = await Provider.getBalance(currentWallet.address);
-          const check = String(utils.formatEther(balance));
-          await this.props.updateTokenBalance(tokenIndex, check);
+          const check = String(utils.formatEther(balance));          
+          console.log("eth " +check);
+          
+          //this.getConversions(token.symbol, 0);
+          // console.log("ETH after");
+          //await this.props.updateTokenBalance(tokenIndex, check);
           this.setState({ refresh: false });
-        } else if (token.address !== '') {
-          const contract = new ethers.Contract(token.address, ERC20ABI, currentWallet);
-          const balance = await contract.balanceOf(currentWallet.address);
-          await this.props.updateTokenBalance(tokenIndex, String(balance));
+        } else  {
+          // console.log("Other - " + token.address);
+          // console.log(token.symbol);
+     
+           const contract = new ethers.Contract(token.address, ERC20ABI, currentWallet);
+           const tokenBalance = await contract.balanceOf(currentWallet.address);
+           console.log("token "+tokenBalance);
+           
+          //this.getConversions(token.symbol, 0);
+          // console.log("TOKEN beofre");
+          // console.log("TOKEN SYMBOL " + this.state.data[tokenIndex].symbol);
+          // console.log("Token Balance - " + balance);          
+          // prices = await this.getConversions(this.state.data[tokenIndex].symbol, balance);
+          // console.log("TOKEN after");
+          //await this.props.updateTokenBalance(tokenIndex, String(balance));
+          this.setState({ refresh: false });
         }
       } catch (err) {
         this.props.updateTokenBalance(tokenIndex, '0.0');
