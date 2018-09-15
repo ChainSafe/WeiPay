@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {
- View, Text, StyleSheet, ListView, SafeAreaView, TouchableWithoutFeedback, Dimensions, Keyboard 
+ View, Text, StyleSheet, ListView, SafeAreaView, TouchableWithoutFeedback, Dimensions, Keyboard
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import {
- Icon, Button, FormLabel, FormInput, FormValidationMessage, List, ListItem 
+ Icon, Button, FormLabel, FormInput, FormValidationMessage, List, ListItem
 } from 'react-native-elements';
 import { connect } from 'react-redux';
 import _ from 'lodash';
@@ -176,6 +176,7 @@ const styles = StyleSheet.create({
  * @param {Object} param0
  */
 function mapStateToProps({ contacts }) {
+  console.log("herrooooooo", )
   return {
     contacts: contacts.contacts,
     activeTab: contacts.activeTab,

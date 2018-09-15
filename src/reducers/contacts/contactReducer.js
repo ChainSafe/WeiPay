@@ -43,9 +43,9 @@ export default (state = INITIAL_STATE, action) => {
     case actions.ACTIVE_CONTACT_TAB:
       return { ...state, activeTab: action.payload };
     case actions.EDIT_CONTACT:
-      const nameIndex = state.contacts.map((contact) => { return contact.name ;}).indexOf(action.payload.name);
-      const editedContactList = [
-        ...state.contacts.slice(0, nameIndex),
+      let nameIndex = state.contacts.map(contact => contact.name).indexOf(action.payload)
+      let editedContactList = [
+        ...state.contacts.slice(0,nameIndex),
         action.payload,
         ...state.contacts.slice(nameIndex + 1),
       ];
@@ -53,6 +53,15 @@ export default (state = INITIAL_STATE, action) => {
 
     case actions.CONTACT_ADDRESS_TO_COINSEND:
       return { ...state, contactDataforCoinSend: action.payload };
+
+    case actions.DELETE_CONTACT:
+      let deleteIndex = state.contacts.map(contact => contact.name).indexOf(action.payload)
+      let deletedContactList = [
+        ...state.contacts.slice(0,deleteIndex),
+        ...state.contacts.slice(deleteIndex + 1)
+      ]
+
+      return { ...state, contacts: deletedContactList }
 
     default:
       return state;

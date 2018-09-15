@@ -104,7 +104,7 @@ export function completeContact(contactName, contactAddress, images) {
   contact.name = contactName;
   contact.contactAddress = contactAddress;
   contact.images = images;
-  
+
   return (dispatch) => {
     dispatch({ type: actionTypes.COMPLETE_CONTACT, payload: contact });
   };
@@ -138,7 +138,14 @@ export function editContact(contactName, contactAddress) {
   contact.contactAddress = contactAddress;
 
   return (dispatch) => {
-    dispatch({ type: actionTypes.EDIT_CONTACT, payload: contact });
+    dispatch({ type: actionTypes.EDIT_CONTACT, payload: contactName });
+  };
+}
+
+export function deleteContact(contactName, contactAddress) {
+
+  return (dispatch) => {
+    dispatch({ type: actionTypes.DELETE_CONTACT, payload: contactName });
   };
 }
 
@@ -147,7 +154,6 @@ export function contactsActiveTab(tabName) {
     dispatch({ type: actionTypes.ACTIVE_CONTACT_TAB, payload: tabName });
   };
 }
-
 
 /**
  * returns an action that contains the data reterived by using the QrScanner
@@ -195,8 +201,8 @@ export function enterDebug() {
 /**
  * Returns an action that contains the tokenID from the token data with its
  * updated balance (received through the provider)
- * @param {String} tokenID 
- * @param {String} balance 
+ * @param {String} tokenID
+ * @param {String} balance
  */
 export function updateTokenBalance(tokenID, balance) {
   return (dispatch) => {
@@ -206,7 +212,7 @@ export function updateTokenBalance(tokenID, balance) {
 
 /**
  * Returns an action with the updated transaction fee
- * @param {String} fee 
+ * @param {String} fee
  */
 export function updateTxnFee(fee) {
   return (dispatch) => {
@@ -230,4 +236,8 @@ export function completeNewToken() {
   return (dispatch) => {
     dispatch({ type: actionTypes.COMPLETE_NEW_TOKEN, payload: '' });
   };
+}
+
+export function clearStore() {
+  return { type: actionTypes.CLEAR_STORE }
 }

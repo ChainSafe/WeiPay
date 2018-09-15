@@ -4,13 +4,17 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
+
 import RF from 'react-native-responsive-fontsize';
 import * as actions from '../../../../actions/ActionCreator';
 import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard';
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
+import ClearButton from '../../../../components/LinearGradient/ClearButton';
 import EditContact from './add/EditContact';
 
+
 class ContactAddresses extends Component {
+
   state = {
     editContact: false,
   }
@@ -56,13 +60,16 @@ class ContactAddresses extends Component {
 
     for (const key in contactInfo) {
       if (contactInfo.hasOwnProperty(key)) {
+
         if (key == Object.keys(address)[0]) {
           url = contactInfo[key];
         }
+
       }
     }
 
-    return (
+   return (
+
       <View style={styles.listItemContainer}>
         <TouchableOpacity onPress={() => { return this.navigateToCoinSend(address[Object.keys(address)[0]], Object.keys(address)[0]) ;}}>
           <BoxShadowCard>
@@ -101,14 +108,28 @@ class ContactAddresses extends Component {
           </ScrollView>
         </View>
         <View style={styles.btnContainer}>
-          <LinearButton
-            buttonText='Edit Contact'
-            customStyles={styles.button}
-            onClickFunction={() => { return this.setState({ editContact: true }); }}
-          />
+          <View style={styles.btnFlex}>
+            <ClearButton
+              buttonText='Delete Contact'
+              onClickFunction={this.deleteContact.bind(this)}
+              customStyles={styles.deleteButton}
+            />
+          </View>
+          <View style={styles.btnFlex}>
+            <LinearButton
+              buttonText='Edit Contact'
+              onClickFunction={() => this.setState({ editContact: true })}
+              customStyles={styles.addButton}
+            />
+          </View>
         </View>
       </View>
     );
+  }
+
+  deleteContact() {
+    this.props.deleteContact(this.props.contact.name)
+    this.props.setSelectedContactFalse()
   }
 
   render() {
@@ -121,6 +142,7 @@ class ContactAddresses extends Component {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 0.95,
+    alignItems: 'center'
   },
   scrollViewContainer: {
     marginTop: '5%',
@@ -209,7 +231,30 @@ const styles = StyleSheet.create({
     marginBottom: '15%',
     marginLeft: '0%',
   },
-});
+  deleteButton: {
+    marginLeft: '0%',
+    marginRight: '1.75%',
+    height: Dimensions.get('window').height * 0.082,
+  },
+  addButton: {
+    marginLeft: '0%',
+    marginRight: '1.75%',
+    height: Dimensions.get('window').height * 0.082,
+  },
+  btnContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    justifyContent: 'flex-end',
+    width: '85%',
+    marginLeft: '0.5%',
+    marginBottom: '2.5%',
+    marginTop: '2.5%',
+  },
+  btnFlex: {
+    flex:1,
+  },
+})
 
 function mapStateToProps({ newWallet }) {
   return { tokens: newWallet.tokens };

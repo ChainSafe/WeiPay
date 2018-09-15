@@ -25,20 +25,22 @@ class AddContact extends Component {
    * the text fields
    * @param {Object} props
    */
+
   constructor(props) {
+
     super(props);
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => { return r1 !== r2 ;} });
     const current = this.props.currentContact;
     let contactName = current.name;
     let contactAddress = current.contactAddress;
     let tokens = [];
-    
+
     this.inputRefs = this.props.tokens.map((token) => {
       const tokenName = {};
       tokenName.value = token.name;
       tokenName.label = token.name;
       tokenName.img = token.logo.src;
-      tokens.push(tokenName);      
+      tokens.push(tokenName);
     });
 
     this.state = {
@@ -149,7 +151,7 @@ class AddContact extends Component {
    * Returns the form required to add a contact
    */
   render() {
-   
+
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>
@@ -397,6 +399,7 @@ const pickerStyle = {
  */
 
 const mapStateToProps = ({ contacts, newWallet }) => {
+
   return {
     tokens: newWallet.tokens,
     currentContact: contacts.incompleteContactInputs,

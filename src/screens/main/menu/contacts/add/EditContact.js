@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {
- ListView, View, Text, StyleSheet, TextInput, ScrollView, Dimensions, TouchableOpacity, Picker, SafeAreaView, Image 
+ ListView, View, Text, StyleSheet, TextInput, ScrollView, Dimensions, TouchableOpacity, Picker, SafeAreaView, Image
 } from 'react-native';
 import {
- Button, List, ListItem, Card, FormLabel, FormInput, FormValidationMessage 
+ Button, List, ListItem, Card, FormLabel, FormInput, FormValidationMessage
 } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
@@ -96,8 +96,8 @@ class EditContact extends Component {
   }
 
   editContact() {
-    this.props.editContact(this.state.contactName, this.state.contactAddress);
-    this.props.setSelectedContactFalse();
+    this.props.editContact(this.state.contactName);
+    this.props.setSelectedContactFalse()
   }
 
   clear() {
