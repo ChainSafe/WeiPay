@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Dimensions, Text, SafeAreaView, ScrollView } from 'react-native';
-import { Icon } from 'react-native-elements';
+import SearchBar from 'react-native-searchbar'
 import { NavigationActions } from 'react-navigation';
 import CoinList from '../../../../components/tokens/CoinList';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
@@ -48,6 +48,12 @@ class Coins extends Component {
               navigation={this.props.navigation}
             />
           </View> */}
+          <View style={{ flex: 0.95 }}>
+            <SearchBar  
+              showOnLoad
+              hideBack
+            />
+          </View>  
           <View style={styles.coinListContainer}>
             <ScrollView  >
                 <CoinList type={'tokens'} />
