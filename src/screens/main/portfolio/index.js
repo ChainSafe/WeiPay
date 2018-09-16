@@ -11,11 +11,9 @@ import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav'
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 import ERC20ABI from '../../../constants/data/json/ERC20ABI.json';
 import Provider from '../../../constants/Providers';
-
-
-const ethers = require('ethers');
 import axios from 'axios'
 
+const ethers = require('ethers');
 const utils = ethers.utils;
 
 /**
@@ -26,6 +24,8 @@ class Portfolio extends Component {
   state = {
     data: this.props.newWallet.tokens,
     refresh: false,
+    balance: 0,
+    pricesLoaded: false
   }
 
   navigate = () => {
@@ -40,36 +40,12 @@ class Portfolio extends Component {
 
   tokenBalanceLoop = async () => {
     const tokenLen = this.props.newWallet.tokens.length;
+    //remove wallet balance to reset it
+    this.setState({pricesLoaded: false})
     for (let i = 0; i < (tokenLen); i += 1) {      
       await this.getTokenBalance(i);
     }
-  }
-
-  getConversions = async (tokenIndex, symbol, quantity) => {
-    console.log("made it ");    
-    var usd, eth, btc, cad, eur;
-    console.log('\n');
-    console.log("in get conversions");
-    console.log("index", tokenIndex);
-    console.log("Symbol - ", symbol);
-    console.log("Balance", quantity);
-
-    let response = await axios.get(
-      `https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD,CAD,ETH,BTC,EUR`
-    )
-
-    let prices = response.data;
-    console.log("Prices- ", prices);
-
-    await this.props.updateTokenBalance(
-      tokenIndex, 
-      quantity, 
-      prices.ETH,
-      prices.BTC,
-      prices.USD,
-      prices.CAD,
-      prices.EUR  
-    );
+    this.setState({pricesLoaded: true})
   }
 
   getTokenBalance = async (tokenIndex) => {    
@@ -82,9 +58,7 @@ class Portfolio extends Component {
           const balance = await Provider.getBalance(currentWallet.address);
           const check = String(utils.formatEther(balance));          
           console.log("eth " + check);         
-          this.getConversions(tokenIndex, token.symbol, check);    
-          console.log("after conversion call");                        
-          this.setState({ refresh: false });
+          this.getConversions(tokenIndex, token.symbol, check);          
         } else  {
            console.log("Other - " + token.address);
           // console.log(token.symbol);
@@ -102,13 +76,37 @@ class Portfolio extends Component {
         }
       } catch (err) {
         this.props.updateTokenBalance(tokenIndex, 0, 0, 0, 0, 0, 0 );
-        console.log("in error block");
-        
+        console.log("in error block");        
         this.setState({ refresh: false });
       }
     } catch (e) {
       console.log(e);
     }
+  }
+
+  getConversions = async (tokenIndex, symbol, quantity) => {
+    console.log("made it ");    
+    var usd, eth, btc, cad, eur;
+    console.log('\n');
+    console.log("in get conversions");
+    console.log("index", tokenIndex);
+    console.log("Symbol - ", symbol);
+    console.log("Balance", quantity);
+    let response = await axios.get(
+      `https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD,CAD,ETH,BTC,EUR`
+    )
+    let prices = response.data;
+    console.log("Prices- ", prices);
+    await this.props.updateTokenBalance(
+      tokenIndex, 
+      quantity, 
+      prices.ETH,
+      prices.BTC,
+      prices.USD,
+      prices.CAD,
+      prices.EUR  
+    );
+    this.setState({ refresh: false });
   }
 
   /**
@@ -181,7 +179,13 @@ class Portfolio extends Component {
           </View>
           <Text style={styles.textHeader}>Holdings</Text>
           <View style={styles.accountValueHeader}>
-              <Text style={styles.headerValue}>0$</Text>
+              <Text style={styles.headerValue}>
+                {
+                  this.state.pricesLoaded 
+                  ? this.props.newWallet.walletBalance.cadWalletBalance
+                  : 0
+                }
+              </Text>
               <Text style={styles.headerValueCurrency}> USD</Text>
           </View>
           <View style={styles.scrollViewContainer}>
@@ -372,19 +376,6 @@ const styles = StyleSheet.create({
     color: '#c0c0c0',
     letterSpacing: 0.5,
   },
-  // footerContainer: {
-  //   alignItems: 'center',
-  //   justifyContent: 'flex-end',
-  //   flex: 1,
-  // },
-  // textFooter : {
-  //   fontFamily: "WorkSans-Regular",
-  //   fontSize: RF(1.7),
-  //   marginBottom: '5%',
-  //   alignItems: 'center' ,
-  //   color: '#c0c0c0',
-  //   letterSpacing: 0.5
-  // }
 });
 
 /**

@@ -5,6 +5,13 @@ import data from '../../constants/data/json/coins.json';
 const INITIAL_STATE = {
   newWallet: false,
   walletName: '',
+  walletBalance: {
+    btcWalletBalance: 0,
+    ethWalletBalance: 0,
+    eurWalletBalance: 0,
+    cadWalletBalance: 0,
+    usdWalletBalance: 0,
+  },
   tokens: [],
   wallet: null,
   backupPassphrase: '',
@@ -47,7 +54,6 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, current_token: action.payload };
     case actions.DEBUG_MODE:
       return { ...state, debugMode: true };
-
     case actions.UPDATE_TOKEN_BALANCE:      
       const token = state.tokens[action.payload.tokenID];
       const updatedToken = { 
@@ -60,15 +66,18 @@ export default (state = INITIAL_STATE, action) => {
         eurBalance: (action.payload.eurBalance * action.payload.quantity)  
       }
       const previousTokens = state.tokens;    
-        
       previousTokens[action.payload.tokenID] = updatedToken;
-
-      console.log("update token balance");
+      //console.log(updatedToken);
+      console.log(state.walletBalance);
+      let walletBallanceObj = state.walletBalance;
+      walletBallanceObj.ethWalletBalance += (action.payload.ethBalance * action.payload.quantity);
+      walletBallanceObj.btcWalletBalance += (action.payload.btcBalance * action.payload.quantity);
+      walletBallanceObj.usdWalletBalance += (action.payload.usdBalance * action.payload.quantity);
+      walletBallanceObj.cadWalletBalance += (action.payload.cadBalance * action.payload.quantity);
+      walletBallanceObj.eurWalletBalance += (action.payload.eurBalance * action.payload.quantity);
+      console.log(walletBallanceObj);
       
-      console.log(updatedToken);
-
       return { ...state, tokens: previousTokens };
-
     case actions.TXN_FEE:
       return { ...state, txnFee: action.payload };
     case actions.ADD_NEW_TOKEN_ADDRESS:      
