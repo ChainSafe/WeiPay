@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from 'react-navigation';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
-import { addTokenInfo, updateTokenBalance } from '../../../actions/ActionCreator';
+import { addTokenInfo, updateTokenBalance, resetWalletBalance } from '../../../actions/ActionCreator';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 import ERC20ABI from '../../../constants/data/json/ERC20ABI.json';
@@ -40,8 +40,8 @@ class Portfolio extends Component {
 
   tokenBalanceLoop = async () => {
     const tokenLen = this.props.newWallet.tokens.length;
-    //remove wallet balance to reset it
     this.setState({pricesLoaded: false})
+    this.props.resetWalletBalance();
     for (let i = 0; i < (tokenLen); i += 1) {      
       await this.getTokenBalance(i);
     }
@@ -186,7 +186,7 @@ class Portfolio extends Component {
                   : 0
                 }
               </Text>
-              <Text style={styles.headerValueCurrency}> USD</Text>
+              <Text style={styles.headerValueCurrency}> CAD</Text>
           </View>
           <View style={styles.scrollViewContainer}>
             <FlatList
@@ -388,4 +388,4 @@ function mapStateToProps({ newWallet }) {
   return { newWallet };
 }
 
-export default connect(mapStateToProps, { addTokenInfo, updateTokenBalance })(Portfolio);
+export default connect(mapStateToProps, { addTokenInfo, updateTokenBalance, resetWalletBalance })(Portfolio);

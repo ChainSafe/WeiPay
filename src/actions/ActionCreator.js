@@ -207,9 +207,9 @@ export function updateTokenBalance(tokenID, quantity, ethBalance, btcBalance, us
  };
 }
 
-export function updateWalletBalance() {
+export function resetWalletBalance() {
   return (dispatch) => {
-    dispatch({type: actionTypes.RESET_WALLET_BALANCE, payload })
+    dispatch({type: actionTypes.RESET_WALLET_BALANCE, payload: 0 });
   }
 }
 

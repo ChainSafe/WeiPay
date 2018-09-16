@@ -67,17 +67,21 @@ export default (state = INITIAL_STATE, action) => {
       }
       const previousTokens = state.tokens;    
       previousTokens[action.payload.tokenID] = updatedToken;
-      //console.log(updatedToken);
-      console.log(state.walletBalance);
       let walletBallanceObj = state.walletBalance;
       walletBallanceObj.ethWalletBalance += (action.payload.ethBalance * action.payload.quantity);
       walletBallanceObj.btcWalletBalance += (action.payload.btcBalance * action.payload.quantity);
       walletBallanceObj.usdWalletBalance += (action.payload.usdBalance * action.payload.quantity);
       walletBallanceObj.cadWalletBalance += (action.payload.cadBalance * action.payload.quantity);
-      walletBallanceObj.eurWalletBalance += (action.payload.eurBalance * action.payload.quantity);
-      console.log(walletBallanceObj);
-      
-      return { ...state, tokens: previousTokens };
+      walletBallanceObj.eurWalletBalance += (action.payload.eurBalance * action.payload.quantity);    
+      return { ...state, tokens: previousTokens, walletBalance: walletBallanceObj};
+    case actions.RESET_WALLET_BALANCE:
+      let walletResetObj = state.walletBalance;
+      walletResetObj.ethWalletBalance =  action.payload;
+      walletResetObj.btcWalletBalance =  action.payload;
+      walletResetObj.usdWalletBalance =  action.payload;
+      walletResetObj.cadWalletBalance =  action.payload;
+      walletResetObj.eurWalletBalance =  action.payload;
+      return { ...state, walletBalance: walletResetObj}
     case actions.TXN_FEE:
       return { ...state, txnFee: action.payload };
     case actions.ADD_NEW_TOKEN_ADDRESS:      
@@ -85,8 +89,7 @@ export default (state = INITIAL_STATE, action) => {
     case actions.ADD_NEW_TOKEN_NAME:
       return { ...state, newTokenName: action.payload };
     case actions.COMPLETE_NEW_TOKEN:
-      let lastID = state.tokens[state.tokens.length - 1].id + 1
-      
+      let lastID = state.tokens[state.tokens.length - 1].id + 1     
       const coinObj = {
         "id": lastID,
         "type": "ERC20",
