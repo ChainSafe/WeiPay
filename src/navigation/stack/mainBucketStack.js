@@ -1,4 +1,6 @@
 import { StackNavigator, DrawerNavigator, DrawerItems } from 'react-navigation';
+import { View, StyleSheet } from 'react-native';
+import React from 'react';
 import Contacts from '../../screens/main/menu/contacts/index';
 import AddContact from '../../screens/main/menu/contacts/add/AddContact';
 import EditContact from '../../screens/main/menu/contacts/add/EditContact';
@@ -11,8 +13,8 @@ import AddCoin from '../../screens/main/tokens/add/Coins'
 import ContactAddresses from '../../screens/main/menu/contacts/SelectedContact';
 import QrCodeScanner from '../../screens/main/qr/QrCodeScanner';
 import BackupPhrase from '../../screens/main/menu/settings/BackupPhrase';
-import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import TokenFunctionality from '../../screens/main/tokens/Index';
+import AddingTokensOrCoins from '../../screens/main/tokens/add/Index';
 
 const CustomDrawerContentComponent = props => (
   <View style={styles.customContainer}>
@@ -38,6 +40,8 @@ const navigator = DrawerNavigator({
       coinReceive: { screen: CoinReceive },
       coinHistory: { screen: CoinHistory },
       coinSend: { screen: CoinSend },
+      TokenFunctionality: { screen: TokenFunctionality },
+      AddTokenFunctionality: { screen: AddingTokensOrCoins },
       QCodeScanner: { screen: QrCodeScanner },
       contactAddresses: { screen: ContactAddresses },
     },

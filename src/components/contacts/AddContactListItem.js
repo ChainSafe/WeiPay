@@ -13,18 +13,18 @@ class AddContactListItem extends Component {
         const { coin } = this.props;
         return (
             <View style={styles.componentStyle}>
-                <CardSection>
+              <CardSection>
 
-                    <View style={styles.section}>
-                        <Text style={styles.title}>{coin.title} 's Address</Text>
-                        <Card
-                        >
-                            <TextInput placeholder="Enter or Paste Address here" />
-                        </Card>
-                    </View>
-                </CardSection>
+                <View style={styles.section}>
+                  <Text style={styles.title}>{coin.title} 's Address</Text>
+                  <Card
+                  >
+                    <TextInput placeholder="Enter or Paste Address here" />
+                  </Card>
+                </View>
+              </CardSection>
 
-            </ View>
+              </ View>
         );
     }
 }
