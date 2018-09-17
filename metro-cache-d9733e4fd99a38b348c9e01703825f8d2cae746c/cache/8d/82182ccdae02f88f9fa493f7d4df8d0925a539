@@ -1,0 +1,10 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var copyObject = _require(_dependencyMap[0], './_copyObject'),
+      keys = _require(_dependencyMap[1], './keys');
+
+  function baseAssign(object, source) {
+    return object && copyObject(source, keys(source), object);
+  }
+
+  module.exports = baseAssign;
+});

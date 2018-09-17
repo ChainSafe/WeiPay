@@ -1,0 +1,12 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    'use strict';
+
+    var Contract = _require(_dependencyMap[0], './contract.js');
+
+    var Interface = _require(_dependencyMap[1], './interface.js');
+
+    module.exports = {
+        Contract: Contract,
+        Interface: Interface
+    };
+});

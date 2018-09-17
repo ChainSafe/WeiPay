@@ -1,0 +1,298 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var React = _interopRequireWildcard(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _class,
+      _temp,
+      _initialiseProps,
+      _jsxFileName = "/home/master/Documents/work/WeiPay/node_modules/react-native-tab-view/src/TabView.js";
+
+  var _propTypes = _require(_dependencyMap[2], "prop-types");
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  var _reactNative = _require(_dependencyMap[3], "react-native");
+
+  var _TabBar = _require(_dependencyMap[4], "./TabBar");
+
+  var _TabBar2 = _interopRequireDefault(_TabBar);
+
+  var _PagerDefault = _require(_dependencyMap[5], "./PagerDefault");
+
+  var _PagerDefault2 = _interopRequireDefault(_PagerDefault);
+
+  var _PropTypes = _require(_dependencyMap[6], "./PropTypes");
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+  function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    TabView: {
+      displayName: "TabView"
+    }
+  };
+
+  var _reactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/master/Documents/work/WeiPay/node_modules/react-native-tab-view/src/TabView.js",
+    components: _components,
+    locals: [module],
+    imports: [React.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _reactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var TabView = _wrapComponent("TabView")((_temp = _class = function (_React$Component) {
+    _inherits(TabView, _React$Component);
+
+    function TabView(props) {
+      _classCallCheck(this, TabView);
+
+      var _this = _possibleConstructorReturn(this, (TabView.__proto__ || Object.getPrototypeOf(TabView)).call(this, props));
+
+      _initialiseProps.call(_this);
+
+      var navigationState = _this.props.navigationState;
+
+      var layout = _extends({}, _this.props.initialLayout, {
+        measured: false
+      });
+
+      var panX = new _reactNative.Animated.Value(0);
+      var offsetX = new _reactNative.Animated.Value(-navigationState.index * layout.width);
+      var layoutXY = new _reactNative.Animated.ValueXY({
+        x: layout.width || 0.001,
+        y: layout.height || 0.001
+      });
+
+      var position = _reactNative.Animated.multiply(_reactNative.Animated.divide(_reactNative.Animated.add(panX, offsetX), layoutXY.x), -1);
+
+      _this.state = {
+        layout: layout,
+        layoutXY: layoutXY,
+        panX: panX,
+        offsetX: offsetX,
+        position: position
+      };
+      return _this;
+    }
+
+    _createClass(TabView, [{
+      key: "componentDidMount",
+      value: function componentDidMount() {
+        this._mounted = true;
+      }
+    }, {
+      key: "componentWillUnmount",
+      value: function componentWillUnmount() {
+        this._mounted = false;
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        var _this2 = this;
+
+        var _props = this.props,
+            navigationState = _props.navigationState,
+            onIndexChange = _props.onIndexChange,
+            initialLayout = _props.initialLayout,
+            renderScene = _props.renderScene,
+            renderPager = _props.renderPager,
+            renderTabBar = _props.renderTabBar,
+            tabBarPosition = _props.tabBarPosition,
+            rest = _objectWithoutProperties(_props, ["navigationState", "onIndexChange", "initialLayout", "renderScene", "renderPager", "renderTabBar", "tabBarPosition"]);
+
+        var props = this._buildSceneRendererProps();
+
+        return React.createElement(
+          _reactNative.View,
+          {
+            collapsable: false,
+            style: [styles.container, this.props.style],
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 184
+            }
+          },
+          tabBarPosition === 'top' && renderTabBar(props),
+          React.createElement(
+            _reactNative.View,
+            {
+              onLayout: this._handleLayout,
+              style: styles.pager,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 186
+              }
+            },
+            renderPager(_extends({}, props, rest, {
+              panX: this.state.panX,
+              offsetX: this.state.offsetX,
+              children: navigationState.routes.map(function (route) {
+                var scene = _this2._renderScene(_extends({}, props, {
+                  route: route
+                }));
+
+                if (React.isValidElement(scene)) {
+                  return React.cloneElement(scene, {
+                    key: route.key
+                  });
+                }
+
+                return scene;
+              })
+            }))
+          ),
+          tabBarPosition === 'bottom' && renderTabBar(props)
+        );
+      }
+    }]);
+
+    return TabView;
+  }(React.Component), _class.propTypes = {
+    navigationState: _PropTypes.NavigationStatePropType.isRequired,
+    onIndexChange: _propTypes2.default.func.isRequired,
+    initialLayout: _propTypes2.default.shape({
+      height: _propTypes2.default.number.isRequired,
+      width: _propTypes2.default.number.isRequired
+    }),
+    canJumpToTab: _propTypes2.default.func.isRequired,
+    renderPager: _propTypes2.default.func.isRequired,
+    renderScene: _propTypes2.default.func.isRequired,
+    renderTabBar: _propTypes2.default.func,
+    tabBarPosition: _propTypes2.default.oneOf(['top', 'bottom'])
+  }, _class.defaultProps = {
+    canJumpToTab: function canJumpToTab() {
+      return true;
+    },
+    tabBarPosition: 'top',
+    renderTabBar: function renderTabBar(props) {
+      return React.createElement(_TabBar2.default, _extends({}, props, {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 58
+        }
+      }));
+    },
+    renderPager: function renderPager(props) {
+      return React.createElement(_PagerDefault2.default, _extends({}, props, {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 59
+        }
+      }));
+    },
+    getTestID: function getTestID(_ref) {
+      var route = _ref.route;
+      return typeof route.testID === 'string' ? route.testID : undefined;
+    },
+    initialLayout: {
+      height: 0,
+      width: 0
+    },
+    useNativeDriver: false
+  }, _initialiseProps = function _initialiseProps() {
+    var _this3 = this;
+
+    this._mounted = false;
+
+    this._renderScene = function (props) {
+      return _this3.props.renderScene(props);
+    };
+
+    this._handleLayout = function (e) {
+      var _e$nativeEvent$layout = e.nativeEvent.layout,
+          height = _e$nativeEvent$layout.height,
+          width = _e$nativeEvent$layout.width;
+
+      if (_this3.state.layout.width === width && _this3.state.layout.height === height) {
+        return;
+      }
+
+      _this3.state.offsetX.setValue(-_this3.props.navigationState.index * width);
+
+      _this3.state.layoutXY.setValue({
+        x: width || 0.001,
+        y: height || 0.001
+      });
+
+      _this3.setState({
+        layout: {
+          measured: true,
+          height: height,
+          width: width
+        }
+      });
+    };
+
+    this._buildSceneRendererProps = function () {
+      return {
+        panX: _this3.state.panX,
+        offsetX: _this3.state.offsetX,
+        position: _this3.state.position,
+        layout: _this3.state.layout,
+        navigationState: _this3.props.navigationState,
+        jumpTo: _this3._jumpTo,
+        useNativeDriver: _this3.props.useNativeDriver === true
+      };
+    };
+
+    this._jumpTo = function (key) {
+      if (!_this3._mounted) {
+        return;
+      }
+
+      var _props2 = _this3.props,
+          canJumpToTab = _props2.canJumpToTab,
+          navigationState = _props2.navigationState;
+      var index = navigationState.routes.findIndex(function (route) {
+        return route.key === key;
+      });
+
+      if (!canJumpToTab(navigationState.routes[index])) {
+        return;
+      }
+
+      if (index !== navigationState.index) {
+        _this3.props.onIndexChange(index);
+      }
+    };
+  }, _temp));
+
+  exports.default = TabView;
+
+  var styles = _reactNative.StyleSheet.create({
+    container: {
+      flex: 1,
+      overflow: 'hidden'
+    },
+    pager: {
+      flex: 1
+    }
+  });
+});

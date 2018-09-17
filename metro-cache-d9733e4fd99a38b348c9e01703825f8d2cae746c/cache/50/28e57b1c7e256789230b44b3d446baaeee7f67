@@ -1,0 +1,19 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var arrayFilter = _require(_dependencyMap[0], './_arrayFilter'),
+      stubArray = _require(_dependencyMap[1], './stubArray');
+
+  var objectProto = Object.prototype;
+  var propertyIsEnumerable = objectProto.propertyIsEnumerable;
+  var nativeGetSymbols = Object.getOwnPropertySymbols;
+  var getSymbols = !nativeGetSymbols ? stubArray : function (object) {
+    if (object == null) {
+      return [];
+    }
+
+    object = Object(object);
+    return arrayFilter(nativeGetSymbols(object), function (symbol) {
+      return propertyIsEnumerable.call(object, symbol);
+    });
+  };
+  module.exports = getSymbols;
+});

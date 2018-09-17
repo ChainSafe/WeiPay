@@ -1,0 +1,12 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    var baseGetTag = _require(_dependencyMap[0], './_baseGetTag'),
+        isObjectLike = _require(_dependencyMap[1], './isObjectLike');
+
+    var symbolTag = '[object Symbol]';
+
+    function isSymbol(value) {
+        return typeof value == 'symbol' || isObjectLike(value) && baseGetTag(value) == symbolTag;
+    }
+
+    module.exports = isSymbol;
+});

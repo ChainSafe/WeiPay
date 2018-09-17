@@ -1,0 +1,212 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var _jsxFileName = "/home/master/Documents/work/WeiPay/node_modules/react-native-elements/src/tile/Tile.js";
+
+  var _propTypes = _require(_dependencyMap[0], "prop-types");
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  var _react = _require(_dependencyMap[1], "react");
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _reactNative = _require(_dependencyMap[2], "react-native");
+
+  var _Text = _require(_dependencyMap[3], "../text/Text");
+
+  var _Text2 = _interopRequireDefault(_Text);
+
+  var _Icon = _require(_dependencyMap[4], "../icons/Icon");
+
+  var _Icon2 = _interopRequireDefault(_Icon);
+
+  var _FeaturedTile = _require(_dependencyMap[5], "./FeaturedTile");
+
+  var _FeaturedTile2 = _interopRequireDefault(_FeaturedTile);
+
+  var _ViewPropTypes = _require(_dependencyMap[6], "../config/ViewPropTypes");
+
+  var _ViewPropTypes2 = _interopRequireDefault(_ViewPropTypes);
+
+  var _BackgroundImage = _require(_dependencyMap[7], "../config/BackgroundImage");
+
+  var _BackgroundImage2 = _interopRequireDefault(_BackgroundImage);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+  var Tile = function Tile(props) {
+    var featured = props.featured,
+        imageSrc = props.imageSrc,
+        icon = props.icon,
+        title = props.title,
+        children = props.children,
+        caption = props.caption,
+        titleStyle = props.titleStyle,
+        onPress = props.onPress,
+        activeOpacity = props.activeOpacity,
+        overlayContainerStyle = props.overlayContainerStyle,
+        captionStyle = props.captionStyle,
+        iconContainerStyle = props.iconContainerStyle,
+        imageContainerStyle = props.imageContainerStyle,
+        containerStyle = props.containerStyle,
+        contentContainerStyle = props.contentContainerStyle,
+        titleNumberOfLines = props.titleNumberOfLines,
+        attributes = _objectWithoutProperties(props, ["featured", "imageSrc", "icon", "title", "children", "caption", "titleStyle", "onPress", "activeOpacity", "overlayContainerStyle", "captionStyle", "iconContainerStyle", "imageContainerStyle", "containerStyle", "contentContainerStyle", "titleNumberOfLines"]);
+
+    var width = props.width,
+        height = props.height;
+
+    if (!width) {
+      width = _reactNative.Dimensions.get('window').width;
+    }
+
+    if (!height) {
+      height = width * 0.8;
+    }
+
+    var styles = _reactNative.StyleSheet.create({
+      container: {
+        width: width,
+        height: height
+      },
+      imageContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#ffffff',
+        flex: 2
+      },
+      text: {
+        backgroundColor: 'rgba(0,0,0,0)',
+        marginBottom: 5
+      },
+      contentContainer: {
+        paddingTop: 15,
+        paddingBottom: 5,
+        paddingLeft: 15,
+        paddingRight: 15
+      },
+      iconContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center'
+      }
+    });
+
+    if (featured) {
+      var featuredProps = {
+        title: title,
+        icon: icon,
+        caption: caption,
+        imageSrc: imageSrc,
+        onPress: onPress,
+        activeOpacity: activeOpacity,
+        containerStyle: containerStyle,
+        imageContainerStyle: imageContainerStyle,
+        overlayContainerStyle: overlayContainerStyle,
+        titleStyle: titleStyle,
+        captionStyle: captionStyle,
+        width: width,
+        height: height
+      };
+      return _react2.default.createElement(_FeaturedTile2.default, _extends({}, featuredProps, {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 92
+        }
+      }));
+    }
+
+    return _react2.default.createElement(
+      _reactNative.TouchableOpacity,
+      _extends({}, attributes, {
+        onPress: onPress,
+        style: [styles.container, containerStyle && containerStyle],
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 96
+        }
+      }),
+      _react2.default.createElement(
+        _BackgroundImage2.default,
+        {
+          source: imageSrc,
+          style: [styles.imageContainer, imageContainerStyle && imageContainerStyle],
+          resizeMode: "cover",
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 101
+          }
+        },
+        _react2.default.createElement(
+          _reactNative.View,
+          {
+            style: [styles.iconContainer, iconContainerStyle && iconContainerStyle],
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 109
+            }
+          },
+          icon && _react2.default.createElement(_Icon2.default, _extends({}, icon, {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 115
+            }
+          }))
+        )
+      ),
+      _react2.default.createElement(
+        _reactNative.View,
+        {
+          style: [styles.contentContainer, contentContainerStyle && contentContainerStyle],
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 118
+          }
+        },
+        _react2.default.createElement(
+          _Text2.default,
+          {
+            h4: true,
+            style: [styles.text, titleStyle && titleStyle],
+            numberOfLines: titleNumberOfLines,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 124
+            }
+          },
+          title
+        ),
+        children
+      )
+    );
+  };
+
+  Tile.propTypes = {
+    title: _propTypes2.default.string,
+    icon: _propTypes2.default.object,
+    caption: _propTypes2.default.string,
+    imageSrc: _reactNative.Image.propTypes.source,
+    onPress: _propTypes2.default.func,
+    activeOpacity: _propTypes2.default.number,
+    containerStyle: _ViewPropTypes2.default.style,
+    imageContainerStyle: _ViewPropTypes2.default.style,
+    iconContainerStyle: _ViewPropTypes2.default.style,
+    overlayContainerStyle: _ViewPropTypes2.default.style,
+    titleStyle: _reactNative.Text.propTypes.style,
+    captionStyle: _reactNative.Text.propTypes.style,
+    width: _propTypes2.default.number,
+    height: _propTypes2.default.number,
+    featured: _propTypes2.default.bool,
+    children: _propTypes2.default.any,
+    contentContainerStyle: _ViewPropTypes2.default.style,
+    titleNumberOfLines: _propTypes2.default.number
+  };
+  exports.default = Tile;
+});

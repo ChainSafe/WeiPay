@@ -1,0 +1,16 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var isArray = _require(_dependencyMap[0], './isArray'),
+      isKey = _require(_dependencyMap[1], './_isKey'),
+      stringToPath = _require(_dependencyMap[2], './_stringToPath'),
+      toString = _require(_dependencyMap[3], './toString');
+
+  function castPath(value, object) {
+    if (isArray(value)) {
+      return value;
+    }
+
+    return isKey(value, object) ? [value] : stringToPath(toString(value));
+  }
+
+  module.exports = castPath;
+});

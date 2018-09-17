@@ -1,0 +1,146 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../../react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _class,
+      _temp2,
+      _jsxFileName = "/home/master/Documents/work/WeiPay/node_modules/react-native/Libraries/Inspector/InspectorOverlay.js";
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    InspectorOverlay: {
+      displayName: "InspectorOverlay"
+    }
+  };
+
+  var _reactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/master/Documents/work/WeiPay/node_modules/react-native/Libraries/Inspector/InspectorOverlay.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _reactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var Dimensions = _require(_dependencyMap[2], 'Dimensions');
+
+  var ElementBox = _require(_dependencyMap[3], 'ElementBox');
+
+  var PropTypes = _require(_dependencyMap[4], 'prop-types');
+
+  var React = _require(_dependencyMap[5], 'React');
+
+  var StyleSheet = _require(_dependencyMap[6], 'StyleSheet');
+
+  var UIManager = _require(_dependencyMap[7], 'UIManager');
+
+  var View = _require(_dependencyMap[8], 'View');
+
+  var InspectorOverlay = _wrapComponent("InspectorOverlay")((_temp2 = _class = function (_React$Component) {
+    _inherits(InspectorOverlay, _React$Component);
+
+    function InspectorOverlay() {
+      var _ref;
+
+      var _temp, _this, _ret;
+
+      _classCallCheck(this, InspectorOverlay);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = InspectorOverlay.__proto__ || Object.getPrototypeOf(InspectorOverlay)).call.apply(_ref, [this].concat(args))), _this), _this.findViewForTouchEvent = function (e) {
+        var _e$nativeEvent$touche = e.nativeEvent.touches[0],
+            locationX = _e$nativeEvent$touche.locationX,
+            locationY = _e$nativeEvent$touche.locationY;
+        UIManager.findSubviewIn(_this.props.inspectedViewTag, [locationX, locationY], function (nativeViewTag, left, top, width, height) {
+          _this.props.onTouchViewTag(nativeViewTag, {
+            left: left,
+            top: top,
+            width: width,
+            height: height
+          }, locationY);
+        });
+      }, _this.shouldSetResponser = function (e) {
+        _this.findViewForTouchEvent(e);
+
+        return true;
+      }, _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    _createClass(InspectorOverlay, [{
+      key: "render",
+      value: function render() {
+        var content = null;
+
+        if (this.props.inspected) {
+          content = React.createElement(ElementBox, {
+            frame: this.props.inspected.frame,
+            style: this.props.inspected.style,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 60
+            }
+          });
+        }
+
+        return React.createElement(
+          View,
+          {
+            onStartShouldSetResponder: this.shouldSetResponser,
+            onResponderMove: this.findViewForTouchEvent,
+            style: [styles.inspector, {
+              height: Dimensions.get('window').height
+            }],
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 64
+            }
+          },
+          content
+        );
+      }
+    }]);
+
+    return InspectorOverlay;
+  }(React.Component), _class.propTypes = {
+    inspected: PropTypes.shape({
+      frame: PropTypes.object,
+      style: PropTypes.any
+    }),
+    inspectedViewTag: PropTypes.number,
+    onTouchViewTag: PropTypes.func.isRequired
+  }, _temp2));
+
+  var styles = StyleSheet.create({
+    inspector: {
+      backgroundColor: 'transparent',
+      position: 'absolute',
+      left: 0,
+      top: 0,
+      right: 0
+    }
+  });
+  module.exports = InspectorOverlay;
+});

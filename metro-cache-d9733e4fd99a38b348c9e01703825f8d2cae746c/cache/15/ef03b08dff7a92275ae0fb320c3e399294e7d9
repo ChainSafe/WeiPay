@@ -1,0 +1,179 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../../../../node_modules/react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _jsxFileName = "/home/master/Documents/work/WeiPay/src/screens/main/tokens/add/Index.js";
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _reactNative = _require(_dependencyMap[2], "react-native");
+
+  var _CustomTabNavigator = _require(_dependencyMap[3], "../../../../components/customPageNavs/CustomTabNavigator");
+
+  var _CustomTabNavigator2 = _interopRequireDefault(_CustomTabNavigator);
+
+  var _BackWithMenuNav = _require(_dependencyMap[4], "../../../../components/customPageNavs/BackWithMenuNav");
+
+  var _BackWithMenuNav2 = _interopRequireDefault(_BackWithMenuNav);
+
+  var _Coins = _require(_dependencyMap[5], "./Coins");
+
+  var _Coins2 = _interopRequireDefault(_Coins);
+
+  var _Tokens = _require(_dependencyMap[6], "./Tokens");
+
+  var _Tokens2 = _interopRequireDefault(_Tokens);
+
+  var _NewToken = _require(_dependencyMap[7], "./NewToken");
+
+  var _NewToken2 = _interopRequireDefault(_NewToken);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    Index: {
+      displayName: "Index"
+    }
+  };
+
+  var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/master/Documents/work/WeiPay/src/screens/main/tokens/add/Index.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var Index = _wrapComponent("Index")(function (_Component) {
+    _inherits(Index, _Component);
+
+    function Index() {
+      _classCallCheck(this, Index);
+
+      return _possibleConstructorReturn(this, (Index.__proto__ || Object.getPrototypeOf(Index)).apply(this, arguments));
+    }
+
+    _createClass(Index, [{
+      key: "render",
+      value: function render() {
+        return _react3.default.createElement(
+          _reactNative.View,
+          {
+            style: styles.container,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 12
+            }
+          },
+          _react3.default.createElement(_BackWithMenuNav2.default, {
+            showMenu: true,
+            showBack: true,
+            navigation: this.props.navigation,
+            backPage: 'mainStack',
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 13
+            }
+          }),
+          _react3.default.createElement(
+            _CustomTabNavigator2.default,
+            {
+              tabs: 3,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 19
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                title: "Coins",
+                style: styles.content,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 21
+                }
+              },
+              _react3.default.createElement(_Coins2.default, {
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 22
+                }
+              })
+            ),
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                title: "Tokens",
+                style: styles.content,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 25
+                }
+              },
+              _react3.default.createElement(_Tokens2.default, {
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 26
+                }
+              })
+            ),
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                title: "New Token",
+                style: styles.content,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 29
+                }
+              },
+              _react3.default.createElement(_NewToken2.default, {
+                navigation: this.props.navigation,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 30
+                }
+              })
+            )
+          )
+        );
+      }
+    }]);
+
+    return Index;
+  }(_react2.Component));
+
+  var styles = _reactNative.StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#fafbfe'
+    },
+    content: {
+      flex: 1,
+      backgroundColor: '#fafbfe'
+    }
+  });
+
+  exports.default = Index;
+});

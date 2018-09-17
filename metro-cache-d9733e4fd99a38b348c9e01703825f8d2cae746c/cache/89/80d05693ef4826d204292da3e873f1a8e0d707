@@ -1,0 +1,7 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  function isObjectLike(value) {
+    return value != null && typeof value == 'object';
+  }
+
+  module.exports = isObjectLike;
+});

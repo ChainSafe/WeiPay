@@ -1,0 +1,230 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../../react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _class,
+      _temp,
+      _jsxFileName = "/home/master/Documents/work/WeiPay/node_modules/react-native/Libraries/Modal/Modal.js",
+      _container;
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    Modal: {
+      displayName: "Modal"
+    }
+  };
+
+  var _reactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/master/Documents/work/WeiPay/node_modules/react-native/Libraries/Modal/Modal.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _reactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var AppContainer = _require(_dependencyMap[2], 'AppContainer');
+
+  var I18nManager = _require(_dependencyMap[3], 'I18nManager');
+
+  var NativeEventEmitter = _require(_dependencyMap[4], 'NativeEventEmitter');
+
+  var NativeModules = _require(_dependencyMap[5], 'NativeModules');
+
+  var Platform = _require(_dependencyMap[6], 'Platform');
+
+  var React = _require(_dependencyMap[7], 'React');
+
+  var PropTypes = _require(_dependencyMap[8], 'prop-types');
+
+  var StyleSheet = _require(_dependencyMap[9], 'StyleSheet');
+
+  var View = _require(_dependencyMap[10], 'View');
+
+  var deprecatedPropType = _require(_dependencyMap[11], 'deprecatedPropType');
+
+  var requireNativeComponent = _require(_dependencyMap[12], 'requireNativeComponent');
+
+  var RCTModalHostView = requireNativeComponent('RCTModalHostView', null);
+  var ModalEventEmitter = Platform.OS === 'ios' && NativeModules.ModalManager ? new NativeEventEmitter(NativeModules.ModalManager) : null;
+  var uniqueModalIdentifier = 0;
+
+  var Modal = _wrapComponent("Modal")((_temp = _class = function (_React$Component) {
+    _inherits(Modal, _React$Component);
+
+    function Modal(props) {
+      _classCallCheck(this, Modal);
+
+      var _this = _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).call(this, props));
+
+      Modal._confirmProps(props);
+
+      _this._identifier = uniqueModalIdentifier++;
+      return _this;
+    }
+
+    _createClass(Modal, [{
+      key: "componentDidMount",
+      value: function componentDidMount() {
+        var _this2 = this;
+
+        if (ModalEventEmitter) {
+          this._eventSubscription = ModalEventEmitter.addListener('modalDismissed', function (event) {
+            if (event.modalID === _this2._identifier && _this2.props.onDismiss) {
+              _this2.props.onDismiss();
+            }
+          });
+        }
+      }
+    }, {
+      key: "componentWillUnmount",
+      value: function componentWillUnmount() {
+        if (this._eventSubscription) {
+          this._eventSubscription.remove();
+        }
+      }
+    }, {
+      key: "UNSAFE_componentWillReceiveProps",
+      value: function UNSAFE_componentWillReceiveProps(nextProps) {
+        Modal._confirmProps(nextProps);
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        if (this.props.visible === false) {
+          return null;
+        }
+
+        var containerStyles = {
+          backgroundColor: this.props.transparent ? 'transparent' : 'white'
+        };
+        var animationType = this.props.animationType;
+
+        if (!animationType) {
+          animationType = 'none';
+
+          if (this.props.animated) {
+            animationType = 'slide';
+          }
+        }
+
+        var presentationStyle = this.props.presentationStyle;
+
+        if (!presentationStyle) {
+          presentationStyle = 'fullScreen';
+
+          if (this.props.transparent) {
+            presentationStyle = 'overFullScreen';
+          }
+        }
+
+        var innerChildren = __DEV__ ? React.createElement(
+          AppContainer,
+          {
+            rootTag: this.context.rootTag,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 189
+            }
+          },
+          this.props.children
+        ) : this.props.children;
+        return React.createElement(
+          RCTModalHostView,
+          {
+            animationType: animationType,
+            presentationStyle: presentationStyle,
+            transparent: this.props.transparent,
+            hardwareAccelerated: this.props.hardwareAccelerated,
+            onRequestClose: this.props.onRequestClose,
+            onShow: this.props.onShow,
+            identifier: this._identifier,
+            style: styles.modal,
+            onStartShouldSetResponder: this._shouldSetResponder,
+            supportedOrientations: this.props.supportedOrientations,
+            onOrientationChange: this.props.onOrientationChange,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 195
+            }
+          },
+          React.createElement(
+            View,
+            {
+              style: [styles.container, containerStyles],
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 208
+              }
+            },
+            innerChildren
+          )
+        );
+      }
+    }, {
+      key: "_shouldSetResponder",
+      value: function _shouldSetResponder() {
+        return true;
+      }
+    }], [{
+      key: "_confirmProps",
+      value: function _confirmProps(props) {
+        if (props.presentationStyle && props.presentationStyle !== 'overFullScreen' && props.transparent) {
+          console.warn("Modal with '" + props.presentationStyle + "' presentation style and 'transparent' value is not supported.");
+        }
+      }
+    }]);
+
+    return Modal;
+  }(React.Component), _class.propTypes = {
+    animationType: PropTypes.oneOf(['none', 'slide', 'fade']),
+    presentationStyle: PropTypes.oneOf(['fullScreen', 'pageSheet', 'formSheet', 'overFullScreen']),
+    transparent: PropTypes.bool,
+    hardwareAccelerated: PropTypes.bool,
+    visible: PropTypes.bool,
+    onRequestClose: Platform.isTVOS || Platform.OS === 'android' ? PropTypes.func.isRequired : PropTypes.func,
+    onShow: PropTypes.func,
+    onDismiss: PropTypes.func,
+    animated: deprecatedPropType(PropTypes.bool, 'Use the `animationType` prop instead.'),
+    supportedOrientations: PropTypes.arrayOf(PropTypes.oneOf(['portrait', 'portrait-upside-down', 'landscape', 'landscape-left', 'landscape-right'])),
+    onOrientationChange: PropTypes.func
+  }, _class.defaultProps = {
+    visible: true,
+    hardwareAccelerated: false
+  }, _class.contextTypes = {
+    rootTag: PropTypes.number
+  }, _temp));
+
+  var side = I18nManager.isRTL ? 'right' : 'left';
+  var styles = StyleSheet.create({
+    modal: {
+      position: 'absolute'
+    },
+    container: (_container = {
+      position: 'absolute'
+    }, _defineProperty(_container, side, 0), _defineProperty(_container, "top", 0), _container)
+  });
+  module.exports = Modal;
+});

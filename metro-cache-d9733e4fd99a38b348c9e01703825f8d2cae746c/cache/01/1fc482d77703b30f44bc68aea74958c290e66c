@@ -1,0 +1,7 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  function stubFalse() {
+    return false;
+  }
+
+  module.exports = stubFalse;
+});

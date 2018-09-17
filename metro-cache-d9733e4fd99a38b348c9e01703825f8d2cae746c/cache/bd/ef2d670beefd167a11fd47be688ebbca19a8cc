@@ -1,0 +1,9 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var isObject = _require(_dependencyMap[0], './isObject');
+
+  function isStrictComparable(value) {
+    return value === value && !isObject(value);
+  }
+
+  module.exports = isStrictComparable;
+});

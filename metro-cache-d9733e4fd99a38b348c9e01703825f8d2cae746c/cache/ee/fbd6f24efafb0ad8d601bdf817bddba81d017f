@@ -1,0 +1,145 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../../react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _jsxFileName = "/home/master/Documents/work/WeiPay/node_modules/react-native/Libraries/Inspector/PerformanceOverlay.js";
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    PerformanceOverlay: {
+      displayName: "PerformanceOverlay"
+    }
+  };
+
+  var _reactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/master/Documents/work/WeiPay/node_modules/react-native/Libraries/Inspector/PerformanceOverlay.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _reactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var PerformanceLogger = _require(_dependencyMap[2], 'PerformanceLogger');
+
+  var React = _require(_dependencyMap[3], 'React');
+
+  var StyleSheet = _require(_dependencyMap[4], 'StyleSheet');
+
+  var Text = _require(_dependencyMap[5], 'Text');
+
+  var View = _require(_dependencyMap[6], 'View');
+
+  var PerformanceOverlay = _wrapComponent("PerformanceOverlay")(function (_React$Component) {
+    _inherits(PerformanceOverlay, _React$Component);
+
+    function PerformanceOverlay() {
+      _classCallCheck(this, PerformanceOverlay);
+
+      return _possibleConstructorReturn(this, (PerformanceOverlay.__proto__ || Object.getPrototypeOf(PerformanceOverlay)).apply(this, arguments));
+    }
+
+    _createClass(PerformanceOverlay, [{
+      key: "render",
+      value: function render() {
+        var perfLogs = PerformanceLogger.getTimespans();
+        var items = [];
+
+        for (var key in perfLogs) {
+          if (perfLogs[key].totalTime) {
+            var unit = key === 'BundleSize' ? 'b' : 'ms';
+            items.push(React.createElement(
+              View,
+              {
+                style: styles.row,
+                key: key,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 27
+                }
+              },
+              React.createElement(
+                Text,
+                {
+                  style: [styles.text, styles.label],
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 28
+                  }
+                },
+                key
+              ),
+              React.createElement(
+                Text,
+                {
+                  style: [styles.text, styles.totalTime],
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 29
+                  }
+                },
+                perfLogs[key].totalTime + unit
+              )
+            ));
+          }
+        }
+
+        return React.createElement(
+          View,
+          {
+            style: styles.container,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 38
+            }
+          },
+          items
+        );
+      }
+    }]);
+
+    return PerformanceOverlay;
+  }(React.Component));
+
+  var styles = StyleSheet.create({
+    container: {
+      height: 100,
+      paddingTop: 10
+    },
+    label: {
+      flex: 1
+    },
+    row: {
+      flexDirection: 'row',
+      paddingHorizontal: 10
+    },
+    text: {
+      color: 'white',
+      fontSize: 12
+    },
+    totalTime: {
+      paddingRight: 100
+    }
+  });
+  module.exports = PerformanceOverlay;
+});

@@ -1,0 +1,84 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  var _jsxFileName = "/home/master/Documents/work/WeiPay/node_modules/react-native-elements/src/text/Text.js";
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var _propTypes = _require(_dependencyMap[0], "prop-types");
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  var _react = _require(_dependencyMap[1], "react");
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _reactNative = _require(_dependencyMap[2], "react-native");
+
+  var _fonts = _require(_dependencyMap[3], "../config/fonts");
+
+  var _fonts2 = _interopRequireDefault(_fonts);
+
+  var _normalizeText = _require(_dependencyMap[4], "../helpers/normalizeText");
+
+  var _normalizeText2 = _interopRequireDefault(_normalizeText);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+  var styles = _reactNative.StyleSheet.create({
+    text: _extends({}, _reactNative.Platform.select({
+      android: _extends({}, _fonts2.default.android.regular)
+    })),
+    bold: _extends({}, _reactNative.Platform.select({
+      android: _extends({}, _fonts2.default.android.bold)
+    }))
+  });
+
+  var TextElement = function TextElement(props) {
+    var style = props.style,
+        children = props.children,
+        h1 = props.h1,
+        h2 = props.h2,
+        h3 = props.h3,
+        h4 = props.h4,
+        fontFamily = props.fontFamily,
+        rest = _objectWithoutProperties(props, ["style", "children", "h1", "h2", "h3", "h4", "fontFamily"]);
+
+    return _react2.default.createElement(
+      _reactNative.Text,
+      _extends({
+        style: [styles.text, h1 && {
+          fontSize: (0, _normalizeText2.default)(40)
+        }, h2 && {
+          fontSize: (0, _normalizeText2.default)(34)
+        }, h3 && {
+          fontSize: (0, _normalizeText2.default)(28)
+        }, h4 && {
+          fontSize: (0, _normalizeText2.default)(22)
+        }, h1 && styles.bold, h2 && styles.bold, h3 && styles.bold, h4 && styles.bold, fontFamily && {
+          fontFamily: fontFamily
+        }, style && style]
+      }, rest, {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 28
+        }
+      }),
+      children
+    );
+  };
+
+  TextElement.propTypes = {
+    style: _propTypes2.default.any,
+    h1: _propTypes2.default.bool,
+    h2: _propTypes2.default.bool,
+    h3: _propTypes2.default.bool,
+    h4: _propTypes2.default.bool,
+    fontFamily: _propTypes2.default.string,
+    children: _propTypes2.default.any
+  };
+  exports.default = TextElement;
+});

@@ -1,0 +1,346 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../../../../node_modules/react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _jsxFileName = "/home/master/Documents/work/WeiPay/src/screens/main/menu/contacts/index.js";
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _reactNative = _require(_dependencyMap[2], "react-native");
+
+  var _reactNavigation = _require(_dependencyMap[3], "react-navigation");
+
+  var _reactNativeElements = _require(_dependencyMap[4], "react-native-elements");
+
+  var _reactRedux = _require(_dependencyMap[5], "react-redux");
+
+  var _lodash = _require(_dependencyMap[6], "lodash");
+
+  var _lodash2 = _interopRequireDefault(_lodash);
+
+  var _reactNativeResponsiveFontsize = _require(_dependencyMap[7], "react-native-responsive-fontsize");
+
+  var _reactNativeResponsiveFontsize2 = _interopRequireDefault(_reactNativeResponsiveFontsize);
+
+  var _ActionCreator = _require(_dependencyMap[8], "../.././../../actions/ActionCreator");
+
+  var actions = _interopRequireWildcard(_ActionCreator);
+
+  var _AddFirstContact = _require(_dependencyMap[9], "./add/AddFirstContact");
+
+  var _AddFirstContact2 = _interopRequireDefault(_AddFirstContact);
+
+  var _ContactBackWithMenuNav = _require(_dependencyMap[10], "../../../../components/customPageNavs/ContactBackWithMenuNav");
+
+  var _ContactBackWithMenuNav2 = _interopRequireDefault(_ContactBackWithMenuNav);
+
+  var _ContactTabNavigator = _require(_dependencyMap[11], "../../../../components/customPageNavs/ContactTabNavigator");
+
+  var _ContactTabNavigator2 = _interopRequireDefault(_ContactTabNavigator);
+
+  var _ContactsTab = _require(_dependencyMap[12], "./ContactsTab");
+
+  var _ContactsTab2 = _interopRequireDefault(_ContactsTab);
+
+  var _AddContact = _require(_dependencyMap[13], "./add/AddContact");
+
+  var _AddContact2 = _interopRequireDefault(_AddContact);
+
+  var _CustomTabNavigator = _require(_dependencyMap[14], "../../../../components/customPageNavs/CustomTabNavigator");
+
+  var _CustomTabNavigator2 = _interopRequireDefault(_CustomTabNavigator);
+
+  function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    Contacts: {
+      displayName: "Contacts"
+    }
+  };
+
+  var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/master/Documents/work/WeiPay/src/screens/main/menu/contacts/index.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var Contacts = _wrapComponent("Contacts")(function (_Component) {
+    _inherits(Contacts, _Component);
+
+    function Contacts(props) {
+      _classCallCheck(this, Contacts);
+
+      var _this = _possibleConstructorReturn(this, (Contacts.__proto__ || Object.getPrototypeOf(Contacts)).call(this, props));
+
+      _this.setAddContactTab = function () {
+        _this.props.contactsActiveTab('addcontact');
+
+        _this.setState({
+          tab: 'addcontact'
+        });
+
+        _this.setState({
+          selectedContact: false
+        });
+      };
+
+      _this.setContactTab = function () {
+        _this.props.contactsActiveTab('contacts');
+
+        _this.setState({
+          tab: 'contacts'
+        });
+
+        _this.setState({
+          selectedContact: false
+        });
+      };
+
+      _this.state = {
+        active: true,
+        tab: _this.props.activeTab,
+        selectedContact: false
+      };
+      return _this;
+    }
+
+    _createClass(Contacts, [{
+      key: "displayContactTab",
+      value: function displayContactTab() {
+        var _this2 = this;
+
+        if (this.state.tab === 'contacts') {
+          return _react3.default.createElement(_ContactsTab2.default, {
+            setAddContactTab: function setAddContactTab() {
+              return _this2.setState({
+                tab: 'addcontact'
+              });
+            },
+            navigation: this.props.navigation,
+            selectedContact: this.state.selectedContact,
+            selectedContactTrue: function selectedContactTrue() {
+              return _this2.setState({
+                selectedContact: true
+              });
+            },
+            setSelectedContactFalse: function setSelectedContactFalse() {
+              return _this2.setState({
+                selectedContact: false
+              });
+            },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 37
+            }
+          });
+        }
+
+        if (this.state.tab === 'addcontact') {
+          return _react3.default.createElement(_AddContact2.default, {
+            navigation: this.props.navigation,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 47
+            }
+          });
+        }
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        var _this3 = this;
+
+        return _react3.default.createElement(
+          _reactNative.SafeAreaView,
+          {
+            style: styles.safeAreaView,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 69
+            }
+          },
+          _react3.default.createElement(
+            _reactNative.TouchableWithoutFeedback,
+            {
+              onPress: _reactNative.Keyboard.dismiss,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 70
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: styles.mainContainer,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 71
+                }
+              },
+              _react3.default.createElement(_ContactBackWithMenuNav2.default, {
+                showMenu: true,
+                showBack: this.state.selectedContact,
+                navigation: this.props.navigation,
+                backPage: 'mainStack',
+                backButton: function backButton() {
+                  return _this3.setState({
+                    selectedContact: false
+                  });
+                },
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 72
+                }
+              }),
+              _react3.default.createElement(_ContactTabNavigator2.default, {
+                Active: this.state.active,
+                navigation: this.props.navigation,
+                setContactTab: this.setContactTab,
+                setAddContactTab: this.setAddContactTab,
+                tab: this.state.tab,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 79
+                }
+              }),
+              this.displayContactTab(),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: styles.footerContainer,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 87
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    style: styles.textFooter,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 88
+                    }
+                  },
+                  "Powered by ChainSafe "
+                )
+              )
+            )
+          )
+        );
+      }
+    }]);
+
+    return Contacts;
+  }(_react2.Component));
+
+  var styles = _reactNative.StyleSheet.create({
+    safeAreaView: {
+      flex: 1,
+      backgroundColor: '#fafbfe'
+    },
+    rowContainer: {
+      marginTop: '3%'
+    },
+    mainContainer: {
+      flex: 1,
+      alignItems: 'stretch',
+      justifyContent: 'flex-start',
+      paddingTop: '2.5%',
+      backgroundColor: '#fafbfe'
+    },
+    contentContainer: {
+      marginTop: 25
+    },
+    form: {
+      width: 340
+    },
+    btnContainer: {
+      flex: 1,
+      justifyContent: 'flex-end',
+      alignItems: 'center'
+    },
+    listItemContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      marginLeft: '5%'
+    },
+    listItem: {
+      marginTop: '2.5%',
+      marginLeft: '0.25%'
+    },
+    listItemText: {
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(2.4),
+      fontFamily: 'Cairo-Regular',
+      alignItems: 'flex-start',
+      flex: 1,
+      width: '90%',
+      letterSpacing: 0.5,
+      top: '1%'
+    },
+    listItemContainerStyle: {
+      borderRadius: 10,
+      width: '90%',
+      height: 55,
+      backgroundColor: '#ffffff',
+      justifyContent: 'center',
+      borderWidth: 0.5,
+      borderColor: '#F8F8FF',
+      shadowColor: '#F8F8FF',
+      shadowOffset: {
+        width: 1,
+        height: 1
+      },
+      shadowOpacity: 20,
+      shadowRadius: 10
+    },
+    list: {
+      marginLeft: '9%'
+    },
+    textFooter: {
+      fontFamily: 'WorkSans-Regular',
+      fontSize: 11,
+      marginTop: '3.5%',
+      color: '#c0c0c0'
+    },
+    footerContainer: {
+      alignItems: 'center',
+      marginTop: '-5%',
+      flex: 0.08
+    }
+  });
+
+  function mapStateToProps(_ref) {
+    var contacts = _ref.contacts;
+    return {
+      contacts: contacts.contacts,
+      activeTab: contacts.activeTab
+    };
+  }
+
+  exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Contacts);
+});

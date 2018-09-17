@@ -1,0 +1,47 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+  var invariant = _require(_dependencyMap[0], 'fbjs/lib/invariant');
+
+  var levelsMap = {
+    log: 'log',
+    info: 'info',
+    warn: 'warn',
+    error: 'error',
+    fatal: 'error'
+  };
+  var warningHandler = null;
+  var RCTLog = {
+    logIfNoNativeHook: function logIfNoNativeHook(level) {
+      for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        args[_key - 1] = arguments[_key];
+      }
+
+      if (typeof global.nativeLoggingHook === 'undefined') {
+        RCTLog.logToConsole.apply(RCTLog, [level].concat(_toConsumableArray(args)));
+      } else {
+        if (warningHandler && level === 'warn') {
+          warningHandler.apply(undefined, _toConsumableArray(args));
+        }
+      }
+    },
+    logToConsole: function logToConsole(level) {
+      var _console;
+
+      var logFn = levelsMap[level];
+      invariant(logFn, 'Level "' + level + '" not one of ' + Object.keys(levelsMap).toString());
+
+      for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+        args[_key2 - 1] = arguments[_key2];
+      }
+
+      (_console = console)[logFn].apply(_console, _toConsumableArray(args));
+    },
+    setWarningHandler: function setWarningHandler(handler) {
+      warningHandler = handler;
+    }
+  };
+  module.exports = RCTLog;
+});

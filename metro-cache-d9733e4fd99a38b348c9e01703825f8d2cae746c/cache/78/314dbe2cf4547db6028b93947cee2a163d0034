@@ -1,0 +1,7 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var createFind = _require(_dependencyMap[0], './_createFind'),
+      findIndex = _require(_dependencyMap[1], './findIndex');
+
+  var find = createFind(findIndex);
+  module.exports = find;
+});

@@ -1,0 +1,381 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../../../../node_modules/react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _this = this,
+      _jsxFileName = "/home/master/Documents/work/WeiPay/src/screens/main/menu/settings/BackupPhrase.js";
+
+  var _reactNative = _require(_dependencyMap[2], "react-native");
+
+  var _reactNavigation = _require(_dependencyMap[3], "react-navigation");
+
+  var _reactNativeElements = _require(_dependencyMap[4], "react-native-elements");
+
+  var _reactRedux = _require(_dependencyMap[5], "react-redux");
+
+  var _BackWithMenuNav = _require(_dependencyMap[6], "../../../../components/customPageNavs/BackWithMenuNav");
+
+  var _BackWithMenuNav2 = _interopRequireDefault(_BackWithMenuNav);
+
+  var _BoxShadowCard = _require(_dependencyMap[7], "../../../../components/ShadowCards/BoxShadowCard");
+
+  var _BoxShadowCard2 = _interopRequireDefault(_BoxShadowCard);
+
+  var _LinearButton = _require(_dependencyMap[8], "../../../../components/LinearGradient/LinearButton");
+
+  var _LinearButton2 = _interopRequireDefault(_LinearButton);
+
+  var _reactNativeResponsiveFontsize = _require(_dependencyMap[9], "react-native-responsive-fontsize");
+
+  var _reactNativeResponsiveFontsize2 = _interopRequireDefault(_reactNativeResponsiveFontsize);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    BackupPhrase: {
+      displayName: "BackupPhrase"
+    }
+  };
+
+  var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/master/Documents/work/WeiPay/src/screens/main/menu/settings/BackupPhrase.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var navigate = function navigate() {
+    var navigateToPassphrase = _reactNavigation.NavigationActions.reset({
+      index: 0,
+      actions: [_reactNavigation.NavigationActions.navigate({
+        routeName: 'Drawer'
+      })]
+    });
+
+    _this.props.navigation.dispatch(navigateToPassphrase);
+  };
+
+  var BackupPhrase = _wrapComponent("BackupPhrase")(function (_Component) {
+    _inherits(BackupPhrase, _Component);
+
+    function BackupPhrase(props) {
+      _classCallCheck(this, BackupPhrase);
+
+      var _this2 = _possibleConstructorReturn(this, (BackupPhrase.__proto__ || Object.getPrototypeOf(BackupPhrase)).call(this, props));
+
+      _this2.state = {
+        isPhraseSelected: false,
+        phrase: _this2.props.mnemonic
+      };
+      return _this2;
+    }
+
+    _createClass(BackupPhrase, [{
+      key: "displayPassphrase",
+      value: function displayPassphrase() {
+        this.setState({
+          isPhraseSelected: true
+        });
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        return _react3.default.createElement(
+          _reactNative.SafeAreaView,
+          {
+            style: styles.safeAreaView,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 47
+            }
+          },
+          _react3.default.createElement(
+            _reactNative.TouchableWithoutFeedback,
+            {
+              onPress: _reactNative.Keyboard.dismiss,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 48
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: styles.mainContainer,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 49
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: styles.navContainer,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 50
+                  }
+                },
+                _react3.default.createElement(_BackWithMenuNav2.default, {
+                  showMenu: true,
+                  showBack: true,
+                  navigation: this.props.navigation,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 51
+                  }
+                })
+              ),
+              _react3.default.createElement(
+                _reactNative.Text,
+                {
+                  style: styles.textHeader,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 57
+                  }
+                },
+                "Backup Passphrase"
+              ),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: styles.boxShadowContainer,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 58
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    style: styles.contentContainer,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 59
+                    }
+                  },
+                  _react3.default.createElement(
+                    _BoxShadowCard2.default,
+                    {
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 60
+                      }
+                    },
+                    this.state.isPhraseSelected ? _react3.default.createElement(
+                      _reactNative.View,
+                      {
+                        __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 64
+                        }
+                      },
+                      _react3.default.createElement(
+                        _reactNative.Text,
+                        {
+                          style: styles.cardText,
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 65
+                          }
+                        },
+                        "Please save this passphrase somewhere safe!"
+                      ),
+                      _react3.default.createElement(
+                        _reactNative.Text,
+                        {
+                          style: styles.mnemonicText,
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 66
+                          }
+                        },
+                        this.state.phrase
+                      )
+                    ) : _react3.default.createElement(
+                      _reactNative.Text,
+                      {
+                        style: styles.cardText,
+                        __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 68
+                        }
+                      },
+                      "To view your recovery passphrase, select the button below"
+                    )
+                  )
+                )
+              ),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: styles.btnContainer,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 74
+                  }
+                },
+                this.state.isPhraseSelected ? null : _react3.default.createElement(_LinearButton2.default, {
+                  onClickFunction: this.displayPassphrase.bind(this),
+                  buttonText: "Show Recovery Passphrase",
+                  customStyles: styles.button,
+                  buttonStateEnabled: this.props.debugMode ? false : this.state.buttonDisabled,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 78
+                  }
+                }),
+                _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    style: styles.footerGrandparentContainer,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 85
+                    }
+                  },
+                  _react3.default.createElement(
+                    _reactNative.View,
+                    {
+                      style: styles.footerParentContainer,
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 86
+                      }
+                    },
+                    _react3.default.createElement(
+                      _reactNative.Text,
+                      {
+                        style: styles.textFooter,
+                        __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 87
+                        }
+                      },
+                      "Powered by ChainSafe "
+                    )
+                  )
+                )
+              )
+            )
+          )
+        );
+      }
+    }]);
+
+    return BackupPhrase;
+  }(_react2.Component));
+
+  var styles = _reactNative.StyleSheet.create({
+    safeAreaView: {
+      flex: 1,
+      backgroundColor: '#fafbfe'
+    },
+    mainContainer: {
+      flex: 1,
+      backgroundColor: '#fafbfe',
+      justifyContent: 'center',
+      width: '100%'
+    },
+    navContainer: {
+      flex: 0.75
+    },
+    boxShadowContainer: {
+      alignItems: 'center',
+      flex: 3
+    },
+    textHeader: {
+      fontFamily: 'Cairo-Light',
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(4),
+      letterSpacing: 0.8,
+      paddingLeft: '9%',
+      color: '#1a1f3e',
+      flex: 0.75
+    },
+    contentContainer: {
+      width: '82%',
+      flex: 1
+    },
+    cardText: {
+      paddingBottom: '7.5%',
+      paddingTop: '7.5%',
+      paddingLeft: '7.5%',
+      paddingRight: '7.55%',
+      fontFamily: 'WorkSans-Light',
+      color: '#000000',
+      letterSpacing: 0.4,
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(2.4),
+      lineHeight: (0, _reactNativeResponsiveFontsize2.default)(2.8)
+    },
+    mnemonicText: {
+      paddingTop: '2.5%',
+      paddingLeft: '7.5%',
+      paddingRight: '7.55%',
+      fontFamily: 'WorkSans-Light',
+      letterSpacing: 0.4,
+      color: '#12c1a2',
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(2.2),
+      lineHeight: (0, _reactNativeResponsiveFontsize2.default)(3)
+    },
+    btnContainer: {
+      flex: 2,
+      alignItems: 'stretch',
+      justifyContent: 'flex-end',
+      width: '100%'
+    },
+    button: {
+      width: '82%',
+      height: _reactNative.Dimensions.get('window').height * 0.082
+    },
+    footerGrandparentContainer: {
+      alignItems: 'center',
+      marginBottom: '5%',
+      marginTop: '5%'
+    },
+    footerParentContainer: {
+      alignItems: 'center'
+    },
+    textFooter: {
+      fontFamily: 'WorkSans-Regular',
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(1.7),
+      color: '#c0c0c0',
+      letterSpacing: 0.5
+    }
+  });
+
+  var mapStateToProps = function mapStateToProps(_ref) {
+    var newWallet = _ref.newWallet;
+    var mnemonic = newWallet.wallet.mnemonic;
+    var debugMode = newWallet.debugMode;
+    return {
+      mnemonic: mnemonic,
+      debugMode: debugMode
+    };
+  };
+
+  exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(BackupPhrase);
+});

@@ -1,0 +1,71 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var _jsxFileName = "/home/master/Documents/work/WeiPay/node_modules/react-navigation/src/navigators/StackNavigator.js";
+
+  var _react = _require(_dependencyMap[0], "react");
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _createNavigationContainer = _require(_dependencyMap[1], "../createNavigationContainer");
+
+  var _createNavigationContainer2 = _interopRequireDefault(_createNavigationContainer);
+
+  var _createNavigator = _require(_dependencyMap[2], "./createNavigator");
+
+  var _createNavigator2 = _interopRequireDefault(_createNavigator);
+
+  var _CardStackTransitioner = _require(_dependencyMap[3], "../views/CardStack/CardStackTransitioner");
+
+  var _CardStackTransitioner2 = _interopRequireDefault(_CardStackTransitioner);
+
+  var _StackRouter = _require(_dependencyMap[4], "../routers/StackRouter");
+
+  var _StackRouter2 = _interopRequireDefault(_StackRouter);
+
+  var _NavigatorTypes = _require(_dependencyMap[5], "./NavigatorTypes");
+
+  var _NavigatorTypes2 = _interopRequireDefault(_NavigatorTypes);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  exports.default = function (routeConfigMap) {
+    var stackConfig = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var initialRouteName = stackConfig.initialRouteName,
+        initialRouteParams = stackConfig.initialRouteParams,
+        paths = stackConfig.paths,
+        headerMode = stackConfig.headerMode,
+        mode = stackConfig.mode,
+        cardStyle = stackConfig.cardStyle,
+        transitionConfig = stackConfig.transitionConfig,
+        onTransitionStart = stackConfig.onTransitionStart,
+        onTransitionEnd = stackConfig.onTransitionEnd,
+        navigationOptions = stackConfig.navigationOptions;
+    var stackRouterConfig = {
+      initialRouteName: initialRouteName,
+      initialRouteParams: initialRouteParams,
+      paths: paths,
+      navigationOptions: navigationOptions
+    };
+    var router = (0, _StackRouter2.default)(routeConfigMap, stackRouterConfig);
+    var navigator = (0, _createNavigator2.default)(router, routeConfigMap, stackConfig, _NavigatorTypes2.default.STACK)(function (props) {
+      return _react2.default.createElement(_CardStackTransitioner2.default, _extends({}, props, {
+        headerMode: headerMode,
+        mode: mode,
+        cardStyle: cardStyle,
+        transitionConfig: transitionConfig,
+        onTransitionStart: onTransitionStart,
+        onTransitionEnd: onTransitionEnd,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 48
+        }
+      }));
+    });
+    return (0, _createNavigationContainer2.default)(navigator);
+  };
+});

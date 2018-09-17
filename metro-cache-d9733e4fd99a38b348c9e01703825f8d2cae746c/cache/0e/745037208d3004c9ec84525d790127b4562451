@@ -1,0 +1,171 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var _jsxFileName = "/home/master/Documents/work/WeiPay/node_modules/react-native-elements/src/header/Header.js";
+
+  var _react = _require(_dependencyMap[0], "react");
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _propTypes = _require(_dependencyMap[1], "prop-types");
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  var _reactNative = _require(_dependencyMap[2], "react-native");
+
+  var _lodash = _require(_dependencyMap[3], "lodash.isempty");
+
+  var _lodash2 = _interopRequireDefault(_lodash);
+
+  var _DummyNavButton = _require(_dependencyMap[4], "./DummyNavButton");
+
+  var _DummyNavButton2 = _interopRequireDefault(_DummyNavButton);
+
+  var _NavButton = _require(_dependencyMap[5], "./NavButton");
+
+  var _NavButton2 = _interopRequireDefault(_NavButton);
+
+  var _Title = _require(_dependencyMap[6], "./Title");
+
+  var _Title2 = _interopRequireDefault(_Title);
+
+  var _ViewPropTypes = _require(_dependencyMap[7], "../config/ViewPropTypes");
+
+  var _ViewPropTypes2 = _interopRequireDefault(_ViewPropTypes);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+  function generateChild(value, type) {
+    if (_react2.default.isValidElement(value)) {
+      return _react2.default.createElement(
+        _reactNative.View,
+        {
+          key: type,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 12
+          }
+        },
+        value
+      );
+    } else if (typeof value === 'object' && !(0, _lodash2.default)(value)) {
+      return type === 'center' ? _react2.default.createElement(_Title2.default, _extends({}, value, {
+        key: type,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 15
+        }
+      })) : _react2.default.createElement(_NavButton2.default, _extends({}, value, {
+        key: type,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 17
+        }
+      }));
+    }
+
+    return type === 'center' ? null : _react2.default.createElement(_DummyNavButton2.default, {
+      key: type,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 20
+      }
+    });
+  }
+
+  function populateChildren(propChildren) {
+    var childrenArray = [];
+    var leftComponent = generateChild(propChildren.leftComponent, 'left');
+    var centerComponent = generateChild(propChildren.centerComponent, 'center');
+    var rightComponent = generateChild(propChildren.rightComponent, 'right');
+    childrenArray.push(leftComponent, centerComponent, rightComponent);
+    return childrenArray;
+  }
+
+  var Header = function Header(props) {
+    var children = props.children,
+        statusBarProps = props.statusBarProps,
+        leftComponent = props.leftComponent,
+        centerComponent = props.centerComponent,
+        rightComponent = props.rightComponent,
+        backgroundColor = props.backgroundColor,
+        outerContainerStyles = props.outerContainerStyles,
+        innerContainerStyles = props.innerContainerStyles,
+        attributes = _objectWithoutProperties(props, ["children", "statusBarProps", "leftComponent", "centerComponent", "rightComponent", "backgroundColor", "outerContainerStyles", "innerContainerStyles"]);
+
+    var propChildren = [];
+
+    if (leftComponent || centerComponent || rightComponent) {
+      propChildren = populateChildren({
+        leftComponent: leftComponent,
+        centerComponent: centerComponent,
+        rightComponent: rightComponent
+      });
+    }
+
+    return _react2.default.createElement(
+      _reactNative.View,
+      _extends({}, attributes, {
+        style: [styles.outerContainer, backgroundColor && {
+          backgroundColor: backgroundColor
+        }, outerContainerStyles],
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 59
+        }
+      }),
+      _react2.default.createElement(_reactNative.StatusBar, _extends({}, statusBarProps, {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 67
+        }
+      })),
+      _react2.default.createElement(
+        _reactNative.View,
+        {
+          style: [styles.innerContainer, innerContainerStyles],
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 68
+          }
+        },
+        propChildren.length > 0 ? propChildren : children
+      )
+    );
+  };
+
+  Header.propTypes = {
+    leftComponent: _propTypes2.default.object,
+    centerComponent: _propTypes2.default.object,
+    rightComponent: _propTypes2.default.object,
+    backgroundColor: _propTypes2.default.string,
+    outerContainerStyles: _ViewPropTypes2.default.style,
+    innerContainerStyles: _ViewPropTypes2.default.style,
+    children: _propTypes2.default.oneOfType([_propTypes2.default.element, _propTypes2.default.arrayOf(_propTypes2.default.element)]),
+    statusBarProps: _propTypes2.default.object
+  };
+
+  var styles = _reactNative.StyleSheet.create({
+    innerContainer: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'flex-end'
+    },
+    outerContainer: {
+      backgroundColor: '#476DC5',
+      borderBottomColor: '#f2f2f2',
+      borderBottomWidth: 1,
+      padding: 15,
+      height: 70
+    }
+  });
+
+  exports.default = Header;
+});

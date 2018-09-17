@@ -1,0 +1,187 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var _jsxFileName = "/home/master/Documents/work/WeiPay/src/navigation/stack/mainBucketStack.js";
+
+  var _reactNavigation = _require(_dependencyMap[0], "react-navigation");
+
+  var _reactNative = _require(_dependencyMap[1], "react-native");
+
+  var _react = _require(_dependencyMap[2], "react");
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _index = _require(_dependencyMap[3], "../../screens/main/menu/contacts/index");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _AddContact = _require(_dependencyMap[4], "../../screens/main/menu/contacts/add/AddContact");
+
+  var _AddContact2 = _interopRequireDefault(_AddContact);
+
+  var _EditContact = _require(_dependencyMap[5], "../../screens/main/menu/contacts/add/EditContact");
+
+  var _EditContact2 = _interopRequireDefault(_EditContact);
+
+  var _index3 = _require(_dependencyMap[6], "../../screens/main/portfolio/index");
+
+  var _index4 = _interopRequireDefault(_index3);
+
+  var _CoinSend = _require(_dependencyMap[7], "../../screens/main/tokens/send/CoinSend");
+
+  var _CoinSend2 = _interopRequireDefault(_CoinSend);
+
+  var _CoinActivity = _require(_dependencyMap[8], "../../screens/main/tokens/history/CoinActivity");
+
+  var _CoinActivity2 = _interopRequireDefault(_CoinActivity);
+
+  var _CoinReceive = _require(_dependencyMap[9], "../../screens/main/tokens/receive/CoinReceive");
+
+  var _CoinReceive2 = _interopRequireDefault(_CoinReceive);
+
+  var _Tokens = _require(_dependencyMap[10], "../../screens/main/tokens/add/Tokens");
+
+  var _Tokens2 = _interopRequireDefault(_Tokens);
+
+  var _Coins = _require(_dependencyMap[11], "../../screens/main/tokens/add/Coins");
+
+  var _Coins2 = _interopRequireDefault(_Coins);
+
+  var _SelectedContact = _require(_dependencyMap[12], "../../screens/main/menu/contacts/SelectedContact");
+
+  var _SelectedContact2 = _interopRequireDefault(_SelectedContact);
+
+  var _QrCodeScanner = _require(_dependencyMap[13], "../../screens/main/qr/QrCodeScanner");
+
+  var _QrCodeScanner2 = _interopRequireDefault(_QrCodeScanner);
+
+  var _BackupPhrase = _require(_dependencyMap[14], "../../screens/main/menu/settings/BackupPhrase");
+
+  var _BackupPhrase2 = _interopRequireDefault(_BackupPhrase);
+
+  var _Index = _require(_dependencyMap[15], "../../screens/main/tokens/Index");
+
+  var _Index2 = _interopRequireDefault(_Index);
+
+  var _Index3 = _require(_dependencyMap[16], "../../screens/main/tokens/add/Index");
+
+  var _Index4 = _interopRequireDefault(_Index3);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  var CustomDrawerContentComponent = function CustomDrawerContentComponent(props) {
+    return _react2.default.createElement(
+      _reactNative.View,
+      {
+        style: styles.customContainer,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 20
+        }
+      },
+      _react2.default.createElement(
+        _reactNative.View,
+        {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 21
+          }
+        },
+        _react2.default.createElement(_reactNavigation.DrawerItems, _extends({}, props, {
+          activeBackgroundColor: '#f3f3f3',
+          labelStyle: styles.labelText,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 22
+          }
+        }))
+      )
+    );
+  };
+
+  var navigator = (0, _reactNavigation.DrawerNavigator)({
+    Portfolio: {
+      screen: (0, _reactNavigation.StackNavigator)({
+        portfolioScreen: {
+          screen: _index4.default
+        },
+        coinReceive: {
+          screen: _CoinReceive2.default
+        },
+        coinHistory: {
+          screen: _CoinActivity2.default
+        },
+        coinSend: {
+          screen: _CoinSend2.default
+        },
+        TokenFunctionality: {
+          screen: _Index2.default
+        },
+        AddTokenFunctionality: {
+          screen: _Index4.default
+        },
+        QCodeScanner: {
+          screen: _QrCodeScanner2.default
+        },
+        contactAddresses: {
+          screen: _SelectedContact2.default
+        }
+      }, {
+        initialRouteName: 'portfolioScreen',
+        headerMode: 'none',
+        navigationOptions: {
+          backgroundColor: '#fafbfe',
+          borderBottomWidth: 0
+        }
+      })
+    },
+    Backup: {
+      screen: _BackupPhrase2.default
+    },
+    Contacts: {
+      screen: (0, _reactNavigation.StackNavigator)({
+        contacts: {
+          screen: _index2.default
+        },
+        editContact: {
+          screen: _EditContact2.default
+        },
+        addContact: {
+          screen: _AddContact2.default
+        }
+      }, {
+        headerMode: 'none'
+      })
+    },
+    Coins: {
+      screen: _Coins2.default
+    },
+    Tokens: {
+      screen: _Tokens2.default
+    }
+  }, {
+    headerMode: 'none',
+    lazy: true,
+    contentComponent: CustomDrawerContentComponent,
+    drawerPosition: 'right'
+  });
+  exports.default = navigator;
+
+  var styles = _reactNative.StyleSheet.create({
+    customContainer: {
+      flex: 1,
+      backgroundColor: "white"
+    },
+    labelText: {
+      fontSize: 16,
+      letterSpacing: 0.6,
+      fontFamily: "Cairo-Light",
+      color: "black",
+      fontWeight: '200'
+    }
+  });
+});

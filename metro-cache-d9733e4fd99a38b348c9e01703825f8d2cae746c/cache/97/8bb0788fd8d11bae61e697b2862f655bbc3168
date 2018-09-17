@@ -1,0 +1,323 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../../../react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _class,
+      _temp2,
+      _jsxFileName = "/home/master/Documents/work/WeiPay/node_modules/react-navigation/node_modules/react-native-tab-view/src/TabViewPagerPan.js";
+
+  var _propTypes = _require(_dependencyMap[2], "prop-types");
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  var _reactNative = _require(_dependencyMap[3], "react-native");
+
+  var _TabViewPropTypes = _require(_dependencyMap[4], "./TabViewPropTypes");
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+  function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    TabViewPagerPan: {
+      displayName: "TabViewPagerPan"
+    }
+  };
+
+  var _reactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/master/Documents/work/WeiPay/node_modules/react-navigation/node_modules/react-native-tab-view/src/TabViewPagerPan.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _reactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var DEAD_ZONE = 12;
+  var DefaultTransitionSpec = {
+    timing: _reactNative.Animated.spring,
+    tension: 300,
+    friction: 35
+  };
+
+  var TabViewPagerPan = _wrapComponent("TabViewPagerPan")((_temp2 = _class = function (_PureComponent) {
+    _inherits(TabViewPagerPan, _PureComponent);
+
+    function TabViewPagerPan() {
+      var _ref;
+
+      var _temp, _this, _ret;
+
+      _classCallCheck(this, TabViewPagerPan);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = TabViewPagerPan.__proto__ || Object.getPrototypeOf(TabViewPagerPan)).call.apply(_ref, [this].concat(args))), _this), _this._pendingIndex = null, _this._lastValue = null, _this._isMoving = null, _this._startDirection = 0, _this._isIndexInRange = function (index) {
+        var routes = _this.props.navigationState.routes;
+        return index >= 0 && index <= routes.length - 1;
+      }, _this._isMovingHorizontally = function (evt, gestureState) {
+        return Math.abs(gestureState.dx) > Math.abs(gestureState.dy * 3) && Math.abs(gestureState.vx) > Math.abs(gestureState.vy * 3);
+      }, _this._isReverseDirection = function (gestureState) {
+        if (_this._startDirection > 0) {
+          return gestureState.vx < 0;
+        } else {
+          return gestureState.vx > 0;
+        }
+      }, _this._getNextIndex = function (evt, gestureState) {
+        var currentIndex = typeof _this._pendingIndex === 'number' ? _this._pendingIndex : _this.props.navigationState.index;
+        var swipeVelocityThreshold = _this.props.swipeVelocityThreshold;
+
+        if (_reactNative.Platform.OS === 'android') {
+          swipeVelocityThreshold /= 1000000;
+        }
+
+        if (Math.abs(gestureState.dx) > _this.props.swipeDistanceThreshold || Math.abs(gestureState.vx) > swipeVelocityThreshold) {
+          var nextIndex = currentIndex - gestureState.dx / Math.abs(gestureState.dx) * (_reactNative.I18nManager.isRTL ? -1 : 1);
+
+          if (_this._isIndexInRange(nextIndex)) {
+            return nextIndex;
+          }
+        }
+
+        return currentIndex;
+      }, _this._canMoveScreen = function (evt, gestureState) {
+        if (_this.props.swipeEnabled === false) {
+          return false;
+        }
+
+        var _this$props$navigatio = _this.props.navigationState,
+            routes = _this$props$navigatio.routes,
+            index = _this$props$navigatio.index;
+        var canMove = _this._isMovingHorizontally(evt, gestureState) && (gestureState.dx >= DEAD_ZONE && index >= 0 || gestureState.dx <= -DEAD_ZONE && index <= routes.length - 1);
+
+        if (canMove) {
+          _this._startDirection = gestureState.dx;
+        }
+
+        return canMove;
+      }, _this._startGesture = function (evt, gestureState) {
+        if (typeof _this.props.onSwipeStart === 'function') {
+          _this.props.onSwipeStart(evt, gestureState);
+        }
+
+        _this._lastValue = _this.props.getLastPosition();
+
+        _this.props.position.stopAnimation();
+      }, _this._respondToGesture = function (evt, gestureState) {
+        var width = _this.props.layout.width;
+        var currentPosition = typeof _this._lastValue === 'number' ? _this._lastValue : _this.props.navigationState.index;
+        var nextPosition = currentPosition - gestureState.dx / width * (_reactNative.I18nManager.isRTL ? -1 : 1);
+
+        if (_this._isMoving === null) {
+          _this._isMoving = _this._isMovingHorizontally(evt, gestureState);
+        }
+
+        if (_this._isMoving && _this._isIndexInRange(nextPosition)) {
+          _this.props.position.setValue(nextPosition);
+        }
+      }, _this._finishGesture = function (evt, gestureState) {
+        if (typeof _this.props.onSwipeEnd === 'function') {
+          _this.props.onSwipeEnd(evt, gestureState);
+        }
+
+        var currentIndex = _this.props.navigationState.index;
+
+        var currentValue = _this.props.getLastPosition();
+
+        if (currentValue !== currentIndex) {
+          if (_this._isMoving && !_this._isReverseDirection(gestureState)) {
+            var nextIndex = _this._getNextIndex(evt, gestureState);
+
+            _this._transitionTo(nextIndex);
+          } else {
+            _this._transitionTo(currentIndex);
+          }
+        }
+
+        _this._lastValue = null;
+        _this._isMoving = null;
+      }, _this._transitionTo = function (toValue) {
+        var lastPosition = _this.props.getLastPosition();
+
+        var currentTransitionProps = {
+          progress: lastPosition
+        };
+        var nextTransitionProps = {
+          progress: toValue
+        };
+        _this._pendingIndex = toValue;
+
+        if (_this.props.animationEnabled !== false) {
+          var transitionSpec = _this.props.configureTransition(currentTransitionProps, nextTransitionProps);
+
+          var timing = transitionSpec.timing,
+              transitionConfig = _objectWithoutProperties(transitionSpec, ["timing"]);
+
+          timing(_this.props.position, _extends({}, transitionConfig, {
+            toValue: toValue
+          })).start(function (_ref2) {
+            var finished = _ref2.finished;
+
+            if (finished) {
+              _this.props.jumpToIndex(toValue);
+
+              _this._pendingIndex = null;
+            }
+          });
+        } else {
+          _this.props.position.setValue(toValue);
+
+          _this.props.jumpToIndex(toValue);
+
+          _this._pendingIndex = null;
+        }
+      }, _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    _createClass(TabViewPagerPan, [{
+      key: "componentWillMount",
+      value: function componentWillMount() {
+        this._panResponder = _reactNative.PanResponder.create({
+          onMoveShouldSetPanResponder: this._canMoveScreen,
+          onMoveShouldSetPanResponderCapture: this._canMoveScreen,
+          onPanResponderGrant: this._startGesture,
+          onPanResponderMove: this._respondToGesture,
+          onPanResponderTerminate: this._finishGesture,
+          onPanResponderRelease: this._finishGesture,
+          onPanResponderTerminationRequest: function onPanResponderTerminationRequest() {
+            return true;
+          }
+        });
+      }
+    }, {
+      key: "componentDidMount",
+      value: function componentDidMount() {
+        this._resetListener = this.props.subscribe('reset', this._transitionTo);
+      }
+    }, {
+      key: "componentDidUpdate",
+      value: function componentDidUpdate(prevProps) {
+        if (prevProps.navigationState.index !== this.props.navigationState.index) {
+          this._transitionTo(this.props.navigationState.index);
+        }
+      }
+    }, {
+      key: "componentWillUnmount",
+      value: function componentWillUnmount() {
+        this._resetListener.remove();
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        var _props = this.props,
+            layout = _props.layout,
+            position = _props.position,
+            navigationState = _props.navigationState,
+            children = _props.children;
+        var width = layout.width;
+        var routes = navigationState.routes;
+        var inputRange = [-1].concat(_toConsumableArray(routes.map(function (x, i) {
+          return i;
+        })));
+        var outputRange = inputRange.map(function (i) {
+          return width * i * (_reactNative.I18nManager.isRTL ? 1 : -1);
+        });
+        var translateX = position.interpolate({
+          inputRange: inputRange,
+          outputRange: outputRange
+        });
+        return _react3.default.createElement(
+          _reactNative.Animated.View,
+          _extends({
+            style: [styles.sheet, width ? {
+              width: routes.length * width,
+              transform: [{
+                translateX: translateX
+              }]
+            } : null]
+          }, this._panResponder.panHandlers, {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 292
+            }
+          }),
+          _react2.Children.map(children, function (child, i) {
+            return _react3.default.createElement(
+              _reactNative.View,
+              {
+                key: navigationState.routes[i].key,
+                testID: navigationState.routes[i].testID,
+                style: width ? {
+                  width: width
+                } : i === navigationState.index ? _reactNative.StyleSheet.absoluteFill : null,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 302
+                }
+              },
+              i === navigationState.index || width ? child : null
+            );
+          })
+        );
+      }
+    }]);
+
+    return TabViewPagerPan;
+  }(_react2.PureComponent), _class.propTypes = _extends({}, _TabViewPropTypes.SceneRendererPropType, {
+    configureTransition: _propTypes2.default.func.isRequired,
+    animationEnabled: _propTypes2.default.bool,
+    swipeEnabled: _propTypes2.default.bool,
+    swipeDistanceThreshold: _propTypes2.default.number.isRequired,
+    swipeVelocityThreshold: _propTypes2.default.number.isRequired,
+    onSwipeStart: _propTypes2.default.func,
+    onSwipeEnd: _propTypes2.default.func,
+    children: _propTypes2.default.node
+  }), _class.defaultProps = {
+    configureTransition: function configureTransition() {
+      return DefaultTransitionSpec;
+    },
+    initialLayout: {
+      height: 0,
+      width: 0
+    },
+    swipeDistanceThreshold: 120,
+    swipeVelocityThreshold: 0.25
+  }, _temp2));
+
+  exports.default = TabViewPagerPan;
+
+  var styles = _reactNative.StyleSheet.create({
+    sheet: {
+      flex: 1,
+      flexDirection: 'row',
+      alignItems: 'stretch'
+    }
+  });
+});

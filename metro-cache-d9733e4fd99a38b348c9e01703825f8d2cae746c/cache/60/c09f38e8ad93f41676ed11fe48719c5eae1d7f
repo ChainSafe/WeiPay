@@ -1,0 +1,11 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var toFinite = _require(_dependencyMap[0], './toFinite');
+
+  function toInteger(value) {
+    var result = toFinite(value),
+        remainder = result % 1;
+    return result === result ? remainder ? result - remainder : result : 0;
+  }
+
+  module.exports = toInteger;
+});

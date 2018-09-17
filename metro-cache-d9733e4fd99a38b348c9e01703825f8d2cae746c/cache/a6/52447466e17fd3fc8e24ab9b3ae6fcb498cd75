@@ -1,0 +1,20 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    var baseGetTag = _require(_dependencyMap[0], './_baseGetTag'),
+        isObject = _require(_dependencyMap[1], './isObject');
+
+    var asyncTag = '[object AsyncFunction]',
+        funcTag = '[object Function]',
+        genTag = '[object GeneratorFunction]',
+        proxyTag = '[object Proxy]';
+
+    function isFunction(value) {
+        if (!isObject(value)) {
+            return false;
+        }
+
+        var tag = baseGetTag(value);
+        return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
+    }
+
+    module.exports = isFunction;
+});

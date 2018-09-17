@@ -1,0 +1,10 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var ListCache = _require(_dependencyMap[0], './_ListCache');
+
+  function stackClear() {
+    this.__data__ = new ListCache();
+    this.size = 0;
+  }
+
+  module.exports = stackClear;
+});

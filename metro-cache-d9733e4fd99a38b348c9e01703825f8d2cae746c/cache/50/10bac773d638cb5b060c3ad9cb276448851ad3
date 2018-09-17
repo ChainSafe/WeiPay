@@ -1,0 +1,286 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  var _slicedToArray = function () {
+    function sliceIterator(arr, i) {
+      var _arr = [];
+      var _n = true;
+      var _d = false;
+      var _e = undefined;
+
+      try {
+        for (var _i = arr[typeof Symbol === "function" ? Symbol.iterator : "@@iterator"](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+          _arr.push(_s.value);
+
+          if (i && _arr.length === i) break;
+        }
+      } catch (err) {
+        _d = true;
+        _e = err;
+      } finally {
+        try {
+          if (!_n && _i["return"]) _i["return"]();
+        } finally {
+          if (_d) throw _e;
+        }
+      }
+
+      return _arr;
+    }
+
+    return function (arr, i) {
+      if (Array.isArray(arr)) {
+        return arr;
+      } else if ((typeof Symbol === "function" ? Symbol.iterator : "@@iterator") in Object(arr)) {
+        return sliceIterator(arr, i);
+      } else {
+        throw new TypeError("Invalid attempt to destructure non-iterable instance");
+      }
+    };
+  }();
+
+  exports.default = proxyClass;
+  exports.default = createClassProxy;
+
+  var _find = _require(_dependencyMap[0], 'lodash/find');
+
+  var _find2 = _interopRequireDefault(_find);
+
+  var _createPrototypeProxy = _require(_dependencyMap[1], './createPrototypeProxy');
+
+  var _createPrototypeProxy2 = _interopRequireDefault(_createPrototypeProxy);
+
+  var _bindAutoBindMethods = _require(_dependencyMap[2], './bindAutoBindMethods');
+
+  var _bindAutoBindMethods2 = _interopRequireDefault(_bindAutoBindMethods);
+
+  var _deleteUnknownAutoBindMethods = _require(_dependencyMap[3], './deleteUnknownAutoBindMethods');
+
+  var _deleteUnknownAutoBindMethods2 = _interopRequireDefault(_deleteUnknownAutoBindMethods);
+
+  var _supportsProtoAssignment = _require(_dependencyMap[4], './supportsProtoAssignment');
+
+  var _supportsProtoAssignment2 = _interopRequireDefault(_supportsProtoAssignment);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  function _toConsumableArray(arr) {
+    if (Array.isArray(arr)) {
+      for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+        arr2[i] = arr[i];
+      }
+
+      return arr2;
+    } else {
+      return Array.from(arr);
+    }
+  }
+
+  var RESERVED_STATICS = ['length', 'name', 'arguments', 'caller', 'prototype', 'toString'];
+
+  function isEqualDescriptor(a, b) {
+    if (!a && !b) {
+      return true;
+    }
+
+    if (!a || !b) {
+      return false;
+    }
+
+    for (var key in a) {
+      if (a[key] !== b[key]) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  var allProxies = [];
+
+  function findProxy(Component) {
+    var pair = (0, _find2.default)(allProxies, function (_ref) {
+      var _ref2 = _slicedToArray(_ref, 1);
+
+      var key = _ref2[0];
+      return key === Component;
+    });
+    return pair ? pair[1] : null;
+  }
+
+  function addProxy(Component, proxy) {
+    allProxies.push([Component, proxy]);
+  }
+
+  function proxyClass(InitialComponent) {
+    var existingProxy = findProxy(InitialComponent);
+
+    if (existingProxy) {
+      return existingProxy;
+    }
+
+    var prototypeProxy = (0, _createPrototypeProxy2.default)();
+    var CurrentComponent = undefined;
+    var ProxyComponent = undefined;
+    var staticDescriptors = {};
+
+    function wasStaticModifiedByUser(key) {
+      var currentDescriptor = Object.getOwnPropertyDescriptor(ProxyComponent, key);
+      return !isEqualDescriptor(staticDescriptors[key], currentDescriptor);
+    }
+
+    function instantiate(factory, context, params) {
+      var component = factory();
+
+      try {
+        return component.apply(context, params);
+      } catch (err) {
+        (function () {
+          var instance = new (Function.prototype.bind.apply(component, [null].concat(_toConsumableArray(params))))();
+          Object.keys(instance).forEach(function (key) {
+            if (RESERVED_STATICS.indexOf(key) > -1) {
+              return;
+            }
+
+            context[key] = instance[key];
+          });
+        })();
+      }
+    }
+
+    try {
+      ProxyComponent = new Function('factory', 'instantiate', 'return function ' + (InitialComponent.name || 'ProxyComponent') + '() {\n         return instantiate(factory, this, arguments);\n      }')(function () {
+        return CurrentComponent;
+      }, instantiate);
+    } catch (err) {
+      ProxyComponent = function ProxyComponent() {
+        return instantiate(function () {
+          return CurrentComponent;
+        }, this, arguments);
+      };
+    }
+
+    ProxyComponent.prototype = prototypeProxy.get();
+
+    ProxyComponent.toString = function toString() {
+      return CurrentComponent.toString();
+    };
+
+    function update(NextComponent) {
+      if (typeof NextComponent !== 'function') {
+        throw new Error('Expected a constructor.');
+      }
+
+      var existingProxy = findProxy(NextComponent);
+
+      if (existingProxy) {
+        return update(existingProxy.__getCurrent());
+      }
+
+      CurrentComponent = NextComponent;
+      var mountedInstances = prototypeProxy.update(NextComponent.prototype);
+      ProxyComponent.prototype.constructor = ProxyComponent;
+      ProxyComponent.__proto__ = NextComponent.__proto__;
+      Object.getOwnPropertyNames(NextComponent).forEach(function (key) {
+        if (RESERVED_STATICS.indexOf(key) > -1) {
+          return;
+        }
+
+        var staticDescriptor = _extends({}, Object.getOwnPropertyDescriptor(NextComponent, key), {
+          configurable: true
+        });
+
+        if (!wasStaticModifiedByUser(key)) {
+          Object.defineProperty(ProxyComponent, key, staticDescriptor);
+          staticDescriptors[key] = staticDescriptor;
+        }
+      });
+      Object.getOwnPropertyNames(ProxyComponent).forEach(function (key) {
+        if (RESERVED_STATICS.indexOf(key) > -1) {
+          return;
+        }
+
+        if (NextComponent.hasOwnProperty(key)) {
+          return;
+        }
+
+        var descriptor = Object.getOwnPropertyDescriptor(ProxyComponent, key);
+
+        if (descriptor && !descriptor.configurable) {
+          return;
+        }
+
+        if (!wasStaticModifiedByUser(key)) {
+          delete ProxyComponent[key];
+          delete staticDescriptors[key];
+        }
+      });
+      ProxyComponent.displayName = NextComponent.displayName || NextComponent.name;
+      mountedInstances.forEach(_bindAutoBindMethods2.default);
+      mountedInstances.forEach(_deleteUnknownAutoBindMethods2.default);
+      return mountedInstances;
+    }
+
+    ;
+
+    function get() {
+      return ProxyComponent;
+    }
+
+    function getCurrent() {
+      return CurrentComponent;
+    }
+
+    update(InitialComponent);
+    var proxy = {
+      get: get,
+      update: update
+    };
+    addProxy(ProxyComponent, proxy);
+    Object.defineProperty(proxy, '__getCurrent', {
+      configurable: false,
+      writable: false,
+      enumerable: false,
+      value: getCurrent
+    });
+    return proxy;
+  }
+
+  function createFallback(Component) {
+    var CurrentComponent = Component;
+    return {
+      get: function get() {
+        return CurrentComponent;
+      },
+      update: function update(NextComponent) {
+        CurrentComponent = NextComponent;
+      }
+    };
+  }
+
+  function createClassProxy(Component) {
+    return Component.__proto__ && (0, _supportsProtoAssignment2.default)() ? proxyClass(Component) : createFallback(Component);
+  }
+});

@@ -1,0 +1,12 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  function setToArray(set) {
+    var index = -1,
+        result = Array(set.size);
+    set.forEach(function (value) {
+      result[++index] = value;
+    });
+    return result;
+  }
+
+  module.exports = setToArray;
+});

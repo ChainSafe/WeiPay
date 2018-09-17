@@ -1,0 +1,126 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../../react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var _jsxFileName = "/home/master/Documents/work/WeiPay/node_modules/react-native/Libraries/Image/ImageBackground.js";
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    ImageBackground: {
+      displayName: "ImageBackground"
+    }
+  };
+
+  var _reactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/master/Documents/work/WeiPay/node_modules/react-native/Libraries/Image/ImageBackground.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _reactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var Image = _require(_dependencyMap[2], 'Image');
+
+  var React = _require(_dependencyMap[3], 'React');
+
+  var StyleSheet = _require(_dependencyMap[4], 'StyleSheet');
+
+  var View = _require(_dependencyMap[5], 'View');
+
+  var ensureComponentIsNative = _require(_dependencyMap[6], 'ensureComponentIsNative');
+
+  var ImageBackground = _wrapComponent("ImageBackground")(function (_React$Component) {
+    _inherits(ImageBackground, _React$Component);
+
+    function ImageBackground() {
+      var _ref;
+
+      var _temp, _this, _ret;
+
+      _classCallCheck(this, ImageBackground);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ImageBackground.__proto__ || Object.getPrototypeOf(ImageBackground)).call.apply(_ref, [this].concat(args))), _this), _this._viewRef = null, _this._captureRef = function (ref) {
+        _this._viewRef = ref;
+      }, _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    _createClass(ImageBackground, [{
+      key: "setNativeProps",
+      value: function setNativeProps(props) {
+        var viewRef = this._viewRef;
+
+        if (viewRef) {
+          ensureComponentIsNative(viewRef);
+          viewRef.setNativeProps(props);
+        }
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        var _props = this.props,
+            children = _props.children,
+            style = _props.style,
+            imageStyle = _props.imageStyle,
+            imageRef = _props.imageRef,
+            props = _objectWithoutProperties(_props, ["children", "style", "imageStyle", "imageRef"]);
+
+        return React.createElement(
+          View,
+          {
+            style: style,
+            ref: this._captureRef,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 64
+            }
+          },
+          React.createElement(Image, _extends({}, props, {
+            style: [StyleSheet.absoluteFill, {
+              width: style.width,
+              height: style.height
+            }, imageStyle],
+            ref: imageRef,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 65
+            }
+          })),
+          children
+        );
+      }
+    }]);
+
+    return ImageBackground;
+  }(React.Component));
+
+  module.exports = ImageBackground;
+});

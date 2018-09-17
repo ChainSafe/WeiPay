@@ -1,0 +1,32 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+
+  function E() {
+    this.message = 'String contains an invalid character';
+  }
+
+  E.prototype = new Error();
+  E.prototype.code = 5;
+  E.prototype.name = 'InvalidCharacterError';
+
+  function btoa(input) {
+    var str = String(input);
+    var output = '';
+
+    for (var block, charCode, idx = 0, map = chars; str.charAt(idx | 0) || (map = '=', idx % 1); output += map.charAt(63 & block >> 8 - idx % 1 * 8)) {
+      charCode = str.charCodeAt(idx += 3 / 4);
+
+      if (charCode > 0xFF) {
+        throw new E();
+      }
+
+      block = block << 8 | charCode;
+    }
+
+    return output;
+  }
+
+  module.exports = btoa;
+});

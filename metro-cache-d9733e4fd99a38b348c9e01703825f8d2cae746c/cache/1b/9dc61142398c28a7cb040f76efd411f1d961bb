@@ -1,0 +1,148 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+
+    var _react2 = _require(_dependencyMap[0], "react");
+
+    var _react3 = _interopRequireDefault(_react2);
+
+    var _index = _require(_dependencyMap[1], "./../../../node_modules/react-transform-hmr/lib/index.js");
+
+    var _index2 = _interopRequireDefault(_index);
+
+    var _jsxFileName = "/home/master/Documents/work/WeiPay/src/components/LinearGradient/ClearButton.js";
+
+    var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+    var _reactNative = _require(_dependencyMap[2], "react-native");
+
+    var _propTypes = _require(_dependencyMap[3], "prop-types");
+
+    var _propTypes2 = _interopRequireDefault(_propTypes);
+
+    var _reactNativeResponsiveFontsize = _require(_dependencyMap[4], "react-native-responsive-fontsize");
+
+    var _reactNativeResponsiveFontsize2 = _interopRequireDefault(_reactNativeResponsiveFontsize);
+
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+    function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+    function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+    var _components = {
+        ClearButton: {
+            displayName: "ClearButton"
+        }
+    };
+
+    var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+        filename: "/home/master/Documents/work/WeiPay/src/components/LinearGradient/ClearButton.js",
+        components: _components,
+        locals: [module],
+        imports: [_react3.default]
+    });
+
+    function _wrapComponent(id) {
+        return function (Component) {
+            return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+        };
+    }
+
+    var ClearButton = _wrapComponent("ClearButton")(function (_Component) {
+        _inherits(ClearButton, _Component);
+
+        function ClearButton() {
+            _classCallCheck(this, ClearButton);
+
+            return _possibleConstructorReturn(this, (ClearButton.__proto__ || Object.getPrototypeOf(ClearButton)).apply(this, arguments));
+        }
+
+        _createClass(ClearButton, [{
+            key: "render",
+            value: function render() {
+                return _react3.default.createElement(
+                    _reactNative.View,
+                    {
+                        __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 22
+                        }
+                    },
+                    _react3.default.createElement(
+                        _reactNative.TouchableOpacity,
+                        {
+                            onPress: this.props.onClickFunction,
+                            disabled: this.props.buttonStateEnabled,
+                            __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 23
+                            }
+                        },
+                        _react3.default.createElement(
+                            _reactNative.View,
+                            {
+                                style: [styles.buttonStyles, this.props.customStyles, this.props.unlockButton ? styles.buttonActive : styles.buttonInactive],
+                                __source: {
+                                    fileName: _jsxFileName,
+                                    lineNumber: 27
+                                }
+                            },
+                            _react3.default.createElement(
+                                _reactNative.Text,
+                                {
+                                    style: [styles.textStyles, this.props.customTextStyles, this.props.buttonStateEnabled ? styles.textActive : styles.textInactive, this.props.unlockButton ? styles.textActive : styles.textInactive],
+                                    __source: {
+                                        fileName: _jsxFileName,
+                                        lineNumber: 34
+                                    }
+                                },
+                                this.props.buttonText
+                            )
+                        )
+                    )
+                );
+            }
+        }]);
+
+        return ClearButton;
+    }(_react2.Component));
+
+    ClearButton.propTypes = {
+        onPress: _propTypes2.default.func,
+        disabled: _propTypes2.default.bool
+    };
+
+    var styles = _reactNative.StyleSheet.create({
+        buttonActive: {
+            borderColor: "#27c997"
+        },
+        buttonInactive: {
+            borderColor: "#b3b3b3"
+        },
+        textActive: {
+            color: "#27c997"
+        },
+        textInactive: {
+            color: "#b3b3b3"
+        },
+        buttonStyles: {
+            borderRadius: 100,
+            borderWidth: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginLeft: '9%'
+        },
+        textStyles: {
+            fontFamily: "Cairo-Regular",
+            fontSize: (0, _reactNativeResponsiveFontsize2.default)(2.5),
+            color: "#27c997",
+            letterSpacing: 0.4
+        }
+    });
+
+    exports.default = ClearButton;
+});

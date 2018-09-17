@@ -1,0 +1,9 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var curve = exports;
+  curve.base = _require(_dependencyMap[0], './base');
+  curve.short = _require(_dependencyMap[1], './short');
+  curve.mont = _require(_dependencyMap[2], './mont');
+  curve.edwards = _require(_dependencyMap[3], './edwards');
+});

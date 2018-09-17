@@ -1,0 +1,9 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  function baseUnary(func) {
+    return function (value) {
+      return func(value);
+    };
+  }
+
+  module.exports = baseUnary;
+});

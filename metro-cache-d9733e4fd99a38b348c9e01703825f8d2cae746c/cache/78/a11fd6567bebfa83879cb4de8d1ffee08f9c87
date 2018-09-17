@@ -1,0 +1,11 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    var baseFindIndex = _require(_dependencyMap[0], './_baseFindIndex'),
+        baseIsNaN = _require(_dependencyMap[1], './_baseIsNaN'),
+        strictIndexOf = _require(_dependencyMap[2], './_strictIndexOf');
+
+    function baseIndexOf(array, value, fromIndex) {
+        return value === value ? strictIndexOf(array, value, fromIndex) : baseFindIndex(array, baseIsNaN, fromIndex);
+    }
+
+    module.exports = baseIndexOf;
+});

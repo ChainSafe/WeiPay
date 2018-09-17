@@ -1,0 +1,26 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var AnimatedImplementation = _require(_dependencyMap[0], 'AnimatedImplementation');
+
+  var Image = _require(_dependencyMap[1], 'Image');
+
+  var ScrollView = _require(_dependencyMap[2], 'ScrollView');
+
+  var Text = _require(_dependencyMap[3], 'Text');
+
+  var View = _require(_dependencyMap[4], 'View');
+
+  var Animated = {
+    View: AnimatedImplementation.createAnimatedComponent(View),
+    Text: AnimatedImplementation.createAnimatedComponent(Text),
+    Image: AnimatedImplementation.createAnimatedComponent(Image),
+    ScrollView: AnimatedImplementation.createAnimatedComponent(ScrollView)
+  };
+
+  _extends(Animated, AnimatedImplementation);
+
+  module.exports = Animated;
+});

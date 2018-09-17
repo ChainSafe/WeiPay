@@ -1,0 +1,7 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  function stackGet(key) {
+    return this.__data__.get(key);
+  }
+
+  module.exports = stackGet;
+});

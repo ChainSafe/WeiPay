@@ -108,9 +108,7 @@ export default (state = INITIAL_STATE, action) => {
       oldcoinData.push(coinObj);    
       
       return { ...state, coinData: oldcoinData, tokens: oldTokens, newTokenAddress: '', newTokenName: '' };
-    
-    case actions.ADD_ALL_POSSIBLE_TOKENS:
-      return { ...state, allTokens: action.payload };
+
 
     default:
       return state;

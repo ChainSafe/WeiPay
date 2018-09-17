@@ -1,0 +1,66 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  var DatePickerModule = _require(_dependencyMap[0], 'NativeModules').DatePickerAndroid;
+
+  function _toMillis(options, key) {
+    var dateVal = options[key];
+
+    if (typeof dateVal === 'object' && typeof dateVal.getMonth === 'function') {
+      options[key] = dateVal.getTime();
+    }
+  }
+
+  var DatePickerAndroid = function () {
+    function DatePickerAndroid() {
+      _classCallCheck(this, DatePickerAndroid);
+    }
+
+    _createClass(DatePickerAndroid, null, [{
+      key: "open",
+      value: function open(options) {
+        var optionsMs;
+        return regeneratorRuntime.async(function open$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                optionsMs = options;
+
+                if (optionsMs) {
+                  _toMillis(options, 'date');
+
+                  _toMillis(options, 'minDate');
+
+                  _toMillis(options, 'maxDate');
+                }
+
+                return _context.abrupt("return", DatePickerModule.open(options));
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "dateSetAction",
+      get: function get() {
+        return 'dateSetAction';
+      }
+    }, {
+      key: "dismissedAction",
+      get: function get() {
+        return 'dismissedAction';
+      }
+    }]);
+
+    return DatePickerAndroid;
+  }();
+
+  module.exports = DatePickerAndroid;
+});

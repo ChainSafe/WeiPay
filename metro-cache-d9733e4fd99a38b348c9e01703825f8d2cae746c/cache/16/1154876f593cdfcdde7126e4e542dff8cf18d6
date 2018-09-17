@@ -1,0 +1,7 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  function eq(value, other) {
+    return value === other || value !== value && other !== other;
+  }
+
+  module.exports = eq;
+});

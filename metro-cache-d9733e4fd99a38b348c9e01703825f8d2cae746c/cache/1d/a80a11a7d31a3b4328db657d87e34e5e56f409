@@ -1,0 +1,527 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../../../node_modules/react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _jsxFileName = "/home/master/Documents/work/WeiPay/src/screens/setup/create/ConfirmPassphrase.js";
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _reactNative = _require(_dependencyMap[2], "react-native");
+
+  var _reactNavigation = _require(_dependencyMap[3], "react-navigation");
+
+  var _reactRedux = _require(_dependencyMap[4], "react-redux");
+
+  var _LinearButton = _require(_dependencyMap[5], "../../../components/LinearGradient/LinearButton");
+
+  var _LinearButton2 = _interopRequireDefault(_LinearButton);
+
+  var _ClearButton = _require(_dependencyMap[6], "../../../components/LinearGradient/ClearButton");
+
+  var _ClearButton2 = _interopRequireDefault(_ClearButton);
+
+  var _BackWithMenuNav = _require(_dependencyMap[7], "../../../components/customPageNavs/BackWithMenuNav");
+
+  var _BackWithMenuNav2 = _interopRequireDefault(_BackWithMenuNav);
+
+  var _BoxShadowCard = _require(_dependencyMap[8], "../../../components/ShadowCards/BoxShadowCard");
+
+  var _BoxShadowCard2 = _interopRequireDefault(_BoxShadowCard);
+
+  var _reactNativeResponsiveFontsize = _require(_dependencyMap[9], "react-native-responsive-fontsize");
+
+  var _reactNativeResponsiveFontsize2 = _interopRequireDefault(_reactNativeResponsiveFontsize);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    ConfirmPassphrase: {
+      displayName: "ConfirmPassphrase"
+    }
+  };
+
+  var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/master/Documents/work/WeiPay/src/screens/setup/create/ConfirmPassphrase.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var shuffle = _require(_dependencyMap[10], 'shuffle-array');
+
+  var ConfirmPassphrase = _wrapComponent("ConfirmPassphrase")(function (_Component) {
+    _inherits(ConfirmPassphrase, _Component);
+
+    function ConfirmPassphrase(props) {
+      _classCallCheck(this, ConfirmPassphrase);
+
+      var _this = _possibleConstructorReturn(this, (ConfirmPassphrase.__proto__ || Object.getPrototypeOf(ConfirmPassphrase)).call(this, props));
+
+      _this.navigate = function () {
+        var navigateToEnableTokens = _reactNavigation.NavigationActions.navigate({
+          routeName: 'enableTokens'
+        });
+
+        _this.props.navigation.dispatch(navigateToEnableTokens);
+      };
+
+      _this.validatePassphrase = function () {
+        var _this$state = _this.state,
+            scrambledTags = _this$state.scrambledTags,
+            selectedTags = _this$state.selectedTags;
+        var passphraseIncomplete = true;
+        var count = 0;
+
+        if (selectedTags.length == 12) {
+          for (var i = 0; i < selectedTags.length; i++) {
+            if (selectedTags[i].wordItem.index == i) {
+              count++;
+            }
+          }
+
+          if (count == 12) {
+            _this.navigate();
+          } else {
+            _reactNative.Alert.alert('Passphrase Error', 'You did not enter the right passphrase in the correct order. Please try again.', [{
+              text: 'OK',
+              onPress: function onPress() {
+                return console.log('OK Pressed');
+              }
+            }], {
+              cancelable: false
+            });
+          }
+        } else {
+          _reactNative.Alert.alert('Passphrase Error', 'You have no selected all of the words within the passphrase. Please complete ordering all words', [{
+            text: 'OK',
+            onPress: function onPress() {
+              return console.log('OK Pressed');
+            }
+          }], {
+            cancelable: false
+          });
+        }
+      };
+
+      _this.state = {
+        selectedTags: [],
+        scrambledTags: []
+      };
+      return _this;
+    }
+
+    _createClass(ConfirmPassphrase, [{
+      key: "componentDidMount",
+      value: function componentDidMount() {
+        var words = this.props.mnemonic.split(' ');
+        var orderArray = [];
+
+        for (var i = 0; i < words.length; i++) {
+          orderArray.push({
+            'wordItem': {
+              'word': words[i],
+              'index': i
+            },
+            'selected': false
+          });
+        }
+
+        shuffle(orderArray);
+        this.setState({
+          scrambledTags: orderArray
+        });
+      }
+    }, {
+      key: "addWord",
+      value: function addWord(wordItem, scrambledListIndex) {
+        this.setState(function (prevState) {
+          if (!prevState.scrambledTags[scrambledListIndex].selected) {
+            prevState.scrambledTags[scrambledListIndex].selected = true;
+            prevState.selectedTags.push({
+              'wordItem': wordItem,
+              'scrambledWordIndex': scrambledListIndex
+            });
+            return prevState;
+          }
+        });
+      }
+    }, {
+      key: "removeWord",
+      value: function removeWord(wordItem, appendedWordIndex) {
+        this.setState(function (prevState) {
+          prevState.scrambledTags[wordItem.scrambledWordIndex].selected = false;
+          prevState.selectedTags.splice(appendedWordIndex, 1);
+          return prevState;
+        });
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        var _this2 = this;
+
+        var _state = this.state,
+            selectedTags = _state.selectedTags,
+            scrambledTags = _state.scrambledTags;
+        return _react3.default.createElement(
+          _reactNative.SafeAreaView,
+          {
+            style: styles.safeAreaView,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 126
+            }
+          },
+          _react3.default.createElement(
+            _reactNative.View,
+            {
+              style: styles.mainContainer,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 127
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: styles.navContainer,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 128
+                }
+              },
+              _react3.default.createElement(_BackWithMenuNav2.default, {
+                showMenu: false,
+                showBack: true,
+                navigation: this.props.navigation,
+                backPage: 'generatePassphrase',
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 129
+                }
+              })
+            ),
+            _react3.default.createElement(
+              _reactNative.Text,
+              {
+                style: styles.textHeader,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 136
+                }
+              },
+              "Confirm Passphrase"
+            ),
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: styles.boxShadowContainer,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 137
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: styles.contentContainer,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 138
+                  }
+                },
+                _react3.default.createElement(
+                  _BoxShadowCard2.default,
+                  {
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 139
+                    }
+                  },
+                  _react3.default.createElement(
+                    _reactNative.Text,
+                    {
+                      style: styles.cardText,
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 140
+                      }
+                    },
+                    "Select the correct order."
+                  ),
+                  _react3.default.createElement(
+                    _reactNative.View,
+                    {
+                      style: styles.tagContainer,
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 141
+                      }
+                    },
+                    scrambledTags.map(function (item, index) {
+                      return _react3.default.createElement(
+                        _reactNative.View,
+                        {
+                          key: item.wordItem.index,
+                          style: styles.cardButtonContainer,
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 145
+                          }
+                        },
+                        _react3.default.createElement(_ClearButton2.default, {
+                          buttonText: item.wordItem.word,
+                          key: item.wordItem.index,
+                          onClickFunction: function onClickFunction() {
+                            return _this2.addWord(item.wordItem, index);
+                          },
+                          customStyles: styles.cardButton,
+                          unlockButton: _this2.state.scrambledTags[index].selected,
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 146
+                          }
+                        })
+                      );
+                    })
+                  ),
+                  _react3.default.createElement(
+                    _reactNative.View,
+                    {
+                      style: styles.selectedTextContainer,
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 158
+                      }
+                    },
+                    selectedTags.map(function (item, index) {
+                      return _react3.default.createElement(
+                        _reactNative.View,
+                        {
+                          key: item.wordItem.index,
+                          style: styles.cardSelectedButtonContainer,
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 162
+                          }
+                        },
+                        _react3.default.createElement(
+                          _reactNative.TouchableOpacity,
+                          {
+                            onPress: function onPress() {
+                              return _this2.removeWord(item, index);
+                            },
+                            __source: {
+                              fileName: _jsxFileName,
+                              lineNumber: 163
+                            }
+                          },
+                          _react3.default.createElement(
+                            _reactNative.Text,
+                            {
+                              style: styles.selectedWordText,
+                              __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 165
+                              }
+                            },
+                            item.wordItem.word
+                          )
+                        )
+                      );
+                    })
+                  )
+                )
+              )
+            ),
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: styles.btnContainer,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 177
+                }
+              },
+              _react3.default.createElement(_LinearButton2.default, {
+                onClickFunction: this.validatePassphrase,
+                buttonText: "Next",
+                customStyles: styles.button,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 178
+                }
+              }),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: styles.footerGrandparentContainer,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 184
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    style: styles.footerParentContainer,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 185
+                    }
+                  },
+                  _react3.default.createElement(
+                    _reactNative.Text,
+                    {
+                      style: styles.textFooter,
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 186
+                      }
+                    },
+                    "Powered by ChainSafe "
+                  )
+                )
+              )
+            )
+          )
+        );
+      }
+    }]);
+
+    return ConfirmPassphrase;
+  }(_react2.Component));
+
+  var styles = _reactNative.StyleSheet.create({
+    safeAreaView: {
+      flex: 1,
+      backgroundColor: '#fafbfe'
+    },
+    mainContainer: {
+      flex: 1,
+      backgroundColor: '#fafbfe',
+      width: '100%'
+    },
+    navContainer: {
+      flex: 0.65
+    },
+    textHeader: {
+      fontFamily: 'Cairo-Light',
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(4),
+      paddingLeft: '9%',
+      color: '#1a1f3e',
+      flex: 0.65
+    },
+    boxShadowContainer: {
+      alignItems: "center",
+      flex: 4
+    },
+    contentContainer: {
+      width: '82%'
+    },
+    cardText: {
+      paddingBottom: '5%',
+      lineHeight: (0, _reactNativeResponsiveFontsize2.default)(3.9),
+      paddingTop: '10%',
+      paddingLeft: '10%',
+      paddingRight: '10%',
+      fontFamily: 'WorkSans-Light',
+      color: '#000000',
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(2.4)
+    },
+    tagContainer: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      alignItems: 'center',
+      marginLeft: '7%',
+      marginRight: '7%',
+      alignContent: 'space-around'
+    },
+    cardButtonContainer: {
+      paddingBottom: '2.5%'
+    },
+    cardButton: {
+      height: _reactNative.Dimensions.get('window').height * 0.05,
+      justifyContent: 'center',
+      alignContent: "center",
+      alignItems: "center"
+    },
+    cardContainer: {
+      width: '80%',
+      height: '90%'
+    },
+    selectedTextContainer: {
+      paddingTop: '5%',
+      paddingLeft: '10%',
+      paddingRight: '10%',
+      flexDirection: 'row',
+      flexWrap: 'wrap'
+    },
+    cardSelectedButtonContainer: {
+      paddingBottom: '2%',
+      paddingRight: '1.75%'
+    },
+    selectedWordText: {
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(2.1),
+      lineHeight: 22,
+      color: '#27c997',
+      fontFamily: 'WorkSans-Regular'
+    },
+    button: {
+      width: '82%',
+      height: _reactNative.Dimensions.get('window').height * 0.082
+    },
+    btnContainer: {
+      justifyContent: 'flex-end',
+      alignItems: 'stretch',
+      alignContent: 'flex-end',
+      flex: 1.25
+    },
+    footerGrandparentContainer: {
+      alignItems: 'center',
+      marginBottom: '5%',
+      marginTop: '5%'
+    },
+    footerParentContainer: {
+      alignItems: 'center'
+    },
+    textFooter: {
+      fontFamily: 'WorkSans-Regular',
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(1.7),
+      color: '#c0c0c0',
+      letterSpacing: 0.5
+    }
+  });
+
+  var mapStateToProps = function mapStateToProps(_ref) {
+    var newWallet = _ref.newWallet;
+    var mnemonic = newWallet.wallet.mnemonic;
+    var debugMode = newWallet.debugMode;
+    return {
+      mnemonic: mnemonic,
+      debugMode: debugMode
+    };
+  };
+
+  exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(ConfirmPassphrase);
+});

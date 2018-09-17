@@ -1,0 +1,110 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  module.exports = {
+    "_args": [["ethers@^3.0.17", "/home/master/Documents/work/WeiPay"]],
+    "_from": "ethers@>=3.0.17 <4.0.0",
+    "_hasShrinkwrap": false,
+    "_id": "ethers@3.0.27",
+    "_inCache": true,
+    "_installable": true,
+    "_location": "/ethers",
+    "_nodeVersion": "8.9.0",
+    "_npmOperationalInternal": {
+      "host": "s3://npm-registry-packages",
+      "tmp": "tmp/ethers_3.0.27_1535393341485_0.3712613854630693"
+    },
+    "_npmUser": {
+      "email": "me@ricmoo.com",
+      "name": "ricmoo"
+    },
+    "_npmVersion": "6.1.0",
+    "_phantomChildren": {},
+    "_requested": {
+      "name": "ethers",
+      "raw": "ethers@^3.0.17",
+      "rawSpec": "^3.0.17",
+      "scope": null,
+      "spec": ">=3.0.17 <4.0.0",
+      "type": "range"
+    },
+    "_requiredBy": ["/"],
+    "_resolved": "https://registry.npmjs.org/ethers/-/ethers-3.0.27.tgz",
+    "_shasum": "f9e89bb43a7265a65512d3142c51f26489667f53",
+    "_shrinkwrap": null,
+    "_spec": "ethers@^3.0.17",
+    "_where": "/home/master/Documents/work/WeiPay",
+    "author": {
+      "email": "me@ricmoo.com",
+      "name": "Richard Moore"
+    },
+    "browser": {
+      "./providers/ipc-provider.js": "./utils/empty.js",
+      "./utils/base64.js": "./utils/browser-base64.js",
+      "./utils/random-bytes.js": "./utils/browser-random-bytes.js",
+      "fs": "./tests/browser-fs.js",
+      "xmlhttprequest": "./providers/browser-xmlhttprequest.js",
+      "zlib": "browserify-zlib"
+    },
+    "bugs": {
+      "url": "https://github.com/ethers-io/ethers-wallet/issues"
+    },
+    "dependencies": {
+      "aes-js": "3.0.0",
+      "bn.js": "^4.4.0",
+      "elliptic": "6.3.3",
+      "hash.js": "^1.0.0",
+      "inherits": "2.0.1",
+      "js-sha3": "0.5.7",
+      "scrypt-js": "2.0.3",
+      "setimmediate": "1.0.4",
+      "uuid": "2.0.1",
+      "xmlhttprequest": "1.8.0"
+    },
+    "description": "Ethereum wallet library.",
+    "devDependencies": {
+      "browserify-zlib": "^0.2.0",
+      "eslint": "^5.0.1",
+      "eslint-plugin-promise": "^3.8.0",
+      "grunt": "^0.4.5",
+      "grunt-browserify": "^5.0.0",
+      "grunt-cli": "1.2.0",
+      "grunt-contrib-uglify": "^1.0.1",
+      "mocha": "^5.2.0",
+      "mocha-phantomjs-core": "2.1.2",
+      "solc": "0.4.20",
+      "web3": "0.20.2"
+    },
+    "directories": {},
+    "dist": {
+      "fileCount": 60,
+      "integrity": "sha512-Ymop12NYKLTejQKv3l4a4vwwZNG+V0D2KmBGuSMa0eEguPJYCouNUoJ/8IiDTwqxKsthoSeCRrcXIz5HJDbHqA==",
+      "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJbhD4+CRA9TVsSAnZWagAAZC0P/icf3057adjqX/XcdG+r\nwSEjzDmSWkb6iQ+H2CewF2KVEu6aHDOm6ZMYncA8TG7zgFXsubm0Glzieydv\nPBd5XfW6YNUYK/ib4poPms3USiDL+ssJ2O2A242z9kX8CjiM4uy77oNWClnu\ntd13ez3UMzckkD0/vAkOuGxL+5Cuhu9GPh+RKe4lSwGfohmo3so/gGJZfnrI\ngfntWB6ZP2RNpuvn+7tqOsJ/Wh4PWiPstUWxsocp9Vqgtveyy5eUKiUPCBrD\nXcdb3OsAE3B7nznlaCL0EAXvRM1vrTDxr0XIkAZFfh/O4ZoXZG5SpeomCKnV\nNmzeMerI4HSuQ7wKcgUMQ+TIKxyCMEXZYcoAT3GZKckQ4QVln7iiGYSo9fZJ\nm3Vgsu7nz2puMSnoPepvDLbzAx6qForucp9I82rtfo213O3jI7cCUurDgXZ+\nCfHNuSDjUBstcPooRsaufYKLekBig02BKv/hY705mpBULfZ5jLztlSAAenlw\np7N3uIJREkBluTbIIHFXP9oZ/8U7p8s4PoVfL8iDQeU2VoWNexit+TFRV1wP\n/VIQIeiERud6s5OpicPX+ogQcl3ZkXA6DDkxMUW6P/mCluvrl27M03XKFNCL\njT7JSgB4Xd66Il06GMfqMZ4MQDQEB61iN5Egw0vom2KkchmGwHLHRQxmDf0o\n++99\r\n=4uI+\r\n-----END PGP SIGNATURE-----\r\n",
+      "shasum": "f9e89bb43a7265a65512d3142c51f26489667f53",
+      "tarball": "https://registry.npmjs.org/ethers/-/ethers-3.0.27.tgz",
+      "unpackedSize": 2498711
+    },
+    "gitHead": "284ffdfd1ff926fd888f98b2e4953053650ae4ab",
+    "homepage": "https://github.com/ethers-io/ethers-wallet#readme",
+    "keywords": ["ethereum", "wallet"],
+    "license": "MIT",
+    "main": "index.js",
+    "maintainers": [{
+      "name": "ricmoo",
+      "email": "me@ricmoo.com"
+    }],
+    "name": "ethers",
+    "optionalDependencies": {},
+    "readme": "ERROR: No README data found!",
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/ethers-io/ethers-wallet.git"
+    },
+    "scripts": {
+      "eslint": "eslint index.js contracts/*.js providers/*.js utils/*.js wallet/*.js",
+      "test": "if [ \"$RUN_PHANTOMJS\" = \"1\" ]; then npm run-script test-phantomjs; else npm run-script test-node; fi",
+      "test-node": "mocha tests/test-*.js",
+      "test-phantomjs": "grunt dist && ./node_modules/.bin/grunt --gruntfile Gruntfile-test.js dist && phantomjs --web-security=false ./node_modules/mocha-phantomjs-core/mocha-phantomjs-core.js ./tests/test.html",
+      "version": "grunt dist"
+    },
+    "version": "3.0.27"
+  };
+});

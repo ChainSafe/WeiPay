@@ -1,0 +1,11 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var baseIsNative = _require(_dependencyMap[0], './_baseIsNative'),
+      getValue = _require(_dependencyMap[1], './_getValue');
+
+  function getNative(object, key) {
+    var value = getValue(object, key);
+    return baseIsNative(value) ? value : undefined;
+  }
+
+  module.exports = getNative;
+});

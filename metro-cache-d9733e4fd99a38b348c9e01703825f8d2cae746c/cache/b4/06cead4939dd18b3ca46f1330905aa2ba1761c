@@ -1,0 +1,528 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../../react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _class,
+      _temp,
+      _jsxFileName = "/home/master/Documents/work/WeiPay/node_modules/react-native-elements/src/rating/Rating.js";
+
+  var _lodash = _require(_dependencyMap[2], "lodash.times");
+
+  var _lodash2 = _interopRequireDefault(_lodash);
+
+  var _propTypes = _require(_dependencyMap[3], "prop-types");
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  var _reactNative = _require(_dependencyMap[4], "react-native");
+
+  var _Text = _require(_dependencyMap[5], "../text/Text");
+
+  var _Text2 = _interopRequireDefault(_Text);
+
+  var _ViewPropTypes = _require(_dependencyMap[6], "../config/ViewPropTypes");
+
+  var _ViewPropTypes2 = _interopRequireDefault(_ViewPropTypes);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    Rating: {
+      displayName: "Rating"
+    }
+  };
+
+  var _reactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/master/Documents/work/WeiPay/node_modules/react-native-elements/src/rating/Rating.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _reactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var STAR_IMAGE = _require(_dependencyMap[7], './images/star.png');
+
+  var HEART_IMAGE = _require(_dependencyMap[8], './images/heart.png');
+
+  var ROCKET_IMAGE = _require(_dependencyMap[9], './images/rocket.png');
+
+  var BELL_IMAGE = _require(_dependencyMap[10], './images/bell.png');
+
+  var STAR_WIDTH = 60;
+  var TYPES = {
+    star: {
+      source: STAR_IMAGE,
+      color: '#f1c40f',
+      backgroundColor: 'white'
+    },
+    heart: {
+      source: HEART_IMAGE,
+      color: '#e74c3c',
+      backgroundColor: 'white'
+    },
+    rocket: {
+      source: ROCKET_IMAGE,
+      color: '#2ecc71',
+      backgroundColor: 'white'
+    },
+    bell: {
+      source: BELL_IMAGE,
+      color: '#f39c12',
+      backgroundColor: 'white'
+    }
+  };
+
+  var Rating = _wrapComponent("Rating")((_temp = _class = function (_Component) {
+    _inherits(Rating, _Component);
+
+    function Rating(props) {
+      _classCallCheck(this, Rating);
+
+      var _this = _possibleConstructorReturn(this, (Rating.__proto__ || Object.getPrototypeOf(Rating)).call(this, props));
+
+      var _this$props = _this.props,
+          onFinishRating = _this$props.onFinishRating,
+          fractions = _this$props.fractions;
+      var position = new _reactNative.Animated.ValueXY();
+
+      var panResponder = _reactNative.PanResponder.create({
+        onStartShouldSetPanResponder: function onStartShouldSetPanResponder() {
+          return true;
+        },
+        onPanResponderMove: function onPanResponderMove(event, gesture) {
+          var newPosition = new _reactNative.Animated.ValueXY();
+          newPosition.setValue({
+            x: gesture.dx,
+            y: 0
+          });
+
+          _this.setState({
+            position: newPosition,
+            value: gesture.dx
+          });
+        },
+        onPanResponderRelease: function onPanResponderRelease() {
+          var rating = _this.getCurrentRating();
+
+          if (!fractions) {
+            _this.setCurrentRating(rating);
+          }
+
+          onFinishRating(rating);
+        }
+      });
+
+      _this.state = {
+        panResponder: panResponder,
+        position: position
+      };
+      return _this;
+    }
+
+    _createClass(Rating, [{
+      key: "componentDidMount",
+      value: function componentDidMount() {
+        this.setCurrentRating(this.props.startingValue);
+      }
+    }, {
+      key: "getPrimaryViewStyle",
+      value: function getPrimaryViewStyle() {
+        var position = this.state.position;
+        var _props = this.props,
+            imageSize = _props.imageSize,
+            ratingCount = _props.ratingCount,
+            type = _props.type;
+        var color = TYPES[type].color;
+        var width = position.x.interpolate({
+          inputRange: [-ratingCount * (imageSize / 2), 0, ratingCount * (imageSize / 2)],
+          outputRange: [0, ratingCount * imageSize / 2, ratingCount * imageSize],
+          extrapolate: 'clamp'
+        }, {
+          useNativeDriver: true
+        });
+        return {
+          backgroundColor: color,
+          width: width,
+          height: width ? imageSize : 0
+        };
+      }
+    }, {
+      key: "getSecondaryViewStyle",
+      value: function getSecondaryViewStyle() {
+        var position = this.state.position;
+        var _props2 = this.props,
+            imageSize = _props2.imageSize,
+            ratingCount = _props2.ratingCount,
+            type = _props2.type;
+        var backgroundColor = TYPES[type].backgroundColor;
+        var width = position.x.interpolate({
+          inputRange: [-ratingCount * (imageSize / 2), 0, ratingCount * (imageSize / 2)],
+          outputRange: [ratingCount * imageSize, ratingCount * imageSize / 2, 0],
+          extrapolate: 'clamp'
+        }, {
+          useNativeDriver: true
+        });
+        return {
+          backgroundColor: backgroundColor,
+          width: width,
+          height: width ? imageSize : 0
+        };
+      }
+    }, {
+      key: "renderRatings",
+      value: function renderRatings() {
+        var _props3 = this.props,
+            imageSize = _props3.imageSize,
+            ratingCount = _props3.ratingCount,
+            type = _props3.type;
+        var source = TYPES[type].source;
+        return (0, _lodash2.default)(ratingCount, function (index) {
+          return _react3.default.createElement(
+            _reactNative.View,
+            {
+              key: index,
+              style: styles.starContainer,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 148
+              }
+            },
+            _react3.default.createElement(_reactNative.Image, {
+              source: source,
+              style: {
+                width: imageSize,
+                height: imageSize
+              },
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 149
+              }
+            })
+          );
+        });
+      }
+    }, {
+      key: "getCurrentRating",
+      value: function getCurrentRating() {
+        var value = this.state.value;
+        var _props4 = this.props,
+            fractions = _props4.fractions,
+            imageSize = _props4.imageSize,
+            ratingCount = _props4.ratingCount;
+        var startingValue = ratingCount / 2;
+        var currentRating = 0;
+
+        if (value > ratingCount * imageSize / 2) {
+          currentRating = ratingCount;
+        } else if (value < -ratingCount * imageSize / 2) {
+          currentRating = 0;
+        } else if (value < imageSize || value > imageSize) {
+          currentRating = startingValue + value / imageSize;
+          currentRating = !fractions ? Math.ceil(currentRating) : +currentRating.toFixed(fractions);
+        } else {
+          currentRating = !fractions ? Math.ceil(startingValue) : +startingValue.toFixed(fractions);
+        }
+
+        return currentRating;
+      }
+    }, {
+      key: "setCurrentRating",
+      value: function setCurrentRating(rating) {
+        var _props5 = this.props,
+            imageSize = _props5.imageSize,
+            ratingCount = _props5.ratingCount;
+        var initialRating = ratingCount / 2;
+        var value = null;
+
+        if (rating > ratingCount) {
+          value = ratingCount * imageSize / 2;
+        } else if (rating < 0) {
+          value = -ratingCount * imageSize / 2;
+        } else if (rating < ratingCount / 2 || rating > ratingCount / 2) {
+          value = (rating - initialRating) * imageSize;
+        } else {
+          value = 0;
+        }
+
+        var newPosition = new _reactNative.Animated.ValueXY();
+        newPosition.setValue({
+          x: value,
+          y: 0
+        });
+        this.setState({
+          position: newPosition,
+          value: value
+        });
+      }
+    }, {
+      key: "displayCurrentRating",
+      value: function displayCurrentRating() {
+        var _props6 = this.props,
+            ratingCount = _props6.ratingCount,
+            type = _props6.type,
+            readonly = _props6.readonly;
+        var color = TYPES[type].color;
+        return _react3.default.createElement(
+          _reactNative.View,
+          {
+            style: styles.showRatingView,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 209
+            }
+          },
+          _react3.default.createElement(
+            _reactNative.View,
+            {
+              style: styles.ratingView,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 210
+              }
+            },
+            _react3.default.createElement(
+              _Text2.default,
+              {
+                style: styles.ratingText,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 211
+                }
+              },
+              "Rating: "
+            ),
+            _react3.default.createElement(
+              _Text2.default,
+              {
+                style: [styles.currentRatingText, {
+                  color: color
+                }],
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 212
+                }
+              },
+              this.getCurrentRating()
+            ),
+            _react3.default.createElement(
+              _Text2.default,
+              {
+                style: styles.maxRatingText,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 215
+                }
+              },
+              "/",
+              ratingCount
+            )
+          ),
+          _react3.default.createElement(
+            _reactNative.View,
+            {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 219
+              }
+            },
+            readonly && _react3.default.createElement(
+              _Text2.default,
+              {
+                style: styles.readonlyLabel,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 220
+                }
+              },
+              "(readonly)"
+            )
+          )
+        );
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        var _props7 = this.props,
+            readonly = _props7.readonly,
+            type = _props7.type,
+            ratingImage = _props7.ratingImage,
+            ratingColor = _props7.ratingColor,
+            ratingBackgroundColor = _props7.ratingBackgroundColor,
+            style = _props7.style,
+            showRating = _props7.showRating;
+
+        if (type === 'custom') {
+          var custom = {
+            source: ratingImage,
+            color: ratingColor,
+            backgroundColor: ratingBackgroundColor
+          };
+          TYPES.custom = custom;
+        }
+
+        return _react3.default.createElement(
+          _reactNative.View,
+          {
+            pointerEvents: readonly ? 'none' : 'auto',
+            style: style,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 247
+            }
+          },
+          showRating && this.displayCurrentRating(),
+          _react3.default.createElement(
+            _reactNative.View,
+            _extends({
+              style: styles.starsWrapper
+            }, this.state.panResponder.panHandlers, {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 249
+              }
+            }),
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: styles.starsInsideWrapper,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 253
+                }
+              },
+              _react3.default.createElement(_reactNative.Animated.View, {
+                style: this.getPrimaryViewStyle(),
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 254
+                }
+              }),
+              _react3.default.createElement(_reactNative.Animated.View, {
+                style: this.getSecondaryViewStyle(),
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 255
+                }
+              })
+            ),
+            this.renderRatings()
+          )
+        );
+      }
+    }]);
+
+    return Rating;
+  }(_react2.Component), _class.defaultProps = {
+    type: 'star',
+    ratingImage: _require(_dependencyMap[7], './images/star.png'),
+    ratingColor: '#f1c40f',
+    ratingBackgroundColor: 'white',
+    ratingCount: 5,
+    imageSize: STAR_WIDTH,
+    onFinishRating: function onFinishRating() {
+      return console.log('Attach a function here.');
+    }
+  }, _temp));
+
+  exports.default = Rating;
+
+  var styles = _reactNative.StyleSheet.create({
+    starsWrapper: {
+      flexDirection: 'row'
+    },
+    starsInsideWrapper: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      flexDirection: 'row'
+    },
+    showRatingView: {
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingBottom: 5
+    },
+    ratingView: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingBottom: 5
+    },
+    ratingText: {
+      fontSize: 15,
+      textAlign: 'center',
+      fontFamily: _reactNative.Platform.OS === 'ios' ? 'Trebuchet MS' : null,
+      color: '#34495e'
+    },
+    readonlyLabel: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      fontSize: 12,
+      textAlign: 'center',
+      fontFamily: _reactNative.Platform.OS === 'ios' ? 'Trebuchet MS' : null,
+      color: '#34495a'
+    },
+    currentRatingText: {
+      fontSize: 30,
+      textAlign: 'center',
+      fontFamily: _reactNative.Platform.OS === 'ios' ? 'Trebuchet MS' : null
+    },
+    maxRatingText: {
+      fontSize: 18,
+      textAlign: 'center',
+      fontFamily: _reactNative.Platform.OS === 'ios' ? 'Trebuchet MS' : null,
+      color: '#34495e'
+    }
+  });
+
+  var fractionsType = function fractionsType(props, propName, componentName) {
+    if (props[propName]) {
+      var value = props[propName];
+
+      if (typeof value === 'number') {
+        return value >= 0 && value <= 20 ? null : new Error("`" + propName + "` in `" + componentName + "` must be between 0 and 20");
+      }
+
+      return new Error("`" + propName + "` in `" + componentName + "` must be a number");
+    }
+  };
+
+  Rating.propTypes = {
+    type: _propTypes2.default.string,
+    ratingImage: _reactNative.Image.propTypes.source,
+    ratingColor: _propTypes2.default.string,
+    ratingBackgroundColor: _propTypes2.default.string,
+    ratingCount: _propTypes2.default.number,
+    imageSize: _propTypes2.default.number,
+    onFinishRating: _propTypes2.default.func,
+    showRating: _propTypes2.default.bool,
+    style: _ViewPropTypes2.default.style,
+    readonly: _propTypes2.default.bool,
+    startingValue: _propTypes2.default.number,
+    fractions: fractionsType
+  };
+});

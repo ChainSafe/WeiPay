@@ -1,0 +1,17 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    var request = _require(_dependencyMap[0], "sync-request");
+
+    exports.token_data = function (path) {
+        var network = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "mainnet";
+        var supported_paths = ["symbol_to_details", "symbol_to_contract", "contract_to_symbol", "symbol_to_description", "contract_to_abi"];
+
+        if (supported_paths.indexOf(path) >= 0) {
+            var res = request('GET', 'https://ethfaction.github.io/erc20_tokens/' + network + '/' + path);
+            return JSON.parse(res.getBody('utf-8'));
+        }
+
+        return {
+            "error": "format not supported"
+        };
+    };
+});

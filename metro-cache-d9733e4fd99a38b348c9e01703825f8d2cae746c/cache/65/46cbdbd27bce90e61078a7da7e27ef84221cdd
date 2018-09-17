@@ -1,0 +1,25 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    var hashClear = _require(_dependencyMap[0], './_hashClear'),
+        hashDelete = _require(_dependencyMap[1], './_hashDelete'),
+        hashGet = _require(_dependencyMap[2], './_hashGet'),
+        hashHas = _require(_dependencyMap[3], './_hashHas'),
+        hashSet = _require(_dependencyMap[4], './_hashSet');
+
+    function Hash(entries) {
+        var index = -1,
+            length = entries == null ? 0 : entries.length;
+        this.clear();
+
+        while (++index < length) {
+            var entry = entries[index];
+            this.set(entry[0], entry[1]);
+        }
+    }
+
+    Hash.prototype.clear = hashClear;
+    Hash.prototype['delete'] = hashDelete;
+    Hash.prototype.get = hashGet;
+    Hash.prototype.has = hashHas;
+    Hash.prototype.set = hashSet;
+    module.exports = Hash;
+});

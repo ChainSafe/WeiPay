@@ -1,0 +1,39 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    'use strict';
+
+    var Provider = _require(_dependencyMap[0], './provider');
+
+    var EtherscanProvider = _require(_dependencyMap[1], './etherscan-provider');
+
+    var FallbackProvider = _require(_dependencyMap[2], './fallback-provider');
+
+    var IpcProvider = _require(_dependencyMap[3], './ipc-provider');
+
+    var InfuraProvider = _require(_dependencyMap[4], './infura-provider');
+
+    var JsonRpcProvider = _require(_dependencyMap[5], './json-rpc-provider');
+
+    var Web3Provider = _require(_dependencyMap[6], './web3-provider');
+
+    function getDefaultProvider(network) {
+        return new FallbackProvider([new InfuraProvider(network), new EtherscanProvider(network)]);
+    }
+
+    var _exports = {
+        EtherscanProvider: EtherscanProvider,
+        FallbackProvider: FallbackProvider,
+        InfuraProvider: InfuraProvider,
+        JsonRpcProvider: JsonRpcProvider,
+        Web3Provider: Web3Provider,
+        isProvider: Provider.isProvider,
+        networks: Provider.networks,
+        getDefaultProvider: getDefaultProvider,
+        Provider: Provider
+    };
+
+    if (IpcProvider) {
+        _exports.IpcProvider = IpcProvider;
+    }
+
+    module.exports = _exports;
+});

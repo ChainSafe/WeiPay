@@ -1,0 +1,17 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var eq = _require(_dependencyMap[0], './eq');
+
+  function assocIndexOf(array, key) {
+    var length = array.length;
+
+    while (length--) {
+      if (eq(array[length][0], key)) {
+        return length;
+      }
+    }
+
+    return -1;
+  }
+
+  module.exports = assocIndexOf;
+});

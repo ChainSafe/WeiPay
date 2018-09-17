@@ -1,0 +1,291 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../../../node_modules/react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _jsxFileName = "/home/master/Documents/work/WeiPay/src/screens/setup/crypto/EnableTokens.js";
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _reactNative = _require(_dependencyMap[2], "react-native");
+
+  var _reactNavigation = _require(_dependencyMap[3], "react-navigation");
+
+  var _reactRedux = _require(_dependencyMap[4], "react-redux");
+
+  var _CoinList = _require(_dependencyMap[5], "../../../components/tokens/CoinList");
+
+  var _CoinList2 = _interopRequireDefault(_CoinList);
+
+  var _LinearButton = _require(_dependencyMap[6], "../../../components/LinearGradient/LinearButton");
+
+  var _LinearButton2 = _interopRequireDefault(_LinearButton);
+
+  var _BackWithMenuNav = _require(_dependencyMap[7], "../../../components/customPageNavs/BackWithMenuNav");
+
+  var _BackWithMenuNav2 = _interopRequireDefault(_BackWithMenuNav);
+
+  var _reactNativeResponsiveFontsize = _require(_dependencyMap[8], "react-native-responsive-fontsize");
+
+  var _reactNativeResponsiveFontsize2 = _interopRequireDefault(_reactNativeResponsiveFontsize);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    EnableCrypto: {
+      displayName: "EnableCrypto"
+    }
+  };
+
+  var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/master/Documents/work/WeiPay/src/screens/setup/crypto/EnableTokens.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var EnableCrypto = _wrapComponent("EnableCrypto")(function (_Component) {
+    _inherits(EnableCrypto, _Component);
+
+    function EnableCrypto() {
+      var _ref;
+
+      var _temp, _this, _ret;
+
+      _classCallCheck(this, EnableCrypto);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = EnableCrypto.__proto__ || Object.getPrototypeOf(EnableCrypto)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+        tokenList: _this.props.tokenList,
+        changeState: true
+      }, _this.navigate = function () {
+        var navigateToPassphrase = _reactNavigation.NavigationActions.navigate({
+          routeName: 'mainStack'
+        });
+
+        _this.props.navigation.dispatch(navigateToPassphrase);
+      }, _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    _createClass(EnableCrypto, [{
+      key: "render",
+      value: function render() {
+        var safeAreaView = styles.safeAreaView,
+            mainContainer = styles.mainContainer,
+            headerContainer = styles.headerContainer,
+            textHeader = styles.textHeader,
+            coinListContainer = styles.coinListContainer,
+            btnContainer = styles.btnContainer,
+            button = styles.button,
+            footerGrandparentContainer = styles.footerGrandparentContainer,
+            footerParentContainer = styles.footerParentContainer,
+            textFooter = styles.textFooter;
+        return _react3.default.createElement(
+          _reactNative.SafeAreaView,
+          {
+            style: safeAreaView,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 49
+            }
+          },
+          _react3.default.createElement(
+            _reactNative.View,
+            {
+              style: mainContainer,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 50
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: headerContainer,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 51
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.Text,
+                {
+                  style: textHeader,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 52
+                  }
+                },
+                "Enable Tokens "
+              )
+            ),
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: coinListContainer,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 54
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.ScrollView,
+                {
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 55
+                  }
+                },
+                _react3.default.createElement(_CoinList2.default, {
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 56
+                  }
+                })
+              )
+            ),
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: btnContainer,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 59
+                }
+              },
+              _react3.default.createElement(_LinearButton2.default, {
+                onClickFunction: this.navigate,
+                buttonText: "Add",
+                customStyles: button,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 60
+                }
+              }),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: footerGrandparentContainer,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 65
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    style: footerParentContainer,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 66
+                    }
+                  },
+                  _react3.default.createElement(
+                    _reactNative.Text,
+                    {
+                      style: textFooter,
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 67
+                      }
+                    },
+                    "Powered by ChainSafe "
+                  )
+                )
+              )
+            )
+          )
+        );
+      }
+    }]);
+
+    return EnableCrypto;
+  }(_react2.Component));
+
+  var styles = _reactNative.StyleSheet.create({
+    safeAreaView: {
+      flex: 1,
+      backgroundColor: '#fafbfe'
+    },
+    mainContainer: {
+      flex: 1,
+      backgroundColor: '#fafbfe'
+    },
+    headerContainer: {
+      flex: 1,
+      justifyContent: "flex-end"
+    },
+    textHeader: {
+      fontFamily: 'Cairo-Light',
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(4),
+      marginLeft: '9%',
+      color: '#1a1f3e'
+    },
+    coinListContainer: {
+      alignItems: 'stretch',
+      marginLeft: '9%',
+      marginRight: '9%',
+      flex: 4,
+      paddingBottom: "2.5%"
+    },
+    btnContainer: {
+      flex: 1,
+      width: '100%',
+      flex: 1
+    },
+    button: {
+      width: '82%',
+      height: _reactNative.Dimensions.get('window').height * 0.082
+    },
+    footerGrandparentContainer: {
+      alignItems: 'center',
+      marginBottom: '2.5%',
+      marginTop: '2.5%'
+    },
+    footerGrandparentContainer: {
+      alignItems: 'center',
+      marginBottom: '5%',
+      marginTop: '5%'
+    },
+    footerParentContainer: {
+      alignItems: 'center'
+    },
+    textFooter: {
+      fontFamily: 'WorkSans-Regular',
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(1.7),
+      color: '#c0c0c0',
+      letterSpacing: 0.5
+    }
+  });
+
+  var mapStateToProps = function mapStateToProps(state) {
+    return {
+      tokenList: state.newWallet.tokens
+    };
+  };
+
+  exports.default = (0, _reactRedux.connect)(mapStateToProps)(EnableCrypto);
+});

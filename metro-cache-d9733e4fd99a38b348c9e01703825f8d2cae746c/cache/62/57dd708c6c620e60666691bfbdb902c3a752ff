@@ -1,0 +1,203 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.swipeDirections = undefined;
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _jsxFileName = "/home/master/Documents/work/WeiPay/node_modules/react-native-swipe-gestures/index.js";
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _reactNative = _require(_dependencyMap[2], "react-native");
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    GestureRecognizer: {
+      displayName: "GestureRecognizer"
+    }
+  };
+
+  var _reactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/master/Documents/work/WeiPay/node_modules/react-native-swipe-gestures/index.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _reactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var swipeDirections = exports.swipeDirections = {
+    SWIPE_UP: 'SWIPE_UP',
+    SWIPE_DOWN: 'SWIPE_DOWN',
+    SWIPE_LEFT: 'SWIPE_LEFT',
+    SWIPE_RIGHT: 'SWIPE_RIGHT'
+  };
+  var swipeConfig = {
+    velocityThreshold: 0.3,
+    directionalOffsetThreshold: 80
+  };
+
+  function isValidSwipe(velocity, velocityThreshold, directionalOffset, directionalOffsetThreshold) {
+    return Math.abs(velocity) > velocityThreshold && Math.abs(directionalOffset) < directionalOffsetThreshold;
+  }
+
+  var GestureRecognizer = _wrapComponent("GestureRecognizer")(function (_Component) {
+    _inherits(GestureRecognizer, _Component);
+
+    function GestureRecognizer(props, context) {
+      _classCallCheck(this, GestureRecognizer);
+
+      var _this = _possibleConstructorReturn(this, (GestureRecognizer.__proto__ || Object.getPrototypeOf(GestureRecognizer)).call(this, props, context));
+
+      _this.swipeConfig = _extends(swipeConfig, props.config);
+      return _this;
+    }
+
+    _createClass(GestureRecognizer, [{
+      key: "componentWillReceiveProps",
+      value: function componentWillReceiveProps(props) {
+        this.swipeConfig = _extends(swipeConfig, props.config);
+      }
+    }, {
+      key: "componentWillMount",
+      value: function componentWillMount() {
+        var responderEnd = this._handlePanResponderEnd.bind(this);
+
+        var shouldSetResponder = this._handleShouldSetPanResponder.bind(this);
+
+        this._panResponder = _reactNative.PanResponder.create({
+          onStartShouldSetPanResponder: shouldSetResponder,
+          onMoveShouldSetPanResponder: shouldSetResponder,
+          onPanResponderRelease: responderEnd,
+          onPanResponderTerminate: responderEnd
+        });
+      }
+    }, {
+      key: "_handleShouldSetPanResponder",
+      value: function _handleShouldSetPanResponder(evt, gestureState) {
+        return evt.nativeEvent.touches.length === 1 && !this._gestureIsClick(gestureState);
+      }
+    }, {
+      key: "_gestureIsClick",
+      value: function _gestureIsClick(gestureState) {
+        return Math.abs(gestureState.dx) < 5 && Math.abs(gestureState.dy) < 5;
+      }
+    }, {
+      key: "_handlePanResponderEnd",
+      value: function _handlePanResponderEnd(evt, gestureState) {
+        var swipeDirection = this._getSwipeDirection(gestureState);
+
+        this._triggerSwipeHandlers(swipeDirection, gestureState);
+      }
+    }, {
+      key: "_triggerSwipeHandlers",
+      value: function _triggerSwipeHandlers(swipeDirection, gestureState) {
+        var _props = this.props,
+            onSwipe = _props.onSwipe,
+            onSwipeUp = _props.onSwipeUp,
+            onSwipeDown = _props.onSwipeDown,
+            onSwipeLeft = _props.onSwipeLeft,
+            onSwipeRight = _props.onSwipeRight;
+        var SWIPE_LEFT = swipeDirections.SWIPE_LEFT,
+            SWIPE_RIGHT = swipeDirections.SWIPE_RIGHT,
+            SWIPE_UP = swipeDirections.SWIPE_UP,
+            SWIPE_DOWN = swipeDirections.SWIPE_DOWN;
+        onSwipe && onSwipe(swipeDirection, gestureState);
+
+        switch (swipeDirection) {
+          case SWIPE_LEFT:
+            onSwipeLeft && onSwipeLeft(gestureState);
+            break;
+
+          case SWIPE_RIGHT:
+            onSwipeRight && onSwipeRight(gestureState);
+            break;
+
+          case SWIPE_UP:
+            onSwipeUp && onSwipeUp(gestureState);
+            break;
+
+          case SWIPE_DOWN:
+            onSwipeDown && onSwipeDown(gestureState);
+            break;
+        }
+      }
+    }, {
+      key: "_getSwipeDirection",
+      value: function _getSwipeDirection(gestureState) {
+        var SWIPE_LEFT = swipeDirections.SWIPE_LEFT,
+            SWIPE_RIGHT = swipeDirections.SWIPE_RIGHT,
+            SWIPE_UP = swipeDirections.SWIPE_UP,
+            SWIPE_DOWN = swipeDirections.SWIPE_DOWN;
+        var dx = gestureState.dx,
+            dy = gestureState.dy;
+
+        if (this._isValidHorizontalSwipe(gestureState)) {
+          return dx > 0 ? SWIPE_RIGHT : SWIPE_LEFT;
+        } else if (this._isValidVerticalSwipe(gestureState)) {
+          return dy > 0 ? SWIPE_DOWN : SWIPE_UP;
+        }
+
+        return null;
+      }
+    }, {
+      key: "_isValidHorizontalSwipe",
+      value: function _isValidHorizontalSwipe(gestureState) {
+        var vx = gestureState.vx,
+            dy = gestureState.dy;
+        var _swipeConfig = this.swipeConfig,
+            velocityThreshold = _swipeConfig.velocityThreshold,
+            directionalOffsetThreshold = _swipeConfig.directionalOffsetThreshold;
+        return isValidSwipe(vx, velocityThreshold, dy, directionalOffsetThreshold);
+      }
+    }, {
+      key: "_isValidVerticalSwipe",
+      value: function _isValidVerticalSwipe(gestureState) {
+        var vy = gestureState.vy,
+            dx = gestureState.dx;
+        var _swipeConfig2 = this.swipeConfig,
+            velocityThreshold = _swipeConfig2.velocityThreshold,
+            directionalOffsetThreshold = _swipeConfig2.directionalOffsetThreshold;
+        return isValidSwipe(vy, velocityThreshold, dx, directionalOffsetThreshold);
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        return _react3.default.createElement(_reactNative.View, _extends({}, this.props, this._panResponder.panHandlers, {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 105
+          }
+        }));
+      }
+    }]);
+
+    return GestureRecognizer;
+  }(_react2.Component));
+
+  ;
+  exports.default = GestureRecognizer;
+});

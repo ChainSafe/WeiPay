@@ -1,0 +1,85 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var AnimatedInterpolation = _require(_dependencyMap[0], './AnimatedInterpolation');
+
+  var AnimatedNode = _require(_dependencyMap[1], './AnimatedNode');
+
+  var AnimatedWithChildren = _require(_dependencyMap[2], './AnimatedWithChildren');
+
+  var AnimatedDiffClamp = function (_AnimatedWithChildren) {
+    _inherits(AnimatedDiffClamp, _AnimatedWithChildren);
+
+    function AnimatedDiffClamp(a, min, max) {
+      _classCallCheck(this, AnimatedDiffClamp);
+
+      var _this = _possibleConstructorReturn(this, (AnimatedDiffClamp.__proto__ || Object.getPrototypeOf(AnimatedDiffClamp)).call(this));
+
+      _this._a = a;
+      _this._min = min;
+      _this._max = max;
+      _this._value = _this._lastValue = _this._a.__getValue();
+      return _this;
+    }
+
+    _createClass(AnimatedDiffClamp, [{
+      key: "__makeNative",
+      value: function __makeNative() {
+        this._a.__makeNative();
+
+        _get(AnimatedDiffClamp.prototype.__proto__ || Object.getPrototypeOf(AnimatedDiffClamp.prototype), "__makeNative", this).call(this);
+      }
+    }, {
+      key: "interpolate",
+      value: function interpolate(config) {
+        return new AnimatedInterpolation(this, config);
+      }
+    }, {
+      key: "__getValue",
+      value: function __getValue() {
+        var value = this._a.__getValue();
+
+        var diff = value - this._lastValue;
+        this._lastValue = value;
+        this._value = Math.min(Math.max(this._value + diff, this._min), this._max);
+        return this._value;
+      }
+    }, {
+      key: "__attach",
+      value: function __attach() {
+        this._a.__addChild(this);
+      }
+    }, {
+      key: "__detach",
+      value: function __detach() {
+        this._a.__removeChild(this);
+
+        _get(AnimatedDiffClamp.prototype.__proto__ || Object.getPrototypeOf(AnimatedDiffClamp.prototype), "__detach", this).call(this);
+      }
+    }, {
+      key: "__getNativeConfig",
+      value: function __getNativeConfig() {
+        return {
+          type: 'diffclamp',
+          input: this._a.__getNativeTag(),
+          min: this._min,
+          max: this._max
+        };
+      }
+    }]);
+
+    return AnimatedDiffClamp;
+  }(AnimatedWithChildren);
+
+  module.exports = AnimatedDiffClamp;
+});

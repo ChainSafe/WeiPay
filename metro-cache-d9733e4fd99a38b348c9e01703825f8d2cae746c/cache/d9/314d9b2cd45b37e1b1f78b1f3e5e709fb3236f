@@ -1,0 +1,10 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var enhanceError = _require(_dependencyMap[0], './enhanceError');
+
+  module.exports = function createError(message, config, code, request, response) {
+    var error = new Error(message);
+    return enhanceError(error, config, code, request, response);
+  };
+});

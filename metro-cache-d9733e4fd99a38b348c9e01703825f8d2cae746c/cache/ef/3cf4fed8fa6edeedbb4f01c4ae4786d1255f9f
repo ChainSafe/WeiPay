@@ -1,0 +1,129 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var _jsxFileName = "/home/master/Documents/work/WeiPay/node_modules/react-native-elements/src/badge/badge.js";
+
+  var _propTypes = _require(_dependencyMap[0], "prop-types");
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  var _react = _require(_dependencyMap[1], "react");
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _reactNative = _require(_dependencyMap[2], "react-native");
+
+  var _colors = _require(_dependencyMap[3], "../config/colors");
+
+  var _colors2 = _interopRequireDefault(_colors);
+
+  var _ViewPropTypes = _require(_dependencyMap[4], "../config/ViewPropTypes");
+
+  var _ViewPropTypes2 = _interopRequireDefault(_ViewPropTypes);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+  var Badge = function Badge(props) {
+    var containerStyle = props.containerStyle,
+        textStyle = props.textStyle,
+        wrapperStyle = props.wrapperStyle,
+        onPress = props.onPress,
+        component = props.component,
+        value = props.value,
+        children = props.children,
+        element = props.element,
+        attributes = _objectWithoutProperties(props, ["containerStyle", "textStyle", "wrapperStyle", "onPress", "component", "value", "children", "element"]);
+
+    if (element) return element;
+    var Component = _reactNative.View;
+
+    var childElement = _react2.default.createElement(
+      _reactNative.Text,
+      {
+        style: [styles.text, textStyle && textStyle],
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 25
+        }
+      },
+      value
+    );
+
+    if (children) {
+      childElement = children;
+    }
+
+    if (children && value) {
+      console.error('Badge can only contain either child element or value');
+    }
+
+    if (!component && onPress) {
+      Component = _reactNative.TouchableOpacity;
+    }
+
+    if (_react2.default.isValidElement(component)) {
+      Component = component;
+    }
+
+    return _react2.default.createElement(
+      _reactNative.View,
+      {
+        style: [styles.container && wrapperStyle && wrapperStyle],
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 47
+        }
+      },
+      _react2.default.createElement(
+        Component,
+        _extends({}, attributes, {
+          style: [styles.badge, containerStyle && containerStyle],
+          onPress: onPress,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 48
+          }
+        }),
+        childElement
+      )
+    );
+  };
+
+  Badge.propTypes = {
+    containerStyle: _ViewPropTypes2.default.style,
+    wrapperStyle: _ViewPropTypes2.default.style,
+    textStyle: _reactNative.Text.propTypes.style,
+    children: _propTypes2.default.oneOfType([_propTypes2.default.element, _propTypes2.default.arrayOf(_propTypes2.default.element)]),
+    value: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+    onPress: _propTypes2.default.func,
+    component: _propTypes2.default.func,
+    element: _propTypes2.default.element
+  };
+
+  var styles = _reactNative.StyleSheet.create({
+    container: {
+      flexDirection: 'row'
+    },
+    badge: {
+      padding: 12,
+      paddingTop: 3,
+      paddingBottom: 3,
+      backgroundColor: _colors2.default.grey1,
+      borderRadius: 20,
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    text: {
+      fontSize: 14,
+      color: 'white'
+    }
+  });
+
+  exports.default = Badge;
+});

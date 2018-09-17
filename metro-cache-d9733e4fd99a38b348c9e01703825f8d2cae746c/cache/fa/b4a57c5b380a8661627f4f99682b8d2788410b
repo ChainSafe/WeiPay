@@ -1,0 +1,218 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../../../node_modules/react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _jsxFileName = "/home/master/Documents/work/WeiPay/src/screens/main/qr/QrCodeScanner.js";
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _reactNative = _require(_dependencyMap[2], "react-native");
+
+  var _reactRedux = _require(_dependencyMap[3], "react-redux");
+
+  var _reactNativeElements = _require(_dependencyMap[4], "react-native-elements");
+
+  var _reactNativeCamera = _require(_dependencyMap[5], "react-native-camera");
+
+  var _reactNativeCamera2 = _interopRequireDefault(_reactNativeCamera);
+
+  var _reactNavigation = _require(_dependencyMap[6], "react-navigation");
+
+  var _reactNativeResponsiveFontsize = _require(_dependencyMap[7], "react-native-responsive-fontsize");
+
+  var _reactNativeResponsiveFontsize2 = _interopRequireDefault(_reactNativeResponsiveFontsize);
+
+  var _ActionCreator = _require(_dependencyMap[8], "../../../actions/ActionCreator");
+
+  var actions = _interopRequireWildcard(_ActionCreator);
+
+  var _SelectedContact = _require(_dependencyMap[9], "../menu/contacts/SelectedContact");
+
+  var _SelectedContact2 = _interopRequireDefault(_SelectedContact);
+
+  function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    QrCodeScanner: {
+      displayName: "QrCodeScanner"
+    }
+  };
+
+  var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/master/Documents/work/WeiPay/src/screens/main/qr/QrCodeScanner.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var QrCodeScanner = _wrapComponent("QrCodeScanner")(function (_Component) {
+    _inherits(QrCodeScanner, _Component);
+
+    function QrCodeScanner(props) {
+      _classCallCheck(this, QrCodeScanner);
+
+      var _this = _possibleConstructorReturn(this, (QrCodeScanner.__proto__ || Object.getPrototypeOf(QrCodeScanner)).call(this, props));
+
+      _this.navigate = function () {
+        var navigateToCreateOrRestore = _reactNavigation.NavigationActions.navigate({
+          routeName: _this.state.invoker
+        });
+
+        _this.props.navigation.dispatch(navigateToCreateOrRestore);
+      };
+
+      _this.onBarCodeRead = function (e) {
+        _this.setState({
+          qrcode: e.data
+        });
+
+        if (_this.state.invoker === 'TokenFunctionality') {
+          _this.props.getQRCodeData(e.data);
+        } else if (_this.state.invoker === 'AddTokenFunctionality') {
+          _this.props.updateNewTokenAddress(e.data);
+        } else {
+          var oldInputs = _this.state.previousInputs;
+          oldInputs.contactAddress[_this.state.coinInvoker] = e.data;
+          var contactInputs = oldInputs;
+
+          _this.props.updateSavedContactInputs(contactInputs);
+        }
+      };
+
+      _this.state = {
+        qrcode: '',
+        invoker: _this.props.invoker,
+        coinInvoker: _this.props.coinInvoker,
+        previousInputs: _this.props.currentContact
+      };
+      return _this;
+    }
+
+    _createClass(QrCodeScanner, [{
+      key: "render",
+      value: function render() {
+        var _this2 = this;
+
+        return _react3.default.createElement(
+          _reactNative.View,
+          {
+            style: styles.container,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 74
+            }
+          },
+          _react3.default.createElement(
+            _reactNativeCamera2.default,
+            {
+              style: styles.preview,
+              onBarCodeRead: this.onBarCodeRead,
+              ref: function ref(cam) {
+                return _this2.camera = cam;
+              },
+              aspect: _reactNativeCamera2.default.constants.Aspect.fill,
+              showMarker: true,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 75
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.Text,
+              {
+                style: {
+                  backgroundColor: 'white'
+                },
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 82
+                }
+              },
+              this.state.qrcode
+            ),
+            _react3.default.createElement(_reactNativeElements.Button, {
+              title: "Next",
+              style: styles.buttonStyle,
+              onPress: function onPress() {
+                return _this2.navigate();
+              },
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 85
+              }
+            })
+          )
+        );
+      }
+    }]);
+
+    return QrCodeScanner;
+  }(_react2.Component));
+
+  var styles = _reactNative.StyleSheet.create({
+    mainContainer: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'flex-start'
+    },
+    contentContainer: {
+      marginTop: 25
+    },
+    form: {
+      width: 340
+    },
+    btnContainer: {
+      flex: 1,
+      justifyContent: 'flex-end',
+      alignItems: 'center'
+    },
+    buttonStyle: {
+      backgroundColor: 'blue',
+      padding: 10
+    },
+    container: {
+      flex: 1,
+      flexDirection: 'row'
+    },
+    preview: {
+      flex: 1,
+      justifyContent: 'flex-end',
+      alignItems: 'center'
+    }
+  });
+
+  var mapStateToProps = function mapStateToProps(_ref) {
+    var QrScanner = _ref.QrScanner,
+        contacts = _ref.contacts;
+    return {
+      invoker: QrScanner.invoker,
+      coinInvoker: QrScanner.coinInvoker,
+      currentContact: contacts.incompleteContactInputs
+    };
+  };
+
+  exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(QrCodeScanner);
+});

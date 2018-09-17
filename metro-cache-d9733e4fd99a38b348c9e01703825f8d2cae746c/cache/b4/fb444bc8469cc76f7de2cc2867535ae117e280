@@ -1,0 +1,521 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.constants = undefined;
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _class,
+      _temp,
+      _jsxFileName = "/home/master/Documents/work/WeiPay/node_modules/react-native-camera/src/Camera.js";
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var _propTypes = _require(_dependencyMap[2], "prop-types");
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  var _reactNative = _require(_dependencyMap[3], "react-native");
+
+  var _handlePermissions = _require(_dependencyMap[4], "./handlePermissions");
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    Camera: {
+      displayName: "Camera"
+    }
+  };
+
+  var _reactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/master/Documents/work/WeiPay/node_modules/react-native-camera/src/Camera.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _reactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var styles = _reactNative.StyleSheet.create({
+    base: {},
+    authorizationContainer: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    notAuthorizedText: {
+      textAlign: 'center',
+      fontSize: 16
+    }
+  });
+
+  var CameraManager = _reactNative.NativeModules.CameraManager || _reactNative.NativeModules.CameraModule;
+
+  function convertNativeProps(props) {
+    var newProps = _extends({}, props);
+
+    if (typeof props.aspect === 'string') {
+      newProps.aspect = Camera.constants.Aspect[props.aspect];
+    }
+
+    if (typeof props.flashMode === 'string') {
+      newProps.flashMode = Camera.constants.FlashMode[props.flashMode];
+    }
+
+    if (typeof props.zoom === 'string' || typeof props.zoom === 'number') {
+      if (props.zoom >= 0 && props.zoom <= 100) {
+        newProps.zoom = parseInt(props.zoom);
+      }
+    }
+
+    if (typeof props.orientation === 'string') {
+      newProps.orientation = Camera.constants.Orientation[props.orientation];
+    }
+
+    if (typeof props.torchMode === 'string') {
+      newProps.torchMode = Camera.constants.TorchMode[props.torchMode];
+    }
+
+    if (typeof props.type === 'string') {
+      newProps.type = Camera.constants.Type[props.type];
+    }
+
+    if (typeof props.captureQuality === 'string') {
+      newProps.captureQuality = Camera.constants.CaptureQuality[props.captureQuality];
+    }
+
+    if (typeof props.captureMode === 'string') {
+      newProps.captureMode = Camera.constants.CaptureMode[props.captureMode];
+    }
+
+    if (typeof props.captureTarget === 'string') {
+      newProps.captureTarget = Camera.constants.CaptureTarget[props.captureTarget];
+    }
+
+    if (typeof props.onBarCodeRead !== 'function') {
+      newProps.barCodeTypes = [];
+    }
+
+    newProps.barcodeScannerEnabled = typeof props.onBarCodeRead === 'function';
+    return newProps;
+  }
+
+  var Camera = _wrapComponent("Camera")((_temp = _class = function (_Component) {
+    _inherits(Camera, _Component);
+
+    _createClass(Camera, [{
+      key: "setNativeProps",
+      value: function setNativeProps(props) {
+        this._cameraRef.setNativeProps(props);
+      }
+    }]);
+
+    function Camera() {
+      _classCallCheck(this, Camera);
+
+      var _this = _possibleConstructorReturn(this, (Camera.__proto__ || Object.getPrototypeOf(Camera)).call(this));
+
+      _this._setReference = function (ref) {
+        if (ref) {
+          _this._cameraRef = ref;
+          _this._cameraHandle = (0, _reactNative.findNodeHandle)(ref);
+        } else {
+          _this._cameraRef = null;
+          _this._cameraHandle = null;
+        }
+      };
+
+      _this._onBarCodeRead = function (data) {
+        if (_this.props.onBarCodeRead) {
+          _this.props.onBarCodeRead(data);
+        }
+      };
+
+      _this.state = {
+        isAuthorized: false,
+        isAuthorizationChecked: false,
+        isRecording: false
+      };
+      _this._cameraRef = null;
+      _this._cameraHandle = null;
+      return _this;
+    }
+
+    _createClass(Camera, [{
+      key: "componentWillMount",
+      value: function componentWillMount() {
+        var _convertNativeProps, captureMode, hasVideoAndAudio, isAuthorized;
+
+        return regeneratorRuntime.async(function componentWillMount$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                this._addOnBarCodeReadListener();
+
+                this._addOnFocusChanged();
+
+                this._addOnZoomChanged();
+
+                _convertNativeProps = convertNativeProps({
+                  captureMode: this.props.captureMode
+                }), captureMode = _convertNativeProps.captureMode;
+                hasVideoAndAudio = this.props.captureAudio && captureMode === Camera.constants.CaptureMode.video;
+                _context.next = 7;
+                return regeneratorRuntime.awrap((0, _handlePermissions.requestPermissions)(hasVideoAndAudio, Camera, this.props.permissionDialogTitle, this.props.permissionDialogMessage));
+
+              case 7:
+                isAuthorized = _context.sent;
+                this.setState({
+                  isAuthorized: isAuthorized,
+                  isAuthorizationChecked: true
+                });
+
+              case 9:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, null, this);
+      }
+    }, {
+      key: "componentWillUnmount",
+      value: function componentWillUnmount() {
+        this._removeOnBarCodeReadListener();
+
+        this._removeOnFocusChanged();
+
+        this._removeOnZoomChanged();
+
+        if (this.state.isRecording) {
+          this.stopCapture();
+        }
+      }
+    }, {
+      key: "componentWillReceiveProps",
+      value: function componentWillReceiveProps(newProps) {
+        var _props = this.props,
+            onBarCodeRead = _props.onBarCodeRead,
+            onFocusChanged = _props.onFocusChanged,
+            onZoomChanged = _props.onZoomChanged;
+
+        if (onBarCodeRead !== newProps.onBarCodeRead) {
+          this._addOnBarCodeReadListener(newProps);
+        }
+
+        if (onFocusChanged !== !newProps.onFocusChanged) {
+          this._addOnFocusChanged(newProps);
+        }
+
+        if (onZoomChanged !== !newProps.onZoomChanged) {
+          this._addOnZoomChanged(newProps);
+        }
+      }
+    }, {
+      key: "_addOnBarCodeReadListener",
+      value: function _addOnBarCodeReadListener(props) {
+        var _ref = props || this.props,
+            onBarCodeRead = _ref.onBarCodeRead;
+
+        this._removeOnBarCodeReadListener();
+
+        if (onBarCodeRead) {
+          this.cameraBarCodeReadListener = _reactNative.Platform.select({
+            ios: _reactNative.NativeAppEventEmitter.addListener('CameraBarCodeRead', this._onBarCodeRead),
+            android: _reactNative.DeviceEventEmitter.addListener('CameraBarCodeReadAndroid', this._onBarCodeRead)
+          });
+        }
+      }
+    }, {
+      key: "_addOnFocusChanged",
+      value: function _addOnFocusChanged(props) {
+        if (_reactNative.Platform.OS === 'ios') {
+          var _ref2 = props || this.props,
+              onFocusChanged = _ref2.onFocusChanged;
+
+          this.focusListener = _reactNative.NativeAppEventEmitter.addListener('focusChanged', onFocusChanged);
+        }
+      }
+    }, {
+      key: "_addOnZoomChanged",
+      value: function _addOnZoomChanged(props) {
+        if (_reactNative.Platform.OS === 'ios') {
+          var _ref3 = props || this.props,
+              onZoomChanged = _ref3.onZoomChanged;
+
+          this.zoomListener = _reactNative.NativeAppEventEmitter.addListener('zoomChanged', onZoomChanged);
+        }
+      }
+    }, {
+      key: "_removeOnBarCodeReadListener",
+      value: function _removeOnBarCodeReadListener() {
+        var listener = this.cameraBarCodeReadListener;
+
+        if (listener) {
+          listener.remove();
+        }
+      }
+    }, {
+      key: "_removeOnFocusChanged",
+      value: function _removeOnFocusChanged() {
+        var listener = this.focusListener;
+
+        if (listener) {
+          listener.remove();
+        }
+      }
+    }, {
+      key: "_removeOnZoomChanged",
+      value: function _removeOnZoomChanged() {
+        var listener = this.zoomListener;
+
+        if (listener) {
+          listener.remove();
+        }
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        var style = [styles.base, this.props.style];
+        var nativeProps = convertNativeProps(this.props);
+
+        if (this.state.isAuthorized) {
+          return _react3.default.createElement(RCTCamera, _extends({
+            ref: this._setReference
+          }, nativeProps, {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 283
+            }
+          }));
+        } else if (!this.state.isAuthorizationChecked) {
+          return this.props.pendingAuthorizationView;
+        } else {
+          return this.props.notAuthorizedView;
+        }
+      }
+    }, {
+      key: "capture",
+      value: function capture(options) {
+        var props = convertNativeProps(this.props);
+        options = _extends({
+          audio: props.captureAudio,
+          barCodeTypes: props.barCodeTypes,
+          mode: props.captureMode,
+          playSoundOnCapture: props.playSoundOnCapture,
+          target: props.captureTarget,
+          quality: props.captureQuality,
+          type: props.type,
+          title: '',
+          description: '',
+          mirrorImage: props.mirrorImage,
+          mirrorVideo: props.mirrorVideo,
+          fixOrientation: props.fixOrientation,
+          cropToPreview: props.cropToPreview
+        }, options);
+
+        if (options.mode === Camera.constants.CaptureMode.video) {
+          options.totalSeconds = options.totalSeconds > -1 ? options.totalSeconds : -1;
+          options.preferredTimeScale = options.preferredTimeScale || 30;
+          options.cropToPreview = false;
+          this.setState({
+            isRecording: true
+          });
+        }
+
+        return CameraManager.capture(options);
+      }
+    }, {
+      key: "startPreview",
+      value: function startPreview() {
+        if (_reactNative.Platform.OS === 'android') {
+          _reactNative.UIManager.dispatchViewManagerCommand(this._cameraHandle, _reactNative.UIManager.RCTCamera.Commands.startPreview, []);
+        } else {
+          CameraManager.startPreview();
+        }
+      }
+    }, {
+      key: "stopPreview",
+      value: function stopPreview() {
+        if (_reactNative.Platform.OS === 'android') {
+          _reactNative.UIManager.dispatchViewManagerCommand(this._cameraHandle, _reactNative.UIManager.RCTCamera.Commands.stopPreview, []);
+        } else {
+          CameraManager.stopPreview();
+        }
+      }
+    }, {
+      key: "stopCapture",
+      value: function stopCapture() {
+        if (this.state.isRecording) {
+          this.setState({
+            isRecording: false
+          });
+          return CameraManager.stopCapture();
+        }
+
+        return Promise.resolve('Not Recording.');
+      }
+    }, {
+      key: "getFOV",
+      value: function getFOV() {
+        return CameraManager.getFOV();
+      }
+    }, {
+      key: "hasFlash",
+      value: function hasFlash() {
+        if (_reactNative.Platform.OS === 'android') {
+          var props = convertNativeProps(this.props);
+          return CameraManager.hasFlash({
+            type: props.type
+          });
+        }
+
+        return CameraManager.hasFlash();
+      }
+    }, {
+      key: "setZoom",
+      value: function setZoom(zoom) {
+        if (_reactNative.Platform.OS === 'android') {
+          var props = convertNativeProps(this.props);
+          return CameraManager.setZoom({
+            type: props.type
+          }, zoom);
+        }
+
+        return CameraManager.setZoom(zoom);
+      }
+    }]);
+
+    return Camera;
+  }(_react2.Component), _class.constants = {
+    Aspect: CameraManager.Aspect,
+    BarCodeType: CameraManager.BarCodeType,
+    Type: CameraManager.Type,
+    CaptureMode: CameraManager.CaptureMode,
+    CaptureTarget: CameraManager.CaptureTarget,
+    CaptureQuality: CameraManager.CaptureQuality,
+    Orientation: CameraManager.Orientation,
+    FlashMode: CameraManager.FlashMode,
+    Zoom: CameraManager.Zoom,
+    TorchMode: CameraManager.TorchMode
+  }, _class.propTypes = _extends({}, _reactNative.ViewPropTypes, {
+    aspect: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+    captureAudio: _propTypes2.default.bool,
+    captureMode: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+    captureQuality: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+    captureTarget: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+    defaultOnFocusComponent: _propTypes2.default.bool,
+    flashMode: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+    zoom: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+    keepAwake: _propTypes2.default.bool,
+    onBarCodeRead: _propTypes2.default.func,
+    barcodeScannerEnabled: _propTypes2.default.bool,
+    cropToPreview: _propTypes2.default.bool,
+    clearWindowBackground: _propTypes2.default.bool,
+    onFocusChanged: _propTypes2.default.func,
+    onZoomChanged: _propTypes2.default.func,
+    mirrorImage: _propTypes2.default.bool,
+    mirrorVideo: _propTypes2.default.bool,
+    fixOrientation: _propTypes2.default.bool,
+    barCodeTypes: _propTypes2.default.array,
+    orientation: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+    playSoundOnCapture: _propTypes2.default.bool,
+    torchMode: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+    type: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
+    permissionDialogTitle: _propTypes2.default.string,
+    permissionDialogMessage: _propTypes2.default.string,
+    notAuthorizedView: _propTypes2.default.element,
+    pendingAuthorizationView: _propTypes2.default.element
+  }), _class.defaultProps = {
+    aspect: CameraManager.Aspect.fill,
+    type: CameraManager.Type.back,
+    orientation: CameraManager.Orientation.auto,
+    fixOrientation: false,
+    captureAudio: false,
+    captureMode: CameraManager.CaptureMode.still,
+    captureTarget: CameraManager.CaptureTarget.cameraRoll,
+    captureQuality: CameraManager.CaptureQuality.high,
+    defaultOnFocusComponent: true,
+    flashMode: CameraManager.FlashMode.off,
+    zoom: 0,
+    playSoundOnCapture: true,
+    torchMode: CameraManager.TorchMode.off,
+    mirrorImage: false,
+    mirrorVideo: false,
+    cropToPreview: false,
+    clearWindowBackground: false,
+    barCodeTypes: Object.values(CameraManager.BarCodeType),
+    permissionDialogTitle: '',
+    permissionDialogMessage: '',
+    notAuthorizedView: _react3.default.createElement(
+      _reactNative.View,
+      {
+        style: styles.authorizationContainer,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 153
+        }
+      },
+      _react3.default.createElement(
+        _reactNative.Text,
+        {
+          style: styles.notAuthorizedText,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 154
+          }
+        },
+        "Camera not authorized"
+      )
+    ),
+    pendingAuthorizationView: _react3.default.createElement(
+      _reactNative.View,
+      {
+        style: styles.authorizationContainer,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 158
+        }
+      },
+      _react3.default.createElement(_reactNative.ActivityIndicator, {
+        size: "small",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 159
+        }
+      })
+    )
+  }, _class.checkDeviceAuthorizationStatus = CameraManager.checkDeviceAuthorizationStatus, _class.checkVideoAuthorizationStatus = CameraManager.checkVideoAuthorizationStatus, _class.checkAudioAuthorizationStatus = CameraManager.checkAudioAuthorizationStatus, _temp));
+
+  exports.default = Camera;
+  var constants = exports.constants = Camera.constants;
+  var RCTCamera = (0, _reactNative.requireNativeComponent)('RCTCamera', Camera, {
+    nativeOnly: {
+      testID: true,
+      renderToHardwareTextureAndroid: true,
+      accessibilityLabel: true,
+      importantForAccessibility: true,
+      accessibilityLiveRegion: true,
+      accessibilityComponentType: true,
+      onLayout: true
+    }
+  });
+});

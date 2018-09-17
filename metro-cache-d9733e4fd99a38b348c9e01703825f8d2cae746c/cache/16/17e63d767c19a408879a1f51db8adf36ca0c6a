@@ -1,0 +1,6 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var overArg = _require(_dependencyMap[0], './_overArg');
+
+  var nativeKeys = overArg(Object.keys, Object);
+  module.exports = nativeKeys;
+});

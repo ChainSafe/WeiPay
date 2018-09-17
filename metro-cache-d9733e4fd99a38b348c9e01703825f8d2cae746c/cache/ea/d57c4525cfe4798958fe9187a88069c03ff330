@@ -1,0 +1,13 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var elliptic = exports;
+  elliptic.version = _require(_dependencyMap[0], '../package.json').version;
+  elliptic.utils = _require(_dependencyMap[1], './elliptic/utils');
+  elliptic.rand = _require(_dependencyMap[2], 'brorand');
+  elliptic.hmacDRBG = _require(_dependencyMap[3], './elliptic/hmac-drbg');
+  elliptic.curve = _require(_dependencyMap[4], './elliptic/curve');
+  elliptic.curves = _require(_dependencyMap[5], './elliptic/curves');
+  elliptic.ec = _require(_dependencyMap[6], './elliptic/ec');
+  elliptic.eddsa = _require(_dependencyMap[7], './elliptic/eddsa');
+});

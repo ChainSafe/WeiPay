@@ -1,0 +1,22 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var eq = _require(_dependencyMap[0], './eq'),
+      isArrayLike = _require(_dependencyMap[1], './isArrayLike'),
+      isIndex = _require(_dependencyMap[2], './_isIndex'),
+      isObject = _require(_dependencyMap[3], './isObject');
+
+  function isIterateeCall(value, index, object) {
+    if (!isObject(object)) {
+      return false;
+    }
+
+    var type = typeof index;
+
+    if (type == 'number' ? isArrayLike(object) && isIndex(index, object.length) : type == 'string' && index in object) {
+      return eq(object[index], value);
+    }
+
+    return false;
+  }
+
+  module.exports = isIterateeCall;
+});

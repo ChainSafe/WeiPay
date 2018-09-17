@@ -1,0 +1,433 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../../../node_modules/react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _jsxFileName = "/home/master/Documents/work/WeiPay/src/screens/setup/recover/RecoverWallet.js";
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _reactNative = _require(_dependencyMap[2], "react-native");
+
+  var _reactNavigation = _require(_dependencyMap[3], "react-navigation");
+
+  var _reactRedux = _require(_dependencyMap[4], "react-redux");
+
+  var _reactNativeElements = _require(_dependencyMap[5], "react-native-elements");
+
+  var _ActionCreator = _require(_dependencyMap[6], "../../../actions/ActionCreator");
+
+  var _Providers = _require(_dependencyMap[7], "../../../constants/Providers");
+
+  var _Providers2 = _interopRequireDefault(_Providers);
+
+  var _LinearButton = _require(_dependencyMap[8], "../../../components/LinearGradient/LinearButton");
+
+  var _LinearButton2 = _interopRequireDefault(_LinearButton);
+
+  var _BackWithMenuNav = _require(_dependencyMap[9], "../../../components/customPageNavs/BackWithMenuNav");
+
+  var _BackWithMenuNav2 = _interopRequireDefault(_BackWithMenuNav);
+
+  var _BoxShadowCard = _require(_dependencyMap[10], "../../../components/ShadowCards/BoxShadowCard");
+
+  var _BoxShadowCard2 = _interopRequireDefault(_BoxShadowCard);
+
+  var _reactNativeResponsiveFontsize = _require(_dependencyMap[11], "react-native-responsive-fontsize");
+
+  var _reactNativeResponsiveFontsize2 = _interopRequireDefault(_reactNativeResponsiveFontsize);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    RecoverWallet: {
+      displayName: "RecoverWallet"
+    }
+  };
+
+  var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/master/Documents/work/WeiPay/src/screens/setup/recover/RecoverWallet.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var ethers = _require(_dependencyMap[12], 'ethers');
+
+  var RecoverWallet = _wrapComponent("RecoverWallet")(function (_Component) {
+    _inherits(RecoverWallet, _Component);
+
+    function RecoverWallet(props) {
+      _classCallCheck(this, RecoverWallet);
+
+      var _this = _possibleConstructorReturn(this, (RecoverWallet.__proto__ || Object.getPrototypeOf(RecoverWallet)).call(this, props));
+
+      _this.navigate = function () {
+        var navigateToTokens = _reactNavigation.NavigationActions.navigate({
+          routeName: 'enableTokens'
+        });
+
+        try {
+          if (_this.props.debugMode === true) {
+            var wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
+            wallet.provider = _Providers2.default;
+
+            _this.props.newWalletCreation(wallet);
+
+            _this.props.navigation.dispatch(navigateToTokens);
+          } else {
+            var mnemonic = void 0,
+                _wallet = void 0;
+
+            mnemonic = _this.state.mnemonic.trim();
+            _wallet = ethers.Wallet.fromMnemonic(mnemonic);
+            _wallet.provider = _Providers2.default;
+
+            _this.props.newWalletCreation(_wallet);
+
+            _this.props.navigation.dispatch(navigateToTokens);
+          }
+        } catch (err) {
+          _reactNative.Alert.alert('Mnemonic Error', 'Your mnemonic was invalid, please re-enter.', [{
+            text: 'OK',
+            onPress: function onPress() {
+              return _this.inputMnemonic.clearText();
+            }
+          }], {
+            cancelable: false
+          });
+        }
+      };
+
+      _this.state = {
+        mnemonic: '',
+        value: '',
+        buttonDisabled: true
+      };
+      return _this;
+    }
+
+    _createClass(RecoverWallet, [{
+      key: "renderRecoveryKey",
+      value: function renderRecoveryKey(mnemonicInput) {
+        var totalWords = mnemonicInput.split(' ');
+
+        if (totalWords.length == 12) {
+          this.setState({
+            value: mnemonicInput.toLowerCase()
+          });
+          this.setState({
+            mnemonic: mnemonicInput.toLowerCase()
+          });
+          this.setState({
+            buttonDisabled: false
+          });
+        } else {
+          this.setState({
+            buttonDisabled: true
+          });
+        }
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        var mainContainer = styles.mainContainer,
+            textHeader = styles.textHeader,
+            navContainer = styles.navContainer,
+            contentContainer = styles.contentContainer,
+            boxShadowContainer = styles.boxShadowContainer,
+            cardText = styles.cardText,
+            txtMnemonic = styles.txtMnemonic,
+            btnContainer = styles.btnContainer,
+            button = styles.button,
+            footerGrandparentContainer = styles.footerGrandparentContainer,
+            footerParentContainer = styles.footerParentContainer,
+            textFooter = styles.textFooter;
+        return _react3.default.createElement(
+          _reactNative.SafeAreaView,
+          {
+            style: styles.safeAreaView,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 108
+            }
+          },
+          _react3.default.createElement(
+            _reactNative.TouchableWithoutFeedback,
+            {
+              onPress: _reactNative.Keyboard.dismiss,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 109
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: mainContainer,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 110
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: navContainer,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 111
+                  }
+                },
+                _react3.default.createElement(_BackWithMenuNav2.default, {
+                  showMenu: false,
+                  showBack: true,
+                  navigation: this.props.navigation,
+                  backPage: 'createWalletNameRecovered',
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 112
+                  }
+                })
+              ),
+              _react3.default.createElement(
+                _reactNative.Text,
+                {
+                  style: textHeader,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 119
+                  }
+                },
+                "Recovery Passphrase"
+              ),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: boxShadowContainer,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 120
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    style: contentContainer,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 121
+                    }
+                  },
+                  _react3.default.createElement(
+                    _BoxShadowCard2.default,
+                    {
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 122
+                      }
+                    },
+                    _react3.default.createElement(
+                      _reactNative.Text,
+                      {
+                        style: cardText,
+                        __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 123
+                        }
+                      },
+                      "Enter your 12 word recovery passphrase to recover your wallet."
+                    ),
+                    _react3.default.createElement(
+                      _reactNative.View,
+                      {
+                        style: styles.formInputContainer,
+                        __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 126
+                        }
+                      },
+                      _react3.default.createElement(_reactNativeElements.FormInput, {
+                        placeholder: 'Ex. man friend love long phrase ... ',
+                        onChangeText: this.renderRecoveryKey.bind(this),
+                        inputStyle: txtMnemonic,
+                        __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 127
+                        }
+                      })
+                    )
+                  )
+                )
+              ),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: btnContainer,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 137
+                  }
+                },
+                _react3.default.createElement(_LinearButton2.default, {
+                  onClickFunction: this.navigate,
+                  buttonText: "Recover",
+                  customStyles: button,
+                  buttonStateEnabled: this.props.debugMode ? false : this.state.buttonDisabled,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 138
+                  }
+                }),
+                _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    style: footerGrandparentContainer,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 144
+                    }
+                  },
+                  _react3.default.createElement(
+                    _reactNative.View,
+                    {
+                      style: footerParentContainer,
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 145
+                      }
+                    },
+                    _react3.default.createElement(
+                      _reactNative.Text,
+                      {
+                        style: textFooter,
+                        __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 146
+                        }
+                      },
+                      "Powered by ChainSafe "
+                    )
+                  )
+                )
+              )
+            )
+          )
+        );
+      }
+    }]);
+
+    return RecoverWallet;
+  }(_react2.Component));
+
+  var styles = _reactNative.StyleSheet.create({
+    safeAreaView: {
+      flex: 1,
+      backgroundColor: '#fafbfe'
+    },
+    mainContainer: {
+      flex: 1,
+      backgroundColor: '#fafbfe',
+      width: '100%'
+    },
+    navContainer: {
+      flex: 0.65
+    },
+    textHeader: {
+      fontFamily: 'Cairo-Light',
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(4),
+      letterSpacing: 0.8,
+      paddingLeft: '9%',
+      color: '#1a1f3e',
+      flex: 0.65
+    },
+    boxShadowContainer: {
+      alignItems: 'center',
+      flex: 2.5
+    },
+    contentContainer: {
+      width: '82%',
+      flex: 1
+    },
+    cardText: {
+      paddingBottom: '15%',
+      paddingTop: '10%',
+      paddingLeft: '10%',
+      paddingRight: '10%',
+      fontFamily: 'WorkSans-Light',
+      letterSpacing: 0.4,
+      lineHeight: (0, _reactNativeResponsiveFontsize2.default)(3.9),
+      color: '#000000',
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(2.4)
+    },
+    txtMnemonic: {
+      width: '100%',
+      flexWrap: 'wrap',
+      color: '#12c1a2',
+      letterSpacing: 0.4,
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(2.4),
+      fontFamily: 'WorkSans-Regular',
+      borderBottomWidth: 0.001
+    },
+    formInputContainer: {
+      width: '90%',
+      marginLeft: '5%'
+    },
+    btnContainer: {
+      flex: 2.5,
+      alignItems: 'stretch',
+      justifyContent: 'flex-end',
+      width: '100%'
+    },
+    button: {
+      width: '82%',
+      height: _reactNative.Dimensions.get('window').height * 0.082
+    },
+    footerGrandparentContainer: {
+      alignItems: 'center',
+      marginBottom: '5%',
+      marginTop: '5%'
+    },
+    footerParentContainer: {
+      alignItems: 'center'
+    },
+    textFooter: {
+      fontFamily: 'WorkSans-Regular',
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(1.7),
+      color: '#c0c0c0',
+      letterSpacing: 0.5
+    }
+  });
+
+  var mapStateToProps = function mapStateToProps(_ref) {
+    var newWallet = _ref.newWallet;
+    var debugMode = newWallet.debugMode;
+    return {
+      debugMode: debugMode
+    };
+  };
+
+  exports.default = (0, _reactRedux.connect)(mapStateToProps, {
+    newWalletCreation: _ActionCreator.newWalletCreation
+  })(RecoverWallet);
+});

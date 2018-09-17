@@ -1,0 +1,376 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var _jsxFileName = "/home/master/Documents/work/WeiPay/node_modules/react-native-elements/src/buttons/Button.js";
+
+  var _propTypes = _require(_dependencyMap[0], "prop-types");
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  var _react = _require(_dependencyMap[1], "react");
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _reactNative = _require(_dependencyMap[2], "react-native");
+
+  var _colors = _require(_dependencyMap[3], "../config/colors");
+
+  var _colors2 = _interopRequireDefault(_colors);
+
+  var _Text = _require(_dependencyMap[4], "../text/Text");
+
+  var _Text2 = _interopRequireDefault(_Text);
+
+  var _MaterialIcons = _require(_dependencyMap[5], "react-native-vector-icons/MaterialIcons");
+
+  var _MaterialIcons2 = _interopRequireDefault(_MaterialIcons);
+
+  var _getIconType = _require(_dependencyMap[6], "../helpers/getIconType");
+
+  var _getIconType2 = _interopRequireDefault(_getIconType);
+
+  var _normalizeText = _require(_dependencyMap[7], "../helpers/normalizeText");
+
+  var _normalizeText2 = _interopRequireDefault(_normalizeText);
+
+  var _ViewPropTypes = _require(_dependencyMap[8], "../config/ViewPropTypes");
+
+  var _ViewPropTypes2 = _interopRequireDefault(_ViewPropTypes);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+  var log = function log() {
+    console.log('please attach method to this component');
+  };
+
+  var Button = function Button(props) {
+    var disabled = props.disabled,
+        loading = props.loading,
+        loadingRight = props.loadingRight,
+        activityIndicatorStyle = props.activityIndicatorStyle,
+        buttonStyle = props.buttonStyle,
+        borderRadius = props.borderRadius,
+        title = props.title,
+        onPress = props.onPress,
+        icon = props.icon,
+        iconComponent = props.iconComponent,
+        secondary = props.secondary,
+        secondary2 = props.secondary2,
+        secondary3 = props.secondary3,
+        primary1 = props.primary1,
+        primary2 = props.primary2,
+        backgroundColor = props.backgroundColor,
+        color = props.color,
+        fontSize = props.fontSize,
+        underlayColor = props.underlayColor,
+        raised = props.raised,
+        textStyle = props.textStyle,
+        large = props.large,
+        iconRight = props.iconRight,
+        fontWeight = props.fontWeight,
+        disabledStyle = props.disabledStyle,
+        disabledTextStyle = props.disabledTextStyle,
+        fontFamily = props.fontFamily,
+        containerViewStyle = props.containerViewStyle,
+        rounded = props.rounded,
+        outline = props.outline,
+        transparent = props.transparent,
+        textNumberOfLines = props.textNumberOfLines,
+        textEllipsizeMode = props.textEllipsizeMode,
+        allowFontScaling = props.allowFontScaling,
+        attributes = _objectWithoutProperties(props, ["disabled", "loading", "loadingRight", "activityIndicatorStyle", "buttonStyle", "borderRadius", "title", "onPress", "icon", "iconComponent", "secondary", "secondary2", "secondary3", "primary1", "primary2", "backgroundColor", "color", "fontSize", "underlayColor", "raised", "textStyle", "large", "iconRight", "fontWeight", "disabledStyle", "disabledTextStyle", "fontFamily", "containerViewStyle", "rounded", "outline", "transparent", "textNumberOfLines", "textEllipsizeMode", "allowFontScaling"]);
+
+    var Component = props.Component,
+        rightIcon = props.rightIcon,
+        leftIcon = props.leftIcon;
+    var leftIconElement = void 0;
+
+    if (!leftIcon && icon) {
+      leftIcon = icon;
+    }
+
+    if (leftIcon) {
+      var Icon = void 0;
+
+      if (iconComponent) {
+        Icon = iconComponent;
+      } else if (!leftIcon.type) {
+        Icon = _MaterialIcons2.default;
+      } else {
+        Icon = (0, _getIconType2.default)(leftIcon.type);
+      }
+
+      leftIconElement = _react2.default.createElement(Icon, _extends({}, leftIcon, {
+        color: leftIcon.color || 'white',
+        size: leftIcon.size || (large ? 26 : 18),
+        style: [styles.icon, leftIcon.style && leftIcon.style],
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 77
+        }
+      }));
+    }
+
+    var rightIconElement = void 0;
+
+    if (iconRight || rightIcon) {
+      if (!rightIcon) {
+        rightIcon = iconRight;
+      }
+
+      var _Icon = void 0;
+
+      if (iconComponent) {
+        _Icon = iconComponent;
+      } else if (!rightIcon.type) {
+        _Icon = _MaterialIcons2.default;
+      } else {
+        _Icon = (0, _getIconType2.default)(rightIcon.type);
+      }
+
+      rightIconElement = _react2.default.createElement(_Icon, _extends({}, rightIcon, {
+        color: rightIcon.color || 'white',
+        size: rightIcon.size || (large ? 26 : 18),
+        style: [styles.iconRight, rightIcon.style && rightIcon.style],
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 99
+        }
+      }));
+    }
+
+    var loadingElement = void 0;
+
+    if (loading) {
+      loadingElement = _react2.default.createElement(_reactNative.ActivityIndicator, {
+        animating: true,
+        style: [styles.activityIndicatorStyle, activityIndicatorStyle],
+        color: color || 'white',
+        size: large && 'large' || 'small',
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 110
+        }
+      });
+    }
+
+    if (!Component && _reactNative.Platform.OS === 'ios') {
+      Component = _reactNative.TouchableHighlight;
+    }
+
+    if (!Component && _reactNative.Platform.OS === 'android') {
+      Component = _reactNative.TouchableNativeFeedback;
+    }
+
+    if (!Component) {
+      Component = _reactNative.TouchableHighlight;
+    }
+
+    if (_reactNative.Platform.OS === 'android' && borderRadius && !attributes.background) {
+      if (_reactNative.Platform.Version >= 21) {
+        attributes.background = _reactNative.TouchableNativeFeedback.Ripple('ThemeAttrAndroid', true);
+      } else {
+        attributes.background = _reactNative.TouchableNativeFeedback.SelectableBackground();
+      }
+    }
+
+    var baseFont = {
+      color: textStyle && textStyle.color || color || stylesObject.text.color,
+      size: textStyle && textStyle.fontSize || fontSize || !large && stylesObject.smallFont.fontSize || stylesObject.text.fontSize
+    };
+    var textOptions = {};
+
+    if (textNumberOfLines) {
+      textOptions.numberOfLines = textNumberOfLines;
+
+      if (textEllipsizeMode) {
+        textOptions.ellipsizeMode = textEllipsizeMode;
+      }
+    }
+
+    return _react2.default.createElement(
+      _reactNative.View,
+      {
+        style: [styles.container, raised && styles.raised, containerViewStyle, borderRadius && {
+          borderRadius: borderRadius
+        }],
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 157
+        }
+      },
+      _react2.default.createElement(
+        Component,
+        _extends({}, attributes, {
+          underlayColor: underlayColor || 'transparent',
+          onPress: onPress || log,
+          disabled: disabled || false,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 165
+          }
+        }),
+        _react2.default.createElement(
+          _reactNative.View,
+          {
+            pointerEvents: "box-only",
+            style: [styles.button, secondary && {
+              backgroundColor: _colors2.default.secondary
+            }, secondary2 && {
+              backgroundColor: _colors2.default.secondary2
+            }, secondary3 && {
+              backgroundColor: _colors2.default.secondary3
+            }, primary1 && {
+              backgroundColor: _colors2.default.primary1
+            }, primary2 && {
+              backgroundColor: _colors2.default.primary2
+            }, backgroundColor && {
+              backgroundColor: backgroundColor
+            }, borderRadius && {
+              borderRadius: borderRadius
+            }, !large && styles.small, rounded && {
+              borderRadius: baseFont.size * 3.8,
+              paddingHorizontal: !large ? stylesObject.small.padding * 1.5 : stylesObject.button.padding * 1.5
+            }, outline && {
+              borderWidth: 1,
+              backgroundColor: 'transparent',
+              borderColor: baseFont.color
+            }, transparent && {
+              borderWidth: 0,
+              backgroundColor: 'transparent'
+            }, buttonStyle && buttonStyle, disabled && {
+              backgroundColor: _colors2.default.disabled
+            }, disabled && disabledStyle],
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 171
+            }
+          },
+          icon && !iconRight || leftIconElement ? leftIconElement : null,
+          loading && !loadingRight && loadingElement,
+          _react2.default.createElement(
+            _Text2.default,
+            _extends({
+              style: [styles.text, color && {
+                color: color
+              }, !large && styles.smallFont, fontSize && {
+                fontSize: fontSize
+              }, textStyle && textStyle, fontWeight && {
+                fontWeight: fontWeight
+              }, fontFamily && {
+                fontFamily: fontFamily
+              }, disabled && disabledTextStyle]
+            }, textOptions, {
+              allowFontScaling: allowFontScaling,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 205
+              }
+            }),
+            title
+          ),
+          loading && loadingRight && loadingElement,
+          icon && iconRight || rightIconElement ? rightIconElement : null
+        )
+      )
+    );
+  };
+
+  Button.propTypes = {
+    buttonStyle: _ViewPropTypes2.default.style,
+    title: _propTypes2.default.string,
+    onPress: _propTypes2.default.any,
+    icon: _propTypes2.default.object,
+    leftIcon: _propTypes2.default.object,
+    rightIcon: _propTypes2.default.object,
+    iconRight: _propTypes2.default.object,
+    iconComponent: _propTypes2.default.any,
+    secondary: _propTypes2.default.bool,
+    secondary2: _propTypes2.default.bool,
+    secondary3: _propTypes2.default.bool,
+    primary1: _propTypes2.default.bool,
+    primary2: _propTypes2.default.bool,
+    backgroundColor: _propTypes2.default.string,
+    color: _propTypes2.default.string,
+    fontSize: _propTypes2.default.any,
+    underlayColor: _propTypes2.default.string,
+    raised: _propTypes2.default.bool,
+    textStyle: _reactNative.Text.propTypes.style,
+    disabled: _propTypes2.default.bool,
+    loading: _propTypes2.default.bool,
+    activityIndicatorStyle: _ViewPropTypes2.default.style,
+    loadingRight: _propTypes2.default.bool,
+    Component: _propTypes2.default.any,
+    borderRadius: _propTypes2.default.number,
+    large: _propTypes2.default.bool,
+    fontWeight: _propTypes2.default.string,
+    disabledStyle: _ViewPropTypes2.default.style,
+    disabledTextStyle: _reactNative.Text.propTypes.style,
+    fontFamily: _propTypes2.default.string,
+    containerViewStyle: _ViewPropTypes2.default.style,
+    rounded: _propTypes2.default.bool,
+    outline: _propTypes2.default.bool,
+    transparent: _propTypes2.default.bool,
+    allowFontScaling: _propTypes2.default.bool,
+    textNumberOfLines: _propTypes2.default.number,
+    textEllipsizeMode: _propTypes2.default.string
+  };
+  var stylesObject = {
+    container: {
+      marginLeft: 15,
+      marginRight: 15
+    },
+    button: {
+      padding: 19,
+      backgroundColor: _colors2.default.primary,
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'row'
+    },
+    text: {
+      color: 'white',
+      fontSize: (0, _normalizeText2.default)(16)
+    },
+    icon: {
+      marginRight: 10
+    },
+    iconRight: {
+      marginLeft: 10
+    },
+    small: {
+      padding: 12
+    },
+    smallFont: {
+      fontSize: (0, _normalizeText2.default)(14)
+    },
+    activityIndicatorStyle: {
+      marginHorizontal: 10,
+      height: 0
+    },
+    raised: _extends({}, _reactNative.Platform.select({
+      ios: {
+        shadowColor: 'rgba(0,0,0, .4)',
+        shadowOffset: {
+          height: 1,
+          width: 1
+        },
+        shadowOpacity: 1,
+        shadowRadius: 1
+      },
+      android: {
+        backgroundColor: '#fff',
+        elevation: 2
+      }
+    }))
+  };
+
+  var styles = _reactNative.StyleSheet.create(stylesObject);
+
+  exports.default = Button;
+});

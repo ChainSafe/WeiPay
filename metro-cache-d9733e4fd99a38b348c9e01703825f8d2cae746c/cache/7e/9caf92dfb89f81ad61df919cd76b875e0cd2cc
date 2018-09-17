@@ -1,0 +1,13 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    var Symbol = _require(_dependencyMap[0], './_Symbol'),
+        isArguments = _require(_dependencyMap[1], './isArguments'),
+        isArray = _require(_dependencyMap[2], './isArray');
+
+    var spreadableSymbol = Symbol ? typeof Symbol === "function" ? Symbol.isConcatSpreadable : "@@isConcatSpreadable" : undefined;
+
+    function isFlattenable(value) {
+        return isArray(value) || isArguments(value) || !!(spreadableSymbol && value && value[spreadableSymbol]);
+    }
+
+    module.exports = isFlattenable;
+});

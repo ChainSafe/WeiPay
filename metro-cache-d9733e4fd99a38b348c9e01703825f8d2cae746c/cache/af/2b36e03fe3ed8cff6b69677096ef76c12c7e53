@@ -1,0 +1,11 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var baseGetAllKeys = _require(_dependencyMap[0], './_baseGetAllKeys'),
+      getSymbols = _require(_dependencyMap[1], './_getSymbols'),
+      keys = _require(_dependencyMap[2], './keys');
+
+  function getAllKeys(object) {
+    return baseGetAllKeys(object, keys, getSymbols);
+  }
+
+  module.exports = getAllKeys;
+});

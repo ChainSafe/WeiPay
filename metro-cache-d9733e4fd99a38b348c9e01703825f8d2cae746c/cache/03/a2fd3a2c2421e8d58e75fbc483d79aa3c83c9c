@@ -1,0 +1,828 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../../../../node_modules/react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _jsxFileName = "/home/master/Documents/work/WeiPay/src/screens/main/tokens/send/CoinSend.js";
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _reactNative = _require(_dependencyMap[2], "react-native");
+
+  var _reactRedux = _require(_dependencyMap[3], "react-redux");
+
+  var _reactNativeElements = _require(_dependencyMap[4], "react-native-elements");
+
+  var _reactNavigation = _require(_dependencyMap[5], "react-navigation");
+
+  var _reactNativeResponsiveFontsize = _require(_dependencyMap[6], "react-native-responsive-fontsize");
+
+  var _reactNativeResponsiveFontsize2 = _interopRequireDefault(_reactNativeResponsiveFontsize);
+
+  var _reactNativeTabView = _require(_dependencyMap[7], "react-native-tab-view");
+
+  var _ActionCreator = _require(_dependencyMap[8], "../../../../actions/ActionCreator");
+
+  var action = _interopRequireWildcard(_ActionCreator);
+
+  var _Providers = _require(_dependencyMap[9], "../../../../constants/Providers");
+
+  var _Providers2 = _interopRequireDefault(_Providers);
+
+  var _CoinSendTabNavigator = _require(_dependencyMap[10], "../../../../components/customPageNavs/CoinSendTabNavigator");
+
+  var _CoinSendTabNavigator2 = _interopRequireDefault(_CoinSendTabNavigator);
+
+  var _ERC20ABI = _require(_dependencyMap[11], "../../../../constants/data/json/ERC20ABI.json");
+
+  var _ERC20ABI2 = _interopRequireDefault(_ERC20ABI);
+
+  var _LinearButton = _require(_dependencyMap[12], "../../../../components/LinearGradient/LinearButton");
+
+  var _LinearButton2 = _interopRequireDefault(_LinearButton);
+
+  var _ClearButton = _require(_dependencyMap[13], "../../../../components/LinearGradient/ClearButton");
+
+  var _ClearButton2 = _interopRequireDefault(_ClearButton);
+
+  var _BackWithMenuNav = _require(_dependencyMap[14], "../../../../components/customPageNavs/BackWithMenuNav");
+
+  var _BackWithMenuNav2 = _interopRequireDefault(_BackWithMenuNav);
+
+  var _BoxShadowCard = _require(_dependencyMap[15], "../../../../components/ShadowCards/BoxShadowCard");
+
+  var _BoxShadowCard2 = _interopRequireDefault(_BoxShadowCard);
+
+  var _addresses_darklist = _require(_dependencyMap[16], "../../../../constants/data/json/addresses_darklist.json");
+
+  var _addresses_darklist2 = _interopRequireDefault(_addresses_darklist);
+
+  function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    CoinSend: {
+      displayName: "CoinSend"
+    }
+  };
+
+  var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/master/Documents/work/WeiPay/src/screens/main/tokens/send/CoinSend.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var ethers = _require(_dependencyMap[17], 'ethers');
+
+  var utils = ethers.utils;
+
+  var CoinSend = _wrapComponent("CoinSend")(function (_Component) {
+    _inherits(CoinSend, _Component);
+
+    function CoinSend(props) {
+      var _this2 = this;
+
+      _classCallCheck(this, CoinSend);
+
+      var _this = _possibleConstructorReturn(this, (CoinSend.__proto__ || Object.getPrototypeOf(CoinSend)).call(this, props));
+
+      _this.sendTransaction = function _callee() {
+        var response, amountString, receivingAddress, amount, currentWallet, sendPromise;
+        return regeneratorRuntime.async(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this.setState({
+                  maliciousCheck: false
+                });
+
+                _context.next = 3;
+                return regeneratorRuntime.awrap(_this.checkMaliciousAddresses(_this.state.toAddress));
+
+              case 3:
+                response = _context.sent;
+
+                if (response.flag) {
+                  _this.setState({
+                    maliciousCheck: true
+                  });
+                } else {
+                  amountString = "" + _this.state.value;
+                  receivingAddress = _this.state.toAddress;
+                  amount = ethers.utils.parseEther(amountString);
+                  currentWallet = _this.props.wallet;
+                  currentWallet.provider = _Providers2.default;
+                  sendPromise = currentWallet.send(receivingAddress, amount);
+                  sendPromise.then(function (transactionHash) {
+                    console.log(transactionHash);
+
+                    _Providers2.default.getBalance(currentWallet.address).then(function (balance) {
+                      var etherString = utils.formatEther(balance);
+                      console.log('currentWallet Balance: ' + etherString);
+                    });
+
+                    _Providers2.default.getBalance(receivingAddress).then(function (balance) {
+                      var etherString = utils.formatEther(balance);
+                      console.log('receiving account Balance: ' + etherString);
+                    });
+                  });
+                }
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, null, _this2);
+      };
+
+      _this.sendERC20Transaction = function _callee2() {
+        var response, val, toAddr, currentWallet, contract, overrideOptions, sendPromise;
+        return regeneratorRuntime.async(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this.setState({
+                  maliciousCheck: false
+                });
+
+                _context2.next = 3;
+                return regeneratorRuntime.awrap(_this.checkMaliciousAddresses(_this.state.toAddress));
+
+              case 3:
+                response = _context2.sent;
+
+                if (response.flag) {
+                  _this.setState({
+                    maliciousCheck: true
+                  });
+                } else {
+                  val = _this.state.value;
+                  toAddr = _this.state.toAddress;
+                  currentWallet = _this.props.wallet;
+                  contract = new ethers.Contract(_this.props.token.address, _ERC20ABI2.default, currentWallet);
+                  overrideOptions = {
+                    gasLimit: 150000,
+                    gasPrice: 9000000000,
+                    nonce: 0
+                  };
+                  sendPromise = contract.functions.transfer(_this.state.toAddress, val, overrideOptions);
+                  sendPromise.then(function (transaction) {
+                    console.log(transaction.hash);
+
+                    _this.setState({
+                      txHash: transaction.hash
+                    });
+
+                    _this.openModal();
+                  });
+                }
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, null, _this2);
+      };
+
+      _this.checkMaliciousAddresses = function (address) {
+        for (var i = 0; i < _addresses_darklist2.default.length; i++) {
+          if (address === _addresses_darklist2.default[i].address) {
+            console.log(_addresses_darklist2.default[i].address);
+
+            _this.setState({
+              maliciousComment: _addresses_darklist2.default[i].comment
+            });
+
+            return {
+              flag: true,
+              "address": _addresses_darklist2.default[i].address,
+              'comment': _addresses_darklist2.default[i].comment
+            };
+          }
+        }
+
+        return {
+          flag: false
+        };
+      };
+
+      _this.getTxnFee = function _callee3() {
+        var gasPriceString;
+        return regeneratorRuntime.async(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.prev = 0;
+                _context3.next = 3;
+                return regeneratorRuntime.awrap(_Providers2.default.getGasPrice().then(function (gasPrice) {
+                  gasPriceString = gasPrice.toString();
+                  var gasPriceEth = utils.formatEther(gasPrice);
+                  var txnFee = 21000 * gasPriceEth;
+                  return txnFee;
+                }));
+
+              case 3:
+                gasPriceString = _context3.sent;
+                _context3.next = 6;
+                return regeneratorRuntime.awrap(_this.props.updateTxnFee(gasPriceString));
+
+              case 6:
+                _context3.next = 8;
+                return regeneratorRuntime.awrap(_this.setState({
+                  txnFee: gasPriceString
+                }));
+
+              case 8:
+                _context3.next = 13;
+                break;
+
+              case 10:
+                _context3.prev = 10;
+                _context3.t0 = _context3["catch"](0);
+                console.log(_context3.t0);
+
+              case 13:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, null, _this2, [[0, 10]]);
+      };
+
+      _this.resetFields = function () {
+        _this.inputAddress.clearText();
+
+        _this.inputAmount.clearText();
+      };
+
+      _this.navigate = function () {
+        _this.props.qrScannerInvoker('TokenFunctionality');
+
+        _this.props.qrScannerCoinInvoker(_this.props.token);
+
+        var navigateToQRScanner = _reactNavigation.NavigationActions.navigate({
+          routeName: 'QCodeScanner',
+          params: {
+            name: 'Shubhnik',
+            invoker: 'CoinSend'
+          }
+        });
+
+        _this.props.navigation.dispatch(navigateToQRScanner);
+      };
+
+      var addressFromQRCode = _this.props.addressData;
+      console.log(_this.props.token);
+      _this.state = {
+        toAddress: addressFromQRCode,
+        value: 0,
+        resetInput: false,
+        inputValue: addressFromQRCode,
+        txnFee: _this.props.txnFee,
+        maliciousCheck: true,
+        maliciousComment: ''
+      };
+      return _this;
+    }
+
+    _createClass(CoinSend, [{
+      key: "renderAddress",
+      value: function renderAddress(addressInput) {
+        var add = addressInput.trim();
+        console.log(add);
+        this.setState({
+          inputValue: add,
+          toAddress: add
+        });
+        this.props.getQRCodeData(addressInput);
+      }
+    }, {
+      key: "renderValue",
+      value: function renderValue(valueInput) {
+        if (!isNaN(valueInput)) {
+          if (valueInput < 0) {
+            _reactNative.Alert.alert('Invalid Ether Amount', 'Please enter an amount greater than 0.', [{
+              text: 'OK',
+              onPress: function onPress() {
+                return console.log('OK Pressed');
+              }
+            }], {
+              cancelable: false
+            });
+          } else {
+            console.log("is a number " + valueInput);
+            this.setState({
+              value: valueInput
+            });
+          }
+        } else {
+          console.log("not a number " + valueInput);
+          this.setState({
+            value: 0
+          });
+        }
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        var _this3 = this;
+
+        return _react3.default.createElement(
+          _reactNative.SafeAreaView,
+          {
+            style: styles.safeAreaView,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 206
+            }
+          },
+          _react3.default.createElement(
+            _reactNative.TouchableWithoutFeedback,
+            {
+              onPress: _reactNative.Keyboard.dismiss,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 207
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: [styles.mainContainer, this.state.maliciousCheck ? {
+                  backgroundColor: '#fafbfe'
+                } : {
+                  backgroundColor: 'black'
+                }],
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 208
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: [styles.boxShadowContainer, this.state.maliciousCheck ? null : {
+                    backgroundColor: 'black'
+                  }],
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 209
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    style: [styles.contentContainer, this.state.maliciousCheck ? null : {
+                      backgroundColor: 'black'
+                    }],
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 210
+                    }
+                  },
+                  this.state.maliciousCheck ? _react3.default.createElement(
+                    _BoxShadowCard2.default,
+                    {
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 213
+                      }
+                    },
+                    _react3.default.createElement(
+                      _reactNative.Text,
+                      {
+                        style: styles.cardText,
+                        __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 214
+                        }
+                      },
+                      "Send Ether by scanning someone's QR code or public address."
+                    ),
+                    _react3.default.createElement(
+                      _reactNative.View,
+                      {
+                        style: styles.barcodeImageContainer,
+                        __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 217
+                        }
+                      },
+                      _react3.default.createElement(
+                        _reactNative.TouchableOpacity,
+                        {
+                          onPress: function onPress() {
+                            return _this3.navigate();
+                          },
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 218
+                          }
+                        },
+                        _react3.default.createElement(_reactNative.Image, {
+                          source: _require(_dependencyMap[18], '../../../../assets/icons/barcode.png'),
+                          style: styles.barcodeImage,
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 220
+                          }
+                        })
+                      )
+                    ),
+                    _react3.default.createElement(
+                      _reactNative.View,
+                      {
+                        style: styles.inputContainer,
+                        __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 226
+                        }
+                      },
+                      this.state.maliciousComment != "" ? _react3.default.createElement(
+                        _reactNative.Text,
+                        {
+                          style: styles.maliciousCommentText,
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 229
+                          }
+                        },
+                        "Malicious - ",
+                        this.state.maliciousComment,
+                        " "
+                      ) : null,
+                      _react3.default.createElement(
+                        _reactNative.View,
+                        {
+                          style: styles.formInputContainer,
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 232
+                          }
+                        },
+                        _react3.default.createElement(_reactNativeElements.FormInput, {
+                          placeholder: 'Public Address',
+                          onChangeText: this.renderAddress.bind(this),
+                          ref: function ref(_ref) {
+                            return _this3.inputAddress = _ref;
+                          },
+                          inputStyle: styles.formAddress,
+                          value: this.state.inputValue,
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 233
+                          }
+                        })
+                      ),
+                      _react3.default.createElement(
+                        _reactNative.View,
+                        {
+                          style: styles.formInputContainer,
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 241
+                          }
+                        },
+                        _react3.default.createElement(_reactNativeElements.FormInput, {
+                          placeholder: 'Amount',
+                          onChangeText: this.renderValue.bind(this),
+                          ref: function ref(_ref2) {
+                            return _this3.inputAmount = _ref2;
+                          },
+                          inputStyle: styles.formAmount,
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 242
+                          }
+                        })
+                      ),
+                      _react3.default.createElement(
+                        _reactNative.Text,
+                        {
+                          style: styles.displayFeeText,
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 249
+                          }
+                        },
+                        "Transaction Fee Total ",
+                        this.state.txnFee,
+                        " Eth"
+                      )
+                    )
+                  ) : _react3.default.createElement(
+                    _reactNative.View,
+                    {
+                      style: styles.activityContainer,
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 255
+                      }
+                    },
+                    _react3.default.createElement(
+                      _reactNative.View,
+                      {
+                        style: styles.activityHorizontal,
+                        __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 256
+                        }
+                      },
+                      _react3.default.createElement(
+                        _reactNative.Text,
+                        {
+                          style: styles.warningText,
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 257
+                          }
+                        },
+                        "Checking value for known malicious addresses. "
+                      ),
+                      _react3.default.createElement(_reactNative.ActivityIndicator, {
+                        size: "large",
+                        color: "#12c1a2",
+                        __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 258
+                        }
+                      })
+                    )
+                  )
+                )
+              ),
+              this.state.maliciousCheck ? _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: styles.btnContainer,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 266
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    style: {
+                      flexDirection: 'row'
+                    },
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 267
+                    }
+                  },
+                  _react3.default.createElement(
+                    _reactNative.View,
+                    {
+                      style: {
+                        flex: 1
+                      },
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 268
+                      }
+                    },
+                    _react3.default.createElement(_ClearButton2.default, {
+                      onClickFunction: this.resetFields,
+                      buttonText: "Reset",
+                      customStyles: {
+                        marginLeft: '0%',
+                        marginRight: '1.75%',
+                        height: _reactNative.Dimensions.get('window').height * 0.082
+                      },
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 269
+                      }
+                    })
+                  ),
+                  _react3.default.createElement(
+                    _reactNative.View,
+                    {
+                      style: {
+                        flex: 1
+                      },
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 276
+                      }
+                    },
+                    _react3.default.createElement(_LinearButton2.default, {
+                      onClickFunction: this.props.token.type === 'ERC20' ? this.sendERC20Transaction : this.sendTransaction,
+                      buttonText: "Send",
+                      customStyles: {
+                        marginLeft: '0%',
+                        marginLeft: '1.75%',
+                        height: _reactNative.Dimensions.get('window').height * 0.082
+                      },
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 277
+                      }
+                    })
+                  )
+                ),
+                _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    style: styles.footerGrandparentContainer,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 287
+                    }
+                  },
+                  _react3.default.createElement(
+                    _reactNative.View,
+                    {
+                      style: styles.footerParentContainer,
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 288
+                      }
+                    },
+                    _react3.default.createElement(
+                      _reactNative.Text,
+                      {
+                        style: styles.textFooter,
+                        __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 289
+                        }
+                      },
+                      "Powered by ChainSafe "
+                    )
+                  )
+                )
+              ) : null
+            )
+          )
+        );
+      }
+    }]);
+
+    return CoinSend;
+  }(_react2.Component));
+
+  var styles = _reactNative.StyleSheet.create({
+    safeAreaView: {
+      flex: 1,
+      backgroundColor: '#fafbfe'
+    },
+    navContainer: {
+      flex: 0.65
+    },
+    navHeaderContainer: {
+      flex: 0.3
+    },
+    mainContainer: {
+      flex: 1,
+      backgroundColor: '#fafbfe',
+      justifyContent: 'center',
+      width: '100%'
+    },
+    activityContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      alignContent: 'center'
+    },
+    activityHorizontal: {
+      flexDirection: 'column',
+      alignItems: 'center'
+    },
+    warningText: {
+      color: 'white',
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(2.8),
+      fontFamily: 'Cairo-Light',
+      letterSpacing: 0.4,
+      paddingBottom: '10%',
+      paddingLeft: '10%',
+      paddingRight: '10%'
+    },
+    maliciousCommentText: {
+      color: 'red',
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(2.1),
+      marginLeft: '5%'
+    },
+    boxShadowContainer: {
+      alignItems: 'center',
+      marginTop: '10%',
+      flex: 3.75,
+      width: '100%'
+    },
+    contentContainer: {
+      width: '82%',
+      flex: 1
+    },
+    cardText: {
+      paddingBottom: '5%',
+      paddingTop: '10%',
+      paddingLeft: '10%',
+      paddingRight: '10%',
+      fontFamily: 'WorkSans-Light',
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(2.4),
+      color: '#000000',
+      letterSpacing: 0.4
+    },
+    barcodeImageContainer: {
+      paddingTop: '5%',
+      paddingBottom: '5%',
+      paddingLeft: '10%'
+    },
+    barcodeImage: {
+      height: _reactNative.Dimensions.get('window').height * 0.1,
+      width: _reactNative.Dimensions.get('window').width * 0.18
+    },
+    formAmount: {
+      width: '90%',
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(2.2),
+      color: '#12c1a2',
+      flexWrap: 'wrap',
+      fontFamily: 'WorkSans-Light',
+      letterSpacing: 0.4
+    },
+    formAddress: {
+      width: '90%',
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(2.2),
+      color: '#12c1a2',
+      flexWrap: 'wrap',
+      fontFamily: 'WorkSans-Light',
+      letterSpacing: 0.4,
+      paddingBottom: '3%'
+    },
+    displayFeeText: {
+      width: '90%',
+      marginLeft: '10.5%',
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(1.4),
+      letterSpacing: 0.3,
+      fontFamily: 'WorkSans-Light',
+      marginTop: '2%'
+    },
+    formInputContainer: {
+      marginLeft: '4.5%'
+    },
+    btnContainer: {
+      flex: 1.25,
+      alignItems: 'stretch',
+      justifyContent: 'flex-end',
+      width: '82%',
+      alignContent: 'center',
+      marginLeft: '9%',
+      marginRight: '9%'
+    },
+    button: {
+      width: '82%',
+      height: _reactNative.Dimensions.get('window').height * 0.082
+    },
+    footerGrandparentContainer: {
+      alignItems: 'center',
+      marginBottom: '5%',
+      marginTop: '5%'
+    },
+    footerParentContainer: {
+      alignItems: 'center'
+    },
+    textFooter: {
+      fontFamily: 'WorkSans-Regular',
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(1.7),
+      color: '#c0c0c0',
+      letterSpacing: 0.5
+    }
+  });
+
+  var mapStateToProps = function mapStateToProps(state) {
+    return {
+      wallet: state.newWallet.wallet,
+      addressData: state.newWallet.QrData,
+      token: state.newWallet.current_token,
+      txnFee: state.newWallet.txnFee,
+      contactAddress: state.contacts.contactDataforCoinSend
+    };
+  };
+
+  exports.default = (0, _reactRedux.connect)(mapStateToProps, action)(CoinSend);
+});

@@ -1,0 +1,13 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    var baseGetTag = _require(_dependencyMap[0], './_baseGetTag'),
+        isArray = _require(_dependencyMap[1], './isArray'),
+        isObjectLike = _require(_dependencyMap[2], './isObjectLike');
+
+    var stringTag = '[object String]';
+
+    function isString(value) {
+        return typeof value == 'string' || !isArray(value) && isObjectLike(value) && baseGetTag(value) == stringTag;
+    }
+
+    module.exports = isString;
+});

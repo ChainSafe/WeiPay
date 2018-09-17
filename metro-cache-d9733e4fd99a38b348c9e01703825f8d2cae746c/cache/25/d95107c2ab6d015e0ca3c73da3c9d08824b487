@@ -1,0 +1,12 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var utils = _require(_dependencyMap[0], './../utils');
+
+  module.exports = function transformData(data, headers, fns) {
+    utils.forEach(fns, function transform(fn) {
+      data = fn(data, headers);
+    });
+    return data;
+  };
+});

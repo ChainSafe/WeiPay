@@ -1,0 +1,7 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  function baseHasIn(object, key) {
+    return object != null && key in Object(object);
+  }
+
+  module.exports = baseHasIn;
+});

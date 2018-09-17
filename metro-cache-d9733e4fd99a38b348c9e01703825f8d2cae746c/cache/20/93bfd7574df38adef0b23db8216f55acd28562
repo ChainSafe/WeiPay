@@ -1,0 +1,13 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var getNative = _require(_dependencyMap[0], './_getNative');
+
+  var defineProperty = function () {
+    try {
+      var func = getNative(Object, 'defineProperty');
+      func({}, '', {});
+      return func;
+    } catch (e) {}
+  }();
+
+  module.exports = defineProperty;
+});

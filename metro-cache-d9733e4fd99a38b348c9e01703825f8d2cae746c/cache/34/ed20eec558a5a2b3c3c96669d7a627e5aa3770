@@ -1,0 +1,10 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var isKeyable = _require(_dependencyMap[0], './_isKeyable');
+
+  function getMapData(map, key) {
+    var data = map.__data__;
+    return isKeyable(key) ? data[typeof key == 'string' ? 'string' : 'hash'] : data.map;
+  }
+
+  module.exports = getMapData;
+});

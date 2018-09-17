@@ -1,0 +1,34 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var castPath = _require(_dependencyMap[0], './_castPath'),
+      isArguments = _require(_dependencyMap[1], './isArguments'),
+      isArray = _require(_dependencyMap[2], './isArray'),
+      isIndex = _require(_dependencyMap[3], './_isIndex'),
+      isLength = _require(_dependencyMap[4], './isLength'),
+      toKey = _require(_dependencyMap[5], './_toKey');
+
+  function hasPath(object, path, hasFunc) {
+    path = castPath(path, object);
+    var index = -1,
+        length = path.length,
+        result = false;
+
+    while (++index < length) {
+      var key = toKey(path[index]);
+
+      if (!(result = object != null && hasFunc(object, key))) {
+        break;
+      }
+
+      object = object[key];
+    }
+
+    if (result || ++index != length) {
+      return result;
+    }
+
+    length = object == null ? 0 : object.length;
+    return !!length && isLength(length) && isIndex(key, length) && (isArray(object) || isArguments(object));
+  }
+
+  module.exports = hasPath;
+});

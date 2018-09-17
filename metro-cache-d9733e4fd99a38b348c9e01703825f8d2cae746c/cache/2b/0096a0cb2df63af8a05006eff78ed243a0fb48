@@ -1,0 +1,166 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _class,
+      _temp,
+      _jsxFileName = "/home/master/Documents/work/WeiPay/node_modules/react-native-linear-gradient/index.android.js";
+
+  var _propTypes = _require(_dependencyMap[2], "prop-types");
+
+  var _propTypes2 = _interopRequireDefault(_propTypes);
+
+  var _reactNative = _require(_dependencyMap[3], "react-native");
+
+  var _nativeLinearGradient = _require(_dependencyMap[4], "./nativeLinearGradient");
+
+  var _nativeLinearGradient2 = _interopRequireDefault(_nativeLinearGradient);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    LinearGradient: {
+      displayName: "LinearGradient"
+    }
+  };
+
+  var _reactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/master/Documents/work/WeiPay/node_modules/react-native-linear-gradient/index.android.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _reactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var deprecatedPropType = _require(_dependencyMap[5], 'react-native/Libraries/Utilities/deprecatedPropType.js');
+
+  var ColorPropType = _require(_dependencyMap[6], 'react-native/Libraries/StyleSheet/ColorPropType.js');
+
+  var convertPoint = function convertPoint(name, point) {
+    if (Array.isArray(point)) {
+      console.warn("LinearGradient '" + name + "' property should be an object with fields 'x' and 'y', " + 'Array type is deprecated.');
+    }
+
+    if (point !== null && typeof point === 'object') {
+      return [point.x, point.y];
+    }
+
+    return point;
+  };
+
+  var LinearGradient = _wrapComponent("LinearGradient")((_temp = _class = function (_Component) {
+    _inherits(LinearGradient, _Component);
+
+    function LinearGradient() {
+      _classCallCheck(this, LinearGradient);
+
+      return _possibleConstructorReturn(this, (LinearGradient.__proto__ || Object.getPrototypeOf(LinearGradient)).apply(this, arguments));
+    }
+
+    _createClass(LinearGradient, [{
+      key: "setNativeProps",
+      value: function setNativeProps(props) {
+        this.gradientRef.setNativeProps(props);
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        var _this2 = this;
+
+        var _props = this.props,
+            children = _props.children,
+            colors = _props.colors,
+            end = _props.end,
+            locations = _props.locations,
+            start = _props.start,
+            style = _props.style,
+            otherProps = _objectWithoutProperties(_props, ["children", "colors", "end", "locations", "start", "style"]);
+
+        if (colors && locations && colors.length !== locations.length) {
+          console.warn('LinearGradient colors and locations props should be arrays of the same length');
+        }
+
+        var flatStyle = _reactNative.StyleSheet.flatten(style) || {};
+        var borderRadius = flatStyle.borderRadius || 0;
+        var borderRadiiPerCorner = [flatStyle.borderTopLeftRadius || borderRadius, flatStyle.borderTopLeftRadius || borderRadius, flatStyle.borderTopRightRadius || borderRadius, flatStyle.borderTopRightRadius || borderRadius, flatStyle.borderBottomRightRadius || borderRadius, flatStyle.borderBottomRightRadius || borderRadius, flatStyle.borderBottomLeftRadius || borderRadius, flatStyle.borderBottomLeftRadius || borderRadius];
+        return _react3.default.createElement(
+          _reactNative.View,
+          _extends({
+            ref: function ref(component) {
+              _this2.gradientRef = component;
+            }
+          }, otherProps, {
+            style: style,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 100
+            }
+          }),
+          _react3.default.createElement(_nativeLinearGradient2.default, {
+            style: {
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              bottom: 0,
+              right: 0
+            },
+            colors: colors.map(_reactNative.processColor),
+            startPoint: convertPoint('start', start),
+            endPoint: convertPoint('end', end),
+            locations: locations ? locations.slice(0, colors.length) : null,
+            borderRadii: borderRadiiPerCorner,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 101
+            }
+          }),
+          children
+        );
+      }
+    }]);
+
+    return LinearGradient;
+  }(_react2.Component), _class.propTypes = _extends({
+    start: _propTypes2.default.oneOfType([_reactNative.PointPropType, deprecatedPropType(_propTypes2.default.arrayOf(_propTypes2.default.number), 'Use point object with {x, y} instead.')]),
+    end: _propTypes2.default.oneOfType([_reactNative.PointPropType, deprecatedPropType(_propTypes2.default.arrayOf(_propTypes2.default.number), 'Use point object with {x, y} instead.')]),
+    colors: _propTypes2.default.arrayOf(ColorPropType).isRequired,
+    locations: _propTypes2.default.arrayOf(_propTypes2.default.number)
+  }, _reactNative.ViewPropTypes), _class.defaultProps = {
+    start: {
+      x: 0.5,
+      y: 0.0
+    },
+    end: {
+      x: 0.5,
+      y: 1.0
+    }
+  }, _temp));
+
+  exports.default = LinearGradient;
+});

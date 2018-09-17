@@ -1,0 +1,19 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    var MapCache = _require(_dependencyMap[0], './_MapCache'),
+        setCacheAdd = _require(_dependencyMap[1], './_setCacheAdd'),
+        setCacheHas = _require(_dependencyMap[2], './_setCacheHas');
+
+    function SetCache(values) {
+        var index = -1,
+            length = values == null ? 0 : values.length;
+        this.__data__ = new MapCache();
+
+        while (++index < length) {
+            this.add(values[index]);
+        }
+    }
+
+    SetCache.prototype.add = SetCache.prototype.push = setCacheAdd;
+    SetCache.prototype.has = setCacheHas;
+    module.exports = SetCache;
+});

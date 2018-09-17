@@ -1,0 +1,10 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var isArrayLike = _require(_dependencyMap[0], './isArrayLike'),
+      isObjectLike = _require(_dependencyMap[1], './isObjectLike');
+
+  function isArrayLikeObject(value) {
+    return isObjectLike(value) && isArrayLike(value);
+  }
+
+  module.exports = isArrayLikeObject;
+});

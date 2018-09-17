@@ -1,0 +1,52 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var utils = _require(_dependencyMap[0], './../utils');
+
+  var transformData = _require(_dependencyMap[1], './transformData');
+
+  var isCancel = _require(_dependencyMap[2], '../cancel/isCancel');
+
+  var defaults = _require(_dependencyMap[3], '../defaults');
+
+  var isAbsoluteURL = _require(_dependencyMap[4], './../helpers/isAbsoluteURL');
+
+  var combineURLs = _require(_dependencyMap[5], './../helpers/combineURLs');
+
+  function throwIfCancellationRequested(config) {
+    if (config.cancelToken) {
+      config.cancelToken.throwIfRequested();
+    }
+  }
+
+  module.exports = function dispatchRequest(config) {
+    throwIfCancellationRequested(config);
+
+    if (config.baseURL && !isAbsoluteURL(config.url)) {
+      config.url = combineURLs(config.baseURL, config.url);
+    }
+
+    config.headers = config.headers || {};
+    config.data = transformData(config.data, config.headers, config.transformRequest);
+    config.headers = utils.merge(config.headers.common || {}, config.headers[config.method] || {}, config.headers || {});
+    utils.forEach(['delete', 'get', 'head', 'post', 'put', 'patch', 'common'], function cleanHeaderConfig(method) {
+      delete config.headers[method];
+    });
+    var adapter = config.adapter || defaults.adapter;
+    return adapter(config).then(function onAdapterResolution(response) {
+      throwIfCancellationRequested(config);
+      response.data = transformData(response.data, response.headers, config.transformResponse);
+      return response;
+    }, function onAdapterRejection(reason) {
+      if (!isCancel(reason)) {
+        throwIfCancellationRequested(config);
+
+        if (reason && reason.response) {
+          reason.response.data = transformData(reason.response.data, reason.response.headers, config.transformResponse);
+        }
+      }
+
+      return Promise.reject(reason);
+    });
+  };
+});

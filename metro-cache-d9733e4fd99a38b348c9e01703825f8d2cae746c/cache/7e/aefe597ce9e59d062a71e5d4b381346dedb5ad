@@ -1,0 +1,39 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  var ToastAndroid = _require(_dependencyMap[0], 'ToastAndroid');
+
+  var TOAST_SHORT_DELAY = 2000;
+
+  var HMRLoadingView = function () {
+    function HMRLoadingView() {
+      _classCallCheck(this, HMRLoadingView);
+    }
+
+    _createClass(HMRLoadingView, null, [{
+      key: "showMessage",
+      value: function showMessage(message) {
+        if (HMRLoadingView._showing) {
+          return;
+        }
+
+        ToastAndroid.show(message, ToastAndroid.SHORT);
+        HMRLoadingView._showing = true;
+        setTimeout(function () {
+          HMRLoadingView._showing = false;
+        }, TOAST_SHORT_DELAY);
+      }
+    }, {
+      key: "hide",
+      value: function hide() {}
+    }]);
+
+    return HMRLoadingView;
+  }();
+
+  module.exports = HMRLoadingView;
+});

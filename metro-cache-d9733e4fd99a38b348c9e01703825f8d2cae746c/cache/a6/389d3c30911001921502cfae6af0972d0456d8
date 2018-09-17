@@ -1,0 +1,25 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    var mapCacheClear = _require(_dependencyMap[0], './_mapCacheClear'),
+        mapCacheDelete = _require(_dependencyMap[1], './_mapCacheDelete'),
+        mapCacheGet = _require(_dependencyMap[2], './_mapCacheGet'),
+        mapCacheHas = _require(_dependencyMap[3], './_mapCacheHas'),
+        mapCacheSet = _require(_dependencyMap[4], './_mapCacheSet');
+
+    function MapCache(entries) {
+        var index = -1,
+            length = entries == null ? 0 : entries.length;
+        this.clear();
+
+        while (++index < length) {
+            var entry = entries[index];
+            this.set(entry[0], entry[1]);
+        }
+    }
+
+    MapCache.prototype.clear = mapCacheClear;
+    MapCache.prototype['delete'] = mapCacheDelete;
+    MapCache.prototype.get = mapCacheGet;
+    MapCache.prototype.has = mapCacheHas;
+    MapCache.prototype.set = mapCacheSet;
+    module.exports = MapCache;
+});

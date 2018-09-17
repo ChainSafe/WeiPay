@@ -1,0 +1,49 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    'use strict';
+
+    var defineProperty = _require(_dependencyMap[0], './properties').defineProperty;
+
+    var codes = {};
+    ['UNKNOWN_ERROR', 'NOT_IMPLEMENTED', 'MISSING_NEW', 'CALL_EXCEPTION', 'INVALID_ARGUMENT', 'MISSING_ARGUMENT', 'UNEXPECTED_ARGUMENT', 'UNSUPPORTED_OPERATION'].forEach(function (code) {
+        defineProperty(codes, code, code);
+    });
+    defineProperty(codes, 'throwError', function (message, code, params) {
+        if (!code) {
+            code = codes.UNKNOWN_ERROR;
+        }
+
+        if (!params) {
+            params = {};
+        }
+
+        var messageDetails = [];
+        Object.keys(params).forEach(function (key) {
+            try {
+                messageDetails.push(key + '=' + JSON.stringify(params[key]));
+            } catch (error) {
+                messageDetails.push(key + '=' + JSON.stringify(params[key].toString()));
+            }
+        });
+        var reason = message;
+
+        if (messageDetails.length) {
+            message += ' (' + messageDetails.join(', ') + ')';
+        }
+
+        var error = new Error(message);
+        error.reason = reason;
+        error.code = code;
+        Object.keys(params).forEach(function (key) {
+            error[key] = params[key];
+        });
+        throw error;
+    });
+    defineProperty(codes, 'checkNew', function (self, kind) {
+        if (!(self instanceof kind)) {
+            codes.throwError('missing new', codes.MISSING_NEW, {
+                name: kind.name
+            });
+        }
+    });
+    module.exports = codes;
+});

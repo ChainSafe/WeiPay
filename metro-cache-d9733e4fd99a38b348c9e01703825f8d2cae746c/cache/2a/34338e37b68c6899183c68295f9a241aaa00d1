@@ -1,0 +1,289 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../../react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _class,
+      _temp,
+      _jsxFileName = "/home/master/Documents/work/WeiPay/node_modules/react-native/Libraries/Inspector/ElementProperties.js";
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    ElementProperties: {
+      displayName: "ElementProperties"
+    }
+  };
+
+  var _reactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/master/Documents/work/WeiPay/node_modules/react-native/Libraries/Inspector/ElementProperties.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _reactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var BoxInspector = _require(_dependencyMap[2], 'BoxInspector');
+
+  var PropTypes = _require(_dependencyMap[3], 'prop-types');
+
+  var React = _require(_dependencyMap[4], 'React');
+
+  var StyleInspector = _require(_dependencyMap[5], 'StyleInspector');
+
+  var StyleSheet = _require(_dependencyMap[6], 'StyleSheet');
+
+  var Text = _require(_dependencyMap[7], 'Text');
+
+  var TouchableHighlight = _require(_dependencyMap[8], 'TouchableHighlight');
+
+  var TouchableWithoutFeedback = _require(_dependencyMap[9], 'TouchableWithoutFeedback');
+
+  var View = _require(_dependencyMap[10], 'View');
+
+  var flattenStyle = _require(_dependencyMap[11], 'flattenStyle');
+
+  var mapWithSeparator = _require(_dependencyMap[12], 'mapWithSeparator');
+
+  var openFileInEditor = _require(_dependencyMap[13], 'openFileInEditor');
+
+  var ElementProperties = _wrapComponent("ElementProperties")((_temp = _class = function (_React$Component) {
+    _inherits(ElementProperties, _React$Component);
+
+    function ElementProperties() {
+      _classCallCheck(this, ElementProperties);
+
+      return _possibleConstructorReturn(this, (ElementProperties.__proto__ || Object.getPrototypeOf(ElementProperties)).apply(this, arguments));
+    }
+
+    _createClass(ElementProperties, [{
+      key: "render",
+      value: function render() {
+        var _this2 = this;
+
+        var style = flattenStyle(this.props.style);
+        var selection = this.props.selection;
+        var openFileButton = void 0;
+        var source = this.props.source;
+
+        var _ref = source || {},
+            fileName = _ref.fileName,
+            lineNumber = _ref.lineNumber;
+
+        if (fileName && lineNumber) {
+          var parts = fileName.split('/');
+          var fileNameShort = parts[parts.length - 1];
+          openFileButton = React.createElement(
+            TouchableHighlight,
+            {
+              style: styles.openButton,
+              onPress: openFileInEditor.bind(null, fileName, lineNumber),
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 60
+              }
+            },
+            React.createElement(
+              Text,
+              {
+                style: styles.openButtonTitle,
+                numberOfLines: 1,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 63
+                }
+              },
+              fileNameShort,
+              ":",
+              lineNumber
+            )
+          );
+        }
+
+        return React.createElement(
+          TouchableWithoutFeedback,
+          {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 72
+            }
+          },
+          React.createElement(
+            View,
+            {
+              style: styles.info,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 73
+              }
+            },
+            React.createElement(
+              View,
+              {
+                style: styles.breadcrumb,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 74
+                }
+              },
+              mapWithSeparator(this.props.hierarchy, function (hierarchyItem, i) {
+                return React.createElement(
+                  TouchableHighlight,
+                  {
+                    key: 'item-' + i,
+                    style: [styles.breadItem, i === selection && styles.selected],
+                    onPress: function onPress() {
+                      return _this2.props.setSelection(i);
+                    },
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 78
+                    }
+                  },
+                  React.createElement(
+                    Text,
+                    {
+                      style: styles.breadItemText,
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 83
+                      }
+                    },
+                    hierarchyItem.name
+                  )
+                );
+              }, function (i) {
+                return React.createElement(
+                  Text,
+                  {
+                    key: 'sep-' + i,
+                    style: styles.breadSep,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 89
+                    }
+                  },
+                  "\u25B8"
+                );
+              })
+            ),
+            React.createElement(
+              View,
+              {
+                style: styles.row,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 95
+                }
+              },
+              React.createElement(
+                View,
+                {
+                  style: styles.col,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 96
+                  }
+                },
+                React.createElement(StyleInspector, {
+                  style: style,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 97
+                  }
+                }),
+                openFileButton
+              ),
+              React.createElement(BoxInspector, {
+                style: style,
+                frame: this.props.frame,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 102
+                }
+              })
+            )
+          )
+        );
+      }
+    }]);
+
+    return ElementProperties;
+  }(React.Component), _class.propTypes = {
+    hierarchy: PropTypes.array.isRequired,
+    style: PropTypes.oneOfType([PropTypes.object, PropTypes.array, PropTypes.number]),
+    source: PropTypes.shape({
+      fileName: PropTypes.string,
+      lineNumber: PropTypes.number
+    })
+  }, _temp));
+
+  var styles = StyleSheet.create({
+    breadSep: {
+      fontSize: 8,
+      color: 'white'
+    },
+    breadcrumb: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      alignItems: 'flex-start',
+      marginBottom: 5
+    },
+    selected: {
+      borderColor: 'white',
+      borderRadius: 5
+    },
+    breadItem: {
+      borderWidth: 1,
+      borderColor: 'transparent',
+      marginHorizontal: 2
+    },
+    breadItemText: {
+      fontSize: 10,
+      color: 'white',
+      marginHorizontal: 5
+    },
+    row: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between'
+    },
+    col: {
+      flex: 1
+    },
+    info: {
+      padding: 10
+    },
+    openButton: {
+      padding: 10,
+      backgroundColor: '#000',
+      marginVertical: 5,
+      marginRight: 5,
+      borderRadius: 2
+    },
+    openButtonTitle: {
+      color: 'white',
+      fontSize: 8
+    }
+  });
+  module.exports = ElementProperties;
+});

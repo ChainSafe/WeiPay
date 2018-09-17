@@ -30,4 +30,4 @@ export const CONTACT_ADDRESS_TO_COINSEND = 'contact_address_to_coinsend';
 export const ADD_NEW_TOKEN_ADDRESS = 'add_new_token_address';
 export const ADD_NEW_TOKEN_NAME = 'add_new_token_name';
 export const COMPLETE_NEW_TOKEN = 'complete_new_token';
-export const ADD_ALL_POSSIBLE_TOKENS = 'add_all_possible_tokens';
+export const ADD_TOKEN_FROM_LIST = 'add_token_from_list';

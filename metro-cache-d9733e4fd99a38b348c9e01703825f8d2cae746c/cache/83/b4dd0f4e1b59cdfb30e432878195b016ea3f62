@@ -1,0 +1,22 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    var getAddress = _require(_dependencyMap[0], './address').getAddress;
+
+    var convert = _require(_dependencyMap[1], './convert');
+
+    var keccak256 = _require(_dependencyMap[2], './keccak256');
+
+    var RLP = _require(_dependencyMap[3], './rlp');
+
+    function getContractAddress(transaction) {
+        if (!transaction.from) {
+            throw new Error('missing from address');
+        }
+
+        var nonce = transaction.nonce;
+        return getAddress('0x' + keccak256(RLP.encode([getAddress(transaction.from), convert.stripZeros(convert.hexlify(nonce, 'nonce'))])).substring(26));
+    }
+
+    module.exports = {
+        getContractAddress: getContractAddress
+    };
+});

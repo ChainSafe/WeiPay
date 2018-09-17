@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
   View, StyleSheet, Dimensions, Text, SafeAreaView, ScrollView,
 } from 'react-native';
-import SearchBar from 'react-native-searchbar';
+import { SearchBar } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import RF from 'react-native-responsive-fontsize';
@@ -34,21 +34,13 @@ class Coins extends Component {
 
   handleChangeText(input){
     
-    console.log(input);
-    //console.log(this.state.tokens["ETH"]);
-    
     try {
-      console.log(this.state.tokens[input]);  
+      console.log(this.state.tokens[input]);
+        
     } catch (error) {
       console.log("DNE");
       
     }
-
-    // if (this.props.newWallet.allTokens[symbol] != null) {
-    //   console.log(this.props.newWallet.allTokens[symbol]);
-    // } else {
-    //   console.log('Token does not exists');
-    // }
   }
 
   /**
@@ -60,29 +52,15 @@ class Coins extends Component {
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>
-          {/* <View style={styles.NavBarButton}>
-            <BackWithMenuNav
-              showMenu={true}
-              showBack={true}
-              navigation={this.props.navigation}
-              backPage={'mainStack'}
-            />
-          </View>
-          <View style={styles.tabNavContainer}>
-            <TwoTabNavigator
-              leftTabScreen={'Coins'}
-              leftTabText={'Coins'}
-              rightTabScreen={'Tokens'}
-              rightTabText={'Tokens'}
-              navigation={this.props.navigation}
-            />
-          </View> */}
+          
           <View style={{ flex: 0.95 }}>
-            <SearchBar
-              showOnLoad
-              hideBack
-              handleSearch={this.handleChangeText}
-            />
+          <SearchBar
+            lightTheme
+            clearIcon
+            containerStyle={{backgroundColor: '#fafbfe' }}
+            onChangeText={this.handleChangeText.bind(this)}
+            // onClear={someMethod}
+            placeholder='Enter token symbol' />
           </View>
           <View style={styles.coinListContainer}>
             <ScrollView >

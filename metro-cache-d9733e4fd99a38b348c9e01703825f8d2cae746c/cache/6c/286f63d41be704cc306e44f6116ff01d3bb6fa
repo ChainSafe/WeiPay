@@ -1,0 +1,10 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var isFunction = _require(_dependencyMap[0], './isFunction'),
+      isLength = _require(_dependencyMap[1], './isLength');
+
+  function isArrayLike(value) {
+    return value != null && isLength(value.length) && !isFunction(value);
+  }
+
+  module.exports = isArrayLike;
+});

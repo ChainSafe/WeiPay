@@ -1,0 +1,24 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _navigationStack = _require(_dependencyMap[0], "../../navigation/stack/navigationStack");
+
+  var _navigationStack2 = _interopRequireDefault(_navigationStack);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  var initialState = _navigationStack2.default.router.getStateForAction(_navigationStack2.default.router.getActionForPathAndParams('splash'));
+
+  var navigationReducer = function navigationReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    var newState = _navigationStack2.default.router.getStateForAction(action, state);
+
+    return newState || state;
+  };
+
+  exports.default = navigationReducer;
+});

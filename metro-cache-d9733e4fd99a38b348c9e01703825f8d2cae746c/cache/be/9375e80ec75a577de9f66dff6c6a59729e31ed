@@ -1,0 +1,298 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../../../node_modules/react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _jsxFileName = "/home/master/Documents/work/WeiPay/src/screens/setup/terms/TermsAndConditions.js";
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _reactNative = _require(_dependencyMap[2], "react-native");
+
+  var _reactNavigation = _require(_dependencyMap[3], "react-navigation");
+
+  var _reactRedux = _require(_dependencyMap[4], "react-redux");
+
+  var _Terms = _require(_dependencyMap[5], "../../../constants/Terms");
+
+  var _LinearButton = _require(_dependencyMap[6], "../../../components/LinearGradient/LinearButton");
+
+  var _LinearButton2 = _interopRequireDefault(_LinearButton);
+
+  var _ActionCreator = _require(_dependencyMap[7], "../../../actions/ActionCreator");
+
+  var _reactNativeResponsiveFontsize = _require(_dependencyMap[8], "react-native-responsive-fontsize");
+
+  var _reactNativeResponsiveFontsize2 = _interopRequireDefault(_reactNativeResponsiveFontsize);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    TermsAndConditions: {
+      displayName: "TermsAndConditions"
+    }
+  };
+
+  var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/master/Documents/work/WeiPay/src/screens/setup/terms/TermsAndConditions.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var TermsAndConditions = _wrapComponent("TermsAndConditions")(function (_Component) {
+    _inherits(TermsAndConditions, _Component);
+
+    function TermsAndConditions() {
+      var _ref;
+
+      var _temp, _this, _ret;
+
+      _classCallCheck(this, TermsAndConditions);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = TermsAndConditions.__proto__ || Object.getPrototypeOf(TermsAndConditions)).call.apply(_ref, [this].concat(args))), _this), _this.navigate = function () {
+        var navigateToCreateOrRestore = _reactNavigation.NavigationActions.navigate({
+          routeName: 'createOrRestore'
+        });
+
+        _this.props.navigation.dispatch(navigateToCreateOrRestore);
+      }, _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    _createClass(TermsAndConditions, [{
+      key: "render",
+      value: function render() {
+        var safeAreaView = styles.safeAreaView,
+            mainContainer = styles.mainContainer,
+            headerContainer = styles.headerContainer,
+            textHeader = styles.textHeader,
+            scrollViewContainer = styles.scrollViewContainer,
+            scrollView = styles.scrollView,
+            textBody = styles.textBody,
+            btnContainer = styles.btnContainer,
+            button = styles.button,
+            footerGrandparentContainer = styles.footerGrandparentContainer,
+            footerParentContainer = styles.footerParentContainer,
+            textFooter = styles.textFooter;
+        return _react3.default.createElement(
+          _reactNative.SafeAreaView,
+          {
+            style: styles.safeAreaView,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 47
+            }
+          },
+          _react3.default.createElement(
+            _reactNative.View,
+            {
+              style: mainContainer,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 48
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: styles.headerContainer,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 49
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.Text,
+                {
+                  style: textHeader,
+                  onPress: this.props.enterDebug,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 50
+                  }
+                },
+                "Terms & Conditions "
+              )
+            ),
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: styles.scrollViewContainer,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 52
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.ScrollView,
+                {
+                  style: scrollView,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 53
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.Text,
+                  {
+                    style: textBody,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 54
+                    }
+                  },
+                  _Terms.Terms
+                )
+              )
+            ),
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: btnContainer,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 57
+                }
+              },
+              _react3.default.createElement(_LinearButton2.default, {
+                onClickFunction: this.navigate,
+                buttonText: "Agree",
+                customStyles: button,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 58
+                }
+              }),
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: footerGrandparentContainer,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 63
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    style: footerParentContainer,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 64
+                    }
+                  },
+                  _react3.default.createElement(
+                    _reactNative.Text,
+                    {
+                      style: textFooter,
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 65
+                      }
+                    },
+                    "Powered by ChainSafe "
+                  )
+                )
+              )
+            )
+          )
+        );
+      }
+    }]);
+
+    return TermsAndConditions;
+  }(_react2.Component));
+
+  var styles = _reactNative.StyleSheet.create({
+    safeAreaView: {
+      flex: 1,
+      backgroundColor: '#fafbfe'
+    },
+    mainContainer: {
+      flex: 1,
+      backgroundColor: '#fafbfe',
+      width: '100%',
+      height: '100%'
+    },
+    headerContainer: {
+      flex: 1,
+      justifyContent: 'flex-end'
+    },
+    textHeader: {
+      fontFamily: 'Cairo-Light',
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(4),
+      paddingLeft: '9%',
+      letterSpacing: 0.8,
+      color: '#1a1f3e',
+      fontWeight: '200'
+    },
+    scrollViewContainer: {
+      flex: 5,
+      paddingBottom: '2.5%',
+      paddingTop: '2.5%'
+    },
+    scrollView: {
+      height: '60%'
+    },
+    textBody: {
+      fontFamily: 'WorkSans-Light',
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(1.8),
+      paddingLeft: '10%',
+      paddingRight: '10%',
+      lineHeight: (0, _reactNativeResponsiveFontsize2.default)(2.5),
+      color: 'black',
+      fontWeight: '300'
+    },
+    btnContainer: {
+      width: '100%',
+      flex: 1.25,
+      marginTop: '2.5%'
+    },
+    button: {
+      width: '82%',
+      height: _reactNative.Dimensions.get('window').height * 0.082
+    },
+    footerGrandparentContainer: {
+      alignItems: 'center',
+      marginBottom: '5%',
+      marginTop: '5%'
+    },
+    footerParentContainer: {
+      alignItems: 'center'
+    },
+    textFooter: {
+      fontFamily: 'WorkSans-Regular',
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(1.7),
+      color: '#c0c0c0',
+      letterSpacing: 0.5
+    }
+  });
+
+  exports.default = (0, _reactRedux.connect)(null, {
+    enterDebug: _ActionCreator.enterDebug
+  })(TermsAndConditions);
+});

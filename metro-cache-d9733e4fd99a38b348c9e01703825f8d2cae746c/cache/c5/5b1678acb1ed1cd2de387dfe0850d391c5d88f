@@ -1,0 +1,64 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  exports.__esModule = true;
+  exports.wrapMapToPropsConstant = wrapMapToPropsConstant;
+  exports.getDependsOnOwnProps = getDependsOnOwnProps;
+  exports.wrapMapToPropsFunc = wrapMapToPropsFunc;
+
+  var _verifyPlainObject = _require(_dependencyMap[0], '../utils/verifyPlainObject');
+
+  var _verifyPlainObject2 = _interopRequireDefault(_verifyPlainObject);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  function wrapMapToPropsConstant(getConstant) {
+    return function initConstantSelector(dispatch, options) {
+      var constant = getConstant(dispatch, options);
+
+      function constantSelector() {
+        return constant;
+      }
+
+      constantSelector.dependsOnOwnProps = false;
+      return constantSelector;
+    };
+  }
+
+  function getDependsOnOwnProps(mapToProps) {
+    return mapToProps.dependsOnOwnProps !== null && mapToProps.dependsOnOwnProps !== undefined ? Boolean(mapToProps.dependsOnOwnProps) : mapToProps.length !== 1;
+  }
+
+  function wrapMapToPropsFunc(mapToProps, methodName) {
+    return function initProxySelector(dispatch, _ref) {
+      var displayName = _ref.displayName;
+
+      var proxy = function mapToPropsProxy(stateOrDispatch, ownProps) {
+        return proxy.dependsOnOwnProps ? proxy.mapToProps(stateOrDispatch, ownProps) : proxy.mapToProps(stateOrDispatch);
+      };
+
+      proxy.dependsOnOwnProps = true;
+
+      proxy.mapToProps = function detectFactoryAndVerify(stateOrDispatch, ownProps) {
+        proxy.mapToProps = mapToProps;
+        proxy.dependsOnOwnProps = getDependsOnOwnProps(mapToProps);
+        var props = proxy(stateOrDispatch, ownProps);
+
+        if (typeof props === 'function') {
+          proxy.mapToProps = props;
+          proxy.dependsOnOwnProps = getDependsOnOwnProps(props);
+          props = proxy(stateOrDispatch, ownProps);
+        }
+
+        if (process.env.NODE_ENV !== 'production') (0, _verifyPlainObject2.default)(props, displayName, methodName);
+        return props;
+      };
+
+      return proxy;
+    };
+  }
+});

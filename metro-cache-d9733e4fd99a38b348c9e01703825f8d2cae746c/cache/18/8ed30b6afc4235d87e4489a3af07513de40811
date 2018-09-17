@@ -1,0 +1,9 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var isPlainObject = _require(_dependencyMap[0], './isPlainObject');
+
+  function customOmitClone(value) {
+    return isPlainObject(value) ? undefined : value;
+  }
+
+  module.exports = customOmitClone;
+});

@@ -1,0 +1,20 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var ListCache = _require(_dependencyMap[0], './_ListCache'),
+      stackClear = _require(_dependencyMap[1], './_stackClear'),
+      stackDelete = _require(_dependencyMap[2], './_stackDelete'),
+      stackGet = _require(_dependencyMap[3], './_stackGet'),
+      stackHas = _require(_dependencyMap[4], './_stackHas'),
+      stackSet = _require(_dependencyMap[5], './_stackSet');
+
+  function Stack(entries) {
+    var data = this.__data__ = new ListCache(entries);
+    this.size = data.size;
+  }
+
+  Stack.prototype.clear = stackClear;
+  Stack.prototype['delete'] = stackDelete;
+  Stack.prototype.get = stackGet;
+  Stack.prototype.has = stackHas;
+  Stack.prototype.set = stackSet;
+  module.exports = Stack;
+});

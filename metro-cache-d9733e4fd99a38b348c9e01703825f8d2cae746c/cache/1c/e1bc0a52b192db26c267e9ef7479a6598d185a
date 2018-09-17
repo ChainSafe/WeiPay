@@ -1,0 +1,386 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../../node_modules/react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _jsxFileName = "/home/master/Documents/work/WeiPay/src/components/tokens/ListItem.js";
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _reactNative = _require(_dependencyMap[2], "react-native");
+
+  var _reactRedux = _require(_dependencyMap[3], "react-redux");
+
+  var _reactNativeResponsiveFontsize = _require(_dependencyMap[4], "react-native-responsive-fontsize");
+
+  var _reactNativeResponsiveFontsize2 = _interopRequireDefault(_reactNativeResponsiveFontsize);
+
+  var _ActionCreator = _require(_dependencyMap[5], "../../actions/ActionCreator");
+
+  var _BoxShadowCard = _require(_dependencyMap[6], "../ShadowCards/BoxShadowCard");
+
+  var _BoxShadowCard2 = _interopRequireDefault(_BoxShadowCard);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    CoinListItem: {
+      displayName: "CoinListItem"
+    }
+  };
+
+  var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/master/Documents/work/WeiPay/src/components/tokens/ListItem.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var axios = _require(_dependencyMap[7], 'axios');
+
+  var CoinListItem = _wrapComponent("CoinListItem")(function (_Component) {
+    _inherits(CoinListItem, _Component);
+
+    function CoinListItem(props) {
+      _classCallCheck(this, CoinListItem);
+
+      var _this = _possibleConstructorReturn(this, (CoinListItem.__proto__ || Object.getPrototypeOf(CoinListItem)).call(this, props));
+
+      _this.state = {
+        totalTaps: _this.props.coin.selected ? 1 : 0,
+        checked: false
+      };
+      return _this;
+    }
+
+    _createClass(CoinListItem, [{
+      key: "renderPress",
+      value: function renderPress(coin) {
+        if (this.state.totalTaps == 0) {
+          this.props.addTokenToSetup(coin);
+          this.setState({
+            checked: !this.state.checked,
+            totalTaps: 1
+          });
+        } else if (this.state.totalTaps == 1) {
+          this.setState({
+            totalTaps: 2
+          });
+        } else if (this.state.totalTaps == 2) {
+          this.props.addTokenToSetup(coin);
+          this.setState({
+            checked: !this.state.checked,
+            totalTaps: 0
+          });
+        }
+      }
+    }, {
+      key: "renderStatePicture",
+      value: function renderStatePicture(coin) {
+        if (coin.selected == false) {
+          return _require(_dependencyMap[8], '../../assets/images/add2.png');
+        } else if (this.state.totalTaps == 1 && coin.selected) {
+          return _require(_dependencyMap[9], '../../assets/images/added.png');
+        } else if (this.state.totalTaps == 2 && coin.selected) {
+          return _require(_dependencyMap[10], '../../assets/images/delete.png');
+        }
+      }
+    }, {
+      key: "renderBoxContainerStyling",
+      value: function renderBoxContainerStyling(coin) {
+        if (this.state.totalTaps == 1 && coin.selected) {
+          return {
+            borderColor: '#27c997',
+            borderWidth: 1
+          };
+        } else if (this.state.totalTaps == 2 && coin.selected) {
+          return {
+            borderColor: 'red',
+            borderWidth: 1
+          };
+        }
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        var _this2 = this;
+
+        var coin = this.props.coin;
+        return _react3.default.createElement(
+          _reactNative.View,
+          {
+            style: styles.listItemParentContainer,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 81
+            }
+          },
+          _react3.default.createElement(
+            _reactNative.TouchableOpacity,
+            {
+              onPress: function onPress() {
+                return _this2.renderPress(coin);
+              },
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 82
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: [coin.selected ? null : null],
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 84
+                }
+              },
+              _react3.default.createElement(
+                _BoxShadowCard2.default,
+                {
+                  customStyles: {
+                    flex: 1
+                  },
+                  containerStyling: this.renderBoxContainerStyling(coin),
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 85
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    style: [styles.contentContainer],
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 86
+                    }
+                  },
+                  _react3.default.createElement(
+                    _reactNative.View,
+                    {
+                      style: styles.imgMainContainer,
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 87
+                      }
+                    },
+                    _react3.default.createElement(
+                      _reactNative.View,
+                      {
+                        style: styles.imageContainer,
+                        __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 88
+                        }
+                      },
+                      _react3.default.createElement(_reactNative.Image, {
+                        style: styles.img,
+                        source: {
+                          uri: coin.logo.src
+                        },
+                        __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 89
+                        }
+                      })
+                    )
+                  ),
+                  _react3.default.createElement(
+                    _reactNative.View,
+                    {
+                      style: {
+                        flex: 4
+                      },
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 95
+                      }
+                    },
+                    _react3.default.createElement(
+                      _reactNative.View,
+                      {
+                        style: {
+                          justifyContent: 'center',
+                          flex: 1
+                        },
+                        __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 96
+                        }
+                      },
+                      _react3.default.createElement(
+                        _reactNative.View,
+                        {
+                          style: styles.mainTitleContainer,
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 97
+                          }
+                        },
+                        _react3.default.createElement(
+                          _reactNative.Text,
+                          {
+                            style: styles.mainTitleText,
+                            __source: {
+                              fileName: _jsxFileName,
+                              lineNumber: 98
+                            }
+                          },
+                          coin.symbol
+                        )
+                      ),
+                      _react3.default.createElement(
+                        _reactNative.View,
+                        {
+                          style: styles.subtitleContainer,
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 100
+                          }
+                        },
+                        _react3.default.createElement(
+                          _reactNative.Text,
+                          {
+                            style: styles.subTitleText,
+                            __source: {
+                              fileName: _jsxFileName,
+                              lineNumber: 101
+                            }
+                          },
+                          coin.name
+                        )
+                      )
+                    )
+                  ),
+                  _react3.default.createElement(
+                    _reactNative.View,
+                    {
+                      style: {
+                        flex: 1
+                      },
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 106
+                      }
+                    },
+                    _react3.default.createElement(
+                      _reactNative.View,
+                      {
+                        style: {
+                          flex: 1,
+                          justifyContent: 'center',
+                          alignItems: 'center'
+                        },
+                        __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 107
+                        }
+                      },
+                      _react3.default.createElement(_reactNative.Image, {
+                        style: {
+                          height: _reactNative.Dimensions.get('window').height * 0.035,
+                          width: _reactNative.Dimensions.get('window').width * 0.035,
+                          justifyContent: 'center'
+                        },
+                        source: this.renderStatePicture(coin),
+                        __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 108
+                        }
+                      })
+                    )
+                  )
+                )
+              )
+            )
+          )
+        );
+      }
+    }]);
+
+    return CoinListItem;
+  }(_react2.Component));
+
+  var styles = _reactNative.StyleSheet.create({
+    contentContainer: {
+      flex: 1,
+      flexDirection: 'row'
+    },
+    containerSelected: {
+      borderWidth: 1,
+      borderColor: 'black',
+      width: '83%'
+    },
+    containerDeselect: {
+      width: '83%'
+    },
+    listItemParentContainer: {
+      marginLeft: '0.25%',
+      height: _reactNative.Dimensions.get('window').height * 0.1,
+      flex: 1
+    },
+    imgMainContainer: {
+      flex: 1.25,
+      alignItems: 'center'
+    },
+    imageContainer: {
+      flex: 1,
+      justifyContent: 'center'
+    },
+    img: {
+      height: _reactNative.Platform.OS === 'ios' ? _reactNative.Dimensions.get('window').height * 0.0524 : _reactNative.Dimensions.get('window').height * 0.057,
+      width: _reactNative.Dimensions.get('window').width * 0.093
+    },
+    mainTitleContainer: {
+      flex: 0.5,
+      justifyContent: 'flex-end'
+    },
+    subtitleContainer: {
+      flex: 0.5,
+      justifyContent: 'flex-start'
+    },
+    mainTitleText: {
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(2.4),
+      fontFamily: 'Cairo-Regular',
+      letterSpacing: 0.5,
+      color: '#061f46'
+    },
+    subTitleText: {
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(1.6),
+      fontFamily: 'Cairo-Regular',
+      color: '#061f46',
+      letterSpacing: 0.5
+    }
+  });
+
+  var mapStateToProps = function mapStateToProps(state) {
+    return {
+      tokenList: state.newWallet.tokens
+    };
+  };
+
+  exports.default = (0, _reactRedux.connect)(mapStateToProps, {
+    addTokenToSetup: _ActionCreator.addTokenToSetup
+  })(CoinListItem);
+});

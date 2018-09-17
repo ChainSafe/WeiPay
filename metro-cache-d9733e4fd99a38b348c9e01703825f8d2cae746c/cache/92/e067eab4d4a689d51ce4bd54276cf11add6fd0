@@ -1,0 +1,118 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  var _jsxFileName = "/home/master/Documents/work/WeiPay/node_modules/react-navigation/src/navigators/DrawerNavigator.js";
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var _react = _require(_dependencyMap[0], "react");
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _reactNative = _require(_dependencyMap[1], "react-native");
+
+  var _createNavigator = _require(_dependencyMap[2], "./createNavigator");
+
+  var _createNavigator2 = _interopRequireDefault(_createNavigator);
+
+  var _createNavigationContainer = _require(_dependencyMap[3], "../createNavigationContainer");
+
+  var _createNavigationContainer2 = _interopRequireDefault(_createNavigationContainer);
+
+  var _TabRouter = _require(_dependencyMap[4], "../routers/TabRouter");
+
+  var _TabRouter2 = _interopRequireDefault(_TabRouter);
+
+  var _DrawerScreen = _require(_dependencyMap[5], "../views/Drawer/DrawerScreen");
+
+  var _DrawerScreen2 = _interopRequireDefault(_DrawerScreen);
+
+  var _DrawerView = _require(_dependencyMap[6], "../views/Drawer/DrawerView");
+
+  var _DrawerView2 = _interopRequireDefault(_DrawerView);
+
+  var _DrawerNavigatorItems = _require(_dependencyMap[7], "../views/Drawer/DrawerNavigatorItems");
+
+  var _DrawerNavigatorItems2 = _interopRequireDefault(_DrawerNavigatorItems);
+
+  var _NavigatorTypes = _require(_dependencyMap[8], "./NavigatorTypes");
+
+  var _NavigatorTypes2 = _interopRequireDefault(_NavigatorTypes);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+  var _Dimensions$get = _reactNative.Dimensions.get('window'),
+      height = _Dimensions$get.height,
+      width = _Dimensions$get.width;
+
+  var DefaultDrawerConfig = {
+    drawerWidth: Math.min(height, width) - (_reactNative.Platform.OS === 'android' ? 56 : 64),
+    contentComponent: _DrawerNavigatorItems2.default,
+    drawerPosition: 'left',
+    drawerBackgroundColor: 'white',
+    useNativeAnimations: true
+  };
+
+  var DrawerNavigator = function DrawerNavigator(routeConfigs) {
+    var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    var mergedConfig = _extends({}, DefaultDrawerConfig, config);
+
+    var containerConfig = mergedConfig.containerConfig,
+        drawerWidth = mergedConfig.drawerWidth,
+        drawerLockMode = mergedConfig.drawerLockMode,
+        contentComponent = mergedConfig.contentComponent,
+        contentOptions = mergedConfig.contentOptions,
+        drawerPosition = mergedConfig.drawerPosition,
+        useNativeAnimations = mergedConfig.useNativeAnimations,
+        drawerBackgroundColor = mergedConfig.drawerBackgroundColor,
+        tabsConfig = _objectWithoutProperties(mergedConfig, ["containerConfig", "drawerWidth", "drawerLockMode", "contentComponent", "contentOptions", "drawerPosition", "useNativeAnimations", "drawerBackgroundColor"]);
+
+    var contentRouter = (0, _TabRouter2.default)(routeConfigs, tabsConfig);
+    var drawerRouter = (0, _TabRouter2.default)({
+      DrawerClose: {
+        screen: (0, _createNavigator2.default)(contentRouter, routeConfigs, config, _NavigatorTypes2.default.DRAWER)(function (props) {
+          return _react2.default.createElement(_DrawerScreen2.default, _extends({}, props, {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 67
+            }
+          }));
+        })
+      },
+      DrawerOpen: {
+        screen: function screen() {
+          return null;
+        }
+      },
+      DrawerToggle: {
+        screen: function screen() {
+          return null;
+        }
+      }
+    }, {
+      initialRouteName: 'DrawerClose'
+    });
+    var navigator = (0, _createNavigator2.default)(drawerRouter, routeConfigs, config, _NavigatorTypes2.default.DRAWER)(function (props) {
+      return _react2.default.createElement(_DrawerView2.default, _extends({}, props, {
+        drawerBackgroundColor: drawerBackgroundColor,
+        drawerLockMode: drawerLockMode,
+        useNativeAnimations: useNativeAnimations,
+        drawerWidth: drawerWidth,
+        contentComponent: contentComponent,
+        contentOptions: contentOptions,
+        drawerPosition: drawerPosition,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 87
+        }
+      }));
+    });
+    return (0, _createNavigationContainer2.default)(navigator);
+  };
+
+  exports.default = DrawerNavigator;
+});

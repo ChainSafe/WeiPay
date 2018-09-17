@@ -1,0 +1,596 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../../../../../node_modules/react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _jsxFileName = "/home/master/Documents/work/WeiPay/src/screens/main/menu/contacts/add/EditContact.js";
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _reactNative = _require(_dependencyMap[2], "react-native");
+
+  var _reactNativeElements = _require(_dependencyMap[3], "react-native-elements");
+
+  var _reactRedux = _require(_dependencyMap[4], "react-redux");
+
+  var _reactNavigation = _require(_dependencyMap[5], "react-navigation");
+
+  var _reactNativePickerSelect = _require(_dependencyMap[6], "react-native-picker-select");
+
+  var _reactNativePickerSelect2 = _interopRequireDefault(_reactNativePickerSelect);
+
+  var _AddContactList = _require(_dependencyMap[7], "../../../../../components/contacts/AddContactList");
+
+  var _AddContactList2 = _interopRequireDefault(_AddContactList);
+
+  var _ActionCreator = _require(_dependencyMap[8], "../../../../../actions/ActionCreator");
+
+  var actions = _interopRequireWildcard(_ActionCreator);
+
+  var _BackWithMenuNav = _require(_dependencyMap[9], "../../../../../components/customPageNavs/BackWithMenuNav");
+
+  var _BackWithMenuNav2 = _interopRequireDefault(_BackWithMenuNav);
+
+  var _ContactTabNavigator = _require(_dependencyMap[10], "../../../../../components/customPageNavs/ContactTabNavigator");
+
+  var _ContactTabNavigator2 = _interopRequireDefault(_ContactTabNavigator);
+
+  var _LinearButton = _require(_dependencyMap[11], "../../../../../components/LinearGradient/LinearButton");
+
+  var _LinearButton2 = _interopRequireDefault(_LinearButton);
+
+  var _ClearButton = _require(_dependencyMap[12], "../../../../../components/LinearGradient/ClearButton");
+
+  var _ClearButton2 = _interopRequireDefault(_ClearButton);
+
+  var _BoxShadowCard = _require(_dependencyMap[13], "../../../../../components/ShadowCards/BoxShadowCard");
+
+  var _BoxShadowCard2 = _interopRequireDefault(_BoxShadowCard);
+
+  var _barcode = _require(_dependencyMap[14], "../../../../../assets/icons/barcode.png");
+
+  var _barcode2 = _interopRequireDefault(_barcode);
+
+  var _reactNativeResponsiveFontsize = _require(_dependencyMap[15], "react-native-responsive-fontsize");
+
+  var _reactNativeResponsiveFontsize2 = _interopRequireDefault(_reactNativeResponsiveFontsize);
+
+  function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    EditContact: {
+      displayName: "EditContact"
+    }
+  };
+
+  var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/master/Documents/work/WeiPay/src/screens/main/menu/contacts/add/EditContact.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var EditContact = _wrapComponent("EditContact")(function (_Component) {
+    _inherits(EditContact, _Component);
+
+    function EditContact(props) {
+      _classCallCheck(this, EditContact);
+
+      var _this = _possibleConstructorReturn(this, (EditContact.__proto__ || Object.getPrototypeOf(EditContact)).call(this, props));
+
+      _this.navigate = function () {
+        _this.props.saveAddContactInputs(_this.state.contactName, _this.state.contactAddress, _this.state.tokenImages);
+
+        _this.props.qrScannerInvoker('Contacts');
+
+        _this.props.qrScannerCoinInvoker(_this.state.tokenName);
+
+        var navigateToQrScanner = _reactNavigation.NavigationActions.navigate({
+          routeName: 'QCodeScanner'
+        });
+
+        _this.props.navigation.dispatch(navigateToQrScanner);
+      };
+
+      _this.inputRefs = {};
+      var current = _this.props.currentContact;
+      var contactName = current.name;
+      var contactAddress = current.contactAddress;
+      var tokens = [];
+
+      _this.props.tokens.map(function (token) {
+        var tokenName = {};
+        tokenName.value = token.name;
+        tokenName.label = token.name;
+        tokens.push(tokenName);
+      });
+
+      _this.state = {
+        disabled: true,
+        clear: false,
+        contactName: contactName,
+        contactAddress: contactAddress,
+        tokenName: null,
+        tokens: tokens,
+        contactAddressInput: ''
+      };
+      return _this;
+    }
+
+    _createClass(EditContact, [{
+      key: "renderAddress",
+      value: function renderAddress(address, coin) {
+        var copy = _extends({}, this.state.contactAddress);
+
+        copy[coinName] = address;
+        this.setState({
+          contactAddress: copy
+        });
+        var coinAddress = {};
+        coinAddress[coinName] = address;
+        this.props.addingContact(coinAddress);
+      }
+    }, {
+      key: "isEmptyObject",
+      value: function isEmptyObject(o) {
+        return Object.keys(o).every(function (x) {
+          return o[x] === '' || o[x] === null;
+        });
+      }
+    }, {
+      key: "editContact",
+      value: function editContact() {
+        this.props.editContact(this.state.contactName, this.state.contactAddress);
+        this.props.setSelectedContactFalse();
+      }
+    }, {
+      key: "clear",
+      value: function clear() {
+        this.setState({
+          contactName: ''
+        });
+        var newcontactAddress = {};
+        this.props.tokens.map(function (token) {
+          return newcontactAddress[token.title] = "";
+        });
+        this.setState({
+          contactAddress: newcontactAddress
+        });
+      }
+    }, {
+      key: "editAnotherCoinAddress",
+      value: function editAnotherCoinAddress() {
+        this.setState({
+          tokenName: 'null'
+        });
+      }
+    }, {
+      key: "renderAddress",
+      value: function renderAddress(address) {
+        var copy = _extends({}, this.state.contactAddress);
+
+        copy[this.state.tokenName] = address;
+        this.setState({
+          contactAddress: copy
+        });
+        this.setState({
+          contactAddressInput: address
+        });
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        var _this2 = this;
+
+        return _react3.default.createElement(
+          _reactNative.SafeAreaView,
+          {
+            style: styles.safeAreaView,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 126
+            }
+          },
+          _react3.default.createElement(
+            _reactNative.View,
+            {
+              style: styles.mainContainer,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 127
+              }
+            },
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: styles.contentContainer,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 128
+                }
+              },
+              _react3.default.createElement(
+                _BoxShadowCard2.default,
+                {
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 129
+                  }
+                },
+                _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    style: styles.cardTextContainer,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 130
+                    }
+                  },
+                  _react3.default.createElement(
+                    _reactNative.Text,
+                    {
+                      style: styles.cardText,
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 131
+                      }
+                    },
+                    "Add contact with QR code or Public Address"
+                  )
+                ),
+                _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    style: styles.topFormInput,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 135
+                    }
+                  },
+                  _react3.default.createElement(_reactNativeElements.FormInput, {
+                    placeholder: "Contact's Name",
+                    onChangeText: function onChangeText(name) {
+                      return _this2.setState({
+                        contactName: name
+                      });
+                    },
+                    inputStyle: styles.inputContactName,
+                    placeholderTextColor: '#b3b3b3',
+                    value: this.state.contactName,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 136
+                    }
+                  })
+                ),
+                _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    style: styles.barcodeContainer,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 144
+                    }
+                  },
+                  _react3.default.createElement(
+                    _reactNative.TouchableOpacity,
+                    {
+                      onPress: function onPress() {
+                        return _this2.navigate();
+                      },
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 145
+                      }
+                    },
+                    _react3.default.createElement(_reactNative.Image, {
+                      source: _require(_dependencyMap[14], '../../../../../assets/icons/barcode.png'),
+                      style: styles.barcodeImg,
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 146
+                      }
+                    })
+                  )
+                ),
+                _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    style: styles.pickerContainer,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 152
+                    }
+                  },
+                  _react3.default.createElement(_reactNativePickerSelect2.default, {
+                    placeholder: {
+                      label: 'Coin Type',
+                      value: null
+                    },
+                    items: this.state.tokens,
+                    onValueChange: function onValueChange(value) {
+                      _this2.setState({
+                        tokenName: value
+                      });
+                    },
+                    style: pickerStyle,
+                    value: this.state.tokenName,
+                    ref: function ref(el) {
+                      _this2.inputRefs.picker = el;
+                    },
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 153
+                    }
+                  })
+                ),
+                _react3.default.createElement(
+                  _reactNative.View,
+                  {
+                    style: styles.inputAddressContainer,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 171
+                    }
+                  },
+                  _react3.default.createElement(_reactNativeElements.FormInput, {
+                    placeholder: 'Public Address',
+                    onChangeText: function onChangeText(address) {
+                      return _this2.renderAddress(address);
+                    },
+                    inputStyle: styles.inputAddressText,
+                    placeholderTextColor: '#b3b3b3',
+                    value: this.state.contactAddress[this.state.tokenName],
+                    editable: !!this.state.tokenName,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 172
+                    }
+                  })
+                ),
+                _react3.default.createElement(
+                  _reactNative.TouchableOpacity,
+                  {
+                    style: styles.addAnotherText,
+                    onPress: this.editAnotherCoinAddress.bind(this),
+                    disabled: !this.state.tokenName,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 181
+                    }
+                  },
+                  _react3.default.createElement(
+                    _reactNative.Text,
+                    {
+                      style: styles.anotherText,
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 185
+                      }
+                    },
+                    " +  Add Another Coin "
+                  )
+                )
+              )
+            ),
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: styles.btnContainer,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 189
+                }
+              },
+              _react3.default.createElement(
+                _reactNative.View,
+                {
+                  style: styles.btnFlex,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 190
+                  }
+                },
+                _react3.default.createElement(_LinearButton2.default, {
+                  onClickFunction: this.editContact.bind(this),
+                  buttonText: "Update",
+                  customStyles: styles.btnUpdate,
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 191
+                  }
+                })
+              )
+            )
+          )
+        );
+      }
+    }]);
+
+    return EditContact;
+  }(_react2.Component));
+
+  var styles = _reactNative.StyleSheet.create({
+    safeAreaView: {
+      flex: 1,
+      backgroundColor: '#fafbfe'
+    },
+    mainContainer: {
+      alignItems: 'center',
+      flex: 0.9,
+      justifyContent: 'center'
+    },
+    contentContainer: {
+      marginTop: '7.5%',
+      flex: 2.3,
+      width: '82%'
+    },
+    cardTextContainer: {
+      flex: 0.4,
+      paddingLeft: '10%',
+      paddingRight: '10%',
+      paddingTop: '10%'
+    },
+    cardText: {
+      fontFamily: 'WorkSans-Light',
+      color: '#000000',
+      lineHeight: (0, _reactNativeResponsiveFontsize2.default)(3.9),
+      letterSpacing: 0.4,
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(2.5),
+      flexWrap: 'wrap'
+    },
+    topFormInput: {
+      flex: 0.3,
+      paddingLeft: '3%',
+      paddingRight: '3%',
+      justifyContent: 'center'
+    },
+    inputContactName: {
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(2.5),
+      flexWrap: 'wrap',
+      color: '#12c1a2',
+      letterSpacing: 0.4,
+      fontFamily: 'WorkSans-Light',
+      borderBottomWidth: 0.0001
+    },
+    coinInfoContainerMid: {
+      flex: 0.3,
+      flexDirection: 'row'
+    },
+    barcodeContainer: {
+      flex: 0.4,
+      marginLeft: '9%',
+      marginBottom: '2%',
+      marginTop: '10%',
+      justifyContent: 'center'
+    },
+    barcodeImg: {
+      height: _reactNative.Dimensions.get('window').height * 0.1,
+      width: _reactNative.Dimensions.get('window').width * 0.18
+    },
+    pickerContainer: {
+      justifyContent: 'center',
+      flex: 0.3
+    },
+    addInputContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      flex: 1
+    },
+    inputAddressContainer: {
+      flex: 0.3,
+      paddingLeft: '3%',
+      paddingRight: '3%',
+      justifyContent: 'center'
+    },
+    inputAddressText: {
+      width: '100%',
+      flexWrap: 'wrap',
+      color: '#12c1a2',
+      fontFamily: 'WorkSans-Light',
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(2.5)
+    },
+    addAnotherText: {
+      flex: 0.3,
+      justifyContent: 'center',
+      paddingTop: '2.5%'
+    },
+    btnUpdate: {
+      marginLeft: '0%',
+      height: _reactNative.Dimensions.get('window').height * 0.082
+    },
+    anotherText: {
+      marginLeft: '9%',
+      color: '#27c997',
+      fontFamily: 'WorkSans-Regular',
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(2.5)
+    },
+    btnFlex: {
+      flex: 1
+    },
+    btnContainer: {
+      flex: 0.1,
+      flexDirection: 'row',
+      alignItems: 'stretch',
+      justifyContent: 'flex-end',
+      width: '82%',
+      marginBottom: '2.5%',
+      marginTop: '2.5%'
+    },
+    modal: {
+      height: '40%',
+      borderRadius: 4
+    }
+  });
+
+  var pickerStyle = {
+    inputIOS: {
+      fontSize: (0, _reactNativeResponsiveFontsize2.default)(2.6),
+      fontFamily: 'WorkSans-Light',
+      paddingLeft: '6%',
+      paddingRight: '20%',
+      paddingTop: 13,
+      paddingHorizontal: 10,
+      paddingBottom: 12,
+      borderRadius: 4,
+      color: 'black',
+      marginLeft: '3.5%'
+    },
+    inputAndroid: {
+      color: 'black',
+      marginLeft: '5%'
+    },
+    underline: {
+      borderTopWidth: 0
+    },
+    icon: {
+      position: 'absolute',
+      backgroundColor: 'transparent',
+      borderTopWidth: 5,
+      borderTopColor: '#00000099',
+      borderRightWidth: 5,
+      borderRightColor: 'transparent',
+      borderLeftWidth: 5,
+      borderLeftColor: 'transparent',
+      width: 0,
+      height: 0,
+      top: 20,
+      right: 15
+    }
+  };
+
+  var mapStateToProps = function mapStateToProps(_ref) {
+    var contacts = _ref.contacts,
+        newWallet = _ref.newWallet;
+    return {
+      tokens: newWallet.tokens,
+      currentContact: contacts.incompleteContactInputs
+    };
+  };
+
+  exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(EditContact);
+});

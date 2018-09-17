@@ -1,0 +1,38 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var utils = _require(_dependencyMap[0], './utils');
+
+  var bind = _require(_dependencyMap[1], './helpers/bind');
+
+  var Axios = _require(_dependencyMap[2], './core/Axios');
+
+  var defaults = _require(_dependencyMap[3], './defaults');
+
+  function createInstance(defaultConfig) {
+    var context = new Axios(defaultConfig);
+    var instance = bind(Axios.prototype.request, context);
+    utils.extend(instance, Axios.prototype, context);
+    utils.extend(instance, context);
+    return instance;
+  }
+
+  var axios = createInstance(defaults);
+  axios.Axios = Axios;
+
+  axios.create = function create(instanceConfig) {
+    return createInstance(utils.merge(defaults, instanceConfig));
+  };
+
+  axios.Cancel = _require(_dependencyMap[4], './cancel/Cancel');
+  axios.CancelToken = _require(_dependencyMap[5], './cancel/CancelToken');
+  axios.isCancel = _require(_dependencyMap[6], './cancel/isCancel');
+
+  axios.all = function all(promises) {
+    return Promise.all(promises);
+  };
+
+  axios.spread = _require(_dependencyMap[7], './helpers/spread');
+  module.exports = axios;
+  module.exports.default = axios;
+});

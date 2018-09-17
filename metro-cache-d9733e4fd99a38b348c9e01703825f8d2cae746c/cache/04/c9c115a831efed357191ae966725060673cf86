@@ -1,0 +1,100 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var AnimatedNode = _require(_dependencyMap[0], './AnimatedNode');
+
+  var NativeAnimatedHelper = _require(_dependencyMap[1], '../NativeAnimatedHelper');
+
+  var AnimatedWithChildren = function (_AnimatedNode) {
+    _inherits(AnimatedWithChildren, _AnimatedNode);
+
+    function AnimatedWithChildren() {
+      _classCallCheck(this, AnimatedWithChildren);
+
+      var _this = _possibleConstructorReturn(this, (AnimatedWithChildren.__proto__ || Object.getPrototypeOf(AnimatedWithChildren)).call(this));
+
+      _this._children = [];
+      return _this;
+    }
+
+    _createClass(AnimatedWithChildren, [{
+      key: "__makeNative",
+      value: function __makeNative() {
+        if (!this.__isNative) {
+          this.__isNative = true;
+
+          for (var _iterator = this._children, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[typeof Symbol === "function" ? Symbol.iterator : "@@iterator"]();;) {
+            var _ref;
+
+            if (_isArray) {
+              if (_i >= _iterator.length) break;
+              _ref = _iterator[_i++];
+            } else {
+              _i = _iterator.next();
+              if (_i.done) break;
+              _ref = _i.value;
+            }
+
+            var child = _ref;
+
+            child.__makeNative();
+
+            NativeAnimatedHelper.API.connectAnimatedNodes(this.__getNativeTag(), child.__getNativeTag());
+          }
+        }
+      }
+    }, {
+      key: "__addChild",
+      value: function __addChild(child) {
+        if (this._children.length === 0) {
+          this.__attach();
+        }
+
+        this._children.push(child);
+
+        if (this.__isNative) {
+          child.__makeNative();
+
+          NativeAnimatedHelper.API.connectAnimatedNodes(this.__getNativeTag(), child.__getNativeTag());
+        }
+      }
+    }, {
+      key: "__removeChild",
+      value: function __removeChild(child) {
+        var index = this._children.indexOf(child);
+
+        if (index === -1) {
+          console.warn("Trying to remove a child that doesn't exist");
+          return;
+        }
+
+        if (this.__isNative && child.__isNative) {
+          NativeAnimatedHelper.API.disconnectAnimatedNodes(this.__getNativeTag(), child.__getNativeTag());
+        }
+
+        this._children.splice(index, 1);
+
+        if (this._children.length === 0) {
+          this.__detach();
+        }
+      }
+    }, {
+      key: "__getChildren",
+      value: function __getChildren() {
+        return this._children;
+      }
+    }]);
+
+    return AnimatedWithChildren;
+  }(AnimatedNode);
+
+  module.exports = AnimatedWithChildren;
+});

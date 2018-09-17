@@ -1,0 +1,11 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var arrayPush = _require(_dependencyMap[0], './_arrayPush'),
+      isArray = _require(_dependencyMap[1], './isArray');
+
+  function baseGetAllKeys(object, keysFunc, symbolsFunc) {
+    var result = keysFunc(object);
+    return isArray(object) ? result : arrayPush(result, symbolsFunc(object));
+  }
+
+  module.exports = baseGetAllKeys;
+});

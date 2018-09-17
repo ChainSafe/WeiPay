@@ -1,0 +1,19 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var arrayPush = _require(_dependencyMap[0], './_arrayPush'),
+      getPrototype = _require(_dependencyMap[1], './_getPrototype'),
+      getSymbols = _require(_dependencyMap[2], './_getSymbols'),
+      stubArray = _require(_dependencyMap[3], './stubArray');
+
+  var nativeGetSymbols = Object.getOwnPropertySymbols;
+  var getSymbolsIn = !nativeGetSymbols ? stubArray : function (object) {
+    var result = [];
+
+    while (object) {
+      arrayPush(result, getSymbols(object));
+      object = getPrototype(object);
+    }
+
+    return result;
+  };
+  module.exports = getSymbolsIn;
+});

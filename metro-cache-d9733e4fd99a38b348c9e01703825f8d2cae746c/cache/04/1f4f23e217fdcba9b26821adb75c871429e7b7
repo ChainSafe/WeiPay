@@ -1,0 +1,7 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  function baseIsNaN(value) {
+    return value !== value;
+  }
+
+  module.exports = baseIsNaN;
+});

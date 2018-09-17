@@ -1,0 +1,19 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var baseIsMatch = _require(_dependencyMap[0], './_baseIsMatch'),
+      getMatchData = _require(_dependencyMap[1], './_getMatchData'),
+      matchesStrictComparable = _require(_dependencyMap[2], './_matchesStrictComparable');
+
+  function baseMatches(source) {
+    var matchData = getMatchData(source);
+
+    if (matchData.length == 1 && matchData[0][2]) {
+      return matchesStrictComparable(matchData[0][0], matchData[0][1]);
+    }
+
+    return function (object) {
+      return object === source || baseIsMatch(object, source, matchData);
+    };
+  }
+
+  module.exports = baseMatches;
+});

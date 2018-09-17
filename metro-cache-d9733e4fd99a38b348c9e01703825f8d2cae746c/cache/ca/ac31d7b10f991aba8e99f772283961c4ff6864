@@ -1,0 +1,372 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../../react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _class,
+      _temp,
+      _initialiseProps,
+      _jsxFileName = "/home/master/Documents/work/WeiPay/node_modules/react-native/Libraries/Inspector/Inspector.js";
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    Inspector: {
+      displayName: "Inspector"
+    }
+  };
+
+  var _reactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/master/Documents/work/WeiPay/node_modules/react-native/Libraries/Inspector/Inspector.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _reactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var Dimensions = _require(_dependencyMap[2], 'Dimensions');
+
+  var InspectorOverlay = _require(_dependencyMap[3], 'InspectorOverlay');
+
+  var InspectorPanel = _require(_dependencyMap[4], 'InspectorPanel');
+
+  var Platform = _require(_dependencyMap[5], 'Platform');
+
+  var React = _require(_dependencyMap[6], 'React');
+
+  var ReactNative = _require(_dependencyMap[7], 'ReactNative');
+
+  var StyleSheet = _require(_dependencyMap[8], 'StyleSheet');
+
+  var Touchable = _require(_dependencyMap[9], 'Touchable');
+
+  var UIManager = _require(_dependencyMap[10], 'UIManager');
+
+  var View = _require(_dependencyMap[11], 'View');
+
+  var emptyObject = _require(_dependencyMap[12], 'fbjs/lib/emptyObject');
+
+  var invariant = _require(_dependencyMap[13], 'fbjs/lib/invariant');
+
+  var hook = window.__REACT_DEVTOOLS_GLOBAL_HOOK__;
+  var renderers = findRenderers();
+  hook.resolveRNStyle = _require(_dependencyMap[14], 'flattenStyle');
+
+  function findRenderers() {
+    var allRenderers = Object.keys(hook._renderers).map(function (key) {
+      return hook._renderers[key];
+    });
+    invariant(allRenderers.length >= 1, 'Expected to find at least one React Native renderer on DevTools hook.');
+    return allRenderers;
+  }
+
+  function getInspectorDataForViewTag(touchedViewTag) {
+    for (var i = 0; i < renderers.length; i++) {
+      var renderer = renderers[i];
+      var inspectorData = renderer.getInspectorDataForViewTag(touchedViewTag);
+
+      if (inspectorData.hierarchy.length > 0) {
+        return inspectorData;
+      }
+    }
+
+    throw new Error('Expected to find at least one React renderer.');
+  }
+
+  var Inspector = _wrapComponent("Inspector")((_temp = _class = function (_React$Component) {
+    _inherits(Inspector, _React$Component);
+
+    function Inspector(props) {
+      _classCallCheck(this, Inspector);
+
+      var _this = _possibleConstructorReturn(this, (Inspector.__proto__ || Object.getPrototypeOf(Inspector)).call(this, props));
+
+      _initialiseProps.call(_this);
+
+      _this.state = {
+        devtoolsAgent: null,
+        hierarchy: null,
+        panelPos: 'bottom',
+        inspecting: true,
+        perfing: false,
+        inspected: null,
+        selection: null,
+        inspectedViewTag: _this.props.inspectedViewTag,
+        networking: false
+      };
+      return _this;
+    }
+
+    _createClass(Inspector, [{
+      key: "componentDidMount",
+      value: function componentDidMount() {
+        hook.on('react-devtools', this.attachToDevtools);
+
+        if (hook.reactDevtoolsAgent) {
+          this.attachToDevtools(hook.reactDevtoolsAgent);
+        }
+      }
+    }, {
+      key: "componentWillUnmount",
+      value: function componentWillUnmount() {
+        if (this._subs) {
+          this._subs.map(function (fn) {
+            return fn();
+          });
+        }
+
+        hook.off('react-devtools', this.attachToDevtools);
+      }
+    }, {
+      key: "UNSAFE_componentWillReceiveProps",
+      value: function UNSAFE_componentWillReceiveProps(newProps) {
+        this.setState({
+          inspectedViewTag: newProps.inspectedViewTag
+        });
+      }
+    }, {
+      key: "setSelection",
+      value: function setSelection(i) {
+        var _this2 = this;
+
+        var hierarchyItem = this.state.hierarchy[i];
+
+        var _hierarchyItem$getIns = hierarchyItem.getInspectorData(ReactNative.findNodeHandle),
+            measure = _hierarchyItem$getIns.measure,
+            props = _hierarchyItem$getIns.props,
+            source = _hierarchyItem$getIns.source;
+
+        measure(function (x, y, width, height, left, top) {
+          _this2.setState({
+            inspected: {
+              frame: {
+                left: left,
+                top: top,
+                width: width,
+                height: height
+              },
+              style: props.style,
+              source: source
+            },
+            selection: i
+          });
+        });
+      }
+    }, {
+      key: "onTouchViewTag",
+      value: function onTouchViewTag(touchedViewTag, frame, pointerY) {
+        var _getInspectorDataForV = getInspectorDataForViewTag(touchedViewTag),
+            hierarchy = _getInspectorDataForV.hierarchy,
+            props = _getInspectorDataForV.props,
+            selection = _getInspectorDataForV.selection,
+            source = _getInspectorDataForV.source;
+
+        if (this.state.devtoolsAgent) {
+          var offsetFromLeaf = hierarchy.length - 1 - selection;
+          this.state.devtoolsAgent.selectFromDOMNode(touchedViewTag, true, offsetFromLeaf);
+        }
+
+        this.setState({
+          panelPos: pointerY > Dimensions.get('window').height / 2 ? 'top' : 'bottom',
+          selection: selection,
+          hierarchy: hierarchy,
+          inspected: {
+            style: props.style,
+            frame: frame,
+            source: source
+          }
+        });
+      }
+    }, {
+      key: "setPerfing",
+      value: function setPerfing(val) {
+        this.setState({
+          perfing: val,
+          inspecting: false,
+          inspected: null,
+          networking: false
+        });
+      }
+    }, {
+      key: "setInspecting",
+      value: function setInspecting(val) {
+        this.setState({
+          inspecting: val,
+          inspected: null
+        });
+      }
+    }, {
+      key: "setTouchTargeting",
+      value: function setTouchTargeting(val) {
+        var _this3 = this;
+
+        Touchable.TOUCH_TARGET_DEBUG = val;
+        this.props.onRequestRerenderApp(function (inspectedViewTag) {
+          _this3.setState({
+            inspectedViewTag: inspectedViewTag
+          });
+        });
+      }
+    }, {
+      key: "setNetworking",
+      value: function setNetworking(val) {
+        this.setState({
+          networking: val,
+          perfing: false,
+          inspecting: false,
+          inspected: null
+        });
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        var panelContainerStyle = this.state.panelPos === 'bottom' ? {
+          bottom: 0
+        } : {
+          top: Platform.OS === 'ios' ? 20 : 0
+        };
+        return React.createElement(
+          View,
+          {
+            style: styles.container,
+            pointerEvents: "box-none",
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 241
+            }
+          },
+          this.state.inspecting && React.createElement(InspectorOverlay, {
+            inspected: this.state.inspected,
+            inspectedViewTag: this.state.inspectedViewTag,
+            onTouchViewTag: this.onTouchViewTag.bind(this),
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 243
+            }
+          }),
+          React.createElement(
+            View,
+            {
+              style: [styles.panelContainer, panelContainerStyle],
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 248
+              }
+            },
+            React.createElement(InspectorPanel, {
+              devtoolsIsOpen: !!this.state.devtoolsAgent,
+              inspecting: this.state.inspecting,
+              perfing: this.state.perfing,
+              setPerfing: this.setPerfing.bind(this),
+              setInspecting: this.setInspecting.bind(this),
+              inspected: this.state.inspected,
+              hierarchy: this.state.hierarchy,
+              selection: this.state.selection,
+              setSelection: this.setSelection.bind(this),
+              touchTargeting: Touchable.TOUCH_TARGET_DEBUG,
+              setTouchTargeting: this.setTouchTargeting.bind(this),
+              networking: this.state.networking,
+              setNetworking: this.setNetworking.bind(this),
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 249
+              }
+            })
+          )
+        );
+      }
+    }]);
+
+    return Inspector;
+  }(React.Component), _initialiseProps = function _initialiseProps() {
+    var _this4 = this;
+
+    this.attachToDevtools = function (agent) {
+      var _hideWait = null;
+      var hlSub = agent.sub('highlight', function (_ref) {
+        var node = _ref.node,
+            name = _ref.name,
+            props = _ref.props;
+        clearTimeout(_hideWait);
+
+        if (typeof node !== 'number') {
+          node = ReactNative.findNodeHandle(node);
+        }
+
+        UIManager.measure(node, function (x, y, width, height, left, top) {
+          _this4.setState({
+            hierarchy: [],
+            inspected: {
+              frame: {
+                left: left,
+                top: top,
+                width: width,
+                height: height
+              },
+              style: props ? props.style : emptyObject
+            }
+          });
+        });
+      });
+      var hideSub = agent.sub('hideHighlight', function () {
+        if (_this4.state.inspected === null) {
+          return;
+        }
+
+        _hideWait = setTimeout(function () {
+          _this4.setState({
+            inspected: null
+          });
+        }, 100);
+      });
+      _this4._subs = [hlSub, hideSub];
+      agent.on('shutdown', function () {
+        _this4.setState({
+          devtoolsAgent: null
+        });
+
+        _this4._subs = null;
+      });
+
+      _this4.setState({
+        devtoolsAgent: agent
+      });
+    };
+  }, _temp));
+
+  var styles = StyleSheet.create({
+    container: {
+      position: 'absolute',
+      backgroundColor: 'transparent',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0
+    },
+    panelContainer: {
+      position: 'absolute',
+      left: 0,
+      right: 0
+    }
+  });
+  module.exports = Inspector;
+});

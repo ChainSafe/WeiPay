@@ -1,0 +1,100 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+  var _ActionTypes = _require(_dependencyMap[0], "../../actions/ActionTypes");
+
+  var actions = _interopRequireWildcard(_ActionTypes);
+
+  function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+  function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+  var INITIAL_STATE = {
+    contacts: [],
+    currentContact: {},
+    incompleteContactInputs: {
+      name: '',
+      contactAddress: {},
+      images: {}
+    },
+    addingContact: true,
+    contactName: '',
+    editContactState: false,
+    contactAddress: {},
+    activeTab: 'contacts',
+    contactDataforCoinSend: ''
+  };
+
+  exports.default = function () {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : INITIAL_STATE;
+    var action = arguments[1];
+
+    switch (action.type) {
+      case actions.ADDING_CONTACT:
+        var contact = state.currentContact;
+        var actionKey = Object.keys(action.payload)[0];
+        var actionKeyValue = action.payload[Object.keys(action.payload)[0]];
+
+        if (actionKey in contact) {
+          contact[actionKey] = actionKeyValue;
+        } else {
+          contact[actionKey] = actionKeyValue;
+        }
+
+        return _extends({}, state, {
+          currentContact: contact
+        });
+
+      case actions.COMPLETE_CONTACT:
+        var old = state.contacts;
+        var initialVal = {
+          name: '',
+          contactAddress: {},
+          images: {}
+        };
+        var newContact = [].concat(_toConsumableArray(state.contacts), [action.payload]);
+        return _extends({}, state, {
+          contacts: newContact,
+          currentContact: {},
+          incompleteContactInputs: initialVal
+        });
+
+      case actions.SAVING_ADDCONTACT_INPUTS:
+        return _extends({}, state, {
+          incompleteContactInputs: action.payload
+        });
+
+      case actions.UPDATE_SAVED_CONTACT_INPUTS:
+        return _extends({}, state, {
+          incompleteContactInputs: action.payload
+        });
+
+      case actions.ACTIVE_CONTACT_TAB:
+        return _extends({}, state, {
+          activeTab: action.payload
+        });
+
+      case actions.EDIT_CONTACT:
+        var nameIndex = state.contacts.map(function (contact) {
+          return contact.name;
+        }).indexOf(action.payload.name);
+        var editedContactList = [].concat(_toConsumableArray(state.contacts.slice(0, nameIndex)), [action.payload], _toConsumableArray(state.contacts.slice(nameIndex + 1)));
+        return _extends({}, state, {
+          contacts: editedContactList,
+          editContactState: true
+        });
+
+      case actions.CONTACT_ADDRESS_TO_COINSEND:
+        return _extends({}, state, {
+          contactDataforCoinSend: action.payload
+        });
+
+      default:
+        return state;
+    }
+  };
+});

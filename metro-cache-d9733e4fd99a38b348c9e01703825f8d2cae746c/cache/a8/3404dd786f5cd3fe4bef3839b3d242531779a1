@@ -1,0 +1,261 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+
+    var _react2 = _require(_dependencyMap[0], "react");
+
+    var _react3 = _interopRequireDefault(_react2);
+
+    var _index = _require(_dependencyMap[1], "./../../../node_modules/react-transform-hmr/lib/index.js");
+
+    var _index2 = _interopRequireDefault(_index);
+
+    var _jsxFileName = "/home/master/Documents/work/WeiPay/src/components/customPageNavs/CoinSendTabNavigator.js";
+
+    var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+    var _reactNative = _require(_dependencyMap[2], "react-native");
+
+    var _reactNavigation = _require(_dependencyMap[3], "react-navigation");
+
+    var _reactNativeResponsiveFontsize = _require(_dependencyMap[4], "react-native-responsive-fontsize");
+
+    var _reactNativeResponsiveFontsize2 = _interopRequireDefault(_reactNativeResponsiveFontsize);
+
+    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+    function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+    function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+    var _components = {
+        CoinSendTabNavigator: {
+            displayName: "CoinSendTabNavigator"
+        }
+    };
+
+    var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+        filename: "/home/master/Documents/work/WeiPay/src/components/customPageNavs/CoinSendTabNavigator.js",
+        components: _components,
+        locals: [module],
+        imports: [_react3.default]
+    });
+
+    function _wrapComponent(id) {
+        return function (Component) {
+            return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+        };
+    }
+
+    var CoinSendTabNavigator = _wrapComponent("CoinSendTabNavigator")(function (_Component) {
+        _inherits(CoinSendTabNavigator, _Component);
+
+        function CoinSendTabNavigator() {
+            var _ref;
+
+            var _temp, _this, _ret;
+
+            _classCallCheck(this, CoinSendTabNavigator);
+
+            for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+                args[_key] = arguments[_key];
+            }
+
+            return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = CoinSendTabNavigator.__proto__ || Object.getPrototypeOf(CoinSendTabNavigator)).call.apply(_ref, [this].concat(args))), _this), _this.navigateToHistory = function () {
+                var navigateHistory = _reactNavigation.NavigationActions.navigate({
+                    routeName: "coinHistory",
+                    params: {
+                        name: "Shubhnik"
+                    }
+                });
+
+                _this.props.navigation.dispatch(navigateHistory);
+            }, _this.navigateToSend = function () {
+                var navigateCoinSend = _reactNavigation.NavigationActions.navigate({
+                    routeName: "coinSend",
+                    params: {
+                        name: "Shubhnik"
+                    }
+                });
+
+                _this.props.navigation.dispatch(navigateCoinSend);
+            }, _this.navigateToReceive = function () {
+                var navigateCoinReceive = _reactNavigation.NavigationActions.navigate({
+                    routeName: "coinReceive",
+                    params: {
+                        name: "Shubhnik"
+                    }
+                });
+
+                _this.props.navigation.dispatch(navigateCoinReceive);
+            }, _temp), _possibleConstructorReturn(_this, _ret);
+        }
+
+        _createClass(CoinSendTabNavigator, [{
+            key: "render",
+            value: function render() {
+                return _react3.default.createElement(
+                    _reactNative.View,
+                    {
+                        style: styles.tabHeader,
+                        __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 46
+                        }
+                    },
+                    _react3.default.createElement(
+                        _reactNative.TouchableOpacity,
+                        {
+                            style: styles.headerButton,
+                            onPress: this.navigateToSend,
+                            __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 47
+                            }
+                        },
+                        _react3.default.createElement(
+                            _reactNative.Text,
+                            {
+                                style: [styles.headerSend, styles.fullHeight, this.props.sendActive ? styles.greenShade : null],
+                                __source: {
+                                    fileName: _jsxFileName,
+                                    lineNumber: 50
+                                }
+                            },
+                            "Send"
+                        ),
+                        _react3.default.createElement(_reactNative.View, {
+                            style: this.props.sendActive ? styles.sendLine : null,
+                            __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 51
+                            }
+                        })
+                    ),
+                    _react3.default.createElement(
+                        _reactNative.TouchableOpacity,
+                        {
+                            style: styles.headerButton,
+                            onPress: this.navigateToHistory,
+                            __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 53
+                            }
+                        },
+                        _react3.default.createElement(
+                            _reactNative.Text,
+                            {
+                                style: [styles.headerActivity, styles.fullHeight, this.props.activityActive ? styles.greenShade : null],
+                                __source: {
+                                    fileName: _jsxFileName,
+                                    lineNumber: 56
+                                }
+                            },
+                            "Activity"
+                        ),
+                        _react3.default.createElement(_reactNative.View, {
+                            style: this.props.activityActive ? styles.activityLine : null,
+                            __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 57
+                            }
+                        })
+                    ),
+                    _react3.default.createElement(
+                        _reactNative.TouchableOpacity,
+                        {
+                            style: styles.headerButton,
+                            onPress: this.navigateToReceive,
+                            __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 59
+                            }
+                        },
+                        _react3.default.createElement(
+                            _reactNative.Text,
+                            {
+                                style: [styles.headerReceive, styles.fullHeight, this.props.receiveActive ? styles.greenShade : null],
+                                __source: {
+                                    fileName: _jsxFileName,
+                                    lineNumber: 62
+                                }
+                            },
+                            "Receive"
+                        ),
+                        _react3.default.createElement(_reactNative.View, {
+                            style: this.props.receiveActive ? styles.receiveLine : null,
+                            __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 63
+                            }
+                        })
+                    )
+                );
+            }
+        }]);
+
+        return CoinSendTabNavigator;
+    }(_react2.Component));
+
+    var styles = _reactNative.StyleSheet.create({
+        tabHeader: {
+            flexDirection: 'row',
+            width: '82%',
+            justifyContent: 'center',
+            borderBottomWidth: 1,
+            borderBottomColor: '#b3b3b3',
+            paddingBottom: '3.5%',
+            marginRight: '9%',
+            marginLeft: '9%'
+        },
+        headerSend: {
+            alignSelf: 'flex-start',
+            fontSize: (0, _reactNativeResponsiveFontsize2.default)(2.8),
+            fontFamily: "Cairo-Light",
+            letterSpacing: 0.6
+        },
+        headerActivity: {
+            alignSelf: 'center',
+            fontSize: (0, _reactNativeResponsiveFontsize2.default)(2.8),
+            fontFamily: "Cairo-Light",
+            letterSpacing: 0.6
+        },
+        headerReceive: {
+            alignSelf: 'flex-end',
+            fontSize: (0, _reactNativeResponsiveFontsize2.default)(2.8),
+            fontFamily: "Cairo-Light",
+            letterSpacing: 0.6
+        },
+        headerButton: {
+            width: '33%'
+        },
+        fullHeight: {
+            height: '100%'
+        },
+        greenShade: {
+            color: '#12c1a2'
+        },
+        sendLine: {
+            justifyContent: 'flex-end',
+            borderBottomColor: '#12c1a2',
+            borderBottomWidth: 1.5,
+            width: '60%'
+        },
+        activityLine: {
+            justifyContent: 'flex-end',
+            borderBottomColor: '#12c1a2',
+            borderBottomWidth: 1.5
+        },
+        receiveLine: {
+            justifyContent: 'flex-end',
+            borderBottomColor: '#12c1a2',
+            borderBottomWidth: 1.5,
+            marginLeft: '20%'
+        }
+    });
+
+    exports.default = CoinSendTabNavigator;
+});

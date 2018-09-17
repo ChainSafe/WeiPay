@@ -1,0 +1,12 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  module.exports = _require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
+    "__packager_asset": true,
+    "httpServerLocation": "/assets/src/assets/icons",
+    "width": 109,
+    "height": 109,
+    "scales": [1],
+    "hash": "302f0bcdc68b6174fa27de38a57370ef",
+    "name": "back",
+    "type": "png"
+  });
+});

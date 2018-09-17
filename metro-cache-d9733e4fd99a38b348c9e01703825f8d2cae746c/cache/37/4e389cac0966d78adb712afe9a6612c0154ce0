@@ -1,0 +1,91 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = _require(_dependencyMap[0], "react");
+
+  var _react3 = _interopRequireDefault(_react2);
+
+  var _index = _require(_dependencyMap[1], "./../../../node_modules/react-transform-hmr/lib/index.js");
+
+  var _index2 = _interopRequireDefault(_index);
+
+  var _jsxFileName = "/home/master/Documents/work/WeiPay/src/navigation/stack/index.js";
+
+  var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+  var _reactRedux = _require(_dependencyMap[2], "react-redux");
+
+  var _reactNavigation = _require(_dependencyMap[3], "react-navigation");
+
+  var _navigationStack = _require(_dependencyMap[4], "./navigationStack");
+
+  var _navigationStack2 = _interopRequireDefault(_navigationStack);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+  var _components = {
+    AppNavigation: {
+      displayName: "AppNavigation"
+    }
+  };
+
+  var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/home/master/Documents/work/WeiPay/src/navigation/stack/index.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+  });
+
+  function _wrapComponent(id) {
+    return function (Component) {
+      return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+  }
+
+  var AppNavigation = _wrapComponent("AppNavigation")(function (_Component) {
+    _inherits(AppNavigation, _Component);
+
+    function AppNavigation() {
+      _classCallCheck(this, AppNavigation);
+
+      return _possibleConstructorReturn(this, (AppNavigation.__proto__ || Object.getPrototypeOf(AppNavigation)).apply(this, arguments));
+    }
+
+    _createClass(AppNavigation, [{
+      key: "render",
+      value: function render() {
+        var _props = this.props,
+            navigationState = _props.navigationState,
+            dispatch = _props.dispatch;
+        return _react3.default.createElement(_navigationStack2.default, {
+          navigation: (0, _reactNavigation.addNavigationHelpers)({
+            dispatch: dispatch,
+            state: navigationState
+          }),
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 14
+          }
+        });
+      }
+    }]);
+
+    return AppNavigation;
+  }(_react2.Component));
+
+  var mapStateToProps = function mapStateToProps(state) {
+    return {
+      navigationState: state.NavigationReducer
+    };
+  };
+
+  exports.default = (0, _reactRedux.connect)(mapStateToProps)(AppNavigation);
+});

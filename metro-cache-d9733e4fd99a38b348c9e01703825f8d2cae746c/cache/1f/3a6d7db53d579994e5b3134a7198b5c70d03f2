@@ -1,0 +1,159 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var bind = _require(_dependencyMap[0], './helpers/bind');
+
+  var isBuffer = _require(_dependencyMap[1], 'is-buffer');
+
+  var toString = Object.prototype.toString;
+
+  function isArray(val) {
+    return toString.call(val) === '[object Array]';
+  }
+
+  function isArrayBuffer(val) {
+    return toString.call(val) === '[object ArrayBuffer]';
+  }
+
+  function isFormData(val) {
+    return typeof FormData !== 'undefined' && val instanceof FormData;
+  }
+
+  function isArrayBufferView(val) {
+    var result;
+
+    if (typeof ArrayBuffer !== 'undefined' && ArrayBuffer.isView) {
+      result = ArrayBuffer.isView(val);
+    } else {
+      result = val && val.buffer && val.buffer instanceof ArrayBuffer;
+    }
+
+    return result;
+  }
+
+  function isString(val) {
+    return typeof val === 'string';
+  }
+
+  function isNumber(val) {
+    return typeof val === 'number';
+  }
+
+  function isUndefined(val) {
+    return typeof val === 'undefined';
+  }
+
+  function isObject(val) {
+    return val !== null && typeof val === 'object';
+  }
+
+  function isDate(val) {
+    return toString.call(val) === '[object Date]';
+  }
+
+  function isFile(val) {
+    return toString.call(val) === '[object File]';
+  }
+
+  function isBlob(val) {
+    return toString.call(val) === '[object Blob]';
+  }
+
+  function isFunction(val) {
+    return toString.call(val) === '[object Function]';
+  }
+
+  function isStream(val) {
+    return isObject(val) && isFunction(val.pipe);
+  }
+
+  function isURLSearchParams(val) {
+    return typeof URLSearchParams !== 'undefined' && val instanceof URLSearchParams;
+  }
+
+  function trim(str) {
+    return str.replace(/^\s*/, '').replace(/\s*$/, '');
+  }
+
+  function isStandardBrowserEnv() {
+    if (typeof navigator !== 'undefined' && navigator.product === 'ReactNative') {
+      return false;
+    }
+
+    return typeof window !== 'undefined' && typeof document !== 'undefined';
+  }
+
+  function forEach(obj, fn) {
+    if (obj === null || typeof obj === 'undefined') {
+      return;
+    }
+
+    if (typeof obj !== 'object') {
+      obj = [obj];
+    }
+
+    if (isArray(obj)) {
+      for (var i = 0, l = obj.length; i < l; i++) {
+        fn.call(null, obj[i], i, obj);
+      }
+    } else {
+      for (var key in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, key)) {
+          fn.call(null, obj[key], key, obj);
+        }
+      }
+    }
+  }
+
+  function merge() {
+    var result = {};
+
+    function assignValue(val, key) {
+      if (typeof result[key] === 'object' && typeof val === 'object') {
+        result[key] = merge(result[key], val);
+      } else {
+        result[key] = val;
+      }
+    }
+
+    for (var i = 0, l = arguments.length; i < l; i++) {
+      forEach(arguments[i], assignValue);
+    }
+
+    return result;
+  }
+
+  function extend(a, b, thisArg) {
+    forEach(b, function assignValue(val, key) {
+      if (thisArg && typeof val === 'function') {
+        a[key] = bind(val, thisArg);
+      } else {
+        a[key] = val;
+      }
+    });
+    return a;
+  }
+
+  module.exports = {
+    isArray: isArray,
+    isArrayBuffer: isArrayBuffer,
+    isBuffer: isBuffer,
+    isFormData: isFormData,
+    isArrayBufferView: isArrayBufferView,
+    isString: isString,
+    isNumber: isNumber,
+    isObject: isObject,
+    isUndefined: isUndefined,
+    isDate: isDate,
+    isFile: isFile,
+    isBlob: isBlob,
+    isFunction: isFunction,
+    isStream: isStream,
+    isURLSearchParams: isURLSearchParams,
+    isStandardBrowserEnv: isStandardBrowserEnv,
+    forEach: forEach,
+    merge: merge,
+    extend: extend,
+    trim: trim
+  };
+});

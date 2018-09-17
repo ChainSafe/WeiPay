@@ -1,0 +1,16 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+	var QRCode = _require(_dependencyMap[0], './lib/QRCode');
+
+	var ErrorCorrectLevel = _require(_dependencyMap[1], './lib/ErrorCorrectLevel');
+
+	var qrcode = function qrcode(data, opt) {
+		opt = opt || {};
+		var qr = new QRCode(opt.typeNumber || -1, opt.errorCorrectLevel || ErrorCorrectLevel.H);
+		qr.addData(data);
+		qr.make();
+		return qr;
+	};
+
+	qrcode.ErrorCorrectLevel = ErrorCorrectLevel;
+	module.exports = qrcode;
+});
