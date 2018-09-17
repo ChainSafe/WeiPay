@@ -25,7 +25,10 @@ class Portfolio extends Component {
     data: this.props.newWallet.tokens,
     refresh: false,
     balance: 0,
-    pricesLoaded: false
+    pricesLoaded: false,
+    currencySymbol: ['CAD', 'USD', 'BTC', 'ETH', 'EUR'],
+    currencyIndex: 0,
+    reducerKeys: ['cadWalletBalance', 'usdWalletBalance', 'btcWalletBalance', 'ethWalletBalance', 'eurWalletBalance' ]
   }
 
   navigate = () => {
@@ -50,7 +53,6 @@ class Portfolio extends Component {
 
   getTokenBalance = async (tokenIndex) => {    
     const token = this.state.data[tokenIndex];
-    let prices;
     try {
       const currentWallet = this.props.newWallet.wallet;
       try {
@@ -59,19 +61,21 @@ class Portfolio extends Component {
           const check = String(utils.formatEther(balance));          
           console.log("eth " + check);         
           this.getConversions(tokenIndex, token.symbol, check);          
-        } else  {
+        } else {
+          debugger
            console.log("Other - " + token.address);
-          // console.log(token.symbol);
-          //  const contract = new ethers.Contract(token.address, ERC20ABI, currentWallet);
-          //  const tokenBalance = await contract.balanceOf(currentWallet.address);
-          //  console.log("token " + tokenBalance);
-          //this.getConversions(token.symbol, 0);
+          console.log(token.symbol);
+           const contract = new ethers.Contract(token.address, ERC20ABI, currentWallet);
+           console.log("after contract");           
+           const tokenBalance = await contract.balanceOf(currentWallet.address);
+           console.log("token " + tokenBalance);
+          // this.getConversions(token.symbol, 0);
           // console.log("TOKEN beofre");
           // console.log("TOKEN SYMBOL " + this.state.data[tokenIndex].symbol);
           // console.log("Token Balance - " + balance);          
           // prices = await this.getConversions(this.state.data[tokenIndex].symbol, balance);
           // console.log("TOKEN after");
-          //await this.props.updateTokenBalance(tokenIndex, String(balance));
+          // await this.props.updateTokenBalance(tokenIndex, String(balance));
           this.setState({ refresh: false });
         }
       } catch (err) {
@@ -162,11 +166,27 @@ class Portfolio extends Component {
       });
   }
 
+  handleCurrencyTouch = () => {
+    let currentIndex = this.state.currencySymbol;
+    console.log("currenct index - " + currentIndex);
+    
+    if(currentIndex == 4) {
+      this.setState({currencyIndex: 0})
+      console.log("true if -  " + this.state.currentIndex);      
+    } else {
+      let index = currentIndex += 1;
+      this.setState({currencyIndex: 0})
+      console.log("true else ->  index -> "  + index +  " state -> " + this.state.currentIndex);    
+    }
+
+  }
   /**
    * Returns a component that displays all the tokens that the user had selected.
    * The component also provides the option to add/delete tokens
    */
   render() {
+    console.log(this.props.newWallet.wallet.address);
+    
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer} >
@@ -177,17 +197,23 @@ class Portfolio extends Component {
               navigation={this.props.navigation}
             />
           </View>
-          <Text style={styles.textHeader}>Holdings</Text>
-          <View style={styles.accountValueHeader}>
-              <Text style={styles.headerValue}>
-                {
-                  this.state.pricesLoaded 
-                  ? this.props.newWallet.walletBalance.cadWalletBalance
-                  : 0
-                }
-              </Text>
-              <Text style={styles.headerValueCurrency}> CAD</Text>
-          </View>
+
+          {/* <TouchableOpacity onPress={() => this.handleCurrencyTouch} > */}
+            <Text style={styles.textHeader}>Holdings</Text>
+                    {/* </TouchableOpacity> */}
+         
+            <View style={styles.accountValueHeader}>          
+                <Text style={styles.headerValue}>
+                  {
+                    this.state.pricesLoaded 
+                    ? this.props.newWallet.walletBalance.cadWalletBalance
+                    : 0
+                  }
+                </Text>
+                <Text style={styles.headerValueCurrency}> CAD</Text>                
+            </View>
+
+
           <View style={styles.scrollViewContainer}>
             <FlatList
               data={this.state.data}

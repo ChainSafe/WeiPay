@@ -73,6 +73,8 @@ export default (state = INITIAL_STATE, action) => {
       walletBallanceObj.usdWalletBalance += (action.payload.usdBalance * action.payload.quantity);
       walletBallanceObj.cadWalletBalance += (action.payload.cadBalance * action.payload.quantity);
       walletBallanceObj.eurWalletBalance += (action.payload.eurBalance * action.payload.quantity);    
+      console.log(walletBallanceObj);
+      
       return { ...state, tokens: previousTokens, walletBalance: walletBallanceObj};
     case actions.RESET_WALLET_BALANCE:
       let walletResetObj = state.walletBalance;
