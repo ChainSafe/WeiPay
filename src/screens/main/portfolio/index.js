@@ -26,9 +26,15 @@ class Portfolio extends Component {
     refresh: false,
     balance: 0,
     pricesLoaded: false,
-    currencySymbol: ['CAD', 'USD', 'BTC', 'ETH', 'EUR'],
+    currencySymbol: ['USD', 'CAD', 'BTC', 'ETH', 'EUR'],
     currencyIndex: 0,
-    reducerKeys: ['cadWalletBalance', 'usdWalletBalance', 'btcWalletBalance', 'ethWalletBalance', 'eurWalletBalance' ]
+    reducerKeys: [
+      this.props.newWallet.walletBalance.usdWalletBalance, 
+      this.props.newWallet.walletBalance.cadWalletBalance, 
+      this.props.newWallet.walletBalance.btcWalletBalance, 
+      this.props.newWallet.walletBalance.ethWalletBalance, 
+      this.props.newWallet.walletBalance.eurWalletBalance 
+    ]
   }
 
   navigate = () => {
@@ -140,8 +146,14 @@ class Portfolio extends Component {
                 </View>
                 <View style={ styles.listItemValueContainer }>
                   <View style={ styles.listItemValueComponent }>
-                    <Text style={styles.listItemCryptoValue}>{token.quantity}</Text>
-                    <Text style={styles.listItemFiatValue}>{token.cadBalance}</Text>
+                    <Text style={styles.listItemCryptoValue}>
+                      {
+                        token.quantity
+                      }
+                    </Text>
+                    <Text style={styles.listItemFiatValue}>
+                      {token.cadBalance}
+                    </Text>
                   </View>
                 </View>
               </View>
@@ -152,22 +164,19 @@ class Portfolio extends Component {
   }
 
   handleListRefresh = () => {
-    this.setState({ refresh: true },
+    this.setState({ refresh: true, currencyIndex: 0 },
       () => {
         this.tokenBalanceLoop();
       });
   }
 
-  handleCurrencyTouch = () => {
-    let currentIndex = this.state.currencySymbol;
-    console.log("currenct index - " + currentIndex);
+  handleCurrencyTouch = () => {    
+    let currentIndex = this.state.currencyIndex;    
     if(currentIndex == 4) {
-      this.setState({currencyIndex: 0})
-      console.log("true if -  " + this.state.currentIndex);      
+      this.setState({currencyIndex: 0})        
     } else {
       let index = currentIndex += 1;
-      this.setState({currencyIndex: 0})
-      console.log("true else ->  index -> "  + index +  " state -> " + this.state.currentIndex);    
+      this.setState({currencyIndex: index})    
     }
   }
 
@@ -187,16 +196,26 @@ class Portfolio extends Component {
             />
           </View>
           <Text style={styles.textHeader}>Holdings</Text>
-          <View style={styles.accountValueHeader}>          
-              <Text style={styles.headerValue}>
-                {
-                  this.state.pricesLoaded 
-                  ? this.props.newWallet.walletBalance.cadWalletBalance
-                  : 0
-                }
-              </Text>
-              <Text style={styles.headerValueCurrency}> CAD</Text>                
+
+          <View style={styles.touchableCurrencyContainer}>
+            <TouchableOpacity onPress={this.handleCurrencyTouch}>
+              <View style={styles.accountValueHeader}>          
+                  <Text style={styles.headerValue}>
+                    {
+                      this.state.pricesLoaded 
+                      ? this.state.reducerKeys[this.state.currencyIndex]
+                      : 0
+                    }
+                  </Text>
+                  <Text style={styles.headerValueCurrency}> 
+                  {
+                    this.state.currencySymbol[this.state.currencyIndex]
+                  }
+                  </Text>                
+              </View>
+            </TouchableOpacity>
           </View>
+
           <View style={styles.scrollViewContainer}>
             <FlatList
               data={this.state.data}
@@ -339,9 +358,11 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
     justifyContent: 'center',
   },
+  touchableCurrencyContainer: {
+    flex: 0.5,
+  },
   accountValueHeader: {
     flexDirection: 'row',
-    flex: 0.5,
     alignItems: 'center',
   },
   headerValue: {

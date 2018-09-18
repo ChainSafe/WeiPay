@@ -30,7 +30,6 @@ const INITIAL_STATE = {
  *
  * Also handles the action invoked by using the QrScanner Component
  */
-
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case actions.QRSCANNER_DATA:
@@ -72,9 +71,7 @@ export default (state = INITIAL_STATE, action) => {
       walletBallanceObj.btcWalletBalance += (action.payload.btcBalance * action.payload.quantity);
       walletBallanceObj.usdWalletBalance += (action.payload.usdBalance * action.payload.quantity);
       walletBallanceObj.cadWalletBalance += (action.payload.cadBalance * action.payload.quantity);
-      walletBallanceObj.eurWalletBalance += (action.payload.eurBalance * action.payload.quantity);    
-      console.log(walletBallanceObj);
-      
+      walletBallanceObj.eurWalletBalance += (action.payload.eurBalance * action.payload.quantity);          
       return { ...state, tokens: previousTokens, walletBalance: walletBallanceObj};
     case actions.RESET_WALLET_BALANCE:
       let walletResetObj = state.walletBalance;
