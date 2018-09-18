@@ -48,16 +48,6 @@ class Portfolio extends Component {
     this.props.navigation.dispatch(navigateToAddToken);
   };
 
-  // componentDidMount() {
-  //   const tokenLen = this.props.newWallet.tokens.length;
-  //   console.log("component did mount ");
-  //   console.log(tokenLen);
-  //   for (let i = 0; i < (tokenLen); i += 1) {      
-  //     this.getTokenBalance(i);
-  //   }
-  //   this.setState({ refresh: false, pricesLoaded: true });
-  // }
-
   tokenBalanceLoop = async () => {
     const tokenLen = this.props.newWallet.tokens.length;
     this.setState({pricesLoaded: false})
@@ -65,9 +55,7 @@ class Portfolio extends Component {
     for (let i = 0; i < (tokenLen); i += 1) {      
       await this.getTokenBalance(i);
     }
-    await this.setState({ check: this.props.newWallet.walletBalance.usdWalletBalance })
-
-    await this.setState({ refresh: false, pricesLoaded: true });
+    await this.setState({ check: this.props.newWallet.walletBalance.usdWalletBalance, refresh: false, pricesLoaded: true })   
   }
 
   getTokenBalance = async (tokenIndex) => {    
@@ -95,9 +83,6 @@ class Portfolio extends Component {
   }
 
   getConversions = async (tokenIndex, symbol, quantity) => { 
-    console.log("We are in get conversions");
-    console.log(this.state.reducerKeys[this.state.currencyIndex]);
-    
     var usd, eth, btc, cad, eur;  
     let response = await axios.get(
       `https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD,CAD,ETH,BTC,EUR`
@@ -113,8 +98,7 @@ class Portfolio extends Component {
         prices.CAD,
         prices.EUR  
       ); 
-    } else {
-      console.log(tokenIndex, symbol, quantity);      
+    } else {         
       await this.props.updateTokenBalance(
         tokenIndex, 
         quantity, 
@@ -203,7 +187,6 @@ class Portfolio extends Component {
    * The component also provides the option to add/delete tokens
    */
   render() {  
-
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer} >
@@ -215,15 +198,12 @@ class Portfolio extends Component {
             />
           </View>
           <Text style={styles.textHeader}>Holdings</Text>
-
           <View style={styles.touchableCurrencyContainer}>
             <TouchableOpacity onPress={this.handleCurrencyTouch}>
               <View style={styles.accountValueHeader}>          
                   <Text style={styles.headerValue}>
-                    {
-                   
-                      this.state.check
-                
+                    {                   
+                      this.state.check                
                     }
                   </Text>
                   <Text style={styles.headerValueCurrency}> 
@@ -234,7 +214,6 @@ class Portfolio extends Component {
               </View>
             </TouchableOpacity>
           </View>
-
           <View style={styles.scrollViewContainer}>
             <FlatList
               data={this.state.data}
