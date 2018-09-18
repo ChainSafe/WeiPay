@@ -34,7 +34,8 @@ class Portfolio extends Component {
       this.props.newWallet.walletBalance.btcWalletBalance, 
       this.props.newWallet.walletBalance.ethWalletBalance, 
       this.props.newWallet.walletBalance.eurWalletBalance 
-    ]
+    ],
+    check: 0,
   }
 
   navigate = () => {
@@ -47,16 +48,26 @@ class Portfolio extends Component {
     this.props.navigation.dispatch(navigateToAddToken);
   };
 
+  // componentDidMount() {
+  //   const tokenLen = this.props.newWallet.tokens.length;
+  //   console.log("component did mount ");
+  //   console.log(tokenLen);
+  //   for (let i = 0; i < (tokenLen); i += 1) {      
+  //     this.getTokenBalance(i);
+  //   }
+  //   this.setState({ refresh: false, pricesLoaded: true });
+  // }
+
   tokenBalanceLoop = async () => {
     const tokenLen = this.props.newWallet.tokens.length;
     this.setState({pricesLoaded: false})
     this.props.resetWalletBalance();
     for (let i = 0; i < (tokenLen); i += 1) {      
       await this.getTokenBalance(i);
-      //this.setState({pricesLoaded: true})
     }
-    this.setState({pricesLoaded: true})
-    this.setState({ refresh: false });
+    await this.setState({ check: this.props.newWallet.walletBalance.usdWalletBalance })
+
+    await this.setState({ refresh: false, pricesLoaded: true });
   }
 
   getTokenBalance = async (tokenIndex) => {    
@@ -70,12 +81,8 @@ class Portfolio extends Component {
           await this.getConversions(tokenIndex, token.symbol, check);          
         } else {                              
            const contract = new ethers.Contract(token.address, ERC20ABI, Provider);       
-           const tokenBalance = await contract.balanceOf(currentWallet.address);   
-           //const checkTokenBalance = String(utils.formatEther(tokenBalance));  
-           console.log("token balance");
-           //console.log(checkTokenBalance);   
-           console.log(tokenBalance);                         
-           await this.getConversions(tokenIndex, token.symbol, tokenBalance);               
+           const tokenBalance = await contract.balanceOf(currentWallet.address);                                         
+           await this.getConversions(tokenIndex, token.symbol, String(tokenBalance));               
         }
       } catch (err) {
         this.props.updateTokenBalance(tokenIndex, 0, 0, 0, 0, 0, 0 );
@@ -88,6 +95,9 @@ class Portfolio extends Component {
   }
 
   getConversions = async (tokenIndex, symbol, quantity) => { 
+    console.log("We are in get conversions");
+    console.log(this.state.reducerKeys[this.state.currencyIndex]);
+    
     var usd, eth, btc, cad, eur;  
     let response = await axios.get(
       `https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD,CAD,ETH,BTC,EUR`
@@ -104,16 +114,15 @@ class Portfolio extends Component {
         prices.EUR  
       ); 
     } else {
-      console.log(tokenIndex, symbol, quantity);
-      
+      console.log(tokenIndex, symbol, quantity);      
       await this.props.updateTokenBalance(
         tokenIndex, 
         quantity, 
-        prices.ETH,
-        prices.BTC,
-        prices.USD,
-        prices.CAD,
-        prices.EUR  
+        0,
+        0,
+        0,
+        0,
+        0  
       );   
     }
   }
@@ -159,7 +168,9 @@ class Portfolio extends Component {
                       }
                     </Text>
                     <Text style={styles.listItemFiatValue}>
-                      {token.cadBalance}
+                      {
+                        token.cadBalance
+                      }
                     </Text>
                   </View>
                 </View>
@@ -192,6 +203,7 @@ class Portfolio extends Component {
    * The component also provides the option to add/delete tokens
    */
   render() {  
+
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer} >
@@ -209,9 +221,9 @@ class Portfolio extends Component {
               <View style={styles.accountValueHeader}>          
                   <Text style={styles.headerValue}>
                     {
-                      this.state.pricesLoaded 
-                      ? this.state.reducerKeys[this.state.currencyIndex]
-                      : 0
+                   
+                      this.state.check
+                
                     }
                   </Text>
                   <Text style={styles.headerValueCurrency}> 
