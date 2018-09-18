@@ -53,9 +53,9 @@ class Portfolio extends Component {
     this.props.resetWalletBalance();
     for (let i = 0; i < (tokenLen); i += 1) {      
       await this.getTokenBalance(i);
-      this.setState({pricesLoaded: true})
+      //this.setState({pricesLoaded: true})
     }
-    // this.setState({pricesLoaded: true})
+    this.setState({pricesLoaded: true})
     this.setState({ refresh: false });
   }
 
@@ -71,9 +71,9 @@ class Portfolio extends Component {
         } else {                              
            const contract = new ethers.Contract(token.address, ERC20ABI, Provider);       
            const tokenBalance = await contract.balanceOf(currentWallet.address);   
-           const checkTokenBalance = String(utils.formatEther(tokenBalance));  
+           //const checkTokenBalance = String(utils.formatEther(tokenBalance));  
            console.log("token balance");
-           console.log(checkTokenBalance);   
+           //console.log(checkTokenBalance);   
            console.log(tokenBalance);                         
            await this.getConversions(tokenIndex, token.symbol, tokenBalance);               
         }
@@ -106,15 +106,15 @@ class Portfolio extends Component {
     } else {
       console.log(tokenIndex, symbol, quantity);
       
-      // await this.props.updateTokenBalance(
-      //   tokenIndex, 
-      //   quantity, 
-      //   0,
-      //   0,
-      //   0,
-      //   0,
-      //   0  
-      // );   
+      await this.props.updateTokenBalance(
+        tokenIndex, 
+        quantity, 
+        prices.ETH,
+        prices.BTC,
+        prices.USD,
+        prices.CAD,
+        prices.EUR  
+      );   
     }
   }
 
