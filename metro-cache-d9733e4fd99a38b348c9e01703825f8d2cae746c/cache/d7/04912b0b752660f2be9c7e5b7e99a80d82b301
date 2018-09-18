@@ -172,6 +172,53 @@ __d(function (global, _require, module, exports, _dependencyMap) {
           newTokenName: ''
         });
 
+      case actions.ADD_TOKEN_FROM_LIST:
+        var lastIDcheck = state.tokens[state.tokens.length - 1].id + 1;
+        var NewcoinObj = {
+          "id": lastIDcheck,
+          "type": "ERC20",
+          "selected": true,
+          "symbol": action.payload[name],
+          "address": action.payload[add],
+          "decimals": 18,
+          "name": "New Token",
+          "ens_address": "",
+          "website": "",
+          "logo": {
+            "src": "https://etherscan.io/token/images/binance_28.png",
+            "width": 28,
+            "height": 28,
+            "ipfs_hash": ""
+          },
+          "support": {
+            "email": "",
+            "url": ""
+          },
+          "social": {
+            "blog": "",
+            "chat": "",
+            "facebook": "",
+            "forum": "",
+            "github": "",
+            "gitter": "",
+            "instagram": "",
+            "linkedin": "",
+            "reddit": "",
+            "slack": "",
+            "telegram": "",
+            "twitter": "",
+            "youtube": ""
+          }
+        };
+        var OldTokens = state.tokens;
+        OldTokens.push(NewcoinObj);
+        var OldcoinData = state.coinData;
+        OldcoinData.push(NewcoinObj);
+        return _extends({}, state, {
+          coinData: OldcoinData,
+          tokens: OldTokens
+        });
+
       default:
         return state;
     }

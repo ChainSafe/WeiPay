@@ -21,19 +21,25 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
   var _reactRedux = _require(_dependencyMap[4], "react-redux");
 
-  var _reactNavigation = _require(_dependencyMap[5], "react-navigation");
+  var _ActionCreator = _require(_dependencyMap[5], "../../../../actions/ActionCreator");
 
-  var _reactNativeResponsiveFontsize = _require(_dependencyMap[6], "react-native-responsive-fontsize");
+  var actions = _interopRequireWildcard(_ActionCreator);
+
+  var _reactNavigation = _require(_dependencyMap[6], "react-navigation");
+
+  var _reactNativeResponsiveFontsize = _require(_dependencyMap[7], "react-native-responsive-fontsize");
 
   var _reactNativeResponsiveFontsize2 = _interopRequireDefault(_reactNativeResponsiveFontsize);
 
-  var _CoinList = _require(_dependencyMap[7], "../../../../components/tokens/CoinList");
+  var _CoinList = _require(_dependencyMap[8], "../../../../components/tokens/CoinList");
 
   var _CoinList2 = _interopRequireDefault(_CoinList);
 
-  var _LinearButton = _require(_dependencyMap[8], "../../../../components/LinearGradient/LinearButton");
+  var _LinearButton = _require(_dependencyMap[9], "../../../../components/LinearGradient/LinearButton");
 
   var _LinearButton2 = _interopRequireDefault(_LinearButton);
+
+  function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -77,7 +83,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       }
 
       return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Coins.__proto__ || Object.getPrototypeOf(Coins)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-        tokens: _this.props.newWallet.allTokens
+        tokens: _this.props.newWallet.allTokens,
+        searchedTokenName: ""
       }, _this.navigate = function () {
         var navigateToPassphrase = _reactNavigation.NavigationActions.reset({
           index: 0,
@@ -95,9 +102,20 @@ __d(function (global, _require, module, exports, _dependencyMap) {
       value: function handleChangeText(input) {
         try {
           console.log(this.state.tokens[input]);
+          this.setState({
+            searchedTokenName: input
+          });
         } catch (error) {
           console.log("DNE");
         }
+      }
+    }, {
+      key: "addCustomToken",
+      value: function addCustomToken() {
+        this.setState({
+          searchedTokenName: ""
+        });
+        this.props.addTokenFromList(input, this.state.tokens[input]);
       }
     }, {
       key: "render",
@@ -109,7 +127,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
             style: styles.safeAreaView,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 53
+              lineNumber: 58
             }
           },
           _react3.default.createElement(
@@ -118,7 +136,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: styles.mainContainer,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 54
+                lineNumber: 59
               }
             },
             _react3.default.createElement(
@@ -129,12 +147,13 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 56
+                  lineNumber: 61
                 }
               },
               _react3.default.createElement(_reactNativeElements.SearchBar, {
                 lightTheme: true,
                 clearIcon: true,
+                searchIcon: true,
                 containerStyle: {
                   backgroundColor: '#fafbfe'
                 },
@@ -142,7 +161,26 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 placeholder: "Enter token symbol",
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 57
+                  lineNumber: 62
+                }
+              }),
+              _react3.default.createElement(
+                _reactNative.Text,
+                {
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 70
+                  }
+                },
+                this.state.searchedTokenName
+              ),
+              _react3.default.createElement(_LinearButton2.default, {
+                onClickFunction: this.addCustomToken,
+                buttonText: "Add this token",
+                customStyles: styles.button,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 71
                 }
               })
             ),
@@ -152,7 +190,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: styles.coinListContainer,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 65
+                  lineNumber: 77
                 }
               },
               _react3.default.createElement(
@@ -160,14 +198,14 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 {
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 66
+                    lineNumber: 78
                   }
                 },
                 _react3.default.createElement(_CoinList2.default, {
                   type: 'tokens',
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 67
+                    lineNumber: 79
                   }
                 })
               )
@@ -178,7 +216,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: styles.btnContainer,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 71
+                  lineNumber: 83
                 }
               },
               _react3.default.createElement(_LinearButton2.default, {
@@ -187,7 +225,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 customStyles: styles.button,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 72
+                  lineNumber: 84
                 }
               }),
               _react3.default.createElement(
@@ -196,7 +234,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: styles.footerGrandparentContainer,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 77
+                    lineNumber: 89
                   }
                 },
                 _react3.default.createElement(
@@ -205,7 +243,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: styles.footerParentContainer,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 78
+                      lineNumber: 90
                     }
                   },
                   _react3.default.createElement(
@@ -214,7 +252,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       style: styles.textFooter,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 79
+                        lineNumber: 91
                       }
                     },
                     "Powered by ChainSafe "
@@ -289,5 +327,5 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     };
   }
 
-  exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(Coins);
+  exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Coins);
 });

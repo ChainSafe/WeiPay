@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import { connect } from 'react-redux';
+import * as actions from '../../../../actions/ActionCreator';
 import { NavigationActions } from 'react-navigation';
 import RF from 'react-native-responsive-fontsize';
 import CoinList from '../../../../components/tokens/CoinList';
@@ -16,6 +17,7 @@ import LinearButton from '../../../../components/LinearGradient/LinearButton';
 class Coins extends Component {
   state={
     tokens: this.props.newWallet.allTokens,
+    searchedTokenName: "",
   }
 
 
@@ -33,14 +35,17 @@ class Coins extends Component {
  
 
   handleChangeText(input){
-    
     try {
       console.log(this.state.tokens[input]);
-        
+      this.setState({ searchedTokenName: input })
     } catch (error) {
       console.log("DNE");
-      
     }
+  }
+
+  addCustomToken() {
+    this.setState({ searchedTokenName: "" })
+    this.props.addTokenFromList(input, this.state.tokens[input])
   }
 
   /**
@@ -54,13 +59,20 @@ class Coins extends Component {
         <View style={styles.mainContainer}>
           
           <View style={{ flex: 0.95 }}>
-          <SearchBar
-            lightTheme
-            clearIcon
-            containerStyle={{backgroundColor: '#fafbfe' }}
-            onChangeText={this.handleChangeText.bind(this)}
-            // onClear={someMethod}
-            placeholder='Enter token symbol' />
+            <SearchBar
+              lightTheme
+              clearIcon
+              searchIcon
+              containerStyle={{backgroundColor: '#fafbfe' }}
+              onChangeText={this.handleChangeText.bind(this)}
+              // onClear={someMethod}
+              placeholder='Enter token symbol' />
+            <Text>{this.state.searchedTokenName}</Text>
+            <LinearButton
+              onClickFunction={this.addCustomToken}
+              buttonText='Add this token'
+              customStyles={styles.button}
+            />
           </View>
           <View style={styles.coinListContainer}>
             <ScrollView >
@@ -151,4 +163,4 @@ function mapStateToProps({ newWallet }) {
   return { newWallet };
 }
 
-export default connect(mapStateToProps, null)(Coins);
+export default connect(mapStateToProps, actions )(Coins);

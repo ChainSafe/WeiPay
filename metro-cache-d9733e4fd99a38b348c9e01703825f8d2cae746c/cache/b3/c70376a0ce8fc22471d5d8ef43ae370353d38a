@@ -254,11 +254,15 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     };
   }
 
-  function addTokenFromList(tokenAdd) {
+  function addTokenFromList(tokenname, tokenAdd) {
+    var loads = {
+      "name": tokenname,
+      "add": tokenAdd
+    };
     return function (dispatch) {
       dispatch({
         type: actionTypes.ADD_TOKEN_FROM_LIST,
-        payload: tokenAdd
+        payload: loads
       });
     };
   }

@@ -232,8 +232,9 @@ export function completeNewToken() {
   };
 }
 
-export function addTokenFromList(tokenAdd) {
+export function addTokenFromList(tokenname, tokenAdd) {
+  const loads = { "name": tokenname, "add": tokenAdd };
   return (dispatch) => {
-    dispatch({ type: actionTypes.ADD_TOKEN_FROM_LIST, payload: tokenAdd });
+    dispatch({ type: actionTypes.ADD_TOKEN_FROM_LIST, payload: loads });
   };
 }

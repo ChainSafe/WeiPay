@@ -108,7 +108,51 @@ export default (state = INITIAL_STATE, action) => {
       oldcoinData.push(coinObj);    
       
       return { ...state, coinData: oldcoinData, tokens: oldTokens, newTokenAddress: '', newTokenName: '' };
+    case actions.ADD_TOKEN_FROM_LIST:
+      let lastIDcheck = state.tokens[state.tokens.length - 1].id + 1;
+      
+      const NewcoinObj = {
+        "id": lastIDcheck,
+        "type": "ERC20",
+        "selected": true,
+        "symbol": action.payload[name],
+        "address": action.payload[add],
+        "decimals": 18,
+        "name": "New Token",
+        "ens_address": "",
+        "website": "",
+        "logo": {
+          "src": "https://etherscan.io/token/images/binance_28.png",
+          "width": 28,
+          "height": 28,
+          "ipfs_hash": ""
+        },
+        "support": {
+            "email": "",
+            "url": ""
+        },
+        "social": {
+            "blog": "",
+            "chat": "",
+            "facebook": "",
+            "forum": "",
+            "github": "",
+            "gitter": "",
+            "instagram": "",
+            "linkedin": "",
+            "reddit": "",
+            "slack": "",
+            "telegram": "",
+            "twitter": "",
+            "youtube": ""
+        }
+      }
+      const OldTokens = state.tokens
+      OldTokens.push(NewcoinObj);
 
+      const OldcoinData = state.coinData
+      OldcoinData.push(NewcoinObj); 
+      return { ...state, coinData: OldcoinData, tokens: OldTokens };
 
     default:
       return state;
