@@ -54,9 +54,19 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         _inherits(CoinList, _Component);
 
         function CoinList() {
+            var _ref;
+
+            var _temp, _this, _ret;
+
             _classCallCheck(this, CoinList);
 
-            return _possibleConstructorReturn(this, (CoinList.__proto__ || Object.getPrototypeOf(CoinList)).apply(this, arguments));
+            for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+                args[_key] = arguments[_key];
+            }
+
+            return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = CoinList.__proto__ || Object.getPrototypeOf(CoinList)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+                data: _this.props.coins
+            }, _temp), _possibleConstructorReturn(_this, _ret);
         }
 
         _createClass(CoinList, [{
@@ -88,20 +98,27 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     coin: coin,
                     __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 40
+                        lineNumber: 44
                     }
                 });
             }
         }, {
             key: "render",
             value: function render() {
-                return _react3.default.createElement(_reactNative.ListView, {
-                    dataSource: this.dataSource,
-                    renderRow: this.renderRow,
-                    removeClippedSubviews: false,
+                var _this2 = this;
+
+                return _react3.default.createElement(_reactNative.FlatList, {
+                    data: this.state.data,
+                    renderItem: function renderItem(_ref2) {
+                        var item = _ref2.item;
+                        return _this2.renderRow(item);
+                    },
+                    keyExtractor: function keyExtractor(item) {
+                        return String(item.id);
+                    },
                     __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 49
+                        lineNumber: 53
                     }
                 });
             }
@@ -110,8 +127,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         return CoinList;
     }(_react2.Component));
 
-    var mapStateToProps = function mapStateToProps(_ref) {
-        var newWallet = _ref.newWallet;
+    var mapStateToProps = function mapStateToProps(_ref3) {
+        var newWallet = _ref3.newWallet;
         return {
             coins: newWallet.coinData
         };

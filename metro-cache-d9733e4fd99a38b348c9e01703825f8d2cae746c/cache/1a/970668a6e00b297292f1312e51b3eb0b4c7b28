@@ -71,21 +71,12 @@ __d(function (global, _require, module, exports, _dependencyMap) {
   var Coins = _wrapComponent("Coins")(function (_Component) {
     _inherits(Coins, _Component);
 
-    function Coins() {
-      var _ref;
-
-      var _temp, _this, _ret;
-
+    function Coins(props) {
       _classCallCheck(this, Coins);
 
-      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
+      var _this = _possibleConstructorReturn(this, (Coins.__proto__ || Object.getPrototypeOf(Coins)).call(this, props));
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Coins.__proto__ || Object.getPrototypeOf(Coins)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-        tokens: _this.props.newWallet.allTokens,
-        searchedTokenName: ""
-      }, _this.navigate = function () {
+      _this.navigate = function () {
         var navigateToPassphrase = _reactNavigation.NavigationActions.reset({
           index: 0,
           actions: [_reactNavigation.NavigationActions.navigate({
@@ -94,40 +85,64 @@ __d(function (global, _require, module, exports, _dependencyMap) {
         });
 
         _this.props.navigation.dispatch(navigateToPassphrase);
-      }, _temp), _possibleConstructorReturn(_this, _ret);
+      };
+
+      _this.addCustomToken = function () {
+        _this.props.addTokenFromList(_this.state.searchedTokenName, _this.state.tokens[_this.state.searchedTokenName]);
+
+        _this.setState({
+          searchedTokenName: "",
+          refreshing: true
+        });
+      };
+
+      console.log(_this.props.newWallet.tokens);
+      _this.state = {
+        tokens: _this.props.newWallet.allTokens,
+        searchedTokenName: "",
+        refreshing: false
+      };
+      return _this;
     }
 
     _createClass(Coins, [{
       key: "handleChangeText",
       value: function handleChangeText(input) {
         try {
+          console.log("----------");
           console.log(this.state.tokens[input]);
           this.setState({
             searchedTokenName: input
           });
+          console.log("----------");
         } catch (error) {
           console.log("DNE");
         }
       }
     }, {
-      key: "addCustomToken",
-      value: function addCustomToken() {
+      key: "generateTokenList",
+      value: function generateTokenList() {
         this.setState({
-          searchedTokenName: ""
+          refreshing: false
         });
-        this.props.addTokenFromList(input, this.state.tokens[input]);
+        return _react3.default.createElement(_CoinList2.default, {
+          type: 'tokens',
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 68
+          }
+        });
       }
     }, {
       key: "render",
       value: function render() {
-        console.log(this.state.tokens["ETH"]);
         return _react3.default.createElement(
           _reactNative.SafeAreaView,
           {
             style: styles.safeAreaView,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 58
+              lineNumber: 78
             }
           },
           _react3.default.createElement(
@@ -136,21 +151,22 @@ __d(function (global, _require, module, exports, _dependencyMap) {
               style: styles.mainContainer,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 59
+                lineNumber: 79
               }
             },
             _react3.default.createElement(
               _reactNative.View,
               {
                 style: {
-                  flex: 0.95
+                  flex: 1
                 },
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 61
+                  lineNumber: 81
                 }
               },
               _react3.default.createElement(_reactNativeElements.SearchBar, {
+                value: this.state.searchedTokenName,
                 lightTheme: true,
                 clearIcon: true,
                 searchIcon: true,
@@ -161,26 +177,50 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 placeholder: "Enter token symbol",
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 62
+                  lineNumber: 82
                 }
-              }),
+              })
+            ),
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: {
+                  flex: 1
+                },
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 92
+                }
+              },
               _react3.default.createElement(
                 _reactNative.Text,
                 {
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 70
+                    lineNumber: 93
                   }
                 },
                 this.state.searchedTokenName
-              ),
+              )
+            ),
+            _react3.default.createElement(
+              _reactNative.View,
+              {
+                style: {
+                  flex: 1
+                },
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 95
+                }
+              },
               _react3.default.createElement(_LinearButton2.default, {
                 onClickFunction: this.addCustomToken,
                 buttonText: "Add this token",
                 customStyles: styles.button,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 71
+                  lineNumber: 96
                 }
               })
             ),
@@ -190,22 +230,30 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: styles.coinListContainer,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 77
+                  lineNumber: 102
                 }
               },
               _react3.default.createElement(
                 _reactNative.ScrollView,
                 {
+                  refreshControl: _react3.default.createElement(_reactNative.RefreshControl, {
+                    refreshing: this.state.refreshing,
+                    onRefresh: this.generateTokenList,
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 105
+                    }
+                  }),
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 78
+                    lineNumber: 103
                   }
                 },
                 _react3.default.createElement(_CoinList2.default, {
                   type: 'tokens',
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 79
+                    lineNumber: 111
                   }
                 })
               )
@@ -216,7 +264,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 style: styles.btnContainer,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 83
+                  lineNumber: 114
                 }
               },
               _react3.default.createElement(_LinearButton2.default, {
@@ -225,7 +273,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                 customStyles: styles.button,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 84
+                  lineNumber: 115
                 }
               }),
               _react3.default.createElement(
@@ -234,7 +282,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                   style: styles.footerGrandparentContainer,
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 89
+                    lineNumber: 120
                   }
                 },
                 _react3.default.createElement(
@@ -243,7 +291,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                     style: styles.footerParentContainer,
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 90
+                      lineNumber: 121
                     }
                   },
                   _react3.default.createElement(
@@ -252,7 +300,7 @@ __d(function (global, _require, module, exports, _dependencyMap) {
                       style: styles.textFooter,
                       __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 91
+                        lineNumber: 122
                       }
                     },
                     "Powered by ChainSafe "
@@ -320,8 +368,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
     }
   });
 
-  function mapStateToProps(_ref2) {
-    var newWallet = _ref2.newWallet;
+  function mapStateToProps(_ref) {
+    var newWallet = _ref.newWallet;
     return {
       newWallet: newWallet
     };

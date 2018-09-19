@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View, StyleSheet, Dimensions, Text, SafeAreaView, ScrollView,
+  View, StyleSheet, Dimensions, Text, SafeAreaView, ScrollView, RefreshControl
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -15,10 +15,20 @@ import LinearButton from '../../../../components/LinearGradient/LinearButton';
  * Screen to add more coins to the portfolio
  */
 class Coins extends Component {
-  state={
-    tokens: this.props.newWallet.allTokens,
-    searchedTokenName: "",
+
+  constructor(props){
+    super(props);
+
+    console.log(this.props.newWallet.tokens);
+    
+
+    this.state={
+      tokens: this.props.newWallet.allTokens,
+      searchedTokenName: "",
+      refreshing: false,
+    }
   }
+  
 
 
   /**
@@ -36,38 +46,53 @@ class Coins extends Component {
 
   handleChangeText(input){
     try {
+      console.log("----------");
       console.log(this.state.tokens[input]);
       this.setState({ searchedTokenName: input })
+      console.log("----------");
+      
     } catch (error) {
       console.log("DNE");
     }
   }
 
-  addCustomToken() {
-    this.setState({ searchedTokenName: "" })
-    this.props.addTokenFromList(input, this.state.tokens[input])
+  addCustomToken = () => {
+    //debugger;
+    this.props.addTokenFromList(this.state.searchedTokenName, this.state.tokens[this.state.searchedTokenName])
+    this.setState({ searchedTokenName: "", refreshing: true })
+  }
+  
+  generateTokenList() {
+    this.setState({ refreshing: false })
+    return (
+      <CoinList type={'tokens'} />
+    );
   }
 
   /**
    * Contains tha CoinList Component
    */
   render() {
-    console.log(this.state.tokens["ETH"]);
-
+    //0.95
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>
           
-          <View style={{ flex: 0.95 }}>
+          <View style={{ flex: 1 }}>
             <SearchBar
+              value={this.state.searchedTokenName}
               lightTheme
               clearIcon
               searchIcon
               containerStyle={{backgroundColor: '#fafbfe' }}
               onChangeText={this.handleChangeText.bind(this)}
-              // onClear={someMethod}
               placeholder='Enter token symbol' />
+          </View>
+
+          <View style={{flex: 1}}>
             <Text>{this.state.searchedTokenName}</Text>
+          </View>
+          <View style={{flex: 1}}>
             <LinearButton
               onClickFunction={this.addCustomToken}
               buttonText='Add this token'
@@ -75,9 +100,15 @@ class Coins extends Component {
             />
           </View>
           <View style={styles.coinListContainer}>
-            <ScrollView >
+            <ScrollView  
+              refreshControl={
+                <RefreshControl
+                  refreshing={this.state.refreshing}
+                  onRefresh={this.generateTokenList}
+                  />
+                 }
+            >
                 <CoinList type={'tokens'} />
-                {/* <CoinList /> */}
             </ScrollView>
           </View>
           <View style={styles.btnContainer}>

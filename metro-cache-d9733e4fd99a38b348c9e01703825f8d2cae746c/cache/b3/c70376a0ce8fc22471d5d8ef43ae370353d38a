@@ -256,8 +256,8 @@ __d(function (global, _require, module, exports, _dependencyMap) {
 
   function addTokenFromList(tokenname, tokenAdd) {
     var loads = {
-      "name": tokenname,
-      "add": tokenAdd
+      name: tokenname,
+      add: tokenAdd
     };
     return function (dispatch) {
       dispatch({
