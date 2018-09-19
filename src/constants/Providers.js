@@ -1,9 +1,7 @@
-/**
- * Provider is required to create an abstract connection between the wallet and the ethereum blockchain
- * Exporting a provider that is connected to the ropsten testnet via Infura
- */
+import Config from 'react-native-config';
+
 const ethers = require('ethers');
 
-const provider = new ethers.providers.InfuraProvider('mainnet', 'O8UtwLH2uVXXIu89dieJ');
+const provider = new ethers.providers.InfuraProvider('ropsten', Config.INFURA_API_KEY);
 
 export default provider;
