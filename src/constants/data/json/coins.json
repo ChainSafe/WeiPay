@@ -39,78 +39,6 @@
         "id": 1,
         "type": "ERC20",
         "selected": false,
-        "symbol": "TRX",
-        "address": "0xf230b790E05390FC8295F4d3F60332c93BEd42e2",
-        "decimals": 6,
-        "name": "Tron Lab Token",
-        "ens_address": "",
-        "website": "https://tronlab.com/en.html",
-        "logo": {
-            "src": "https://etherscan.io/token/images/tronlab_28.png",
-            "width": "",
-            "height": "",
-            "ipfs_hash": ""
-        },
-        "support": {
-            "email": "service@tronlab.com",
-            "url": ""
-        },
-        "social": {
-            "blog": "",
-            "chat": "",
-            "facebook": "https://www.facebook.com/TronFoundation-144555002795817",
-            "forum": "",
-            "github": "",
-            "gitter": "",
-            "instagram": "",
-            "linkedin": "",
-            "reddit": "",
-            "slack": "https://tronfoundation.slack.com",
-            "telegram": "https://t.me/joinchat/GIjGvkK7dhnO8gapCPfqew",
-            "twitter": "https://twitter.com/tronfoundation",
-            "youtube": ""
-        }
-    },
-    {
-        "id": 2,
-        "type": "ERC20",
-        "selected": false,
-        "symbol": "BNB",
-        "address": "0xB8c77482e45F1F44dE1745F52C74426C631bDD52",
-        "decimals": 18,
-        "name": "BNB",
-        "ens_address": "",
-        "website": "https://www.binance.com",
-        "logo": {
-            "src": "https://etherscan.io/token/images/binance_28.png",
-            "width": 28,
-            "height": 28,
-            "ipfs_hash": ""
-        },
-        "support": {
-            "email": "support@binance.zendesk.com",
-            "url": ""
-        },
-        "social": {
-            "blog": "",
-            "chat": "",
-            "facebook": "https://www.facebook.com/binance2017",
-            "forum": "",
-            "github": "",
-            "gitter": "",
-            "instagram": "",
-            "linkedin": "",
-            "reddit": "https://www.reddit.com/r/binance",
-            "slack": "",
-            "telegram": "",
-            "twitter": "https://twitter.com/binance_2017",
-            "youtube": ""
-        }
-    },
-    {
-        "id": 3,
-        "type": "ERC20",
-        "selected": false,
         "symbol": "SUB",
         "address": "0xd26114cd6EE289AccF82350c8d8487fedB8A0C07",
         "decimals": 2,
@@ -144,7 +72,7 @@
         }
     },
     {
-        "id": 4,
+        "id": 2,
         "type": "ERC20",
         "selected": false,
         "symbol": "ML",
