@@ -59,7 +59,6 @@ class Portfolio extends Component {
   }
 
   getTokenBalance = async (tokenIndex) => {
-
     const token = this.state.data[tokenIndex];
     try {
       const currentWallet = this.props.newWallet.wallet;
