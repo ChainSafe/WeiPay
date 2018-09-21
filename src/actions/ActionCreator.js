@@ -1,6 +1,5 @@
 import * as actionTypes from './ActionTypes';
 
-
 /**
  * Action for adding tokens to the portfolio during the main setup
  * returns a dispatch => which invokes all the reducers to handle this action
@@ -27,7 +26,6 @@ export function newWalletCreation(wallet) {
   };
 }
 
-
 /**
  * retruns an action with the wallet name as a payload
  * @param {String} name
@@ -46,7 +44,6 @@ export function restoreWallet() {
     dispatch({ type: actionTypes.RESTORE_WALLET });
   };
 }
-
 
 /**
  * returns an action that contains the fiat currency that the user
@@ -70,7 +67,6 @@ export function selectWalletLanguage(language) {
     dispatch({ type: actionTypes.SELECT_WALLET_LANGUAGE, payload: language });
   };
 }
-
 
 /**
  * Returns an action that contains the -Name- of the new contact
@@ -130,7 +126,6 @@ export function updateSavedContactInputs(newInfo) {
     dispatch({ type: actionTypes.UPDATE_SAVED_CONTACT_INPUTS, payload: newInfo });
   };
 }
-
 
 export function editContact(contactName, contactAddress) {
   const contact = {};
@@ -204,10 +199,25 @@ export function enterDebug() {
  * @param {String} tokenID
  * @param {String} balance
  */
-export function updateTokenBalance(tokenID, balance) {
+export function updateTokenBalance(tokenID, quantity, ethBalance, btcBalance, usdBalance, cadBalance, eurBalance) {
   return (dispatch) => {
-    dispatch({ type: actionTypes.UPDATE_TOKEN_BALANCE, payload: { tokenID, balance } });
-  };
+    dispatch({ type: actionTypes.UPDATE_TOKEN_BALANCE, payload: { 
+      tokenID, 
+      quantity,
+      ethBalance,
+      btcBalance,
+      usdBalance,
+      cadBalance,
+      eurBalance
+    } 
+  });
+ };
+}
+
+export function resetWalletBalance() {
+  return (dispatch) => {
+    dispatch({type: actionTypes.RESET_WALLET_BALANCE, payload: 0 });
+  }
 }
 
 /**

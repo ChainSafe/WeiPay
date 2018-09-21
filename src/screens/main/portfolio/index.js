@@ -6,15 +6,14 @@ import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from 'react-navigation';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
-import { addTokenInfo, updateTokenBalance } from '../../../actions/ActionCreator';
+import { addTokenInfo, updateTokenBalance, resetWalletBalance } from '../../../actions/ActionCreator';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 import ERC20ABI from '../../../constants/data/json/ERC20ABI.json';
 import Provider from '../../../constants/Providers';
-
+import axios from 'axios'
 
 const ethers = require('ethers');
-
 const utils = ethers.utils;
 
 /**
@@ -25,6 +24,18 @@ class Portfolio extends Component {
   state = {
     data: this.props.newWallet.tokens,
     refresh: false,
+    balance: 0,
+    pricesLoaded: false,
+    currencySymbol: ['USD', 'CAD', 'BTC', 'ETH', 'EUR'],
+    currencyIndex: 0,
+    reducerKeys: [
+      this.props.newWallet.walletBalance.usdWalletBalance, 
+      this.props.newWallet.walletBalance.cadWalletBalance, 
+      this.props.newWallet.walletBalance.btcWalletBalance, 
+      this.props.newWallet.walletBalance.ethWalletBalance, 
+      this.props.newWallet.walletBalance.eurWalletBalance 
+    ],
+    check: 0,
   }
 
   navigate = () => {
@@ -39,32 +50,64 @@ class Portfolio extends Component {
 
   tokenBalanceLoop = async () => {
     const tokenLen = this.props.newWallet.tokens.length;
-    for (let i = 0; i < (tokenLen); i += 1) {
-      this.getTokenBalance(i);
+    this.setState({pricesLoaded: false})
+    this.props.resetWalletBalance();
+    for (let i = 0; i < (tokenLen); i += 1) {      
+      await this.getTokenBalance(i);
     }
+    await this.setState({ check: this.props.newWallet.walletBalance.usdWalletBalance, refresh: false, pricesLoaded: true })   
   }
 
   getTokenBalance = async (tokenIndex) => {
-
     const token = this.state.data[tokenIndex];
     try {
       const currentWallet = this.props.newWallet.wallet;
       try {
-        if (token.address === '') {
+        if (token.address === '') {            
           const balance = await Provider.getBalance(currentWallet.address);
-          const check = String(utils.formatEther(balance));
-          await this.props.updateTokenBalance(tokenIndex, check);
-          this.setState({ refresh: false });
-        } else if (token.address !== '') {
-          const contract = new ethers.Contract(token.address, ERC20ABI, currentWallet);
-          const balance = await contract.balanceOf(currentWallet.address);
-          await this.props.updateTokenBalance(tokenIndex, String(balance));
+          const check = String(utils.formatEther(balance));                 
+          await this.getConversions(tokenIndex, token.symbol, check);          
+        } else {                              
+           const contract = new ethers.Contract(token.address, ERC20ABI, Provider);       
+           const tokenBalance = await contract.balanceOf(currentWallet.address);                                         
+           await this.getConversions(tokenIndex, token.symbol, String(tokenBalance));               
         }
       } catch (err) {
-        this.props.updateTokenBalance(tokenIndex, '0.0');
+        this.props.updateTokenBalance(tokenIndex, 0, 0, 0, 0, 0, 0 );
+        console.log("in error block", err);                 
+        this.setState({ refresh: false });
       }
     } catch (e) {
       console.log(e);
+    }
+  }
+
+  getConversions = async (tokenIndex, symbol, quantity) => { 
+    var usd, eth, btc, cad, eur;  
+    let response = await axios.get(
+      `https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD,CAD,ETH,BTC,EUR`
+    )
+    if(response.data.hasOwnProperty('USD')){     
+      let prices = response.data;         
+      await this.props.updateTokenBalance(
+        tokenIndex, 
+        quantity, 
+        prices.ETH,
+        prices.BTC,
+        prices.USD,
+        prices.CAD,
+        prices.EUR  
+      ); 
+    } else {         
+      await this.props.updateTokenBalance(
+        tokenIndex, 
+        quantity, 
+        0,
+        0,
+        0,
+        0,
+        0  
+      );   
     }
   }
 
@@ -103,12 +146,16 @@ class Portfolio extends Component {
                 </View>
                 <View style={ styles.listItemValueContainer }>
                   <View style={ styles.listItemValueComponent }>
-                    <View style={{ flex: 1, paddingTop: '0%',}}>
-                      <Text style={styles.listItemCryptoValue}>{token.balance}</Text>
-                    </View>
-                    <View style={{ flex: 1, paddingBottom: '5%',}}>
-                      <Text style={styles.listItemFiatValue}>$2444432</Text>
-                    </View>
+                    <Text style={styles.listItemCryptoValue}>
+                      {
+                        token.quantity
+                      }
+                    </Text>
+                    <Text style={styles.listItemFiatValue}>
+                      {
+                        token.cadBalance
+                      }
+                    </Text>
                   </View>
                 </View>
               </View>
@@ -119,17 +166,27 @@ class Portfolio extends Component {
   }
 
   handleListRefresh = () => {
-    this.setState({ refresh: true },
+    this.setState({ refresh: true, currencyIndex: 0 },
       () => {
         this.tokenBalanceLoop();
       });
+  }
+
+  handleCurrencyTouch = () => {    
+    let currentIndex = this.state.currencyIndex;    
+    if(currentIndex == 4) {
+      this.setState({currencyIndex: 0})        
+    } else {
+      let index = currentIndex += 1;
+      this.setState({currencyIndex: index})    
+    }
   }
 
   /**
    * Returns a component that displays all the tokens that the user had selected.
    * The component also provides the option to add/delete tokens
    */
-  render() {
+  render() {  
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer} >
@@ -141,9 +198,21 @@ class Portfolio extends Component {
             />
           </View>
           <Text style={styles.textHeader}>Holdings</Text>
-          <View style={styles.accountValueHeader}>
-            <Text style={styles.headerValue}>0$</Text>
-            <Text style={styles.headerValueCurrency}> USD</Text>
+          <View style={styles.touchableCurrencyContainer}>
+            <TouchableOpacity onPress={this.handleCurrencyTouch}>
+              <View style={styles.accountValueHeader}>          
+                  <Text style={styles.headerValue}>
+                    {                   
+                      this.state.check                
+                    }
+                  </Text>
+                  <Text style={styles.headerValueCurrency}> 
+                  {
+                    this.state.currencySymbol[this.state.currencyIndex]
+                  }
+                  </Text>                
+              </View>
+            </TouchableOpacity>
           </View>
           <View style={styles.scrollViewContainer}>
             <FlatList
@@ -232,37 +301,34 @@ const styles = StyleSheet.create({
   mainTitleContainer: {
     flex: 0.5,
     justifyContent: 'flex-end',
-    paddingTop: '7%',
+    paddingTop: '2.5%',
   },
   mainTitleText: {
-    fontSize: RF(2.4),
+    fontSize: RF(3),
     fontFamily: 'Cairo-Regular',
     letterSpacing: 0.5,
-    color: '#061f46',
+    color: 'black',
   },
   subtitleContainer: {
     flex: 0.5,
     justifyContent: 'flex-start',
-    paddingBottom: '11%',
-    paddingLeft: '2%'
+    paddingBottom: '1.5%',
   },
   subTitleText: {
-    fontSize: RF(1.6),
-    paddingLeft: '.5%',
+    fontSize: RF(2),
     fontFamily: 'Cairo-Regular',
-    color: '#061f46',
     letterSpacing: 0.5,
   },
   listItemFiatValue: {
     alignItems: 'flex-end',
-    fontSize: RF(1.7),
+    fontSize: RF(2),
     fontFamily: 'WorkSans-Light',
     paddingRight: '1.75%',
     letterSpacing: 0.4,
   },
   listItemCryptoValue: {
     alignItems: 'flex-end',
-    fontSize: RF(2.7),
+    fontSize: RF(1.5),
     fontFamily: 'Cairo-Regular',
     letterSpacing: 0.5,
     color: 'black',
@@ -290,9 +356,11 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
     justifyContent: 'center',
   },
+  touchableCurrencyContainer: {
+    flex: 0.5,
+  },
   accountValueHeader: {
     flexDirection: 'row',
-    flex: 0.5,
     alignItems: 'center',
   },
   headerValue: {
@@ -336,19 +404,6 @@ const styles = StyleSheet.create({
     color: '#c0c0c0',
     letterSpacing: 0.5,
   },
-  // footerContainer: {
-  //   alignItems: 'center',
-  //   justifyContent: 'flex-end',
-  //   flex: 1,
-  // },
-  // textFooter : {
-  //   fontFamily: "WorkSans-Regular",
-  //   fontSize: RF(1.7),
-  //   marginBottom: '5%',
-  //   alignItems: 'center' ,
-  //   color: '#c0c0c0',
-  //   letterSpacing: 0.5
-  // }
 });
 
 /**
@@ -361,4 +416,4 @@ function mapStateToProps({ newWallet }) {
   return { newWallet };
 }
 
-export default connect(mapStateToProps, { addTokenInfo, updateTokenBalance })(Portfolio);
+export default connect(mapStateToProps, { addTokenInfo, updateTokenBalance, resetWalletBalance })(Portfolio);
