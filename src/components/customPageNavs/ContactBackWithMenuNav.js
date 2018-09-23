@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, StyleSheet, TextInput, Text, Platform, Image } from "react-native";
+import { View, TouchableOpacity, StyleSheet, TextInput, Text, Platform, Image, Dimensions } from "react-native";
 import { NavigationActions } from "react-navigation";
 
 class ContactBackWithMenuNav extends Component {
@@ -33,7 +33,7 @@ class ContactBackWithMenuNav extends Component {
                     onPress={this.props.backButton} >
                     <Image
                       source={require('../../assets/icons/back.png')}
-                      style={{height:20, width:20}}
+                      style={styles.btnBack}
                     />
                   </TouchableOpacity>
                 </View> : null}
@@ -43,7 +43,7 @@ class ContactBackWithMenuNav extends Component {
                     onPress={this.navigateMenu} >
                     <Image
                       source={require('../../assets/icons/menu.png')}
-                      style={{height:13, width:20}}
+                      style={styles.btnMenu}
                     />
                   </TouchableOpacity>
                 </View> : null}
@@ -72,7 +72,15 @@ const styles = StyleSheet.create({
      boxTwo: {
         alignItems:'flex-end',
         zIndex: 100
-    }
+    },
+    btnBack: {
+        height: Dimensions.get('window').height * 0.03,  
+        width: Dimensions.get('window').width * 0.05,  
+    },
+    btnMenu: {
+        height: Dimensions.get('window').height * 0.02,  
+        width: Dimensions.get('window').width * 0.05,  
+    },
 })
 
 export default ContactBackWithMenuNav

@@ -6,15 +6,14 @@ import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from 'react-navigation';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
-import { addTokenInfo, updateTokenBalance } from '../../../actions/ActionCreator';
+import { addTokenInfo, updateTokenBalance, resetWalletBalance } from '../../../actions/ActionCreator';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 import ERC20ABI from '../../../constants/data/json/ERC20ABI.json';
 import Provider from '../../../constants/Providers';
-
+import axios from 'axios'
 
 const ethers = require('ethers');
-
 const utils = ethers.utils;
 
 /**
@@ -25,10 +24,22 @@ class Portfolio extends Component {
   state = {
     data: this.props.newWallet.tokens,
     refresh: false,
+    balance: 0,
+    pricesLoaded: false,
+    currencySymbol: ['USD', 'CAD', 'BTC', 'ETH', 'EUR'],
+    currencyIndex: 0,
+    reducerKeys: [
+      this.props.newWallet.walletBalance.usdWalletBalance, 
+      this.props.newWallet.walletBalance.cadWalletBalance, 
+      this.props.newWallet.walletBalance.btcWalletBalance, 
+      this.props.newWallet.walletBalance.ethWalletBalance, 
+      this.props.newWallet.walletBalance.eurWalletBalance 
+    ],
+    check: 0,
   }
 
   navigate = () => {
-    const navigateToAddToken = NavigationActions.navigate({ routeName: 'Tokens' });
+    const navigateToAddToken = NavigationActions.navigate({ routeName: 'AddTokenFunctionality' });
     this.props.navigation.dispatch(navigateToAddToken);
   };
 
@@ -37,33 +48,66 @@ class Portfolio extends Component {
     this.props.navigation.dispatch(navigateToAddToken);
   };
 
-  getTokenBalance= async () => {
+  tokenBalanceLoop = async () => {
     const tokenLen = this.props.newWallet.tokens.length;
-    
-    for (let i = 0; i < tokenLen; i += 1) {
+    this.setState({pricesLoaded: false})
+    this.props.resetWalletBalance();
+    for (let i = 0; i < (tokenLen); i += 1) {      
+      await this.getTokenBalance(i);
+    }
+    await this.setState({ check: this.props.newWallet.walletBalance.usdWalletBalance, refresh: false, pricesLoaded: true })   
+  }
 
-      const token = this.state.data[i];
+  getTokenBalance = async (tokenIndex) => {
+    const token = this.state.data[tokenIndex];
+    try {
+      const currentWallet = this.props.newWallet.wallet;
       try {
-        const currentWallet = await this.props.newWallet.wallet;
-        try {
-          if (token.address === '') {
-            const balance = await Provider.getBalance(currentWallet.address);
-            const check = String(utils.formatEther(balance));
-            await this.props.updateTokenBalance(token.id, check);
-            this.setState({ refresh: false });
-          } else if (token.address !== '') {
-            const contract = new ethers.Contract(token.address, ERC20ABI, currentWallet);
-            await contract.balanceOf(currentWallet.address).then((balance) => {
-              const tokenBalance = String(ethers.utils.formatEther(balance));
-              this.props.updateTokenBalance(token.id, tokenBalance);
-            });
-          }
-        } catch (err) {
-          console.log(err);
+        if (token.address === '') {            
+          const balance = await Provider.getBalance(currentWallet.address);
+          const check = String(utils.formatEther(balance));                 
+          await this.getConversions(tokenIndex, token.symbol, check);          
+        } else {                              
+           const contract = new ethers.Contract(token.address, ERC20ABI, Provider);       
+           const tokenBalance = await contract.balanceOf(currentWallet.address);                                         
+           await this.getConversions(tokenIndex, token.symbol, String(tokenBalance));               
         }
-      } catch (e) {
-        console.log(e);
+      } catch (err) {
+        this.props.updateTokenBalance(tokenIndex, 0, 0, 0, 0, 0, 0 );
+        console.log("in error block", err);                 
+        this.setState({ refresh: false });
       }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  getConversions = async (tokenIndex, symbol, quantity) => { 
+    var usd, eth, btc, cad, eur;  
+    let response = await axios.get(
+      `https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD,CAD,ETH,BTC,EUR`
+    )
+    if(response.data.hasOwnProperty('USD')){     
+      let prices = response.data;         
+      await this.props.updateTokenBalance(
+        tokenIndex, 
+        quantity, 
+        prices.ETH,
+        prices.BTC,
+        prices.USD,
+        prices.CAD,
+        prices.EUR  
+      ); 
+    } else {         
+      await this.props.updateTokenBalance(
+        tokenIndex, 
+        quantity, 
+        0,
+        0,
+        0,
+        0,
+        0  
+      );   
     }
   }
 
@@ -75,10 +119,10 @@ class Portfolio extends Component {
         <TouchableOpacity
           onPress={() => {
             this.props.addTokenInfo(token);
-            this.props.navigation.navigate("coinSend")
+            this.props.navigation.navigate("TokenFunctionality")
           }}
           style={styles.listItemParentContainer}
-          >
+        >
           <View>
             <BoxShadowCard customStyles={styles.boxShadowContainer}>
               <View style={[styles.contentContainer]}>
@@ -102,30 +146,47 @@ class Portfolio extends Component {
                 </View>
                 <View style={ styles.listItemValueContainer }>
                   <View style={ styles.listItemValueComponent }>
-                    <Text style={styles.listItemCryptoValue}>{token.balance}</Text>
-                    <Text style={styles.listItemFiatValue}>$2444432</Text>
+                    <Text style={styles.listItemCryptoValue}>
+                      {
+                        token.quantity
+                      }
+                    </Text>
+                    <Text style={styles.listItemFiatValue}>
+                      {
+                        token.cadBalance
+                      }
+                    </Text>
                   </View>
                 </View>
               </View>
             </BoxShadowCard>
           </View>
-        </TouchableOpacity >
+        </TouchableOpacity>
     );
   }
 
   handleListRefresh = () => {
-    this.setState({refresh: true },
-    () => {
-      this.getTokenBalance();
-    } );
+    this.setState({ refresh: true, currencyIndex: 0 },
+      () => {
+        this.tokenBalanceLoop();
+      });
+  }
+
+  handleCurrencyTouch = () => {    
+    let currentIndex = this.state.currencyIndex;    
+    if(currentIndex == 4) {
+      this.setState({currencyIndex: 0})        
+    } else {
+      let index = currentIndex += 1;
+      this.setState({currencyIndex: index})    
+    }
   }
 
   /**
    * Returns a component that displays all the tokens that the user had selected.
    * The component also provides the option to add/delete tokens
    */
-  render() {
-  
+  render() {  
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer} >
@@ -137,35 +198,44 @@ class Portfolio extends Component {
             />
           </View>
           <Text style={styles.textHeader}>Holdings</Text>
-          <View style={styles.accountValueHeader}>
-              <Text style={styles.headerValue}>0$</Text>
-              <Text style={styles.headerValueCurrency}> USD</Text>
+          <View style={styles.touchableCurrencyContainer}>
+            <TouchableOpacity onPress={this.handleCurrencyTouch}>
+              <View style={styles.accountValueHeader}>          
+                  <Text style={styles.headerValue}>
+                    {                   
+                      this.state.check                
+                    }
+                  </Text>
+                  <Text style={styles.headerValueCurrency}> 
+                  {
+                    this.state.currencySymbol[this.state.currencyIndex]
+                  }
+                  </Text>                
+              </View>
+            </TouchableOpacity>
           </View>
           <View style={styles.scrollViewContainer}>
             <FlatList
               data={this.state.data}
               showsVerticalScrollIndicator={false}
-              renderItem={({ item }) => { return this.renderRow(item) ;}}
-              keyExtractor={(item) => { return String(item.id) ;}}
+              renderItem={({ item }) => { return this.renderRow(item); }}
+              keyExtractor={(item) => { return String(item.id); }}
               refreshing={this.state.refresh}
               onRefresh={this.handleListRefresh}
               extraData={this.props}
             />
-
           </View>
-
           <View style={styles.btnContainer}>
             <LinearButton
-                onClickFunction={this.navigate}
-                buttonText="Add Token or Coin"
-                customStyles={styles.button}
-              />
-              <View style={styles.footerGrandparentContainer}>
-                  <View style={styles.footerParentContainer} >
-                      <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-                  </View>
+              onClickFunction={this.navigate}
+              buttonText="Add Token or Coin"
+              customStyles={styles.button}
+            />
+            <View style={styles.footerGrandparentContainer}>
+              <View style={styles.footerParentContainer} >
+                <Text style={styles.textFooter} >Powered by ChainSafe </Text>
               </View>
-
+              </View>
             </View>
         </View>
       </SafeAreaView>
@@ -286,9 +356,11 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
     justifyContent: 'center',
   },
+  touchableCurrencyContainer: {
+    flex: 0.5,
+  },
   accountValueHeader: {
     flexDirection: 'row',
-    flex: 0.5,
     alignItems: 'center',
   },
   headerValue: {
@@ -332,19 +404,6 @@ const styles = StyleSheet.create({
     color: '#c0c0c0',
     letterSpacing: 0.5,
   },
-  // footerContainer: {
-  //   alignItems: 'center',
-  //   justifyContent: 'flex-end',
-  //   flex: 1,
-  // },
-  // textFooter : {
-  //   fontFamily: "WorkSans-Regular",
-  //   fontSize: RF(1.7),
-  //   marginBottom: '5%',
-  //   alignItems: 'center' ,
-  //   color: '#c0c0c0',
-  //   letterSpacing: 0.5
-  // }
 });
 
 /**
@@ -357,4 +416,4 @@ function mapStateToProps({ newWallet }) {
   return { newWallet };
 }
 
-export default connect(mapStateToProps, { addTokenInfo, updateTokenBalance })(Portfolio);
+export default connect(mapStateToProps, { addTokenInfo, updateTokenBalance, resetWalletBalance })(Portfolio);
