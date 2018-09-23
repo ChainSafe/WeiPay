@@ -1,5 +1,7 @@
 .vscode
 
+.env 
+
 # OSX
 #
 .DS_Store
