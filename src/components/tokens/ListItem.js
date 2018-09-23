@@ -34,6 +34,9 @@ class CoinListItem extends Component {
    */
   renderPress(coin) {
     if (this.state.totalTaps == 0) {
+      console.log("render press");
+      console.log(coin);
+
       this.props.addTokenToSetup(coin);
       this.setState({ checked: !(this.state.checked), totalTaps: 1 });
     } else if (this.state.totalTaps == 1) {
@@ -76,7 +79,6 @@ class CoinListItem extends Component {
    */
   render() {
     const { coin } = this.props;
-
     let statePictureStyle = {
       height: Dimensions.get('window').height * 0.035,
       width: Dimensions.get('window').width * 0.035,
