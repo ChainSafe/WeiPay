@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from 'react-navigation';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
-import { addTokenInfo, updateTokenBalance, resetWalletBalance } from '../../../actions/ActionCreator';
+// import { addTokenInfo, updateTokenBalance } from '../../../actions/ActionCreator';
+import * as actions from '../../../actions/ActionCreator';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 import ERC20ABI from '../../../constants/data/json/ERC20ABI.json';
@@ -119,7 +120,7 @@ class Portfolio extends Component {
         <TouchableOpacity
           onPress={() => {
             this.props.addTokenInfo(token);
-            this.props.navigation.navigate("TokenFunctionality")
+            this.props.navigation.navigate('TokenFunctionality');
           }}
           style={styles.listItemParentContainer}
         >
@@ -416,4 +417,4 @@ function mapStateToProps({ newWallet }) {
   return { newWallet };
 }
 
-export default connect(mapStateToProps, { addTokenInfo, updateTokenBalance, resetWalletBalance })(Portfolio);
+export default connect(mapStateToProps, actions)(Portfolio);

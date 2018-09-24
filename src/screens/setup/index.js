@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Dimensions, SafeAreaView} from 'react-native';
+import {
+  Text, View, StyleSheet, Dimensions, SafeAreaView,
+} from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import { restoreWallet } from '../../actions/ActionCreator';
+import RF from 'react-native-responsive-fontsize';
+import * as actions from '../../actions/ActionCreator';
 import LinearButton from '../../components/LinearGradient/LinearButton';
 import ClearButton from '../../components/LinearGradient/ClearButton';
-import RF from "react-native-responsive-fontsize"
+
+const erc20 = require('erc20_tokens');
 
 /**
  * Initial setup screen used to allow the user to either restore a previously
@@ -51,8 +55,8 @@ class CreateOrRestore extends Component {
         footerContainer,
         textFooter,
         footerGrandparentContainer,
-        footerParentContainer
-      } = styles;
+        footerParentContainer,
+      } = styles;      
 
       return (
         <SafeAreaView style={safeAreaView}>
@@ -91,7 +95,7 @@ class CreateOrRestore extends Component {
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
-    backgroundColor: '#fafbfe'
+    backgroundColor: '#fafbfe',
   },
   mainContainer: {
     backgroundColor: '#fafbfe',
@@ -141,8 +145,8 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Regular',
     fontSize: RF(1.7),
     color: '#c0c0c0',
-    letterSpacing: 0.5
+    letterSpacing: 0.5,
   },
 });
 
-export default connect(null, { restoreWallet })(CreateOrRestore);
+export default connect(null, actions)(CreateOrRestore);
