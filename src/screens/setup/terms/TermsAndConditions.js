@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import {
- Alert, Text, View, ScrollView, StyleSheet, Dimensions, SafeAreaView, TouchableWithoutFeedback
+ Text, View, ScrollView, StyleSheet, Dimensions, SafeAreaView,
 } from 'react-native';
+import RF from "react-native-responsive-fontsize";
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { Terms } from '../../../constants/Terms';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import { enterDebug } from '../../../actions/ActionCreator';
-import RF from "react-native-responsive-fontsize"
 
 /**
  * Initial terms and condition screen when the app is oppened for the first time.
@@ -27,7 +27,7 @@ class TermsAndConditions extends Component {
     /**
      * Returns the scrollable component that displays the terms and conditions with a submit button
      */
-    render() {
+    render() {      
       const {
         safeAreaView,
         mainContainer,
