@@ -39,14 +39,14 @@
         "id": 1,
         "type": "ERC20",
         "selected": false,
-        "symbol": "SUB",
-        "address": "0xd26114cd6EE289AccF82350c8d8487fedB8A0C07",
-        "decimals": 2,
-        "name": "Substratum",
+        "symbol": "ANT",
+        "address": "0x960b236A07cf122663c4303350609A66A7B288C0",
+        "decimals": 18,
+        "name": "ANT",
         "ens_address": "",
-        "website": "https://substratum.net",
+        "website": "https://aragon.one/network",
         "logo": {
-            "src": "https://etherscan.io/token/images/substratum2_28.png",
+            "src": "https://etherscan.io/token/images/aragon_28.png",
             "width": "",
             "height": "",
             "ipfs_hash": ""
@@ -64,10 +64,10 @@
             "gitter": "",
             "instagram": "",
             "linkedin": "",
-            "reddit": "https://www.reddit.com/r/SubstratumNetwork",
-            "slack": "http://x.co/SubSlack",
+            "reddit": "",
+            "slack": "",
             "telegram": "",
-            "twitter": "https://twitter.com/SubstratumNet",
+            "twitter": "",
             "youtube": ""
         }
     },
@@ -75,14 +75,122 @@
         "id": 2,
         "type": "ERC20",
         "selected": false,
-        "symbol": "ML",
-        "address": "0x6Ac15feFB151bC0742d40A13B3d8c1848229d939",
-        "decimals": 2,
-        "name": "Meaning Of Life",
+        "symbol": "OMG",
+        "address": "0xd26114cd6EE289AccF82350c8d8487fedB8A0C07",
+        "decimals": 18,
+        "name": "OMG",
         "ens_address": "",
-        "website": "https://substratum.net",
+        "website": "https://omisego.network",
         "logo": {
-            "src": "https://etherscan.io/token/images/substratum2_28.png",
+            "src": "https://etherscan.io/token/images/omise.png",
+            "width": "",
+            "height": "",
+            "ipfs_hash": ""
+        },
+        "support": {
+            "email": "",
+            "url": ""
+        },
+        "social": {
+            "blog": "",
+            "chat": "",
+            "facebook": "",
+            "forum": "",
+            "github": "https://github.com/omisego",
+            "gitter": "",
+            "instagram": "",
+            "linkedin": "",
+            "reddit": "",
+            "slack": "",
+            "telegram": "",
+            "twitter": "",
+            "youtube": ""
+        }
+    },
+    {
+        "id": 3,
+        "type": "ERC20",
+        "selected": false,
+        "symbol": "ZRX",
+        "address": "0xE41d2489571d322189246DaFA5ebDe1F4699F498",
+        "decimals": 18,
+        "name": "0x Project",
+        "ens_address": "",
+        "website": "https://0xproject.com",
+        "logo": {
+            "src": "https://etherscan.io/token/images/0xtoken_28.png",
+            "width": "",
+            "height": "",
+            "ipfs_hash": ""
+        },
+        "support": {
+            "email": "",
+            "url": ""
+        },
+        "social": {
+            "blog": "",
+            "chat": "",
+            "facebook": "",
+            "forum": "",
+            "github": "https://github.com/0xProject",
+            "gitter": "",
+            "instagram": "",
+            "linkedin": "",
+            "reddit": "",
+            "slack": "",
+            "telegram": "",
+            "twitter": "",
+            "youtube": ""
+        }
+    },
+    {
+        "id": 4,
+        "type": "ERC20",
+        "selected": false,
+        "symbol": "MKR",
+        "address": "0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2",
+        "decimals": 18,
+        "name": "MakerDAO",
+        "ens_address": "",
+        "website": "https://makerdao.com",
+        "logo": {
+            "src": "https://etherscan.io/token/images/mkr-etherscan-35.png",
+            "width": "",
+            "height": "",
+            "ipfs_hash": ""
+        },
+        "support": {
+            "email": "support@makerdao.com",
+            "url": "https://chat.makerdao.com"
+        },
+        "social": {
+            "blog": "",
+            "chat": "https://chat.makerdao.com",
+            "facebook": "",
+            "forum": "",
+            "github": "https://github.com/makerdao",
+            "gitter": "",
+            "instagram": "",
+            "linkedin": "",
+            "reddit": "https://reddit.com/r/makerdao",
+            "slack": "",
+            "telegram": "",
+            "twitter": "https://twitter.com/MakerDAO",
+            "youtube": ""
+        }
+    },
+    {
+        "id": 5,
+        "type": "ERC20",
+        "selected": false,
+        "symbol": "GNT",
+        "address": "0xa74476443119A942dE498590Fe1f2454d7D4aC0d",
+        "decimals": 18,
+        "name": "Golem",
+        "ens_address": "",
+        "website": "https://golem.network",
+        "logo": {
+            "src": "https://etherscan.io/token/images/golem.PNG",
             "width": "",
             "height": "",
             "ipfs_hash": ""
@@ -100,10 +208,82 @@
             "gitter": "",
             "instagram": "",
             "linkedin": "",
-            "reddit": "https://www.reddit.com/r/SubstratumNetwork",
-            "slack": "http://x.co/SubSlack",
+            "reddit": "",
+            "slack": "https://golemproject.org:3000",
             "telegram": "",
-            "twitter": "https://twitter.com/SubstratumNet",
+            "twitter": "",
+            "youtube": ""
+        }
+    },
+    {
+        "id": 6,
+        "type": "ERC20",
+        "selected": false,
+        "symbol": "SNT",
+        "address": "0x744d70FDBE2Ba4CF95131626614a1763DF805B9E",
+        "decimals": 18,
+        "name": "Status Network Token",
+        "ens_address": "",
+        "website": "https://status.im",
+        "logo": {
+            "src": "https://etherscan.io/token/images/status.png",
+            "width": "",
+            "height": "",
+            "ipfs_hash": ""
+        },
+        "support": {
+            "email": "",
+            "url": ""
+        },
+        "social": {
+            "blog": "",
+            "chat": "",
+            "facebook": "",
+            "forum": "",
+            "github": "",
+            "gitter": "",
+            "instagram": "",
+            "linkedin": "",
+            "reddit": "",
+            "slack": "",
+            "telegram": "",
+            "twitter": "",
+            "youtube": ""
+        }
+    },
+    {
+        "id": 7,
+        "type": "ERC20",
+        "selected": false,
+        "symbol": "DAI",
+        "address": "0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359",
+        "decimals": 18,
+        "name": "Dai Stablecoin v1.0",
+        "ens_address": "",
+        "website": "https://makerdao.com",
+        "logo": {
+            "src": "https://etherscan.io/token/images/dai_stablecoin.png",
+            "width": "",
+            "height": "",
+            "ipfs_hash": ""
+        },
+        "support": {
+            "email": "support@makerdao.com",
+            "url": "https://chat.makerdao.com"
+        },
+        "social": {
+            "blog": "",
+            "chat": "https://chat.makerdao.com",
+            "facebook": "",
+            "forum": "",
+            "github": "https://github.com/makerdao",
+            "gitter": "",
+            "instagram": "",
+            "linkedin": "",
+            "reddit": "https://www.reddit.com/r/MakerDAO",
+            "slack": "",
+            "telegram": "",
+            "twitter": "https://twitter.com/MakerDAO",
             "youtube": ""
         }
     }

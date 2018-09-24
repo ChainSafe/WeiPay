@@ -36,8 +36,8 @@ class RecoverWallet extends Component {
      */
     navigate = () => {
       const navigateToTokens = NavigationActions.navigate({
-        routeName: 'enableTokens',
-    });
+        routeName: 'mainStack',
+       });
 
       try {
         // const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');

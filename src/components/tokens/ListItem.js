@@ -5,7 +5,6 @@ import RF from 'react-native-responsive-fontsize';
 import { addTokenToSetup } from '../../actions/ActionCreator';
 import BoxShadowCard from '../ShadowCards/BoxShadowCard';
 
-const axios = require('axios');
 
 /**
  * React Component
@@ -33,12 +32,12 @@ class CoinListItem extends Component {
    * @param {Object} coin
    */
   renderPress(coin) {
-    if (this.state.totalTaps == 0) {
+    if (this.state.totalTaps == 0) {      
       this.props.addTokenToSetup(coin);
       this.setState({ checked: !(this.state.checked), totalTaps: 1 });
     } else if (this.state.totalTaps == 1) {
       this.setState({ totalTaps: 2 })
-    }else if (this.state.totalTaps == 2) {
+    } else if (this.state.totalTaps == 2) {
       this.props.addTokenToSetup(coin);
       this.setState({ checked: !(this.state.checked), totalTaps: 0 })
     }
@@ -76,7 +75,6 @@ class CoinListItem extends Component {
    */
   render() {
     const { coin } = this.props;
-
     let statePictureStyle = {
       height: Dimensions.get('window').height * 0.035,
       width: Dimensions.get('window').width * 0.035,

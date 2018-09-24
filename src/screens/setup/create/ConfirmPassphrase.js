@@ -50,7 +50,7 @@ class ConfirmPassphrase extends Component {
      */
     navigate = () => {
       const navigateToEnableTokens = NavigationActions.navigate({
-        routeName: 'enableTokens',
+        routeName: 'mainStack',
       });
       this.props.navigation.dispatch(navigateToEnableTokens);
     };

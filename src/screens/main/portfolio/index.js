@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from 'react-navigation';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
-import { addTokenInfo, updateTokenBalance, resetWalletBalance } from '../../../actions/ActionCreator';
+// import { addTokenInfo, updateTokenBalance } from '../../../actions/ActionCreator';
+import * as actions from '../../../actions/ActionCreator';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 import ERC20ABI from '../../../constants/data/json/ERC20ABI.json';
@@ -88,7 +89,7 @@ class Portfolio extends Component {
     let response = await axios.get(
       `https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD,CAD,ETH,BTC,EUR`
     )
-    if(response.data.hasOwnProperty('USD')){     
+    if(response.data.hasOwnProperty('USD')) {
       let prices = response.data;         
       await this.props.updateTokenBalance(
         tokenIndex, 
@@ -120,7 +121,7 @@ class Portfolio extends Component {
         <TouchableOpacity
           onPress={() => {
             this.props.addTokenInfo(token);
-            this.props.navigation.navigate("TokenFunctionality")
+            this.props.navigation.navigate('TokenFunctionality');
           }}
           style={styles.listItemParentContainer}
         >
@@ -198,7 +199,7 @@ class Portfolio extends Component {
               navigation={this.props.navigation}
             />
           </View>
-          <Text style={styles.textHeader}>Holdings</Text>
+          <Text style={styles.textHeader}>{ this.props.newWallet.walletName } </Text>
           <View style={styles.touchableCurrencyContainer}>
             <TouchableOpacity onPress={this.handleCurrencyTouch}>
               <View style={styles.accountValueHeader}>          
@@ -207,7 +208,7 @@ class Portfolio extends Component {
                       this.state.walletBalance                
                     }
                   </Text>
-                  <Text style={styles.headerValueCurrency}> 
+                  <Text style={styles.headerValueCurrency}>
                   {
                     this.state.currencySymbol[this.state.currencyIndex]
                   }
@@ -366,7 +367,7 @@ const styles = StyleSheet.create({
   },
   headerValue: {
     fontFamily: 'WorkSans-Medium',
-    marginLeft: '9%',
+    marginLeft: '10%',
     color: '#27c997',
     fontSize: RF(3),
   },
@@ -417,4 +418,4 @@ function mapStateToProps({ newWallet }) {
   return { newWallet };
 }
 
-export default connect(mapStateToProps, { addTokenInfo, updateTokenBalance, resetWalletBalance })(Portfolio);
+export default connect(mapStateToProps, actions)(Portfolio);

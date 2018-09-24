@@ -1,18 +1,35 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Dimensions, Text, SafeAreaView, ScrollView } from 'react-native';
-import { Icon } from 'react-native-elements';
+import {
+  View, StyleSheet, Dimensions, Text, SafeAreaView, ScrollView, RefreshControl
+} from 'react-native';
+import { SearchBar } from 'react-native-elements';
+import { connect } from 'react-redux';
+import * as actions from '../../../../actions/ActionCreator';
 import { NavigationActions } from 'react-navigation';
+import RF from 'react-native-responsive-fontsize';
 import CoinList from '../../../../components/tokens/CoinList';
-import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
-import TwoTabNavigator from '../../../../components/customPageNavs/TwoTabNavigatior';
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
-import RF from "react-native-responsive-fontsize"
 
 /**
  * React Screen Component
  * Screen to add more coins to the portfolio
  */
 class Coins extends Component {
+
+  constructor(props){
+    super(props);
+
+    this.state={
+      tokens: this.props.newWallet.allTokens,
+      searchedTokenSym: "",
+      searchedTokenName: "",
+      searchedTokenNameAdd: "",
+      refreshing: false,
+    }
+  }
+  
+
+
   /**
    * Allows you to navigate to the navigation drawer
    */
@@ -24,40 +41,77 @@ class Coins extends Component {
     this.props.navigation.dispatch(navigateToPassphrase);
   };
 
+ 
+
+  handleChangeText(input){
+    try {
+      
+      this.setState({ searchedTokenSym: input})
+      if (this.state.tokens[input] != null) {
+        this.setState({searchedTokenName: "NA", searchedTokenNameAdd: this.state.tokens[input]["contract_address"]  });
+        if (this.state.tokens[input]["name"] != null) {
+          this.setState({ searchedTokenName: this.state.tokens[input]["name"]})
+        }
+      }else {
+        this.setState({ searchedTokenName: "", searchedTokenNameAdd: ""})
+      }      
+    } catch (error) {
+      console.log("DNE");
+    }
+  }
+
+  addCustomToken = () => {
+    try {
+      const token = this.state.tokens[this.state.searchedTokenSym];
+      if (token != null) {
+        if (token["name"] != null) {
+          this.props.addTokenFromList(token["name"] ,this.state.searchedTokenSym, token["contract_address"]);
+        }else {
+          this.props.addTokenFromList("NA" ,this.state.searchedTokenSym, token["contract_address"]);
+        }
+        this.setState({ searchedTokenSym: "", searchedTokenName: "", searchedTokenNameAdd: ""})
+      }
+    } catch (error) {
+      console.log("DNE");
+    }
+    
+  }
+ 
   /**
    * Contains tha CoinList Component
    */
   render() {
+    //0.95
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>
-          {/* <View style={styles.NavBarButton}>
-            <BackWithMenuNav
-              showMenu={true}
-              showBack={true}
-              navigation={this.props.navigation}
-              backPage={'mainStack'}
-            />
+          
+          <View style={styles.sizeComponent}>
+            <SearchBar
+              value={this.state.searchedTokenSym}
+              lightTheme
+              round
+              clearIcon
+              searchIcon
+              containerStyle={{backgroundColor: '#fafbfe' }}
+              inputStyle={{ backgroundColor: '#ffffff', color: '#12c1a2', }}
+              onChangeText={this.handleChangeText.bind(this)}
+              placeholder='Enter token symbol' />
           </View>
-          <View style={styles.tabNavContainer}>
-            <TwoTabNavigator
-              leftTabScreen={'Coins'}
-              leftTabText={'Coins'}
-              rightTabScreen={'Tokens'}
-              rightTabText={'Tokens'}
-              navigation={this.props.navigation}
-            />
-          </View> */}
-          <View style={styles.coinListContainer}>
-            <ScrollView  >
-                <CoinList type={'tokens'} />
-                {/* <CoinList /> */}
-            </ScrollView>
+
+          <View style={styles.sizeComponent}>
+            <Text style={styles.displayText}>Name : {this.state.searchedTokenName}</Text>
+            <Text style={styles.displayText}>
+                Address: 
+                <Text style={{fontSize: RF(2.0)}}>{this.state.searchedTokenNameAdd}</Text>
+            </Text>
           </View>
+          
+          
           <View style={styles.btnContainer}>
             <LinearButton
-              onClickFunction={this.navigate}
-              buttonText='Add Tokens'
+              onClickFunction={this.addCustomToken}
+              buttonText='Add this token'
               customStyles={styles.button}
             />
             <View style={styles.footerGrandparentContainer}>
@@ -78,30 +132,25 @@ class Coins extends Component {
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
-    backgroundColor: '#fafbfe'
-  },
-  mainContainer: {
-    flex: 1 ,
     backgroundColor: '#fafbfe',
   },
-  NavBarButton: {
-    flex: 0.65,
-    justifyContent: 'center',
-    paddingBottom: '2%',
+  mainContainer: {
+    flex: 1,
+    backgroundColor: '#fafbfe',
   },
-  tabNavContainer: {
-    flex: 0.3,
-    justifyContent: 'center',
-    marginBottom: '2%',
+  
+  sizeComponent: {
+    flex: 1, 
+    marginLeft: "9%", 
+    marginRight: "9%"
   },
-  coinListContainer: {
-    alignItems: 'stretch',
-    marginLeft: '9%',
-    marginRight: '9%',
-    flex: 5,
-    paddingBottom: '2.5%',
-    paddingTop: '2.5%',
+
+  displayText: {
+    fontSize: RF(4), 
+    color: "#000000",
+     fontFamily: 'Cairo-Regular'
   },
+
   btnContainer: {
     flex: 1,
     alignItems: 'stretch',
@@ -123,8 +172,18 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Regular',
     fontSize: RF(1.7),
     color: '#c0c0c0',
-    letterSpacing: 0.5
+    letterSpacing: 0.5,
   },
 });
 
-export default Coins;
+/**
+ * Method is used  to reterive the newWallet object
+ * from the global state variable.
+ * Returns an object containing that reterived object
+ * @param {Object} param0
+ */
+function mapStateToProps({ newWallet }) {
+  return { newWallet };
+}
+
+export default connect(mapStateToProps, actions )(Coins);
