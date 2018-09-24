@@ -33,15 +33,12 @@ class CoinListItem extends Component {
    * @param {Object} coin
    */
   renderPress(coin) {
-    if (this.state.totalTaps == 0) {
-      console.log("render press");
-      console.log(coin);
-
+    if (this.state.totalTaps == 0) {      
       this.props.addTokenToSetup(coin);
       this.setState({ checked: !(this.state.checked), totalTaps: 1 });
     } else if (this.state.totalTaps == 1) {
       this.setState({ totalTaps: 2 })
-    }else if (this.state.totalTaps == 2) {
+    } else if (this.state.totalTaps == 2) {
       this.props.addTokenToSetup(coin);
       this.setState({ checked: !(this.state.checked), totalTaps: 0 })
     }
