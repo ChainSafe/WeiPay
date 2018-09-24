@@ -35,7 +35,8 @@ class Portfolio extends Component {
       this.props.newWallet.walletBalance.ethWalletBalance, 
       this.props.newWallet.walletBalance.eurWalletBalance 
     ],
-    check: 0,
+    // walletBalance: 0,
+    walletBalance: this.props.newWallet.walletBalance.usdWalletBalance
   }
 
   navigate = () => {
@@ -55,7 +56,7 @@ class Portfolio extends Component {
     for (let i = 0; i < (tokenLen); i += 1) {      
       await this.getTokenBalance(i);
     }
-    await this.setState({ check: this.props.newWallet.walletBalance.usdWalletBalance, refresh: false, pricesLoaded: true })   
+    await this.setState({ walletBalance: this.props.newWallet.walletBalance.usdWalletBalance, refresh: false, pricesLoaded: true })   
   }
 
   getTokenBalance = async (tokenIndex) => {
@@ -172,13 +173,13 @@ class Portfolio extends Component {
       });
   }
 
-  handleCurrencyTouch = () => {    
+  handleCurrencyTouch = async () => {    
     let currentIndex = this.state.currencyIndex;    
-    if(currentIndex == 4) {
-      this.setState({currencyIndex: 0})        
+    if(currentIndex == 4) {     
+      await this.setState({ currencyIndex: 0, walletBalance: this.state.reducerKeys[0] })        
     } else {
-      let index = currentIndex += 1;
-      this.setState({currencyIndex: index})    
+      let index = currentIndex += 1;     
+      await this.setState({ currencyIndex: index, walletBalance: this.state.reducerKeys[index] })    
     }
   }
 
@@ -203,7 +204,7 @@ class Portfolio extends Component {
               <View style={styles.accountValueHeader}>          
                   <Text style={styles.headerValue}>
                     {                   
-                      this.state.check                
+                      this.state.walletBalance                
                     }
                   </Text>
                   <Text style={styles.headerValueCurrency}> 

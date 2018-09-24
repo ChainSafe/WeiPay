@@ -19,11 +19,10 @@ const AppReducer = combineReducers({
 
 const rootReducer = (state, action) => {
   if (action.type === actionTypes.CLEAR_STORE){
-
-         Object.keys(state).forEach(key => {
-          storage.removeItem(`persist:${key}`);
-      });
-      state = undefined;
+    Object.keys(state).forEach(key => {
+      storage.removeItem(`persist:${key}`);
+    });
+    state = undefined;
   }
 
   return AppReducer(state, action)
