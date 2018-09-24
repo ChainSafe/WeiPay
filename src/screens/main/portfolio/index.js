@@ -197,7 +197,7 @@ class Portfolio extends Component {
               navigation={this.props.navigation}
             />
           </View>
-          <Text style={styles.textHeader}>Holdings</Text>
+          <Text style={styles.textHeader}> {this.props.newWallet.walletName } </Text>
           <View style={styles.touchableCurrencyContainer}>
             <TouchableOpacity onPress={this.handleCurrencyTouch}>
               <View style={styles.accountValueHeader}>          
