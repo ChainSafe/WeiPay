@@ -103,6 +103,7 @@ export default (state = INITIAL_STATE, action) => {
         "name": state.newTokenName,
         "ens_address": "",
         "website": "",
+        "balance": 0,
         "logo": {
           "src": "https://etherscan.io/token/images/binance_28.png",
           "width": 28,
@@ -149,6 +150,7 @@ export default (state = INITIAL_STATE, action) => {
         "name": action.payload.name,
         "ens_address": "",
         "website": "",
+        "balance": 0,
         "logo": {
           "src": "https://etherscan.io/token/images/binance_28.png",
           "width": 28,
