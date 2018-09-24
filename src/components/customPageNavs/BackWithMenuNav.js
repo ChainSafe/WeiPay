@@ -18,6 +18,11 @@ class BackWithMenuNav extends Component {
         this.props.navigation.dispatch(navigateToPassphrase);
     }
 
+    skipSetup = () => {
+        const navigateToHoldings = NavigationActions.navigate({ routeName: "mainStack" });
+        this.props.navigation.dispatch(navigateToHoldings);
+    }
+
     /**
      *  Props:
      *      showMenu: type=boolean, Determines if the Drawer icon will be displayed
@@ -47,6 +52,14 @@ class BackWithMenuNav extends Component {
                     />
                   </TouchableOpacity>
                 </View> : null}
+                { this.props.showSkip ?
+                <View style={[styles.boxContainer, styles.boxTwo]} >
+                  <TouchableOpacity
+                    onPress={this.skipSetup} >
+                    <Text> Skip </Text>
+                  </TouchableOpacity>
+                </View> : null}
+
             </View>
         );
     }

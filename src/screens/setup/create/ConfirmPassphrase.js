@@ -129,6 +129,7 @@ class ConfirmPassphrase extends Component {
               <BackWithMenuNav
                 showMenu={false}
                 showBack={true}
+                showSkip={true}
                 navigation={this.props.navigation}
                 backPage={'generatePassphrase'}
               />
