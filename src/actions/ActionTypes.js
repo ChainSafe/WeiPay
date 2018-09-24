@@ -33,3 +33,4 @@ export const ADD_NEW_TOKEN_NAME = 'add_new_token_name';
 export const COMPLETE_NEW_TOKEN = 'complete_new_token';
 export const CLEAR_STORE = 'clear_store'
 export const RESET_WALLET_BALANCE = 'reset_wallet_balance';
+export const ADD_TOKEN_FROM_LIST = 'add_token_from_list';

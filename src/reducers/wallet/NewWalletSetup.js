@@ -1,6 +1,8 @@
 import { AsyncStorage } from 'react-native';
 import * as actions from '../../actions/ActionTypes';
 import data from '../../constants/data/json/coins.json';
+import tokenData from '../../constants/data/json/tokens.json';
+
 
 const INITIAL_STATE = {
   newWallet: false,
@@ -23,6 +25,7 @@ const INITIAL_STATE = {
   txnFee: 0,
   newTokenName: '',
   newTokenAddress: '',
+  allTokens: tokenData[0],
 };
 
 /**
@@ -88,7 +91,8 @@ export default (state = INITIAL_STATE, action) => {
     case actions.ADD_NEW_TOKEN_NAME:
       return { ...state, newTokenName: action.payload };
     case actions.COMPLETE_NEW_TOKEN:
-      let lastID = state.tokens[state.tokens.length - 1].id + 1     
+      let lastID = state.coinData[state.coinData.length - 1].id + 1
+      
       const coinObj = {
         "id": lastID,
         "type": "ERC20",
@@ -132,6 +136,52 @@ export default (state = INITIAL_STATE, action) => {
       oldcoinData.push(coinObj);    
       
       return { ...state, coinData: oldcoinData, tokens: oldTokens, newTokenAddress: '', newTokenName: '' };
+    case actions.ADD_TOKEN_FROM_LIST:
+      let lastIDcheck = state.coinData[state.coinData.length - 1].id + 1;
+
+      const NewcoinObj = {
+        "id": lastIDcheck,
+        "type": "ERC20",
+        "selected": true,
+        "symbol": action.payload.symbol,
+        "address": action.payload.add,
+        "decimals": 18,
+        "name": action.payload.name,
+        "ens_address": "",
+        "website": "",
+        "logo": {
+          "src": "https://etherscan.io/token/images/binance_28.png",
+          "width": 28,
+          "height": 28,
+          "ipfs_hash": ""
+        },
+        "support": {
+            "email": "",
+            "url": ""
+        },
+        "social": {
+            "blog": "",
+            "chat": "",
+            "facebook": "",
+            "forum": "",
+            "github": "",
+            "gitter": "",
+            "instagram": "",
+            "linkedin": "",
+            "reddit": "",
+            "slack": "",
+            "telegram": "",
+            "twitter": "",
+            "youtube": ""
+        }
+      }
+      
+      const OldTokens = state.tokens
+      OldTokens.push(NewcoinObj);
+
+      const OldcoinData = state.coinData
+      OldcoinData.push(NewcoinObj); 
+      return { ...state, coinData: OldcoinData, tokens: OldTokens };
 
     default:
       return state;

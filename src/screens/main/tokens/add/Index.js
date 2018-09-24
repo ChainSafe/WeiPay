@@ -18,11 +18,11 @@ class Index extends Component {
                 />
                 <TabNavigator tabs={3}>
                     {/* First tab */}
-                    <View title="Coins" style={styles.content}>
+                    <View title="Tokens" style={styles.content}>
                       <Coins />
                     </View>
                     {/* Second tab */}
-                    <View title="Tokens" style={styles.content}>
+                    <View title="Search" style={styles.content}>
                         <Tokens />
                     </View>
                     {/* Third tab */}
