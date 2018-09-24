@@ -1,4 +1,0 @@
-__d(function (global, _require, module, exports, _dependencyMap) {
-  var isArray = Array.isArray;
-  module.exports = isArray;
-});

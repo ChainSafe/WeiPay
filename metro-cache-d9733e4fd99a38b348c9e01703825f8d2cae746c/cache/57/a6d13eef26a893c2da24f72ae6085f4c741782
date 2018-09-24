@@ -1,7 +1,0 @@
-__d(function (global, _require, module, exports, _dependencyMap) {
-  function identity(value) {
-    return value;
-  }
-
-  module.exports = identity;
-});

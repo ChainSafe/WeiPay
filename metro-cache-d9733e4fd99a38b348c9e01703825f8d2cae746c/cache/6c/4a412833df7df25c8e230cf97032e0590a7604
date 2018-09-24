@@ -1,9 +1,0 @@
-__d(function (global, _require, module, exports, _dependencyMap) {
-  var baseIsTypedArray = _require(_dependencyMap[0], './_baseIsTypedArray'),
-      baseUnary = _require(_dependencyMap[1], './_baseUnary'),
-      nodeUtil = _require(_dependencyMap[2], './_nodeUtil');
-
-  var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
-  var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
-  module.exports = isTypedArray;
-});

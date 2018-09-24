@@ -1,9 +1,0 @@
-__d(function (global, _require, module, exports, _dependencyMap) {
-  'use strict';
-
-  exports.sha1 = _require(_dependencyMap[0], './sha/1');
-  exports.sha224 = _require(_dependencyMap[1], './sha/224');
-  exports.sha256 = _require(_dependencyMap[2], './sha/256');
-  exports.sha384 = _require(_dependencyMap[3], './sha/384');
-  exports.sha512 = _require(_dependencyMap[4], './sha/512');
-});

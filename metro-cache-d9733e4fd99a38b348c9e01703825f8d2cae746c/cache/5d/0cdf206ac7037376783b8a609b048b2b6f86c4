@@ -1,8 +1,0 @@
-__d(function (global, _require, module, exports, _dependencyMap) {
-  function isObject(value) {
-    var type = typeof value;
-    return value != null && (type == 'object' || type == 'function');
-  }
-
-  module.exports = isObject;
-});

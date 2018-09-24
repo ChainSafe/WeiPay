@@ -1,6 +1,0 @@
-__d(function (global, _require, module, exports, _dependencyMap) {
-  var getNative = _require(_dependencyMap[0], './_getNative');
-
-  var nativeCreate = getNative(Object, 'create');
-  module.exports = nativeCreate;
-});

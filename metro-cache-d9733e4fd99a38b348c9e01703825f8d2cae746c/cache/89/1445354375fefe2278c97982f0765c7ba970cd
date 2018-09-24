@@ -1,6 +1,0 @@
-__d(function (global, _require, module, exports, _dependencyMap) {
-  var root = _require(_dependencyMap[0], './_root');
-
-  var Uint8Array = root.Uint8Array;
-  module.exports = Uint8Array;
-});

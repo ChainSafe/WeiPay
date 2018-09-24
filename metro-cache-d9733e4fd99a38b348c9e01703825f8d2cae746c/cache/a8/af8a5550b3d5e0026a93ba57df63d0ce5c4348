@@ -1,9 +1,0 @@
-__d(function (global, _require, module, exports, _dependencyMap) {
-  var baseToString = _require(_dependencyMap[0], './_baseToString');
-
-  function toString(value) {
-    return value == null ? '' : baseToString(value);
-  }
-
-  module.exports = toString;
-});

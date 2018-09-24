@@ -58,8 +58,23 @@ class Coins extends Component {
 
   addCustomToken = () => {
     //debugger;
-    this.props.addTokenFromList(this.state.searchedTokenName, this.state.tokens[this.state.searchedTokenName])
-    this.setState({ searchedTokenName: "", refreshing: true })
+    try {
+      const token = this.state.tokens[this.state.searchedTokenName];
+      console.log(token);
+      if (token != null) {
+        if (token["name"] != null) {
+          this.props.addTokenFromList(token["name"] ,this.state.searchedTokenName, token["contract_address"]);
+        }else {
+          this.props.addTokenFromList("NA" ,this.state.searchedTokenName, token["contract_address"]);
+        }
+        // this.props.addTokenFromList(this.state.searchedTokenName, this.state.tokens[this.state.searchedTokenName])
+        this.setState({ searchedTokenName: ""})
+        console.log("Added");
+      }
+    } catch (error) {
+      console.log("DNE");
+    }
+    
   }
   
   generateTokenList() {

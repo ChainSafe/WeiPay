@@ -1,9 +1,0 @@
-__d(function (global, _require, module, exports, _dependencyMap) {
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-
-  var _reactNative = _require(_dependencyMap[0], 'react-native');
-
-  exports.default = _reactNative.DrawerLayoutAndroid;
-});

@@ -5,7 +5,6 @@ import RF from 'react-native-responsive-fontsize';
 import { addTokenToSetup } from '../../actions/ActionCreator';
 import BoxShadowCard from '../ShadowCards/BoxShadowCard';
 
-const axios = require('axios');
 
 /**
  * React Component

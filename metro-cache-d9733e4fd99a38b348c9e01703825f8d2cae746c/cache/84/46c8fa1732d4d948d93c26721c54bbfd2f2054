@@ -1,7 +1,0 @@
-__d(function (global, _require, module, exports, _dependencyMap) {
-  function stackHas(key) {
-    return this.__data__.has(key);
-  }
-
-  module.exports = stackHas;
-});

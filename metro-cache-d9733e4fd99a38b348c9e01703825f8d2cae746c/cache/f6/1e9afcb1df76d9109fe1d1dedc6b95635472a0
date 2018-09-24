@@ -1,9 +1,0 @@
-__d(function (global, _require, module, exports, _dependencyMap) {
-  'use strict';
-
-  exports.__esModule = true;
-
-  var _reactNative = _require(_dependencyMap[0], 'react-native');
-
-  exports.default = _reactNative.AsyncStorage;
-});

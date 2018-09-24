@@ -1,9 +1,0 @@
-__d(function (global, _require, module, exports, _dependencyMap) {
-  var getMapData = _require(_dependencyMap[0], './_getMapData');
-
-  function mapCacheGet(key) {
-    return getMapData(this, key).get(key);
-  }
-
-  module.exports = mapCacheGet;
-});

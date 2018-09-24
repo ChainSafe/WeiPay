@@ -1,7 +1,0 @@
-__d(function (global, _require, module, exports, _dependencyMap) {
-    var getNative = _require(_dependencyMap[0], './_getNative'),
-        root = _require(_dependencyMap[1], './_root');
-
-    var WeakMap = getNative(root, 'WeakMap');
-    module.exports = WeakMap;
-});

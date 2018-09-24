@@ -232,8 +232,8 @@ export function completeNewToken() {
   };
 }
 
-export function addTokenFromList(tokenname, tokenAdd) {
-  const loads = { name: tokenname, add: tokenAdd };
+export function addTokenFromList(tokenname, tokenSym, tokenAdd) {
+  const loads = { name: tokenname, symbol: tokenSym, add: tokenAdd };
   return (dispatch) => {
     dispatch({ type: actionTypes.ADD_TOKEN_FROM_LIST, payload: loads });
   };

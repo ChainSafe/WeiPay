@@ -1,9 +1,0 @@
-__d(function (global, _require, module, exports, _dependencyMap) {
-  var baseIsMap = _require(_dependencyMap[0], './_baseIsMap'),
-      baseUnary = _require(_dependencyMap[1], './_baseUnary'),
-      nodeUtil = _require(_dependencyMap[2], './_nodeUtil');
-
-  var nodeIsMap = nodeUtil && nodeUtil.isMap;
-  var isMap = nodeIsMap ? baseUnary(nodeIsMap) : baseIsMap;
-  module.exports = isMap;
-});

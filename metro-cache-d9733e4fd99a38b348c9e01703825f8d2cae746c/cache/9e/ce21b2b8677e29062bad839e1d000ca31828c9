@@ -1,7 +1,0 @@
-__d(function (global, _require, module, exports, _dependencyMap) {
-  function cacheHas(cache, key) {
-    return cache.has(key);
-  }
-
-  module.exports = cacheHas;
-});

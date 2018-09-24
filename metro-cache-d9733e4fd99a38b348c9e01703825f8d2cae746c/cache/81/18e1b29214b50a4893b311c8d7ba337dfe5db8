@@ -1,3 +1,0 @@
-__d(function (global, _require, module, exports, _dependencyMap) {
-  module.exports = _require(_dependencyMap[0], './lib/stacktrace-parser.js');
-});

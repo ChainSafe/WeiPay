@@ -1,9 +1,0 @@
-__d(function (global, _require, module, exports, _dependencyMap) {
-  function constant(value) {
-    return function () {
-      return value;
-    };
-  }
-
-  module.exports = constant;
-});
