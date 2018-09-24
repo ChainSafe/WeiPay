@@ -87,7 +87,7 @@ class Portfolio extends Component {
     let response = await axios.get(
       `https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD,CAD,ETH,BTC,EUR`
     )
-    if(response.data.hasOwnProperty('USD')){     
+    if(response.data.hasOwnProperty('USD')) {
       let prices = response.data;         
       await this.props.updateTokenBalance(
         tokenIndex, 
@@ -206,7 +206,7 @@ class Portfolio extends Component {
                       this.state.check                
                     }
                   </Text>
-                  <Text style={styles.headerValueCurrency}> 
+                  <Text style={styles.headerValueCurrency}>
                   {
                     this.state.currencySymbol[this.state.currencyIndex]
                   }
