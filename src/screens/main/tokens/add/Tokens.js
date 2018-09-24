@@ -24,7 +24,9 @@ class Coins extends Component {
 
     this.state={
       tokens: this.props.newWallet.allTokens,
+      searchedTokenSym: "",
       searchedTokenName: "",
+      searchedTokenNameAdd: "",
       refreshing: false,
     }
   }
@@ -48,7 +50,16 @@ class Coins extends Component {
     try {
       console.log("----------");
       console.log(this.state.tokens[input]);
-      this.setState({ searchedTokenName: input })
+      this.setState({ searchedTokenSym: input})
+      if (this.state.tokens[input] != null) {
+        this.setState({searchedTokenName: "NA", searchedTokenNameAdd: this.state.tokens[input]["contract_address"]  });
+        if (this.state.tokens[input]["name"] != null) {
+          this.setState({ searchedTokenName: this.state.tokens[input]["name"]})
+        }
+      }else {
+        this.setState({ searchedTokenName: "", searchedTokenNameAdd: ""})
+      }
+      
       console.log("----------");
       
     } catch (error) {
@@ -57,18 +68,16 @@ class Coins extends Component {
   }
 
   addCustomToken = () => {
-    //debugger;
     try {
-      const token = this.state.tokens[this.state.searchedTokenName];
+      const token = this.state.tokens[this.state.searchedTokenSym];
       console.log(token);
       if (token != null) {
         if (token["name"] != null) {
-          this.props.addTokenFromList(token["name"] ,this.state.searchedTokenName, token["contract_address"]);
+          this.props.addTokenFromList(token["name"] ,this.state.searchedTokenSym, token["contract_address"]);
         }else {
-          this.props.addTokenFromList("NA" ,this.state.searchedTokenName, token["contract_address"]);
+          this.props.addTokenFromList("NA" ,this.state.searchedTokenSym, token["contract_address"]);
         }
-        // this.props.addTokenFromList(this.state.searchedTokenName, this.state.tokens[this.state.searchedTokenName])
-        this.setState({ searchedTokenName: ""})
+        this.setState({ searchedTokenSym: "", searchedTokenName: "", searchedTokenNameAdd: ""})
         console.log("Added");
       }
     } catch (error) {
@@ -93,43 +102,32 @@ class Coins extends Component {
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>
           
-          <View style={{ flex: 1 }}>
+          <View style={styles.sizeComponent}>
             <SearchBar
-              value={this.state.searchedTokenName}
+              value={this.state.searchedTokenSym}
               lightTheme
+              round
               clearIcon
               searchIcon
               containerStyle={{backgroundColor: '#fafbfe' }}
+              inputStyle={{ backgroundColor: '#ffffff', color: '#12c1a2', }}
               onChangeText={this.handleChangeText.bind(this)}
               placeholder='Enter token symbol' />
           </View>
 
-          <View style={{flex: 1}}>
-            <Text>{this.state.searchedTokenName}</Text>
+          <View style={styles.sizeComponent}>
+            <Text style={styles.displayText}>Name : {this.state.searchedTokenName}</Text>
+            <Text style={styles.displayText}>
+                Address: 
+                <Text style={{fontSize: RF(2.0)}}>{this.state.searchedTokenNameAdd}</Text>
+            </Text>
           </View>
-          <View style={{flex: 1}}>
+          
+          
+          <View style={styles.btnContainer}>
             <LinearButton
               onClickFunction={this.addCustomToken}
               buttonText='Add this token'
-              customStyles={styles.button}
-            />
-          </View>
-          <View style={styles.coinListContainer}>
-            <ScrollView  
-              refreshControl={
-                <RefreshControl
-                  refreshing={this.state.refreshing}
-                  onRefresh={this.generateTokenList}
-                  />
-                 }
-            >
-                <CoinList type={'tokens'} />
-            </ScrollView>
-          </View>
-          <View style={styles.btnContainer}>
-            <LinearButton
-              onClickFunction={this.navigate}
-              buttonText='Add Tokens'
               customStyles={styles.button}
             />
             <View style={styles.footerGrandparentContainer}>
@@ -156,24 +154,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fafbfe',
   },
-  NavBarButton: {
-    flex: 0.65,
-    justifyContent: 'center',
-    paddingBottom: '2%',
+  
+  sizeComponent: {
+    flex: 1, 
+    marginLeft: "9%", 
+    marginRight: "9%"
   },
-  tabNavContainer: {
-    flex: 0.3,
-    justifyContent: 'center',
-    marginBottom: '2%',
+
+  displayText: {
+    fontSize: RF(4), 
+    color: "#000000",
+     fontFamily: 'Cairo-Regular'
   },
-  coinListContainer: {
-    alignItems: 'stretch',
-    marginLeft: '9%',
-    marginRight: '9%',
-    flex: 5,
-    paddingBottom: '2.5%',
-    paddingTop: '2.5%',
-  },
+
   btnContainer: {
     flex: 1,
     alignItems: 'stretch',
