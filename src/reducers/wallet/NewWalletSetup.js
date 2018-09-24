@@ -12,7 +12,45 @@ const INITIAL_STATE = {
     cadWalletBalance: 0,
     usdWalletBalance: 0,
   },
-  tokens: [],
+  tokens: [
+    {
+      "id": 0,
+      "type": "PortfolioCoin",
+      "selected": true,
+      "symbol": "ETH",
+      "address": "",
+      "decimals": 18,
+      "name": "Ethereum",
+      "ens_address": "",
+      "website": "",
+      "logo": {
+          "src": "https://pbs.twimg.com/profile_images/626149701189042177/LWpxKEv3_bigger.png",
+          "width": "",
+          "height": "",
+          "ipfs_hash": ""
+      },
+      "support": {
+          "email": "",
+          "url": ""
+      },
+      "social": {
+          "blog": "",
+          "chat": "",
+          "facebook": "",
+          "forum": "",
+          "github": "",
+          "gitter": "",
+          "instagram": "",
+          "linkedin": "",
+          "reddit": "",
+          "slack": "",
+          "telegram": "",
+          "twitter": "",
+          "youtube": ""
+      }
+    },
+  ],
+  cachedImageUrls: [],
   wallet: null,
   backupPassphrase: '',
   coinData: data,
