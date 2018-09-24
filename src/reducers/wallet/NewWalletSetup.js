@@ -109,7 +109,6 @@ export default (state = INITIAL_STATE, action) => {
       
       return { ...state, coinData: oldcoinData, tokens: oldTokens, newTokenAddress: '', newTokenName: '' };
     case actions.ADD_TOKEN_FROM_LIST:
-      //let lastIDcheck = state.tokens[state.tokens.length - 1].id + 1;
       let lastIDcheck = state.coinData[state.coinData.length - 1].id + 1;
 
       const NewcoinObj = {
@@ -148,7 +147,6 @@ export default (state = INITIAL_STATE, action) => {
             "youtube": ""
         }
       }
-      console.log(NewcoinObj);
       
       const OldTokens = state.tokens
       OldTokens.push(NewcoinObj);

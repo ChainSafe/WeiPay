@@ -19,9 +19,6 @@ class Coins extends Component {
   constructor(props){
     super(props);
 
-    console.log(this.props.newWallet.tokens);
-    
-
     this.state={
       tokens: this.props.newWallet.allTokens,
       searchedTokenSym: "",
@@ -48,8 +45,7 @@ class Coins extends Component {
 
   handleChangeText(input){
     try {
-      console.log("----------");
-      console.log(this.state.tokens[input]);
+      
       this.setState({ searchedTokenSym: input})
       if (this.state.tokens[input] != null) {
         this.setState({searchedTokenName: "NA", searchedTokenNameAdd: this.state.tokens[input]["contract_address"]  });
@@ -58,10 +54,7 @@ class Coins extends Component {
         }
       }else {
         this.setState({ searchedTokenName: "", searchedTokenNameAdd: ""})
-      }
-      
-      console.log("----------");
-      
+      }      
     } catch (error) {
       console.log("DNE");
     }
@@ -70,7 +63,6 @@ class Coins extends Component {
   addCustomToken = () => {
     try {
       const token = this.state.tokens[this.state.searchedTokenSym];
-      console.log(token);
       if (token != null) {
         if (token["name"] != null) {
           this.props.addTokenFromList(token["name"] ,this.state.searchedTokenSym, token["contract_address"]);
@@ -78,21 +70,13 @@ class Coins extends Component {
           this.props.addTokenFromList("NA" ,this.state.searchedTokenSym, token["contract_address"]);
         }
         this.setState({ searchedTokenSym: "", searchedTokenName: "", searchedTokenNameAdd: ""})
-        console.log("Added");
       }
     } catch (error) {
       console.log("DNE");
     }
     
   }
-  
-  generateTokenList() {
-    this.setState({ refreshing: false })
-    return (
-      <CoinList type={'tokens'} />
-    );
-  }
-
+ 
   /**
    * Contains tha CoinList Component
    */
