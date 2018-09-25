@@ -18,7 +18,6 @@ const ethers = require('ethers');
  * Screen used to recover a previously generated wallet
  */
 class RecoverWallet extends Component {
-
   /**
      * Set the local state to keep track of the mnemonic entered to recover the wallet
      * @param {Object} props
@@ -50,21 +49,22 @@ class RecoverWallet extends Component {
           console.log("before call in debug");   
           await this.props.setWalletTokenBalances(tokenHoldings);  //pass the quantity to reducer
           await this.props.fetchCoinData(tokenSymbolString); // pass the value of the currencies to reducer
-          await this.props.calculateWalletBalance(); //should generate the wallet balance for when the next screen loads
-          //await this.props.setWalletTokenBalances(tokenHoldings);          
-          //this.props.newWalletCreation(wallet);
-          //this.props.navigation.dispatch(navigateToTokens);
-        } else {        
-          const mnemonic = this.state.mnemonic.trim();
-          const wallet = ethers.Wallet.fromMnemonic(mnemonic);
-          wallet.provider = provider;
-          const ethObject = await processAllTokenBalances(wallet.privateKey, [{'ETH': 0}]);
-          console.log("before call NOT NOT NOT in debug");
-          await this.props.setWalletTokenBalances(ethObject);
-          //this.props.newWalletCreation(wallet);
-          //this.props.navigation.dispatch(navigateToTokens);
-        }
-        
+          await this.props.calculateWalletBalance();          
+          console.log("after Create wallet balance wallet");                           
+          this.props.newWalletCreation(wallet);
+          this.props.navigation.dispatch(navigateToTokens);
+        } else {
+          console.log("wtf");
+          
+          // const mnemonic = this.state.mnemonic.trim();
+          // const wallet = ethers.Wallet.fromMnemonic(mnemonic);
+          // wallet.provider = provider;
+          // const ethObject = await processAllTokenBalances(wallet.privateKey, [{'ETH': 0}]);
+          // console.log("before call NOT NOT NOT in debug");
+          // await this.props.setWalletTokenBalances(ethObject);
+          // this.props.newWalletCreation(wallet);
+          // this.props.navigation.dispatch(navigateToTokens);
+        }        
       } catch (err) {
         Alert.alert(
           'Mnemonic Error',
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.4,
     fontSize: RF(2.4),
     fontFamily: 'WorkSans-Regular',
-    borderBottomWidth: 0.001
+    borderBottomWidth: 0.001,
   },
   formInputContainer: {
     width: '90%',
@@ -236,6 +236,5 @@ const mapStateToProps = ({ newWallet }) => {
   const { debugMode } = newWallet;
   return { debugMode };
 };
-
 
 export default connect(mapStateToProps, { newWalletCreation, setWalletTokenBalances, fetchCoinData, calculateWalletBalance })(RecoverWallet);

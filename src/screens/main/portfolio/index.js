@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from 'react-navigation';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
-// import { addTokenInfo, updateTokenBalance } from '../../../actions/ActionCreator';
 import * as actions from '../../../actions/ActionCreator';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
@@ -37,7 +36,13 @@ class Portfolio extends Component {
       this.props.newWallet.walletBalance.eurWalletBalance 
     ],
     // walletBalance: 0,
-    walletBalance: this.props.newWallet.walletBalance.usdWalletBalance
+    walletBalance: this.props.Balance.initialBalance,
+  }
+
+  componentDidMount() {
+    console.log("in index compoenent did mount");
+    console.log(this.props.Balance.initialBalance);
+    console.log("after initial balance"); 
   }
 
   navigate = () => {
@@ -414,8 +419,8 @@ const styles = StyleSheet.create({
  * Returns an object containing that reterived object
  * @param {Object} param0
  */
-function mapStateToProps({ newWallet }) {
-  return { newWallet };
+function mapStateToProps({ newWallet, Balance }) {
+  return { newWallet, Balance };
 }
 
 export default connect(mapStateToProps, actions)(Portfolio);

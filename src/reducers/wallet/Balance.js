@@ -25,11 +25,11 @@ const initialState = {
     { 'ETH': [0] },
     { 'BTC': [0] },
   ],
+  initialBalance: 2,
   currencyOptions: ['USD, CAD, EUR, BTC, ETH'],
-  walletTokens: [], //holds [ { ETH: 0.9 }, { SUB : # of Tokens}  ]
-  apiTokenString: '',  //holds ETH,TOKEN  -> for API call
+  walletTokens: [], //holds [ {type: "ETH", amount: "0.95954711315492517"}, ... ]
+  apiTokenString: '',  //holds ETH,TokenName,TokenName...ETC  -> for API call
   tokenConversions: [], //  { ETH: {USD: 209.5, CAD: 285.32, ETH: 1, BTC: 0.03264, EUR: 178.06} SUB: {USD: 0.112, CAD: 0.1535, ETH: 0.000534, BTC: 0.00001743, EUR: 0.09506} }
-
 };
 
 export default function (state = initialState, action) {
@@ -42,7 +42,7 @@ export default function (state = initialState, action) {
       console.log("fetching coin data success");
       console.log(action.payload);
       return {
-        ...state, isFetching: false, hasError: false, errorMessage: null, toktokenConversions: action.payload,
+        ...state, isFetching: false, hasError: false, errorMessage: null, tokenConversions: action.payload,
       };
     case FETCHING_COIN_DATA_FAIL:
       return {
@@ -75,25 +75,13 @@ export default function (state = initialState, action) {
       console.log(action.payload);
       return { ...state, walletTokens: action.payload };
     case CALCULATE_WALLET_BALANCE:
-      console.log("In calculating wallet balance");
-      console.log(state.walletTokens);
-      
-      console.log("state.walletTokens[0]");
-      console.log(state.walletTokens[0]);
-      
-      
-      for (let token = 0; token < state.walletTokens.length; token++) {
-        const key = Object.keys(state.walletTokens[token]);
-        console.log("key in loop", key); //key[0] is type [1] is amount
-        let tokenQuantity = state.walletTokens[0][key[1]];
-        console.log("token q", tokenQuantity);
-        
-        
-        // for(let currency = 0; currency < currencyOptions.length; currency++) {
-
-        // }
-      }
-      return { ...state };      
+      const key = Object.keys(state.walletTokens[0]); 
+      let quant = state.walletTokens[0][key[1]];
+      console.log(quant);
+      let usdPrice = state.tokenConversions["ETH"].USD;
+      console.log("USDPRICE", usdPrice);
+      let total = quant*usdPrice;
+      return { ...state, initialBalance: total };      
     default:
       return state;
   }
