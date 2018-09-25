@@ -18,6 +18,7 @@ const initialState = {
   hasError: false,
   errorMessage: null,
   walletBalance: {},
+  tokenBalances: {},
   currencyOptions: ['USD', 'CAD', 'EUR', 'BTC', 'ETH'],
   walletTokens: [], //holds [ {type: "ETH", amount: "0.95954711315492517"}, ... ]
   apiTokenString: '',  //holds ETH,TokenName,TokenName...ETC  -> for API call 
@@ -53,11 +54,9 @@ export default function (state = initialState, action) {
     case SET_WALLET_TOKENS_BALANCES:
       return { ...state, walletTokens: action.payload };
     case CALCULATE_WALLET_BALANCE:
-      console.log('in reducer for calculate');
-      console.log(action.payload);
-      return { ...state, walletBalance: action.payload };
+      const { walletBalanceObject, individualTokens } = action.payload;
+      return { ...state, walletBalance: walletBalanceObject, tokenBalances: individualTokens };
     default:
       return state;
   }
-
 }

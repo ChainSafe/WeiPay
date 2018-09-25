@@ -72,14 +72,29 @@ export function calculateWalletBalance(tokenBalances, tokenConversionMatrix) {
       BTC: 0,
       ETH: 0,
     };
+    let individualTokens = [];
+
     for (let i = 0; i < tokenBalances.length; i++) {
       const currentTokenKey = tokenKeys[i];
+      let tokenPriceObject = {
+        USD: 0,
+        CAD: 0,
+        EUR: 0,
+        BTC: 0,
+        ETH: 0,
+      };  
       walletBalanceObject.USD += tokenBalances[i].amount * tokenConversionMatrix[currentTokenKey].USD;
       walletBalanceObject.CAD += tokenBalances[i].amount * tokenConversionMatrix[currentTokenKey].CAD;
       walletBalanceObject.EUR += tokenBalances[i].amount * tokenConversionMatrix[currentTokenKey].EUR;
       walletBalanceObject.BTC += tokenBalances[i].amount * tokenConversionMatrix[currentTokenKey].BTC;
       walletBalanceObject.ETH += tokenBalances[i].amount * tokenConversionMatrix[currentTokenKey].ETH;
+      tokenPriceObject.USD = tokenBalances[i].amount * tokenConversionMatrix[currentTokenKey].USD;
+      tokenPriceObject.CAD = tokenBalances[i].amount * tokenConversionMatrix[currentTokenKey].CAD;
+      tokenPriceObject.EUR = tokenBalances[i].amount * tokenConversionMatrix[currentTokenKey].EUR;
+      tokenPriceObject.BTC = tokenBalances[i].amount * tokenConversionMatrix[currentTokenKey].BTC;
+      tokenPriceObject.ETH = tokenBalances[i].amount * tokenConversionMatrix[currentTokenKey].ETH;
+      individualTokens.push(tokenPriceObject);
     }
-    dispatch({ type: CALCULATE_WALLET_BALANCE, payload: walletBalanceObject });
+    dispatch({ type: CALCULATE_WALLET_BALANCE, payload: { walletBalanceObject, individualTokens }});
   };
 }

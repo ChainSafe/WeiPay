@@ -25,18 +25,20 @@ class Portfolio extends Component {
     walletBalance: {},
     currency: this.props.Balance.currencyOptions,
     apiRequestString: '',
+    tokenBalances: {},
+    tokenPrices: [],
   }
 
   async componentDidMount() {
     const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data);
     await this.props.fetchCoinData(tokenSymbolString);
-    console.log('component', tokenBalances);
     await this.props.calculateWalletBalance(tokenBalances, this.props.Balance.tokenConversions);
     await this.setState({ 
       apiRequestString: tokenSymbolString, 
       walletBalance: this.props.Balance.walletBalance,
-    });
-    this.loadTokens();
+      tokenPrices: this.props.Balance.tokenBalances
+    });    
+    this.showTokens();
   }
 
   formatTokens = async (tokenList) => {
@@ -52,10 +54,7 @@ class Portfolio extends Component {
     return { tokenSymbolString, tokenBalances } = await processAllTokenBalances(privateKey, tokenObjectList);
   }
 
-  loadTokens = () => {
-    console.log('\n\n');
-    console.log(this.state.walletBalance);
-    console.log(Object.prototype.hasOwnProperty.call(this.state.walletBalance, 'USD'));
+  showTokens = () => {
     if (Object.prototype.hasOwnProperty.call(this.state.walletBalance, 'USD')) this.setState({ pricesLoaded: true });
   }
 
@@ -105,14 +104,10 @@ class Portfolio extends Component {
                 <View style={ styles.listItemValueContainer }>
                   <View style={ styles.listItemValueComponent }>
                     <Text style={styles.listItemCryptoValue}>
-                      {
-                        token.quantity
-                      }
+                      ...
                     </Text>
                     <Text style={styles.listItemFiatValue}>
-                      {
-                        token.cadBalance
-                      }
+                     ...
                     </Text>
                   </View>
                 </View>
@@ -130,12 +125,10 @@ class Portfolio extends Component {
   handleCurrencyTouch = async () => {
     let currentIndex = this.state.currencyIndex;
     if (currentIndex === 4) {
-      await this.setState({ currencyIndex: 0 });
-      console.log(this.state.currencyIndex);      
+      await this.setState({ currencyIndex: 0 });     
     } else {
       let index = currentIndex += 1;
       await this.setState({ currencyIndex: index });
-      console.log(this.state.currencyIndex);
     }
   }
 
