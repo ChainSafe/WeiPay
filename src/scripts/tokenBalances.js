@@ -25,8 +25,12 @@ const processAllTokenBalances = async (privateKey, dataSet) => {
     switch (i) {
       case 0:                
         const balance = await provider.getBalance(wallet.address);
-        const parsedEtherBalance = String(ethers.utils.formatEther(balance));   
-        console.log(parsedEtherBalance);        
+        const parsedEtherBalance = String(ethers.utils.formatEther(balance));        
+        const key = Object.keys(dataSet[i]);     
+        let ethObj = {};
+        ethObj.type = key[0];
+        ethObj.amount = parsedEtherBalance           
+        tokenHoldings.push(ethObj); 
         break;
       default: 
         const contract = new ethers.Contract(token.address, ERC20ABI, Provider);       
@@ -34,7 +38,7 @@ const processAllTokenBalances = async (privateKey, dataSet) => {
         console.log(String(tokenBalance));           
     }
   }
-}
-
+  return tokenHoldings; 
+};
 
 export default processAllTokenBalances;

@@ -47,13 +47,8 @@ class RecoverWallet extends Component {
           const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
           wallet.provider = provider;
           console.log(wallet);
-          processAllTokenBalances(wallet.privateKey, [{'ETH': 5}]);
-          
-          //pass address to 
-          const recoveredWalletBalance = await Provider.getBalance(currentWallet.address);
-          const parseBalance = String(ethers.utils.formatEther(recoveredWalletBalance));         
-          //pass balance to 
-          this.props.newWalletCreation(wallet); //pass state to redux to save it
+          processAllTokenBalances(wallet.privateKey, [{'ETH': 0}]); //pass initial ETH flag and quantity as placeholder         
+          this.props.newWalletCreation(wallet);
           this.props.navigation.dispatch(navigateToTokens);
         }else {
           let mnemonic, wallet;
@@ -69,7 +64,8 @@ class RecoverWallet extends Component {
           'Mnemonic Error',
           'Your mnemonic was invalid, please re-enter.',
           [
-            { text: 'OK', onPress: () => this.inputMnemonic.clearText() },
+            // { text: 'OK', onPress: () => this.inputMnemonic.clearText() },
+            { text: 'OK', onPress: () => console.log("not good") },
           ],
           { cancelable: false },
         );
