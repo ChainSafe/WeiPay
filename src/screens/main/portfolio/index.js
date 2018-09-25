@@ -26,23 +26,14 @@ class Portfolio extends Component {
   state = {
     data: this.props.newWallet.tokens,
     refresh: false,
-    balance: 0,
-    pricesLoaded: false,
-    currencySymbol: ['USD', 'CAD', 'BTC', 'ETH', 'EUR'],
     currencyIndex: 0,
-    reducerKeys: [
-      this.props.newWallet.walletBalance.usdWalletBalance, 
-      this.props.newWallet.walletBalance.cadWalletBalance, 
-      this.props.newWallet.walletBalance.btcWalletBalance, 
-      this.props.newWallet.walletBalance.ethWalletBalance, 
-      this.props.newWallet.walletBalance.eurWalletBalance 
-    ],
     walletBalance: this.props.Balance.initialBalance,
+    currency: 'USD',
   }
 
   async componentDidMount() {
-    console.log(this.props.newWallet.tokens);
-    await this.formatTokens(this.state.data);
+    const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data);
+    await this.props.fetchCoinData(tokenSymbolString);
   }
 
   formatTokens = async (tokenList) => {
@@ -55,11 +46,7 @@ class Portfolio extends Component {
       tokenObjectList.push(tokenObj);
     }
     privateKey = this.props.newWallet.wallet.privateKey;
-    const { tokenSymbolString, tokenBalances} = await processAllTokenBalances(privateKey, tokenObjectList);
-    console.log('string', tokenSymbolString);
-    console.log('holdings', tokenBalances);
-    
-    await this.props.fetchCoinData(tokenSymbolString);
+    return { tokenSymbolString, tokenBalances } = await processAllTokenBalances(privateKey, tokenObjectList);
   }
 
   navigate = () => {
@@ -71,69 +58,6 @@ class Portfolio extends Component {
     const navigateToAddToken = NavigationActions.navigate({ routeName: 'coinSend' });
     this.props.navigation.dispatch(navigateToAddToken);
   };
-
-  tokenBalanceLoop = async () => {
-    const tokenLen = this.props.newWallet.tokens.length;
-    this.setState({pricesLoaded: false})
-    this.props.resetWalletBalance();
-    for (let i = 0; i < (tokenLen); i += 1) {      
-      await this.getTokenBalance(i);
-    }
-    await this.setState({ walletBalance: this.props.newWallet.walletBalance.usdWalletBalance, refresh: false, pricesLoaded: true })   
-  }
-
-  getTokenBalance = async (tokenIndex) => {
-    const token = this.state.data[tokenIndex];
-    try {
-      const currentWallet = this.props.newWallet.wallet;
-      try {
-        if (token.address === '') {            
-          const balance = await Provider.getBalance(currentWallet.address);
-          const check = String(utils.formatEther(balance));                 
-          await this.getConversions(tokenIndex, token.symbol, check);          
-        } else {                              
-           const contract = new ethers.Contract(token.address, ERC20ABI, Provider);       
-           const tokenBalance = await contract.balanceOf(currentWallet.address);                                         
-           await this.getConversions(tokenIndex, token.symbol, String(tokenBalance));               
-        }
-      } catch (err) {
-        this.props.updateTokenBalance(tokenIndex, 0, 0, 0, 0, 0, 0 );
-        console.log("in error block", err);                 
-        this.setState({ refresh: false });
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  getConversions = async (tokenIndex, symbol, quantity) => { 
-    var usd, eth, btc, cad, eur;  
-    let response = await axios.get(
-      `https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD,CAD,ETH,BTC,EUR`
-    )
-    if(response.data.hasOwnProperty('USD')) {
-      let prices = response.data;         
-      await this.props.updateTokenBalance(
-        tokenIndex, 
-        quantity, 
-        prices.ETH,
-        prices.BTC,
-        prices.USD,
-        prices.CAD,
-        prices.EUR  
-      ); 
-    } else {         
-      await this.props.updateTokenBalance(
-        tokenIndex, 
-        quantity, 
-        0,
-        0,
-        0,
-        0,
-        0  
-      );   
-    }
-  }
 
   /**
    * Returns a ListItem component specific to the properties of the token parameter
@@ -190,19 +114,16 @@ class Portfolio extends Component {
   }
 
   handleListRefresh = () => {
-    this.setState({ refresh: true, currencyIndex: 0 },
-      () => {
-        this.tokenBalanceLoop();
-      });
+    console.log('List refreshed');
   }
 
-  handleCurrencyTouch = async () => {    
-    let currentIndex = this.state.currencyIndex;    
-    if(currentIndex == 4) {     
-      await this.setState({ currencyIndex: 0, walletBalance: this.state.reducerKeys[0] })        
+  handleCurrencyTouch = async () => {
+    let currentIndex = this.state.currencyIndex;
+    if (currentIndex === 4) {
+      await this.setState({ currencyIndex: 0 });
     } else {
-      let index = currentIndex += 1;     
-      await this.setState({ currencyIndex: index, walletBalance: this.state.reducerKeys[index] })    
+      let index = currentIndex += 1;
+      await this.setState({ currencyIndex: index });
     }
   }
 
@@ -232,7 +153,7 @@ class Portfolio extends Component {
                   </Text>
                   <Text style={styles.headerValueCurrency}>
                   {
-                    this.state.currencySymbol[this.state.currencyIndex]
+                    this.state.currency
                   }
                   </Text>                
               </View>
