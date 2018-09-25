@@ -13,7 +13,6 @@ import {
   CALCULATE_WALLET_BALANCE,
 } from "./ActionTypes";
 
-
 /**
  * Pass in Array of symbol and amount of tokens
  * @param {} symbol 
@@ -65,9 +64,6 @@ export function setWalletTokenBalances(usersTokensWithBalances) {
  */
 export function calculateWalletBalance(tokenBalances, tokenConversionMatrix) {
   return (dispatch) => {
-    console.log('\n');
-    console.log('\n');
-    console.log('in calculate action');
     const tokenKeys = Object.keys(tokenConversionMatrix);
     let walletBalanceObject = {
       USD: 0,
@@ -84,9 +80,6 @@ export function calculateWalletBalance(tokenBalances, tokenConversionMatrix) {
       walletBalanceObject.BTC += tokenBalances[i].amount * tokenConversionMatrix[currentTokenKey].BTC;
       walletBalanceObject.ETH += tokenBalances[i].amount * tokenConversionMatrix[currentTokenKey].ETH;
     }
-    console.log(walletBalanceObject);
-    console.log('\n');
-    console.log('\n');
     dispatch({ type: CALCULATE_WALLET_BALANCE, payload: walletBalanceObject });
   };
 }

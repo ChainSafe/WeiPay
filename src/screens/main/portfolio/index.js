@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   View, Text, StyleSheet, Image, TouchableOpacity, Dimensions, SafeAreaView, Platform, FlatList,
 } from 'react-native';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from 'react-navigation';
@@ -12,11 +11,6 @@ import { setWalletTokenBalances, fetchCoinData, calculateWalletBalance } from '.
 import processAllTokenBalances from '../../../scripts/tokenBalances';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
-import ERC20ABI from '../../../constants/data/json/ERC20ABI.json';
-import Provider from '../../../constants/Providers';
-
-const ethers = require('ethers');
-const utils = ethers.utils;
 
 /**
  * Screen is used to display the wallet portfolio of the user, which contains the
@@ -25,10 +19,11 @@ const utils = ethers.utils;
 class Portfolio extends Component {
   state = {
     data: this.props.newWallet.tokens,
+    pricesLoaded: false,
     refresh: false,
     currencyIndex: 0,
-    walletBalance: 0,
-    currency: 'USD',
+    walletBalance: {},
+    currency: this.props.Balance.currencyOptions,
     apiRequestString: '',
   }
 
@@ -37,7 +32,11 @@ class Portfolio extends Component {
     await this.props.fetchCoinData(tokenSymbolString);
     console.log('component', tokenBalances);
     await this.props.calculateWalletBalance(tokenBalances, this.props.Balance.tokenConversions);
-    this.setState({ apiRequestString: tokenSymbolString, walletBalance: this.props.Balance.walletBalance.ETH });
+    await this.setState({ 
+      apiRequestString: tokenSymbolString, 
+      walletBalance: this.props.Balance.walletBalance,
+    });
+    this.loadTokens();
   }
 
   formatTokens = async (tokenList) => {
@@ -51,6 +50,13 @@ class Portfolio extends Component {
     }
     privateKey = this.props.newWallet.wallet.privateKey;
     return { tokenSymbolString, tokenBalances } = await processAllTokenBalances(privateKey, tokenObjectList);
+  }
+
+  loadTokens = () => {
+    console.log('\n\n');
+    console.log(this.state.walletBalance);
+    console.log(Object.prototype.hasOwnProperty.call(this.state.walletBalance, 'USD'));
+    if (Object.prototype.hasOwnProperty.call(this.state.walletBalance, 'USD')) this.setState({ pricesLoaded: true });
   }
 
   navigate = () => {
@@ -125,9 +131,11 @@ class Portfolio extends Component {
     let currentIndex = this.state.currencyIndex;
     if (currentIndex === 4) {
       await this.setState({ currencyIndex: 0 });
+      console.log(this.state.currencyIndex);      
     } else {
       let index = currentIndex += 1;
       await this.setState({ currencyIndex: index });
+      console.log(this.state.currencyIndex);
     }
   }
 
@@ -151,13 +159,17 @@ class Portfolio extends Component {
             <TouchableOpacity onPress={this.handleCurrencyTouch}>
               <View style={styles.accountValueHeader}>          
                   <Text style={styles.headerValue}>
-                    {                   
-                      this.state.walletBalance                
+                    {
+                      this.state.pricesLoaded
+                      ? (this.state.walletBalance)[this.props.Balance.currencyOptions[this.state.currencyIndex]]
+                      : 'Balance Loading ...'
                     }
                   </Text>
                   <Text style={styles.headerValueCurrency}>
                   {
-                    this.state.currency
+                    this.state.pricesLoaded
+                    ? this.state.currency[this.state.currencyIndex]
+                    : null
                   }
                   </Text>                
               </View>

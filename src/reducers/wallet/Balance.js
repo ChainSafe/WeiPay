@@ -18,7 +18,7 @@ const initialState = {
   hasError: false,
   errorMessage: null,
   walletBalance: {},
-  currencyOptions: ['USD, CAD, EUR, BTC, ETH'],
+  currencyOptions: ['USD', 'CAD', 'EUR', 'BTC', 'ETH'],
   walletTokens: [], //holds [ {type: "ETH", amount: "0.95954711315492517"}, ... ]
   apiTokenString: '',  //holds ETH,TokenName,TokenName...ETC  -> for API call 
   tokenConversions: [], //  { ETH: {USD: 209.5, CAD: 285.32, ETH: 1, BTC: 0.03264, EUR: 178.06} SUB: {USD: 0.112, CAD: 0.1535, ETH: 0.000534, BTC: 0.00001743, EUR: 0.09506} }
