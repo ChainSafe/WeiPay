@@ -9,6 +9,7 @@ import LinearButton from '../../../components/LinearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 import RF from "react-native-responsive-fontsize"
+import processAllTokenBalances from '../../../scripts/tokenBalances';
 
 const ethers = require('ethers');
 
@@ -45,6 +46,9 @@ class RecoverWallet extends Component {
         if (this.props.debugMode === true) {
           const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
           wallet.provider = provider;
+          console.log(wallet);
+          processAllTokenBalances(wallet.privateKey, [{'ETH': 5}]);
+          
           //pass address to 
           const recoveredWalletBalance = await Provider.getBalance(currentWallet.address);
           const parseBalance = String(ethers.utils.formatEther(recoveredWalletBalance));         

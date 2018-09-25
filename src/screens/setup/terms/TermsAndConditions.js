@@ -27,54 +27,37 @@ class TermsAndConditions extends Component {
 
     async componentDidMount() {
       await this.props.FetchEthPriceData();
-      console.log("after but in component did mount");
-      
     }
 
     /**
      * Returns the scrollable component that displays the terms and conditions with a submit button
      */
     render() {      
-      const {
-        safeAreaView,
-        mainContainer,
-        headerContainer,
-        textHeader,
-        scrollViewContainer,
-        scrollView,
-        textBody,
-        btnContainer,
-        button,
-        footerGrandparentContainer,
-        footerParentContainer,
-        textFooter,
-      } = styles;
-
       return (
-          <SafeAreaView style={styles.safeAreaView}>
-            <View style={mainContainer}>
-              <View style={styles.headerContainer} >
-                <Text style={textHeader} onPress={this.props.enterDebug} >Terms & Conditions </Text>
-              </View>
-              <View style={styles.scrollViewContainer} >
-                <ScrollView style={scrollView}>
-                  <Text style={textBody} >{Terms}</Text>
-                </ScrollView>
-              </View>
-              <View style={btnContainer}>
-                <LinearButton
-                  onClickFunction={this.navigate}
-                  buttonText='Agree'
-                  customStyles={button}
-                />
-                <View style={footerGrandparentContainer}>
-                  <View style={footerParentContainer} >
-                    <Text style={textFooter} >Powered by ChainSafe </Text>
-                  </View>
+        <SafeAreaView style={styles.safeAreaView}>
+          <View style={styles.mainContainer}>
+            <View style={styles.headerContainer} >
+              <Text style={styles.textHeader} onPress={this.props.enterDebug} >Terms & Conditions </Text>
+            </View>
+            <View style={styles.scrollViewContainer} >
+              <ScrollView style={styles.scrollView}>
+                <Text style={styles.textBody} >{Terms}</Text>
+              </ScrollView>
+            </View>
+            <View style={styles.btnContainer}>
+              <LinearButton
+                onClickFunction={this.navigate}
+                buttonText='Agree'
+                customStyles={styles.button}
+              />
+              <View style={styles.footerGrandparentContainer}>
+                <View style={styles.footerParentContainer} >
+                  <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                 </View>
               </View>
             </View>
-          </SafeAreaView>
+          </View>
+        </SafeAreaView>
       );
     }
 }
@@ -103,7 +86,7 @@ const styles = StyleSheet.create({
     paddingLeft: '9%',
     letterSpacing: 0.8,
     color: '#1a1f3e',
-    fontWeight: '200'
+    fontWeight: '200',
   },
   scrollViewContainer: {
     flex: 5,
