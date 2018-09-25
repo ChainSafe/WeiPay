@@ -4,13 +4,11 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
 import { newWalletCreation } from '../../../actions/ActionCreator';
-import { setWalletTokenBalances, fetchCoinData, calculateWalletBalance } from '../../../actions/FetchCoinData';
 import provider from '../../../constants/Providers';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 import RF from "react-native-responsive-fontsize"
-import processAllTokenBalances from '../../../scripts/tokenBalances';
 
 const ethers = require('ethers');
 
@@ -43,19 +41,13 @@ class RecoverWallet extends Component {
       try {       
         if (this.props.debugMode === true) {
           const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
-          wallet.provider = provider; 
-          const { tokenHoldings, tokenSymbolString } = await processAllTokenBalances(wallet.privateKey, [{'ETH': 0, 'address': null }]); //pass initial ETH flag and quantity as placeholder                    
-          await this.props.setWalletTokenBalances(tokenHoldings);  //pass the quantity to reducer
-          await this.props.fetchCoinData(tokenSymbolString); // pass the value of the currencies to reducer
-          await this.props.calculateWalletBalance();                                            
+          wallet.provider = provider;                    
           this.props.newWalletCreation(wallet);
           this.props.navigation.dispatch(navigateToTokens);
         } else {             
           const mnemonic = this.state.mnemonic.trim();
           const wallet = ethers.Wallet.fromMnemonic(mnemonic);
-          wallet.provider = provider;
-          const ethObject = await processAllTokenBalances(wallet.privateKey, [{'ETH': 0}]);        
-          await this.props.setWalletTokenBalances(ethObject);
+          wallet.provider = provider;       
           this.props.newWalletCreation(wallet);
           this.props.navigation.dispatch(navigateToTokens);
         }        
@@ -230,4 +222,4 @@ const mapStateToProps = ({ newWallet }) => {
   return { debugMode };
 };
 
-export default connect(mapStateToProps, { newWalletCreation, setWalletTokenBalances, fetchCoinData, calculateWalletBalance })(RecoverWallet);
+export default connect(mapStateToProps, { newWalletCreation })(RecoverWallet);

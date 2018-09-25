@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import {
   View, Text, StyleSheet, Image, TouchableOpacity, Dimensions, SafeAreaView, Platform, FlatList,
 } from 'react-native';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from 'react-navigation';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import * as actions from '../../../actions/ActionCreator';
+import { setWalletTokenBalances, fetchCoinData, calculateWalletBalance } from '../../../actions/FetchCoinData';
+import processAllTokenBalances from '../../../scripts/tokenBalances';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 import ERC20ABI from '../../../constants/data/json/ERC20ABI.json';
 import Provider from '../../../constants/Providers';
-import axios from 'axios'
 
 const ethers = require('ethers');
 const utils = ethers.utils;
@@ -36,6 +38,32 @@ class Portfolio extends Component {
       this.props.newWallet.walletBalance.eurWalletBalance 
     ],
     walletBalance: this.props.Balance.initialBalance,
+  }
+
+  async componentDidMount() {
+    console.log(this.props.newWallet.tokens);
+    await this.formatTokens(this.state.data);
+    //get all tokens
+    //send that function
+  }
+
+  //processAllTokenBalances(wallet.privateKey, [{'ETH': 0, 'address': null }]
+
+  formatTokens = async (tokenList) => {
+    let tokenObjectList = [];
+    let privateKey; 
+    for (let i = 0; i < tokenList.length; i++) {
+      let tokenObj = {};
+      tokenObj.symbol = tokenList[i].symbol;
+      tokenObj.contractAddress = tokenList[i].address;
+      tokenObjectList.push(tokenObj);
+    }
+    // console.log("after format tokens loop");
+    // console.log(tokenObjectList);
+    // console.log("wallet private key");
+    // console.log(this.props.newWallet.wallet.privateKey);
+    privateKey = this.props.newWallet.wallet.privateKey;
+    await processAllTokenBalances(privateKey, tokenObjectList)
   }
 
   navigate = () => {
@@ -416,4 +444,4 @@ function mapStateToProps({ newWallet, Balance }) {
   return { newWallet, Balance };
 }
 
-export default connect(mapStateToProps, actions)(Portfolio);
+export default connect(mapStateToProps, { actions, setWalletTokenBalances, fetchCoinData, calculateWalletBalance})(Portfolio);

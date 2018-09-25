@@ -8,7 +8,6 @@ import { NavigationActions } from 'react-navigation';
 import { Terms } from '../../../constants/Terms';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import { enterDebug } from '../../../actions/ActionCreator';
-import { FetchEthPriceData } from '../../../actions/FetchCoinData';
 
 /**
  * Initial terms and condition screen when the app is oppened for the first time.
@@ -24,10 +23,6 @@ class TermsAndConditions extends Component {
       });
       this.props.navigation.dispatch(navigateToCreateOrRestore);
     };
-
-    async componentDidMount() {
-      await this.props.FetchEthPriceData();
-    }
 
     /**
      * Returns the scrollable component that displays the terms and conditions with a submit button
@@ -103,12 +98,12 @@ const styles = StyleSheet.create({
     paddingRight: '10%',
     lineHeight: RF(2.5),
     color: 'black',
-    fontWeight: '300'
+    fontWeight: '300',
   },
   btnContainer: {
     width: '100%',
     flex: 1.25,
-    marginTop: '2.5%'
+    marginTop: '2.5%',
   },
   button: {
     width: '82%',
@@ -126,8 +121,8 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Regular',
     fontSize: RF(1.7),
     color: '#c0c0c0',
-    letterSpacing: 0.5
+    letterSpacing: 0.5,
   },
 });
 
-export default connect(null, { enterDebug, FetchEthPriceData })(TermsAndConditions);
+export default connect(null, { enterDebug })(TermsAndConditions);
