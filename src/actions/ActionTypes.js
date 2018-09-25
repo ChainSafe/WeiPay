@@ -31,7 +31,7 @@ export const CONTACT_ADDRESS_TO_COINSEND = 'contact_address_to_coinsend';
 export const ADD_NEW_TOKEN_ADDRESS = 'add_new_token_address';
 export const ADD_NEW_TOKEN_NAME = 'add_new_token_name';
 export const COMPLETE_NEW_TOKEN = 'complete_new_token';
-export const CLEAR_STORE = 'clear_store'
+export const CLEAR_STORE = 'clear_store';
 export const RESET_WALLET_BALANCE = 'reset_wallet_balance';
 export const ADD_TOKEN_FROM_LIST = 'add_token_from_list';
 
@@ -44,7 +44,6 @@ export const FETCHING_ETH_PRICE_DATA_SUCCESS = 'FETCHING_ETH_PRICE_DATA_SUCCESS'
 export const FETCHING_ETH_PRICE_DATA_FAIL = 'FETCHING_ETH_PRICE_DATA_FAIL';
 
 export const SET_WALLET_TOKENS_BALANCES = 'SET_WALLET_TOKENS_BALANCES';
-export const SET_API_TOKEN_STRING = 'SET_API_TOKEN_STRING';
 
 
 

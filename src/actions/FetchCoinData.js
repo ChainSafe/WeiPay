@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { apiBaseUrl, apiCurrencyResponseUrl } from '../constants/Api';
+import { apiBaseUrl, apiCurrencyResponseUrl, apiMultipleCurrencyBaseUrl, apiMulitpleResponseUrl } from '../constants/Api';
 
 import {
   FETCHING_COIN_DATA,
@@ -13,10 +13,14 @@ import {
 } from "./ActionTypes";
 
 
-export function FetchCoinData(symbol) {
+/**
+ * Pass in Array of symbol and amount of tokens
+ * @param {} symbol 
+ */
+export function fetchCoinData(tokensString) {
   return (dispatch) => {
     dispatch({ type: FETCHING_COIN_DATA });
-    return axios.get(`${apiBaseUrl}${symbol}${apiCurrencyResponseUrl}`)
+    return axios.get(`${apiMultipleCurrencyBaseUrl}${tokensString}${apiMulitpleResponseUrl}`)
       .then((res) => {
         dispatch({ type: FETCHING_COIN_DATA_SUCCESS, payload: res.data });
       })
@@ -44,7 +48,6 @@ export function FetchEthPriceData() {
       });
   };
 }
-
 
 export function setWalletTokenBalances(usersTokensWithBalances) {
   return (dispatch) => {

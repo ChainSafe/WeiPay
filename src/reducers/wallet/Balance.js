@@ -24,52 +24,41 @@ const initialState = {
     { 'ETH': [0] },
     { 'BTC': [0] },
   ],
-  currencyVariation: 5,
-  walletTokens: [],
-  apiTokenString: ''
+  currencyOptions: ['USD, CAD, EUR, BTC, ETH'],
+  walletTokens: [], //holds [ { ETH: 0.9 }, { SUB : # of Tokens}  ]
+  apiTokenString: '',  //holds ETH,TOKEN  -> for API call
+  tokenConversions: [], //  { ETH: {USD: 209.5, CAD: 285.32, ETH: 1, BTC: 0.03264, EUR: 178.06} SUB: {USD: 0.112, CAD: 0.1535, ETH: 0.000534, BTC: 0.00001743, EUR: 0.09506} }
 };
 
-export default function(state = initialState, action) {
-    
-  switch(action.type) {
-    case FETCHING_COIN_DATA: 
-      return Object.assign({}, state, {
-        isFetching: true,
-        data: null,
-        hasError: false,
-        errorMessage: null
-      });
-    case FETCHING_COIN_DATA_SUCCESS: 
-      return Object.assign({}, state, {
-        isFetching: false,
-        data: action.payload,
-        hasError: false,
-        errorMessage: null
-      });
-    case FETCHING_COIN_DATA_FAIL: 
-      return Object.assign({}, state, {
-        isFetching: false,
-        data: action.payload,
-        hasError: true,
-        errorMessage: action.err
-      });
-
-    case FETCHING_ETH_PRICE_DATA: 
-      return Object.assign({}, state, {
-        isFetching: true,
-        data: null,
-        hasError: false,
-        errorMessage: null
-      });
+export default function (state = initialState, action) {
+  switch (action.type) {
+    case FETCHING_COIN_DATA:
+      return {
+        ...state, isFetching: true, hasError: false, errorMessage: null,
+      };
+    case FETCHING_COIN_DATA_SUCCESS:
+      console.log("fetching coin data success");
+      console.log(action.payload);
+      return {
+        ...state, isFetching: false, hasError: false, errorMessage: null, toktokenConversions: action.payload,
+      };
+    case FETCHING_COIN_DATA_FAIL:
+      return {
+        ...state, isFetching: false, hasError: true, errorMessage: action.err,
+      };
+    case FETCHING_ETH_PRICE_DATA:
+      return {
+        ...state, isFetching: true, data: null, hasError: false, errorMessage: null,
+      };
     /**
     * This will load any app initially with the current API price matrix relative to ETH.
     * Call this at any time to refresh the balance of the wallet.
     */
     case FETCHING_ETH_PRICE_DATA_SUCCESS:             
       const oldPriceMatrix = state.currentPriceStruct;           
-      for (let i = 0; i < state.currencyVariation; i++) {               
-        const key = Object.keys(oldPriceMatrix[i]);                             
-        oldPriceMatrix[i][key] = action.payload[key];                    
+      for (let i = 0; i < state.currencyOptions.length; i++) {
+        const key = Object.keys(oldPriceMatrix[i]);
+        oldPriceMatrix[i][key] = action.payload[key];
       }         
       return { ...state, currentPriceStruct: oldPriceMatrix };
     case FETCHING_ETH_PRICE_DATA_FAIL: 
@@ -80,8 +69,10 @@ export default function(state = initialState, action) {
         errorMessage: action.err
       });
     case SET_WALLET_TOKENS_BALANCES:  
-       return { ...state, walletTokens: action.payload };
-    default: 
+      console.log("set wallet tokens balance ");
+      console.log(action.payload);
+      return { ...state, walletTokens: action.payload };
+    default:
       return state;
   }
 

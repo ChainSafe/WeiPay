@@ -4,7 +4,7 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
 import { newWalletCreation } from '../../../actions/ActionCreator';
-import { setWalletTokenBalances } from '../../../actions/FetchCoinData';
+import { setWalletTokenBalances, fetchCoinData } from '../../../actions/FetchCoinData';
 import provider from '../../../constants/Providers';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
@@ -19,18 +19,18 @@ const ethers = require('ethers');
  */
 class RecoverWallet extends Component {
 
-    /**
+  /**
      * Set the local state to keep track of the mnemonic entered to recover the wallet
      * @param {Object} props
      */
-    constructor(props) {
-      super(props);
-      this.state = {
-        mnemonic: '',
-        value: '',
-        buttonDisabled: true,
-      };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      mnemonic: '',
+      value: '',
+      buttonDisabled: true,
+    };
+  }
 
     /**
      * Navigates the state to view the enableTokens screen if the mnemonic entered
@@ -39,18 +39,19 @@ class RecoverWallet extends Component {
     navigate = async () => {
       const navigateToTokens = NavigationActions.navigate({
         routeName: 'mainStack',
-       });
+      });
 
       try {       
         if (this.props.debugMode === true) {
           const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
           wallet.provider = provider; 
-          const { tokenHoldings, tokenSymbolString } = await processAllTokenBalances(wallet.privateKey, [{'ETH': 0}]); //pass initial ETH flag and quantity as placeholder         
-          console.log(tokenHoldings, tokenSymbolString );          
-          console.log("before call in debug");          
-          //await this.props.setWalletTokenBalances(balanceObject);          
-          this.props.newWalletCreation(wallet);
-          this.props.navigation.dispatch(navigateToTokens);
+          const { tokenHoldings, tokenSymbolString } = await processAllTokenBalances(wallet.privateKey, [{'ETH': 0, 'address': null }]); //pass initial ETH flag and quantity as placeholder         
+          console.log(tokenHoldings, tokenSymbolString);          
+          console.log("before call in debug");   
+          this.props.fetchCoinData(tokenSymbolString); // returns ETH: {USD: 209.64, CAD: 296.89, ETH: 1, BTC: 0.03271, EUR: 178.34}
+          //await this.props.setWalletTokenBalances(tokenHoldings);          
+          //this.props.newWalletCreation(wallet);
+          //this.props.navigation.dispatch(navigateToTokens);
         } else {        
           const mnemonic = this.state.mnemonic.trim();
           const wallet = ethers.Wallet.fromMnemonic(mnemonic);
@@ -58,8 +59,8 @@ class RecoverWallet extends Component {
           const ethObject = await processAllTokenBalances(wallet.privateKey, [{'ETH': 0}]);
           console.log("before call NOT NOT NOT in debug");
           await this.props.setWalletTokenBalances(ethObject);
-          this.props.newWalletCreation(wallet);
-          this.props.navigation.dispatch(navigateToTokens);
+          //this.props.newWalletCreation(wallet);
+          //this.props.navigation.dispatch(navigateToTokens);
         }
         
       } catch (err) {
@@ -167,24 +168,24 @@ const styles = StyleSheet.create({
     color: '#1a1f3e',
     flex: 0.65,
   },
-  boxShadowContainer:{
-    alignItems: 'center', 
-    flex: 2.5
+  boxShadowContainer: {
+    alignItems: 'center',
+    flex: 2.5,
   },
   contentContainer: {
     width: '82%',
     flex: 1,
   },
   cardText: {
-      paddingBottom: '15%',
-      paddingTop: '10%',
-      paddingLeft: '10%',
-      paddingRight: '10%',
-      fontFamily: 'WorkSans-Light',
-      letterSpacing: 0.4,
-      lineHeight: RF(3.9),
-      color: '#000000',
-      fontSize: RF(2.4),
+    paddingBottom: '15%',
+    paddingTop: '10%',
+    paddingLeft: '10%',
+    paddingRight: '10%',
+    fontFamily: 'WorkSans-Light',
+    letterSpacing: 0.4,
+    lineHeight: RF(3.9),
+    color: '#000000',
+    fontSize: RF(2.4),
   },
   txtMnemonic: {
     width: '100%',
@@ -235,4 +236,4 @@ const mapStateToProps = ({ newWallet }) => {
 };
 
 
-export default connect(mapStateToProps, { newWalletCreation, setWalletTokenBalances })(RecoverWallet);
+export default connect(mapStateToProps, { newWalletCreation, setWalletTokenBalances, fetchCoinData })(RecoverWallet);
