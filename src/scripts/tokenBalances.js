@@ -1,18 +1,15 @@
 /**
  * All tokens/coins the user has will be passed in and an array of balances will be returned.
  * Delegate Ethereum and ERC20 token balance lookup here. 
+ * The 0 index will be the user's eth -> corresponds to index in the tokens array in the wallet reducer.
+ * Any subsequent coins will have an index of 1 or greater, unless they have removed ether from their wallet.
+ * This use case will be address in a subsequent branch.
  */
 
 import provider from '../constants/Providers';
 import ERC20ABI from '../constants/data/json/ERC20ABI.json';
 
 const ethers = require('ethers');
-
-/**
- * private key
- * dataSet[0] -> your Eth holdings
- * dataset[1+] -> any additional tokens
- */
 
 const processAllTokenBalances = async (privateKey, dataSet) => {
   console.log(privateKey, dataSet);

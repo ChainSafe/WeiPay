@@ -5,6 +5,7 @@ import {
   FETCHING_ETH_PRICE_DATA,
   FETCHING_ETH_PRICE_DATA_SUCCESS,
   FETCHING_ETH_PRICE_DATA_FAIL,
+  SET_WALLET_TOKENS_BALANCES,
 } from '../../actions/ActionTypes';
 
 /**
@@ -23,6 +24,7 @@ const initialState = {
     { 'BTC': [0] },
   ],
   currencyVariation: 5,
+  walletTokens: [],
 };
 
 export default function(state = initialState, action) {
@@ -75,6 +77,8 @@ export default function(state = initialState, action) {
         hasError: true,
         errorMessage: action.err
       });
+    case SET_WALLET_TOKENS_BALANCES:  
+       return { ...state, walletTokens: action.payload };
     default: 
       return state;
   }

@@ -9,8 +9,8 @@ import {
   FETCHING_ETH_PRICE_DATA,
   FETCHING_ETH_PRICE_DATA_SUCCESS,
   FETCHING_ETH_PRICE_DATA_FAIL,
+  SET_WALLET_TOKENS_BALANCES,
 } from "./ActionTypes";
-
 
 
 export function FetchCoinData(symbol) {
@@ -33,7 +33,6 @@ export function FetchCoinData(symbol) {
  * This removes the intial API call when the main app screen loads/when the flatlist needs an initial refresh.
  */
 export function FetchEthPriceData() {
-  console.log("We are in fetch eth price data");
   return (dispatch) => {
     dispatch({ type: FETCHING_ETH_PRICE_DATA });
     return axios.get(`${apiBaseUrl}ETH${apiCurrencyResponseUrl}`)
@@ -43,5 +42,12 @@ export function FetchEthPriceData() {
       .catch((err) => {
         dispatch({ type: FETCHING_ETH_PRICE_DATA_FAIL, payload: err.data });
       });
+  };
+}
+
+
+export function setWalletTokenBalances(usersTokensWithBalances) {
+  return (dispatch) => {
+    dispatch({ type: SET_WALLET_TOKENS_BALANCES, payload: usersTokensWithBalances });
   };
 }
