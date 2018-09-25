@@ -4,7 +4,7 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
 import { newWalletCreation } from '../../../actions/ActionCreator';
-import { setWalletTokenBalances, fetchCoinData } from '../../../actions/FetchCoinData';
+import { setWalletTokenBalances, fetchCoinData, calculateWalletBalance } from '../../../actions/FetchCoinData';
 import provider from '../../../constants/Providers';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
@@ -48,7 +48,9 @@ class RecoverWallet extends Component {
           const { tokenHoldings, tokenSymbolString } = await processAllTokenBalances(wallet.privateKey, [{'ETH': 0, 'address': null }]); //pass initial ETH flag and quantity as placeholder         
           console.log(tokenHoldings, tokenSymbolString);          
           console.log("before call in debug");   
-          this.props.fetchCoinData(tokenSymbolString); // returns ETH: {USD: 209.64, CAD: 296.89, ETH: 1, BTC: 0.03271, EUR: 178.34}
+          await this.props.setWalletTokenBalances(tokenHoldings);  //pass the quantity to reducer
+          await this.props.fetchCoinData(tokenSymbolString); // pass the value of the currencies to reducer
+          await this.props.calculateWalletBalance(); //should generate the wallet balance for when the next screen loads
           //await this.props.setWalletTokenBalances(tokenHoldings);          
           //this.props.newWalletCreation(wallet);
           //this.props.navigation.dispatch(navigateToTokens);
@@ -236,4 +238,4 @@ const mapStateToProps = ({ newWallet }) => {
 };
 
 
-export default connect(mapStateToProps, { newWalletCreation, setWalletTokenBalances, fetchCoinData })(RecoverWallet);
+export default connect(mapStateToProps, { newWalletCreation, setWalletTokenBalances, fetchCoinData, calculateWalletBalance })(RecoverWallet);

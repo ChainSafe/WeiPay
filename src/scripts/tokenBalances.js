@@ -15,14 +15,11 @@ const processAllTokenBalances = async (privateKey, dataSet) => {
   console.log(privateKey, dataSet);
   const wallet = new ethers.Wallet(privateKey);
   wallet.provider = provider;
-
   let tokenHoldings = [];
   let tokenSymbolString = '';
-
   console.log(dataSet.length);
   
   for(let i = 0; i < dataSet.length; i++) {
-    
     let key;
     switch (i) {
       case 0:                

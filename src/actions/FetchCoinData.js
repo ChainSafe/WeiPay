@@ -10,6 +10,7 @@ import {
   FETCHING_ETH_PRICE_DATA_SUCCESS,
   FETCHING_ETH_PRICE_DATA_FAIL,
   SET_WALLET_TOKENS_BALANCES,
+  CALCULATE_WALLET_BALANCE,
 } from "./ActionTypes";
 
 
@@ -54,3 +55,10 @@ export function setWalletTokenBalances(usersTokensWithBalances) {
     dispatch({ type: SET_WALLET_TOKENS_BALANCES, payload: usersTokensWithBalances });
   };
 }
+
+export function calculateWalletBalance() {
+  return (dispatch) => {
+    dispatch({ type: CALCULATE_WALLET_BALANCE, payload: '' });
+  };
+}
+
