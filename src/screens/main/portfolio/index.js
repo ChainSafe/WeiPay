@@ -35,14 +35,7 @@ class Portfolio extends Component {
       this.props.newWallet.walletBalance.ethWalletBalance, 
       this.props.newWallet.walletBalance.eurWalletBalance 
     ],
-    // walletBalance: 0,
     walletBalance: this.props.Balance.initialBalance,
-  }
-
-  componentDidMount() {
-    console.log("in index compoenent did mount");
-    console.log(this.props.Balance.initialBalance);
-    console.log("after initial balance"); 
   }
 
   navigate = () => {

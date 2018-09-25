@@ -44,34 +44,27 @@ class RecoverWallet extends Component {
         if (this.props.debugMode === true) {
           const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
           wallet.provider = provider; 
-          const { tokenHoldings, tokenSymbolString } = await processAllTokenBalances(wallet.privateKey, [{'ETH': 0, 'address': null }]); //pass initial ETH flag and quantity as placeholder         
-          console.log(tokenHoldings, tokenSymbolString);          
-          console.log("before call in debug");   
+          const { tokenHoldings, tokenSymbolString } = await processAllTokenBalances(wallet.privateKey, [{'ETH': 0, 'address': null }]); //pass initial ETH flag and quantity as placeholder                    
           await this.props.setWalletTokenBalances(tokenHoldings);  //pass the quantity to reducer
           await this.props.fetchCoinData(tokenSymbolString); // pass the value of the currencies to reducer
-          await this.props.calculateWalletBalance();          
-          console.log("after Create wallet balance wallet");                           
+          await this.props.calculateWalletBalance();                                            
           this.props.newWalletCreation(wallet);
           this.props.navigation.dispatch(navigateToTokens);
-        } else {
-          console.log("wtf");
-          
-          // const mnemonic = this.state.mnemonic.trim();
-          // const wallet = ethers.Wallet.fromMnemonic(mnemonic);
-          // wallet.provider = provider;
-          // const ethObject = await processAllTokenBalances(wallet.privateKey, [{'ETH': 0}]);
-          // console.log("before call NOT NOT NOT in debug");
-          // await this.props.setWalletTokenBalances(ethObject);
-          // this.props.newWalletCreation(wallet);
-          // this.props.navigation.dispatch(navigateToTokens);
+        } else {             
+          const mnemonic = this.state.mnemonic.trim();
+          const wallet = ethers.Wallet.fromMnemonic(mnemonic);
+          wallet.provider = provider;
+          const ethObject = await processAllTokenBalances(wallet.privateKey, [{'ETH': 0}]);        
+          await this.props.setWalletTokenBalances(ethObject);
+          this.props.newWalletCreation(wallet);
+          this.props.navigation.dispatch(navigateToTokens);
         }        
       } catch (err) {
         Alert.alert(
           'Mnemonic Error',
           'Your mnemonic was invalid, please re-enter.',
           [
-            // { text: 'OK', onPress: () => this.inputMnemonic.clearText() },
-            { text: 'OK', onPress: () => console.log("not good") },
+            { text: 'OK', onPress: () => this.inputMnemonic.clearText() },           
           ],
           { cancelable: false },
         );
