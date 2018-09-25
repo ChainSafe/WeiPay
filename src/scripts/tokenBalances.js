@@ -10,45 +10,49 @@ import provider from '../constants/Providers';
 import ERC20ABI from '../constants/data/json/ERC20ABI.json';
 
 const ethers = require('ethers');
+let wallet;
 
 const processAllTokenBalances = async (privateKey, dataSet) => {
-  console.log(privateKey, dataSet);
-  const wallet = new ethers.Wallet(privateKey);
+  let allBalances = [];
+  wallet = new ethers.Wallet(privateKey);
   wallet.provider = provider;
-  let tokenHoldings = [];
-  let tokenSymbolString = '';
-  console.log(dataSet.length);
-  
-  for(let i = 0; i < dataSet.length; i++) {
+  console.log(wallet);
+  console.log(privateKey, dataSet, dataSet.length);
+  for (let i = 0; i < dataSet.length; i++) {
     let key;
-    switch (i) {
-      case 0:                
-        const balance = await provider.getBalance(wallet.address);
-        const parsedEtherBalance = String(ethers.utils.formatEther(balance));        
-        key = Object.keys(dataSet[i]);    
-        console.log("key", key);         
-        let ethObj = {};
-        ethObj.type = key[0];
-        ethObj.amount = parsedEtherBalance;        
-        tokenSymbolString += `${key[0]}`;   
-        if (dataSet.length > 1) tokenSymbolString += ',';
-        tokenHoldings.push(ethObj);
-        break;
-      default: 
-        key = Object.keys(dataSet[i]);    
-        const contract = new ethers.Contract(key[1], ERC20ABI, provider); //key[1] is contract address
-        const tokenBalance = await contract.balanceOf(wallet.address); 
-        key = Object.keys(dataSet[i]);  
-        console.log("token key 1", key[1]);        
-        let tokenObj = {};
-        tokenObj.type = key[0];
-        tokenObj.amount = parsedEtherBalance;   
-        tokenSymbolString += `${key[0]}`;   
-        if (i < dataSet.length - 1) tokenSymbolString += ',';
-        console.log(String(tokenBalance));           
+    if (dataSet[i].contractAddress === '') {
+      await this.getEthereumBalance(wallet.address)
+        .then((response) => {
+          console.log('eth response', response);
+          allBalances.push(response);
+        });
+    } else {
+      let contractAddress = dataSet[i].contractAddress;
+      await this.getERC20Balance(contractAddress)
+        .then((response) => {
+          console.log('eth response', response);
+          allBalances.push(response);
+        });
     }
   }
-  return { tokenHoldings, tokenSymbolString };
+  console.log('all balance length', allBalances.length);
+  return allBalances;
 };
+
+getEthereumBalance = async () => { 
+  const balance = await provider.getBalance(wallet.address);
+  const parsedEtherBalance = String(ethers.utils.formatEther(balance));
+  console.log('Ethereum Balance', parsedEtherBalance);
+  return parsedEtherBalance;
+};
+
+getERC20Balance = async (contractAdd) => {
+  console.log('contract address', contractAdd);
+  const contract = new ethers.Contract(contractAdd, ERC20ABI, provider);
+  const tokenBalance = await contract.balanceOf(wallet.address);
+  const parsedTokenBalance = String(tokenBalance);
+  console.log('Token Balance', parsedTokenBalance);
+  return parsedTokenBalance;
+}
 
 export default processAllTokenBalances;

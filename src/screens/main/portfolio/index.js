@@ -43,8 +43,6 @@ class Portfolio extends Component {
   async componentDidMount() {
     console.log(this.props.newWallet.tokens);
     await this.formatTokens(this.state.data);
-    //get all tokens
-    //send that function
   }
 
   //processAllTokenBalances(wallet.privateKey, [{'ETH': 0, 'address': null }]
@@ -58,12 +56,13 @@ class Portfolio extends Component {
       tokenObj.contractAddress = tokenList[i].address;
       tokenObjectList.push(tokenObj);
     }
-    // console.log("after format tokens loop");
-    // console.log(tokenObjectList);
-    // console.log("wallet private key");
-    // console.log(this.props.newWallet.wallet.privateKey);
     privateKey = this.props.newWallet.wallet.privateKey;
-    await processAllTokenBalances(privateKey, tokenObjectList)
+    const x = await processAllTokenBalances(privateKey, tokenObjectList);
+    console.log('out of function');
+
+    console.log(x);
+    // await processAllTokenBalances(privateKey, tokenObjectList)
+    //   .then(response => console.log(response));
   }
 
   navigate = () => {
