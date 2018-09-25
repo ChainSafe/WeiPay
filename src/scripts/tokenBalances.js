@@ -17,25 +17,36 @@ const processAllTokenBalances = async (privateKey, dataSet) => {
   wallet.provider = provider;
 
   let tokenHoldings = [];
+  let tokenSymbolString = '';
 
   for(let i = 0; i < dataSet.length; i++) {
+    
+    let key;
     switch (i) {
       case 0:                
         const balance = await provider.getBalance(wallet.address);
         const parsedEtherBalance = String(ethers.utils.formatEther(balance));        
-        const key = Object.keys(dataSet[i]);     
+        key = Object.keys(dataSet[i]);     
         let ethObj = {};
         ethObj.type = key[0];
-        ethObj.amount = parsedEtherBalance           
-        tokenHoldings.push(ethObj); 
+        ethObj.amount = parsedEtherBalance;        
+        tokenSymbolString += `${key[0]}`;   
+        if (dataSet.length > 1) tokenSymbolString += ',';
+        tokenHoldings.push(ethObj);
         break;
       default: 
         const contract = new ethers.Contract(token.address, ERC20ABI, Provider);       
-        const tokenBalance = await contract.balanceOf(currentWallet.address);  
+        const tokenBalance = await contract.balanceOf(currentWallet.address); 
+        key = Object.keys(dataSet[i]);  
+        let tokenObj = {};
+        tokenObj.type = key[0];
+        tokenObj.amount = parsedEtherBalance;   
+        tokenSymbolString += `${key[0]}`;   
+        if (i < dataSet.length - 1) tokenSymbolString += ',';
         console.log(String(tokenBalance));           
     }
   }
-  return tokenHoldings; 
+  return { tokenHoldings, tokenSymbolString };
 };
 
 export default processAllTokenBalances;

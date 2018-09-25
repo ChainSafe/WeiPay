@@ -45,9 +45,10 @@ class RecoverWallet extends Component {
         if (this.props.debugMode === true) {
           const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
           wallet.provider = provider; 
-          const ethObject = await processAllTokenBalances(wallet.privateKey, [{'ETH': 0}]); //pass initial ETH flag and quantity as placeholder         
+          const { tokenHoldings, tokenSymbolString } = await processAllTokenBalances(wallet.privateKey, [{'ETH': 0}]); //pass initial ETH flag and quantity as placeholder         
+          console.log(tokenHoldings, tokenSymbolString );          
           console.log("before call in debug");          
-          await this.props.setWalletTokenBalances(ethObject);          
+          //await this.props.setWalletTokenBalances(balanceObject);          
           this.props.newWalletCreation(wallet);
           this.props.navigation.dispatch(navigateToTokens);
         } else {        
