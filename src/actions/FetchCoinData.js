@@ -56,9 +56,37 @@ export function setWalletTokenBalances(usersTokensWithBalances) {
   };
 }
 
-export function calculateWalletBalance() {
+/**
+ * Loop through the amount of tokens the user has
+ * Loop through all the conversions
+ * Create a total balance object that has all 5 currencies
+ * @param {} tokenBalances 
+ * @param {*} tokenConversionMatrix 
+ */
+export function calculateWalletBalance(tokenBalances, tokenConversionMatrix) {
   return (dispatch) => {
-    dispatch({ type: CALCULATE_WALLET_BALANCE, payload: '' });
+    console.log('\n');
+    console.log('\n');
+    console.log('in calculate action');
+    const tokenKeys = Object.keys(tokenConversionMatrix);
+    let walletBalanceObject = {
+      USD: 0,
+      CAD: 0,
+      EUR: 0,
+      BTC: 0,
+      ETH: 0,
+    };
+    for (let i = 0; i < tokenBalances.length; i++) {
+      const currentTokenKey = tokenKeys[i];
+      walletBalanceObject.USD += tokenBalances[i].amount * tokenConversionMatrix[currentTokenKey].USD;
+      walletBalanceObject.CAD += tokenBalances[i].amount * tokenConversionMatrix[currentTokenKey].CAD;
+      walletBalanceObject.EUR += tokenBalances[i].amount * tokenConversionMatrix[currentTokenKey].EUR;
+      walletBalanceObject.BTC += tokenBalances[i].amount * tokenConversionMatrix[currentTokenKey].BTC;
+      walletBalanceObject.ETH += tokenBalances[i].amount * tokenConversionMatrix[currentTokenKey].ETH;
+    }
+    console.log(walletBalanceObject);
+    console.log('\n');
+    console.log('\n');
+    dispatch({ type: CALCULATE_WALLET_BALANCE, payload: walletBalanceObject });
   };
 }
-

@@ -27,13 +27,17 @@ class Portfolio extends Component {
     data: this.props.newWallet.tokens,
     refresh: false,
     currencyIndex: 0,
-    walletBalance: this.props.Balance.initialBalance,
+    walletBalance: 0,
     currency: 'USD',
+    apiRequestString: '',
   }
 
   async componentDidMount() {
     const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data);
     await this.props.fetchCoinData(tokenSymbolString);
+    console.log('component', tokenBalances);
+    await this.props.calculateWalletBalance(tokenBalances, this.props.Balance.tokenConversions);
+    this.setState({ apiRequestString: tokenSymbolString, walletBalance: this.props.Balance.walletBalance.ETH });
   }
 
   formatTokens = async (tokenList) => {
@@ -361,4 +365,6 @@ function mapStateToProps({ newWallet, Balance }) {
   return { newWallet, Balance };
 }
 
-export default connect(mapStateToProps, { actions, setWalletTokenBalances, fetchCoinData })(Portfolio);
+export default connect(mapStateToProps, {
+  actions, setWalletTokenBalances, fetchCoinData, calculateWalletBalance,
+})(Portfolio);

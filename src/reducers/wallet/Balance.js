@@ -17,7 +17,7 @@ const initialState = {
   isFetching: null,
   hasError: false,
   errorMessage: null,
-  initialBalance: 0,
+  walletBalance: {},
   currencyOptions: ['USD, CAD, EUR, BTC, ETH'],
   walletTokens: [], //holds [ {type: "ETH", amount: "0.95954711315492517"}, ... ]
   apiTokenString: '',  //holds ETH,TokenName,TokenName...ETC  -> for API call 
@@ -30,7 +30,7 @@ export default function (state = initialState, action) {
       return {
         ...state, isFetching: true, hasError: false, errorMessage: null,
       };
-    case FETCHING_COIN_DATA_SUCCESS:     
+    case FETCHING_COIN_DATA_SUCCESS:
       return {
         ...state, isFetching: false, hasError: false, errorMessage: null, tokenConversions: action.payload,
       };
@@ -42,15 +42,20 @@ export default function (state = initialState, action) {
       return {
         ...state, isFetching: true, data: null, hasError: false, errorMessage: null,
       };
-    case FETCHING_ETH_PRICE_DATA_SUCCESS:                         
-      return { ...state, intialRelativeEthConversions: action.payload };
-    case FETCHING_ETH_PRICE_DATA_FAIL: 
-      return { ...state, isFetching: false, hasError: true, errorMessage: action.err };   
-    case SET_WALLET_TOKENS_BALANCES:   
+    case FETCHING_ETH_PRICE_DATA_SUCCESS:
+      return {
+        ...state, intialRelativeEthConversions: action.payload,
+      };
+    case FETCHING_ETH_PRICE_DATA_FAIL:
+      return {
+        ...state, isFetching: false, hasError: true, errorMessage: action.err,
+      };
+    case SET_WALLET_TOKENS_BALANCES:
       return { ...state, walletTokens: action.payload };
     case CALCULATE_WALLET_BALANCE:
-     
-      return { ...state };
+      console.log('in reducer for calculate');
+      console.log(action.payload);
+      return { ...state, walletBalance: action.payload };
     default:
       return state;
   }
