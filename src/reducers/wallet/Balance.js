@@ -16,7 +16,7 @@ const initialState = {
     hasError: false,
     errorMessage: null,
     //currentPriceArray: {},
-    currentPriceArray: [
+    currentPriceStruct: [
         { 'USD': [1] },
         { 'CAD': [2] },
         { 'EUR': [3] },
@@ -61,19 +61,31 @@ export default function(state = initialState, action) {
         case FETCHING_ETH_PRICE_DATA_SUCCESS: 
         console.log("before for");
         
+            const oldPriceMatrix = state.currentPriceStruct;
+            console.log("old matrix is ");
+            console.log(oldPriceMatrix);
+            
+
             for(let i = 0; i < state.currencyVariation; i++) {
-                let key = Object.keys(state.currentPriceArray[i]);
-                console.log(state.currentPriceArray[i][key]);
-                
-                console.log("Key", key);
-                //console.log(state.currentPriceArray[i].key);
-                       
-                        
+                //let key = Object.keys(state.currentPriceArray[i]);
+                let key = Object.keys(oldPriceMatrix[i]); 
+                console.log(oldPriceMatrix[i][key]);    // value of the index of the array for each currency object
+                console.log("paylod at key is ");
+                console.log(action.payload[key]);      
+                //console.log(oldPriceMatrix[key]);
+                      
+                //loop through api data and replace 0 index of all currencies with relative prices to eth
+                oldPriceMatrix[i][key] = action.payload[key];                    
             }
+
+            console.log("new matrix is");
+            console.log(oldPriceMatrix);
+            
+            
 
             // let priceData = action.payload;
             //console.log(priceData);
-            return { ...state, currentPriceArray: action.pa };
+            return { ...state };
         case FETCHING_ETH_PRICE_DATA_FAIL: 
             return Object.assign({}, state, {
                 isFetching: false,
