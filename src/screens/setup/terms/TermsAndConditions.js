@@ -3,11 +3,12 @@ import {
  Text, View, ScrollView, StyleSheet, Dimensions, SafeAreaView,
 } from 'react-native';
 import RF from "react-native-responsive-fontsize";
-import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
 import { Terms } from '../../../constants/Terms';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import { enterDebug } from '../../../actions/ActionCreator';
+import { FetchEthPriceData } from '../../../actions/FetchCoinData';
 
 /**
  * Initial terms and condition screen when the app is oppened for the first time.
@@ -23,6 +24,12 @@ class TermsAndConditions extends Component {
       });
       this.props.navigation.dispatch(navigateToCreateOrRestore);
     };
+
+    async componentDidMount() {
+      await this.props.FetchEthPriceData();
+      console.log("after but in component did mount");
+      
+    }
 
     /**
      * Returns the scrollable component that displays the terms and conditions with a submit button
@@ -44,30 +51,30 @@ class TermsAndConditions extends Component {
       } = styles;
 
       return (
-                <SafeAreaView style={styles.safeAreaView}>
-                  <View style={mainContainer}>
-                    <View style={styles.headerContainer} >
-                      <Text style={textHeader} onPress={this.props.enterDebug} >Terms & Conditions </Text>
-                    </View>
-                    <View style={styles.scrollViewContainer} >
-                      <ScrollView style={scrollView}>
-                        <Text style={textBody} >{Terms}</Text>
-                      </ScrollView>
-                    </View>
-                    <View style={btnContainer}>
-                      <LinearButton
-                        onClickFunction={this.navigate}
-                        buttonText='Agree'
-                        customStyles={button}
-                      />
-                      <View style={footerGrandparentContainer}>
-                        <View style={footerParentContainer} >
-                          <Text style={textFooter} >Powered by ChainSafe </Text>
-                        </View>
-                      </View>
-                    </View>
+          <SafeAreaView style={styles.safeAreaView}>
+            <View style={mainContainer}>
+              <View style={styles.headerContainer} >
+                <Text style={textHeader} onPress={this.props.enterDebug} >Terms & Conditions </Text>
+              </View>
+              <View style={styles.scrollViewContainer} >
+                <ScrollView style={scrollView}>
+                  <Text style={textBody} >{Terms}</Text>
+                </ScrollView>
+              </View>
+              <View style={btnContainer}>
+                <LinearButton
+                  onClickFunction={this.navigate}
+                  buttonText='Agree'
+                  customStyles={button}
+                />
+                <View style={footerGrandparentContainer}>
+                  <View style={footerParentContainer} >
+                    <Text style={textFooter} >Powered by ChainSafe </Text>
                   </View>
-                </SafeAreaView>
+                </View>
+              </View>
+            </View>
+          </SafeAreaView>
       );
     }
 }
@@ -140,4 +147,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null, { enterDebug })(TermsAndConditions);
+export default connect(null, { enterDebug, FetchEthPriceData })(TermsAndConditions);

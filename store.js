@@ -3,19 +3,23 @@ import AppReducer from './src/reducers'
 import thunk from 'redux-thunk'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import promise from 'redux-promise'
+import logger from 'redux-logger'
 
 const persistConfig = {
   key: 'root',
   storage,
   persist: (...options) => persistNative(...options),
-  whitelist: ['contacts', 'wallet', 'newWallet', 'walletBalance']
+  whitelist: ['contacts', 'wallet', 'newWallet', 'walletBalance', 'currentPriceArray']
 }
 
-const persistedReducer = persistReducer(persistConfig, AppReducer)
+const persistedReducer = persistReducer(persistConfig, AppReducer);
+
+const middleware = applyMiddleware(thunk, promise, logger);
 
 const store = createStore(
     persistedReducer,
-    applyMiddleware(thunk),
+    middleware,
 );
 
 let persistor = persistStore(store)

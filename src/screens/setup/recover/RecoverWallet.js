@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Alert, Dimensions, Keyboard, TouchableWithoutFeedback, SafeAreaView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import { FormInput, Card } from 'react-native-elements';
+import { FormInput } from 'react-native-elements';
 import { newWalletCreation } from '../../../actions/ActionCreator';
 import provider from '../../../constants/Providers';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
@@ -34,7 +34,7 @@ class RecoverWallet extends Component {
      * Navigates the state to view the enableTokens screen if the mnemonic entered
      * is valid otherwise an error is displayed
      */
-    navigate = () => {
+    navigate = async () => {
       const navigateToTokens = NavigationActions.navigate({
         routeName: 'mainStack',
        });
@@ -45,6 +45,10 @@ class RecoverWallet extends Component {
         if (this.props.debugMode === true) {
           const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
           wallet.provider = provider;
+          //pass address to 
+          const recoveredWalletBalance = await Provider.getBalance(currentWallet.address);
+          const parseBalance = String(ethers.utils.formatEther(recoveredWalletBalance));         
+          //pass balance to 
           this.props.newWalletCreation(wallet); //pass state to redux to save it
           this.props.navigation.dispatch(navigateToTokens);
         }else {

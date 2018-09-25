@@ -34,3 +34,14 @@ export const COMPLETE_NEW_TOKEN = 'complete_new_token';
 export const CLEAR_STORE = 'clear_store'
 export const RESET_WALLET_BALANCE = 'reset_wallet_balance';
 export const ADD_TOKEN_FROM_LIST = 'add_token_from_list';
+
+export const FETCHING_COIN_DATA = 'FETCHING_COIN_DATA';
+export const FETCHING_COIN_DATA_SUCCESS = 'FETCHING_COIN_DATA_SUCCESS';
+export const FETCHING_COIN_DATA_FAIL = 'FETCHING_COIN_DATA_FAIL';
+
+export const FETCHING_ETH_PRICE_DATA = 'FETCHING_ETH_PRICE_DATA';
+export const FETCHING_ETH_PRICE_DATA_SUCCESS = 'FETCHING_ETH_PRICE_DATA_SUCCESS';
+export const FETCHING_ETH_PRICE_DATA_FAIL = 'FETCHING_ETH_PRICE_DATA_FAIL';
+
+
+
