@@ -40,15 +40,18 @@ class Coins extends Component {
 
   handleChangeText(input) {
     console.log('in handle change text function');
-    console.log(input);
+  
+
+    const inputUpperCase = input.toUpperCase();
+    console.log(inputUpperCase);
     
     
     try {
-      this.setState({ searchedTokenSym: input});
-      if (this.state.tokens[input] != null) {
-        this.setState({searchedTokenName: 'NA', searchedTokenNameAdd: this.state.tokens[input]['contract_address']  });
-        if (this.state.tokens[input]['name'] != null) {
-          this.setState({ searchedTokenName: this.state.tokens[input]['name']});
+      this.setState({ searchedTokenSym: inputUpperCase});
+      if (this.state.tokens[inputUpperCase] != null) {
+        this.setState({searchedTokenName: 'NA', searchedTokenNameAdd: this.state.tokens[inputUpperCase]['contract_address']  });
+        if (this.state.tokens[inputUpperCase]['name'] != null) {
+          this.setState({ searchedTokenName: this.state.tokens[inputUpperCase]['name']});
         }
       }else {
         this.setState({ searchedTokenName: '', searchedTokenNameAdd: '' });
