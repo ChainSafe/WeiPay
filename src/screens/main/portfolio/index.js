@@ -118,9 +118,7 @@ class Portfolio extends Component {
     );
   }
 
-  handleListRefresh = () => {
-    console.log('List refreshed');
-  }
+  handleListRefresh = () => {}
 
   handleCurrencyTouch = async () => {
     let currentIndex = this.state.currencyIndex;

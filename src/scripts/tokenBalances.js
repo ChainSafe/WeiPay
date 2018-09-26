@@ -17,14 +17,12 @@ const processAllTokenBalances = async (privateKey, dataSet) => {
   let tokenApiRequestString = '';
   wallet = new ethers.Wallet(privateKey);
   wallet.provider = provider;
-  console.log(privateKey, dataSet, dataSet.length);
   for (let i = 0; i < dataSet.length; i++) {
     let tokenObj = {};
     tokenObj.symbol = dataSet[i].symbol;
     if (dataSet[i].contractAddress === '') {
       await this.getEthereumBalance(wallet.address)
         .then((response) => {
-          console.log('eth response', response);
           tokenObj.amount = response;
           allBalances.push(tokenObj);
           tokenApiRequestString += `${dataSet[i].symbol}`;  
@@ -34,7 +32,6 @@ const processAllTokenBalances = async (privateKey, dataSet) => {
       let contractAddress = dataSet[i].contractAddress;
       await this.getERC20Balance(contractAddress)
         .then((response) => {
-          console.log('eth response', response);
           tokenObj.amount = response;
           allBalances.push(tokenObj);
           tokenApiRequestString += `${dataSet[i].symbol}`;  
@@ -48,7 +45,6 @@ const processAllTokenBalances = async (privateKey, dataSet) => {
 getEthereumBalance = async () => {
   const balance = await provider.getBalance(wallet.address);
   const parsedEtherBalance = String(ethers.utils.formatEther(balance));
-  console.log('Ethereum Balance', parsedEtherBalance);
   return parsedEtherBalance;
 };
 
@@ -56,7 +52,6 @@ getERC20Balance = async (contractAdd) => {
   const contract = new ethers.Contract(contractAdd, ERC20ABI, provider);
   const tokenBalance = await contract.balanceOf(wallet.address);
   const parsedTokenBalance = String(tokenBalance);
-  console.log('Token Balance', parsedTokenBalance);
   return parsedTokenBalance;
 }
 
