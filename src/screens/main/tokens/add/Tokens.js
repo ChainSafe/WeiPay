@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
   View, StyleSheet, Dimensions, Text, SafeAreaView, ScrollView, RefreshControl
 } from 'react-native';
-import { SearchBar } from 'react-native-elements';
+// import { SearchBar } from 'react-native-elements';
+import SearchBar from 'react-native-material-design-searchbar';
 import { connect } from 'react-redux';
 import * as actions from '../../../../actions/ActionCreator';
 import { NavigationActions } from 'react-navigation';
@@ -15,20 +16,16 @@ import LinearButton from '../../../../components/LinearGradient/LinearButton';
  * Screen to add more coins to the portfolio
  */
 class Coins extends Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
-
-    this.state={
+    this.state = {
       tokens: this.props.newWallet.allTokens,
-      searchedTokenSym: "",
-      searchedTokenName: "",
-      searchedTokenNameAdd: "",
+      searchedTokenSym: '',
+      searchedTokenName: '',
+      searchedTokenNameAdd: '',
       refreshing: false,
-    }
+    };
   }
-  
-
 
   /**
    * Allows you to navigate to the navigation drawer
@@ -41,22 +38,19 @@ class Coins extends Component {
     this.props.navigation.dispatch(navigateToPassphrase);
   };
 
- 
-
-  handleChangeText(input){
+  handleChangeText(input) {
     try {
-      
-      this.setState({ searchedTokenSym: input})
+      this.setState({ searchedTokenSym: input});
       if (this.state.tokens[input] != null) {
-        this.setState({searchedTokenName: "NA", searchedTokenNameAdd: this.state.tokens[input]["contract_address"]  });
-        if (this.state.tokens[input]["name"] != null) {
-          this.setState({ searchedTokenName: this.state.tokens[input]["name"]})
+        this.setState({searchedTokenName: 'NA', searchedTokenNameAdd: this.state.tokens[input]['contract_address']  });
+        if (this.state.tokens[input]['name'] != null) {
+          this.setState({ searchedTokenName: this.state.tokens[input]['name']});
         }
       }else {
-        this.setState({ searchedTokenName: "", searchedTokenNameAdd: ""})
-      }      
+        this.setState({ searchedTokenName: '', searchedTokenNameAdd: '' });
+      }
     } catch (error) {
-      console.log("DNE");
+      console.log('DNE');
     }
   }
 
@@ -64,56 +58,56 @@ class Coins extends Component {
     try {
       const token = this.state.tokens[this.state.searchedTokenSym];
       if (token != null) {
-        if (token["name"] != null) {
-          this.props.addTokenFromList(token["name"] ,this.state.searchedTokenSym, token["contract_address"]);
+        if (token['name'] != null) {
+          this.props.addTokenFromList(token['name'] ,this.state.searchedTokenSym, token['contract_address']);
         }else {
-          this.props.addTokenFromList("NA" ,this.state.searchedTokenSym, token["contract_address"]);
+          this.props.addTokenFromList('NA' ,this.state.searchedTokenSym, token['contract_address']);
         }
-        this.setState({ searchedTokenSym: "", searchedTokenName: "", searchedTokenNameAdd: ""})
+        this.setState({ searchedTokenSym: '', searchedTokenName: '', searchedTokenNameAdd: ''});
       }
     } catch (error) {
-      console.log("DNE");
+      console.log('DNE');
     }
-    
   }
- 
-  /**
-   * Contains tha CoinList Component
-   */
+
+  //fafbfe
   render() {
-    //0.95
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>
-          
-          <View style={styles.sizeComponent}>
+          <View style={styles.searchComponent}>
             <SearchBar
+              onSearchChange={() => this.handleChangeText.bind(this)}
+              height={50}
+              onFocus={() => console.log('On Focus')}
+              onBlur={() => console.log('On Blur')}
+              placeholder={'Search...'}
+              autoCorrect={false}
+              padding={5}
+              returnKeyType={'search'}
+            />
+            {/* <SearchBar
               value={this.state.searchedTokenSym}
               lightTheme
               round
               clearIcon
               searchIcon
-              containerStyle={{backgroundColor: '#fafbfe' }}
+              containerStyle={{ backgroundColor: 'green', }}             
               inputStyle={{ backgroundColor: '#ffffff', color: '#12c1a2', }}
               onChangeText={this.handleChangeText.bind(this)}
-              placeholder='Enter token symbol' />
+              placeholder='Enter token symbol' /> */}
           </View>
-
           <View style={styles.sizeComponent}>
             <Text style={styles.displayText}>Name : {this.state.searchedTokenName}</Text>
-            <Text style={styles.displayText}>
-                Address: 
-                <Text style={{fontSize: RF(2.0)}}>{this.state.searchedTokenNameAdd}</Text>
+            <Text style={styles.displayText}>Address:
+              <Text style={{fontSize: RF(2.0)}}>{this.state.searchedTokenNameAdd}</Text>
             </Text>
           </View>
-          
-          
           <View style={styles.btnContainer}>
             <LinearButton
               onClickFunction={this.addCustomToken}
               buttonText='Add this token'
-              customStyles={styles.button}
-            />
+              customStyles={styles.button} />
             <View style={styles.footerGrandparentContainer}>
                 <View style={styles.footerParentContainer} >
                     <Text style={styles.textFooter} >Powered by ChainSafe </Text>
@@ -136,18 +130,25 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    backgroundColor: '#fafbfe',
+    // backgroundColor: '#fafbfe',
+    backgroundColor: 'purple',
   },
-  
+  searchComponent: {
+    flex: 1,
+    marginLeft: '9%',
+    marginRight: '9%',
+    marginTop: '5%',
+    backgroundColor: 'blue',
+  },
   sizeComponent: {
-    flex: 1, 
-    marginLeft: "9%", 
-    marginRight: "9%"
+    flex: 1,
+    marginLeft: '9%',
+    marginRight: '9%'
   },
 
   displayText: {
-    fontSize: RF(4), 
-    color: "#000000",
+    fontSize: RF(4),
+    color: '#000000',
      fontFamily: 'Cairo-Regular'
   },
 
