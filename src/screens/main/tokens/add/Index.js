@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
 import TabNavigator from '../../../../components/customPageNavs/CustomTabNavigator';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 import Coins from './Coins';
@@ -42,7 +41,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1, // Take up all screen
     backgroundColor: '#fafbfe', // Background color
-    paddingTop: getStatusBarHeight(),
   },
   // Tab content container
   content: {

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   View, Text, StyleSheet, Image, TouchableOpacity, Dimensions, SafeAreaView, Platform, FlatList,
 } from 'react-native';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from 'react-navigation';
@@ -295,7 +294,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fafbfe',
     width: '100%',
-    paddingTop: getStatusBarHeight(),
   },
   navBar: {
     flex: 0.75,
