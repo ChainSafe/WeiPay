@@ -39,6 +39,10 @@ class Coins extends Component {
   };
 
   handleChangeText(input) {
+    console.log('in handle change text function');
+    console.log(input);
+    
+    
     try {
       this.setState({ searchedTokenSym: input});
       if (this.state.tokens[input] != null) {
@@ -77,7 +81,7 @@ class Coins extends Component {
         <View style={styles.mainContainer}>
           <View style={styles.searchComponent}>
             <SearchBar
-              onSearchChange={() => this.handleChangeText.bind(this)}
+              onSearchChange={(text) => { this.handleChangeText(text); }}
               height={50}
               onFocus={() => console.log('On Focus')}
               onBlur={() => console.log('On Blur')}
