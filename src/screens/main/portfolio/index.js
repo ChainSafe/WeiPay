@@ -11,6 +11,7 @@ import { setWalletTokenBalances, fetchCoinData, calculateWalletBalance } from '.
 import processAllTokenBalances from '../../../scripts/tokenBalances';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
+import TokenFactory from '../../../classes/Token';
 
 /**
  * Screen is used to display the wallet portfolio of the user, which contains the
@@ -29,15 +30,37 @@ class Portfolio extends Component {
     tokenPrices: [],
   }
 
+  /**
+   * On initial app set up -> data will be default eth being loaded from default config
+   * on subsequent launches it will pull from whatever tokens you have in the new wallet reducer - this data source will be removed
+   * Based on the tokens in the reducer you will get a concatenated string for the api request that will return a matrix of tokens and their price arrays
+   * fetch coin data then stores this data in the Balance Reducer tokenConversions array (Balance will be renamed to Wallet and newWalletReducer will be removed)
+   * This array will have the following structure -> //  { ETH: {USD: 209.5, CAD: 285.32, ETH: 1, BTC: 0.03264, EUR: 178.06} SUB: {USD: 0.112, CAD: 0.1535, ETH: 0.000534, BTC: 0.00001743, EUR: 0.09506} }
+   * The format tokens function takes our list of tokens and formats them in such a way to achieve 2 goals
+   * 1) The concatenated api request url to get all prices
+   * 2) Generates an array of Token objects that contain a symbol and contract address, ETH will have a null address and this allows us to distibguish which balance method we use.
+   *  - This setup will allow us to pass lists of tokens along with the private key of the current wallet to manage multiple user wallets.
+   * ProcessAllTokenBalances(privateKey, tokenObjectList) takes this data and returns { 'tokenSymbolString' : tokenApiRequestString, 'tokenBalances' : allBalances };
+   * tokenApiRequestString is the concatenated URL string that is dynamically created whenever a user adds or removes a coin.
+   * tokenBalances holds an array of objects -> [ { symbol: 'yourTokenSymbol', amount: 'How many tokens your wallet has' } ... ]
+   * This logic is in scripts/tokenBalances
+   *   - This will allow additional token support to added in a modular way with minimal config changes. (Additional ABI import and object flag)
+   * Once we have all this data, we can invoke calculateWalletBalance(tokenBalances, this.props.Balance.tokenConversions);
+   * This actionCreator will do 2 things
+   *  1) Calculate the overall wallet balance given every token you have with the current api prices with your amount of tokens
+   *  2) It will track all individual tokens a user has and how much their token holding is worth relative to USD, CAD, EUR, BTC, and ETH
+   * The Balance (soon to be Wallet) reducer then updates state -> { ...state, walletBalance: walletBalanceObject, tokenBalances: individualTokens };
+   * 
+   */
   async componentDidMount() {
-    const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data);
+    const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data); //this needs to change where its
     await this.props.fetchCoinData(tokenSymbolString);
     await this.props.calculateWalletBalance(tokenBalances, this.props.Balance.tokenConversions);
     await this.setState({ 
       apiRequestString: tokenSymbolString, 
       walletBalance: this.props.Balance.walletBalance,
       tokenPrices: this.props.Balance.tokenBalances
-    });    
+    }); 
     this.showTokens();
   }
 
@@ -52,6 +75,11 @@ class Portfolio extends Component {
     }
     privateKey = this.props.newWallet.wallet.privateKey;
     return { tokenSymbolString, tokenBalances } = await processAllTokenBalances(privateKey, tokenObjectList);
+    // const { tokenSymbolString, tokenBalances } = await processAllTokenBalances(privateKey, tokenObjectList);
+    // console.log('before token creation');
+    // TokenFactory(tokenSymbolString, 'Test - Name', 'Test - Url', 10, [1, 2, 3, 4, 5]);
+    // console.log('after token creation');
+
   }
 
   showTokens = () => {
