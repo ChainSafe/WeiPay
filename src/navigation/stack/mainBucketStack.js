@@ -1,4 +1,6 @@
 import { StackNavigator, DrawerNavigator, DrawerItems } from 'react-navigation';
+import { View, StyleSheet } from 'react-native';
+import React from 'react';
 import Contacts from '../../screens/main/menu/contacts/index';
 import AddContact from '../../screens/main/menu/contacts/add/AddContact';
 import EditContact from '../../screens/main/menu/contacts/add/EditContact';
@@ -11,8 +13,8 @@ import AddCoin from '../../screens/main/tokens/add/Coins'
 import ContactAddresses from '../../screens/main/menu/contacts/SelectedContact';
 import QrCodeScanner from '../../screens/main/qr/QrCodeScanner';
 import BackupPhrase from '../../screens/main/menu/settings/BackupPhrase';
-import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import TokenFunctionality from '../../screens/main/tokens/Index';
+import AddingTokensOrCoins from '../../screens/main/tokens/add/Index';
 
 const CustomDrawerContentComponent = props => (
   <View style={styles.customContainer}>
@@ -26,7 +28,6 @@ const CustomDrawerContentComponent = props => (
   </View>
 );
 
-
 /**
  * Constant contains all the screens that can be navigated to using the
  * navigate method from any class
@@ -38,6 +39,8 @@ const navigator = DrawerNavigator({
       coinReceive: { screen: CoinReceive },
       coinHistory: { screen: CoinHistory },
       coinSend: { screen: CoinSend },
+      TokenFunctionality: { screen: TokenFunctionality },
+      AddTokenFunctionality: { screen: AddingTokensOrCoins },
       QCodeScanner: { screen: QrCodeScanner },
       contactAddresses: { screen: ContactAddresses },
     },
@@ -54,7 +57,7 @@ const navigator = DrawerNavigator({
   Contacts: {
     screen: StackNavigator({
       contacts: { screen: Contacts },
-      editContact: { screen: EditContact},
+      editContact: { screen: EditContact },
       addContact: { screen: AddContact },
     },
     {
@@ -75,13 +78,14 @@ export default navigator;
 const styles = StyleSheet.create({
   customContainer: {
     flex: 1,
-    backgroundColor: "white" ,
+    backgroundColor: 'white',
+    marginTop: '10%',
   },
-  labelText:{
-    fontSize:16,
-    letterSpacing:0.6,
-    fontFamily: "Cairo-Light",
-    color:"black",
-    fontWeight:'200',
+  labelText: {
+    fontSize: 16,
+    letterSpacing: 0.6,
+    fontFamily: 'Cairo-Light',
+    color: 'black',
+    fontWeight: '200',
   },
 })

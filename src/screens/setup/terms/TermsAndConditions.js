@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import {
- Alert, Text, View, ScrollView, StyleSheet, Dimensions, SafeAreaView, TouchableWithoutFeedback
+ Text, View, ScrollView, StyleSheet, Dimensions, SafeAreaView,
 } from 'react-native';
-import { NavigationActions } from 'react-navigation';
+import RF from "react-native-responsive-fontsize";
 import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
 import { Terms } from '../../../constants/Terms';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import { enterDebug } from '../../../actions/ActionCreator';
-import RF from "react-native-responsive-fontsize"
 
 /**
  * Initial terms and condition screen when the app is oppened for the first time.
@@ -27,47 +27,32 @@ class TermsAndConditions extends Component {
     /**
      * Returns the scrollable component that displays the terms and conditions with a submit button
      */
-    render() {
-      const {
-        safeAreaView,
-        mainContainer,
-        headerContainer,
-        textHeader,
-        scrollViewContainer,
-        scrollView,
-        textBody,
-        btnContainer,
-        button,
-        footerGrandparentContainer,
-        footerParentContainer,
-        textFooter,
-      } = styles;
-
+    render() {      
       return (
-                <SafeAreaView style={styles.safeAreaView}>
-                  <View style={mainContainer}>
-                    <View style={styles.headerContainer} >
-                      <Text style={textHeader} onPress={this.props.enterDebug} >Terms & Conditions </Text>
-                    </View>
-                    <View style={styles.scrollViewContainer} >
-                      <ScrollView style={scrollView}>
-                        <Text style={textBody} >{Terms}</Text>
-                      </ScrollView>
-                    </View>
-                    <View style={btnContainer}>
-                      <LinearButton
-                        onClickFunction={this.navigate}
-                        buttonText='Agree'
-                        customStyles={button}
-                      />
-                      <View style={footerGrandparentContainer}>
-                        <View style={footerParentContainer} >
-                          <Text style={textFooter} >Powered by ChainSafe </Text>
-                        </View>
-                      </View>
-                    </View>
-                  </View>
-                </SafeAreaView>
+        <SafeAreaView style={styles.safeAreaView}>
+          <View style={styles.mainContainer}>
+            <View style={styles.headerContainer} >
+              <Text style={styles.textHeader} onPress={this.props.enterDebug} >Terms & Conditions </Text>
+            </View>
+            <View style={styles.scrollViewContainer} >
+              <ScrollView style={styles.scrollView}>
+                <Text style={styles.textBody} >{Terms}</Text>
+              </ScrollView>
+            </View>
+            <View style={styles.btnContainer}>
+              <LinearButton
+                onClickFunction={this.navigate}
+                buttonText='Agree'
+                customStyles={styles.button}
+              />
+              <View style={styles.footerGrandparentContainer}>
+                <View style={styles.footerParentContainer} >
+                  <Text style={styles.textFooter} >Powered by ChainSafe </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </SafeAreaView>
       );
     }
 }
@@ -96,7 +81,7 @@ const styles = StyleSheet.create({
     paddingLeft: '9%',
     letterSpacing: 0.8,
     color: '#1a1f3e',
-    fontWeight: '200'
+    fontWeight: '200',
   },
   scrollViewContainer: {
     flex: 5,
@@ -113,12 +98,12 @@ const styles = StyleSheet.create({
     paddingRight: '10%',
     lineHeight: RF(2.5),
     color: 'black',
-    fontWeight: '300'
+    fontWeight: '300',
   },
   btnContainer: {
     width: '100%',
     flex: 1.25,
-    marginTop: '2.5%'
+    marginTop: '2.5%',
   },
   button: {
     width: '82%',
@@ -136,7 +121,7 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Regular',
     fontSize: RF(1.7),
     color: '#c0c0c0',
-    letterSpacing: 0.5
+    letterSpacing: 0.5,
   },
 });
 

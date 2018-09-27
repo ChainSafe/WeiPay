@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ListView } from 'react-native';
+import { ListView, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import CoinListItem from './ListItem';
 
@@ -10,6 +10,10 @@ import CoinListItem from './ListItem';
  */
 
 class CoinList extends Component {
+
+    state = {
+        data: this.props.coins,
+    }
 
     /**
      * LifeCycle function: Executes before executing the render function 
@@ -46,7 +50,11 @@ class CoinList extends Component {
      */
     render() {
         return (
-            <ListView dataSource={this.dataSource} renderRow={this.renderRow} removeClippedSubviews={false} />
+            <FlatList 
+                data={this.state.data}
+                renderItem={({ item }) => { return this.renderRow(item); }}
+                keyExtractor={(item) => { return String(item.id); }}
+            />
         );
     }
 }
