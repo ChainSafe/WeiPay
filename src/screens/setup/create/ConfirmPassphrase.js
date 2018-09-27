@@ -49,10 +49,10 @@ class ConfirmPassphrase extends Component {
      * Method is used to navigate to the "enableTokens" screen.
      */
     navigate = () => {
-      const navigateToEnableTokens = NavigationActions.navigate({
-        routeName: 'enableTokens',
+      const navigateToMain = NavigationActions.navigate({
+        routeName: 'mainStack',
       });
-      this.props.navigation.dispatch(navigateToEnableTokens);
+      this.props.navigation.dispatch(navigateToMain);
     };
 
     /**
@@ -129,6 +129,7 @@ class ConfirmPassphrase extends Component {
               <BackWithMenuNav
                 showMenu={false}
                 showBack={true}
+                showSkip={true}
                 navigation={this.props.navigation}
                 backPage={'generatePassphrase'}
               />

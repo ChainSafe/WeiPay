@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Text, Dimensions, TouchableWithoutFeedback, Keyboard, Platform, SafeAreaView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import { FormInput, Card } from 'react-native-elements';
+import { FormInput } from 'react-native-elements';
 import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCreator';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
@@ -26,8 +26,8 @@ class CreateWalletName extends Component {
      * Method is used to navigate back to the recoverWallet screen.
      */
     navigate = () => {
-      const navigateToPassphrase = NavigationActions.navigate({ routeName: 'recoverWallet' });
-      this.props.navigation.dispatch(navigateToPassphrase);
+      const navigateToRestore = NavigationActions.navigate({ routeName: 'recoverWallet' });
+      this.props.navigation.dispatch(navigateToRestore);
     };
 
     /**

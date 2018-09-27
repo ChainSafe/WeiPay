@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, SafeAreaView, TouchableOpacity } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
@@ -13,11 +13,11 @@ import RF from "react-native-responsive-fontsize"
 class GeneratePassphrase extends Component {
 
     navigate = () => {
-      const navigateToEnableTokens = NavigationActions.navigate({
+      const navigateToConfirmPassphrase = NavigationActions.navigate({
         routeName: 'confirmPassphrase',
         params: { wallet: this.props.navigation.state.wallet },
       });
-      this.props.navigation.dispatch(navigateToEnableTokens);
+      this.props.navigation.dispatch(navigateToConfirmPassphrase);
     };
 
     render() {
@@ -30,6 +30,7 @@ class GeneratePassphrase extends Component {
               <BackWithMenuNav
                   showMenu={false}
                   showBack={true}
+                  showSkip={true}
                   navigation={this.props.navigation}
                   backPage={'createWalletName'}
                 />
@@ -43,7 +44,7 @@ class GeneratePassphrase extends Component {
                         </Text>
                         <Text style={styles.textMnemonic}>
                             {walletInfo.wallet.mnemonic}
-                        </Text>
+                        </Text>                       
                       </BoxShadowCard>
                   </View>
               </View>

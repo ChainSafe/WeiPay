@@ -16,11 +16,11 @@ class Coins extends Component {
    * Allows you to navigate to the navigation drawer
    */
   navigate = () => {
-    const navigateToPassphrase = NavigationActions.reset({
+    const navigateToMain= NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'portfolioScreen' })],
     });
-    this.props.navigation.dispatch(navigateToPassphrase);
+    this.props.navigation.dispatch(navigateToMain);
   };
 
   /**
@@ -30,7 +30,7 @@ class Coins extends Component {
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>
-          <View style={styles.NavBarButton}>
+          {/* <View style={styles.NavBarButton}>
             <BackWithMenuNav 
               showMenu={true}
               showBack={true}
@@ -47,7 +47,7 @@ class Coins extends Component {
               Active={true}
               navigation={this.props.navigation}
             />
-          </View>
+          </View> */}
           <View style={styles.coinListContainer}>
             <ScrollView  >
                 <CoinList type={'coins'} />

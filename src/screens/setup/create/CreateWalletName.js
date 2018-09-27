@@ -30,8 +30,8 @@ class CreateWalletName extends Component {
     navigate = () => {
       const wallet = ethers.Wallet.createRandom();
       this.props.newWalletCreation(wallet);
-      const navigateToPassphrase = NavigationActions.navigate({ routeName: 'generatePassphrase' });
-      this.props.navigation.dispatch(navigateToPassphrase);
+      const navigateToGeneratePassphrase = NavigationActions.navigate({ routeName: 'generatePassphrase' });
+      this.props.navigation.dispatch(navigateToGeneratePassphrase);
     };
 
     /**
