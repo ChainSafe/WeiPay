@@ -19,7 +19,7 @@ class Index extends Component {
                 <TabNavigator tabs={3}>
                     {/* First tab */}
                     <View title="Tokens" style={styles.content}>
-                      <Coins />
+                      <Coins navigation={this.props.navigation} />
                     </View>
                     {/* Second tab */}
                     <View title="Search" style={styles.content}>
