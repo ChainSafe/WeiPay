@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import {
-  View, StyleSheet, Dimensions, Text, SafeAreaView, ScrollView, RefreshControl
+  View, StyleSheet, Dimensions, Text, SafeAreaView, RefreshControl,
 } from 'react-native';
-// import { SearchBar } from 'react-native-elements';
+import { FormLabel, FormInput } from 'react-native-elements'
 import SearchBar from 'react-native-material-design-searchbar';
 import { connect } from 'react-redux';
-import * as actions from '../../../../actions/ActionCreator';
 import { NavigationActions } from 'react-navigation';
 import RF from 'react-native-responsive-fontsize';
-import CoinList from '../../../../components/tokens/CoinList';
+import * as actions from '../../../../actions/ActionCreator';
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
 
 /**
@@ -24,6 +23,7 @@ class Coins extends Component {
       searchedTokenName: '',
       searchedTokenNameAdd: '',
       refreshing: false,
+      tokenLoaded: false,
     };
   }
 
@@ -39,21 +39,15 @@ class Coins extends Component {
   };
 
   handleChangeText(input) {
-    console.log('in handle change text function');
-  
-
     const inputUpperCase = input.toUpperCase();
-    console.log(inputUpperCase);
-    
-    
     try {
-      this.setState({ searchedTokenSym: inputUpperCase});
+      this.setState({ searchedTokenSym: inputUpperCase });
       if (this.state.tokens[inputUpperCase] != null) {
-        this.setState({searchedTokenName: 'NA', searchedTokenNameAdd: this.state.tokens[inputUpperCase]['contract_address']  });
+        this.setState({ searchedTokenName: 'NA', searchedTokenNameAdd: this.state.tokens[inputUpperCase]['contract_address'] });
         if (this.state.tokens[inputUpperCase]['name'] != null) {
-          this.setState({ searchedTokenName: this.state.tokens[inputUpperCase]['name']});
+          this.setState({ searchedTokenName: this.state.tokens[inputUpperCase]['name'], tokenLoaded: true});       
         }
-      }else {
+      } else {
         this.setState({ searchedTokenName: '', searchedTokenNameAdd: '' });
       }
     } catch (error) {
@@ -66,8 +60,8 @@ class Coins extends Component {
       const token = this.state.tokens[this.state.searchedTokenSym];
       if (token != null) {
         if (token['name'] != null) {
-          this.props.addTokenFromList(token['name'] ,this.state.searchedTokenSym, token['contract_address']);
-        }else {
+          this.props.addTokenFromList(token['name'] ,this.state.searchedTokenSym, token['contract_address']);      
+        } else {
           this.props.addTokenFromList('NA' ,this.state.searchedTokenSym, token['contract_address']);
         }
         this.setState({ searchedTokenSym: '', searchedTokenName: '', searchedTokenNameAdd: ''});
@@ -77,7 +71,6 @@ class Coins extends Component {
     }
   }
 
-  //fafbfe
   render() {
     return (
       <SafeAreaView style={styles.safeAreaView}>
@@ -93,23 +86,18 @@ class Coins extends Component {
               padding={5}
               returnKeyType={'search'}
             />
-            {/* <SearchBar
-              value={this.state.searchedTokenSym}
-              lightTheme
-              round
-              clearIcon
-              searchIcon
-              containerStyle={{ backgroundColor: 'green', }}             
-              inputStyle={{ backgroundColor: '#ffffff', color: '#12c1a2', }}
-              onChangeText={this.handleChangeText.bind(this)}
-              placeholder='Enter token symbol' /> */}
-          </View>
-          <View style={styles.sizeComponent}>
-            <Text style={styles.displayText}>Name : {this.state.searchedTokenName}</Text>
-            <Text style={styles.displayText}>Address:
-              <Text style={{fontSize: RF(2.0)}}>{this.state.searchedTokenNameAdd}</Text>
-            </Text>
-          </View>
+            {
+              this.state.tokenLoaded 
+              ?
+                <View style={styles.inputContainer}>
+                  <FormLabel style={styles.displayText}>Name</FormLabel>
+                  <FormInput style={styles.displayText} value={this.state.searchedTokenName} editable={false} />
+                  <FormLabel style={styles.displayText}>Contract Address</FormLabel>
+                  <FormInput style={styles.displayText} value={this.state.searchedTokenNameAdd} editable={false} />
+              </View>
+              : null
+            }          
+          </View>       
           <View style={styles.btnContainer}>
             <LinearButton
               onClickFunction={this.addCustomToken}
@@ -137,28 +125,22 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    // backgroundColor: '#fafbfe',
-    backgroundColor: 'purple',
+    backgroundColor: '#fafbfe',
+  },
+  inputContainer: {
+    marginTop: '5%',
   },
   searchComponent: {
     flex: 1,
     marginLeft: '9%',
     marginRight: '9%',
     marginTop: '5%',
-    backgroundColor: 'blue',
   },
-  sizeComponent: {
-    flex: 1,
-    marginLeft: '9%',
-    marginRight: '9%'
-  },
-
   displayText: {
     fontSize: RF(4),
     color: '#000000',
-     fontFamily: 'Cairo-Regular'
+    fontFamily: 'Cairo-Regular'
   },
-
   btnContainer: {
     flex: 1,
     alignItems: 'stretch',
