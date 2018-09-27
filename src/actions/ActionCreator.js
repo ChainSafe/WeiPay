@@ -187,11 +187,11 @@ export function addTokenInfo(tokenInfo) {
   };
 }
 
-export function enterDebug() {
-  return (dispatch) => {
-    dispatch({ type: actionTypes.DEBUG_MODE, payload: '' });
-  };
-}
+// export function enterDebug() {
+//   return (dispatch) => {
+//     dispatch({ type: actionTypes.DEBUG_MODE, payload: '' });
+//   };
+// }
 
 /**
  * Returns an action that contains the tokenID from the token data with its

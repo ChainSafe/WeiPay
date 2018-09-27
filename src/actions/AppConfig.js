@@ -1,8 +1,17 @@
 import {
   INITIALIZE_APP_TOKEN_SETUP,
   INITIALIZE_NEW_APP_WALLET,
-  TEMP_WALLET_NAME ,
+  TEMP_WALLET_NAME,
+  DEBUG_MODE,
 } from "./ActionTypes";
+
+
+export function enterDebug() {
+  let testData = { 'walletName': 'My Test Wallet Name' };
+  return (dispatch) => {
+    dispatch({ type: DEBUG_MODE, payload: testData });
+  };
+}
 
 /**
  * Initializes the app with the default token list
@@ -25,15 +34,15 @@ export function setTempWalletName(walletName) {
 /**
  * Initializes a wallet within the app
  */
-// export function initializeAppWallet(walletInfo, flag) {
+export function initializeAppWallet(walletInfo, flag) {
 
-//   // let walletState = walletInfo;
-//   if(flag !== 'init') {
-//     //need to get state
-//   }
+  // let walletState = walletInfo;
+  if(flag !== 'init') {
+    //need to get state
+  }
 
-//   return (dispatch) => {
-//     dispatch({ type: INITIALIZE_NEW_APP_WALLET, payload: walletInfo });
-//   };
-// }
+  return (dispatch) => {
+    dispatch({ type: INITIALIZE_NEW_APP_WALLET, payload: walletInfo });
+  };
+}
 

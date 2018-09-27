@@ -5,10 +5,9 @@ import {
 import RF from 'react-native-responsive-fontsize';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
-import { initializeAppTokenState } from '../../../actions/AppConfig';
+import { initializeAppTokenState, enterDebug } from '../../../actions/AppConfig';
 import { Terms } from '../../../constants/Terms';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
-import { enterDebug } from '../../../actions/ActionCreator';
 import TokenConfig from '../../../scripts/tokenConfig';
 
 /**

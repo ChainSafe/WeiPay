@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Alert, Dimensions, Keyboard, TouchableWithoutFe
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
-import { newWalletCreation } from '../../../actions/ActionCreator';
+import { initializeAppWallet } from '../../../actions/AppConfig';
 import provider from '../../../constants/Providers';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
@@ -41,8 +41,9 @@ class RecoverWallet extends Component {
       try {       
         if (this.props.debugMode === true) {
           const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
-          wallet.provider = provider;                    
-          this.props.newWalletCreation(wallet);
+          wallet.provider = provider;       
+                       
+          this.props.initializeAppWallet(wallet);
           this.props.navigation.dispatch(navigateToTokens);
         } else {             
           const mnemonic = this.state.mnemonic.trim();
@@ -222,4 +223,4 @@ const mapStateToProps = ({ newWallet }) => {
   return { debugMode };
 };
 
-export default connect(mapStateToProps, { newWalletCreation })(RecoverWallet);
+export default connect(mapStateToProps, { initializeAppWallet })(RecoverWallet);

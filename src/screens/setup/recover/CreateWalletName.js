@@ -3,7 +3,6 @@ import { View, StyleSheet, Text, Dimensions, TouchableWithoutFeedback, Keyboard,
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
-// import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCreator';
 import { setTempWalletName } from '../../../actions/AppConfig';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
