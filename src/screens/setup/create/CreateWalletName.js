@@ -28,7 +28,7 @@ class CreateWalletName extends Component {
      * variable and to navigate to the "generatePassphrase" screen
      */
     navigate = () => {
-      const walletName = this.props.testWalletName;
+      const walletName = this.props.tempWalletName;
       console.log('walletName in create', walletName);
       const wallet = ethers.Wallet.createRandom();
       const userWallets = this.props.wallets;
@@ -195,8 +195,8 @@ const styles = StyleSheet.create({
  */
 const mapStateToProps = ({ Debug, Wallet }) => {
   const { debugMode } = Debug;
-  const { wallets } = Wallet;
-  return { debugMode, wallets };
+  const { wallets, tempWalletName } = Wallet;
+  return { debugMode, wallets, tempWalletName };
 };
 
 export default connect(mapStateToProps, { setTempWalletName, initializeAppWallet })(CreateWalletName);
