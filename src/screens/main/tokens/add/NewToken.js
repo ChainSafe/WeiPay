@@ -68,8 +68,7 @@ class NewToken extends Component {
               <View style={styles.formInputContainer}>
                 <FormInput
                   placeholder={'Token Address'}
-                  onChangeText={this.updateAddress.bind(this)}
-                  // ref={ref => {return this.inputAddress = ref}}
+                  onChangeText={this.updateAddress.bind(this)}               
                   inputStyle={styles.formAddress}
                   value={this.state.tokenAddress}
                 />
@@ -77,8 +76,7 @@ class NewToken extends Component {
               <View style={styles.formInputContainer}>
                 <FormInput
                   placeholder={'Token Symbol'}
-                  onChangeText={this.updateName.bind(this)}
-                  // ref={ref => {return this.inputAddress = ref}}
+                  onChangeText={this.updateName.bind(this)}                
                   inputStyle={styles.formAddress}
                   value={this.state.tokenName}
                 />
