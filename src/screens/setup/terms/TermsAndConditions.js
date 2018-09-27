@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import {
- Text, View, ScrollView, StyleSheet, Dimensions, SafeAreaView,
+  Text, View, ScrollView, StyleSheet, Dimensions, SafeAreaView,
 } from 'react-native';
-import RF from "react-native-responsive-fontsize";
+import RF from 'react-native-responsive-fontsize';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
+import { initializeAppTokenState } from '../../../actions/AppConfig';
 import { Terms } from '../../../constants/Terms';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import { enterDebug } from '../../../actions/ActionCreator';
@@ -27,7 +28,9 @@ class TermsAndConditions extends Component {
 
     componentDidMount() {
       console.log('terms mount');
-      TokenConfig('setup');
+      const tokens = TokenConfig('setup');
+      this.props.initializeAppTokenState(tokens);
+      console.log('tokens', tokens);
       console.log('after terms function call');
     }
 
@@ -132,4 +135,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null, { enterDebug })(TermsAndConditions);
+export default connect(null, { enterDebug, initializeAppTokenState })(TermsAndConditions);

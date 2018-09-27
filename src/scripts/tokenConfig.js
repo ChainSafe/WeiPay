@@ -8,12 +8,14 @@ const tokenConfiguration = (configFlag) => {
     case 'setup':
       console.log('setup triggerd');
       tokenList = this.initialSetup();
-      console.log(tokenList);
+      //console.log(tokenList);
       
       break;
     default:
       console.log('defaul triggered');
   }
+
+  return tokenList;
 };
 
 /**

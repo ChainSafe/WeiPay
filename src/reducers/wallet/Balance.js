@@ -1,4 +1,5 @@
 import {
+  INITIALIZE_APP_TOKEN_SETUP,
   FETCHING_COIN_DATA,
   FETCHING_COIN_DATA_SUCCESS,
   FETCHING_COIN_DATA_FAIL,
@@ -18,6 +19,7 @@ const initialState = {
   hasError: false,
   errorMessage: null,
   walletBalance: {},
+  tokens: [],
   tokenBalances: {},
   currencyOptions: ['USD', 'CAD', 'EUR', 'BTC', 'ETH'],
   walletTokens: [], //holds [ {type: "ETH", amount: "0.95954711315492517"}, ... ]
@@ -27,6 +29,10 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    case INITIALIZE_APP_TOKEN_SETUP:
+      return {
+        ...state, tokens: action.payload,
+      };
     case FETCHING_COIN_DATA:
       return {
         ...state, isFetching: true, hasError: false, errorMessage: null,
