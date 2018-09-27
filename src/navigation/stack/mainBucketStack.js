@@ -28,7 +28,6 @@ const CustomDrawerContentComponent = props => (
   </View>
 );
 
-
 /**
  * Constant contains all the screens that can be navigated to using the
  * navigate method from any class
@@ -58,7 +57,7 @@ const navigator = DrawerNavigator({
   Contacts: {
     screen: StackNavigator({
       contacts: { screen: Contacts },
-      editContact: { screen: EditContact},
+      editContact: { screen: EditContact },
       addContact: { screen: AddContact },
     },
     {
@@ -79,13 +78,14 @@ export default navigator;
 const styles = StyleSheet.create({
   customContainer: {
     flex: 1,
-    backgroundColor: "white" ,
+    backgroundColor: 'white',
+    marginTop: '10%',
   },
-  labelText:{
-    fontSize:16,
-    letterSpacing:0.6,
-    fontFamily: "Cairo-Light",
-    color:"black",
-    fontWeight:'200',
+  labelText: {
+    fontSize: 16,
+    letterSpacing: 0.6,
+    fontFamily: 'Cairo-Light',
+    color: 'black',
+    fontWeight: '200',
   },
 })
