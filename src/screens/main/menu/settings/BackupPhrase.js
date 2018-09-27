@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableHighlight, Dimensions, TouchableWithou
 import { NavigationActions } from 'react-navigation';
 import { Icon, Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import { connect } from 'react-redux';
+import { encrypt, decrypt } from 'react-native-simple-encryption';
 import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
 import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard'
 import LinearButton from '../../../../components/LinearGradient/LinearButton'
@@ -23,9 +24,11 @@ class BackupPhrase extends Component {
 
   constructor(props) {
     super(props);
+    const mn = decrypt(this.props.wallet.privateKey, this.props.mnemonic);
+    
     this.state = { 
       isPhraseSelected: false,
-      phrase: this.props.mnemonic 
+      phrase: mn
     };
   }
 
@@ -176,9 +179,10 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = ({ newWallet }) => {
-  const mnemonic = newWallet.wallet.mnemonic;
+  const mnemonic = newWallet.mnemonic;
   const debugMode = newWallet.debugMode;
-  return { mnemonic, debugMode }
+  const wallet = newWallet.wallet;
+  return { mnemonic, debugMode, wallet }
 }
 
 export default connect(mapStateToProps, null)(BackupPhrase)

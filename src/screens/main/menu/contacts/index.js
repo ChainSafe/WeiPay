@@ -176,7 +176,6 @@ const styles = StyleSheet.create({
  * @param {Object} param0
  */
 function mapStateToProps({ contacts }) {
-  console.log("herrooooooo", )
   return {
     contacts: contacts.contacts,
     activeTab: contacts.activeTab,
