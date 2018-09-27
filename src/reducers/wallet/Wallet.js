@@ -1,5 +1,7 @@
 import {
   INITIALIZE_APP_TOKEN_SETUP,
+  TEMP_WALLET_NAME,
+  INITIALIZE_NEW_APP_WALLET,
   FETCHING_COIN_DATA,
   FETCHING_COIN_DATA_SUCCESS,
   FETCHING_COIN_DATA_FAIL,
@@ -15,16 +17,18 @@ import {
  * [  { 'USD' : [  Relative Eth Price, # of Eth, # of Altcoin ..etc ] }, .... ]
  */
 const initialState = {
+  wallets: [],
+  tempWalletName: null,
+  tokens: [],
+  walletBalance: {},
+  tokenBalances: {},
+  walletTokens: [],
   isFetching: null,
   hasError: false,
   errorMessage: null,
-  walletBalance: {},
-  tokens: [],
-  tokenBalances: {},
   currencyOptions: ['USD', 'CAD', 'EUR', 'BTC', 'ETH'],
-  walletTokens: [], //holds [ {type: "ETH", amount: "0.95954711315492517"}, ... ]
-  apiTokenString: '',  //holds ETH,TokenName,TokenName...ETC  -> for API call 
-  tokenConversions: [], //  { ETH: {USD: 209.5, CAD: 285.32, ETH: 1, BTC: 0.03264, EUR: 178.06} SUB: {USD: 0.112, CAD: 0.1535, ETH: 0.000534, BTC: 0.00001743, EUR: 0.09506} }
+  apiTokenString: '',
+  tokenConversions: [],
 };
 
 export default function (state = initialState, action) {
@@ -33,6 +37,14 @@ export default function (state = initialState, action) {
       return {
         ...state, tokens: action.payload,
       };
+    case TEMP_WALLET_NAME:
+      return {
+        ...state, tempWalletName: action.payload,
+      };
+    case INITIALIZE_NEW_APP_WALLET:
+      return {
+        ...state, wallets: action.payload,
+      }
     case FETCHING_COIN_DATA:
       return {
         ...state, isFetching: true, hasError: false, errorMessage: null,

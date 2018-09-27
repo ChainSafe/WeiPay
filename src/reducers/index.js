@@ -4,7 +4,7 @@ import NewWalletSetup from './wallet/NewWalletSetup';
 import ContactsReducer from './contacts/contactReducer';
 import QrScannerReducer from './wallet/QrScannerReducer';
 import * as actionTypes from '../actions/ActionTypes';
-import BalanceReducer from './wallet/Balance';
+import WalletReducer from './wallet/Wallet';
 import storage from 'redux-persist/lib/storage';
 
 /**
@@ -16,7 +16,7 @@ const AppReducer = combineReducers({
   newWallet: NewWalletSetup,
   contacts: ContactsReducer,
   QrScanner: QrScannerReducer,
-  Balance: BalanceReducer,
+  Wallet: WalletReducer,
 });
 
 const rootReducer = (state, action) => {

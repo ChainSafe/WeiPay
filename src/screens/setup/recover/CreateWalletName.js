@@ -3,7 +3,8 @@ import { View, StyleSheet, Text, Dimensions, TouchableWithoutFeedback, Keyboard,
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
-import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCreator';
+// import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCreator';
+import { setTempWalletName } from '../../../actions/AppConfig';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
@@ -36,7 +37,7 @@ class CreateWalletName extends Component {
      * @param {String} name
      */
     getWalletName(name) {
-      this.props.newWalletNameEntry(name);
+      this.props.setTempWalletName(name);
       if (name !== '') {
         this.setState({ buttonDisabled: false });
       } else {
@@ -196,4 +197,4 @@ const mapStateToProps = ({ newWallet }) => {
   return { walletName, debugMode };
 };
 
-export default connect(mapStateToProps, { newWalletNameEntry, newWalletCreation })(CreateWalletName);
+export default connect(mapStateToProps, { setTempWalletName })(CreateWalletName);

@@ -27,11 +27,8 @@ class TermsAndConditions extends Component {
     };
 
     componentDidMount() {
-      console.log('terms mount');
       const tokens = TokenConfig('setup');
       this.props.initializeAppTokenState(tokens);
-      console.log('tokens', tokens);
-      console.log('after terms function call');
     }
 
     /**
