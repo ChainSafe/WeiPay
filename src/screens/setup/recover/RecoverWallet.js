@@ -47,11 +47,18 @@ class RecoverWallet extends Component {
           console.log('user wallets', userWallets);
           this.props.initializeAppWallet(wallet, testWalletName, userWallets);
           this.props.navigation.dispatch(navigateToTokens);
-        } else {             
+        } else {
+          
           const mnemonic = this.state.mnemonic.trim();
+          console.log(mnemonic);
+          console.log(this.props.tempWalletName);
+          
+          currentWalletName = this.props.tempWalletName;
           const wallet = ethers.Wallet.fromMnemonic(mnemonic);
-          wallet.provider = provider;       
-          this.props.initializeAppWallet(wallet, 'Manual Test Hardcode', []); //hardcoded for
+          wallet.provider = provider;
+          console.log(wallet);
+          
+          this.props.initializeAppWallet(wallet, currentWalletName, []);
           this.props.navigation.dispatch(navigateToTokens);
         }        
       } catch (err) {
@@ -59,7 +66,8 @@ class RecoverWallet extends Component {
           'Mnemonic Error',
           'Your mnemonic was invalid, please re-enter.',
           [
-            { text: 'OK', onPress: () => this.inputMnemonic.clearText() },           
+            // { text: 'OK', onPress: () => this.inputMnemonic.clearText() },      
+            { text: 'OK', onPress: () => console.log('error')},           
           ],
           { cancelable: false },
         );
@@ -71,6 +79,8 @@ class RecoverWallet extends Component {
      * @param {String} mnemonicInput
      */
     renderRecoveryKey(mnemonicInput) {
+      console.log(mnemonicInput);
+      
       const totalWords = mnemonicInput.split(' ');
       if (totalWords.length == 12) {
         this.setState({ value: mnemonicInput.toLowerCase() });
@@ -222,8 +232,8 @@ const styles = StyleSheet.create({
  */
 const mapStateToProps = ({ Debug, Wallet }) => {
   const { debugMode, testWalletName } = Debug;
-  const { wallets } = Wallet;
-  return { debugMode, testWalletName, wallets };
+  const { wallets, tempWalletName } = Wallet;
+  return { debugMode, testWalletName, wallets, tempWalletName };
 };
 
 export default connect(mapStateToProps, { initializeAppWallet })(RecoverWallet);

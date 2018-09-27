@@ -28,6 +28,7 @@ class TermsAndConditions extends Component {
     componentDidMount() {
       const tokens = TokenConfig('setup');
       this.props.initializeAppTokenState(tokens);
+      console.log('initialized setup', tokens);
     }
 
     /**

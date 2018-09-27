@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from 'react-navigation';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
-import * as actions from '../../../actions/ActionCreator';
+// import * as actions from '../../../actions/ActionCreator';
 import { setWalletTokenBalances, fetchCoinData, calculateWalletBalance } from '../../../actions/FetchCoinData';
 import processAllTokenBalances from '../../../scripts/tokenBalances';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
@@ -19,7 +19,6 @@ import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 class Portfolio extends Component {
   state = {
     data: this.props.tokens,
-    //data: [],
     pricesLoaded: false,
     refresh: false,
     currencyIndex: 0,
@@ -29,6 +28,8 @@ class Portfolio extends Component {
     apiRequestString: '',
     tokenBalances: {},
     tokenPrices: [],
+    currentWallet: this.props.wallets[0].hdWallet,
+    currentWalletName: this.props.wallets[0].name
   }
 
   /**
@@ -54,15 +55,14 @@ class Portfolio extends Component {
    * 
    */
   async componentDidMount() {
-    // TokenFactory('test symb', 'Test - Name', 'Test - Url', 10, [1, 2, 3, 4, 5]);
+    console.log('c d m ', this.props.wallets[0].hdWallet);
     const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data); //this needs to change where its
     await this.props.fetchCoinData(tokenSymbolString);
-    await this.props.calculateWalletBalance(tokenBalances, this.props.Balance.tokenConversions);
-    //this should be where we pass all info to a function to store all data in object
+    await this.props.calculateWalletBalance(tokenBalances, this.props.tokenConversions);
     await this.setState({ 
       apiRequestString: tokenSymbolString, 
-      walletBalance: this.props.Balance.walletBalance,
-      tokenPrices: this.props.Balance.tokenBalances
+      walletBalance: this.props.walletBalance,
+      tokenPrices: this.props.tokenBalances
     }); 
     this.showTokens();
   }
@@ -76,7 +76,7 @@ class Portfolio extends Component {
       tokenObj.contractAddress = tokenList[i].address;
       tokenObjectList.push(tokenObj);
     }
-    privateKey = this.props.newWallet.wallet.privateKey;
+    privateKey =  this.state.currentWallet.privateKey;
     return { tokenSymbolString, tokenBalances } = await processAllTokenBalances(privateKey, tokenObjectList);
   }
 
@@ -113,7 +113,7 @@ class Portfolio extends Component {
                   <View style={styles.imageContainer} >
                     <Image
                       style={styles.img}
-                      source={ { uri: token.logo.src } }
+                      source={ { uri: token.logo } }
                     />
                   </View>
                 </View>
@@ -174,26 +174,26 @@ class Portfolio extends Component {
           <Text style={styles.textHeader}>
             { 
               this.props.debugMode
-              ? 'IN DEBUG'
-              : 'NOT IN DEBUG' 
+              ? this.props.testWalletName
+              : this.state.currentWalletName
             } 
           </Text>
           <View style={styles.touchableCurrencyContainer}>
             <TouchableOpacity onPress={this.handleCurrencyTouch}>
               <View style={styles.accountValueHeader}>          
                   <Text style={styles.headerValue}>
-                    {
+                    {/* {
                       this.state.pricesLoaded
                       ? (this.state.walletBalance)[this.props.Balance.currencyOptions[this.state.currencyIndex]]
                       : 'Balance Loading ...'
-                    }
+                    } */}
                   </Text>
                   <Text style={styles.headerValueCurrency}>
-                  {
+                  {/* {
                     this.state.pricesLoaded
                     ? this.state.currency[this.state.currencyIndex]
                     : null
-                  }
+                  } */}
                   </Text>                
               </View>
             </TouchableOpacity>
@@ -202,8 +202,8 @@ class Portfolio extends Component {
             <FlatList
               data={this.state.data}
               showsVerticalScrollIndicator={false}
-              renderItem={({ item }) => { return this.renderRow(item); }}
-              keyExtractor={(item) => { return String(item.id); }}
+              renderItem= {({ item }) => { return this.renderRow(item); }}
+              keyExtractor= {(item) => { return String(item.symbol); }}
               refreshing={this.state.refresh}
               onRefresh={this.handleListRefresh}
               extraData={this.props}
@@ -397,11 +397,11 @@ const styles = StyleSheet.create({
  * @param {Object} param0
  */
 function mapStateToProps({ Wallet, Debug }) {
-  const { currencyOptions, tokens } = Wallet;
+  const { currencyOptions, tokens, wallets, tokenConversions, tokenBalances, walletBalance } = Wallet;
   const { debugMode, testWalletName } = Debug;
-  return { currencyOptions, tokens, debugMode, testWalletName };
+  return { currencyOptions, tokens, debugMode, testWalletName, wallets, tokenConversions, walletBalance, tokenBalances };
 }
 
 export default connect(mapStateToProps, {
-  actions, setWalletTokenBalances, fetchCoinData, calculateWalletBalance,
+  setWalletTokenBalances, fetchCoinData, calculateWalletBalance,
 })(Portfolio);
