@@ -42,14 +42,16 @@ class RecoverWallet extends Component {
         if (this.props.debugMode === true) {
           const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
           wallet.provider = provider;       
-                       
-          this.props.initializeAppWallet(wallet);
+          const testWalletName = this.props.testWalletName;
+          const userWallets = this.props.wallets;
+          console.log('user wallets', userWallets);
+          this.props.initializeAppWallet(wallet, testWalletName, userWallets);
           this.props.navigation.dispatch(navigateToTokens);
         } else {             
           const mnemonic = this.state.mnemonic.trim();
           const wallet = ethers.Wallet.fromMnemonic(mnemonic);
           wallet.provider = provider;       
-          this.props.newWalletCreation(wallet);
+          this.props.initializeAppWallet(wallet, 'Manual Test Hardcode', []); //hardcoded for now
           this.props.navigation.dispatch(navigateToTokens);
         }        
       } catch (err) {
@@ -218,9 +220,10 @@ const styles = StyleSheet.create({
  * This method is not being used here
  * @param {Object} param
  */
-const mapStateToProps = ({ newWallet }) => {
-  const { debugMode } = newWallet;
-  return { debugMode };
+const mapStateToProps = ({ Debug, Wallet }) => {
+  const { debugMode, testWalletName } = Debug;
+  const { wallets } = Wallet;
+  return { debugMode, testWalletName, wallets };
 };
 
 export default connect(mapStateToProps, { initializeAppWallet })(RecoverWallet);

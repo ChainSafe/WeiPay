@@ -32,17 +32,25 @@ export function setTempWalletName(walletName) {
 }
 
 /**
- * Initializes a wallet within the app
+ * Initializes a wallet within the app.
+ * If previosWalletState.length = 0 means its the users first wallet in the app.
  */
-export function initializeAppWallet(walletInfo, flag) {
-
-  // let walletState = walletInfo;
-  if(flag !== 'init') {
-    //need to get state
+export function initializeAppWallet(currentWallet, walletName, previousWalletState) {
+  let appWallets = [];
+  if (previousWalletState.length > 0) { 
+    for (let i = 0; i < previousWalletState.length; i++) {
+      let previousWallet = {};
+      previousWallet.name = previousWalletState[i].name;
+      previousWallet.hdWallet = previousWalletState[i].hdWallet;
+      appWallets.push(previousWallet);
+    }
   }
-
+  let walletObject = {};
+  walletObject.name = walletName;
+  walletObject.hdWallet = currentWallet;
+  appWallets.push(walletObject);
   return (dispatch) => {
-    dispatch({ type: INITIALIZE_NEW_APP_WALLET, payload: walletInfo });
+    dispatch({ type: INITIALIZE_NEW_APP_WALLET, payload: appWallets });
   };
 }
 

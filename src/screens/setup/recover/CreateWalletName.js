@@ -189,11 +189,9 @@ const styles = StyleSheet.create({
  * This method is not being used here
  * @param {Object} param
  */
-const mapStateToProps = ({ newWallet }) => {
-  const { walletName } = newWallet;
-  const { debugMode } = newWallet;
-
-  return { walletName, debugMode };
+const mapStateToProps = ({ Debug }) => {
+  const { debugMode } = Debug;
+  return { debugMode };
 };
 
 export default connect(mapStateToProps, { setTempWalletName })(CreateWalletName);

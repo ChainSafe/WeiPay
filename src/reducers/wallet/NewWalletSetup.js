@@ -92,8 +92,6 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, tokens: newTokens };
     case actions.ADD_TOKEN_INFO:
       return { ...state, current_token: action.payload };
-    // case actions.DEBUG_MODE:
-    //   return { ...state, debugMode: true };
     case actions.UPDATE_TOKEN_BALANCE:      
       const token = state.tokens[action.payload.tokenID];
       const updatedToken = { 

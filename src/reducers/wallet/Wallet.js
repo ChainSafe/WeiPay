@@ -44,7 +44,7 @@ export default function (state = initialState, action) {
     case INITIALIZE_NEW_APP_WALLET:
       return {
         ...state, wallets: action.payload,
-      }
+      };
     case FETCHING_COIN_DATA:
       return {
         ...state, isFetching: true, hasError: false, errorMessage: null,

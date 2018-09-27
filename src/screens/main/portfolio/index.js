@@ -18,12 +18,14 @@ import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
  */
 class Portfolio extends Component {
   state = {
-    data: this.props.newWallet.tokens,
+    // data: this.props.newWallet.tokens,
+    data: [],
     pricesLoaded: false,
     refresh: false,
     currencyIndex: 0,
     walletBalance: {},
-    currency: this.props.Balance.currencyOptions,
+    // currency: this.props.Balance.currencyOptions,
+    currency: 'USD',
     apiRequestString: '',
     tokenBalances: {},
     tokenPrices: [],
