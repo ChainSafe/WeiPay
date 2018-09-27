@@ -89,5 +89,3 @@ const styles = StyleSheet.create({
     fontWeight:'200',
   },
 })
-
-// Coins: { screen: AddCoin },
