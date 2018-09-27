@@ -49,15 +49,13 @@ class CoinSendTabNavigator extends Component {
                     onPress={this.navigateToSend} >                   
                     <Text style={[styles.headerSend, styles.fullHeight , this.props.sendActive ? styles.greenShade : null ]}>Send</Text>
                     <View style={this.props.sendActive ? styles.sendLine : null }></View>
-                </TouchableOpacity>
-         
+                </TouchableOpacity>         
                 <TouchableOpacity 
                     style={ styles.headerButton}
                     onPress={this.navigateToHistory}>                   
                     <Text style={[styles.headerActivity, styles.fullHeight, this.props.activityActive ? styles.greenShade : null]}>Activity</Text>
                     <View style={this.props.activityActive ? styles.activityLine : null}></View>
-                </TouchableOpacity>
-             
+                </TouchableOpacity>             
                 <TouchableOpacity 
                     style={styles.headerButton}
                     onPress={this.navigateToReceive}>                                    
