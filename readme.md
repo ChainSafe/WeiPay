@@ -5,145 +5,12 @@ WeiPay will support Ethereum out of the box with added support for ERC20 tokens 
 An api will be created to host token details on IPFS in order for any fork of the wallet to provide 
 uniform data to its users with the added benefits of reduced app storage space. 
 
-## WeiPay File Structure 
-
-* android
-* ios
-* src
-  + actions
-    + ActionCreator.js
-    + ActionTypes.js
-  + assets
-    + images.js
-      + btc.png
-      + eth.png
-      + QR-CODE.png
-  + components
-    + common
-      + Card.js
-      + CardSection.js
-      + Input.js
-      + Logo.js
-    + contacts
-      + AddContactList.js
-      + AddContactListItem.js
-    + tokens
-      + CoinList.js
-      + ListItem.js
-    + CurrencyList.js
-    + LanguageList.js
-  + constants
-    + config 
-      + ERC20
-    + data
-      + json
-        + coins.json
-        + fiatList.json
-        + languageList.json
-    + Layout.js
-    + Network.js
-    + Provider.js
-    + Terms.js 
-  + navigation
-    + drawer
-      + index
-    + stack
-      + index.js
-      + navigationStack.js
-  + reducers
-    + contacts
-      + contactsReducer.js
-    + fiat
-      + fiatListReducer.js
-     + language
-       + languageListReducer.js
-     + navigation
-        + navigationReducer.js
-     + settings
-        + settingsReducer.js
-    + wallet
-        + NewWalletSetup.js
-        + QrScannerReducer.js
-        + RestoreWalletReducer.js
-    + index.js
-  + screens
-    + menu 
-      + contacts
-        + add
-          + AddContact.js
-          + AddFirstContact.js
-        + index.js
-        + SelectedContact.js
-      + settings
-         + BackupPhrase.js
-         + ChangeCurrency.js
-         + index.js
-         + LanguageChange.js
-         + Search.js
-    + portfolio
-      + tabs
-         + PortfolioCoin.js
-         + PortfolioToken.js
-      + index.js
-    + qr
-      + QrCodeScanner.js
-    + tokens
-      + add
-        + Coins.js
-        + index.js
-        + Tokens.js
-      + history
-        + CoinActivity.js
-      + receive
-        + CoinReceive.js
-        + TokenReceive.js
-      + send
-        + CoinSend.js
-        + TokenSend.js
-     + setup
-      + create
-        + ConfirmPassphrase.js
-        + CreateWalletName.js
-        + GeneratePassphrase.js
-      + crypto
-        + EnableTokens.js
-      + recover
-        + CreateWalletName.js
-        + RecoverWallet.js
-      + terms
-        + TermsAndConditions.js
-      + index.js 
-* App.js
-* index.js
-* store.js
-* package.json
-
 # ESLINT installation
 + Locally install ESLINT module ```sudo npm install eslint --save-dev```
 + For VSCODE users install the ESLINT plugin
 + ```sudo npm install eslint-plugin-react --save-dev```
 + ```sudo npm install eslint-plugin-react-native --save-dev```
 + ```sudo npm install eslint-plugin-import --save-dev```
-
-# Clean Clone to Build to IOS Device 
-+ ```git clone https://github.com/ChainSafe/WeiPay.git```
-+ ```npm install``` or ```yarn install``` 
-+ ```react-native link```
-+ React Native/Xcode build issue
-  - Double Conversion Errors -> Xcode -> Libraries -> RCTWebSocket.xcodeproj -> Build Phases - > Link Binary   with Libraries -> select libfishhook.a and click " - " button. Click " + " and add libfishhook.a to add the broken dependency.
-  - ```https://github.com/facebook/react-native/issues/19839```
-  - React Native third party library issue -> ```https://github.com/facebook/react-native/issues/14382```
-  - Solution: ```CD /node_modules/react-native/third-party/glog & ./configure```
-  - This will throw one last error in xcode, you must change the return value of the function to NULL and comment out the current return statement (return (void*)context->PC_FROM_UCONTEXT;).
-  - ```https://github.com/facebook/react-native/issues/16106```
-  - Build & run project -> select developer profile -> make sure deployment targets are the same in both your project and the tests project -> WeiPay should build to your physical ios device
-
-# How To:
-
-+ ```git clone https://github.com/ChainSafe/WeiPay.git```
-+ ```npm install, sudo npm install``` (if on linux)
-+ ```react-native link```
-+ ```git checkout -b yourBranchName```
 
 # Software Requirements  
 + Node 8.0 +
@@ -152,27 +19,36 @@ uniform data to its users with the added benefits of reduced app storage space.
  - JDK >= 1.7 (if you run on 1.6 you will get an error on "_cameras = new HashMap<>();")
  - On Android, you require `buildToolsVersion` of `25.0.2+`. _This should easily and automatically be downloaded by Android Studio's SDK Manager._
  - Java should be in your system path
+ 
+# How To:
++ ```git clone https://github.com/ChainSafe/WeiPay.git```
++ ```npm install, sudo npm install``` (if on linux)
++ ```react-native link```
++ ```git checkout -b yourBranchName```
 
-# Run on Simulator 
-
-+ IOS: ```react-native run-ios```
-
-+ Android: ```react-native run-android```
- - Run the following commands before running the command above
-	 - ```sudo npm start``` (if on linux)
-	 - Run the simulator from android studio or Connect your android device with usb debugging enabled
-
-
-# Run on Device 
-
-## IOS  
+## IOS On Device
   1) Open /ios/WeiPay.xcodeproj in xcode 
   2) Sign in to developer team for signing provisions
   3) Choose your iphone as device target 
   4) Click the play button to build and run the project
   5) You will need to navigate to your iphone settings->general and trust your computer. New field will appear.
+  
+# Clean Clone to Build to IOS Device 
++ ```git clone https://github.com/ChainSafe/WeiPay.git```
++ ```npm install``` or ```yarn install``` 
++ ```react-native link```
++ React Native/Xcode Third Party Glog issue when building to physical IOS device
++ Solution
+  - Double Conversion Errors 
+  - Xcode -> Libraries -> RCTWebSocket.xcodeproj -> Build Phases - > Link Binary   with Libraries -> select libfishhook.a and click " - " button. Click " + " and add libfishhook.a to add the broken dependency.
+  - ```https://github.com/facebook/react-native/issues/19839```
+  - React Native third party library issue -> ```https://github.com/facebook/react-native/issues/14382```
+  - Solution: ```CD /node_modules/react-native/third-party/glog & ./configure```
+  - This will throw one last error in xcode, you must change the return value of the function to NULL and comment out the current return statement (return (void*)context->PC_FROM_UCONTEXT;).
+  - ```https://github.com/facebook/react-native/issues/16106```
+  - Build & run project -> select developer profile -> make sure deployment targets are the same in both your project and the tests project -> WeiPay should build to your physical ios device
 
-## Android 
+## Android On Device
 
  1.  Enable the Developers options on the Android Device
  2. Enable Usb debugging in the Developers option
@@ -189,7 +65,16 @@ If there is a react-native-camera folder in Android studio do the following firs
                         * for Mac: ```npm start```
                         * for linux: ```sudo npm start```
     * System ternimal 2: ```react-native run-android```
- 
+    
+# Run on Simulator 
+
++ IOS: ```react-native run-ios```
+
++ Android: ```react-native run-android```
+ - Run the following commands before running the command above
+	 - ```sudo npm start``` (if on linux)
+	 - Run the simulator from android studio or Connect your android device with usb debugging enabled
+	  
 
 Common Errors Encountered When Building For IOS
 
