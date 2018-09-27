@@ -29,27 +29,22 @@ class RecoverWallet extends Component {
     };
   }
 
-    /**
-     * Navigates the state to view the enableTokens screen if the mnemonic entered
-     * is valid otherwise an error is displayed
-     */
     navigate = async () => {
-      const navigateToTokens = NavigationActions.navigate({
+      const navigateToMain = NavigationActions.navigate({
         routeName: 'mainStack',
       });
-
       try {       
         if (this.props.debugMode === true) {
           const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
           wallet.provider = provider;                    
           this.props.newWalletCreation(wallet);
-          this.props.navigation.dispatch(navigateToTokens);
+          this.props.navigation.dispatch(navigateToMain);
         } else {             
           const mnemonic = this.state.mnemonic.trim();
           const wallet = ethers.Wallet.fromMnemonic(mnemonic);
           wallet.provider = provider;       
           this.props.newWalletCreation(wallet);
-          this.props.navigation.dispatch(navigateToTokens);
+          this.props.navigation.dispatch(navigateToMain);
         }        
       } catch (err) {
         Alert.alert(

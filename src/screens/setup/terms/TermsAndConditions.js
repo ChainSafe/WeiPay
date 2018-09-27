@@ -13,7 +13,6 @@ import { enterDebug } from '../../../actions/ActionCreator';
  * Initial terms and condition screen when the app is oppened for the first time.
  */
 class TermsAndConditions extends Component {
-
     /**
      * Method used to navigate to the "createOrRestore" screen
      */
