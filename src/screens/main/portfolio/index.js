@@ -18,8 +18,8 @@ import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
  */
 class Portfolio extends Component {
   state = {
-    // data: this.props.newWallet.tokens,
-    data: [],
+    data: this.props.tokens,
+    //data: [],
     pricesLoaded: false,
     refresh: false,
     currencyIndex: 0,
@@ -171,7 +171,13 @@ class Portfolio extends Component {
               navigation={this.props.navigation}
             />
           </View>
-          <Text style={styles.textHeader}>{ this.props.newWallet.walletName } </Text>
+          <Text style={styles.textHeader}>
+            { 
+              this.props.debugMode
+              ? 'IN DEBUG'
+              : 'NOT IN DEBUG' 
+            } 
+          </Text>
           <View style={styles.touchableCurrencyContainer}>
             <TouchableOpacity onPress={this.handleCurrencyTouch}>
               <View style={styles.accountValueHeader}>          
@@ -390,8 +396,10 @@ const styles = StyleSheet.create({
  * Returns an object containing that reterived object
  * @param {Object} param0
  */
-function mapStateToProps({ newWallet, Balance }) {
-  return { newWallet, Balance };
+function mapStateToProps({ Wallet, Debug }) {
+  const { currencyOptions, tokens } = Wallet;
+  const { debugMode, testWalletName } = Debug;
+  return { currencyOptions, tokens, debugMode, testWalletName };
 }
 
 export default connect(mapStateToProps, {

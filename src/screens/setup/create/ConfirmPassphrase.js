@@ -36,7 +36,7 @@ class ConfirmPassphrase extends Component {
     * This method add each word of the mnemonic to the local state variable object
     */
   componentDidMount() {
-    const words = this.props.mnemonic.split(' ');
+    const words = this.props.wallets[0].hdWallet.mnemonic.split(' ');
     let orderArray = [];
     for (let i = 0; i < words.length; i++) {
       orderArray.push({ 'wordItem' : { 'word': words[i], 'index': i }, 'selected': false });
@@ -295,15 +295,9 @@ const styles = StyleSheet.create({
   },
 });
 
-/**
- * Reterives the mnemonic passphrase of the wallet that was created
- * and returns an object containing that information
- * @param {Object} param
- */
-const mapStateToProps = ({ newWallet }) => {
-  const mnemonic = newWallet.wallet.mnemonic;
-  const debugMode = newWallet.debugMode;
-  return { mnemonic, debugMode }
-}
+const mapStateToProps = ({ Wallet }) => {
+  const { wallets } = Wallet;
+  return { wallets };
+};
 
 export default connect(mapStateToProps, null)(ConfirmPassphrase)

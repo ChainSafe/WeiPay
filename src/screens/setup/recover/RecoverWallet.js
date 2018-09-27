@@ -51,7 +51,7 @@ class RecoverWallet extends Component {
           const mnemonic = this.state.mnemonic.trim();
           const wallet = ethers.Wallet.fromMnemonic(mnemonic);
           wallet.provider = provider;       
-          this.props.initializeAppWallet(wallet, 'Manual Test Hardcode', []); //hardcoded for now
+          this.props.initializeAppWallet(wallet, 'Manual Test Hardcode', []); //hardcoded for
           this.props.navigation.dispatch(navigateToTokens);
         }        
       } catch (err) {
