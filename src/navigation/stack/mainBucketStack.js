@@ -65,8 +65,8 @@ const navigator = DrawerNavigator({
       headerMode: 'none',
     }),
   },
-  Coins: { screen: AddCoin },
-  Tokens: { screen: AddToken },
+ 
+  Tokens: { screen: AddingTokensOrCoins },
 }, {
   headerMode: 'none',
   lazy: true,
