@@ -8,6 +8,7 @@ import { NavigationActions } from 'react-navigation';
 import { Terms } from '../../../constants/Terms';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import { enterDebug } from '../../../actions/ActionCreator';
+import TokenConfig from '../../../scripts/tokenConfig';
 
 /**
  * Initial terms and condition screen when the app is oppened for the first time.
@@ -23,6 +24,12 @@ class TermsAndConditions extends Component {
       });
       this.props.navigation.dispatch(navigateToCreateOrRestore);
     };
+
+    componentDidMount() {
+      console.log('terms mount');
+      TokenConfig('setup');
+      console.log('after terms function call');
+    }
 
     /**
      * Returns the scrollable component that displays the terms and conditions with a submit button

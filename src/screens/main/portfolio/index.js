@@ -11,7 +11,6 @@ import { setWalletTokenBalances, fetchCoinData, calculateWalletBalance } from '.
 import processAllTokenBalances from '../../../scripts/tokenBalances';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
-import TokenFactory from '../../../classes/Token';
 
 /**
  * Screen is used to display the wallet portfolio of the user, which contains the
@@ -53,9 +52,11 @@ class Portfolio extends Component {
    * 
    */
   async componentDidMount() {
+    // TokenFactory('test symb', 'Test - Name', 'Test - Url', 10, [1, 2, 3, 4, 5]);
     const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data); //this needs to change where its
     await this.props.fetchCoinData(tokenSymbolString);
     await this.props.calculateWalletBalance(tokenBalances, this.props.Balance.tokenConversions);
+    //this should be where we pass all info to a function to store all data in object
     await this.setState({ 
       apiRequestString: tokenSymbolString, 
       walletBalance: this.props.Balance.walletBalance,
@@ -75,11 +76,6 @@ class Portfolio extends Component {
     }
     privateKey = this.props.newWallet.wallet.privateKey;
     return { tokenSymbolString, tokenBalances } = await processAllTokenBalances(privateKey, tokenObjectList);
-    // const { tokenSymbolString, tokenBalances } = await processAllTokenBalances(privateKey, tokenObjectList);
-    // console.log('before token creation');
-    // TokenFactory(tokenSymbolString, 'Test - Name', 'Test - Url', 10, [1, 2, 3, 4, 5]);
-    // console.log('after token creation');
-
   }
 
   showTokens = () => {
