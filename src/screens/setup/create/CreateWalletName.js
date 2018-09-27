@@ -3,6 +3,7 @@ import { View, TouchableWithoutFeedback, StyleSheet, Text, Keyboard, Platform, D
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput, Card } from 'react-native-elements';
+import { encrypt, decrypt } from 'react-native-simple-encryption';
 import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCreator';
 import LinearButton   from '../../../components/LinearGradient/LinearButton'
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard'
@@ -29,7 +30,11 @@ class CreateWalletName extends Component {
      */
     navigate = () => {
       const wallet = ethers.Wallet.createRandom();
-      this.props.newWalletCreation(wallet);
+      
+      const mnemonic = encrypt(wallet.privateKey, wallet.mnemonic);
+      
+      
+      this.props.newWalletCreation(wallet, mnemonic);
       const navigateToPassphrase = NavigationActions.navigate({ routeName: 'generatePassphrase' });
       this.props.navigation.dispatch(navigateToPassphrase);
     };

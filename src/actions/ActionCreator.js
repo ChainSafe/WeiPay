@@ -17,11 +17,11 @@ export function addTokenToSetup(coin) {
  * ethers.js as a payload
  * @param {ethers.js wallet} wallet
  */
-export function newWalletCreation(wallet) {
+export function newWalletCreation(wallet, mnemonic) {
   return (dispatch) => {
     dispatch({
       type: actionTypes.CREATING_NEW_WALLET,
-      payload: wallet,
+      payload: {wallet: wallet, mn: mnemonic },
     });
   };
 }

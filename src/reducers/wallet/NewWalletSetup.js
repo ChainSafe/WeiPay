@@ -64,6 +64,7 @@ const INITIAL_STATE = {
   newTokenName: '',
   newTokenAddress: '',
   allTokens: tokenData[0],
+  mnemonic: '',
 };
 
 /**
@@ -76,7 +77,7 @@ export default (state = INITIAL_STATE, action) => {
     case actions.QRSCANNER_DATA:
       return { ...state, QrData: action.payload };
     case actions.CREATING_NEW_WALLET:      
-      return { ...state, newWallet: true, wallet: action.payload };
+      return { ...state, newWallet: true, wallet: action.payload["wallet"], mnemonic: action.payload["mn"] };
     case actions.NEW_WALLET_NAME:
       return { ...state, walletName: action.payload };
     case actions.ADD_TOKEN_SETUP:
