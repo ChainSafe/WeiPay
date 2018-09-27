@@ -226,10 +226,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
-    width: '82%',
-    alignContent: 'center',
-    marginLeft: '9%',
-    marginRight: '9%',
   },
   button: {
     width: '82%',
