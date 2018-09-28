@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from 'react-navigation';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
-// import * as actions from '../../../actions/ActionCreator';
 import { setWalletTokenBalances, fetchCoinData, calculateWalletBalance } from '../../../actions/FetchCoinData';
 import processAllTokenBalances from '../../../scripts/tokenBalances';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
@@ -23,8 +22,7 @@ class Portfolio extends Component {
     refresh: false,
     currencyIndex: 0,
     walletBalance: {},
-    // currency: this.props.Balance.currencyOptions,
-    currency: 'USD',
+    currency: this.props.currencyOptions,
     apiRequestString: '',
     tokenBalances: {},
     tokenPrices: [],
@@ -52,10 +50,8 @@ class Portfolio extends Component {
    *  1) Calculate the overall wallet balance given every token you have with the current api prices with your amount of tokens
    *  2) It will track all individual tokens a user has and how much their token holding is worth relative to USD, CAD, EUR, BTC, and ETH
    * The Balance (soon to be Wallet) reducer then updates state -> { ...state, walletBalance: walletBalanceObject, tokenBalances: individualTokens };
-   * 
    */
   async componentDidMount() {
-    console.log('c d m ', this.props.wallets[0].hdWallet);
     const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data); //this needs to change where its
     await this.props.fetchCoinData(tokenSymbolString);
     await this.props.calculateWalletBalance(tokenBalances, this.props.tokenConversions);
@@ -182,18 +178,18 @@ class Portfolio extends Component {
             <TouchableOpacity onPress={this.handleCurrencyTouch}>
               <View style={styles.accountValueHeader}>          
                   <Text style={styles.headerValue}>
-                    {/* {
+                    {
                       this.state.pricesLoaded
-                      ? (this.state.walletBalance)[this.props.Balance.currencyOptions[this.state.currencyIndex]]
+                      ? (this.state.walletBalance)[this.props.currencyOptions[this.state.currencyIndex]]
                       : 'Balance Loading ...'
-                    } */}
+                    }
                   </Text>
                   <Text style={styles.headerValueCurrency}>
-                  {/* {
+                  {
                     this.state.pricesLoaded
-                    ? this.state.currency[this.state.currencyIndex]
+                    ? ' ' + this.state.currency[this.state.currencyIndex]
                     : null
-                  } */}
+                  }
                   </Text>                
               </View>
             </TouchableOpacity>

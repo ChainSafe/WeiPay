@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { View, TouchableWithoutFeedback, StyleSheet, Text, Keyboard, Platform, Dimensions, SafeAreaView } from 'react-native';
+import { View, TouchableWithoutFeedback, StyleSheet, Text, Keyboard, Dimensions, SafeAreaView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput, Card } from 'react-native-elements';
 import { setTempWalletName, initializeAppWallet } from '../../../actions/AppConfig';
-import LinearButton   from '../../../components/LinearGradient/LinearButton'
-import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard'
+import LinearButton   from '../../../components/LinearGradient/LinearButton';
+import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import RF from "react-native-responsive-fontsize"
 
@@ -29,10 +29,8 @@ class CreateWalletName extends Component {
      */
     navigate = () => {
       const walletName = this.props.tempWalletName;
-      console.log('walletName in create', walletName);
       const wallet = ethers.Wallet.createRandom();
       const userWallets = this.props.wallets;
-      console.log('user wallets', userWallets);
       this.props.initializeAppWallet(wallet, walletName, userWallets);
       const navigateToPassphrase = NavigationActions.navigate({ routeName: 'generatePassphrase' });
       this.props.navigation.dispatch(navigateToPassphrase);

@@ -44,20 +44,13 @@ class RecoverWallet extends Component {
           wallet.provider = provider;       
           const testWalletName = this.props.testWalletName;
           const userWallets = this.props.wallets;
-          console.log('user wallets', userWallets);
           this.props.initializeAppWallet(wallet, testWalletName, userWallets);
           this.props.navigation.dispatch(navigateToTokens);
         } else {
-          
-          const mnemonic = this.state.mnemonic.trim();
-          console.log(mnemonic);
-          console.log(this.props.tempWalletName);
-          
+          const mnemonic = this.state.mnemonic.trim();  
           currentWalletName = this.props.tempWalletName;
           const wallet = ethers.Wallet.fromMnemonic(mnemonic);
           wallet.provider = provider;
-          console.log(wallet);
-          
           this.props.initializeAppWallet(wallet, currentWalletName, []);
           this.props.navigation.dispatch(navigateToTokens);
         }        
@@ -65,8 +58,7 @@ class RecoverWallet extends Component {
         Alert.alert(
           'Mnemonic Error',
           'Your mnemonic was invalid, please re-enter.',
-          [
-            // { text: 'OK', onPress: () => this.inputMnemonic.clearText() },      
+          [ 
             { text: 'OK', onPress: () => console.log('error')},           
           ],
           { cancelable: false },
@@ -79,8 +71,6 @@ class RecoverWallet extends Component {
      * @param {String} mnemonicInput
      */
     renderRecoveryKey(mnemonicInput) {
-      console.log(mnemonicInput);
-      
       const totalWords = mnemonicInput.split(' ');
       if (totalWords.length == 12) {
         this.setState({ value: mnemonicInput.toLowerCase() });
