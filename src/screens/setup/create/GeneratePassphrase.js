@@ -20,9 +20,7 @@ class GeneratePassphrase extends Component {
       this.props.navigation.dispatch(navigateToEnableTokens);
     };
 
-    render() {
-      const { walletInfo } = this.props;
-      
+    render() {      
       return (
         <SafeAreaView style={styles.safeAreaView}>
           <View style={styles.mainContainer}>
@@ -43,7 +41,7 @@ class GeneratePassphrase extends Component {
                             Please write down your 12 word passphrase. You will need it to verify your wallet.
                         </Text>
                         <Text style={styles.textMnemonic}>
-                            {walletInfo.wallet.mnemonic}
+                            {this.props.wallets[0].hdWallet.mnemonic}
                         </Text>                       
                       </BoxShadowCard>
                   </View>
@@ -138,8 +136,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ newWallet }) => {
-  return { walletInfo: newWallet };
+const mapStateToProps = ({ Wallet }) => {
+  const { wallets } = Wallet;
+  return { wallets };
 };
 
 export default connect(mapStateToProps, null)(GeneratePassphrase);
