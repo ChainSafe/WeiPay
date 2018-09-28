@@ -16,13 +16,6 @@ const ethers = require('ethers');
  * a new wallet has been created
  */
 class CreateWalletName extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      buttonDisabled: true,
-    };
-  }
-
     /**
      * A new wallet is created, the wallet name is passed in along with usersWallets, which will be an 
      * empty array when user initially creates a wallet in setup.

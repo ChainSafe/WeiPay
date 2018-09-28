@@ -14,14 +14,6 @@ import RF from "react-native-responsive-fontsize"
  * the wallet has been recovered
  */
 class CreateWalletName extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      buttonDisabled: true,
-    };
-  }
-
     /**
      * Method is used to navigate back to the recoverWallet screen.
      */
