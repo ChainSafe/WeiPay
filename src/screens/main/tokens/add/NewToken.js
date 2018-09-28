@@ -36,10 +36,6 @@ class NewToken extends Component {
     this.props.updateNewTokenName(name);
   }
 
-  /**
-   * Navigator
-   * Is used to navigate to the Qr-Code scanner
-   */
   navigate = () => {
     this.props.qrScannerInvoker('AddTokenFunctionality');
     const navigateToQRScanner = NavigationActions.navigate({
