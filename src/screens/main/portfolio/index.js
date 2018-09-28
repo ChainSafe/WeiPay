@@ -52,7 +52,7 @@ class Portfolio extends Component {
    * The Balance (soon to be Wallet) reducer then updates state -> { ...state, walletBalance: walletBalanceObject, tokenBalances: individualTokens };
    */
   async componentDidMount() {
-    const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data); //this needs to change where its
+    const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data);
     await this.props.fetchCoinData(tokenSymbolString);
     await this.props.calculateWalletBalance(tokenBalances, this.props.tokenConversions);
     await this.setState({ 
@@ -90,9 +90,6 @@ class Portfolio extends Component {
     this.props.navigation.dispatch(navigateToAddToken);
   };
 
-  /**
-   * Returns a ListItem component specific to the properties of the token parameter
-   */
   renderRow = (token) => {
     return (
         <TouchableOpacity
@@ -223,9 +220,6 @@ class Portfolio extends Component {
   }
 }
 
-/**
- * Styles used in the "Portfolio" screen
- */
 const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
@@ -386,12 +380,6 @@ const styles = StyleSheet.create({
   },
 });
 
-/**
- * Method is used  to reterive the newWallet object
- * from the global state variable.
- * Returns an object containing that reterived object
- * @param {Object} param0
- */
 function mapStateToProps({ Wallet, Debug }) {
   const { currencyOptions, tokens, wallets, tokenConversions, tokenBalances, walletBalance } = Wallet;
   const { debugMode, testWalletName } = Debug;

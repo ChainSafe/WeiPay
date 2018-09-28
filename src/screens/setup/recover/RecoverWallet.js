@@ -12,14 +12,7 @@ import RF from "react-native-responsive-fontsize"
 
 const ethers = require('ethers');
 
-/**
- * Screen used to recover a previously generated wallet
- */
 class RecoverWallet extends Component {
-  /**
-     * Set the local state to keep track of the mnemonic entered to recover the wallet
-     * @param {Object} props
-     */
   constructor(props) {
     super(props);
     this.state = {
@@ -30,8 +23,7 @@ class RecoverWallet extends Component {
   }
 
     /**
-     * Navigates the state to view the enableTokens screen if the mnemonic entered
-     * is valid otherwise an error is displayed
+     * A new wallet is initialized and created with a wallet name.
      */
     navigate = async () => {
       const navigateToTokens = NavigationActions.navigate({

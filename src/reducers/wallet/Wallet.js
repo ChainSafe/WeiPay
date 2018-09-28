@@ -12,10 +12,6 @@ import {
   CALCULATE_WALLET_BALANCE,
 } from '../../actions/ActionTypes';
 
-/**
- * 0 index of price array represents the 1-1 ETH price -> the other currencies are relative to ETH
- * [  { 'USD' : [  Relative Eth Price, # of Eth, # of Altcoin ..etc ] }, .... ]
- */
 const initialState = {
   wallets: [],
   tempWalletName: null,

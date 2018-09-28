@@ -2,7 +2,6 @@
 /**
  * CONSTANT should be upper case, the non uppercase actionTypes will be phased out of the project.
  */
-
 export const DEBUG_MODE = 'DEBUG_MODE';
 export const FETCHING_COIN_DATA = 'FETCHING_COIN_DATA';
 export const FETCHING_COIN_DATA_SUCCESS = 'FETCHING_COIN_DATA_SUCCESS';
@@ -15,8 +14,6 @@ export const CALCULATE_WALLET_BALANCE = 'CALCULATE_WALLET_BALANCE';
 export const INITIALIZE_APP_TOKEN_SETUP = 'INITIALIZE_APP_TOKEN_SETUP';
 export const INITIALIZE_NEW_APP_WALLET = 'INITIALIZE_NEW_APP_WALLET';
 export const TEMP_WALLET_NAME = 'TEMP_WALLET_NAME';
-
-
 export const ADD_TOKEN_SETUP = "add_token_setup"; //good
 export const CREATING_NEW_WALLET = 'creating_new_wallet'; //good
 export const NEW_WALLET_NAME = 'new_wallet_name'; //good

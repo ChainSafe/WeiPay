@@ -10,18 +10,7 @@ import RF from "react-native-responsive-fontsize"
 
 const shuffle = require('shuffle-array');
 
-/**
- * Initial setup screen that prompts the user to re-enter the passphrase(mnemonic) using the
- * tags.
- * This screen is only displayed in the process of creating a new wallet
- */
 class ConfirmPassphrase extends Component {
-  /**
-   * Sets the local state to keep track of the tags which are selected and
-   * unselected
-   * @param {Object} props
-   */
-
   constructor(props) {
     super(props);
     this.state = {

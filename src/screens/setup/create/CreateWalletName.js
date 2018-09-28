@@ -24,8 +24,8 @@ class CreateWalletName extends Component {
   }
 
     /**
-     * Method is used to save the newly generated wallet (via ethers.js) in the global state
-     * variable and to navigate to the "generatePassphrase" screen
+     * A new wallet is created, the wallet name is passed in along with usersWallets, which will be an 
+     * empty array when user initially creates a wallet in setup.
      */
     navigate = () => {
       const walletName = this.props.tempWalletName;
@@ -37,9 +37,7 @@ class CreateWalletName extends Component {
     };
 
     /**
-     * Executes the action "newWalletNameEntry" with "name" as the parameter
-     * in order to update the name of the wallet in the global state variable
-     * @param {String} name
+     * The wallet name is stored in a temporary state.
      */
     getWalletName(name) {
       this.props.setTempWalletName(name);
@@ -50,10 +48,6 @@ class CreateWalletName extends Component {
       }
     }
 
-    /**
-     * Main Component
-     * Returns the form required for the user to set the name of their wallet
-     */
     render() {
       return (
         <SafeAreaView style={styles.safeAreaView}>

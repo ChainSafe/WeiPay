@@ -3,7 +3,6 @@ import * as actions from '../../actions/ActionTypes';
 import data from '../../constants/data/json/coins.json';
 import tokenData from '../../constants/data/json/tokens.json';
 
-
 const INITIAL_STATE = {
   newWallet: false,
   walletName: '',
@@ -59,7 +58,6 @@ const INITIAL_STATE = {
   QrData: '',
   QrScannerInvoker: '',
   current_token: {},
-  // debugMode: false,
   txnFee: 0,
   newTokenName: '',
   newTokenAddress: '',
@@ -128,7 +126,6 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, newTokenName: action.payload };
     case actions.COMPLETE_NEW_TOKEN:
       let lastID = state.coinData[state.coinData.length - 1].id + 1
-      
       const coinObj = {
         "id": lastID,
         "type": "ERC20",
@@ -168,14 +165,11 @@ export default (state = INITIAL_STATE, action) => {
       }
       const oldTokens = state.tokens
       oldTokens.push(coinObj);
-
       const oldcoinData = state.coinData
       oldcoinData.push(coinObj);    
-      
       return { ...state, coinData: oldcoinData, tokens: oldTokens, newTokenAddress: '', newTokenName: '' };
     case actions.ADD_TOKEN_FROM_LIST:
       let lastIDcheck = state.coinData[state.coinData.length - 1].id + 1;
-
       const NewcoinObj = {
         "id": lastIDcheck,
         "type": "ERC20",
@@ -213,14 +207,11 @@ export default (state = INITIAL_STATE, action) => {
             "youtube": ""
         }
       }
-      
       const OldTokens = state.tokens
       OldTokens.push(NewcoinObj);
-
       const OldcoinData = state.coinData
       OldcoinData.push(NewcoinObj); 
       return { ...state, coinData: OldcoinData, tokens: OldTokens };
-
     default:
       return state;
   }

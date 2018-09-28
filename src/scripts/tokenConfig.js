@@ -6,15 +6,11 @@ const tokenConfiguration = (configFlag) => {
 
   switch (configFlag) {
     case 'setup':
-      console.log('setup triggerd');
       tokenList = this.initialSetup();
-      //console.log(tokenList);
-      
       break;
     default:
       console.log('defaul triggered');
   }
-
   return tokenList;
 };
 

@@ -10,29 +10,22 @@ import { Terms } from '../../../constants/Terms';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import TokenConfig from '../../../scripts/tokenConfig';
 
-/**
- * Initial terms and condition screen when the app is oppened for the first time.
- */
 class TermsAndConditions extends Component {
+  /**
+   * The default tokens are taken from json file and parsed into wallet state.
+   */
+  componentDidMount() {
+    const tokens = TokenConfig('setup');
+    this.props.initializeAppTokenState(tokens);
+  }
 
-    /**
-     * Method used to navigate to the "createOrRestore" screen
-     */
-    navigate = () => {
-      const navigateToCreateOrRestore = NavigationActions.navigate({
-        routeName: 'createOrRestore',
-      });
-      this.props.navigation.dispatch(navigateToCreateOrRestore);
-    };
+  navigate = () => {
+    const navigateToCreateOrRestore = NavigationActions.navigate({
+      routeName: 'createOrRestore',
+    });
+    this.props.navigation.dispatch(navigateToCreateOrRestore);
+  };
 
-    componentDidMount() {
-      const tokens = TokenConfig('setup');
-      this.props.initializeAppTokenState(tokens);
-    }
-
-    /**
-     * Returns the scrollable component that displays the terms and conditions with a submit button
-     */
     render() {      
       return (
         <SafeAreaView style={styles.safeAreaView}>
@@ -63,9 +56,6 @@ class TermsAndConditions extends Component {
     }
 }
 
-/**
- * Styles used in the terms and condition screen
- */
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,

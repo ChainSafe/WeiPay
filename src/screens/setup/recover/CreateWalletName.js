@@ -30,11 +30,6 @@ class CreateWalletName extends Component {
       this.props.navigation.dispatch(navigateToPassphrase);
     };
 
-    /**
-     * Executes the action "newWalletNameEntry" with "name" as the parameter
-     * in order to update the name of the wallet in the global state variable
-     * @param {String} name
-     */
     getWalletName(name) {
       this.props.setTempWalletName(name);
       if (name !== '') {
@@ -44,10 +39,6 @@ class CreateWalletName extends Component {
       }
     }
 
-    /**
-     * Main Component
-     * Returns the form required for the user to set the name of their wallet
-     */
     render() {     
       return (
         <SafeAreaView style={styles.safeAreaView}>
@@ -185,10 +176,6 @@ const styles = StyleSheet.create({
   },
 });
 
-/**
- * This method is not being used here
- * @param {Object} param
- */
 const mapStateToProps = ({ Debug }) => {
   const { debugMode } = Debug;
   return { debugMode };
