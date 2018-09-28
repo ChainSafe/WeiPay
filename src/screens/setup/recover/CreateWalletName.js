@@ -32,11 +32,6 @@ class CreateWalletName extends Component {
 
     getWalletName(name) {
       this.props.setTempWalletName(name);
-      if (name !== '') {
-        this.setState({ buttonDisabled: false });
-      } else {
-        this.setState({ buttonDisabled: true });
-      }
     }
 
     render() {     
@@ -74,7 +69,7 @@ class CreateWalletName extends Component {
                         onClickFunction={ this.navigate }
                         buttonText= 'Next'
                         customStyles={styles.button}
-                        buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
+                        buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
                     />
                     <View style={styles.footerGrandparentContainer}>
                         <View style={styles.footerParentContainer} >
@@ -176,9 +171,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ Debug }) => {
-  const { debugMode } = Debug;
-  return { debugMode };
+const mapStateToProps = ({ Debug, Wallet }) => {
+  const { debugMode, testWalletName } = Debug;
+  const { wallets, tempWalletName } = Wallet;
+  return { debugMode, wallets, tempWalletName, testWalletName };
 };
 
 export default connect(mapStateToProps, { setTempWalletName })(CreateWalletName);
