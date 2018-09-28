@@ -26,7 +26,10 @@ const processAllTokenBalances = async (privateKey, dataSet) => {
           tokenObj.amount = response;
           allBalances.push(tokenObj);
           tokenApiRequestString += `${dataSet[i].symbol}`;  
-          if (i < dataSet.length - 1) tokenApiRequestString += ','; 
+          if (i < dataSet.length - 1) tokenApiRequestString += ',';
+        })
+        .catch((err) => {
+          console.log(err);
         });
     } else {
       let contractAddress = dataSet[i].contractAddress;
@@ -36,6 +39,9 @@ const processAllTokenBalances = async (privateKey, dataSet) => {
           allBalances.push(tokenObj);
           tokenApiRequestString += `${dataSet[i].symbol}`;  
           if (i < dataSet.length - 1) tokenApiRequestString += ','; 
+        })
+        .catch((err) => {
+          console.log(err);
         });
     }
   }
@@ -53,6 +59,6 @@ getERC20Balance = async (contractAdd) => {
   const tokenBalance = await contract.balanceOf(wallet.address);
   const parsedTokenBalance = String(tokenBalance);
   return parsedTokenBalance;
-}
+};
 
 export default processAllTokenBalances;

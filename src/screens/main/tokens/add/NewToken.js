@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import {
-  View, Text, StyleSheet, Alert, TouchableOpacity, Image, SafeAreaView, Dimensions, Keyboard, ActivityIndicator,
+  View, Text, StyleSheet, TouchableOpacity, Image, SafeAreaView, Dimensions, Keyboard, ActivityIndicator,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import RF from 'react-native-responsive-fontsize';
-// import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
 import * as actions from '../../../../actions/ActionCreator';
-// import Provider from '../../../../constants/Providers';
-// import { qrScannerInvoker, updateTxnFee } from '../../../../actions/ActionCreator';
-// import ERC20ABI from '../../../../constants/data/json/ERC20ABI.json';
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
 import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard';
 
@@ -30,7 +26,6 @@ class NewToken extends Component {
     }
   }
 
-
   updateAddress(address) {
     this.setState({ tokenAddress: address });
     this.props.updateNewTokenAddress(address);
@@ -41,10 +36,6 @@ class NewToken extends Component {
     this.props.updateNewTokenName(name);
   }
 
-  /**
-   * Navigator
-   * Is used to navigate to the Qr-Code scanner
-   */
   navigate = () => {
     this.props.qrScannerInvoker('AddTokenFunctionality');
     const navigateToQRScanner = NavigationActions.navigate({
@@ -53,68 +44,58 @@ class NewToken extends Component {
     this.props.navigation.dispatch(navigateToQRScanner);
   };
 
-
   render() {
     return (
-          <SafeAreaView style={styles.safeAreaView}>
-            <View style={styles.mainContainer}>
-
-                <View style={styles.boxShadowContainer}>
-                    <BoxShadowCard>
-                        <Text style={styles.cardText}>
-                            Enter ERC20 Token Address with it's name
-                        </Text>
-                        <View style= {styles.barcodeImageContainer}>
-                        <TouchableOpacity onPress={() => { return this.navigate(); }}>
-                          <Image
-                            source={require('../../../../assets/icons/barcode.png')}
-                            style={styles.barcodeImage}
-                          />
-                        </TouchableOpacity>
-                      </View>
-                      <View style={styles.formInputContainer}>
-                        <FormInput
-                            placeholder={'Token Address'}
-                            onChangeText={this.updateAddress.bind(this)}
-                            // ref={ref => {return this.inputAddress = ref}}
-                            inputStyle={styles.formAddress}
-                            value={this.state.tokenAddress}
-                        />
-                      </View>
-
-                      <View style={styles.formInputContainer}>
-                        <FormInput
-                            placeholder={'Token Symbol'}
-                            onChangeText={this.updateName.bind(this)}
-                            // ref={ref => {return this.inputAddress = ref}}
-                            inputStyle={styles.formAddress}
-                            value={this.state.tokenName}
-                        />
-                      </View>
-
-                    </BoxShadowCard>
-                </View>
-
-              <View style={styles.btnContainer}>
-
-                    <LinearButton
-                      onClickFunction={this.complete}
-                      buttonText='Add New Token'
-                      customStyles={styles.button}
-                    />
-
-                <View style={styles.footerGrandparentContainer}>
-                    <View style={styles.footerParentContainer} >
-                        <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-                    </View>
-                </View>
+      <SafeAreaView style={styles.safeAreaView}>
+        <View style={styles.mainContainer}>
+          <View style={styles.boxShadowContainer}>
+            <BoxShadowCard>
+              <Text style={styles.cardText}>
+                  Enter ERC20 Token Address with it's name
+              </Text>
+              <View style= {styles.barcodeImageContainer}>
+                <TouchableOpacity onPress={() => { return this.navigate(); }}>
+                  <Image
+                    source={require('../../../../assets/icons/barcode.png')}
+                    style={styles.barcodeImage}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.formInputContainer}>
+                <FormInput
+                  placeholder={'Token Address'}
+                  onChangeText={this.updateAddress.bind(this)}               
+                  inputStyle={styles.formAddress}
+                  value={this.state.tokenAddress}
+                />
+              </View>
+              <View style={styles.formInputContainer}>
+                <FormInput
+                  placeholder={'Token Symbol'}
+                  onChangeText={this.updateName.bind(this)}                
+                  inputStyle={styles.formAddress}
+                  value={this.state.tokenName}
+                />
+              </View>
+            </BoxShadowCard>
+          </View>
+          <View style={styles.btnContainer}>
+            <LinearButton
+              onClickFunction={this.complete}
+              buttonText='Add New Token'
+              customStyles={styles.button}
+            />
+            <View style={styles.footerGrandparentContainer}>
+              <View style={styles.footerParentContainer} >
+                <Text style={styles.textFooter} >Powered by ChainSafe </Text>
               </View>
             </View>
-          </SafeAreaView>
+          </View>
+        </View>
+      </SafeAreaView>
     );
   }
 }
-
 
 /**
  * Styles
@@ -161,11 +142,7 @@ const styles = StyleSheet.create({
     marginLeft: '5%',
   },
   boxShadowContainer: {
-    // alignItems: 'center',
-    // marginTop: '10%',
-    // flex: 3.75,
-    // width: '100%',
-    flex: 1.25,
+    flex: 2.25,
     marginLeft: '9%',
     marginRight: '9%',
     marginTop: '10%',
@@ -221,6 +198,7 @@ const styles = StyleSheet.create({
   formInputContainer: {
     marginLeft: '4.5%',
     marginRight: '4.5%',
+    marginTop: '2.5%',
   },
   btnContainer: {
     flex: 1,
