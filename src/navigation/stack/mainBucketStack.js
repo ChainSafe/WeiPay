@@ -15,6 +15,7 @@ import QrCodeScanner from '../../screens/main/qr/QrCodeScanner';
 import BackupPhrase from '../../screens/main/menu/settings/BackupPhrase';
 import TokenFunctionality from '../../screens/main/tokens/Index';
 import AddingTokensOrCoins from '../../screens/main/tokens/add/Index';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 const CustomDrawerContentComponent = props => (
   <View style={styles.customContainer}>
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
   customContainer: {
     flex: 1,
     backgroundColor: 'white',
-    marginTop: '10%',
+    marginTop: getStatusBarHeight(),
   },
   labelText: {
     fontSize: 16,
