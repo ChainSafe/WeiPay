@@ -10,18 +10,7 @@ import RF from "react-native-responsive-fontsize"
 
 const shuffle = require('shuffle-array');
 
-/**
- * Initial setup screen that prompts the user to re-enter the passphrase(mnemonic) using the
- * tags.
- * This screen is only displayed in the process of creating a new wallet
- */
 class ConfirmPassphrase extends Component {
-  /**
-   * Sets the local state to keep track of the tags which are selected and
-   * unselected
-   * @param {Object} props
-   */
-
   constructor(props) {
     super(props);
     this.state = {
@@ -36,7 +25,7 @@ class ConfirmPassphrase extends Component {
     * This method add each word of the mnemonic to the local state variable object
     */
   componentDidMount() {
-    const words = this.props.mnemonic.split(' ');
+    const words = this.props.wallets[0].hdWallet.mnemonic.split(' ');
     let orderArray = [];
     for (let i = 0; i < words.length; i++) {
       orderArray.push({ 'wordItem' : { 'word': words[i], 'index': i }, 'selected': false });
@@ -295,15 +284,9 @@ const styles = StyleSheet.create({
   },
 });
 
-/**
- * Reterives the mnemonic passphrase of the wallet that was created
- * and returns an object containing that information
- * @param {Object} param
- */
-const mapStateToProps = ({ newWallet }) => {
-  const mnemonic = newWallet.wallet.mnemonic;
-  const debugMode = newWallet.debugMode;
-  return { mnemonic, debugMode }
-}
+const mapStateToProps = ({ Wallet }) => {
+  const { wallets } = Wallet;
+  return { wallets };
+};
 
 export default connect(mapStateToProps, null)(ConfirmPassphrase)

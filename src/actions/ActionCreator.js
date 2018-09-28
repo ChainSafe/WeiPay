@@ -187,12 +187,6 @@ export function addTokenInfo(tokenInfo) {
   };
 }
 
-export function enterDebug() {
-  return (dispatch) => {
-    dispatch({ type: actionTypes.DEBUG_MODE, payload: '' });
-  };
-}
-
 /**
  * Returns an action that contains the tokenID from the token data with its
  * updated balance (received through the provider)
