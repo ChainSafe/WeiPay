@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from 'react-navigation';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
-import * as actions from '../../../actions/ActionCreator';
 import { setWalletTokenBalances, fetchCoinData, calculateWalletBalance } from '../../../actions/FetchCoinData';
 import processAllTokenBalances from '../../../scripts/tokenBalances';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
@@ -18,26 +17,49 @@ import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
  */
 class Portfolio extends Component {
   state = {
-    data: this.props.newWallet.tokens,
+    data: this.props.tokens,
     pricesLoaded: false,
     refresh: false,
     currencyIndex: 0,
     walletBalance: {},
-    currency: this.props.Balance.currencyOptions,
+    currency: this.props.currencyOptions,
     apiRequestString: '',
     tokenBalances: {},
     tokenPrices: [],
+    currentWallet: this.props.wallets[0].hdWallet,
+    currentWalletName: this.props.wallets[0].name
   }
 
+  /**
+   * On initial app set up -> data will be default eth being loaded from default config
+   * on subsequent launches it will pull from whatever tokens you have in the new wallet reducer - this data source will be removed
+   * Based on the tokens in the reducer you will get a concatenated string for the api request that will return a matrix of tokens and their price arrays
+   * fetch coin data then stores this data in the Balance Reducer tokenConversions array (Balance will be renamed to Wallet and newWalletReducer will be removed)
+   * This array will have the following structure -> //  { ETH: {USD: 209.5, CAD: 285.32, ETH: 1, BTC: 0.03264, EUR: 178.06} SUB: {USD: 0.112, CAD: 0.1535, ETH: 0.000534, BTC: 0.00001743, EUR: 0.09506} }
+   * The format tokens function takes our list of tokens and formats them in such a way to achieve 2 goals
+   * 1) The concatenated api request url to get all prices
+   * 2) Generates an array of Token objects that contain a symbol and contract address, ETH will have a null address and this allows us to distibguish which balance method we use.
+   *  - This setup will allow us to pass lists of tokens along with the private key of the current wallet to manage multiple user wallets.
+   * ProcessAllTokenBalances(privateKey, tokenObjectList) takes this data and returns { 'tokenSymbolString' : tokenApiRequestString, 'tokenBalances' : allBalances };
+   * tokenApiRequestString is the concatenated URL string that is dynamically created whenever a user adds or removes a coin.
+   * tokenBalances holds an array of objects -> [ { symbol: 'yourTokenSymbol', amount: 'How many tokens your wallet has' } ... ]
+   * This logic is in scripts/tokenBalances
+   *   - This will allow additional token support to added in a modular way with minimal config changes. (Additional ABI import and object flag)
+   * Once we have all this data, we can invoke calculateWalletBalance(tokenBalances, this.props.Balance.tokenConversions);
+   * This actionCreator will do 2 things
+   *  1) Calculate the overall wallet balance given every token you have with the current api prices with your amount of tokens
+   *  2) It will track all individual tokens a user has and how much their token holding is worth relative to USD, CAD, EUR, BTC, and ETH
+   * The Balance (soon to be Wallet) reducer then updates state -> { ...state, walletBalance: walletBalanceObject, tokenBalances: individualTokens };
+   */
   async componentDidMount() {
     const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data);
     await this.props.fetchCoinData(tokenSymbolString);
-    await this.props.calculateWalletBalance(tokenBalances, this.props.Balance.tokenConversions);
+    await this.props.calculateWalletBalance(tokenBalances, this.props.tokenConversions);
     await this.setState({ 
       apiRequestString: tokenSymbolString, 
-      walletBalance: this.props.Balance.walletBalance,
-      tokenPrices: this.props.Balance.tokenBalances
-    });    
+      walletBalance: this.props.walletBalance,
+      tokenPrices: this.props.tokenBalances
+    }); 
     this.showTokens();
   }
 
@@ -50,7 +72,7 @@ class Portfolio extends Component {
       tokenObj.contractAddress = tokenList[i].address;
       tokenObjectList.push(tokenObj);
     }
-    privateKey = this.props.newWallet.wallet.privateKey;
+    privateKey =  this.state.currentWallet.privateKey;
     return { tokenSymbolString, tokenBalances } = await processAllTokenBalances(privateKey, tokenObjectList);
   }
 
@@ -68,9 +90,6 @@ class Portfolio extends Component {
     this.props.navigation.dispatch(navigateToAddToken);
   };
 
-  /**
-   * Returns a ListItem component specific to the properties of the token parameter
-   */
   renderRow = (token) => {
     return (
         <TouchableOpacity
@@ -87,7 +106,7 @@ class Portfolio extends Component {
                   <View style={styles.imageContainer} >
                     <Image
                       style={styles.img}
-                      source={ { uri: token.logo.src } }
+                      source={ { uri: token.logo } }
                     />
                   </View>
                 </View>
@@ -145,21 +164,27 @@ class Portfolio extends Component {
               navigation={this.props.navigation}
             />
           </View>
-          <Text style={styles.textHeader}>{ this.props.newWallet.walletName } </Text>
+          <Text style={styles.textHeader}>
+            { 
+              this.props.debugMode
+              ? this.props.testWalletName
+              : this.state.currentWalletName
+            } 
+          </Text>
           <View style={styles.touchableCurrencyContainer}>
             <TouchableOpacity onPress={this.handleCurrencyTouch}>
               <View style={styles.accountValueHeader}>          
                   <Text style={styles.headerValue}>
                     {
                       this.state.pricesLoaded
-                      ? (this.state.walletBalance)[this.props.Balance.currencyOptions[this.state.currencyIndex]]
+                      ? (this.state.walletBalance)[this.props.currencyOptions[this.state.currencyIndex]]
                       : 'Balance Loading ...'
                     }
                   </Text>
                   <Text style={styles.headerValueCurrency}>
                   {
                     this.state.pricesLoaded
-                    ? this.state.currency[this.state.currencyIndex]
+                    ? ' ' + this.state.currency[this.state.currencyIndex]
                     : null
                   }
                   </Text>                
@@ -170,8 +195,8 @@ class Portfolio extends Component {
             <FlatList
               data={this.state.data}
               showsVerticalScrollIndicator={false}
-              renderItem={({ item }) => { return this.renderRow(item); }}
-              keyExtractor={(item) => { return String(item.id); }}
+              renderItem= {({ item }) => { return this.renderRow(item); }}
+              keyExtractor= {(item) => { return String(item.symbol); }}
               refreshing={this.state.refresh}
               onRefresh={this.handleListRefresh}
               extraData={this.props}
@@ -195,9 +220,6 @@ class Portfolio extends Component {
   }
 }
 
-/**
- * Styles used in the "Portfolio" screen
- */
 const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
@@ -358,16 +380,12 @@ const styles = StyleSheet.create({
   },
 });
 
-/**
- * Method is used  to reterive the newWallet object
- * from the global state variable.
- * Returns an object containing that reterived object
- * @param {Object} param0
- */
-function mapStateToProps({ newWallet, Balance }) {
-  return { newWallet, Balance };
+function mapStateToProps({ Wallet, Debug }) {
+  const { currencyOptions, tokens, wallets, tokenConversions, tokenBalances, walletBalance } = Wallet;
+  const { debugMode, testWalletName } = Debug;
+  return { currencyOptions, tokens, debugMode, testWalletName, wallets, tokenConversions, walletBalance, tokenBalances };
 }
 
 export default connect(mapStateToProps, {
-  actions, setWalletTokenBalances, fetchCoinData, calculateWalletBalance,
+  setWalletTokenBalances, fetchCoinData, calculateWalletBalance,
 })(Portfolio);

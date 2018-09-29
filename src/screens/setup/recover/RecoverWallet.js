@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Alert, Dimensions, Keyboard, TouchableWithoutFe
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
-import { newWalletCreation } from '../../../actions/ActionCreator';
+import { initializeAppWallet } from '../../../actions/AppConfig';
 import provider from '../../../constants/Providers';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
@@ -12,14 +12,7 @@ import RF from "react-native-responsive-fontsize"
 
 const ethers = require('ethers');
 
-/**
- * Screen used to recover a previously generated wallet
- */
 class RecoverWallet extends Component {
-  /**
-     * Set the local state to keep track of the mnemonic entered to recover the wallet
-     * @param {Object} props
-     */
   constructor(props) {
     super(props);
     this.state = {
@@ -29,6 +22,9 @@ class RecoverWallet extends Component {
     };
   }
 
+    /**
+     * A new wallet is initialized and created with a wallet name.
+     */
     navigate = async () => {
       const navigateToMain = NavigationActions.navigate({
         routeName: 'mainStack',
@@ -36,22 +32,25 @@ class RecoverWallet extends Component {
       try {       
         if (this.props.debugMode === true) {
           const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
-          wallet.provider = provider;                    
-          this.props.newWalletCreation(wallet);
-          this.props.navigation.dispatch(navigateToMain);
-        } else {             
-          const mnemonic = this.state.mnemonic.trim();
-          const wallet = ethers.Wallet.fromMnemonic(mnemonic);
           wallet.provider = provider;       
-          this.props.newWalletCreation(wallet);
+          const testWalletName = this.props.testWalletName;
+          const userWallets = this.props.wallets;
+          this.props.initializeAppWallet(wallet, testWalletName, userWallets);
+          this.props.navigation.dispatch(navigateToMain);
+        } else {
+          const mnemonic = this.state.mnemonic.trim();  
+          currentWalletName = this.props.tempWalletName;
+          const wallet = ethers.Wallet.fromMnemonic(mnemonic);
+          wallet.provider = provider;
+          this.props.initializeAppWallet(wallet, currentWalletName, []);
           this.props.navigation.dispatch(navigateToMain);
         }        
       } catch (err) {
         Alert.alert(
           'Mnemonic Error',
           'Your mnemonic was invalid, please re-enter.',
-          [
-            { text: 'OK', onPress: () => this.inputMnemonic.clearText() },           
+          [ 
+            { text: 'OK', onPress: () => console.log('error')},           
           ],
           { cancelable: false },
         );
@@ -212,9 +211,10 @@ const styles = StyleSheet.create({
  * This method is not being used here
  * @param {Object} param
  */
-const mapStateToProps = ({ newWallet }) => {
-  const { debugMode } = newWallet;
-  return { debugMode };
+const mapStateToProps = ({ Debug, Wallet }) => {
+  const { debugMode, testWalletName } = Debug;
+  const { wallets, tempWalletName } = Wallet;
+  return { debugMode, testWalletName, wallets, tempWalletName };
 };
 
-export default connect(mapStateToProps, { newWalletCreation })(RecoverWallet);
+export default connect(mapStateToProps, { initializeAppWallet })(RecoverWallet);

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { View, TouchableWithoutFeedback, StyleSheet, Text, Keyboard, Platform, Dimensions, SafeAreaView } from 'react-native';
+import { View, TouchableWithoutFeedback, StyleSheet, Text, Keyboard, Dimensions, SafeAreaView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput, Card } from 'react-native-elements';
-import { newWalletCreation, newWalletNameEntry } from '../../../actions/ActionCreator';
-import LinearButton   from '../../../components/LinearGradient/LinearButton'
-import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard'
+import { setTempWalletName, initializeAppWallet } from '../../../actions/AppConfig';
+import LinearButton   from '../../../components/LinearGradient/LinearButton';
+import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import RF from "react-native-responsive-fontsize"
 
@@ -16,42 +16,26 @@ const ethers = require('ethers');
  * a new wallet has been created
  */
 class CreateWalletName extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      buttonDisabled: true,
-    };
-  }
-
     /**
-     * Method is used to save the newly generated wallet (via ethers.js) in the global state
-     * variable and to navigate to the "generatePassphrase" screen
+     * A new wallet is created, the wallet name is passed in along with usersWallets, which will be an 
+     * empty array when user initially creates a wallet in setup.
      */
     navigate = () => {
+      const walletName = this.props.tempWalletName;
       const wallet = ethers.Wallet.createRandom();
-      this.props.newWalletCreation(wallet);
-      const navigateToGeneratePassphrase = NavigationActions.navigate({ routeName: 'generatePassphrase' });
-      this.props.navigation.dispatch(navigateToGeneratePassphrase);
+      const userWallets = this.props.wallets;
+      this.props.initializeAppWallet(wallet, walletName, userWallets);
+      const navigateToPassphrase = NavigationActions.navigate({ routeName: 'generatePassphrase' });
+      this.props.navigation.dispatch(navigateToPassphrase);
     };
 
     /**
-     * Executes the action "newWalletNameEntry" with "name" as the parameter
-     * in order to update the name of the wallet in the global state variable
-     * @param {String} name
+     * The wallet name is stored in a temporary state.
      */
     getWalletName(name) {
-      this.props.newWalletNameEntry(name);
-      if (name !== '') {
-        this.setState({ buttonDisabled: false });
-      } else {
-        this.setState({ buttonDisabled: true });
-      }
+      this.props.setTempWalletName(name);
     }
 
-    /**
-     * Main Component
-     * Returns the form required for the user to set the name of their wallet
-     */
     render() {
       return (
         <SafeAreaView style={styles.safeAreaView}>
@@ -87,7 +71,7 @@ class CreateWalletName extends Component {
                   onClickFunction={this.navigate}
                   buttonText="Next"
                   customStyles={styles.button}
-                  buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
+                  buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
                 />
                 <View style={styles.footerGrandparentContainer} >
                   <View style={styles.footerParentContainer} >
@@ -189,10 +173,10 @@ const styles = StyleSheet.create({
  * This method is not being used here
  * @param {Object} param
  */
-const mapStateToProps = ({ newWallet }) => {
-  const { walletName } = newWallet;
-  const debugMode = newWallet.debugMode
-  return { walletName, debugMode };
+const mapStateToProps = ({ Debug, Wallet }) => {
+  const { debugMode, testWalletName } = Debug;
+  const { wallets, tempWalletName } = Wallet;
+  return { debugMode, wallets, tempWalletName, testWalletName };
 };
 
-export default connect(mapStateToProps, { newWalletNameEntry, newWalletCreation })(CreateWalletName);
+export default connect(mapStateToProps, { setTempWalletName, initializeAppWallet })(CreateWalletName);

@@ -1,31 +1,31 @@
 import React, { Component } from 'react';
 import {
- Text, View, ScrollView, StyleSheet, Dimensions, SafeAreaView,
+  Text, View, ScrollView, StyleSheet, Dimensions, SafeAreaView,
 } from 'react-native';
-import RF from "react-native-responsive-fontsize";
+import RF from 'react-native-responsive-fontsize';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
+import { initializeAppTokenState, enterDebug } from '../../../actions/AppConfig';
 import { Terms } from '../../../constants/Terms';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
-import { enterDebug } from '../../../actions/ActionCreator';
+import TokenConfig from '../../../scripts/tokenConfig';
 
-/**
- * Initial terms and condition screen when the app is oppened for the first time.
- */
 class TermsAndConditions extends Component {
-    /**
-     * Method used to navigate to the "createOrRestore" screen
-     */
-    navigate = () => {
-      const navigateToCreateOrRestore = NavigationActions.navigate({
-        routeName: 'createOrRestore',
-      });
-      this.props.navigation.dispatch(navigateToCreateOrRestore);
-    };
+  /**
+   * The default tokens are taken from json file and parsed into wallet state.
+   */
+  componentDidMount() {
+    const tokens = TokenConfig('setup');
+    this.props.initializeAppTokenState(tokens);
+  }
 
-    /**
-     * Returns the scrollable component that displays the terms and conditions with a submit button
-     */
+  navigate = () => {
+    const navigateToCreateOrRestore = NavigationActions.navigate({
+      routeName: 'createOrRestore',
+    });
+    this.props.navigation.dispatch(navigateToCreateOrRestore);
+  };
+
     render() {      
       return (
         <SafeAreaView style={styles.safeAreaView}>
@@ -56,9 +56,6 @@ class TermsAndConditions extends Component {
     }
 }
 
-/**
- * Styles used in the terms and condition screen
- */
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
@@ -124,4 +121,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null, { enterDebug })(TermsAndConditions);
+export default connect(null, { enterDebug, initializeAppTokenState })(TermsAndConditions);
