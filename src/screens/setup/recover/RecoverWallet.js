@@ -26,29 +26,37 @@ class RecoverWallet extends Component {
      * A new wallet is initialized and created with a wallet name.
      */
     navigate = async () => {
-      const navigateToTokens = NavigationActions.navigate({
-        routeName: 'mainStack',
-      });
-
+     
       try {       
         if (this.props.debugMode === true) {
-          const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
-          console.log('user password', this.props.appPassword);          
-          const encrypted = await wallet.encrypt(this.props.appPassword);
-          console.log('encrypted password', encrypted);
+          console.log('in debug');
           
-          wallet.provider = provider;       
-          const testWalletName = this.props.testWalletName;
-          const userWallets = this.props.wallets;
-          this.props.initializeAppWallet(encrypted, testWalletName, userWallets);
-          this.props.navigation.dispatch(navigateToTokens);
+          const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
+          // console.log('user password', this.props.appPassword);          
+          // const encrypted = await wallet.encrypt(this.props.appPassword);
+          // console.log('encrypted password', encrypted);
+          // wallet.provider = provider;       
+          // const testWalletName = this.props.testWalletName;
+          // const userWallets = this.props.wallets;
+          // this.props.initializeAppWallet(encrypted, testWalletName, userWallets);
+
+          const navigateToCreateWalletName = NavigationActions.navigate({
+            routeName: 'createWalletNameRecovered',
+            params: { 'wallet': wallet },
+          });
+          this.props.navigation.dispatch(navigateToCreateWalletName);
         } else {
           const mnemonic = this.state.mnemonic.trim();  
           currentWalletName = this.props.tempWalletName;
           const wallet = ethers.Wallet.fromMnemonic(mnemonic);
           wallet.provider = provider;
           this.props.initializeAppWallet(wallet, currentWalletName, []);
-          this.props.navigation.dispatch(navigateToTokens);
+
+          const navigateToCreateWalletName = NavigationActions.navigate({
+            routeName: 'createWalletNameRecovered',
+            params: { 'wallet': wallet },
+          });
+          this.props.navigation.dispatch(navigateToCreateWalletName);
         }        
       } catch (err) {
         Alert.alert(

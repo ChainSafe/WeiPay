@@ -16,17 +16,18 @@ const ethers = require('ethers');
  * a new wallet has been created
  */
 class CreateWalletName extends Component {
-    /**
+  /**
      * A new wallet is created, the wallet name is passed in along with usersWallets, which will be an 
      * empty array when user initially creates a wallet in setup.
      */
-    navigate = () => {
-      const walletName = this.props.tempWalletName;
+
+    navigateToPin = () => {
       const wallet = ethers.Wallet.createRandom();
-      const userWallets = this.props.wallets;
-      //this.props.initializeAppWallet(wallet, walletName, userWallets);
-      const navigateToPassphrase = NavigationActions.navigate({ wallet: wallet, routeName: 'generatePassphrase' });
-      this.props.navigation.dispatch(navigateToPassphrase);
+      const navigateToPassword = NavigationActions.navigate({
+        routeName: 'password',
+        params: { 'nextScreenToNavigate' : 'generatePassphrase', 'wallet': wallet },
+      });
+      this.props.navigation.dispatch(navigateToPassword);
     };
 
     /**
@@ -68,7 +69,7 @@ class CreateWalletName extends Component {
               </View>
               <View style={styles.btnContainer}>
                 <LinearButton
-                  onClickFunction={this.navigate}
+                  onClickFunction={this.navigateToPin}
                   buttonText="Next"
                   customStyles={styles.button}
                   buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
@@ -87,86 +88,86 @@ class CreateWalletName extends Component {
 }
 
 const styles = StyleSheet.create({
-    safeAreaView: {
-        flex: 1,
-        backgroundColor: '#fafbfe'
-    },
-    mainContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        backgroundColor: '#fafbfe',
-        width: '100%',
-    },
-    navContainer: {
-        flex: 0.65,
-    },
-    boxShadowContainer: {
-        alignItems: 'center',
-        flex: 2.5,
-    },
-    textHeader: {
-        fontFamily: 'Cairo-Light',
-        fontSize: RF(4),
-        letterSpacing: 0.8,
-        paddingLeft: '9%',
-        color: '#1a1f3e',
-        flex: 0.75,
-    },
-    contentContainer: {
-        flex: 1,
-        width: '82%',
-    },
-    cardText: {
-      paddingBottom: '15%',
-      paddingTop: '10%',
-      paddingLeft: '10%',
-      paddingRight: '10%',
-      fontFamily: 'WorkSans-Light',
-      letterSpacing: 0.4,
-      lineHeight: RF(3.9),
-      color: '#000000',
-      fontSize: RF(2.4),
-    },
-    txtWalletName: {
-        width: '100%',
-        flexWrap: 'wrap',
-        color: '#12c1a2',
-        letterSpacing: 0.4,
-        fontSize: 16,
-        fontFamily: 'WorkSans-Regular',
-        borderBottomWidth: 0.001
-    },
-    formInputContainer: {
-      width: '90%',
-      marginLeft: '5%',
-    },
-    btnContainer: {
-        flex: 2.5,
-        alignItems: 'stretch',
-        justifyContent: 'flex-end',
-        width: '100%',
-    },
-    button: {
-        width: '82%',
-        height: Dimensions.get('window').height * 0.082,
-    },
-    footerGrandparentContainer: {
-        alignItems: 'center',
-        marginBottom: '5%',
-        marginTop: '5%',
-    },
-    footerParentContainer: {
-        alignItems: 'center',
-    },
-    textFooter: {
-        fontFamily: 'WorkSans-Regular',
-        fontSize: RF(1.7),
-        color: '#c0c0c0',
-        letterSpacing: 0.5
-    },
-    defaultGreenColor: {
-        color: '#12c1a2'
-    },
+  safeAreaView: {
+    flex: 1,
+    backgroundColor: '#fafbfe'
+  },
+  mainContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: '#fafbfe',
+    width: '100%',
+  },
+  navContainer: {
+    flex: 0.65,
+  },
+  boxShadowContainer: {
+    alignItems: 'center',
+    flex: 2.5,
+  },
+  textHeader: {
+    fontFamily: 'Cairo-Light',
+    fontSize: RF(4),
+    letterSpacing: 0.8,
+    paddingLeft: '9%',
+    color: '#1a1f3e',
+    flex: 0.75,
+  },
+  contentContainer: {
+    flex: 1,
+    width: '82%',
+  },
+  cardText: {
+    paddingBottom: '15%',
+    paddingTop: '10%',
+    paddingLeft: '10%',
+    paddingRight: '10%',
+    fontFamily: 'WorkSans-Light',
+    letterSpacing: 0.4,
+    lineHeight: RF(3.9),
+    color: '#000000',
+    fontSize: RF(2.4),
+  },
+  txtWalletName: {
+    width: '100%',
+    flexWrap: 'wrap',
+    color: '#12c1a2',
+    letterSpacing: 0.4,
+    fontSize: 16,
+    fontFamily: 'WorkSans-Regular',
+    borderBottomWidth: 0.001
+  },
+  formInputContainer: {
+    width: '90%',
+    marginLeft: '5%',
+  },
+  btnContainer: {
+    flex: 2.5,
+    alignItems: 'stretch',
+    justifyContent: 'flex-end',
+    width: '100%',
+  },
+  button: {
+    width: '82%',
+    height: Dimensions.get('window').height * 0.082,
+  },
+  footerGrandparentContainer: {
+    alignItems: 'center',
+    marginBottom: '5%',
+    marginTop: '5%',
+  },
+  footerParentContainer: {
+    alignItems: 'center',
+  },
+  textFooter: {
+    fontFamily: 'WorkSans-Regular',
+    fontSize: RF(1.7),
+    color: '#c0c0c0',
+    letterSpacing: 0.5
+  },
+  defaultGreenColor: {
+    color: '#12c1a2'
+  },
 })
 
 /**

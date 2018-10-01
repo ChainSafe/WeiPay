@@ -15,7 +15,7 @@ class GeneratePassphrase extends Component {
     navigate = () => {
       const navigateToEnableTokens = NavigationActions.navigate({
         routeName: 'confirmPassphrase',
-        params: { wallet: this.props.navigation.state.wallet },
+        params: { wallet: this.props.navigation.state.params.wallet },
       });
       this.props.navigation.dispatch(navigateToEnableTokens);
     };
@@ -41,7 +41,7 @@ class GeneratePassphrase extends Component {
                             Please write down your 12 word passphrase. You will need it to verify your wallet.
                         </Text>
                         <Text style={styles.textMnemonic}>
-                            {this.props.wallets[0].hdWallet.mnemonic}
+                            {this.props.navigation.state.params.wallet.mnemonic}
                         </Text>                       
                       </BoxShadowCard>
                   </View>

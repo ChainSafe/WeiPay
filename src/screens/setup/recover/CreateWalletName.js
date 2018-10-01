@@ -18,7 +18,10 @@ class CreateWalletName extends Component {
      * Method is used to navigate back to the recoverWallet screen.
      */
     navigate = () => {
-      const navigateToPassphrase = NavigationActions.navigate({ routeName: 'recoverWallet' });
+      const navigateToPassphrase = NavigationActions.navigate({ 
+        routeName: 'password',
+        params: { 'nextScreenToNavigate' : 'mainStack', 'wallet': this.props.navigation.state.params.wallet },
+      });
       this.props.navigation.dispatch(navigateToPassphrase);
     };
 
