@@ -24,7 +24,7 @@ class PinPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      wallet: this.props.wallets[0].hdWallet,     
+      walletObjecet: {},     
       password: "",
     }
   }
@@ -44,7 +44,6 @@ class PinPage extends Component {
  */
   navigate = async () => {
     const userWallets = this.props.wallets;
-    
     let walletNameCheck;
     if(this.props.debugMode) {
       walletNameCheck = this.props.testWalletName;
@@ -54,61 +53,39 @@ class PinPage extends Component {
  
     if(this.props.isInSetupScreens) {
       const { nextScreenToNavigate, wallet } = this.props.navigation.state.params;
-      console.log('we are setting up the app for the first time'); 
-      const encryptedWallet = await this.state.wallet.encrypt(this.state.password);
-      const walletInHotReducer = { wallet: this.state.wallet, name: walletNameCheck };
+      await this.setState({walletObjecet: wallet});
+      const encryptedWallet = await wallet.encrypt(this.state.password);
+      const walletInHotReducer = { wallet, name: walletNameCheck };
       this.props.setHotWallet(walletInHotReducer);
-      this.props.initializeAppWallet(this.state.wallet, walletNameCheck, userWallets);
+      this.props.initializeAppWallet(encryptedWallet, walletNameCheck, userWallets);
       this.props.exitSetup(false);
       const navigateToNextScreen = NavigationActions.navigate({
         routeName: nextScreenToNavigate,
       });
       this.props.navigation.dispatch(navigateToNextScreen);
     } else {
-
-      // let encryptedWallet = this.props.wallets[0].hdWallet;
-      // console.log('encrypted wallet from reducer hd wallet is', encryptedWallet);
-      // console.log('password is', this.state.password);
-      //onst decryptedWallet = await eW.fromEncryptedWallet(eW, this.state.password);
-      //console.log('we have been in the main page with a wallet', this.props.wallets[0].hdWallet); 
-      //console.log(userWallets, wallet, nextScreenToNavigate);
-      console.log('this should be false');
+      let encryptedWallet = this.props.wallets[0].hdWallet;      
+      const decryptedWallet = await ethers.Wallet.fromEncryptedWallet(encryptedWallet, this.state.password);
+      if(Object.prototype.hasOwnProperty.call(decryptedWallet, 'privateKey')){
+        console.log('after decrypt', decryptedWallet);
+        const walletInHotReducerDecrypted = { wallet: decryptedWallet, name: walletNameCheck };
+        this.props.setHotWallet(walletInHotReducerDecrypted);
+        this.props.initializeAppWallet(encryptedWallet, walletNameCheck, userWallets);
+        const navigateToMain = NavigationActions.navigate({
+          routeName: 'mainStack',
+        });
+        this.props.navigation.dispatch(navigateToMain);
+      } else {
+        console.log('your password is not correct');        
+      }
     }
-
-   
-
-    // if (!this.state.intialCheck) {
-    //   const encrypted = await this.state.wallet.encrypt(this.state.password);
-    //   this.props.initializeAppWallet(encrypted, this.props.tempWalletName, userWallets);
-    //   console.log("------------**");
-    //   const walletInHotReducer = { wallet: this.state.wallet, name: this.props.tempWalletName }
-    //   this.props.setHotWallet(walletInHotReducer);
-    // } else {
-    //   var eW = this.props.wallets[0].hdWallet;
-    //   const decW = await eW.fromEncryptedWallet(eW, this.state.password);
-    //   console.log("------------");
-    //   console.log(decW);
-    //   console.log("------------");
-    //   const walletInHotReducer = { wallet: decW, name: this.props.wallets[0].name };
-    //   this.props.setHotWallet(walletInHotReducer);
-    // }
-    
-
-    // const navigateToCreateOrRestore = NavigationActions.navigate({
-    //   routeName: nextScreenToNavigate,
-    //   params: { 'wallet': wallet },
-    // });
-    // this.props.navigation.dispatch(navigateToCreateOrRestore);
   };
 
   /**
-     * The wallet name is stored in a temporary state.
-     */
+   * The wallet name is stored in a temporary state.
+   */
   setPassword(password) {
-    //this.props.setWalletPassword(password);
     this.setState({ password: password });
-    console.log(password);
-    console.log('the state of where we are in the splash', this.props.navigation.state.params.initialSetupRendered);
   }
 
   render() {

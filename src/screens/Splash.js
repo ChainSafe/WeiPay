@@ -18,7 +18,11 @@ class Splash extends Component {
       this.props.navigation.dispatch(navigateToAddToken);
     } else {
       console.log('we do not have any wallets');
+      const navigateToAddToken = NavigationActions.navigate({ routeName: 'terms' });
+      this.props.navigation.dispatch(navigateToAddToken);
     }
+
+  
     
     // const routeName = this.props.wallets.length > 0 ?  "password" : "terms";
     // const resetAction = NavigationActions.reset({
