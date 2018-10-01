@@ -7,6 +7,7 @@ import * as actionTypes from '../actions/ActionTypes';
 import WalletReducer from './wallet/Wallet';
 import DebugReducer from './wallet/Debug';
 import storage from 'redux-persist/lib/storage';
+import hotreducer from './wallet/HotWalletReducer';
 
 /**
  * Contains a reference to all the reducers being used in the applications.
@@ -19,6 +20,7 @@ const AppReducer = combineReducers({
   QrScanner: QrScannerReducer,
   Wallet: WalletReducer,
   Debug: DebugReducer,
+  HotWallet: hotreducer,
 });
 
 const rootReducer = (state, action) => {

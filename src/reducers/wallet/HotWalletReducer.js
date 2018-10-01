@@ -10,11 +10,15 @@ const INITIAL_STATE = {
  */
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case actions.QRSCANNER_PAGE_INVOKER:
-      return { ...state, invoker: action.payload };
+    case actions.CONFIG_HOT_WALLET:
+      return { 
+        ...state, 
+        hotWallet: {wallet: action.payload["wallet"], 
+                    pubKey: action.payload["wallet"].address,
+                    name: action.payload["name"] }, 
+            };
 
-    case actions.QRSCANNER_COIN_INVOKER:
-      return { ...state, coinInvoker: action.payload };
+    
     default:
       return state;
   }

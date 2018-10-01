@@ -30,14 +30,14 @@ class PinPage extends Component {
     
   }
 
-  navigate = () => {
+  navigate = async () => {
     const userWallets = this.props.wallets;
-    this.state.wallet.encrypt(this.state.password);
-    console.log(this.state.wallet);
     
-    this.props.initializeAppWallet(this.state.wallet, this.props.tempWalletName, userWallets);
-  
-
+    const encrypted = await this.state.wallet.encrypt(this.state.password);
+    console.log(encrypted);
+    this.props.initializeAppWallet(encrypted, this.props.tempWalletName, userWallets);
+    const walletInHotReducer = { wallet: this.state.wallet, name: this.props.tempWalletName }
+    this.props.setHotWallet(walletInHotReducer);
     const { nextScreenToNavigate, wallet } = this.props.navigation.state.params;
     console.log('next screen is', nextScreenToNavigate);
     console.log('wallet is', wallet);
