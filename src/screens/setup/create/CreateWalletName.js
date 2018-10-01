@@ -20,14 +20,6 @@ class CreateWalletName extends Component {
      * A new wallet is created, the wallet name is passed in along with usersWallets, which will be an 
      * empty array when user initially creates a wallet in setup.
      */
-  // navigate = () => {
-  //   const walletName = this.props.tempWalletName;
-  //   const wallet = ethers.Wallet.createRandom();
-  //   const userWallets = this.props.wallets;
-  //   this.props.initializeAppWallet(wallet, walletName, userWallets);
-  //   const navigateToPassphrase = NavigationActions.navigate({ routeName: 'generatePassphrase' });
-  //   this.props.navigation.dispatch(navigateToPassphrase);
-  // };
 
 
     navigateToPin = () => {
@@ -40,7 +32,6 @@ class CreateWalletName extends Component {
       });
       this.props.navigation.dispatch(navigateToPassword);
     };
-
 
     /**
      * The wallet name is stored in a temporary state.
