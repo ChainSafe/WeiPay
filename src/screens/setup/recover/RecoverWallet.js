@@ -30,7 +30,6 @@ class RecoverWallet extends Component {
       try {       
         if (this.props.debugMode === true) {
           console.log('in debug');
-          
           const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
           // console.log('user password', this.props.appPassword);          
           // const encrypted = await wallet.encrypt(this.props.appPassword);
@@ -39,7 +38,6 @@ class RecoverWallet extends Component {
           // const testWalletName = this.props.testWalletName;
           // const userWallets = this.props.wallets;
           // this.props.initializeAppWallet(encrypted, testWalletName, userWallets);
-
           const navigateToCreateWalletName = NavigationActions.navigate({
             routeName: 'createWalletNameRecovered',
             params: { 'wallet': wallet },

@@ -1,5 +1,5 @@
 import {
-  SET_APP_PASSWORD,
+  EXIT_SETUP_SCREEN,
   INITIALIZE_APP_TOKEN_SETUP,
   TEMP_WALLET_NAME,
   INITIALIZE_NEW_APP_WALLET,
@@ -14,7 +14,7 @@ import {
 } from '../../actions/ActionTypes';
 
 const initialState = {
-  // appPassword: null,
+  isInSetupScreens: true,
   wallets: [], //Contains all the encrypted HD Wallet
   tempWalletName: null,
   tokens: [],
@@ -31,10 +31,10 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case SET_APP_PASSWORD:
-      return {
-        ...state, appPassword: action.payload,
-      };
+    case EXIT_SETUP_SCREEN:
+    return {
+      ...state, isInSetupScreens: action.payload,
+    };
     case INITIALIZE_APP_TOKEN_SETUP:
       return {
         ...state,

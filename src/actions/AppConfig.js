@@ -1,9 +1,11 @@
 import {
+  EXIT_SETUP_SCREEN,
   INITIALIZE_APP_TOKEN_SETUP,
   INITIALIZE_NEW_APP_WALLET,
   TEMP_WALLET_NAME,
   DEBUG_MODE,
   SET_APP_PASSWORD,
+  CONFIG_HOT_WALLET,
 } from "./ActionTypes";
 
 
@@ -11,6 +13,16 @@ export function enterDebug() {
   let testData = { 'walletName': 'My Test Wallet Name' };
   return (dispatch) => {
     dispatch({ type: DEBUG_MODE, payload: testData });
+  };
+}
+
+/**
+ * This action is used to track if the user is in the setup screens. 
+ * When 
+ */
+export function exitSetup(flag) {
+  return (dispatch) => {
+    dispatch({ type: EXIT_SETUP_SCREEN, payload: flag });
   };
 }
 
@@ -64,9 +76,12 @@ export function setWalletPassword(password) {
   };
 }
 
-export function setHotWallet(wallet) {
+export function setHotWallet(walletObj) {
+  const { name, wallet } = walletObj;
+  const pKey = wallet.address;
+
   return(dispatch) => {
-    dispatch({ type: CONFIG_HOT_WALLET, payload: wallet });
+    dispatch({ type: CONFIG_HOT_WALLET, payload: { 'wallet': wallet, 'publicKey': pKey,'name': name} });
   };
 }
 

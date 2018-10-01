@@ -28,51 +28,78 @@ class PinPage extends Component {
       intialCheck: this.props.navigation.state.params.initialSetupRendered, 
       password: "",
     }
-    
-    
   }
 
+/**
+ * this.props.isInSetupScreens will be false if the user has not entered the main page and completed
+ * the app setup. This will be an indication on whether we are going to be decrypting wallet from the 
+ * state or will be passed a unencrypted wallet from the previous page.
+ * 
+ * After the user initializes the app, set isInSetupScreen to false - this will persist
+ * 
+ * If true -> take wallet from nav param & encrypt with password from state
+ */
   navigate = async () => {
-    debugger
+    // debugger
     const userWallets = this.props.wallets;
     const { nextScreenToNavigate, wallet } = this.props.navigation.state.params;
-    if (!this.state.intialCheck) {
-      const encrypted = await this.state.wallet.encrypt(this.state.password);
-      
-      this.props.initializeAppWallet(encrypted, this.props.tempWalletName, userWallets);
-      console.log("------------**");
-      
-      const walletInHotReducer = { wallet: this.state.wallet, name: this.props.tempWalletName }
-      this.props.setHotWallet(walletInHotReducer);
-    }else {
-      var eW = this.props.wallets[0].hdWallet;
-      const decW = await eW.fromEncryptedWallet(eW, this.state.password);
-      console.log("------------");
-      
-      console.log(decW);
 
-      console.log("------------");
+    let walletNameCheck;
+    if(this.props.debugMode) {
+      walletNameCheck = this.props.testWalletName;
+    } else {
+      walletNameCheck = this.props.tempWalletName;
+    }    
+ 
+    if(this.props.isInSetupScreens) {
+      console.log('we are setting up the app for the first time');
+      //console.log(userWallets, wallet, nextScreenToNavigate);    
+      const encryptedWallet = await this.state.wallet.encrypt(this.state.password);
+      console.log('encrypted wallet', encryptedWallet);
+      console.log('wallet in state', this.state.wallet);
       
-      const walletInHotReducer = { wallet: decW, name: this.props.wallets[0].name };
+      const walletInHotReducer = { wallet: this.state.wallet, name: walletNameCheck };
       this.props.setHotWallet(walletInHotReducer);
-      
+      //need to save wallet in wallets as well
+    } else {
+      console.log('we have been in the main page with a wallet', this.props.wallets[0].hdWallet); 
+      console.log(userWallets, wallet, nextScreenToNavigate);
+      console.log('this should be false');
     }
+
+    // if (!this.state.intialCheck) {
+    //   const encrypted = await this.state.wallet.encrypt(this.state.password);
+    //   this.props.initializeAppWallet(encrypted, this.props.tempWalletName, userWallets);
+    //   console.log("------------**");
+    //   const walletInHotReducer = { wallet: this.state.wallet, name: this.props.tempWalletName }
+    //   this.props.setHotWallet(walletInHotReducer);
+    // } else {
+    //   var eW = this.props.wallets[0].hdWallet;
+    //   const decW = await eW.fromEncryptedWallet(eW, this.state.password);
+    //   console.log("------------");
+    //   console.log(decW);
+    //   console.log("------------");
+    //   const walletInHotReducer = { wallet: decW, name: this.props.wallets[0].name };
+    //   this.props.setHotWallet(walletInHotReducer);
+    // }
     
 
-    const navigateToCreateOrRestore = NavigationActions.navigate({
-      routeName: nextScreenToNavigate,
-      params: { 'wallet': wallet },
-    });
-    this.props.navigation.dispatch(navigateToCreateOrRestore);
+    // const navigateToCreateOrRestore = NavigationActions.navigate({
+    //   routeName: nextScreenToNavigate,
+    //   params: { 'wallet': wallet },
+    // });
+    // this.props.navigation.dispatch(navigateToCreateOrRestore);
   };
 
   /**
      * The wallet name is stored in a temporary state.
      */
   setPassword(password) {
-    this.props.setWalletPassword(password);
+    //this.props.setWalletPassword(password);
     this.setState({ password: password });
     console.log(password);
+    console.log('the state of where we are in the splash', this.props.navigation.state.params.initialSetupRendered);
+    
   }
 
   render() {
@@ -214,8 +241,8 @@ const styles = StyleSheet.create({
  */
 const mapStateToProps = ({ Debug, Wallet }) => {
   const { debugMode, testWalletName } = Debug;
-  const { wallets, tempWalletName } = Wallet;
-  return { debugMode, wallets, tempWalletName, testWalletName };
+  const { wallets, tempWalletName, isInSetupScreens } = Wallet;
+  return { debugMode, wallets, tempWalletName, testWalletName, isInSetupScreens };
 };
 
 export default connect(mapStateToProps, actions)(PinPage);
