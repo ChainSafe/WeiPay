@@ -18,9 +18,9 @@ const ethers = require('ethers');
  */
 class PinPage extends Component {
   /**
-     * A new wallet is created, the wallet name is passed in along with usersWallets, which will be an 
-     * empty array when user initially creates a wallet in setup.
-     */
+   * A new wallet is created, the wallet name is passed in along with usersWallets, which will be an 
+   * empty array when user initially creates a wallet in setup.
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -66,8 +66,7 @@ class PinPage extends Component {
     } else {
       let encryptedWallet = this.props.wallets[0].hdWallet;      
       const decryptedWallet = await ethers.Wallet.fromEncryptedWallet(encryptedWallet, this.state.password);
-      if(Object.prototype.hasOwnProperty.call(decryptedWallet, 'privateKey')){
-        console.log('after decrypt', decryptedWallet);
+      if(Object.prototype.hasOwnProperty.call(decryptedWallet, 'privateKey')){        
         const walletInHotReducerDecrypted = { wallet: decryptedWallet, name: walletNameCheck };
         this.props.setHotWallet(walletInHotReducerDecrypted);
         this.props.initializeAppWallet(encryptedWallet, walletNameCheck, userWallets);

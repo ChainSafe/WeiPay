@@ -14,8 +14,7 @@ class GeneratePassphrase extends Component {
 
     navigate = () => {
       const navigateToEnableTokens = NavigationActions.navigate({
-        routeName: 'confirmPassphrase',
-        // params: { wallet: this.props.navigation.state.params.wallet },
+        routeName: 'confirmPassphrase',     
       });
       this.props.navigation.dispatch(navigateToEnableTokens);
     };

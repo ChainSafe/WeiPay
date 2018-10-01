@@ -27,7 +27,6 @@ class Portfolio extends Component {
     tokenBalances: {},
     tokenPrices: [],
     currentWallet: this.props.hotWallet.pubKey[this.props.wallets[0].publicKey],
-    //currentWallet: this.props.hotWallet[0],
     currentWalletName: this.props.wallets[0].name,
   }
 
