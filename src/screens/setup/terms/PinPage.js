@@ -22,8 +22,14 @@ class PinPage extends Component {
      */
 
   navigate = () => {
+
+    const { nextScreenToNavigate, wallet } = this.props.navigation.state.params;
+    console.log('next screen is', nextScreenToNavigate);
+    console.log('wallet is', wallet);
+
     const navigateToCreateOrRestore = NavigationActions.navigate({
-      routeName: 'createOrRestore',
+      routeName: nextScreenToNavigate,
+      params: { 'wallet': wallet },
     });
     this.props.navigation.dispatch(navigateToCreateOrRestore);
   };

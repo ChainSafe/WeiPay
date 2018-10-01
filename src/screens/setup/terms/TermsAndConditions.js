@@ -20,14 +20,12 @@ class TermsAndConditions extends Component {
   }
 
   navigate = () => {
-    const navigateToPassword = NavigationActions.navigate({
-      routeName: 'password',
+    const navigateToCreateOrRestore = NavigationActions.navigate({
+      routeName: 'createOrRestore',
     });
-    this.props.navigation.dispatch(navigateToPassword);
+    this.props.navigation.dispatch(navigateToCreateOrRestore);
   };
-
   
-
     render() {      
       return (
         <SafeAreaView style={styles.safeAreaView}>

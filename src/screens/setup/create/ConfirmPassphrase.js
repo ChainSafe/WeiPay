@@ -25,7 +25,7 @@ class ConfirmPassphrase extends Component {
     * This method add each word of the mnemonic to the local state variable object
     */
   componentDidMount() {
-    const words = this.props.wallets[0].hdWallet.mnemonic.split(' ');
+    const words = this.props.navigation.state.params.wallet.mnemonic.split(' ');
     let orderArray = [];
     for (let i = 0; i < words.length; i++) {
       orderArray.push({ 'wordItem' : { 'word': words[i], 'index': i }, 'selected': false });
@@ -40,6 +40,7 @@ class ConfirmPassphrase extends Component {
     navigate = () => {
       const navigateToEnableTokens = NavigationActions.navigate({
         routeName: 'mainStack',
+        params: { wallet: this.props.navigation.state.params.wallet },
       });
       this.props.navigation.dispatch(navigateToEnableTokens);
     };
