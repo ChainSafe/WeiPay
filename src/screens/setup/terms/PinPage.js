@@ -3,7 +3,7 @@ import { View, TouchableWithoutFeedback, StyleSheet, Text, Keyboard, Dimensions,
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput, Card } from 'react-native-elements';
-import { setWalletPassword } from '../../../actions/AppConfig';
+import * as actions from '../../../actions/AppConfig';
 import LinearButton   from '../../../components/LinearGradient/LinearButton';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
@@ -12,20 +12,52 @@ import RF from "react-native-responsive-fontsize"
 const ethers = require('ethers');
 
 /**
- * Initial setup screen used to allow the user to give their wallet a name after
- * a new wallet has been created
+ * Initial pin screen. encrypts a new wallet
+ * 
+ * By default the hotWallet will reference this wallet
  */
 class PinPage extends Component {
   /**
      * A new wallet is created, the wallet name is passed in along with usersWallets, which will be an 
      * empty array when user initially creates a wallet in setup.
      */
+  constructor(props) {
+    super(props);
+    this.state = {
+      wallet: this.props.navigation.state.params.wallet,
+      intialCheck: this.props.navigation.state.params.initialSetupRendered, 
+      password: "",
+    }
+    
+    
+  }
 
-  navigate = () => {
-
+  navigate = async () => {
+    debugger
+    const userWallets = this.props.wallets;
     const { nextScreenToNavigate, wallet } = this.props.navigation.state.params;
-    console.log('next screen is', nextScreenToNavigate);
-    console.log('wallet is', wallet);
+    if (!this.state.intialCheck) {
+      const encrypted = await this.state.wallet.encrypt(this.state.password);
+      
+      this.props.initializeAppWallet(encrypted, this.props.tempWalletName, userWallets);
+      console.log("------------**");
+      
+      const walletInHotReducer = { wallet: this.state.wallet, name: this.props.tempWalletName }
+      this.props.setHotWallet(walletInHotReducer);
+    }else {
+      var eW = this.props.wallets[0].hdWallet;
+      const decW = await eW.fromEncryptedWallet(eW, this.state.password);
+      console.log("------------");
+      
+      console.log(decW);
+
+      console.log("------------");
+      
+      const walletInHotReducer = { wallet: decW, name: this.props.wallets[0].name };
+      this.props.setHotWallet(walletInHotReducer);
+      
+    }
+    
 
     const navigateToCreateOrRestore = NavigationActions.navigate({
       routeName: nextScreenToNavigate,
@@ -39,6 +71,7 @@ class PinPage extends Component {
      */
   setPassword(password) {
     this.props.setWalletPassword(password);
+    this.setState({ password: password });
     console.log(password);
   }
 
@@ -175,6 +208,14 @@ const styles = StyleSheet.create({
   },
 })
 
-export default connect(null, {
-  setWalletPassword,
-})(PinPage);
+/**
+ * This method is not being used here
+ * @param {Object} param
+ */
+const mapStateToProps = ({ Debug, Wallet }) => {
+  const { debugMode, testWalletName } = Debug;
+  const { wallets, tempWalletName } = Wallet;
+  return { debugMode, wallets, tempWalletName, testWalletName };
+};
+
+export default connect(mapStateToProps, actions)(PinPage);

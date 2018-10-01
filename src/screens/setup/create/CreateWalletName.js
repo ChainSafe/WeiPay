@@ -21,11 +21,8 @@ class CreateWalletName extends Component {
      * empty array when user initially creates a wallet in setup.
      */
 
-
     navigateToPin = () => {
-      const walletName = this.props.tempWalletName;
       const wallet = ethers.Wallet.createRandom();
-
       const navigateToPassword = NavigationActions.navigate({
         routeName: 'password',
         params: { 'nextScreenToNavigate' : 'generatePassphrase', 'wallet': wallet },

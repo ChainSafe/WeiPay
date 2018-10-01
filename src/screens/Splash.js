@@ -9,11 +9,12 @@ class Splash extends Component {
   }
 
   checkLoggedIn() {
-    const routeName = this.props.wallets.length > 0 ?  "mainStack" : "terms";
+    const routeName = this.props.wallets.length > 0 ?  "password" : "terms";
+    const initialRender = this.props.wallets.length > 0 ?  false : true;
     const resetAction = NavigationActions.reset({
       index: 0,
       actions: [
-        NavigationActions.navigate({ routeName: routeName })
+        NavigationActions.navigate({ routeName: routeName, params: {wallet: this.props.wallets[0], initialSetupRendered: initialRender } })
       ]
     });
     this.props.navigation.dispatch(resetAction);

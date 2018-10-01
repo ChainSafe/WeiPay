@@ -45,5 +45,5 @@ export const COMPLETE_NEW_TOKEN = 'complete_new_token';
 export const CLEAR_STORE = 'clear_store';
 export const RESET_WALLET_BALANCE = 'reset_wallet_balance';
 export const ADD_TOKEN_FROM_LIST = 'add_token_from_list';
-
+export const CONFIG_HOT_WALLET = 'CONFIG_HOT_WALLET';
 

@@ -64,5 +64,11 @@ export function setWalletPassword(password) {
   };
 }
 
+export function setHotWallet(wallet) {
+  return(dispatch) => {
+    dispatch({ type: CONFIG_HOT_WALLET, payload: wallet });
+  };
+}
+
 
 
