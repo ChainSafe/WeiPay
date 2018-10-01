@@ -137,7 +137,6 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = ({ HotWallet }) => {
-
   const { hotWallet } = HotWallet;
   return { hotWallet };
 };

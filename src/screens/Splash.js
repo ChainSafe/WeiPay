@@ -9,15 +9,25 @@ class Splash extends Component {
   }
 
   checkLoggedIn() {
-    const routeName = this.props.wallets.length > 0 ?  "password" : "terms";
-    const initialRender = this.props.wallets.length > 0 ? false : true;
-    const resetAction = NavigationActions.reset({
-      index: 0,
-      actions: [
-        NavigationActions.navigate({ routeName: routeName, params: { wallet: this.props.wallets[0], initialSetupRendered: initialRender } })
-      ]
-    });
-    this.props.navigation.dispatch(resetAction);
+    console.log('no error yet checked login');
+    console.log(this.props.wallets[0]);
+
+    if(this.props.wallets.length > 0) {
+      console.log('we already have a wallet');
+      const navigateToAddToken = NavigationActions.navigate({ routeName: 'password' });
+      this.props.navigation.dispatch(navigateToAddToken);
+    } else {
+      console.log('we do not have any wallets');
+    }
+    
+    // const routeName = this.props.wallets.length > 0 ?  "password" : "terms";
+    // const resetAction = NavigationActions.reset({
+    //   index: 0,
+    //   actions: [
+    //     NavigationActions.navigate({ routeName: routeName })
+    //   ]
+    // });
+    // this.props.navigation.dispatch(resetAction);
   }
 
   render() {

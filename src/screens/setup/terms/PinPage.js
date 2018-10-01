@@ -24,8 +24,7 @@ class PinPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      wallet: this.props.navigation.state.params.wallet,
-      intialCheck: this.props.navigation.state.params.initialSetupRendered, 
+      wallet: this.props.wallets[0].hdWallet,     
       password: "",
     }
   }
@@ -41,11 +40,11 @@ class PinPage extends Component {
  *  - setHotWallet with unencrypted wallet, public key in action creator, and wallet name
  *  - set isInSetupScreens to false so we dont repeat this process when app loads again 
  * 
- * If false -> 
+ * If false -> need to get wallet & decrypt & save to hot wallet
  */
   navigate = async () => {
     const userWallets = this.props.wallets;
-    const { nextScreenToNavigate, wallet } = this.props.navigation.state.params;
+    
     let walletNameCheck;
     if(this.props.debugMode) {
       walletNameCheck = this.props.testWalletName;
@@ -54,6 +53,7 @@ class PinPage extends Component {
     }    
  
     if(this.props.isInSetupScreens) {
+      const { nextScreenToNavigate, wallet } = this.props.navigation.state.params;
       console.log('we are setting up the app for the first time'); 
       const encryptedWallet = await this.state.wallet.encrypt(this.state.password);
       const walletInHotReducer = { wallet: this.state.wallet, name: walletNameCheck };
@@ -65,8 +65,13 @@ class PinPage extends Component {
       });
       this.props.navigation.dispatch(navigateToNextScreen);
     } else {
-      console.log('we have been in the main page with a wallet', this.props.wallets[0].hdWallet); 
-      console.log(userWallets, wallet, nextScreenToNavigate);
+
+      // let encryptedWallet = this.props.wallets[0].hdWallet;
+      // console.log('encrypted wallet from reducer hd wallet is', encryptedWallet);
+      // console.log('password is', this.state.password);
+      //onst decryptedWallet = await eW.fromEncryptedWallet(eW, this.state.password);
+      //console.log('we have been in the main page with a wallet', this.props.wallets[0].hdWallet); 
+      //console.log(userWallets, wallet, nextScreenToNavigate);
       console.log('this should be false');
     }
 

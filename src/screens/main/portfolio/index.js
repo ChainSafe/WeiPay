@@ -26,8 +26,9 @@ class Portfolio extends Component {
     apiRequestString: '',
     tokenBalances: {},
     tokenPrices: [],
-    currentWallet: this.props.hotWallet[this.props.wallets[0].pubKey],
-    currentWalletName: this.props.wallets[0].name
+    currentWallet: this.props.hotWallet.pubKey[this.props.wallets[0].publicKey],
+    //currentWallet: this.props.hotWallet[0],
+    currentWalletName: this.props.wallets[0].name,
   }
 
   /**
@@ -52,6 +53,9 @@ class Portfolio extends Component {
    * The Balance (soon to be Wallet) reducer then updates state -> { ...state, walletBalance: walletBalanceObject, tokenBalances: individualTokens };
    */
   async componentDidMount() {
+
+    console.log('current wallet from hot wallet', this.state.currentWallet);
+    
     const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data);
     await this.props.fetchCoinData(tokenSymbolString);
     await this.props.calculateWalletBalance(tokenBalances, this.props.tokenConversions);
@@ -380,10 +384,11 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps({ Wallet, Debug }) {
+function mapStateToProps({ Wallet, Debug, HotWallet }) {
+  const { hotWallet } = HotWallet;
   const { currencyOptions, tokens, wallets, tokenConversions, tokenBalances, walletBalance } = Wallet;
   const { debugMode, testWalletName } = Debug;
-  return { currencyOptions, tokens, debugMode, testWalletName, wallets, tokenConversions, walletBalance, tokenBalances };
+  return { hotWallet, currencyOptions, tokens, debugMode, testWalletName, wallets, tokenConversions, walletBalance, tokenBalances };
 }
 
 export default connect(mapStateToProps, {

@@ -55,12 +55,14 @@ export function initializeAppWallet(currentWallet, walletName, previousWalletSta
       let previousWallet = {};
       previousWallet.name = previousWalletState[i].name;
       previousWallet.hdWallet = previousWalletState[i].hdWallet;
+      previousWallet.publicKey = previousWalletState[i].hdWallet.address;
       appWallets.push(previousWallet);
     }
   }
   let walletObject = {};
   walletObject.name = walletName;
   walletObject.hdWallet = currentWallet;
+  walletObject.publicKey = currentWallet.address;
   appWallets.push(walletObject);
   return (dispatch) => {
     dispatch({ type: INITIALIZE_NEW_APP_WALLET, payload: appWallets });
