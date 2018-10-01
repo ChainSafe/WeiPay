@@ -37,13 +37,15 @@ class PinPage extends Component {
  * 
  * After the user initializes the app, set isInSetupScreen to false - this will persist
  * 
- * If true -> take wallet from nav param & encrypt with password from state
+ * If true -> take wallet from nav param & encrypt with password from state, initiali wallets with this
+ *  - setHotWallet with unencrypted wallet, public key in action creator, and wallet name
+ *  - set isInSetupScreens to false so we dont repeat this process when app loads again 
+ * 
+ * If false -> 
  */
   navigate = async () => {
-    // debugger
     const userWallets = this.props.wallets;
     const { nextScreenToNavigate, wallet } = this.props.navigation.state.params;
-
     let walletNameCheck;
     if(this.props.debugMode) {
       walletNameCheck = this.props.testWalletName;
@@ -52,15 +54,12 @@ class PinPage extends Component {
     }    
  
     if(this.props.isInSetupScreens) {
-      console.log('we are setting up the app for the first time');
-      //console.log(userWallets, wallet, nextScreenToNavigate);    
+      console.log('we are setting up the app for the first time'); 
       const encryptedWallet = await this.state.wallet.encrypt(this.state.password);
-      console.log('encrypted wallet', encryptedWallet);
-      console.log('wallet in state', this.state.wallet);
-      
       const walletInHotReducer = { wallet: this.state.wallet, name: walletNameCheck };
       this.props.setHotWallet(walletInHotReducer);
-      //need to save wallet in wallets as well
+      this.props.initializeAppWallet(this.state.wallet, walletNameCheck, userWallets);
+      this.props.exitSetup(false);
     } else {
       console.log('we have been in the main page with a wallet', this.props.wallets[0].hdWallet); 
       console.log(userWallets, wallet, nextScreenToNavigate);
