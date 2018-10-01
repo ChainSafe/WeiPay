@@ -24,14 +24,17 @@ class PinPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      wallet: navigation.getPram("wallet", null),
+      wallet: this.props.navigation.state.params.wallet,
       password: "",
     }
+    
   }
 
   navigate = () => {
     const userWallets = this.props.wallets;
     this.state.wallet.encrypt(this.state.password);
+    console.log(this.state.wallet);
+    
     this.props.initializeAppWallet(this.state.wallet, this.props.tempWalletName, userWallets);
   
 
