@@ -36,7 +36,7 @@ class CreateWalletName extends Component {
 
       const navigateToPassword = NavigationActions.navigate({
         routeName: 'password',
-        params: { 'nextScreenToNavigate' : 'generatePassphrase', 'wallet': wallet},
+        params: { 'nextScreenToNavigate' : 'generatePassphrase', 'wallet': wallet },
       });
       this.props.navigation.dispatch(navigateToPassword);
     };
