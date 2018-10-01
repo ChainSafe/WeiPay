@@ -25,22 +25,39 @@ class PinPage extends Component {
     super(props);
     this.state = {
       wallet: this.props.navigation.state.params.wallet,
+      intialCheck: this.props.navigation.state.params.initialSetupRendered, 
       password: "",
     }
+    
     
   }
 
   navigate = async () => {
+    debugger
     const userWallets = this.props.wallets;
-    
-    const encrypted = await this.state.wallet.encrypt(this.state.password);
-    console.log(encrypted);
-    this.props.initializeAppWallet(encrypted, this.props.tempWalletName, userWallets);
-    const walletInHotReducer = { wallet: this.state.wallet, name: this.props.tempWalletName }
-    this.props.setHotWallet(walletInHotReducer);
     const { nextScreenToNavigate, wallet } = this.props.navigation.state.params;
-    console.log('next screen is', nextScreenToNavigate);
-    console.log('wallet is', wallet);
+    if (!this.state.intialCheck) {
+      const encrypted = await this.state.wallet.encrypt(this.state.password);
+      
+      this.props.initializeAppWallet(encrypted, this.props.tempWalletName, userWallets);
+      console.log("------------**");
+      
+      const walletInHotReducer = { wallet: this.state.wallet, name: this.props.tempWalletName }
+      this.props.setHotWallet(walletInHotReducer);
+    }else {
+      var eW = this.props.wallets[0].hdWallet;
+      const decW = await eW.fromEncryptedWallet(eW, this.state.password);
+      console.log("------------");
+      
+      console.log(decW);
+
+      console.log("------------");
+      
+      const walletInHotReducer = { wallet: decW, name: this.props.wallets[0].name };
+      this.props.setHotWallet(walletInHotReducer);
+      
+    }
+    
 
     const navigateToCreateOrRestore = NavigationActions.navigate({
       routeName: nextScreenToNavigate,
