@@ -60,11 +60,17 @@ class PinPage extends Component {
       this.props.setHotWallet(walletInHotReducer);
       this.props.initializeAppWallet(this.state.wallet, walletNameCheck, userWallets);
       this.props.exitSetup(false);
+      const navigateToNextScreen = NavigationActions.navigate({
+        routeName: nextScreenToNavigate,
+      });
+      this.props.navigation.dispatch(navigateToNextScreen);
     } else {
       console.log('we have been in the main page with a wallet', this.props.wallets[0].hdWallet); 
       console.log(userWallets, wallet, nextScreenToNavigate);
       console.log('this should be false');
     }
+
+   
 
     // if (!this.state.intialCheck) {
     //   const encrypted = await this.state.wallet.encrypt(this.state.password);
@@ -98,7 +104,6 @@ class PinPage extends Component {
     this.setState({ password: password });
     console.log(password);
     console.log('the state of where we are in the splash', this.props.navigation.state.params.initialSetupRendered);
-    
   }
 
   render() {
@@ -109,7 +114,7 @@ class PinPage extends Component {
               <View style={styles.navContainer}>
                 <BackWithMenuNav
                   showMenu={false}
-                  showBack={true}
+                  showBack={false}
                   navigation={this.props.navigation}
                   backPage={'createOrRestore'}
                 />
