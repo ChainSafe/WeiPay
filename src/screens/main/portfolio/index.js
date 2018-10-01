@@ -26,7 +26,7 @@ class Portfolio extends Component {
     apiRequestString: '',
     tokenBalances: {},
     tokenPrices: [],
-    currentWallet: this.props.wallets[0].hdWallet,
+    currentWallet: this.props.hotWallet[this.props.wallets[0].pubKey],
     currentWalletName: this.props.wallets[0].name
   }
 

@@ -20,11 +20,13 @@ class TermsAndConditions extends Component {
   }
 
   navigate = () => {
-    const navigateToCreateOrRestore = NavigationActions.navigate({
-      routeName: 'createOrRestore',
+    const navigateToPassword = NavigationActions.navigate({
+      routeName: 'password',
     });
-    this.props.navigation.dispatch(navigateToCreateOrRestore);
+    this.props.navigation.dispatch(navigateToPassword);
   };
+
+  
 
     render() {      
       return (

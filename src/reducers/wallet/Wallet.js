@@ -1,4 +1,5 @@
 import {
+  SET_APP_PASSWORD,
   INITIALIZE_APP_TOKEN_SETUP,
   TEMP_WALLET_NAME,
   INITIALIZE_NEW_APP_WALLET,
@@ -13,6 +14,7 @@ import {
 } from '../../actions/ActionTypes';
 
 const initialState = {
+  appPassword: null,
   wallets: [],
   tempWalletName: null,
   tokens: [],
@@ -29,6 +31,10 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    case SET_APP_PASSWORD:
+      return {
+        ...state, appPassword: action.payload,
+      };
     case INITIALIZE_APP_TOKEN_SETUP:
       return {
         ...state, tokens: action.payload,

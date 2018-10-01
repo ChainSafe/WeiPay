@@ -3,6 +3,7 @@ import {
   INITIALIZE_NEW_APP_WALLET,
   TEMP_WALLET_NAME,
   DEBUG_MODE,
+  SET_APP_PASSWORD,
 } from "./ActionTypes";
 
 
@@ -53,4 +54,15 @@ export function initializeAppWallet(currentWallet, walletName, previousWalletSta
     dispatch({ type: INITIALIZE_NEW_APP_WALLET, payload: appWallets });
   };
 }
+
+/**
+ * Set temporary state wallet name until wallet is created/saved to async
+ */
+export function setWalletPassword(password) {
+  return (dispatch) => {
+    dispatch({ type: SET_APP_PASSWORD, payload: password });
+  };
+}
+
+
 

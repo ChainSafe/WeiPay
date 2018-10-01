@@ -2,6 +2,7 @@
 /**
  * CONSTANT should be upper case, the non uppercase actionTypes will be phased out of the project.
  */
+export const SET_APP_PASSWORD = 'SET_APP_PASSWORD';
 export const DEBUG_MODE = 'DEBUG_MODE';
 export const FETCHING_COIN_DATA = 'FETCHING_COIN_DATA';
 export const FETCHING_COIN_DATA_SUCCESS = 'FETCHING_COIN_DATA_SUCCESS';
