@@ -37,7 +37,8 @@ export default function (state = initialState, action) {
       };
     case INITIALIZE_APP_TOKEN_SETUP:
       return {
-        ...state, tokens: action.payload,
+        ...state,
+        tokens: action.payload,
       };
     case TEMP_WALLET_NAME:
       return {
