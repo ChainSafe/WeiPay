@@ -14,8 +14,8 @@ import {
 } from '../../actions/ActionTypes';
 
 const initialState = {
-  appPassword: null,
-  wallets: [],
+  // appPassword: null,
+  wallets: [], //Contains all the encrypted HD Wallet
   tempWalletName: null,
   tokens: [],
   walletBalance: {},
