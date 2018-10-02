@@ -26,10 +26,11 @@ class PinPage extends Component {
     this.state = {
       walletObjecet: {},     
       password: "",
+      isValidLength: false,
     }
   }
 
-/**
+  /**
  * this.props.isInSetupScreens will be false if the user has not entered the main page and completed
  * the app setup. This will be an indication on whether we are going to be decrypting wallet from the 
  * state or will be passed a unencrypted wallet from the previous page.
@@ -43,48 +44,51 @@ class PinPage extends Component {
  * If false -> need to get wallet & decrypt & save to hot wallet
  */
   navigate = async () => {
-    const userWallets = this.props.wallets;
-    let walletNameCheck;
-    if(this.props.debugMode) {
-      walletNameCheck = this.props.testWalletName;
-    } else {
-      walletNameCheck = this.props.tempWalletName;
-    }    
- 
-    if(this.props.isInSetupScreens) {
-      const { nextScreenToNavigate, wallet } = this.props.navigation.state.params;
-      await this.setState({walletObjecet: wallet});
-      const encryptedWallet = await wallet.encrypt(this.state.password);
-      const walletInHotReducer = { wallet, name: walletNameCheck };
-      this.props.setHotWallet(walletInHotReducer);
-      this.props.initializeAppWallet(encryptedWallet, walletNameCheck, userWallets);
-      this.props.exitSetup(false);
-      const navigateToNextScreen = NavigationActions.navigate({
-        routeName: nextScreenToNavigate,
-      });
-      this.props.navigation.dispatch(navigateToNextScreen);
-    } else {
-      let encryptedWallet = this.props.wallets[0].hdWallet;      
-      const decryptedWallet = await ethers.Wallet.fromEncryptedWallet(encryptedWallet, this.state.password);
-      if(Object.prototype.hasOwnProperty.call(decryptedWallet, 'privateKey')){        
-        const walletInHotReducerDecrypted = { wallet: decryptedWallet, name: walletNameCheck };
-        this.props.setHotWallet(walletInHotReducerDecrypted);
-        this.props.initializeAppWallet(encryptedWallet, walletNameCheck, userWallets);
-        const navigateToMain = NavigationActions.navigate({
-          routeName: 'mainStack',
-        });
-        this.props.navigation.dispatch(navigateToMain);
+    if(this.state.password.length >= 4) {
+      const userWallets = this.props.wallets;
+      let walletNameCheck;
+      if(this.props.debugMode) {
+        walletNameCheck = this.props.testWalletName;
       } else {
-        console.log('your password is not correct');        
-      }
-    }
+        walletNameCheck = this.props.tempWalletName;
+      }    
+      if(this.props.isInSetupScreens) {
+        const { nextScreenToNavigate, wallet } = this.props.navigation.state.params;
+        await this.setState({walletObjecet: wallet});
+        const encryptedWallet = await wallet.encrypt(this.state.password);
+        const walletInHotReducer = { wallet, name: walletNameCheck };
+        this.props.setHotWallet(walletInHotReducer);
+        this.props.initializeAppWallet(encryptedWallet, walletNameCheck, userWallets);
+        this.props.exitSetup(false);
+        const navigateToNextScreen = NavigationActions.navigate({
+          routeName: nextScreenToNavigate,
+        });
+        this.props.navigation.dispatch(navigateToNextScreen);
+      } else {
+        let encryptedWallet = this.props.wallets[0].hdWallet;      
+        const decryptedWallet = await ethers.Wallet.fromEncryptedWallet(encryptedWallet, this.state.password);
+        if(Object.prototype.hasOwnProperty.call(decryptedWallet, 'privateKey')){        
+          const walletInHotReducerDecrypted = { wallet: decryptedWallet, name: walletNameCheck };
+          this.props.setHotWallet(walletInHotReducerDecrypted);
+          this.props.initializeAppWallet(encryptedWallet, walletNameCheck, userWallets);
+          const navigateToMain = NavigationActions.navigate({
+            routeName: 'mainStack',
+          });
+          this.props.navigation.dispatch(navigateToMain);
+        } else {
+          console.log('your password is not correct');        
+        }
+      } 
+    } 
   };
 
   /**
    * The wallet name is stored in a temporary state.
    */
   setPassword(password) {
+  
     this.setState({ password: password });
+
   }
 
   render() {
@@ -105,13 +109,14 @@ class PinPage extends Component {
                 <View style={styles.contentContainer}>
                   <BoxShadowCard>
                     <Text style={styles.cardText}>
-                      Create a password for wallet, for example: xxTen!!
+                      Create a password for wallet, minimum length of 4.
                     </Text>
                     <View style={styles.formInputContainer}>
                       <FormInput
-                        placeholder={'xxTEM!!!'}
+                        placeholder={'1234'}
                         onChangeText={this.setPassword.bind(this)}
                         inputStyle={styles.txtWalletName}
+                        secureTextEntry={true}
                       />
                     </View>
                   </BoxShadowCard>
