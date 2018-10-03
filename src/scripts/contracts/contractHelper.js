@@ -31,7 +31,7 @@ const processContractByAddress = async (wallet, address) => {
     console.log(contract);
   } catch (err) {
     console.log(err);
-  } 
+  }
 };
 
 export default processContractByAddress;
