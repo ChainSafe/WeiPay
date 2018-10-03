@@ -7,6 +7,8 @@ import BackWithMenuNav from "../../../components/customPageNavs/BackWithMenuNav"
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import RF from "react-native-responsive-fontsize";
+import processContractByAddress from '../../../scripts/contracts/contractHelper';
+import ClearButton from '../../../components/LinearGradient/ClearButton';
 
 // const navigate = () => {
 //   const navigateToPassphrase = NavigationActions.reset({
@@ -26,9 +28,14 @@ class Contract extends Component {
     this.state = { 
       contractLoaded: false,
       address: '',
+      hardCodedAddress: '0x311f71389e3DE68f7B2097Ad02c6aD7B2dDE4C71',
+      wallet: this.props.wallets[0].hdWallet,
     };
   }
 
+  getContract() {
+    processContractByAddress(this.state.wallet, this.state.hardCodedAddress);
+  }
 
   /**
    * Returns a component that allows the user to view the passphrase
@@ -55,15 +62,24 @@ class Contract extends Component {
                   placeholderTextColor={'#b3b3b3'}
                   value={this.state.address}
                 />
+
+                <View style={styles.btnFlex}>
+                  <ClearButton
+                    buttonText='Load Contract'
+                    onClickFunction={this.getContract.bind(this)}
+                    customStyles={styles.loadButton}
+                  />
+                </View>
+
               </View>
 
-              <View style={styles.boxShadowContainer}>
+              {/* <View style={styles.boxShadowContainer}>
                 <View style={styles.contentContainer}>
                     <BoxShadowCard>
                    
                     </BoxShadowCard>
                 </View>
-              </View>
+              </View> */}
             <View style={styles.btnContainer}>               
                 <View style={styles.footerGrandparentContainer}>
                     <View style={styles.footerParentContainer} >
@@ -105,6 +121,9 @@ const styles = StyleSheet.create({
     paddingRight: '5%',
     justifyContent: 'center',
   },
+  loadButton: {
+    height: Dimensions.get('window').height * 0.082,
+  },
   textHeader: {
     fontFamily: 'Cairo-Light',
     fontSize: RF(4),
@@ -120,6 +139,9 @@ const styles = StyleSheet.create({
     letterSpacing: 0.4,
     fontFamily: 'WorkSans-Light',
     borderBottomWidth: 0.0001,
+  },
+  btnFlex: {
+    flex: 1,
   },
   textDescription: {
     fontFamily: 'Cairo-Light',
@@ -180,10 +202,9 @@ const styles = StyleSheet.create({
   },
 });
 
-// const mapStateToProps = ({ newWallet }) => {
-//   const mnemonic = newWallet.wallet.mnemonic;
-//   const debugMode = newWallet.debugMode;
-//   return { mnemonic, debugMode }
-// }
+const mapStateToProps = ({ Wallet }) => {
+  const { wallets } = Wallet;
+  return { wallets };
+}
 
-export default connect(null, null)(Contract);
+export default connect(mapStateToProps, null)(Contract);
