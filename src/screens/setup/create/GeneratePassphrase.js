@@ -13,10 +13,10 @@ import RF from "react-native-responsive-fontsize"
 class GeneratePassphrase extends Component {
 
     navigate = () => {
-      const navigateToEnableTokens = NavigationActions.navigate({
+      const navigateToConfirmPassphrase = NavigationActions.navigate({
         routeName: 'confirmPassphrase',     
       });
-      this.props.navigation.dispatch(navigateToEnableTokens);
+      this.props.navigation.dispatch(navigateToConfirmPassphrase);
     };
 
     render() {      

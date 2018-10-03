@@ -39,13 +39,12 @@ class RecoverWallet extends Component {
           currentWalletName = this.props.tempWalletName;
           const wallet = ethers.Wallet.fromMnemonic(mnemonic);
           wallet.provider = provider;
-          //this.props.initializeAppWallet(wallet, currentWalletName, []);
           const navigateToCreateWalletName = NavigationActions.navigate({
             routeName: 'createWalletNameRecovered',
             params: { 'wallet': wallet },
           });
           this.props.navigation.dispatch(navigateToCreateWalletName);
-        }        
+        }     
       } catch (err) {
         Alert.alert(
           'Mnemonic Error',

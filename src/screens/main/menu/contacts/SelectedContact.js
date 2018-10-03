@@ -40,31 +40,28 @@ class ContactAddresses extends Component {
     }
     this.props.getQRCodeData(address);
     this.props.saveDataForCoinSend(address);
-    const navigateToCreateOrRestore = NavigationActions.navigate({
+    const navigateToTokenFunctionality = NavigationActions.navigate({
       routeName: 'TokenFunctionality',
     });
-    this.props.navigation.dispatch(navigateToCreateOrRestore);
+    this.props.navigation.dispatch(navigateToTokenFunctionality);
   };
 
   navigateToEditContact = () => {
-    const navigateToCreateOrRestore = NavigationActions.navigate({
+    const navigateToEditContact = NavigationActions.navigate({
       routeName: 'editContact',
       params: { contact: this.props.contact },
     });
-    this.props.navigation.dispatch(navigateToCreateOrRestore);
+    this.props.navigation.dispatch(navigateToEditContact);
   };
 
   renderRow(address) {
     const contactInfo = this.props.contact.images;
     let url;
-
     for (const key in contactInfo) {
       if (contactInfo.hasOwnProperty(key)) {
-
         if (key == Object.keys(address)[0]) {
           url = contactInfo[key];
         }
-
       }
     }
 
