@@ -15,6 +15,7 @@ import QrCodeScanner from '../../screens/main/qr/QrCodeScanner';
 import BackupPhrase from '../../screens/main/menu/settings/BackupPhrase';
 import TokenFunctionality from '../../screens/main/tokens/Index';
 import AddingTokensOrCoins from '../../screens/main/tokens/add/Index';
+import Contract from '../../screens/main/contracts/Contract';
 
 const CustomDrawerContentComponent = props => (
   <View style={styles.customContainer}>
@@ -67,6 +68,7 @@ const navigator = DrawerNavigator({
   },
   Coins: { screen: AddCoin },
   Tokens: { screen: AddToken },
+  Contracts: { screen: Contract },
 }, {
   headerMode: 'none',
   lazy: true,
