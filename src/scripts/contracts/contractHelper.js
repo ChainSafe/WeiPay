@@ -1,6 +1,6 @@
 const ethers = require('ethers');
 const axios = require('axios');
-const provider = require('../../constants/Providers');
+//const provider = require('../../constants/Providers');
 
 let abi;
 
@@ -17,17 +17,18 @@ getContractAbi = async (contractAddress) => {
 };
 
 const processContractByAddress = async (wallet, address) => {
-  await getContractAbi(address);
-  console.log('after function call');
-  console.log(abi);
 
-  console.log('wallet', wallet);
+  await getContractAbi(address);
+  var  provider = ethers.providers.getDefaultProvider("homestead");
+  console.log('after function call');
+  let abix = JSON.parse(abi);
+  console.log(abix);
   let cWallet = wallet;
-  cWallet.provider = provider;
-  
+  const shimwallet = new ethers.Wallet(cWallet.privateKey, provider);
+  console.log(shimwallet);
   try {
-    // let abix = JSON.stringify(abi, null, 2)
-    let contract = new ethers.Contract(address, abi, provider);
+    // debugger
+    let contract = new ethers.Contract(address, abix, shimwallet);
     console.log(contract);
   } catch (err) {
     console.log(err);
