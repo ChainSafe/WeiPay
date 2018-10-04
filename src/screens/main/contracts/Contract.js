@@ -46,57 +46,66 @@ class Contract extends Component {
     console.log('in process function input', inputValue);
   }
 
+  executeContractFunction() {
+    console.log("click a function button");
+    //execute whatever is in state, pass to helper function?
+    //clear state
+  }
+
+  /**
+   * 
+   */
    parseFunctions() {
-    let contractFunctionsFormatted = [];
+    let contractFunctionsFormatted = []; //holds all the functions
+    
     for (var property in this.state.contractFunctions) {
       let contractFunctionObj = {};
       if (this.state.contractFunctions.hasOwnProperty(property)) {        
         let functionDescription = property;
         let functionObject = this.state.contractFunctions[property];
-        let functionName = this.state.contractFunctions[property].name;
+        let functionName = this.state.contractFunctions[property].name; 
         let functionSignature = this.state.contractFunctions[property].signature;
-        let functionInputs = this.state.contractFunctions[property].inputs;
-     
+        let functionInputs = this.state.contractFunctions[property].inputs;     
         let fInputs = [];
         for(let i = 0; i < functionInputs.names.length; i++) {
           let inputObj = {};
           inputObj.inputName = functionInputs.names[i];
           inputObj.type = functionInputs.types[i];
+          const uniqueKeyHelper = contractFunctionsFormatted.length * 2;
+          inputObj.uniquekey = `${uniqueKeyHelper}${functionInputs.names[i]}${functionInputs.types[i]}`;
           fInputs.push(inputObj);
-        }
-      
-       console.log('\n');
+        }              
         const arrayLength = contractFunctionsFormatted.length;
         contractFunctionsFormatted.push({arrayLength, property, functionSignature, fInputs});
       }
     }
-
-    console.log('before return', contractFunctionsFormatted.length);
 
     return (
       <View>
         {
           contractFunctionsFormatted.map((item) =>
             <View key={item.arrayLength} style={styles.functionContainer}>   
-              <View style={styles.functionInputContainer}>          
-                <Text>Name: {item.property} </Text>
+              <View style={styles.functionInputContainer}>                       
                 <Text>Signature: {item.functionSignature} </Text>
               </View>
               {
                 item.fInputs.map((inputObject) =>
-                <View key={`${item.arrayLength}${inputObject.inputName}`}>
+                <View key={`${item.arrayLength}${inputObject.uniquekey}`}>
                    <View style={styles.functionInputContainer}>    
-                    <Text>input name: {inputObject.inputName} </Text>
-                    <Text>input type: {inputObject.type} </Text>
+                    <Text>input name: {inputObject.inputName} </Text>                  
                   </View>
                   <View style={styles.functionInputContainer}>
                     <FormInput
                         placeholder={inputObject.type}
                         onChangeText={this.processFunctionInput.bind(this)}
                         inputStyle={styles.functionInputStyle}
-                      />
+                      />                   
                    </View>
-                  
+                   <ClearButton
+                        buttonText= {`update ${inputObject.inputName}`}
+                        onClickFunction={this.executeContractFunction.bind(this)}
+                        customStyles={styles.btnFunctionInput}
+                      />
                 </View>
               )
               }        
@@ -188,13 +197,14 @@ const styles = StyleSheet.create({
   },
   functionContainer: {
     flex: 1,
-    // paddingTop: '2.5%',
-    // marginLeft: '9%',
-    // backgroundColor: 'blue',
   },
   functionInputContainer: {
     width: '92%',
     marginLeft: '9%',
+  },
+  btnFunctionInput: {
+    height: Dimensions.get('window').height * 0.05,
+    width: Dimensions.get('window').width * 0.82,
   },
   functionInputStyle: {
     width: '80%',
