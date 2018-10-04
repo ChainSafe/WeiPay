@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, Dimensions, TouchableWithoutFeedback, Keyboard, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableHighlight, Dimensions, TouchableWithoutFeedback, Keyboard, SafeAreaView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { Icon, Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -48,11 +48,19 @@ class Contract extends Component {
       let contractFunctionObj = {};
       if (this.state.contractFunctions.hasOwnProperty(property)) {
         console.log(property);
+        contractFunctionsFormatted.push(property);
       }
     }
 
-
-
+    return (
+      <View> 
+        {
+          contractFunctionsFormatted.map((item) => 
+            <Text> {item} </Text>
+          )
+        }
+      </View>
+    );
   }
 
   /**
@@ -91,17 +99,14 @@ class Contract extends Component {
                           />
                         </View>
                       </View>
-                    : this.parseFunctions()
+                    : 
+                    <View style={styles.scrollViewContainer} >
+                      <ScrollView style={styles.scrollView}>
+                         { this.parseFunctions() }
+                       </ScrollView> 
+                    </View>              
                 }
 
-
-              {/* <View style={styles.boxShadowContainer}>
-                <View style={styles.contentContainer}>
-                    <BoxShadowCard>
-
-                    </BoxShadowCard>
-                </View>
-              </View> */}
             <View style={styles.btnContainer}>
                 <View style={styles.footerGrandparentContainer}>
                     <View style={styles.footerParentContainer} >
@@ -144,12 +149,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: 'red',
   },
-  functionContainer: {
-    flex: 4,
-    paddingLeft: '5%',
-    paddingRight: '5%',
-    justifyContent: 'center',
-    backgroundColor: 'red',
+  scrollViewContainer: {
+    flex: 5,
+    paddingBottom: '2.5%',
+    paddingTop: '2.5%',
+  },
+  scrollView: {
+    height: '60%',
   },
   loadButton: {
     height: Dimensions.get('window').height * 0.082,
@@ -207,7 +213,7 @@ const styles = StyleSheet.create({
     lineHeight: RF(3),
   },
   btnContainer: {
-    flex:2,
+    flex: 2,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     width: '100%',
