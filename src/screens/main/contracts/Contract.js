@@ -42,6 +42,10 @@ class Contract extends Component {
     this.setState({contractEvents, contractFunctions });
   }
 
+  processFunctionInput(inputValue) {
+    console.log('in process function input', inputValue);
+  }
+
    parseFunctions() {
     let contractFunctionsFormatted = [];
     for (var property in this.state.contractFunctions) {
@@ -70,18 +74,29 @@ class Contract extends Component {
     console.log('before return', contractFunctionsFormatted.length);
 
     return (
-      <View> 
+      <View>
         {
           contractFunctionsFormatted.map((item) =>
-            <View key={item.arrayLength} style={{marginTop:10}}>
-             <Text>index: {item.arrayLength} </Text>
-              <Text>Name: {item.property} </Text>
-              <Text>Signature: {item.functionSignature} </Text>     
+            <View key={item.arrayLength} style={styles.functionContainer}>   
+              <View style={styles.functionInputContainer}>          
+                <Text>Name: {item.property} </Text>
+                <Text>Signature: {item.functionSignature} </Text>
+              </View>
               {
                 item.fInputs.map((inputObject) =>
                 <View key={`${item.arrayLength}${inputObject.inputName}`}>
-                  <Text>input name: {inputObject.inputName} </Text>
-                  <Text>input type: {inputObject.type} </Text>
+                   <View style={styles.functionInputContainer}>    
+                    <Text>input name: {inputObject.inputName} </Text>
+                    <Text>input type: {inputObject.type} </Text>
+                  </View>
+                  <View style={styles.functionInputContainer}>
+                    <FormInput
+                        placeholder={inputObject.type}
+                        onChangeText={this.processFunctionInput.bind(this)}
+                        inputStyle={styles.functionInputStyle}
+                      />
+                   </View>
+                  
                 </View>
               )
               }        
@@ -112,7 +127,7 @@ class Contract extends Component {
                   this.state.contractFunctions === null
                     ?
                     <View style={styles.topFormInput}>
-                      <Text style={styles.textDescription}>Load contract address</Text>
+                      <Text style={styles.textDescription}>Load contract address</Text>                       
                         <FormInput
                           placeholder={'Contract Address'}
                           onChangeText={(add) => { return this.setState({ address: add }); }}
@@ -156,7 +171,7 @@ class Contract extends Component {
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
-    backgroundColor: '#fafbfe'
+    backgroundColor: '#fafbfe',
   },
   mainContainer: {
     flex: 1,
@@ -169,7 +184,26 @@ const styles = StyleSheet.create({
   },
   boxShadowContainer: {
     alignItems: 'center',
-    flex: 3
+    flex: 3,
+  },
+  functionContainer: {
+    flex: 1,
+    // paddingTop: '2.5%',
+    // marginLeft: '9%',
+    // backgroundColor: 'blue',
+  },
+  functionInputContainer: {
+    width: '92%',
+    marginLeft: '9%',
+  },
+  functionInputStyle: {
+    width: '80%',
+    fontSize: RF(2.4),
+    flexWrap: 'wrap',
+    color: '#12c1a2',
+    letterSpacing: 0.4,
+    fontFamily: 'WorkSans-Regular',  
+    borderBottomWidth: 0.0001,
   },
   topFormInput: {
     flex: 2,
@@ -179,12 +213,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
   },
   scrollViewContainer: {
-    flex: 5,
+    flex: 7,
     paddingBottom: '2.5%',
     paddingTop: '2.5%',
   },
   scrollView: {
-    height: '80%',
+    height: '100%',
   },
   loadButton: {
     height: Dimensions.get('window').height * 0.082,
@@ -242,7 +276,7 @@ const styles = StyleSheet.create({
     lineHeight: RF(3),
   },
   btnContainer: {
-    flex: 2,
+    flex: 1,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     width: '100%',
@@ -263,7 +297,7 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Regular',
     fontSize: RF(1.7),
     color: '#c0c0c0',
-    letterSpacing: 0.5
+    letterSpacing: 0.5,
   },
 });
 
