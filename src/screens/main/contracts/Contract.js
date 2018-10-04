@@ -37,26 +37,55 @@ class Contract extends Component {
   }
 
   async getContract() {
+    this.setState({contractFunctions: null});
     const { contractFunctions, contractEvents } = await processContractByAddress(this.state.wallet, this.state.hardCodedAddress);
-    console.log('contract function', contractFunctions, 'events', contractEvents);
-    this.setState({contractEvents, contractFunctions});
+    this.setState({contractEvents, contractFunctions });
   }
 
-  parseFunctions() {
+   parseFunctions() {
     let contractFunctionsFormatted = [];
     for (var property in this.state.contractFunctions) {
       let contractFunctionObj = {};
-      if (this.state.contractFunctions.hasOwnProperty(property)) {
-        console.log(property);
-        contractFunctionsFormatted.push(property);
+      if (this.state.contractFunctions.hasOwnProperty(property)) {        
+        let functionDescription = property;
+        let functionObject = this.state.contractFunctions[property];
+        let functionName = this.state.contractFunctions[property].name;
+        let functionSignature = this.state.contractFunctions[property].signature;
+        let functionInputs = this.state.contractFunctions[property].inputs;
+     
+        let fInputs = [];
+        for(let i = 0; i < functionInputs.names.length; i++) {
+          let inputObj = {};
+          inputObj.inputName = functionInputs.names[i];
+          inputObj.type = functionInputs.types[i];
+          fInputs.push(inputObj);
+        }
+      
+       console.log('\n');
+        const arrayLength = contractFunctionsFormatted.length;
+        contractFunctionsFormatted.push({arrayLength, property, functionSignature, fInputs});
       }
     }
+
+    console.log('before return', contractFunctionsFormatted.length);
 
     return (
       <View> 
         {
-          contractFunctionsFormatted.map((item) => 
-            <Text> {item} </Text>
+          contractFunctionsFormatted.map((item) =>
+            <View key={item.arrayLength} style={{marginTop:10}}>
+             <Text>index: {item.arrayLength} </Text>
+              <Text>Name: {item.property} </Text>
+              <Text>Signature: {item.functionSignature} </Text>     
+              {
+                item.fInputs.map((inputObject) =>
+                <View key={`${item.arrayLength}${inputObject.inputName}`}>
+                  <Text>input name: {inputObject.inputName} </Text>
+                  <Text>input type: {inputObject.type} </Text>
+                </View>
+              )
+              }        
+            </View>
           )
         }
       </View>
@@ -155,7 +184,7 @@ const styles = StyleSheet.create({
     paddingTop: '2.5%',
   },
   scrollView: {
-    height: '60%',
+    height: '80%',
   },
   loadButton: {
     height: Dimensions.get('window').height * 0.082,
