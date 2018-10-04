@@ -27,9 +27,12 @@ const processContractByAddress = async (wallet, address) => {
   const shimwallet = new ethers.Wallet(cWallet.privateKey, provider);
   console.log(shimwallet);
   try {
-    // debugger
-    let contract = new ethers.Contract(address, abix, shimwallet);
-    console.log(contract);
+    let contract = await new ethers.Contract(address, abix, shimwallet);
+    let contractEvents = contract.interface.events;
+    let contractFunctions = contract.interface.functions;
+    return { contractFunctions, contractEvents };
+    //debugger
+    // console.log(contract);
   } catch (err) {
     console.log(err);
   }

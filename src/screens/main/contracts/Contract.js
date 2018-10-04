@@ -3,10 +3,10 @@ import { View, Text, StyleSheet, TouchableHighlight, Dimensions, TouchableWithou
 import { NavigationActions } from 'react-navigation';
 import { Icon, Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import { connect } from 'react-redux';
-import BackWithMenuNav from "../../../components/customPageNavs/BackWithMenuNav";
+import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
-import RF from "react-native-responsive-fontsize";
+import RF from 'react-native-responsive-fontsize';
 import processContractByAddress from '../../../scripts/contracts/contractHelper';
 import ClearButton from '../../../components/LinearGradient/ClearButton';
 
@@ -25,16 +25,34 @@ class Contract extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       contractLoaded: false,
       address: '',
       hardCodedAddress: '0x311f71389e3DE68f7B2097Ad02c6aD7B2dDE4C71',
       wallet: this.props.wallets[0].hdWallet,
+      contractEvents: null,
+      contractFunctions: null,
+      functions: [],
     };
   }
 
-  getContract() {
-    processContractByAddress(this.state.wallet, this.state.hardCodedAddress);
+  async getContract() {
+    const { contractFunctions, contractEvents } = await processContractByAddress(this.state.wallet, this.state.hardCodedAddress);
+    console.log('contract function', contractFunctions, 'events', contractEvents);
+    this.setState({contractEvents, contractFunctions});
+  }
+
+  parseFunctions() {
+    let contractFunctionsFormatted = [];
+    for (var property in this.state.contractFunctions) {
+      let contractFunctionObj = {};
+      if (this.state.contractFunctions.hasOwnProperty(property)) {
+        console.log(property);
+      }
+    }
+
+
+
   }
 
   /**
@@ -45,7 +63,7 @@ class Contract extends Component {
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.mainContainer}>
-              <View style={styles.navContainer}>        
+              <View style={styles.navContainer}>
                 <BackWithMenuNav
                     showMenu={true}
                     showBack={true}
@@ -53,40 +71,44 @@ class Contract extends Component {
                   />
               </View>
               <Text style={styles.textHeader}>Contract Interaction</Text>
-              <Text style={styles.textDescription}>Load contract address</Text>
-              <View style={styles.topFormInput}>
-                <FormInput
-                  placeholder={"Contract Address"}
-                  onChangeText={(add) => { return this.setState({ address: add }); }}
-                  inputStyle={styles.inputContactName}
-                  placeholderTextColor={'#b3b3b3'}
-                  value={this.state.address}
-                />
+                {
+                  this.state.contractFunctions === null
+                    ?
+                    <View style={styles.topFormInput}>
+                      <Text style={styles.textDescription}>Load contract address</Text>
+                        <FormInput
+                          placeholder={'Contract Address'}
+                          onChangeText={(add) => { return this.setState({ address: add }); }}
+                          inputStyle={styles.inputContactName}
+                          placeholderTextColor={'#b3b3b3'}
+                          value={this.state.address}
+                        />
+                        <View style={styles.btnFlex}>
+                          <ClearButton
+                            buttonText='Load Contract'
+                            onClickFunction={this.getContract.bind(this)}
+                            customStyles={styles.loadButton}
+                          />
+                        </View>
+                      </View>
+                    : this.parseFunctions()
+                }
 
-                <View style={styles.btnFlex}>
-                  <ClearButton
-                    buttonText='Load Contract'
-                    onClickFunction={this.getContract.bind(this)}
-                    customStyles={styles.loadButton}
-                  />
-                </View>
-
-              </View>
 
               {/* <View style={styles.boxShadowContainer}>
                 <View style={styles.contentContainer}>
                     <BoxShadowCard>
-                   
+
                     </BoxShadowCard>
                 </View>
               </View> */}
-            <View style={styles.btnContainer}>               
+            <View style={styles.btnContainer}>
                 <View style={styles.footerGrandparentContainer}>
                     <View style={styles.footerParentContainer} >
                         <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                     </View>
                 </View>
-            </View>            
+            </View>
         </View>
       </TouchableWithoutFeedback>
     </SafeAreaView>
@@ -99,7 +121,7 @@ class Contract extends Component {
  */
 const styles = StyleSheet.create({
   safeAreaView: {
-    flex: 1, 
+    flex: 1,
     backgroundColor: '#fafbfe'
   },
   mainContainer: {
@@ -112,14 +134,22 @@ const styles = StyleSheet.create({
     flex: 0.75,
   },
   boxShadowContainer: {
-    alignItems: 'center', 
+    alignItems: 'center',
     flex: 3
   },
   topFormInput: {
-    flex: 0.3,
+    flex: 2,
     paddingLeft: '5%',
     paddingRight: '5%',
     justifyContent: 'center',
+    backgroundColor: 'red',
+  },
+  functionContainer: {
+    flex: 4,
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    justifyContent: 'center',
+    backgroundColor: 'red',
   },
   loadButton: {
     height: Dimensions.get('window').height * 0.082,
@@ -130,7 +160,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
     paddingLeft: '9%',
     color: '#1a1f3e',
-    flex: 0.75, 
+    flex: 0.75,
   },
   inputContactName: {
     fontSize: RF(2.5),
@@ -141,7 +171,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.0001,
   },
   btnFlex: {
-    flex: 1,
+    // flex: 1,
   },
   textDescription: {
     fontFamily: 'Cairo-Light',
@@ -149,7 +179,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
     paddingLeft: '9%',
     color: '#1a1f3e',
-    flex: 0.3, 
+    flex: 0.3,
   },
   contentContainer: {
     width: '82%',
@@ -184,7 +214,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '82%',
-    height: Dimensions.get('window').height * 0.082,  
+    height: Dimensions.get('window').height * 0.082,
   },
   footerGrandparentContainer: {
     alignItems: 'center',
