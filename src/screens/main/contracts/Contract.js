@@ -28,7 +28,7 @@ class Contract extends Component {
     };
   }
 
-  async getContract() {
+  getContract = async () => {
     this.setState({contractFunctions: null});
     const { contractFunctions, contractEvents } = await processContractByAddress(this.state.wallet, this.state.hardCodedAddress);
     this.setState({contractEvents, contractFunctions });
@@ -37,17 +37,17 @@ class Contract extends Component {
   /**
    * Needs to be implemented
    */
-  processFunctionInput(x, inputName, inputType) {}
+  processFunctionInput = (x, inputName, inputType) => {}
 
   /**
    * Needs to be implemented
    */
-  executeContractFunction() {}
+  executeContractFunction = () => {}
 
   /**
    * 
    */
-   parseFunctions() {
+   parseFunctions = () => {
     let contractFunctionsFormatted = []; //holds all the functions
     for (var property in this.state.contractFunctions) {
       let contractFunctionObj = {};
@@ -88,13 +88,13 @@ class Contract extends Component {
                   <View style={styles.functionInputContainer}>
                     <FormInput
                         placeholder={inputObject.type}
-                        onChangeText={this.processFunctionInput.bind(this, inputObject.inputName, inputObject.type)}
+                        onChangeText={()=> this.processFunctionInput(this, inputObject.inputName, inputObject.type)}
                         inputStyle={styles.functionInputStyle}
                       />
                    </View>
                    <ClearButton
                         buttonText= {`update ${inputObject.inputName}`}
-                        onClickFunction={this.executeContractFunction.bind(this)}
+                        onClickFunction={() => this.executeContractFunction(this)}
                         customStyles={styles.btnFunctionInput}
                       />
                 </View>
@@ -138,7 +138,7 @@ class Contract extends Component {
                         <View style={styles.btnFlex}>
                           <ClearButton
                             buttonText='Load Contract'
-                            onClickFunction={this.getContract.bind(this)}
+                            onClickFunction={() => this.getContract(this)}
                             customStyles={styles.loadButton}
                           />
                         </View>
