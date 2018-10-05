@@ -9,6 +9,7 @@ import LinearButton from '../../../components/LinearGradient/LinearButton';
 import RF from 'react-native-responsive-fontsize';
 import {processContractByAddress, processFunctionCall} from '../../../scripts/contracts/contractHelper';
 import ClearButton from '../../../components/LinearGradient/ClearButton';
+import Toast from 'react-native-simple-toast';
 
 /**
  * Screen is used to display the passphrase (mnemonic) of the wallet
@@ -73,7 +74,7 @@ class Contract extends Component {
   executeContractFunction = async (x, inputName, inputType, obj) => {
     
     await processFunctionCall(this.state.wallet ,this.state.currentInput, this.state.contract);
-    
+    Toast.show('Success');
   }
 
   /**
