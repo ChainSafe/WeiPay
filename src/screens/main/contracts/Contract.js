@@ -73,8 +73,15 @@ class Contract extends Component {
    */
   executeContractFunction = async (x, inputName, inputType, obj) => {
     
+
+    debugger
     await processFunctionCall(this.state.wallet ,this.state.currentInput, this.state.contract);
-    Toast.show('Success');
+    Toast.show('Success', Toast.LONG);
+  }
+
+  contractFuncCheck(name) {
+    console.log(name);
+    
   }
 
   /**
@@ -82,6 +89,7 @@ class Contract extends Component {
    */
    parseFunctions = () => {
     let contractFunctionsFormatted = []; //holds all the functions
+    let contractFunctionList = [];
     for (var property in this.state.contractFunctions) {
       let contractFunctionObj = {};
       if (this.state.contractFunctions.hasOwnProperty(property)) {        
@@ -89,20 +97,35 @@ class Contract extends Component {
         let functionObject = this.state.contractFunctions[property];
         let functionName = this.state.contractFunctions[property].name; 
         let functionSignature = this.state.contractFunctions[property].signature;
+        
         let functionInputs = this.state.contractFunctions[property].inputs;     
         let fInputs = [];
-        for(let i = 0; i < functionInputs.names.length; i++) {
-          let inputObj = {};
-          inputObj.inputName = functionInputs.names[i];
-          inputObj.type = functionInputs.types[i];
-          const uniqueKeyHelper = contractFunctionsFormatted.length * 2;
-          inputObj.uniquekey = `${uniqueKeyHelper}${functionInputs.names[i]}${functionInputs.types[i]}`;           
-          fInputs.push(inputObj);
-        }              
-        const arrayLength = contractFunctionsFormatted.length;
-        contractFunctionsFormatted.push({arrayLength, property, functionSignature, fInputs});
+
+        if (contractFunctionList.indexOf(functionSignature) == -1) {
+          contractFunctionList.push(functionSignature);
+          for(let i = 0; i < functionInputs.names.length; i++) {
+            let inputObj = {};          
+            inputObj.inputName = functionInputs.names[i];
+            inputObj.type = functionInputs.types[i];
+            const uniqueKeyHelper = contractFunctionsFormatted.length * 2;
+            inputObj.uniquekey = `${uniqueKeyHelper}${functionInputs.names[i]}${functionInputs.types[i]}`;           
+            fInputs.push(inputObj);
+          }   
+          const arrayLength = contractFunctionsFormatted.length;
+          contractFunctionsFormatted.push({arrayLength, property, functionSignature, fInputs});
+        }
+        
+        
+                   
+        
       }
     }
+
+    console.log(contractFunctionList);
+    console.log("**********");
+    
+    console.log(contractFunctionsFormatted);
+    
 
     return (
       <View>
@@ -112,27 +135,48 @@ class Contract extends Component {
               <View style={styles.functionInputContainer}>                       
                 <Text>Signature: {item.functionSignature} </Text>
               </View>
-              {
-                item.fInputs.map((inputObject) =>
-                <View key={`${item.arrayLength}${inputObject.uniquekey}`}>
-                   <View style={styles.functionInputContainer}>
-                    <Text>input name: {inputObject.inputName} </Text>
-                  </View>
-                  <View style={styles.functionInputContainer}>
-                    <FormInput
-                        placeholder={inputObject.type}
-                        onChangeText={(text)=> this.processFunctionInput(text, inputObject.inputName, inputObject.type, item.functionSignature)}
-                        inputStyle={styles.functionInputStyle}
-                      />
-                   </View>
-                   <ClearButton
-                        buttonText= {`update ${inputObject.inputName}`}
-                        onClickFunction={(text) => this.executeContractFunction(text, inputObject.inputName, inputObject.type, item.functionSignature)}
-                        customStyles={styles.btnFunctionInput}
-                      />
+              {(item.fInputs.length != 0)? 
+                <View>
+                  {
+                    item.fInputs.map((inputObject) =>
+                    <View key={`${item.arrayLength}${inputObject.uniquekey}`}>
+                      <View style={styles.functionInputContainer}>
+                        <Text>input name: {inputObject.inputName} </Text>
+                      </View>
+                      <View style={styles.functionInputContainer}>
+                        <FormInput
+                            placeholder={inputObject.type}
+                            onChangeText={(text)=> this.processFunctionInput(text, inputObject.inputName, inputObject.type, item.functionSignature)}
+                            inputStyle={styles.functionInputStyle}
+                          />
+                      </View>
+                      <ClearButton
+                            buttonText= {`update ${inputObject.inputName}`}
+                            // onClickFunction={(text) => this.executeContractFunction(text, inputObject.inputName, inputObject.type, item.functionSignature)}
+                            onClickFunction={() => this.contractFuncCheck(item.functionSignature) }
+                            customStyles={styles.btnFunctionInput}
+                          />
+                    </View>
+                  )
+                  }
+
+                </View> 
+                
+                :
+                  
+                <View>
+                  <ClearButton
+                      buttonText= {`update ${item.functionSignature}`}
+                      // onClickFunction={(text) => this.executeContractFunction(text, inputObject.inputName, inputObject.type, item.functionSignature)}
+                      onClickFunction={() => this.contractFuncCheck(item.functionSignature) }
+                      customStyles={styles.btnFunctionInput}
+                    />
+                
                 </View>
-              )
-              }        
+              
+              }
+              
+             
             </View>
           )
         }

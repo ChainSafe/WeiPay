@@ -36,6 +36,11 @@ export const processContractByAddress = async (wallet, address) => {
     let contract = await new ethers.Contract(address, abiParsed, initializedWallet);
     let contractEvents = contract.interface.events;
     let contractFunctions = contract.interface.functions;
+    console.log("------------");
+    console.log(contract.functions);
+    console.log("------------");
+    
+    
     return { contractFunctions, contractEvents, contract };
   } catch (err) {
     console.log(err);
@@ -49,14 +54,13 @@ export const processFunctionCall = async (wallet, inputs, contract) => {
   const initializedWallet = new ethers.Wallet(cWallet.privateKey, provider);
   // debugger
   try {
-    // console.log("Function Name:");
-    // debugger
-    // console.log();
+    
     
     const funcName = inputs["funcName"].substring(0,inputs["funcName"].indexOf("(")); 
+    console.log(funcNme);
     
     const contractWithSigner = contract.connect(initializedWallet);
-    await contractWithSigner["functions"]["setNewMessage"](inputs["input"]);
+    await contractWithSigner["functions"][funcName](inputs["input"]);
     let tx = await contractWithSigner["functions"]["getMessage"]();
     console.log("Call went through");
     console.log(tx);
