@@ -7,7 +7,7 @@ import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav'
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import RF from 'react-native-responsive-fontsize';
-import processContractByAddress from '../../../scripts/contracts/contractHelper';
+import {processContractByAddress, processFunctionCall} from '../../../scripts/contracts/contractHelper';
 import ClearButton from '../../../components/LinearGradient/ClearButton';
 
 /**
@@ -20,29 +20,61 @@ class Contract extends Component {
     this.state = {
       contractLoaded: false,
       address: '',
-      hardCodedAddress: '0x311f71389e3DE68f7B2097Ad02c6aD7B2dDE4C71',
+      hardCodedAddress: '0x46f2C84f05599BD86080af4cFA06D7e0db6730C0',
       wallet: this.props.wallets[0].hdWallet,
       contractEvents: null,
       contractFunctions: null,
+      contract: null,
       functions: [],
+      currentInput: {funcName: null, inputName: null, inputType: null, input: null},
     };
   }
 
   getContract = async () => {
     this.setState({contractFunctions: null});
-    const { contractFunctions, contractEvents } = await processContractByAddress(this.state.wallet, this.state.hardCodedAddress);
-    this.setState({contractEvents, contractFunctions });
+    const { contractFunctions, contractEvents, contract } = await processContractByAddress(this.state.wallet, this.state.hardCodedAddress);
+    this.setState({contractEvents, contractFunctions, contract });
+  }
+
+  /**
+   * Needs to be implemented
+   * x : input text
+   * inputName: pram Name
+   * inputType: pram type
+   * obj: function
+   */
+  processFunctionInput = (x, inputName, inputType, obj) => {
+    
+    const c = {
+      funcName: obj,
+      inputName: inputName,
+      inputType: inputType,
+      input: x
+    };
+    this.setState({currentInput: c});
+    
+    // console.log(inputName + " " + inputType + " : ");
+    // console.log(x);
+    // console.log("-----------------Contract-----------");
+    
+    // console.log(this.state.contract);
+    // console.log("----------item--------------");
+    // console.log(obj);
+    
+    
+    
+    
+    
   }
 
   /**
    * Needs to be implemented
    */
-  processFunctionInput = (x, inputName, inputType) => {}
-
-  /**
-   * Needs to be implemented
-   */
-  executeContractFunction = () => {}
+  executeContractFunction = async (x, inputName, inputType, obj) => {
+    
+    await processFunctionCall(this.state.wallet ,this.state.currentInput, this.state.contract);
+    
+  }
 
   /**
    * 
@@ -88,13 +120,13 @@ class Contract extends Component {
                   <View style={styles.functionInputContainer}>
                     <FormInput
                         placeholder={inputObject.type}
-                        onChangeText={()=> this.processFunctionInput(this, inputObject.inputName, inputObject.type)}
+                        onChangeText={(text)=> this.processFunctionInput(text, inputObject.inputName, inputObject.type, item.functionSignature)}
                         inputStyle={styles.functionInputStyle}
                       />
                    </View>
                    <ClearButton
                         buttonText= {`update ${inputObject.inputName}`}
-                        onClickFunction={() => this.executeContractFunction(this)}
+                        onClickFunction={(text) => this.executeContractFunction(text, inputObject.inputName, inputObject.type, item.functionSignature)}
                         customStyles={styles.btnFunctionInput}
                       />
                 </View>
