@@ -150,15 +150,22 @@ class Contract extends Component {
                             inputStyle={styles.functionInputStyle}
                           />
                       </View>
-                      <ClearButton
+                      {/* <ClearButton
                             buttonText= {`update ${inputObject.inputName}`}
                             // onClickFunction={(text) => this.executeContractFunction(text, inputObject.inputName, inputObject.type, item.functionSignature)}
                             onClickFunction={() => this.contractFuncCheck(item.functionSignature) }
                             customStyles={styles.btnFunctionInput}
-                          />
+                          /> */}
                     </View>
                   )
                   }
+                  <ClearButton
+                            buttonText= {`Call ${item.functionSignature}`}
+                            // onClickFunction={(text) => this.executeContractFunction(text, inputObject.inputName, inputObject.type, item.functionSignature)}
+                            onClickFunction={() => this.contractFuncCheck(item.functionSignature) }
+                            customStyles={styles.btnFunctionInput}
+                          />
+                  
 
                 </View> 
                 
@@ -166,7 +173,7 @@ class Contract extends Component {
                   
                 <View>
                   <ClearButton
-                      buttonText= {`update ${item.functionSignature}`}
+                      buttonText= {`Call ${item.functionSignature}`}
                       // onClickFunction={(text) => this.executeContractFunction(text, inputObject.inputName, inputObject.type, item.functionSignature)}
                       onClickFunction={() => this.contractFuncCheck(item.functionSignature) }
                       customStyles={styles.btnFunctionInput}
