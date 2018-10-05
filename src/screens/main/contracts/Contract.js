@@ -42,8 +42,10 @@ class Contract extends Component {
     this.setState({contractEvents, contractFunctions });
   }
 
-  processFunctionInput(inputValue) {
-    console.log('in process function input', inputValue);
+  processFunctionInput(x, inputName, inputType) {
+    console.log('x', x);
+    console.log('name', inputName);
+    console.log('type', inputType);
   }
 
   executeContractFunction() {
@@ -57,7 +59,6 @@ class Contract extends Component {
    */
    parseFunctions() {
     let contractFunctionsFormatted = []; //holds all the functions
-    
     for (var property in this.state.contractFunctions) {
       let contractFunctionObj = {};
       if (this.state.contractFunctions.hasOwnProperty(property)) {        
@@ -72,7 +73,7 @@ class Contract extends Component {
           inputObj.inputName = functionInputs.names[i];
           inputObj.type = functionInputs.types[i];
           const uniqueKeyHelper = contractFunctionsFormatted.length * 2;
-          inputObj.uniquekey = `${uniqueKeyHelper}${functionInputs.names[i]}${functionInputs.types[i]}`;
+          inputObj.uniquekey = `${uniqueKeyHelper}${functionInputs.names[i]}${functionInputs.types[i]}`;           
           fInputs.push(inputObj);
         }              
         const arrayLength = contractFunctionsFormatted.length;
@@ -91,15 +92,15 @@ class Contract extends Component {
               {
                 item.fInputs.map((inputObject) =>
                 <View key={`${item.arrayLength}${inputObject.uniquekey}`}>
-                   <View style={styles.functionInputContainer}>    
-                    <Text>input name: {inputObject.inputName} </Text>                  
+                   <View style={styles.functionInputContainer}>
+                    <Text>input name: {inputObject.inputName} </Text>
                   </View>
                   <View style={styles.functionInputContainer}>
                     <FormInput
                         placeholder={inputObject.type}
-                        onChangeText={this.processFunctionInput.bind(this)}
+                        onChangeText={this.processFunctionInput.bind(this, inputObject.inputName, inputObject.type)}
                         inputStyle={styles.functionInputStyle}
-                      />                   
+                      />
                    </View>
                    <ClearButton
                         buttonText= {`update ${inputObject.inputName}`}

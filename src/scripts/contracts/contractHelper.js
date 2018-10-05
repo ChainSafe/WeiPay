@@ -1,14 +1,11 @@
 const ethers = require('ethers');
 const axios = require('axios');
-//const provider = require('../../constants/Providers');
 
 let abi;
 
 getContractAbi = async (contractAddress) => { 
   await axios.get(`https://api.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&apikey=YJ1TRXBKAH9QZWINVFT83JMFBQI15X7UPR`)
-    .then((res) => {
-      console.log('response', contractAddress);
-      console.log('data', res.data);
+    .then((res) => {    
       abi = res.data.result;
     })
     .catch((err) => {
@@ -17,22 +14,16 @@ getContractAbi = async (contractAddress) => {
 };
 
 const processContractByAddress = async (wallet, address) => {
-
   await getContractAbi(address);
-  var  provider = ethers.providers.getDefaultProvider("homestead");
-  console.log('after function call');
-  let abix = JSON.parse(abi);
-  console.log(abix);
+  var  provider = ethers.providers.getDefaultProvider("ropsten");
+  let abiParsed = JSON.parse(abi);
   let cWallet = wallet;
-  const shimwallet = new ethers.Wallet(cWallet.privateKey, provider);
-  console.log(shimwallet);
+  const initializedWallet = new ethers.Wallet(cWallet.privateKey, provider);
   try {
-    let contract = await new ethers.Contract(address, abix, shimwallet);
+    let contract = await new ethers.Contract(address, abiParsed, initializedWallet);
     let contractEvents = contract.interface.events;
     let contractFunctions = contract.interface.functions;
     return { contractFunctions, contractEvents };
-    //debugger
-    // console.log(contract);
   } catch (err) {
     console.log(err);
   }
