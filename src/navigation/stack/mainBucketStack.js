@@ -15,6 +15,7 @@ import QrCodeScanner from '../../screens/main/qr/QrCodeScanner';
 import BackupPhrase from '../../screens/main/menu/settings/BackupPhrase';
 import TokenFunctionality from '../../screens/main/tokens/Index';
 import AddingTokensOrCoins from '../../screens/main/tokens/add/Index';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 const CustomDrawerContentComponent = props => (
   <View style={styles.customContainer}>
@@ -27,7 +28,6 @@ const CustomDrawerContentComponent = props => (
     </View>
   </View>
 );
-
 
 /**
  * Constant contains all the screens that can be navigated to using the
@@ -58,7 +58,7 @@ const navigator = DrawerNavigator({
   Contacts: {
     screen: StackNavigator({
       contacts: { screen: Contacts },
-      editContact: { screen: EditContact},
+      editContact: { screen: EditContact },
       addContact: { screen: AddContact },
     },
     {
@@ -79,13 +79,14 @@ export default navigator;
 const styles = StyleSheet.create({
   customContainer: {
     flex: 1,
-    backgroundColor: "white" ,
+    backgroundColor: 'white',
+    marginTop: getStatusBarHeight(),
   },
-  labelText:{
-    fontSize:16,
-    letterSpacing:0.6,
-    fontFamily: "Cairo-Light",
-    color:"black",
-    fontWeight:'200',
+  labelText: {
+    fontSize: 16,
+    letterSpacing: 0.6,
+    fontFamily: 'Cairo-Light',
+    color: 'black',
+    fontWeight: '200',
   },
 })

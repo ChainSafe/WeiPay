@@ -9,11 +9,11 @@ import LinearButton from '../../../../components/LinearGradient/LinearButton'
 import RF from "react-native-responsive-fontsize"
 
 const navigate = () => {
-  const navigateToPassphrase = NavigationActions.reset({
+  const navigateToMenu = NavigationActions.reset({
     index: 0,
     actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
   });
-  this.props.navigation.dispatch(navigateToPassphrase);
+  this.props.navigation.dispatch(navigateToMenu);
 };
 
 /**

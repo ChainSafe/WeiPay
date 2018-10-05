@@ -21,10 +21,10 @@ class CreateOrRestore extends Component {
      * user decides to create a new wallet
      */
     navigateCreate = () => {
-      const navigateToWalletName = NavigationActions.navigate({
+      const navigateToCreate = NavigationActions.navigate({
         routeName: 'createWalletName',
       });
-      this.props.navigation.dispatch(navigateToWalletName);
+      this.props.navigation.dispatch(navigateToCreate);
     };
 
     /**
@@ -32,11 +32,11 @@ class CreateOrRestore extends Component {
      * user decides to recover thier wallet
      */
     navigateRestore = () => {
-      const navigateToRecover = NavigationActions.navigate({
+      const navigateToRestore = NavigationActions.navigate({
         routeName: 'createWalletNameRecovered',
       });
       this.props.restoreWallet();
-      this.props.navigation.dispatch(navigateToRecover);
+      this.props.navigation.dispatch(navigateToRestore);
     };
 
     /**

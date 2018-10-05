@@ -68,19 +68,7 @@ class AddContact extends Component {
     this.props.tokens.map((token) => { return newcontactAddress[token.title] = '' ;});
     this.setState({ contactAddress: newcontactAddress });
   }
-
-  /**
-   * This Method is used to update the contact name in the global
-   * and local state variable when ever the contactName inputfield changes.
-   * @param {String} name
-   */
-  // renderName(name) {
-  //   this.setState({ contactName: name });
-  //   const contact = { name };
-  //   this.props.addingContact(contact);
-  //   this.props.saveAddContactInputs(this.state.contactName, this.state.contactAddress, this.state.tokenImages);
-  // }
-
+  
   navigate = () => {
     this.props.saveAddContactInputs(this.state.contactName, this.state.contactAddress, this.state.tokenImages);
     this.props.qrScannerInvoker('Contacts');
