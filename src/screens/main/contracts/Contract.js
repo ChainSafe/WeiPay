@@ -10,14 +10,6 @@ import RF from 'react-native-responsive-fontsize';
 import processContractByAddress from '../../../scripts/contracts/contractHelper';
 import ClearButton from '../../../components/LinearGradient/ClearButton';
 
-// const navigate = () => {
-//   const navigateToPassphrase = NavigationActions.reset({
-//     index: 0,
-//     actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
-//   });
-//   this.props.navigation.dispatch(navigateToPassphrase);
-// };
-
 /**
  * Screen is used to display the passphrase (mnemonic) of the wallet
  */
@@ -42,17 +34,15 @@ class Contract extends Component {
     this.setState({contractEvents, contractFunctions });
   }
 
-  processFunctionInput(x, inputName, inputType) {
-    console.log('x', x);
-    console.log('name', inputName);
-    console.log('type', inputType);
-  }
+  /**
+   * Needs to be implemented
+   */
+  processFunctionInput(x, inputName, inputType) {}
 
-  executeContractFunction() {
-    console.log("click a function button");
-    //execute whatever is in state, pass to helper function?
-    //clear state
-  }
+  /**
+   * Needs to be implemented
+   */
+  executeContractFunction() {}
 
   /**
    * 
