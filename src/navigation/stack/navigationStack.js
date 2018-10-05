@@ -6,7 +6,6 @@ import GeneratePassphrase from '../../screens/setup/create/GeneratePassphrase';
 import ConfirmPassphrase from '../../screens/setup/create/ConfirmPassphrase';
 import CreateWalletNameRecovered from '../../screens/setup/recover/CreateWalletName';
 import RecoverWallet from '../../screens/setup/recover/RecoverWallet';
-import EnableTokens from '../../screens/setup/crypto/EnableTokens';
 import mainBucketNavigation from './mainBucketStack';
 import addContact from '../../screens/main/menu/contacts/add/AddContact';
 import contacts from '../../screens/main/menu/contacts/index';
@@ -46,9 +45,6 @@ const navigator = StackNavigator({
   },
   recoverWallet: {
     screen: RecoverWallet,
-  },
-  enableTokens: {
-    screen: EnableTokens,
   },
   mainStack: {
     screen: mainBucketNavigation,
