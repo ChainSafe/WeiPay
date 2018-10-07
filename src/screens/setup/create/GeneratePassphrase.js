@@ -14,8 +14,7 @@ class GeneratePassphrase extends Component {
 
     navigate = () => {
       const navigateToConfirmPassphrase = NavigationActions.navigate({
-        routeName: 'confirmPassphrase',
-        params: { wallet: this.props.navigation.state.wallet },
+        routeName: 'confirmPassphrase',     
       });
       this.props.navigation.dispatch(navigateToConfirmPassphrase);
     };
@@ -41,7 +40,7 @@ class GeneratePassphrase extends Component {
                             Please write down your 12 word passphrase. You will need it to verify your wallet.
                         </Text>
                         <Text style={styles.textMnemonic}>
-                            {this.props.wallets[0].hdWallet.mnemonic}
+                            {this.props.hotWallet.wallet.mnemonic}
                         </Text>                       
                       </BoxShadowCard>
                   </View>
@@ -136,9 +135,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ Wallet }) => {
-  const { wallets } = Wallet;
-  return { wallets };
+const mapStateToProps = ({ HotWallet }) => {
+  const { hotWallet } = HotWallet;
+  return { hotWallet };
 };
 
 export default connect(mapStateToProps, null)(GeneratePassphrase);
