@@ -52,6 +52,8 @@ export const processContractByAddress = async (wallet, address) => {
   function name
   all the parameters for that function
   Contract.
+  Calling payable functions:
+  address.func.value(amount)(arg1, arg2, arg3)
 
 */
 export const processFunctionCall = async (wallet, inputs, contract) => {
@@ -78,7 +80,49 @@ export const processFunctionCall = async (wallet, inputs, contract) => {
     console.log(err);
   }
   
+};
 
+export const processFunctionCall2 = async (wallet, functionName, inputs, contract) => {
+  console.log("In function Call");  
+  let cWallet = wallet;
+  const initializedWallet = new ethers.Wallet(cWallet.privateKey, provider);
+  // debugger
+  try {
+    // console.log("***************************");
+    
+    // console.log("Wallet: --------");
+    // console.log(initializedWallet);
+    // console.log("Function Name------");
+    console.log(functionName);
+    // console.log("Inputs--------");
+    // console.log(Object.values(inputs));
+    
+    const args = Object.values(inputs);
+    const contractWithSigner = contract.connect(initializedWallet);
+    if (args.length == 0) {
+      await contractWithSigner["functions"][functionName]();
+    }else {
+      const call = "contractWithSigner['functions'][functionName](" + args.toString() + ")";
+      console.log(call);
+      await eval(call);
+     
+    }
+    //await contractWithSigner["functions"][functionName](args[0]);
+    // let tx = await contractWithSigner["functions"]["getMessage"]();
+    let tx = await contract.getMessage();
+    console.log("Call went through");
+    console.log(tx);
+    console.log("---------000---------------");
+    
 
+    console.log("***************************");
+    
+
+  } catch (err) {
+    console.log("Didnt go through");
+    
+    console.log(err);
+  }
+  
 };
 

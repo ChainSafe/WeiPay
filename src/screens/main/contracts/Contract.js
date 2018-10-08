@@ -7,7 +7,7 @@ import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav'
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import RF from 'react-native-responsive-fontsize';
-import {processContractByAddress, processFunctionCall} from '../../../scripts/contracts/contractHelper';
+import {processContractByAddress, processFunctionCall, processFunctionCall2 } from '../../../scripts/contracts/contractHelper';
 import ClearButton from '../../../components/LinearGradient/ClearButton';
 import Toast from 'react-native-simple-toast';
 
@@ -21,13 +21,13 @@ class Contract extends Component {
     this.state = {
       contractLoaded: false,
       address: '',
-      hardCodedAddress: '0x46f2C84f05599BD86080af4cFA06D7e0db6730C0',
+      hardCodedAddress: '0x0Abcf5C5D7915E85Ab3DEA74C21F9c485F300c0b',
       wallet: this.props.wallets[0].hdWallet,
       contractEvents: null,
       contractFunctions: null,
       contract: null,
       functions: [],
-      currentInput: {funcName: null, inputName: null, inputType: null, input: null},
+      currentInput: {},
     };
   }
 
@@ -44,15 +44,32 @@ class Contract extends Component {
    * inputType: pram type
    * obj: function
    */
-  processFunctionInput = (x, inputName, inputType, obj) => {
+  processFunctionInput = (x, inputName, inputType, funcName) => {
     
-    const c = {
-      funcName: obj,
-      inputName: inputName,
-      inputType: inputType,
-      input: x
-    };
+    // const c = {
+    //   funcName: funcName,
+    //   inputName: inputName,
+    //   inputType: inputType,
+    //   input: x
+    // };
+
+    var c = Object.assign({}, this.state.currentInput);
+    if (c[funcName] == null) {
+      c[funcName] = {};
+    }
+    if (inputType == "string") {
+      c[funcName][inputName] = "'" + x + "'";
+    }else {
+      c[funcName][inputName] = x;
+    }
+      
+    
+
+    const check = c[funcName];
+    console.log(check);
+    
     this.setState({currentInput: c});
+    
     
    
     
@@ -67,12 +84,47 @@ class Contract extends Component {
     
 
     debugger
+
+    /*
+    wallet: this.state.wallet
+    contract: this.state.contract
+
+    */
+
     await processFunctionCall(this.state.wallet ,this.state.currentInput, this.state.contract);
     Toast.show('Success', Toast.LONG);
   }
 
-  contractFuncCheck(name) {
+  contractFuncCheck = async (name) => {
+    console.log("Function Name:");
     console.log(name);
+    
+    var functionName;
+    var inputs;
+    if (name.property == null) {
+      functionName = name;
+      inputs = {};
+    }else { 
+      functionName = name.property;
+      inputs = this.state.currentInput[name.functionSignature];
+    }
+
+
+    console.log(name.property);
+    console.log(this.state.currentInput);
+    
+    // return;
+    // console.log("Total Inputs:");
+    // console.log(name.fInputs.length);
+    // console.log("Inputs:");
+    // console.log(name.fInputs);
+    
+
+    await processFunctionCall2(this.state.wallet, functionName, inputs, this.state.contract);
+    
+    
+    
+    
     
   }
 
@@ -113,10 +165,10 @@ class Contract extends Component {
       }
     }
 
-    console.log(contractFunctionList);
-    console.log("**********");
+    // console.log(contractFunctionList);
+    // console.log("**********");
     
-    console.log(contractFunctionsFormatted);
+    // console.log(contractFunctionsFormatted);
     
 
     return (
@@ -155,9 +207,9 @@ class Contract extends Component {
                   )
                   }
                   <ClearButton
-                            buttonText= {`Call ${item.functionSignature}`}
+                            buttonText= {`Call ${item.property}`}
                             // onClickFunction={(text) => this.executeContractFunction(text, inputObject.inputName, inputObject.type, item.functionSignature)}
-                            onClickFunction={() => this.contractFuncCheck(item.functionSignature) }
+                            onClickFunction={() => this.contractFuncCheck(item) }
                             customStyles={styles.btnFunctionInput}
                           />
                   
