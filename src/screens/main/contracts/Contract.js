@@ -21,7 +21,7 @@ class Contract extends Component {
     this.state = {
       contractLoaded: false,
       address: '',
-      hardCodedAddress: '0x0Abcf5C5D7915E85Ab3DEA74C21F9c485F300c0b',
+      hardCodedAddress: '0xcD361f7173C439BB76F3E1206446e9D183B82787',
       wallet: this.props.wallets[0].hdWallet,
       contractEvents: null,
       contractFunctions: null,
