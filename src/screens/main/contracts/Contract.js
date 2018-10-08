@@ -54,15 +54,7 @@ class Contract extends Component {
     };
     this.setState({currentInput: c});
     
-    // console.log(inputName + " " + inputType + " : ");
-    // console.log(x);
-    // console.log("-----------------Contract-----------");
-    
-    // console.log(this.state.contract);
-    // console.log("----------item--------------");
-    // console.log(obj);
-    
-    
+   
     
     
     
@@ -128,10 +120,13 @@ class Contract extends Component {
     
 
     return (
+      
       <View>
         {
           contractFunctionsFormatted.map((item) =>
-            <View key={item.arrayLength} style={styles.functionContainer}>   
+            
+            <View key={item.arrayLength} style={styles.functionContainer }>
+              <BoxShadowCard>   
               <View style={styles.functionInputContainer}>                       
                 <Text>Signature: {item.functionSignature} </Text>
               </View>
@@ -182,6 +177,7 @@ class Contract extends Component {
                 </View>
               
               }
+              </BoxShadowCard>
               
              
             </View>

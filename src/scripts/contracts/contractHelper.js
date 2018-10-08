@@ -47,7 +47,13 @@ export const processContractByAddress = async (wallet, address) => {
   }
 };
 
+/*
+  Wallet
+  function name
+  all the parameters for that function
+  Contract.
 
+*/
 export const processFunctionCall = async (wallet, inputs, contract) => {
   console.log("In function Call");  
   let cWallet = wallet;
