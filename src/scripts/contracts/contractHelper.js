@@ -18,7 +18,9 @@ getContractAbi = async (contractAddress) => {
   await axios.get(`https://api-ropsten.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&apikey=YJ1TRXBKAH9QZWINVFT83JMFBQI15X7UPR`)
     .then((res) => {    
       abi = res.data.result;
-      console.log(abi);
+      
+      // console.log(abi);
+      // console.log("899898");
       
     })
     .catch((err) => {
@@ -34,10 +36,11 @@ export const processContractByAddress = async (wallet, address) => {
   const initializedWallet = new ethers.Wallet(cWallet.privateKey, provider);
   try {
     let contract = await new ethers.Contract(address, abiParsed, initializedWallet);
+    
     let contractEvents = contract.interface.events;
     let contractFunctions = contract.interface.functions;
     console.log("------------");
-    console.log(contract.functions);
+    console.log(contract);
     console.log("------------");
     
     
@@ -100,20 +103,21 @@ export const processFunctionCall2 = async (wallet, functionName, inputs, contrac
     const args = Object.values(inputs);
     const contractWithSigner = contract.connect(initializedWallet);
     if (args.length == 0) {
-      await contractWithSigner["functions"][functionName]();
+      let tx = await contract["functions"][functionName]();
+      console.log("Call went through");
+      console.log(tx);
+      console.log("---------000---------------");
     }else {
       const call = "contractWithSigner['functions'][functionName](" + args.toString() + ")";
       console.log(call);
       await eval(call);
-     
-    }
-    //await contractWithSigner["functions"][functionName](args[0]);
-    // let tx = await contractWithSigner["functions"]["getMessage"]();
-    let tx = await contract.getMessage();
-    console.log("Call went through");
-    console.log(tx);
-    console.log("---------000---------------");
+      // await contractWithSigner['functions']["setNewMessageNumber"].value(0.001)("Transaction", 69);
+      console.log("Call went through");
+      console.log("---------000---------------");
     
+    }
+   
+   
 
     console.log("***************************");
     

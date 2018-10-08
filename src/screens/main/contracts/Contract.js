@@ -145,6 +145,15 @@ class Contract extends Component {
         let functionInputs = this.state.contractFunctions[property].inputs;     
         let fInputs = [];
 
+        console.log("9999999999999999");
+
+        console.log(this.state.contractFunctions[property]);
+        
+
+        console.log("9999999999999999");
+        
+
+
         if (contractFunctionList.indexOf(functionSignature) == -1) {
           contractFunctionList.push(functionSignature);
           for(let i = 0; i < functionInputs.names.length; i++) {
