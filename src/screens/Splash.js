@@ -9,14 +9,13 @@ class Splash extends Component {
   }
 
   checkLoggedIn() {
-    const routeName = this.props.wallets.length > 0 ?  "mainStack" : "terms";
-    const resetAction = NavigationActions.reset({
-      index: 0,
-      actions: [
-        NavigationActions.navigate({ routeName: routeName })
-      ]
-    });
-    this.props.navigation.dispatch(resetAction);
+    if(this.props.wallets.length > 0) {
+      const navigateToAddToken = NavigationActions.navigate({ routeName: 'password' });
+      this.props.navigation.dispatch(navigateToAddToken);
+    } else {
+      const navigateToAddToken = NavigationActions.navigate({ routeName: 'terms' });
+      this.props.navigation.dispatch(navigateToAddToken);
+    }
   }
 
   render() {

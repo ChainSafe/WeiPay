@@ -25,7 +25,7 @@ class TermsAndConditions extends Component {
     });
     this.props.navigation.dispatch(navigateToCreateOrRestore);
   };
-
+  
     render() {      
       return (
         <SafeAreaView style={styles.safeAreaView}>
