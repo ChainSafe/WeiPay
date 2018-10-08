@@ -26,7 +26,7 @@ class Portfolio extends Component {
     apiRequestString: '',
     tokenBalances: {},
     tokenPrices: [],
-    currentWallet: this.props.hotWallet.pubKey[this.props.wallets[0].publicKey],
+    currentWallet: this.props.hotWallet.wallet,
     currentWalletName: this.props.wallets[0].name,
   }
 
@@ -53,7 +53,7 @@ class Portfolio extends Component {
    */
   async componentDidMount() {
 
-    console.log('current wallet from hot wallet', this.state.currentWallet);
+    console.log('current wallet from hot wallet', this.props.hotWallet.wallet);
     
     const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data);
     await this.props.fetchCoinData(tokenSymbolString);
