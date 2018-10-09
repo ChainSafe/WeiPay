@@ -54,9 +54,20 @@ class Portfolio extends Component {
    * The Balance (soon to be Wallet) reducer then updates state -> { ...state, walletBalance: walletBalanceObject, tokenBalances: individualTokens };
    */
   async componentDidMount() {
+    if (this.props.walletBalance == null) {
+      await this.balanceCalculations();
+    } else {
+      await this.setState({       
+        walletBalance: this.props.walletBalance,
+        tokenPrices: this.props.tokenBalances,
+        tokenAmounts: this.props.tokenBalances,
+      });
+      this.showTokens();
+    }
+  }
+
+  balanceCalculations = async () => {
     const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data);    
-    console.log('token balance in mount', tokenBalances);
-    
     await this.props.fetchCoinData(tokenSymbolString);
     await this.props.calculateWalletBalance(tokenBalances, this.props.tokenConversions); //amount of tokens and symbol -> token balance, conversions -> matrix of prices
     await this.setState({ 
@@ -67,7 +78,6 @@ class Portfolio extends Component {
     });
     this.showTokens();
   }
-
   /**
    * tokens are passed into the function where their symbols and addresses are parsed out and stored in an array, 
    * which is then passed to processAllTokenBalances. The return is the concatenated string of symbols in wallet, and the amount
@@ -148,13 +158,12 @@ class Portfolio extends Component {
                 <View style={ styles.listItemValueComponent }>
                   <Text style={styles.listItemCryptoValue}>                 
                     {
-                      tokenAmounts == null ? 0 : tokenAmounts.amount                      
+                      tokenAmounts == null ? 0 : tokenAmounts.amount               
                     }                   
                   </Text>
                   <Text style={styles.listItemFiatValue}>
                     { 
-                       tokenAmounts == null ? 'NA' : (tokenPriceInfo)[this.props.currencyOptions[this.state.currencyIndex]]  
-                     
+                       tokenAmounts == null ? 'NA' : (tokenPriceInfo)[this.props.currencyOptions[this.state.currencyIndex]]                       
                     }
                   </Text>
                 </View>
@@ -166,7 +175,9 @@ class Portfolio extends Component {
     );
   }
 
-  handleListRefresh = () => {}
+  handleListRefresh = async () => {
+    await this.balanceCalculations();
+  }
 
   handleCurrencyTouch = async () => {
     let currentIndex = this.state.currencyIndex;

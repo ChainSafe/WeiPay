@@ -18,7 +18,7 @@ const initialState = {
   wallets: [], //Contains all the encrypted HD Wallet
   tempWalletName: null,
   tokens: [],
-  walletBalance: {},
+  walletBalance: null,
   tokenBalances: {},
   walletTokens: [],
   isFetching: null,
