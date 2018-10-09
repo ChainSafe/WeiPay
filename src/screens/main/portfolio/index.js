@@ -26,7 +26,8 @@ class Portfolio extends Component {
     apiRequestString: '',
     tokenBalances: {},
     tokenPrices: [],
-    currentWallet: this.props.hotWallet.pubKey[this.props.wallets[0].publicKey],
+    x: [],
+    currentWallet: this.props.hotWallet.wallet,
     currentWalletName: this.props.wallets[0].name,
   }
 
@@ -52,9 +53,7 @@ class Portfolio extends Component {
    * The Balance (soon to be Wallet) reducer then updates state -> { ...state, walletBalance: walletBalanceObject, tokenBalances: individualTokens };
    */
   async componentDidMount() {
-
     console.log('current wallet from hot wallet', this.state.currentWallet);
-    
     const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data);
     await this.props.fetchCoinData(tokenSymbolString);
     await this.props.calculateWalletBalance(tokenBalances, this.props.tokenConversions);
@@ -63,6 +62,12 @@ class Portfolio extends Component {
       walletBalance: this.props.walletBalance,
       tokenPrices: this.props.tokenBalances
     }); 
+
+    for (let index = 0; index < data.length; index++) {
+      const element = data[index];
+      console.log(element);
+    }
+
     this.showTokens();
   }
 

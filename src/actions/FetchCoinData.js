@@ -64,6 +64,9 @@ export function setWalletTokenBalances(usersTokensWithBalances) {
  */
 export function calculateWalletBalance(tokenBalances, tokenConversionMatrix) {
   return (dispatch) => {
+    console.log('token balance', tokenBalances);
+    console.log('tokenconversion matrix', tokenConversionMatrix);
+  
     const tokenKeys = Object.keys(tokenConversionMatrix);
     let walletBalanceObject = {
       USD: 0,
@@ -76,13 +79,14 @@ export function calculateWalletBalance(tokenBalances, tokenConversionMatrix) {
 
     for (let i = 0; i < tokenBalances.length; i++) {
       const currentTokenKey = tokenKeys[i];
+      console.log('currentTokenKey', currentTokenKey);
       let tokenPriceObject = {
         USD: 0,
         CAD: 0,
         EUR: 0,
         BTC: 0,
         ETH: 0,
-      };  
+      };
       walletBalanceObject.USD += tokenBalances[i].amount * tokenConversionMatrix[currentTokenKey].USD;
       walletBalanceObject.CAD += tokenBalances[i].amount * tokenConversionMatrix[currentTokenKey].CAD;
       walletBalanceObject.EUR += tokenBalances[i].amount * tokenConversionMatrix[currentTokenKey].EUR;
@@ -93,6 +97,8 @@ export function calculateWalletBalance(tokenBalances, tokenConversionMatrix) {
       tokenPriceObject.EUR = tokenBalances[i].amount * tokenConversionMatrix[currentTokenKey].EUR;
       tokenPriceObject.BTC = tokenBalances[i].amount * tokenConversionMatrix[currentTokenKey].BTC;
       tokenPriceObject.ETH = tokenBalances[i].amount * tokenConversionMatrix[currentTokenKey].ETH;
+      console.log('token Obj Price', tokenPriceObject);
+      
       individualTokens.push(tokenPriceObject);
     }
     dispatch({ type: CALCULATE_WALLET_BALANCE, payload: { walletBalanceObject, individualTokens }});
