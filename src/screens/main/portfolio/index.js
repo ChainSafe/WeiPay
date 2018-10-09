@@ -148,11 +148,14 @@ class Portfolio extends Component {
                 <View style={ styles.listItemValueComponent }>
                   <Text style={styles.listItemCryptoValue}>                 
                     {
-                      tokenAmounts.amount
+                      tokenAmounts == null ? 0 : tokenAmounts.amount                      
                     }                   
                   </Text>
                   <Text style={styles.listItemFiatValue}>
-                    { (tokenPriceInfo)[this.props.currencyOptions[this.state.currencyIndex]] }
+                    { 
+                       tokenAmounts == null ? 'NA' : (tokenPriceInfo)[this.props.currencyOptions[this.state.currencyIndex]]  
+                     
+                    }
                   </Text>
                 </View>
               </View>
