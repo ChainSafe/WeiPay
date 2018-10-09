@@ -22,7 +22,8 @@ class Contract extends Component {
       contractLoaded: false,
       address: '',
       hardCodedAddress: '0xcD361f7173C439BB76F3E1206446e9D183B82787',
-      wallet: this.props.wallets[0].hdWallet,
+      // wallet: this.props.wallets[0].hdWallet,
+      wallet: this.props.hotWallet.wallet,
       contractEvents: null,
       contractFunctions: null,
       contract: null,
@@ -362,9 +363,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ Wallet }) => {
-  const { wallets } = Wallet;
-  return { wallets };
+const mapStateToProps = ({ Wallet, HotWallet }) => {
+  const { hotWallet } = HotWallet;
+  return { hotWallet };
 }
 
 export default connect(mapStateToProps, null)(Contract);
