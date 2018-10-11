@@ -25,7 +25,9 @@ class Portfolio extends Component {
     currency: this.props.currencyOptions,
     apiRequestString: '',
     tokenBalances: {},
+    tokenAmounts: null,
     tokenPrices: [],
+    completeTokenObject: null,
     currentWallet: this.props.hotWallet.wallet,
     currentWalletName: this.props.wallets[0].name,
   }
@@ -52,17 +54,36 @@ class Portfolio extends Component {
    * The Balance (soon to be Wallet) reducer then updates state -> { ...state, walletBalance: walletBalanceObject, tokenBalances: individualTokens };
    */
   async componentDidMount() {
-    const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data);
+    if (this.props.walletBalance == null) {
+      await this.balanceCalculations();
+    } else {
+      await this.setState({       
+        walletBalance: this.props.walletBalance,
+        tokenPrices: this.props.tokenBalances,
+        tokenAmounts: this.props.tokenBalances,
+      });
+      this.showTokens();
+    }
+  }
+
+  balanceCalculations = async () => {
+    const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data);    
     await this.props.fetchCoinData(tokenSymbolString);
-    await this.props.calculateWalletBalance(tokenBalances, this.props.tokenConversions);
+    await this.props.calculateWalletBalance(tokenBalances, this.props.tokenConversions); //amount of tokens and symbol -> token balance, conversions -> matrix of prices
     await this.setState({ 
       apiRequestString: tokenSymbolString, 
       walletBalance: this.props.walletBalance,
-      tokenPrices: this.props.tokenBalances
+      tokenPrices: this.props.tokenBalances,
+      tokenAmounts: tokenBalances,
+
     });
     this.showTokens();
   }
-
+  /**
+   * tokens are passed into the function where their symbols and addresses are parsed out and stored in an array, 
+   * which is then passed to processAllTokenBalances. The return is the concatenated string of symbols in wallet, and the amount
+   * of each token the user has for a given private key.
+   */
   formatTokens = async (tokenList) => {
     let tokenObjectList = [];
     let privateKey; 
@@ -76,8 +97,21 @@ class Portfolio extends Component {
     return { tokenSymbolString, tokenBalances } = await processAllTokenBalances(privateKey, tokenObjectList);
   }
 
+  /**
+   * After all price data has loaded, a new array will be created with all token info -> amount of tokens, price matrix of tokens, 
+   * and token info. This will be the data source for the flat list.
+   */
   showTokens = () => {
     if (Object.prototype.hasOwnProperty.call(this.state.walletBalance, 'USD')) this.setState({ pricesLoaded: true });
+    let cTokenObjectList = [];
+    for(let i = 0; i < this.props.tokens.length; i++) {
+      let cto = {};
+      cto.tokenInfo = this.props.tokens[i];
+      cto.tokenPriceInfo = this.props.tokenBalances[i];
+      cto.tokenAmounts = this.state.tokenAmounts[i];
+      cTokenObjectList.push(cto);
+    }
+    this.setState({ completeTokenObject: cTokenObjectList });
   }
 
   navigate = () => {
@@ -91,53 +125,60 @@ class Portfolio extends Component {
   };
 
   renderRow = (token) => {
+    const { tokenInfo, tokenPriceInfo, tokenAmounts } = token;
     return (
-        <TouchableOpacity
-          onPress={() => {
-            this.props.addTokenInfo(token);
-            this.props.navigation.navigate('TokenFunctionality');
-          }}
-          style={styles.listItemParentContainer}
-        >
-          <View>
-            <BoxShadowCard customStyles={styles.boxShadowContainer}>
-              <View style={[styles.contentContainer]}>
-                <View style={styles.imgMainContainer} >
-                  <View style={styles.imageContainer} >
-                    <Image
-                      style={styles.img}
-                      source={ { uri: token.logo } }
-                    />
-                  </View>
+      <TouchableOpacity
+        onPress={() => {           
+          this.props.navigation.navigate('TokenFunctionality');
+        }}
+        style={styles.listItemParentContainer}
+        key={ `${tokenInfo.address}${tokenInfo.symbol}` }
+      >
+        <View>
+          <BoxShadowCard customStyles={styles.boxShadowContainer}>
+            <View style={[styles.contentContainer]}>
+              <View style={styles.imgMainContainer} >
+                <View style={styles.imageContainer} >
+                  <Image
+                    style={styles.img}
+                    source={ { uri: tokenInfo.logo } }
+                  />
                 </View>
-                <View style={styles.listItemTextComponentContainer}>
-                  <View style={ styles.listItemTextComponent }>
-                    <View style={styles.mainTitleContainer}>
-                      <Text style={styles.mainTitleText}> {token.symbol} </Text>
-                    </View>
-                    <View style={styles.subtitleContainer}>
-                      <Text style={styles.subTitleText}> {token.name} </Text>
-                    </View>
+              </View>
+              <View style={styles.listItemTextComponentContainer}>
+                <View style={ styles.listItemTextComponent }>
+                  <View style={styles.mainTitleContainer}>
+                    <Text style={styles.mainTitleText}> {tokenInfo.symbol} </Text>
                   </View>
-                </View>
-                <View style={ styles.listItemValueContainer }>
-                  <View style={ styles.listItemValueComponent }>
-                    <Text style={styles.listItemCryptoValue}>
-                      ...
-                    </Text>
-                    <Text style={styles.listItemFiatValue}>
-                     ...
-                    </Text>
+                  <View style={styles.subtitleContainer}>
+                    <Text style={styles.subTitleText}> {tokenInfo.name} </Text>
                   </View>
                 </View>
               </View>
-            </BoxShadowCard>
-          </View>
-        </TouchableOpacity>
+              <View style={ styles.listItemValueContainer }>
+                <View style={ styles.listItemValueComponent }>
+                  <Text style={styles.listItemCryptoValue}>                 
+                    {
+                      tokenAmounts == null ? 0 : tokenAmounts.amount               
+                    }                   
+                  </Text>
+                  <Text style={styles.listItemFiatValue}>
+                    { 
+                       tokenAmounts == null ? 'NA' : (tokenPriceInfo)[this.props.currencyOptions[this.state.currencyIndex]]                       
+                    }
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </BoxShadowCard>
+        </View>
+      </TouchableOpacity>
     );
   }
 
-  handleListRefresh = () => {}
+  handleListRefresh = async () => {
+    await this.balanceCalculations();
+  }
 
   handleCurrencyTouch = async () => {
     let currentIndex = this.state.currencyIndex;
@@ -192,15 +233,22 @@ class Portfolio extends Component {
             </TouchableOpacity>
           </View>
           <View style={styles.scrollViewContainer}>
-            <FlatList
-              data={this.state.data}
-              showsVerticalScrollIndicator={false}
-              renderItem= {({ item }) => { return this.renderRow(item); }}
-              keyExtractor= {(item) => { return String(item.symbol); }}
-              refreshing={this.state.refresh}
-              onRefresh={this.handleListRefresh}
-              extraData={this.props}
-            />
+            {
+              this.state.completeTokenObject == null
+              ? null
+              :
+                <FlatList
+                  data={this.state.completeTokenObject}
+                  showsVerticalScrollIndicator={false}
+                  renderItem= {({ item }) => { return this.renderRow(item); }}
+                  keyExtractor= {(item) => {                  
+                    return `${item.tokenInfo.address}${item.tokenInfo.name}`                  
+                  }}
+                  refreshing={this.state.refresh}
+                  onRefresh={this.handleListRefresh}
+                  extraData={this.props}
+                />
+            }
           </View>
           <View style={styles.btnContainer}>
             <LinearButton
