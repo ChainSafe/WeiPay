@@ -75,6 +75,7 @@ class Portfolio extends Component {
       walletBalance: this.props.walletBalance,
       tokenPrices: this.props.tokenBalances,
       tokenAmounts: tokenBalances,
+
     });
     this.showTokens();
   }
@@ -431,7 +432,9 @@ function mapStateToProps({ Wallet, Debug, HotWallet }) {
   const { hotWallet } = HotWallet;
   const { currencyOptions, tokens, wallets, tokenConversions, tokenBalances, walletBalance } = Wallet;
   const { debugMode, testWalletName } = Debug;
-  return { hotWallet, currencyOptions, tokens, debugMode, testWalletName, wallets, tokenConversions, walletBalance, tokenBalances };
+  return {
+    hotWallet, currencyOptions, tokens, debugMode, testWalletName, wallets, tokenConversions, walletBalance, tokenBalances,
+  };
 }
 
 export default connect(mapStateToProps, {
