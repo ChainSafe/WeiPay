@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Dimensions, Text, SafeAreaView, ScrollView } from 'react-native';
+import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from 'react-navigation';
 import CoinList from '../../../../components/tokens/CoinList';
-import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
-import TwoTabNavigator from '../../../../components/customPageNavs/TwoTabNavigatior';
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
-import RF from 'react-native-responsive-fontsize'
 
 /**
  * React Screen Component

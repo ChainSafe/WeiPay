@@ -1,6 +1,7 @@
 import { StackNavigator, DrawerNavigator, DrawerItems } from 'react-navigation';
 import { View, StyleSheet } from 'react-native';
 import React from 'react';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 import Contacts from '../../screens/main/menu/contacts/index';
 import AddContact from '../../screens/main/menu/contacts/add/AddContact';
 import EditContact from '../../screens/main/menu/contacts/add/EditContact';
@@ -8,15 +9,12 @@ import Portfolio from '../../screens/main/portfolio/index';
 import CoinSend from '../../screens/main/tokens/send/CoinSend';
 import CoinHistory from '../../screens/main/tokens/history/CoinActivity';
 import CoinReceive from '../../screens/main/tokens/receive/CoinReceive';
-import AddToken from '../../screens/main/tokens/add/Tokens';
-import AddCoin from '../../screens/main/tokens/add/Coins'
 import ContactAddresses from '../../screens/main/menu/contacts/SelectedContact';
 import QrCodeScanner from '../../screens/main/qr/QrCodeScanner';
 import BackupPhrase from '../../screens/main/menu/settings/BackupPhrase';
 import TokenFunctionality from '../../screens/main/tokens/Index';
 import AddingTokensOrCoins from '../../screens/main/tokens/add/Index';
 import Contract from '../../screens/main/contracts/Contract';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 const CustomDrawerContentComponent = props => (
   <View style={styles.customContainer}>
@@ -66,8 +64,7 @@ const navigator = DrawerNavigator({
       headerMode: 'none',
     }),
   },
-  Coins: { screen: AddCoin },
-  Tokens: { screen: AddToken },
+  Tokens: { screen: AddingTokensOrCoins },
   Contracts: { screen: Contract },
 }, {
   headerMode: 'none',
@@ -91,4 +88,4 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: '200',
   },
-})
+});
