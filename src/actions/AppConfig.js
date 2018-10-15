@@ -49,7 +49,7 @@ export function setTempWalletName(walletName) {
  * If previosWalletState.length = 0 means its the users first wallet in the app.
  */
 export function initializeAppWallet(currentWallet, walletName, previousWalletState) {
-  let appWallets = [];
+  let appWallets = [];  
   if (previousWalletState.length > 0) { 
     for (let i = 0; i < previousWalletState.length; i++) {
       let previousWallet = {};

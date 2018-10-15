@@ -69,8 +69,7 @@ class PinPage extends Component {
         const decryptedWallet = await ethers.Wallet.fromEncryptedWallet(encryptedWallet, this.state.password);
         if(Object.prototype.hasOwnProperty.call(decryptedWallet, 'privateKey')){        
           const walletInHotReducerDecrypted = { wallet: decryptedWallet, name: walletNameCheck };
-          this.props.setHotWallet(walletInHotReducerDecrypted);
-          this.props.initializeAppWallet(encryptedWallet, walletNameCheck, userWallets);
+          this.props.setHotWallet(walletInHotReducerDecrypted);          
           const navigateToMain = NavigationActions.navigate({
             routeName: 'mainStack',
           });
