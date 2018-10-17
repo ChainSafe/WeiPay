@@ -3,11 +3,9 @@ import {
  View, Text, StyleSheet, Alert, TouchableOpacity, Image, SafeAreaView, TouchableWithoutFeedback, Dimensions, Keyboard, ActivityIndicator 
 } from 'react-native';
 import { connect } from 'react-redux';
-import { FormInput, Button, Card } from 'react-native-elements';
+import { FormInput } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import RF from "react-native-responsive-fontsize"
-import { TabView, TabBar, SceneMap } from 'react-native-tab-view';
-// import { getQRCodeData, addTokenInfo, qrScannerInvoker, updateTxnFee } from '../../../../actions/ActionCreator';
 import * as action from '../../../../actions/ActionCreator';
 import provider from '../../../../constants/Providers';
 import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator';

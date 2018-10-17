@@ -6,6 +6,7 @@ import {
   DEBUG_MODE,
   SET_APP_PASSWORD,
   CONFIG_HOT_WALLET,
+  SAVE_TOKEN_DATA_FOR_TRANSACTION,
 } from "./ActionTypes";
 
 
@@ -81,11 +82,12 @@ export function setWalletPassword(password) {
 export function setHotWallet(walletObj) {
   const { name, wallet } = walletObj;
   const pKey = wallet.address;
-
-  return(dispatch) => {
+  return (dispatch) => {
     dispatch({ type: CONFIG_HOT_WALLET, payload: { 'wallet': wallet, 'publicKey': pKey,'name': name} });
   };
 }
 
-
+export function selectTokenForTransaction(tokenName) {
+  //recivieving address, amount
+}
 
