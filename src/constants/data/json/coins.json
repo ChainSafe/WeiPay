@@ -2,7 +2,7 @@
     {
         "id": 0,
         "type": "PortfolioCoin",
-        "selected": false,
+        "selected": true,
         "symbol": "ETH",
         "address": "",
         "decimals": 18,
@@ -38,7 +38,7 @@
     {
         "id": 1,
         "type": "ERC20",
-        "selected": false,
+        "selected": true,
         "symbol": "ANT",
         "address": "0x960b236A07cf122663c4303350609A66A7B288C0",
         "decimals": 18,
@@ -74,7 +74,7 @@
     {
         "id": 2,
         "type": "ERC20",
-        "selected": false,
+        "selected": true,
         "symbol": "OMG",
         "address": "0xd26114cd6EE289AccF82350c8d8487fedB8A0C07",
         "decimals": 18,
@@ -110,7 +110,7 @@
     {
         "id": 3,
         "type": "ERC20",
-        "selected": false,
+        "selected": true,
         "symbol": "ZRX",
         "address": "0xE41d2489571d322189246DaFA5ebDe1F4699F498",
         "decimals": 18,
@@ -146,7 +146,7 @@
     {
         "id": 4,
         "type": "ERC20",
-        "selected": false,
+        "selected": true,
         "symbol": "MKR",
         "address": "0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2",
         "decimals": 18,
@@ -182,7 +182,7 @@
     {
         "id": 5,
         "type": "ERC20",
-        "selected": false,
+        "selected": true,
         "symbol": "GNT",
         "address": "0xa74476443119A942dE498590Fe1f2454d7D4aC0d",
         "decimals": 18,
@@ -218,7 +218,7 @@
     {
         "id": 6,
         "type": "ERC20",
-        "selected": false,
+        "selected": true,
         "symbol": "SNT",
         "address": "0x744d70FDBE2Ba4CF95131626614a1763DF805B9E",
         "decimals": 18,
@@ -254,7 +254,7 @@
     {
         "id": 7,
         "type": "ERC20",
-        "selected": false,
+        "selected": true,
         "symbol": "DAI",
         "address": "0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359",
         "decimals": 18,
