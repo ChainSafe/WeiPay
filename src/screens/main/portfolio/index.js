@@ -125,12 +125,12 @@ class Portfolio extends Component {
   };
 
   renderRow = (token) => {
-    
+    console.log('token', token);
     const { tokenInfo, tokenPriceInfo, tokenAmounts } = token;
     return (
       <TouchableOpacity
         onPress={() => {
-          // this.props.saveTokenDataForTransaction()
+          this.props.saveTokenDataForTransaction(tokenAmounts.amount, tokenAmounts.symbol, tokenInfo.address);
           this.props.navigation.navigate('TokenFunctionality');
         }}
         style={styles.listItemParentContainer}

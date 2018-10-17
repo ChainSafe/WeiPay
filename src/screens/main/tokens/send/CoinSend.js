@@ -12,7 +12,6 @@ import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSend
 import ERC20ABI from '../../../../constants/data/json/ERC20ABI.json';
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
 import ClearButton from '../../../../components/LinearGradient/ClearButton';
-import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard';
 import Provider from '../../../../constants/Providers';
 import MaliciousAddresses from '../../../../constants/data/json/addresses_darklist.json';
@@ -74,16 +73,16 @@ class CoinSend extends Component {
           'Invalid Ether Amount',
           'Please enter an amount greater than 0.',
           [
-            { text: 'OK', onPress: () => {return console.log('OK Pressed')} },
+            { text: 'OK', onPress: () => { return console.log('OK Pressed')} },
           ],
           { cancelable: false },
         );
       } else {
-        console.log(`is a number ${  valueInput}`);
+        console.log(`is a number ${valueInput}`);
         this.setState({ value: valueInput });
       }
     } else {
-      console.log(`not a number ${  valueInput}`);
+      console.log(`not a number ${valueInput}`);
       this.setState({ value: 0 });
     }
   }
@@ -103,7 +102,7 @@ class CoinSend extends Component {
     if(response.flag) {
       this.setState({maliciousCheck: true});
     } else {
-      const amountString = `${  this.state.value  }`;
+      const amountString = `${this.state.value}`;
       const receivingAddress = this.state.toAddress;
       const amount = ethers.utils.parseEther(amountString);
       const currentWallet = this.props.wallet;
@@ -296,9 +295,7 @@ class CoinSend extends Component {
     );
   }
 }
-/**
- * Styles for CoinSend screen
- */
+
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
@@ -435,6 +432,7 @@ const styles = StyleSheet.create({
  */
 const mapStateToProps = (state) => {
   return {
+    tokenData: state.Wallet.activeTokenData,
     wallet: state.newWallet.wallet,
     addressData: state.newWallet.QrData,
     token: state.newWallet.current_token,
