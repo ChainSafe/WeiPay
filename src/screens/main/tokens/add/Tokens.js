@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import {
   View, StyleSheet, Dimensions, Text, SafeAreaView, RefreshControl,
 } from 'react-native';
-import { FormLabel, FormInput } from 'react-native-elements'
+import { FormLabel, FormInput } from 'react-native-elements';
 import SearchBar from 'react-native-material-design-searchbar';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import RF from 'react-native-responsive-fontsize';
 import * as actions from '../../../../actions/ActionCreator';
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
+import TokenConfig from '../../../../scripts/tokenConfig';
+import { addNewToken } from '../../../../actions/AppConfig';
 
 /**
  * React Screen Component
@@ -18,7 +20,7 @@ class Coins extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tokens: this.props.newWallet.allTokens,
+      tokens: this.props.allTokens,
       searchedTokenSym: '',
       searchedTokenName: '',
       searchedTokenNameAdd: '',
@@ -58,12 +60,22 @@ class Coins extends Component {
   addCustomToken = () => {
     try {
       const token = this.state.tokens[this.state.searchedTokenSym];
+      let tokenName;
       if (token != null) {
         if (token['name'] != null) {
-          this.props.addTokenFromList(token['name'] ,this.state.searchedTokenSym, token['contract_address']);      
+          tokenName = token['name'];
         } else {
-          this.props.addTokenFromList('NA' ,this.state.searchedTokenSym, token['contract_address']);
+          tokenName = 'NA';
         }
+        const newTokenObj = TokenConfig('addNew', {
+          "name": tokenName,
+          "address": token['contract_address'],
+          "symbol": this.state.searchedTokenSym,
+          "id": this.props.tokens.length,
+          "decimals": token['decimals'],
+        });
+        console.log('new token obj', newTokenObj);
+        this.props.addNewToken(newTokenObj, this.props.tokens);
         this.setState({ searchedTokenSym: '', searchedTokenName: '', searchedTokenNameAdd: ''});
       }
     } catch (error) {
@@ -172,8 +184,11 @@ const styles = StyleSheet.create({
  * Returns an object containing that reterived object
  * @param {Object} param0
  */
-function mapStateToProps({ newWallet }) {
-  return { newWallet };
+function mapStateToProps({ Wallet }) {
+  const { tokens, allTokens } = Wallet;
+  return { tokens, allTokens };
 }
 
-export default connect(mapStateToProps, actions )(Coins);
+export default connect(mapStateToProps, {
+  actions, addNewToken,
+})(Coins);

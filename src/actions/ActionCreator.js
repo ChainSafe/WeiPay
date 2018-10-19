@@ -245,6 +245,7 @@ export function completeNewToken() {
 export function clearStore() {
   return { type: actionTypes.CLEAR_STORE }
 }
+
 export function addTokenFromList(tokenname, tokenSym, tokenAdd) {
   const loads = { name: tokenname, symbol: tokenSym, add: tokenAdd };
   return (dispatch) => {
