@@ -102,7 +102,7 @@ class CoinSend extends Component {
     if(response.flag) {
       this.setState({maliciousCheck: true});
     } else {
-      const amountString = `${this.state.value}`;
+      const amountString = this.state.value.toString();
       const receivingAddress = this.state.toAddress;
       const amount = ethers.utils.parseEther(amountString);
       const currentWallet = this.props.wallet;
