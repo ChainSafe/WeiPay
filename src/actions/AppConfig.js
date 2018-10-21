@@ -38,7 +38,6 @@ export function initializeAppTokenState(initTokenData) {
 /**
  * Adds a single token to the app state
  */
-
 export function addNewToken(tokenObject, usersTokens) {
   let tokenCopy = [...usersTokens];
   tokenCopy.push(tokenObject);

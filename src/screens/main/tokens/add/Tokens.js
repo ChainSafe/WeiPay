@@ -74,7 +74,6 @@ class Coins extends Component {
           "id": this.props.tokens.length,
           "decimals": token['decimals'],
         });
-        console.log('new token obj', newTokenObj);
         this.props.addNewToken(newTokenObj, this.props.tokens);
         this.setState({ searchedTokenSym: '', searchedTokenName: '', searchedTokenNameAdd: ''});
       }

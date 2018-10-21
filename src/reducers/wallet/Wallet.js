@@ -18,7 +18,7 @@ import {
 
 const initialState = {
   isInSetupScreens: true,
-  wallets: [], //Contains all the encrypted HD Wallet
+  wallets: [],
   tempWalletName: null,
   tokens: [],
   walletBalance: null,
