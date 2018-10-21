@@ -75,7 +75,6 @@ class Portfolio extends Component {
       walletBalance: this.props.walletBalance,
       tokenPrices: this.props.tokenBalances,
       tokenAmounts: tokenBalances,
-
     });
     this.showTokens();
   }
