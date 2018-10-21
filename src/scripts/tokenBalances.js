@@ -57,9 +57,7 @@ getEthereumBalance = async () => {
 getERC20Balance = async (contractAdd) => {
   const contract = new ethers.Contract(contractAdd, ERC20ABI, provider);
   const tokenBalance = await contract.balanceOf(wallet.address);
-  console.log('b', tokenBalance);
   const parsedTokenBalance = String(tokenBalance / 100);
-  console.log(parsedTokenBalance);
   return parsedTokenBalance;
 };
 
