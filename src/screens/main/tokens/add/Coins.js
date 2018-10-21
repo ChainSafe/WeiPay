@@ -5,10 +5,6 @@ import { NavigationActions } from 'react-navigation';
 import CoinList from '../../../../components/tokens/CoinList';
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
 
-/**
- * React Screen Component
- * Screen to add more coins to the portfolio
- */
 class Coins extends Component {
   /**
    * Allows you to navigate to the navigation drawer
