@@ -37,7 +37,9 @@ class Contract extends Component {
 
   getContract = async () => {
     this.setState({ contractFunctions: null });
-    const { contractFunctions, contractEvents, contract, withInputs } = await processContractByAddress(this.state.wallet, this.state.hardCodedAddress);
+    const {
+      contractFunctions, contractEvents, contract, withInputs,
+    } = await processContractByAddress(this.state.wallet, this.state.hardCodedAddress);
     console.log({ withInputs });
     this.setState({ contractEvents, contractFunctions, contract, withInputs });
   }
@@ -113,7 +115,7 @@ class Contract extends Component {
                     <View style={styles.functionInputContainer}>
                       <FormInput
                         placeholder= { this.state.payable ? this.state.payable.text : "Ether Value (Payable)" }
-                        onChangeText={(text)=> this.handlePayable(text, item.property)}
+                        onChangeText={(text) => this.handlePayable(text, item.property)}
                         inputStyle={styles.functionInputStyle}
                       />
                     </View>
