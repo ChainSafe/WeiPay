@@ -28,6 +28,7 @@ class Contract extends Component {
       contractEvents: null,
       contractFunctions: null,
       contract: null,
+      payableFunctions: null,
       functions: [],
       currentInput: {},
     };
@@ -35,8 +36,8 @@ class Contract extends Component {
 
   getContract = async () => {
     this.setState({ contractFunctions: null });
-    const { contractFunctions, contractEvents, contract } = await processContractByAddress(this.state.wallet, this.state.hardCodedAddress);
-    this.setState({ contractEvents, contractFunctions, contract });
+    const { contractFunctions, contractEvents, contract, payableFunctions } = await processContractByAddress(this.state.wallet, this.state.hardCodedAddress);
+    this.setState({ contractEvents, contractFunctions, contract, payableFunctions });
   }
 
   /**
@@ -75,6 +76,9 @@ class Contract extends Component {
     await processFunctionCall2(this.state.wallet, functionName, inputs, this.state.contract);
     Toast.show('Success', Toast.LONG);
   }
+  
+
+  
 
   parseFunctions = () => {
     let contractFunctionsFormatted = []; //holds all the functions
@@ -82,10 +86,14 @@ class Contract extends Component {
     for (var property in this.state.contractFunctions) {
       if (this.state.contractFunctions.hasOwnProperty(property)) {
         let functionSignature = this.state.contractFunctions[property].signature;
+
         let functionInputs = this.state.contractFunctions[property].inputs;
+
         let fInputs = [];
+        let payable = false;
         if (contractFunctionList.indexOf(functionSignature) == -1) {
           contractFunctionList.push(functionSignature);
+          
           for(let i = 0; i < functionInputs.names.length; i++) {
             let inputObj = {};
             inputObj.inputName = functionInputs.names[i];
@@ -97,6 +105,7 @@ class Contract extends Component {
           const arrayLength = contractFunctionsFormatted.length;
           contractFunctionsFormatted.push({ arrayLength, property, functionSignature, fInputs });
         }
+
       }
     }
 
