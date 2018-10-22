@@ -29,7 +29,7 @@ class Coins extends Component {
           <View style={styles.btnContainer}>
             <LinearButton
               onClickFunction={this.navigate}
-              buttonText='Add Coins'
+              buttonText='Update Portfolio'
               customStyles={styles.button}
             />
             <View style={styles.footerGrandparentContainer}>
