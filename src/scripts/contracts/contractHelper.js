@@ -49,6 +49,7 @@ const markPayableFunctions = (interfaceFunctions, uniqueFunctions) => {
 
 const getFunctionInputs = (interfaceFunctions, formattedFunctions) => {
   let functionsWithInputs = [];
+  let uniqueKey = 333;
   for (let i = 0; i < formattedFunctions.length; i++) {
     let functionObject = {};
     let functionInputs = [];
@@ -61,6 +62,9 @@ const getFunctionInputs = (interfaceFunctions, formattedFunctions) => {
           let inputObj = {};          
           inputObj.inputName = inputs.names[y];
           inputObj.type = inputs.types[y];
+          const uniqueKeyHelper = functionsWithInputs.length * 2 + uniqueKey;
+          inputObj.uniqueKey = `${uniqueKeyHelper}${functionObject.signature}${inputObj.inputName}${functionObject.payable}`;
+          this.uniqueKey += 33;
           functionInputs.push(inputObj);
         }
        functionObject.inputs = functionInputs;
@@ -89,14 +93,7 @@ export const processContractByAddress = async (wallet, address) => {
     const uniqueFunctionListX = await getUniqueFunctionSignatures(contractFunctions);
     const formattedFunctions = await markPayableFunctions(contractFunctions, uniqueFunctionListX);
     const withInputs = await getFunctionInputs(contractFunctions, formattedFunctions);
-
-    var payableFunctions = [];
-    uniqueX.forEach(element => {
-      if(contractFunctions[element]['payable']) {
-        payableFunctions.push(element);
-      }
-    });  
-    return { contractFunctions, contractEvents, contract, payableFunctions };
+    return { contractFunctions, contractEvents, contract, withInputs };
   } catch (err) {
     console.log(err);
   }

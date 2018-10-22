@@ -28,7 +28,7 @@ class Contract extends Component {
       contractEvents: null,
       contractFunctions: null,
       contract: null,
-      payableFunctions: null,
+      withInputs: null,
       functions: [],
       currentInput: {},
     };
@@ -36,8 +36,9 @@ class Contract extends Component {
 
   getContract = async () => {
     this.setState({ contractFunctions: null });
-    const { contractFunctions, contractEvents, contract, payableFunctions } = await processContractByAddress(this.state.wallet, this.state.hardCodedAddress);
-    this.setState({ contractEvents, contractFunctions, contract, payableFunctions });
+    const { contractFunctions, contractEvents, contract, withInputs } = await processContractByAddress(this.state.wallet, this.state.hardCodedAddress);
+    console.log({ withInputs });
+    this.setState({ contractEvents, contractFunctions, contract, withInputs });
   }
 
   /**
@@ -82,38 +83,22 @@ class Contract extends Component {
 
   parseFunctions = () => {
     let contractFunctionsFormatted = []; //holds all the functions
-    let contractFunctionList = [];
-    for (var property in this.state.contractFunctions) {
-      if (this.state.contractFunctions.hasOwnProperty(property)) {
-        let functionSignature = this.state.contractFunctions[property].signature;
+    const allFunctionsWithInputs = this.state.withInputs;
 
-        let functionInputs = this.state.contractFunctions[property].inputs;
-
-        let fInputs = [];
-        let payable = false;
-        if (contractFunctionList.indexOf(functionSignature) == -1) {
-          contractFunctionList.push(functionSignature);
-          
-          for(let i = 0; i < functionInputs.names.length; i++) {
-            let inputObj = {};
-            inputObj.inputName = functionInputs.names[i];
-            inputObj.type = functionInputs.types[i];
-            const uniqueKeyHelper = contractFunctionsFormatted.length * 2;
-            inputObj.uniquekey = `${uniqueKeyHelper}${functionInputs.names[i]}${functionInputs.types[i]}`;
-            fInputs.push(inputObj);
-          }
-          const arrayLength = contractFunctionsFormatted.length;
-          contractFunctionsFormatted.push({ arrayLength, property, functionSignature, fInputs });
-        }
-
-      }
+    for(let i = 0; i < allFunctionsWithInputs.length; i++) {
+      console.log(i, allFunctionsWithInputs[i]);
+      const arrayLength = contractFunctionsFormatted.length;
+      const functionSignature = allFunctionsWithInputs[i].signature;
+      const property = functionSignature.split('(')[0];
+      const fInputs = allFunctionsWithInputs[i].inputs;
+      contractFunctionsFormatted.push({ arrayLength, property, functionSignature, fInputs });
     }
 
     return (
       <View>
         {
           contractFunctionsFormatted.map((item) =>
-            <View key={item.arrayLength} style={styles.functionContainer }>
+            <View key={`${item.arrayLength}${item.functionSignature}`} style={styles.functionContainer }>
               <BoxShadowCard>
                 <View style={styles.functionInputContainer}>
                   <Text>Signature: {item.functionSignature} </Text>
@@ -123,7 +108,7 @@ class Contract extends Component {
                   ? <View>
                     {
                       item.fInputs.map((inputObject) =>
-                        <View key={`${item.arrayLength}${inputObject.uniquekey}`}>
+                        <View key={`${item.arrayLength}${inputObject.uniquekey}${inputObject.inputName}`}>
                           <View style={styles.functionInputContainer}>
                             <Text>input name: {inputObject.inputName} </Text>
                           </View>
