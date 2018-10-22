@@ -29,6 +29,7 @@ class Contract extends Component {
       contractFunctions: null,
       contract: null,
       withInputs: null,
+      payable: null,
       functions: [],
       currentInput: {},
     };
@@ -52,7 +53,6 @@ class Contract extends Component {
     console.log('___processFunctionInput');
     console.log({ x, inputName, inputType, funcName });
     let c = Object.assign({}, this.state.currentInput);
-    console.log('c', c);
     if (c[funcName] == null) {
       c[funcName] = {};
     }
@@ -78,20 +78,23 @@ class Contract extends Component {
     Toast.show('Success', Toast.LONG);
   }
   
-
+  handlePayable = (text, functionName) => {
+    console.log({text, functionName});
+    let payableObj = {text, functionName}
+    this.setState({ payable: payableObj });
+  }
   
-
   parseFunctions = () => {
     let contractFunctionsFormatted = []; //holds all the functions
     const allFunctionsWithInputs = this.state.withInputs;
 
-    for(let i = 0; i < allFunctionsWithInputs.length; i++) {
-      console.log(i, allFunctionsWithInputs[i]);
+    for (let i = 0; i < allFunctionsWithInputs.length; i++) {
       const arrayLength = contractFunctionsFormatted.length;
       const functionSignature = allFunctionsWithInputs[i].signature;
       const property = functionSignature.split('(')[0];
       const fInputs = allFunctionsWithInputs[i].inputs;
-      contractFunctionsFormatted.push({ arrayLength, property, functionSignature, fInputs });
+      const payable = allFunctionsWithInputs[i].payable;
+      contractFunctionsFormatted.push({ arrayLength, property, functionSignature, fInputs, payable });
     }
 
     return (
@@ -103,6 +106,20 @@ class Contract extends Component {
                 <View style={styles.functionInputContainer}>
                   <Text>Signature: {item.functionSignature} </Text>
                 </View>
+
+                {
+                  item.payable 
+                  ?  
+                    <View style={styles.functionInputContainer}>
+                      <FormInput
+                        placeholder= { this.state.payable ? this.state.payable.text : "Ether Value (Payable)" }
+                        onChangeText={(text)=> this.handlePayable(text, item.property)}
+                        inputStyle={styles.functionInputStyle}
+                      />
+                    </View>
+                  : null
+                }
+
                 {
                   (item.fInputs.length != 0)
                   ? <View>
