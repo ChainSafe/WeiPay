@@ -124,57 +124,63 @@ class Portfolio extends Component {
   };
 
   renderRow = (token) => {
+     
+    const { tokenInfo, tokenPriceInfo, tokenAmounts, selected } = token;
+    console.log(selected);
     
-    
-    const { tokenInfo, tokenPriceInfo, tokenAmounts } = token;
-    return (
-      <TouchableOpacity
-        onPress={() => {           
-          this.props.navigation.navigate('TokenFunctionality');
-        }}
-        style={styles.listItemParentContainer}
-        key={ `${tokenInfo.address}${tokenInfo.symbol}` }
-      >
-        <View>
-          <BoxShadowCard customStyles={styles.boxShadowContainer}>
-            <View style={[styles.contentContainer]}>
-              <View style={styles.imgMainContainer} >
-                <View style={styles.imageContainer} >
-                  <Image
-                    style={styles.img}
-                    source={ { uri: tokenInfo.logo } }
-                  />
-                </View>
-              </View>
-              <View style={styles.listItemTextComponentContainer}>
-                <View style={ styles.listItemTextComponent }>
-                  <View style={styles.mainTitleContainer}>
-                    <Text style={styles.mainTitleText}> {tokenInfo.symbol} </Text>
-                  </View>
-                  <View style={styles.subtitleContainer}>
-                    <Text style={styles.subTitleText}> {tokenInfo.name} </Text>
+
+    if (tokenInfo.selected) {
+      return (
+        
+        <TouchableOpacity
+          onPress={() => {           
+            this.props.navigation.navigate('TokenFunctionality');
+          }}
+          style={styles.listItemParentContainer}
+          key={ `${tokenInfo.address}${tokenInfo.symbol}` }
+        >
+          <View>
+            <BoxShadowCard customStyles={styles.boxShadowContainer}>
+              <View style={[styles.contentContainer]}>
+                <View style={styles.imgMainContainer} >
+                  <View style={styles.imageContainer} >
+                    <Image
+                      style={styles.img}
+                      source={ { uri: tokenInfo.logo } }
+                    />
                   </View>
                 </View>
-              </View>
-              <View style={ styles.listItemValueContainer }>
-                <View style={ styles.listItemValueComponent }>
-                  <Text style={styles.listItemCryptoValue}>                 
-                    {
-                      tokenAmounts == null ? 0 : tokenAmounts.amount               
-                    }                   
-                  </Text>
-                  <Text style={styles.listItemFiatValue}>
-                    { 
-                       tokenAmounts == null ? 'NA' : (tokenPriceInfo)[this.props.currencyOptions[this.state.currencyIndex]]                       
-                    }
-                  </Text>
+                <View style={styles.listItemTextComponentContainer}>
+                  <View style={ styles.listItemTextComponent }>
+                    <View style={styles.mainTitleContainer}>
+                      <Text style={styles.mainTitleText}> {tokenInfo.symbol} </Text>
+                    </View>
+                    <View style={styles.subtitleContainer}>
+                      <Text style={styles.subTitleText}> {tokenInfo.name} </Text>
+                    </View>
+                  </View>
+                </View>
+                <View style={ styles.listItemValueContainer }>
+                  <View style={ styles.listItemValueComponent }>
+                    <Text style={styles.listItemCryptoValue}>                 
+                      {
+                        tokenAmounts == null ? 0 : tokenAmounts.amount               
+                      }                   
+                    </Text>
+                    <Text style={styles.listItemFiatValue}>
+                      { 
+                        tokenAmounts == null ? 'NA' : (tokenPriceInfo)[this.props.currencyOptions[this.state.currencyIndex]]                       
+                      }
+                    </Text>
+                  </View>
                 </View>
               </View>
-            </View>
-          </BoxShadowCard>
-        </View>
-      </TouchableOpacity>
-    );
+            </BoxShadowCard>
+          </View>
+        </TouchableOpacity>
+      );
+    }
+    return null;
   }
 
   handleListRefresh = async () => {
@@ -196,7 +202,7 @@ class Portfolio extends Component {
    * The component also provides the option to add/delete tokens
    */
   render() {  
-    console.log(this.state.data);
+    // console.log(this.state.data);
     
     return (
       <SafeAreaView style={styles.safeAreaView}>
