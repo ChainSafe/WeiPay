@@ -125,6 +125,8 @@ class Portfolio extends Component {
   };
 
   renderRow = (token) => {
+    
+    
     const { tokenInfo, tokenPriceInfo, tokenAmounts } = token;
     return (
       <TouchableOpacity
@@ -195,6 +197,8 @@ class Portfolio extends Component {
    * The component also provides the option to add/delete tokens
    */
   render() {  
+    console.log(this.state.data);
+    
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer} >
