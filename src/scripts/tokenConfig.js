@@ -1,17 +1,48 @@
 import tokenListJson from '../constants/data/json/coins.json';
 import Token from './classes/Token';
 
-const tokenConfiguration = (configFlag) => {
+const tokenConfiguration = (configFlag, tokenObject) => {
   let tokenList;
 
   switch (configFlag) {
     case 'setup':
       tokenList = this.initialSetup();
       break;
+    case 'addNew':
+      tokenList = this.addNewToken(tokenObject);
+      break;
     default:
       console.log('defaul triggered');
   }
   return tokenList;
+};
+
+
+addNewToken = (tokenObj) => {
+  const { name, address, symbol, id, decimals } = tokenObj;
+  let token = new Token(symbol, address);
+  token.index = id;
+  token.type = "ERC20";
+  token.decimals = decimals;
+  token.name = name;
+  token.ens_address = null;
+  token.website = null;
+  token.logo = "https://etherscan.io/images/EtherscanLogo-transparent-b-small.png";
+  token.email = null;
+  token.blog = null;
+  token.chat = null;
+  token.facebook = null;
+  token.forum = null;
+  token.github = null;
+  token.gitter = null;
+  token.instagram = null;
+  token.linkedin = null;
+  token.reddit = null;
+  token.slack = null;
+  token.telegram = null;
+  token.twitter = null;
+  token.youtube = null;
+  return token;
 };
 
 /**
@@ -29,7 +60,6 @@ initialSetup = () => {
     token.website = tokenObject.website;
     token.logo = tokenObject.logo.src;
     token.email = tokenObject.support.email;
-    token.type = tokenObject.type;
     token.blog = tokenObject.social.blog;
     token.chat = tokenObject.social.chat;
     token.facebook = tokenObject.social.facebook;

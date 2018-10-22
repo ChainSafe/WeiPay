@@ -9,31 +9,36 @@ import RF from 'react-native-responsive-fontsize';
 import * as actions from '../../../../actions/ActionCreator';
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
 import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard';
-
-const ethers = require('ethers');
+import TokenConfig from '../../../../scripts/tokenConfig';
+import { addNewToken } from '../../../../actions/AppConfig'
 
 class NewToken extends Component {
   state = {
-    tokenName: this.props.newTokenName,
-    tokenAddress: this.props.newTokenAddress,
+    tokenName: '',
+    tokenAddress: '',
   }
 
   complete = () => {
     if (this.state.tokenAddress !== '' && this.state.tokenName !== '') {
       this.setState({ tokenAddress: '' });
       this.setState({ tokenName: '' });
-      this.props.completeNewToken();
+      const newTokenObj = TokenConfig('addNew', {
+        "name": "NA",
+        "address": this.state.tokenAddress,
+        "symbol": this.state.tokenName,
+        "id": this.props.tokens.length,
+        "decimals": "NA",
+      });
+      this.props.addNewToken(newTokenObj, this.props.tokens);
     }
   }
 
   updateAddress(address) {
     this.setState({ tokenAddress: address });
-    this.props.updateNewTokenAddress(address);
   }
 
   updateName(name) {
     this.setState({ tokenName: name });
-    this.props.updateNewTokenName(name);
   }
 
   navigate = () => {
@@ -230,13 +235,15 @@ const styles = StyleSheet.create({
 
 });
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ newWallet, Wallet }) => {
   return {
-    newTokenAddress: state.newWallet.newTokenAddress,
-    newTokenName: state.newWallet.newTokenName,
-    tokens: state.newWallet.tokens,
-    QrCodeData: state.newWallet.QrData,
+    newTokenAddress: newWallet.newTokenAddress,
+    newTokenName: newWallet.newTokenName,
+    tokens: Wallet.tokens,
+    QrCodeData: newWallet.QrData,
   };
 };
 
-export default connect(mapStateToProps, actions)(NewToken);
+export default connect(mapStateToProps, {
+  actions, addNewToken,
+})(NewToken);

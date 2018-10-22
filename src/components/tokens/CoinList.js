@@ -12,7 +12,7 @@ import CoinListItem from './ListItem';
 class CoinList extends Component {
 
     state = {
-        data: this.props.coins,
+       data: this.props.coins,
     }
 
     /**
@@ -53,7 +53,7 @@ class CoinList extends Component {
             <FlatList 
                 data={this.state.data}
                 renderItem={({ item }) => { return this.renderRow(item); }}
-                keyExtractor={(item) => { return String(item.id); }}
+                keyExtractor={( item ) => { return `${item.id}${item.address}`; }}
             />
         );
     }
@@ -67,8 +67,8 @@ class CoinList extends Component {
  * is passed through the connect method
  * @param {Object} param0 
  */
-const mapStateToProps = ({ newWallet }) => {
-    return { coins: newWallet.coinData }
+const mapStateToProps = ({ Wallet }) => {
+    return { coins: Wallet.tokens };
 }
 
 
