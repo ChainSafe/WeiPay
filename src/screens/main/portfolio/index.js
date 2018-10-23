@@ -86,14 +86,13 @@ class Portfolio extends Component {
    */
   formatTokens = async (tokenList) => {
     let tokenObjectList = [];
-    let privateKey;
     for (let i = 0; i < tokenList.length; i++) {
       let tokenObj = {};
       tokenObj.symbol = tokenList[i].symbol;
       tokenObj.contractAddress = tokenList[i].address;
       tokenObjectList.push(tokenObj);
     }
-    privateKey =  this.state.currentWallet.privateKey;
+    const privateKey =  this.state.currentWallet.privateKey;
     return { tokenSymbolString, tokenBalances } = await processAllTokenBalances(privateKey, tokenObjectList);
   }
 
