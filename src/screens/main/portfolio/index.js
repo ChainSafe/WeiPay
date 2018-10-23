@@ -7,6 +7,7 @@ import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from 'react-navigation';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import { setWalletTokenBalances, fetchCoinData, calculateWalletBalance } from '../../../actions/FetchCoinData';
+import { saveTokenDataForTransaction } from '../../../actions/AppConfig';
 import processAllTokenBalances from '../../../scripts/tokenBalances';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
@@ -57,7 +58,7 @@ class Portfolio extends Component {
     if (this.props.walletBalance == null) {
       await this.balanceCalculations();
     } else {
-      await this.setState({       
+      await this.setState({
         walletBalance: this.props.walletBalance,
         tokenPrices: this.props.tokenBalances,
         tokenAmounts: this.props.tokenBalances,
@@ -67,38 +68,36 @@ class Portfolio extends Component {
   }
 
   balanceCalculations = async () => {
-    const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data);    
+    const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data);
     await this.props.fetchCoinData(tokenSymbolString);
     await this.props.calculateWalletBalance(tokenBalances, this.props.tokenConversions); //amount of tokens and symbol -> token balance, conversions -> matrix of prices
-    await this.setState({ 
-      apiRequestString: tokenSymbolString, 
+    await this.setState({
+      apiRequestString: tokenSymbolString,
       walletBalance: this.props.walletBalance,
       tokenPrices: this.props.tokenBalances,
       tokenAmounts: tokenBalances,
-
     });
     this.showTokens();
   }
   /**
-   * tokens are passed into the function where their symbols and addresses are parsed out and stored in an array, 
+   * tokens are passed into the function where their symbols and addresses are parsed out and stored in an array,
    * which is then passed to processAllTokenBalances. The return is the concatenated string of symbols in wallet, and the amount
    * of each token the user has for a given private key.
    */
   formatTokens = async (tokenList) => {
     let tokenObjectList = [];
-    let privateKey; 
     for (let i = 0; i < tokenList.length; i++) {
       let tokenObj = {};
       tokenObj.symbol = tokenList[i].symbol;
       tokenObj.contractAddress = tokenList[i].address;
       tokenObjectList.push(tokenObj);
     }
-    privateKey =  this.state.currentWallet.privateKey;
+    const privateKey =  this.state.currentWallet.privateKey;
     return { tokenSymbolString, tokenBalances } = await processAllTokenBalances(privateKey, tokenObjectList);
   }
 
   /**
-   * After all price data has loaded, a new array will be created with all token info -> amount of tokens, price matrix of tokens, 
+   * After all price data has loaded, a new array will be created with all token info -> amount of tokens, price matrix of tokens,
    * and token info. This will be the data source for the flat list.
    */
   showTokens = () => {
@@ -125,10 +124,12 @@ class Portfolio extends Component {
   };
 
   renderRow = (token) => {
+    console.log('token', token);
     const { tokenInfo, tokenPriceInfo, tokenAmounts } = token;
     return (
       <TouchableOpacity
-        onPress={() => {           
+        onPress={() => {
+          this.props.saveTokenDataForTransaction(tokenAmounts.amount, tokenAmounts.symbol, tokenInfo.address);
           this.props.navigation.navigate('TokenFunctionality');
         }}
         style={styles.listItemParentContainer}
@@ -157,14 +158,14 @@ class Portfolio extends Component {
               </View>
               <View style={ styles.listItemValueContainer }>
                 <View style={ styles.listItemValueComponent }>
-                  <Text style={styles.listItemCryptoValue}>                 
+                  <Text style={styles.listItemCryptoValue}>
                     {
-                      tokenAmounts == null ? 0 : tokenAmounts.amount               
-                    }                   
+                      tokenAmounts == null ? 0 : tokenAmounts.amount
+                    }
                   </Text>
                   <Text style={styles.listItemFiatValue}>
-                    { 
-                       tokenAmounts == null ? 'NA' : (tokenPriceInfo)[this.props.currencyOptions[this.state.currencyIndex]]                       
+                    {
+                       tokenAmounts == null ? 'NA' : (tokenPriceInfo)[this.props.currencyOptions[this.state.currencyIndex]]
                     }
                   </Text>
                 </View>
@@ -183,7 +184,7 @@ class Portfolio extends Component {
   handleCurrencyTouch = async () => {
     let currentIndex = this.state.currencyIndex;
     if (currentIndex === 4) {
-      await this.setState({ currencyIndex: 0 });     
+      await this.setState({ currencyIndex: 0 });
     } else {
       let index = currentIndex += 1;
       await this.setState({ currencyIndex: index });
@@ -194,7 +195,7 @@ class Portfolio extends Component {
    * Returns a component that displays all the tokens that the user had selected.
    * The component also provides the option to add/delete tokens
    */
-  render() {  
+  render() {
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer} >
@@ -206,43 +207,43 @@ class Portfolio extends Component {
             />
           </View>
           <Text style={styles.textHeader}>
-            { 
+            {
               this.props.debugMode
-              ? this.props.testWalletName
-              : this.state.currentWalletName
-            } 
+                ? this.props.testWalletName
+                : this.state.currentWalletName
+            }
           </Text>
           <View style={styles.touchableCurrencyContainer}>
             <TouchableOpacity onPress={this.handleCurrencyTouch}>
-              <View style={styles.accountValueHeader}>          
+              <View style={styles.accountValueHeader}>
                   <Text style={styles.headerValue}>
                     {
                       this.state.pricesLoaded
-                      ? (this.state.walletBalance)[this.props.currencyOptions[this.state.currencyIndex]]
-                      : 'Balance Loading ...'
+                        ? (this.state.walletBalance)[this.props.currencyOptions[this.state.currencyIndex]]
+                        : 'Balance Loading ...'
                     }
                   </Text>
                   <Text style={styles.headerValueCurrency}>
                   {
                     this.state.pricesLoaded
-                    ? ' ' + this.state.currency[this.state.currencyIndex]
-                    : null
+                      ? ' ' + this.state.currency[this.state.currencyIndex]
+                      : null
                   }
-                  </Text>                
+                  </Text>
               </View>
             </TouchableOpacity>
           </View>
           <View style={styles.scrollViewContainer}>
             {
               this.state.completeTokenObject == null
-              ? null
-              :
+                ? null
+                :
                 <FlatList
                   data={this.state.completeTokenObject}
                   showsVerticalScrollIndicator={false}
                   renderItem= {({ item }) => { return this.renderRow(item); }}
-                  keyExtractor= {(item) => {                  
-                    return `${item.tokenInfo.address}${item.tokenInfo.name}`                  
+                  keyExtractor= {(item) => {
+                    return `${item.tokenInfo.address}${item.tokenInfo.name}`
                   }}
                   refreshing={this.state.refresh}
                   onRefresh={this.handleListRefresh}
@@ -430,13 +431,28 @@ const styles = StyleSheet.create({
 
 function mapStateToProps({ Wallet, Debug, HotWallet }) {
   const { hotWallet } = HotWallet;
-  const { currencyOptions, tokens, wallets, tokenConversions, tokenBalances, walletBalance } = Wallet;
-  const { debugMode, testWalletName } = Debug;
+  const {
+    currencyOptions, tokens, wallets, tokenConversions, tokenBalances, walletBalance,
+  } = Wallet;
+  const {
+    debugMode, testWalletName,
+  } = Debug;
   return {
-    hotWallet, currencyOptions, tokens, debugMode, testWalletName, wallets, tokenConversions, walletBalance, tokenBalances,
+    hotWallet,
+    currencyOptions,
+    tokens,
+    debugMode,
+    testWalletName,
+    wallets,
+    tokenConversions,
+    walletBalance,
+    tokenBalances,
   };
 }
 
 export default connect(mapStateToProps, {
-  setWalletTokenBalances, fetchCoinData, calculateWalletBalance,
+  setWalletTokenBalances,
+  fetchCoinData,
+  calculateWalletBalance,
+  saveTokenDataForTransaction,
 })(Portfolio);

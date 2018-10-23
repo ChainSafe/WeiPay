@@ -6,8 +6,8 @@ import {
   DEBUG_MODE,
   SET_APP_PASSWORD,
   CONFIG_HOT_WALLET,
-} from "./ActionTypes";
-
+  SAVE_TOKEN_DATA_FOR_TRANSACTION,
+} from './ActionTypes';
 
 export function enterDebug() {
   let testData = { 'walletName': 'My Test Wallet Name' };
@@ -18,7 +18,7 @@ export function enterDebug() {
 
 /**
  * This action is used to track if the user is in the setup screens. 
- * When 
+ * 
  */
 export function exitSetup(flag) {
   return (dispatch) => {
@@ -81,11 +81,19 @@ export function setWalletPassword(password) {
 export function setHotWallet(walletObj) {
   const { name, wallet } = walletObj;
   const pKey = wallet.address;
-
-  return(dispatch) => {
+  return (dispatch) => {
     dispatch({ type: CONFIG_HOT_WALLET, payload: { 'wallet': wallet, 'publicKey': pKey,'name': name} });
   };
 }
 
-
+export function saveTokenDataForTransaction(tokenBalance, symbol, address) {
+  return (dispatch) => {
+    dispatch({
+      type: SAVE_TOKEN_DATA_FOR_TRANSACTION,
+      payload: {
+        tokenBalance, symbol, address,
+      },
+    });
+  };
+}
 

@@ -11,11 +11,12 @@ import {
   FETCHING_ETH_PRICE_DATA_FAIL,
   SET_WALLET_TOKENS_BALANCES,
   CALCULATE_WALLET_BALANCE,
+  SAVE_TOKEN_DATA_FOR_TRANSACTION,
 } from '../../actions/ActionTypes';
 
 const initialState = {
   isInSetupScreens: true,
-  wallets: [], //Contains all the encrypted HD Wallet
+  wallets: [],
   tempWalletName: null,
   tokens: [],
   walletBalance: null,
@@ -27,6 +28,7 @@ const initialState = {
   currencyOptions: ['USD', 'CAD', 'EUR', 'BTC', 'ETH'],
   apiTokenString: '',
   tokenConversions: [],
+  activeTokenData: null,
 };
 
 export default function (state = initialState, action) {
@@ -76,7 +78,13 @@ export default function (state = initialState, action) {
       return { ...state, walletTokens: action.payload };
     case CALCULATE_WALLET_BALANCE:
       const { walletBalanceObject, individualTokens } = action.payload;
-      return { ...state, walletBalance: walletBalanceObject, tokenBalances: individualTokens };
+      return {
+        ...state, walletBalance: walletBalanceObject, tokenBalances: individualTokens,
+      };
+    case SAVE_TOKEN_DATA_FOR_TRANSACTION:
+      return {
+        ...state, activeTokenData: action.payload,
+      };
     default:
       return state;
   }

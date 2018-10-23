@@ -2,6 +2,7 @@
 /**
  * CONSTANT should be upper case, the non uppercase actionTypes will be phased out of the project.
  */
+export const SAVE_TOKEN_DATA_FOR_TRANSACTION = 'SAVE_TOKEN_DATA_FOR_TRANSACTION';
 export const EXIT_SETUP_SCREEN = 'EXIT_SETUP_SCREEN';
 export const SET_APP_PASSWORD = 'SET_APP_PASSWORD';
 export const DEBUG_MODE = 'DEBUG_MODE';
