@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 import {
-  processContractByAddress, contractFunctionCall, processFunctionCall, processFunctionCall2,
+  processContractByAddress, processFunctionCall2,
 } from '../../../scripts/contracts/contractHelper';
 import ClearButton from '../../../components/LinearGradient/ClearButton';
 
@@ -40,20 +40,10 @@ class Contract extends Component {
     const {
       contractFunctions, contractEvents, contract, withInputs,
     } = await processContractByAddress(this.state.wallet, this.state.hardCodedAddress);
-    console.log({ withInputs });
     this.setState({ contractEvents, contractFunctions, contract, withInputs });
   }
 
-  /**
-   * Needs to be implemented
-   * x : input text
-   * inputName: pram Name
-   * inputType: pram type
-   * funcName: function Name
-   */
   processFunctionInput = (x, inputName, inputType, funcName) => {
-    console.log('___processFunctionInput');
-    console.log({ x, inputName, inputType, funcName });
     let c = Object.assign({}, this.state.currentInput);
     if (c[funcName] == null) {
       c[funcName] = {};
@@ -80,16 +70,9 @@ class Contract extends Component {
     Toast.show('Success', Toast.LONG);
   }
   
-  handlePayable = (text, functionName) => {
-    console.log({text, functionName});
-    let payableObj = {text, functionName}
-    this.setState({ payable: payableObj });
-  }
-  
   parseFunctions = () => {
-    let contractFunctionsFormatted = []; //holds all the functions
+    let contractFunctionsFormatted = [];
     const allFunctionsWithInputs = this.state.withInputs;
-
     for (let i = 0; i < allFunctionsWithInputs.length; i++) {
       const arrayLength = contractFunctionsFormatted.length;
       const functionSignature = allFunctionsWithInputs[i].signature;
@@ -115,7 +98,7 @@ class Contract extends Component {
                     <View style={styles.functionInputContainer}>
                       <FormInput
                         placeholder= { this.state.payable ? this.state.payable.text : "Ether Value (Payable)" }
-                        onChangeText={(text) => this.handlePayable(text, item.property)}
+                        onChangeText={(text) => this.processFunctionInput(text, 'payable', 'payable', item.functionSignature)}
                         inputStyle={styles.functionInputStyle}
                       />
                     </View>
@@ -173,7 +156,7 @@ class Contract extends Component {
           <View style={styles.mainContainer}>
               <View style={styles.navContainer}>
                 <BackWithMenuNav
-                    showMenu={true}
+                    showMenu={false}
                     showBack={true}
                     // navigation={this.props.navigation}
                   />
@@ -263,11 +246,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.0001,
   },
   topFormInput: {
-    flex: 2,
+    flex: 1.5,
     paddingLeft: '5%',
     paddingRight: '5%',
     justifyContent: 'center',
-    backgroundColor: 'red',
   },
   scrollViewContainer: {
     flex: 7,
@@ -297,7 +279,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.0001,
   },
   btnFlex: {
-    // flex: 1,
+    marginTop: '5%',
+    paddingRight: '5%',
+    justifyContent: 'center',
+    alignContent: 'center',
   },
   textDescription: {
     fontFamily: 'Cairo-Light',
