@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableHighlight, Dimensions, TouchableWithoutFeedback, Keyboard, SafeAreaView } from 'react-native';
-import { NavigationActions } from 'react-navigation';
-import { Icon, Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
+import {
+  View, Text, StyleSheet, ScrollView, Dimensions, TouchableWithoutFeedback, Keyboard, SafeAreaView,
+} from 'react-native';
+import { FormInput } from 'react-native-elements';
+import Toast from 'react-native-simple-toast';
+import RF from 'react-native-responsive-fontsize';
 import { connect } from 'react-redux';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
-import LinearButton from '../../../components/LinearGradient/LinearButton';
-import RF from 'react-native-responsive-fontsize';
-import {processContractByAddress, processFunctionCall, processFunctionCall2 } from '../../../scripts/contracts/contractHelper';
+import {
+  processContractByAddress, processFunctionCall2,
+} from '../../../scripts/contracts/contractHelper';
 import ClearButton from '../../../components/LinearGradient/ClearButton';
-import Toast from 'react-native-simple-toast';
 
 /**
  * Screen is used to display the passphrase (mnemonic) of the wallet
@@ -22,41 +24,36 @@ class Contract extends Component {
       contractLoaded: false,
       address: '',
       hardCodedAddress: '0xcD361f7173C439BB76F3E1206446e9D183B82787',
-      // wallet: this.props.wallets[0].hdWallet,
       wallet: this.props.hotWallet.wallet,
       contractEvents: null,
       contractFunctions: null,
       contract: null,
+      withInputs: null,
+      payable: null,
       functions: [],
       currentInput: {},
     };
   }
 
   getContract = async () => {
-    this.setState({contractFunctions: null});
-    const { contractFunctions, contractEvents, contract } = await processContractByAddress(this.state.wallet, this.state.hardCodedAddress);
-    this.setState({contractEvents, contractFunctions, contract });
+    this.setState({ contractFunctions: null });
+    const {
+      contractFunctions, contractEvents, contract, withInputs,
+    } = await processContractByAddress(this.state.wallet, this.state.hardCodedAddress);
+    this.setState({ contractEvents, contractFunctions, contract, withInputs });
   }
 
-  /**
-   * Needs to be implemented
-   * x : input text
-   * inputName: pram Name
-   * inputType: pram type
-   * funcName: function Name
-   */
   processFunctionInput = (x, inputName, inputType, funcName) => {
-  
-    var c = Object.assign({}, this.state.currentInput);
+    let c = Object.assign({}, this.state.currentInput);
     if (c[funcName] == null) {
       c[funcName] = {};
     }
     if (inputType == "string") {
       c[funcName][inputName] = "'" + x + "'";
-    }else {
+    } else {
       c[funcName][inputName] = x;
     }
-    this.setState({currentInput: c});
+    this.setState({ currentInput: c });
   }
 
   contractFuncCheck = async (name) => {
@@ -65,103 +62,84 @@ class Contract extends Component {
     if (name.property == null) {
       functionName = name;
       inputs = {};
-    }else { 
+    } else {
       functionName = name.property;
       inputs = this.state.currentInput[name.functionSignature];
     }
     await processFunctionCall2(this.state.wallet, functionName, inputs, this.state.contract);
     Toast.show('Success', Toast.LONG);
-
   }
-
+  
   parseFunctions = () => {
-    let contractFunctionsFormatted = []; //holds all the functions
-    let contractFunctionList = [];
-    for (var property in this.state.contractFunctions) {
-      // let contractFunctionObj = {};
-      if (this.state.contractFunctions.hasOwnProperty(property)) {        
-        // let functionDescription = property;
-        // let functionObject = this.state.contractFunctions[property];
-        // let functionName = this.state.contractFunctions[property].name; 
-        let functionSignature = this.state.contractFunctions[property].signature;
-        
-        let functionInputs = this.state.contractFunctions[property].inputs;     
-        let fInputs = [];
-
-        if (contractFunctionList.indexOf(functionSignature) == -1) {
-          contractFunctionList.push(functionSignature);
-          for(let i = 0; i < functionInputs.names.length; i++) {
-            let inputObj = {};          
-            inputObj.inputName = functionInputs.names[i];
-            inputObj.type = functionInputs.types[i];
-            const uniqueKeyHelper = contractFunctionsFormatted.length * 2;
-            inputObj.uniquekey = `${uniqueKeyHelper}${functionInputs.names[i]}${functionInputs.types[i]}`;           
-            fInputs.push(inputObj);
-          }   
-          const arrayLength = contractFunctionsFormatted.length;
-          contractFunctionsFormatted.push({arrayLength, property, functionSignature, fInputs});
-        }
-        
-        
-                   
-        
-      }
+    let contractFunctionsFormatted = [];
+    const allFunctionsWithInputs = this.state.withInputs;
+    for (let i = 0; i < allFunctionsWithInputs.length; i++) {
+      const arrayLength = contractFunctionsFormatted.length;
+      const functionSignature = allFunctionsWithInputs[i].signature;
+      const property = functionSignature.split('(')[0];
+      const fInputs = allFunctionsWithInputs[i].inputs;
+      const payable = allFunctionsWithInputs[i].payable;
+      contractFunctionsFormatted.push({ arrayLength, property, functionSignature, fInputs, payable });
     }
 
     return (
-      
       <View>
         {
           contractFunctionsFormatted.map((item) =>
-            
-            <View key={item.arrayLength} style={styles.functionContainer }>
-              <BoxShadowCard>   
-              <View style={styles.functionInputContainer}>                       
-                <Text>Signature: {item.functionSignature} </Text>
-              </View>
-              {(item.fInputs.length != 0)? 
-                <View>
-                  {
-                    item.fInputs.map((inputObject) =>
-                    <View key={`${item.arrayLength}${inputObject.uniquekey}`}>
-                      <View style={styles.functionInputContainer}>
-                        <Text>input name: {inputObject.inputName} </Text>
-                      </View>
-                      <View style={styles.functionInputContainer}>
-                        <FormInput
-                            placeholder={inputObject.type}
-                            onChangeText={(text)=> this.processFunctionInput(text, inputObject.inputName, inputObject.type, item.functionSignature)}
-                            inputStyle={styles.functionInputStyle}
-                          />
-                      </View>
-                    </View>
-                  )
-                  }
-                  <ClearButton
-                            buttonText= {`Call ${item.property}`}
-                            onClickFunction={() => this.contractFuncCheck(item) }
-                            customStyles={styles.btnFunctionInput}
-                          />
-                  
+            <View key={`${item.arrayLength}${item.functionSignature}`} style={styles.functionContainer }>
+              <BoxShadowCard>
+                <View style={styles.functionInputContainer}>
+                  <Text>Signature: {item.functionSignature} </Text>
+                </View>
 
-                </View> 
-                
-                :
-                  
+                {
+                  item.payable 
+                  ?  
+                    <View style={styles.functionInputContainer}>
+                      <FormInput
+                        placeholder= { this.state.payable ? this.state.payable.text : "Ether Value (Payable)" }
+                        onChangeText={(text) => this.processFunctionInput(text, 'payable', 'payable', item.functionSignature)}
+                        inputStyle={styles.functionInputStyle}
+                      />
+                    </View>
+                  : null
+                }
+
+                {
+                  (item.fInputs.length != 0)
+                  ? <View>
+                    {
+                      item.fInputs.map((inputObject) =>
+                        <View key={`${item.arrayLength}${inputObject.uniquekey}${inputObject.inputName}`}>
+                          <View style={styles.functionInputContainer}>
+                            <Text>input name: {inputObject.inputName} </Text>
+                          </View>
+                          <View style={styles.functionInputContainer}>
+                            <FormInput
+                              placeholder={inputObject.type}
+                              onChangeText={(text)=> this.processFunctionInput(text, inputObject.inputName, inputObject.type, item.functionSignature)}
+                              inputStyle={styles.functionInputStyle}
+                            />
+                          </View>
+                      </View>,)
+                  }
+                    <ClearButton
+                      buttonText= {`Call ${item.property}`}
+                      onClickFunction={() => this.contractFuncCheck(item) }
+                      customStyles={styles.btnFunctionInput}
+                    />
+                </View>
+              :
                 <View>
                   <ClearButton
                       buttonText= {`Call ${item.functionSignature}`}
                       onClickFunction={() => this.contractFuncCheck(item.functionSignature) }
                       customStyles={styles.btnFunctionInput}
                     />
-                
                 </View>
-              
               }
               </BoxShadowCard>
-              
-             
-            </View>
+            </View>,
           )
         }
       </View>
@@ -178,7 +156,7 @@ class Contract extends Component {
           <View style={styles.mainContainer}>
               <View style={styles.navContainer}>
                 <BackWithMenuNav
-                    showMenu={true}
+                    showMenu={false}
                     showBack={true}
                     // navigation={this.props.navigation}
                   />
@@ -188,7 +166,7 @@ class Contract extends Component {
                   this.state.contractFunctions === null
                     ?
                     <View style={styles.topFormInput}>
-                      <Text style={styles.textDescription}>Load contract address</Text>                       
+                      <Text style={styles.textDescription}>Load contract address</Text>
                         <FormInput
                           placeholder={'Contract Address'}
                           onChangeText={(add) => { return this.setState({ address: add }); }}
@@ -204,12 +182,12 @@ class Contract extends Component {
                           />
                         </View>
                       </View>
-                    : 
+                    :
                     <View style={styles.scrollViewContainer} >
                       <ScrollView style={styles.scrollView}>
                          { this.parseFunctions() }
-                       </ScrollView> 
-                    </View>              
+                       </ScrollView>
+                    </View>
                 }
 
             <View style={styles.btnContainer}>
@@ -264,15 +242,14 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     color: '#12c1a2',
     letterSpacing: 0.4,
-    fontFamily: 'WorkSans-Regular',  
+    fontFamily: 'WorkSans-Regular',
     borderBottomWidth: 0.0001,
   },
   topFormInput: {
-    flex: 2,
+    flex: 1.5,
     paddingLeft: '5%',
     paddingRight: '5%',
     justifyContent: 'center',
-    backgroundColor: 'red',
   },
   scrollViewContainer: {
     flex: 7,
@@ -302,7 +279,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.0001,
   },
   btnFlex: {
-    // flex: 1,
+    marginTop: '5%',
+    paddingRight: '5%',
+    justifyContent: 'center',
+    alignContent: 'center',
   },
   textDescription: {
     fontFamily: 'Cairo-Light',
@@ -363,7 +343,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ Wallet, HotWallet }) => {
+const mapStateToProps = ({ HotWallet }) => {
   const { hotWallet } = HotWallet;
   return { hotWallet };
 }
