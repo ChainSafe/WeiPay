@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { View, TouchableWithoutFeedback, StyleSheet, Text, Keyboard, Dimensions, SafeAreaView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import { FormInput, Card } from 'react-native-elements';
+import RF from 'react-native-responsive-fontsize';
+import { FormInput } from 'react-native-elements';
 import * as actions from '../../../actions/AppConfig';
-import LinearButton   from '../../../components/LinearGradient/LinearButton';
+import LinearButton from '../../../components/LinearGradient/LinearButton';
+import ClearButton from '../../../components/LinearGradient/ClearButton';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
-import RF from "react-native-responsive-fontsize"
+
 
 const ethers = require('ethers');
 
@@ -85,9 +87,7 @@ class PinPage extends Component {
    * The wallet name is stored in a temporary state.
    */
   setPassword(password) {
-  
     this.setState({ password: password });
-
   }
 
   render() {
@@ -103,10 +103,13 @@ class PinPage extends Component {
                   backPage={'createOrRestore'}
                 />
               </View>
-              <Text style={styles.textHeader} >Set Wallet Password</Text>
+              <Text style={styles.textHeader}>Choose Wallet Security</Text>
               <View style={styles.boxShadowContainer}>
                 <View style={styles.contentContainer}>
                   <BoxShadowCard>
+                    <Text style={styles.option}>
+                     Option 1: Max Security - 10x longer to unlock wallet
+                    </Text>
                     <Text style={styles.cardText}>
                       Create a password for wallet, minimum length of 4.
                     </Text>
@@ -116,6 +119,20 @@ class PinPage extends Component {
                         onChangeText={this.setPassword.bind(this)}
                         inputStyle={styles.txtWalletName}
                         secureTextEntry={true}
+                      />
+                    </View>
+                    <Text style={styles.option}>
+                     Option 2: Skip Wallet Encryption
+                    </Text>
+                    <Text style={styles.cardText}>
+                      Keeps your wallet light weight and faster to access.
+                    </Text>
+                    <View style={styles.btnNextContainer}>
+                      <ClearButton
+                          onClickFunction={this.navigate}
+                          buttonText="Skip"
+                          customStyles={styles.btnNext}
+                          buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
                       />
                     </View>
                   </BoxShadowCard>
@@ -153,11 +170,11 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   navContainer: {
-    flex: 0.65,
+    flex: 0.3,
   },
   boxShadowContainer: {
     alignItems: 'center',
-    flex: 2.5,
+    flex: 3.5,
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
@@ -165,15 +182,27 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
     paddingLeft: '9%',
     color: '#1a1f3e',
-    flex: 0.75,
+    flex: 0.5,
   },
   contentContainer: {
     flex: 1,
     width: '82%',
   },
-  cardText: {
-    paddingBottom: '15%',
+  option: {
+    paddingBottom: '5%',
     paddingTop: '10%',
+    paddingLeft: '10%',
+    paddingRight: '10%',
+    fontFamily: 'WorkSans-Light',
+    letterSpacing: 0.4,
+    lineHeight: RF(3.9),
+    color: '#000000',
+    fontSize: RF(2.5),
+    fontWeight: '500',
+  },
+  cardText: {
+    // paddingBottom: '15%',
+    // paddingTop: '10%',
     paddingLeft: '10%',
     paddingRight: '10%',
     fontFamily: 'WorkSans-Light',
@@ -196,10 +225,17 @@ const styles = StyleSheet.create({
     marginLeft: '5%',
   },
   btnContainer: {
-    flex: 2.5,
+    flex: 1,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     width: '100%',
+  },
+  btnNextContainer: {
+    paddingTop: '5%',
+  },
+  btnNext: {
+    width: '82%',
+    height: Dimensions.get('window').height * 0.05,
   },
   button: {
     width: '82%',
