@@ -121,6 +121,14 @@ class PinPage extends Component {
                         secureTextEntry={true}
                       />
                     </View>
+                    <View style={styles.btnNextContainer}>
+                      <ClearButton
+                         onClickFunction={this.navigate}
+                         buttonText="Set Pin"
+                         customStyles={styles.btnNext}
+                         buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
+                      />
+                    </View>
                     <Text style={styles.option}>
                      Option 2: Skip Wallet Encryption
                     </Text>
@@ -128,7 +136,7 @@ class PinPage extends Component {
                       Keeps your wallet light weight and faster to access.
                     </Text>
                     <View style={styles.btnNextContainer}>
-                      <ClearButton
+                      <LinearButton
                           onClickFunction={this.navigate}
                           buttonText="Skip"
                           customStyles={styles.btnNext}
@@ -139,12 +147,12 @@ class PinPage extends Component {
                 </View>
               </View>
               <View style={styles.btnContainer}>
-                <LinearButton
+                {/* <LinearButton
                   onClickFunction={this.navigate}
                   buttonText="Next"
                   customStyles={styles.button}
                   buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
-                />
+                /> */}
                 <View style={styles.footerGrandparentContainer} >
                   <View style={styles.footerParentContainer} >
                     <Text style={styles.textFooter} >Powered by ChainSafe </Text>
@@ -225,7 +233,7 @@ const styles = StyleSheet.create({
     marginLeft: '5%',
   },
   btnContainer: {
-    flex: 1,
+    flex: 0.5,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     width: '100%',
