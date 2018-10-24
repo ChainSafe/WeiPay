@@ -36,7 +36,7 @@ const processAllTokenBalances = async (privateKey, dataSet) => {
       let contractAddress = dataSet[i].contractAddress;
       await this.getERC20Balance(contractAddress)
         .then((response) => {
-          tokenObj.amount =  Number(response).toFixed(4);
+          tokenObj.amount = Number(response).toFixed(4);
           allBalances.push(tokenObj);
           tokenApiRequestString += `${dataSet[i].symbol}`;  
           if (i < dataSet.length - 1) tokenApiRequestString += ','; 
