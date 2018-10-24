@@ -12,7 +12,7 @@ class TokenFunctionality extends Component {
     return (
       <View style={styles.container}>
           <BackWithMenuNav
-              showMenu={true}
+              showMenu={false}
               showBack={true}
               navigation={this.props.navigation}
               backPage={'mainStack'}
