@@ -70,7 +70,7 @@ class Contacts extends Component {
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.mainContainer}>
               <ContactBackWithMenuNav
-                showMenu={true}
+                showMenu={false}
                 showBack={this.state.selectedContact}
                 navigation={this.props.navigation}
                 backPage={'mainStack'}

@@ -23,10 +23,8 @@ const navigate = () => {
  * Screen is used to display the passphrase (mnemonic) of the wallet
  */
 class BackupPhrase extends Component {
-
   constructor(props) {
     super(props);
-    
     this.state = { 
       isPhraseSelected: false,
       phrase: this.props.wallet.wallet.mnemonic,
@@ -39,9 +37,8 @@ class BackupPhrase extends Component {
    * to display the passphrase
    */
   displayPassphrase() {
-    
     this.setState({
-      isPhraseSelected: true
+      isPhraseSelected: true,
     });
   }
 
@@ -57,7 +54,7 @@ class BackupPhrase extends Component {
           <View style={styles.mainContainer}>
               <View style={styles.navContainer}>        
                 <BackWithMenuNav
-                    showMenu={true}
+                    showMenu={false}
                     showBack={true}
                     navigation={this.props.navigation}
                   />
