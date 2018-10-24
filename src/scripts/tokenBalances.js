@@ -27,7 +27,6 @@ const processAllTokenBalances = async (privateKey, dataSet) => {
       await this.getEthereumBalance(wallet.address)
         .then((response) => {
           tokenObj.amount = Number(response).toFixed(4);
-          console.log(Number(response).toFixed(4));
           allBalances.push(tokenObj);
           tokenApiRequestString += `${dataSet[i].symbol}`;  
           if (i < dataSet.length - 1) tokenApiRequestString += ',';
@@ -35,13 +34,12 @@ const processAllTokenBalances = async (privateKey, dataSet) => {
         .catch((err) => {
           tokenObj.amount = 0;
           allBalances.push(tokenObj);
-          console.log(err);
         });
     } else {
       let contractAddress = dataSet[i].contractAddress;
       await this.getERC20Balance(contractAddress)
         .then((response) => {
-          tokenObj.amount = response;
+          tokenObj.amount =  Number(response).toFixed(4);
           allBalances.push(tokenObj);
           tokenApiRequestString += `${dataSet[i].symbol}`;  
           if (i < dataSet.length - 1) tokenApiRequestString += ','; 
@@ -49,14 +47,9 @@ const processAllTokenBalances = async (privateKey, dataSet) => {
         .catch((err) => {
           tokenObj.amount = 0;
           allBalances.push(tokenObj);
-          console.log(err);
         });
     }
   }
-  console.log('in function');
-  console.log({allBalances});
-  console.log('after all balance log');
-  
   return { 'tokenSymbolString' : tokenApiRequestString, 'tokenBalances' : allBalances };
 };
 
