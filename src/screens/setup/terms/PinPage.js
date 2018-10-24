@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { View, TouchableWithoutFeedback, StyleSheet, Text, Keyboard, Dimensions, SafeAreaView } from 'react-native';
+import {
+  View, TouchableWithoutFeedback, StyleSheet, Text, Keyboard, Dimensions, SafeAreaView,
+} from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
@@ -33,6 +35,14 @@ class PinPage extends Component {
   }
 
   /**
+   * Navigate
+   *  if statement
+   */
+
+
+
+
+  /**
  * this.props.isInSetupScreens will be false if the user has not entered the main page and completed
  * the app setup. This will be an indication on whether we are going to be decrypting wallet from the 
  * state or will be passed a unencrypted wallet from the previous page.
@@ -45,8 +55,8 @@ class PinPage extends Component {
  * 
  * If false -> need to get wallet & decrypt & save to hot wallet
  */
-  navigate = async () => {
-    if(this.state.password.length >= 4) {
+setPin = async () => {
+    if (this.state.password.length >= 4) {
       const userWallets = this.props.wallets;
       let walletNameCheck;
       if(this.props.debugMode) {
@@ -56,7 +66,7 @@ class PinPage extends Component {
       }    
       if(this.props.isInSetupScreens) {
         const { nextScreenToNavigate, wallet } = this.props.navigation.state.params;
-        await this.setState({walletObjecet: wallet});
+        await this.setState({ walletObjecet: wallet });
         const encryptedWallet = await wallet.encrypt(this.state.password);
         const walletInHotReducer = { wallet, name: walletNameCheck };
         this.props.setHotWallet(walletInHotReducer);
@@ -83,6 +93,42 @@ class PinPage extends Component {
     } 
   };
 
+  skipEncryption = async () => {
+    const userWallets = this.props.wallets;
+    let walletNameCheck;
+    if(this.props.debugMode) {
+      walletNameCheck = this.props.testWalletName;
+    } else {
+      walletNameCheck = this.props.tempWalletName;
+    }    
+    if(this.props.isInSetupScreens) {
+      const { nextScreenToNavigate, wallet } = this.props.navigation.state.params;
+      await this.setState({ walletObjecet: wallet });
+      //const encryptedWallet = await wallet.encrypt(this.state.password);
+      //const walletInHotReducer = { wallet, name: walletNameCheck };
+      // this.props.setHotWallet(walletInHotReducer);
+      // this.props.initializeAppWallet(encryptedWallet, walletNameCheck, userWallets);
+      this.props.exitSetup(false);
+      const navigateToNextScreen = NavigationActions.navigate({
+        routeName: nextScreenToNavigate,
+      });
+      this.props.navigation.dispatch(navigateToNextScreen);
+    } else {
+      // let encryptedWallet = this.props.wallets[0].hdWallet;      
+      // const decryptedWallet = await ethers.Wallet.fromEncryptedWallet(encryptedWallet, this.state.password);
+      // if(Object.prototype.hasOwnProperty.call(decryptedWallet, 'privateKey')){        
+      //   const walletInHotReducerDecrypted = { wallet: decryptedWallet, name: walletNameCheck };
+      //   this.props.setHotWallet(walletInHotReducerDecrypted);          
+      //   const navigateToMain = NavigationActions.navigate({
+      //     routeName: 'mainStack',
+      //   });
+      //   this.props.navigation.dispatch(navigateToMain);
+      // } else {
+      //   console.log('your password is not correct');        
+      // }
+    }
+  }
+
   /**
    * The wallet name is stored in a temporary state.
    */
@@ -103,56 +149,57 @@ class PinPage extends Component {
                   backPage={'createOrRestore'}
                 />
               </View>
-              <Text style={styles.textHeader}>Choose Wallet Security</Text>
-              <View style={styles.boxShadowContainer}>
-                <View style={styles.contentContainer}>
-                  <BoxShadowCard>
-                    <Text style={styles.option}>
-                     Option 1: Max Security - 10x longer to unlock wallet
-                    </Text>
-                    <Text style={styles.cardText}>
-                      Create a password for wallet, minimum length of 4.
-                    </Text>
-                    <View style={styles.formInputContainer}>
-                      <FormInput
-                        placeholder={'1234'}
-                        onChangeText={this.setPassword.bind(this)}
-                        inputStyle={styles.txtWalletName}
-                        secureTextEntry={true}
-                      />
+              {
+                this.props.isInSetupScreens
+                ? 
+                <View style={{flex:3.5}}> 
+                  <Text style={styles.textHeader}>Choose Wallet Security</Text>
+                    <View style={styles.boxShadowContainer}>
+                      <View style={styles.contentContainer}>
+                        <BoxShadowCard>
+                          <Text style={styles.option}>
+                          Option 1: Max Security - 10x longer to unlock wallet
+                          </Text>
+                          <Text style={styles.cardText}>
+                            Create a password for wallet, minimum length of 4.
+                          </Text>
+                          <View style={styles.formInputContainer}>
+                            <FormInput
+                              placeholder={'1234'}
+                              onChangeText={this.setPassword.bind(this)}
+                              inputStyle={styles.txtWalletName}
+                              secureTextEntry={true}
+                            />
+                          </View>
+                          <View style={styles.btnNextContainer}>
+                            <ClearButton
+                              onClickFunction={this.setPin}
+                              buttonText="Set Pin"
+                              customStyles={styles.btnNext}
+                              buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
+                            />
+                          </View>
+                          <Text style={styles.option}>
+                          Option 2: Skip Wallet Encryption
+                          </Text>
+                          <Text style={styles.cardText}>
+                            Keeps your wallet light weight and faster to access.
+                          </Text>
+                          <View style={styles.btnNextContainer}>
+                            <LinearButton
+                                onClickFunction={this.navigate}
+                                buttonText="Skip"
+                                customStyles={styles.btnNext}
+                                buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
+                            />
+                          </View>
+                        </BoxShadowCard>
+                      </View>
                     </View>
-                    <View style={styles.btnNextContainer}>
-                      <ClearButton
-                         onClickFunction={this.navigate}
-                         buttonText="Set Pin"
-                         customStyles={styles.btnNext}
-                         buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
-                      />
-                    </View>
-                    <Text style={styles.option}>
-                     Option 2: Skip Wallet Encryption
-                    </Text>
-                    <Text style={styles.cardText}>
-                      Keeps your wallet light weight and faster to access.
-                    </Text>
-                    <View style={styles.btnNextContainer}>
-                      <LinearButton
-                          onClickFunction={this.navigate}
-                          buttonText="Skip"
-                          customStyles={styles.btnNext}
-                          buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
-                      />
-                    </View>
-                  </BoxShadowCard>
-                </View>
-              </View>
+                  </View>
+                : null
+              }
               <View style={styles.btnContainer}>
-                {/* <LinearButton
-                  onClickFunction={this.navigate}
-                  buttonText="Next"
-                  customStyles={styles.button}
-                  buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
-                /> */}
                 <View style={styles.footerGrandparentContainer} >
                   <View style={styles.footerParentContainer} >
                     <Text style={styles.textFooter} >Powered by ChainSafe </Text>
@@ -274,8 +321,8 @@ const styles = StyleSheet.create({
  */
 const mapStateToProps = ({ Debug, Wallet }) => {
   const { debugMode, testWalletName } = Debug;
-  const { wallets, tempWalletName, isInSetupScreens } = Wallet;
-  return { debugMode, wallets, tempWalletName, testWalletName, isInSetupScreens };
+  const { wallets, tempWalletName, isInSetupScreens, isWalletEncrypted } = Wallet;
+  return { debugMode, wallets, tempWalletName, testWalletName, isInSetupScreens, isWalletEncrypted };
 };
 
 export default connect(mapStateToProps, actions)(PinPage);
