@@ -59,10 +59,12 @@ setPin = async () => {
       if(this.props.isInSetupScreens) {
         const { nextScreenToNavigate, wallet } = this.props.navigation.state.params;
         await this.setState({ walletObjecet: wallet });
-        const encryptedWallet = await wallet.encrypt(this.state.password);
+        var utf8BytesPassword = ethers.utils.toUtf8Bytes(this.state.password);
+        var hashed = ethers.utils.keccak256(utf8BytesPassword);
+        this.props.setAppPassword(hashed);
         const walletInHotReducer = { wallet, name: walletNameCheck };
         this.props.setHotWallet(walletInHotReducer);
-        this.props.initializeAppWallet(encryptedWallet, walletNameCheck, userWallets);
+        this.props.initializeAppWallet(wallet, walletNameCheck, userWallets);
         this.props.exitSetup(false);
         this.props.setSecurityFlag(true);
         const navigateToNextScreen = NavigationActions.navigate({
@@ -70,17 +72,15 @@ setPin = async () => {
         });
         this.props.navigation.dispatch(navigateToNextScreen);
       } else {
-        let encryptedWallet = this.props.wallets[0].hdWallet;      
-        const decryptedWallet = await ethers.Wallet.fromEncryptedWallet(encryptedWallet, this.state.password);
-        if(Object.prototype.hasOwnProperty.call(decryptedWallet, 'privateKey')){        
-          const walletInHotReducerDecrypted = { wallet: decryptedWallet, name: walletNameCheck };
+        var utf8BytesPasswordToDecrypt = ethers.utils.toUtf8Bytes(this.state.password);
+        var hashedInput = ethers.utils.keccak256(utf8BytesPasswordToDecrypt);
+        if(this.props.hashedPassword === hashedInput) {
+          const walletInHotReducerDecrypted = { wallet: this.props.wallets[0].hdWallet, name: walletNameCheck };
           this.props.setHotWallet(walletInHotReducerDecrypted);          
           const navigateToMain = NavigationActions.navigate({
             routeName: 'mainStack',
           });
           this.props.navigation.dispatch(navigateToMain);
-        } else {
-          console.log('your password is not correct');        
         }
       } 
     } 
@@ -344,8 +344,8 @@ const styles = StyleSheet.create({
  */
 const mapStateToProps = ({ Debug, Wallet }) => {
   const { debugMode, testWalletName } = Debug;
-  const { wallets, tempWalletName, isInSetupScreens, isWalletEncrypted } = Wallet;
-  return { debugMode, wallets, tempWalletName, testWalletName, isInSetupScreens, isWalletEncrypted };
+  const { wallets, tempWalletName, isInSetupScreens, isWalletEncrypted, hashedPassword } = Wallet;
+  return { debugMode, wallets, tempWalletName, testWalletName, isInSetupScreens, isWalletEncrypted, hashedPassword };
 };
 
 export default connect(mapStateToProps, actions)(PinPage);
