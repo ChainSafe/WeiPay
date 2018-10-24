@@ -6,6 +6,7 @@ import {
   DEBUG_MODE,
   SET_APP_PASSWORD,
   CONFIG_HOT_WALLET,
+  ADD_NEW_SINGLE_TOKEN,
   SAVE_TOKEN_DATA_FOR_TRANSACTION,
   SET_UNENCRYPTED_WALLET,
   SET_SECURITY_FLAG,
@@ -19,8 +20,7 @@ export function enterDebug() {
 }
 
 /**
- * This action is used to track if the user is in the setup screens. 
- * 
+ * This action is used to track if the user is in the setup screens.
  */
 export function exitSetup(flag) {
   return (dispatch) => {
@@ -36,6 +36,19 @@ export function initializeAppTokenState(initTokenData) {
     dispatch({ type: INITIALIZE_APP_TOKEN_SETUP, payload: initTokenData });
   };
 }
+
+/**
+ * Adds a single token to the app state
+ */
+export function addNewToken(tokenObject, usersTokens) {
+  let tokenCopy = [...usersTokens];
+  tokenCopy.push(tokenObject);
+  console.log(tokenCopy);
+  return (dispatch) => {
+    dispatch({ type: ADD_NEW_SINGLE_TOKEN, payload: tokenCopy });
+  };
+}
+
 
 /**
  * Set temporary state wallet name until wallet is created/saved to async

@@ -5,7 +5,6 @@ import RF from 'react-native-responsive-fontsize';
 import { addTokenToSetup } from '../../actions/ActionCreator';
 import BoxShadowCard from '../ShadowCards/BoxShadowCard';
 
-
 /**
  * React Component
  * Class is used to create a single item of the
@@ -50,9 +49,9 @@ class CoinListItem extends Component {
   renderStatePicture(coin) {
     if (coin.selected == false) {
       return require('../../assets/images/add2.png')
-    }else if (this.state.totalTaps == 1 && (coin.selected)) {
+    } else if (this.state.totalTaps == 1 && (coin.selected)) {
       return require('../../assets/images/added.png')
-    }else if (this.state.totalTaps == 2 && coin.selected) {
+    } else if (this.state.totalTaps == 2 && coin.selected) {
       return require('../../assets/images/delete.png')
     }
   }
@@ -99,7 +98,7 @@ class CoinListItem extends Component {
                   <View style={styles.imageContainer} >
                     <Image
                       style={styles.img}
-                      source={{ uri: coin.logo.src} }
+                      source={{ uri: coin.logo} }
                     />
                   </View>
                 </View>

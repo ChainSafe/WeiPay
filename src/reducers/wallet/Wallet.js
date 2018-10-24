@@ -1,6 +1,9 @@
+import tokenData from '../../constants/data/json/tokens.json';
+
 import {
   EXIT_SETUP_SCREEN,
   INITIALIZE_APP_TOKEN_SETUP,
+  ADD_NEW_SINGLE_TOKEN,
   TEMP_WALLET_NAME,
   INITIALIZE_NEW_APP_WALLET,
   FETCHING_COIN_DATA,
@@ -32,6 +35,7 @@ const initialState = {
   currencyOptions: ['USD', 'CAD', 'EUR', 'BTC', 'ETH'],
   apiTokenString: '',
   tokenConversions: [],
+  allTokens: tokenData[0],
   activeTokenData: null,
 };
 
@@ -45,7 +49,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         tokens: action.payload,
-      };
+    };
+    case ADD_NEW_SINGLE_TOKEN:
+    return {
+      ...state, tokens: action.payload,
+    };
     case TEMP_WALLET_NAME:
       return {
         ...state, tempWalletName: action.payload,
