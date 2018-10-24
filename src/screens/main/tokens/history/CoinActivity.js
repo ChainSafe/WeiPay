@@ -11,11 +11,6 @@ const ethers = require('ethers');
 const moment = require('moment');
 const utils = ethers.utils;
 
-/**
- * React Component
- * Contains a local history of all the transactions that have been occured
- * using the current wallet address
- */
 class CoinActivity extends Component {
   constructor(props) {
     super(props);
@@ -23,11 +18,12 @@ class CoinActivity extends Component {
       balance: '',
       loaded: false,
       data: [],
-      address: this.props.wallet.address,
+      address: this.props.wallet.pubKey,
     };
   }
 
   componentDidMount() {
+    console.log(this.state.address);
     this.getData(this.state.address);
   }
 
@@ -104,9 +100,6 @@ class CoinActivity extends Component {
   }
 }
 
-/**
- * Style
- */
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1, 
@@ -206,9 +199,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({HotWallet}) => {
   return {
-    wallet: state.newWallet.wallet,  
+    wallet: HotWallet.hotWallet,
   };
 };
 
