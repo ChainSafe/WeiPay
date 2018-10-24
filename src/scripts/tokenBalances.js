@@ -13,9 +13,6 @@ const ethers = require('ethers');
 let wallet;
 
 const processAllTokenBalances = async (privateKey, dataSet) => {
-  console.log('[_Process_All_TokenBalance Function]');
-  console.log({dataSet});
-
   let allBalances = [];
   let tokenApiRequestString = '';
   wallet = new ethers.Wallet(privateKey);
