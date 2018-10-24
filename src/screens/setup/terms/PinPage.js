@@ -33,7 +33,7 @@ class PinPage extends Component {
       isValidLength: false,
     }
   }
-  
+
   /**
  * this.props.isInSetupScreens will be false if the user has not entered the main page and completed
  * the app setup. This will be an indication on whether we are going to be decrypting wallet from the 
@@ -220,11 +220,6 @@ setPin = async () => {
                       </View>
                     </View>
                   </View>
-                : null
-              }
-              {
-                this.props.isInSetupScreens === false && this.props.isWalletEncrypted === false
-                ? <View> { this.navigateWithoutEncryption() } </View>
                 : null
               }
               <View style={styles.btnContainer}>

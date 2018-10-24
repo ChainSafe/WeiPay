@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
+import * as actions from '../actions/AppConfig';
 
 class Splash extends Component {
   componentDidMount() {
@@ -10,8 +11,17 @@ class Splash extends Component {
 
   checkLoggedIn() {
     if(this.props.wallets.length > 0) {
-      const navigateToAddToken = NavigationActions.navigate({ routeName: 'password' });
-      this.props.navigation.dispatch(navigateToAddToken);
+      if(!this.props.isWalletEncrypted) {
+        const nonEncyrptedWallet = this.props.wallets[0].hdWallet;
+        const nonEncrytpedName = this.props.wallets[0].name;
+        const walletNotEncrypted = { wallet: nonEncyrptedWallet, name: nonEncrytpedName };
+        this.props.setHotWallet(walletNotEncrypted);
+        const navigateToAddToMain = NavigationActions.navigate({ routeName: 'mainStack' });
+        this.props.navigation.dispatch(navigateToAddToMain);
+      } else {
+        const navigateToAddToken = NavigationActions.navigate({ routeName: 'password' });
+        this.props.navigation.dispatch(navigateToAddToken);
+      }
     } else {
       const navigateToAddToken = NavigationActions.navigate({ routeName: 'terms' });
       this.props.navigation.dispatch(navigateToAddToken);
@@ -26,8 +36,8 @@ class Splash extends Component {
 }
 
 const mapStateToProps = ({ Wallet }) => {
-  const { wallets } = Wallet;
-  return { wallets };
+  const { wallets, isWalletEncrypted } = Wallet;
+  return { wallets, isWalletEncrypted };
 };
 
-export default connect(mapStateToProps)(Splash);
+export default connect(mapStateToProps, actions)(Splash);
