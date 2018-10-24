@@ -19,7 +19,7 @@ import PinPage  from '../../screens/setup/terms/PinPage';
  */
 const navigator = StackNavigator({
   splash: {
-    screen: Splash
+    screen: Splash,
   },
   terms: {
     screen: TermsScreen,

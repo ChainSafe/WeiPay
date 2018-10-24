@@ -7,8 +7,10 @@ import {
   SET_APP_PASSWORD,
   CONFIG_HOT_WALLET,
   ADD_NEW_SINGLE_TOKEN,
-} from "./ActionTypes";
-
+  SAVE_TOKEN_DATA_FOR_TRANSACTION,
+  SET_UNENCRYPTED_WALLET,
+  SET_SECURITY_FLAG,
+} from './ActionTypes';
 
 export function enterDebug() {
   let testData = { 'walletName': 'My Test Wallet Name' };
@@ -94,8 +96,32 @@ export function setWalletPassword(password) {
 export function setHotWallet(walletObj) {
   const { name, wallet } = walletObj;
   const pKey = wallet.address;
-  return(dispatch) => {
+  return (dispatch) => {
     dispatch({ type: CONFIG_HOT_WALLET, payload: { 'wallet': wallet, 'publicKey': pKey,'name': name} });
   };
 }
 
+export function saveTokenDataForTransaction(tokenBalance, symbol, address) {
+  return (dispatch) => {
+    dispatch({
+      type: SAVE_TOKEN_DATA_FOR_TRANSACTION,
+      payload: {
+        tokenBalance, symbol, address,
+      },
+    });
+  };
+}
+
+export function setUnencryptedWallet(walletObj) {
+  const { name, wallet } = walletObj;
+  const pKey = wallet.address;
+  return (dispatch) => {
+    dispatch({ type: SET_UNENCRYPTED_WALLET, payload: { wallet, 'publicKey': pKey, name} });
+  };
+}
+
+export function setSecurityFlag(securityFlag) {
+  return (dispatch) => {
+    dispatch({ type: SET_SECURITY_FLAG, payload: securityFlag });
+  };
+}

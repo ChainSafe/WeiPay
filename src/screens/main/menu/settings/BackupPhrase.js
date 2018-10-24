@@ -7,6 +7,9 @@ import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuN
 import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard'
 import LinearButton from '../../../../components/LinearGradient/LinearButton'
 import RF from "react-native-responsive-fontsize"
+const ethers = require('ethers');
+const utils = ethers.utils;
+
 
 const navigate = () => {
   const navigateToMenu = NavigationActions.reset({
@@ -23,9 +26,11 @@ class BackupPhrase extends Component {
 
   constructor(props) {
     super(props);
+    
     this.state = { 
       isPhraseSelected: false,
-      phrase: this.props.mnemonic 
+      phrase: this.props.wallet.wallet.mnemonic,
+      phraseInDebug: this.props.wallet.wallet.privateKey, //TODO: Delete this and replace every call to phrase
     };
   }
 
@@ -34,6 +39,7 @@ class BackupPhrase extends Component {
    * to display the passphrase
    */
   displayPassphrase() {
+    
     this.setState({
       isPhraseSelected: true
     });
@@ -43,6 +49,8 @@ class BackupPhrase extends Component {
    * Returns a component that allows the user to view the passphrase
    */
   render() {
+    
+    
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -63,7 +71,7 @@ class BackupPhrase extends Component {
                         ? 
                         <View> 
                             <Text style={styles.cardText} >Please save this passphrase somewhere safe!</Text>
-                            <Text style={styles.mnemonicText} >{this.state.phrase}</Text>
+                            <Text style={styles.mnemonicText} >{this.state.phraseInDebug}</Text>
                         </View>                      
                         : <Text style={styles.cardText} >To view your recovery passphrase, select the button below</Text>
                       }
@@ -175,10 +183,10 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapStateToProps = ({ newWallet }) => {
-  const mnemonic = newWallet.wallet.mnemonic;
+const mapStateToProps = ({ newWallet, HotWallet }) => {
+  const wallet = HotWallet.hotWallet;
   const debugMode = newWallet.debugMode;
-  return { mnemonic, debugMode }
+  return { wallet, debugMode }
 }
 
 export default connect(mapStateToProps, null)(BackupPhrase)
