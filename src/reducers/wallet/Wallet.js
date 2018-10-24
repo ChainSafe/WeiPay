@@ -17,10 +17,12 @@ import {
   SAVE_TOKEN_DATA_FOR_TRANSACTION,
   SET_UNENCRYPTED_WALLET,
   SET_SECURITY_FLAG,
+  SET_APP_PASSWORD_ROOT,
   SAVE_TOKEN_QUANTITIES,
 } from '../../actions/ActionTypes';
 
 const initialState = {
+  hashedPassword: null,
   isInSetupScreens: true,
   wallets: [],
   walletUnencyrpted: null,
@@ -43,6 +45,10 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    case SET_APP_PASSWORD_ROOT:
+      return {
+        ...state, hashedPassword: action.payload,
+      };
     case EXIT_SETUP_SCREEN:
     return {
       ...state, isInSetupScreens: action.payload,
