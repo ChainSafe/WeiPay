@@ -16,6 +16,9 @@ import ClearButton from '../../../components/LinearGradient/ClearButton';
 
 /**
  * Screen is used to display the passphrase (mnemonic) of the wallet
+ * 
+ * 0xcD361f7173C439BB76F3E1206446e9D183B82787
+ * 
  */
 class Contract extends Component {
   constructor(props) {
@@ -23,7 +26,7 @@ class Contract extends Component {
     this.state = {
       contractLoaded: false,
       address: '',
-      hardCodedAddress: '0xcD361f7173C439BB76F3E1206446e9D183B82787',
+      hardCodedAddress: '',
       wallet: this.props.hotWallet.wallet,
       contractEvents: null,
       contractFunctions: null,
@@ -36,6 +39,7 @@ class Contract extends Component {
   }
 
   getContract = async () => {
+    console.log('contract add', this.state.hardCodedAddress);
     this.setState({ contractFunctions: null });
     const {
       contractFunctions, contractEvents, contract, withInputs,
