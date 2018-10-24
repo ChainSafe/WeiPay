@@ -10,6 +10,7 @@ import {
   SAVE_TOKEN_DATA_FOR_TRANSACTION,
   SET_UNENCRYPTED_WALLET,
   SET_SECURITY_FLAG,
+  SET_APP_PASSWORD_ROOT,
   SAVE_TOKEN_QUANTITIES,
 } from './ActionTypes';
 
@@ -17,6 +18,12 @@ export function enterDebug() {
   let testData = { 'walletName': 'My Test Wallet Name' };
   return (dispatch) => {
     dispatch({ type: DEBUG_MODE, payload: testData });
+  };
+}
+
+export function setAppPassword(hashedPassword) {
+  return (dispatch) => {
+    dispatch({ type: SET_APP_PASSWORD_ROOT, payload: hashedPassword });
   };
 }
 
