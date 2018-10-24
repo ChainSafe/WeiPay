@@ -17,7 +17,6 @@ import ClearButton from '../../../components/LinearGradient/ClearButton';
  * Screen is used to display the passphrase (mnemonic) of the wallet
  */
 class Contract extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
