@@ -16,39 +16,25 @@ class CoinReceive extends Component {
    * and QrCode
    */
   render() {
-    const {
-      mainContainer,
-      contentContainer,
-      imageContainer,
-      addressContainer,
-      navContainer,
-      navHeaderContainer,
-      addressTitle,
-      addressValue,
-      footerGrandparentContainer,
-      footerParentContainer,
-      textFooter,
-    } = styles;
-
     return (
       <SafeAreaView style={styles.safeAreaView}>
-        <View style={mainContainer}>
-          <View style={contentContainer} >
-            <View style={imageContainer}>
+        <View style={styles.mainContainer}>
+          <View style={styles.contentContainer} >
+            <View style={styles.imageContainer}>
               <QRCode
                 value={this.props.walletAddress}
                 size={ 225}
                 bgColor='#27c997'
                 fgColor='#fafbfe' />
             </View>
-            <View style={addressContainer}>
-                <Text style={addressTitle}>Address: </Text>
-                <Text style={addressValue}>{this.props.walletAddress}</Text>
+            <View style={styles.addressContainer}>
+                <Text style={styles.addressTitle}>Address: </Text>
+                <Text style={styles.addressValue}>{this.props.walletAddress}</Text>
             </View>            
           </View>
-          <View style={footerGrandparentContainer}>
-            <View style={footerParentContainer}>
-                <Text style={textFooter} >Powered by ChainSafe </Text>
+          <View style={styles.footerGrandparentContainer}>
+            <View style={styles.footerParentContainer}>
+                <Text style={styles.textFooter} >Powered by ChainSafe </Text>
             </View>
           </View>
         </View>
@@ -131,13 +117,10 @@ const styles = StyleSheet.create({
   },
 });
 
-/**
- * Returns an object containing the wallet address that was
- * create/reterived during the initial process
- * @param {Object} state
- */
-const mapStateToProps = state => ({
-  walletAddress: state.newWallet.wallet.address,
-});
+const mapStateToProps = ({ HotWallet }) => {
+  return {
+    walletAddress: HotWallet.hotWallet.pubKey,
+  };
+};
 
 export default connect(mapStateToProps, null)(CoinReceive);

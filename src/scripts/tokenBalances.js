@@ -23,25 +23,27 @@ const processAllTokenBalances = async (privateKey, dataSet) => {
     if (dataSet[i].contractAddress === '') {
       await this.getEthereumBalance(wallet.address)
         .then((response) => {
-          tokenObj.amount = response;
+          tokenObj.amount = Number(response).toFixed(4);
           allBalances.push(tokenObj);
           tokenApiRequestString += `${dataSet[i].symbol}`;  
           if (i < dataSet.length - 1) tokenApiRequestString += ',';
         })
         .catch((err) => {
-          console.log(err);
+          tokenObj.amount = 0;
+          allBalances.push(tokenObj);
         });
     } else {
       let contractAddress = dataSet[i].contractAddress;
       await this.getERC20Balance(contractAddress)
         .then((response) => {
-          tokenObj.amount = response;
+          tokenObj.amount =  Number(response).toFixed(4);
           allBalances.push(tokenObj);
           tokenApiRequestString += `${dataSet[i].symbol}`;  
           if (i < dataSet.length - 1) tokenApiRequestString += ','; 
         })
         .catch((err) => {
-          console.log(err);
+          tokenObj.amount = 0;
+          allBalances.push(tokenObj);
         });
     }
   }

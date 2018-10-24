@@ -11,6 +11,7 @@ import {
   SET_UNENCRYPTED_WALLET,
   SET_SECURITY_FLAG,
   SET_APP_PASSWORD_ROOT,
+  SAVE_TOKEN_QUANTITIES,
 } from './ActionTypes';
 
 export function enterDebug() {
@@ -132,3 +133,10 @@ export function setSecurityFlag(securityFlag) {
     dispatch({ type: SET_SECURITY_FLAG, payload: securityFlag });
   };
 }
+
+export function saveAllTokenQuantities(list) {
+  return (dispatch) => {
+    dispatch({ type: SAVE_TOKEN_QUANTITIES, payload: list });
+  };
+}
+
