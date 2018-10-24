@@ -19,24 +19,11 @@ import MaliciousAddresses from '../../../../constants/data/json/addresses_darkli
 const ethers = require('ethers');
 const utils = ethers.utils;
 
-/**
- * React Component
- * Screen used to conduct negative transactions (sending coins/tokens)
- */
 class CoinSend extends Component {
-  /**
-   * Initializes State to keep track of the
-   * value that is being sent, the address the value is being sent to,
-   * and the default value.
-   * @param {Object} props
-   */
   constructor(props) {
     super(props);   
-
-    // const addressFromContact = this.props.contactAddress;
     const addressFromQRCode = this.props.addressData;
     console.log(this.props.token);
-    
     this.state = {
       toAddress: addressFromQRCode,
       value: 0,
@@ -56,8 +43,6 @@ class CoinSend extends Component {
     let add = addressInput.trim();
     console.log(add);
     this.setState({ inputValue: add, toAddress: add });
-    // this.setState({ toAddress: add });
-
     this.props.getQRCodeData(addressInput);
   }
 
@@ -186,7 +171,7 @@ class CoinSend extends Component {
    */
   navigate = () => {
     this.props.qrScannerInvoker('TokenFunctionality');
-    this.props.qrScannerCoinInvoker(this.props.token);
+    this.props.qrScannerCoinInvoker(this.props.token.symbol);
     const navigateToQRScanner = NavigationActions.navigate({
       routeName: 'QCodeScanner',
       params: { name: 'Shubhnik', invoker: 'CoinSend' },
@@ -423,21 +408,15 @@ const styles = StyleSheet.create({
   },
 
 });
-/**
- * Reterives the wallet created/reterived during the initial
- * process, and the Data collected from the QrCode component.
- *
- * Returns the wallet and the data as an object
- * @param {Object} state
- */
-const mapStateToProps = (state) => {
+
+const mapStateToProps = ({Wallet, HotWallet, newWallet, contacts}) => {
   return {
-    tokenData: state.Wallet.activeTokenData,
-    wallet: state.newWallet.wallet,
-    addressData: state.newWallet.QrData,
-    token: state.newWallet.current_token,
-    txnFee: state.newWallet.txnFee,
-    contactAddress: state.contacts.contactDataforCoinSend,
+    tokenData: Wallet.activeTokenData,
+    wallet: HotWallet.hotWallet.wallet,
+    addressData: newWallet.QrData,
+    token: Wallet.activeTokenData,
+    txnFee: newWallet.txnFee,
+    contactAddress: contacts.contactDataforCoinSend,
   };
 };
 export default connect(mapStateToProps, action)(CoinSend);

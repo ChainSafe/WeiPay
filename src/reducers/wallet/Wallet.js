@@ -17,6 +17,7 @@ import {
   SAVE_TOKEN_DATA_FOR_TRANSACTION,
   SET_UNENCRYPTED_WALLET,
   SET_SECURITY_FLAG,
+  SAVE_TOKEN_QUANTITIES,
 } from '../../actions/ActionTypes';
 
 const initialState = {
@@ -37,6 +38,7 @@ const initialState = {
   tokenConversions: [],
   allTokens: tokenData[0],
   activeTokenData: null,
+  tokenQuantities: null,
 };
 
 export default function (state = initialState, action) {
@@ -105,6 +107,10 @@ export default function (state = initialState, action) {
       const { wallet, publicKey, name } = action.payload;
       return {
         ...state, walletUnencyrpted: { wallet, pubKey: publicKey, name },
+      };
+    case SAVE_TOKEN_QUANTITIES:
+      return {
+        ...state, tokenQuantities: action.payload,
       };
     default:
       return state;
