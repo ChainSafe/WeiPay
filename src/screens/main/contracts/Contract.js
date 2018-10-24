@@ -11,6 +11,7 @@ import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 import {
   processContractByAddress, processFunctionCall2,
 } from '../../../scripts/contracts/contractHelper';
+import LinearButton from '../../../components/LinearGradient/LinearButton';
 import ClearButton from '../../../components/LinearGradient/ClearButton';
 
 /**
@@ -157,30 +158,23 @@ class Contract extends Component {
                 <BackWithMenuNav
                     showMenu={false}
                     showBack={true}
-                    // navigation={this.props.navigation}
+                    navigation={this.props.navigation}
                   />
               </View>
-              <Text style={styles.textHeader}>Contract Interaction</Text>
                 {
                   this.state.contractFunctions === null
                     ?
                     <View style={styles.topFormInput}>
+                      <Text style={styles.textHeader}>Contract Interaction</Text>
                       <Text style={styles.textDescription}>Load contract address</Text>
-                        <FormInput
-                          placeholder={'Contract Address'}
-                          onChangeText={(add) => { return this.setState({ address: add }); }}
-                          inputStyle={styles.inputContactName}
-                          placeholderTextColor={'#b3b3b3'}
-                          value={this.state.address}
-                        />
-                        <View style={styles.btnFlex}>
-                          <ClearButton
-                            buttonText='Load Contract'
-                            onClickFunction={() => this.getContract(this)}
-                            customStyles={styles.loadButton}
-                          />
-                        </View>
-                      </View>
+                      <FormInput
+                        placeholder={'Contract Address'}
+                        onChangeText={(add) => { return this.setState({ address: add }); }}
+                        inputStyle={styles.inputContactName}
+                        placeholderTextColor={'#b3b3b3'}
+                        value={this.state.address}
+                      />
+                    </View>
                     :
                     <View style={styles.scrollViewContainer} >
                       <ScrollView style={styles.scrollView}>
@@ -190,6 +184,20 @@ class Contract extends Component {
                 }
 
             <View style={styles.btnContainer}>
+                {
+                   this.state.contractFunctions === null
+                   ?
+                    <LinearButton
+                      buttonText='Load Contract'
+                      onClickFunction={() => this.getContract(this)}
+                      customStyles={styles.loadButton}
+                    />
+                 :  <LinearButton
+                      buttonText='Reset Contract'
+                      onClickFunction={() => this.getContract(this)}
+                      customStyles={styles.loadButton}
+                    />
+                }
                 <View style={styles.footerGrandparentContainer}>
                     <View style={styles.footerParentContainer} >
                         <Text style={styles.textFooter} >Powered by ChainSafe </Text>
@@ -245,13 +253,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.0001,
   },
   topFormInput: {
-    flex: 1.5,
+    flex: 5,
     paddingLeft: '5%',
     paddingRight: '5%',
-    justifyContent: 'center',
+    paddingTop: '5%',
   },
   scrollViewContainer: {
-    flex: 7,
+    flex: 5,
     paddingBottom: '2.5%',
     paddingTop: '2.5%',
   },
@@ -259,6 +267,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   loadButton: {
+    width: '82%',
     height: Dimensions.get('window').height * 0.082,
   },
   textHeader: {
@@ -267,7 +276,8 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
     paddingLeft: '9%',
     color: '#1a1f3e',
-    flex: 0.75,
+    paddingTop: '2.5%',
+    marginBottom: '5%',
   },
   inputContactName: {
     fontSize: RF(2.5),
@@ -289,7 +299,6 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
     paddingLeft: '9%',
     color: '#1a1f3e',
-    flex: 0.3,
   },
   contentContainer: {
     width: '82%',
@@ -317,10 +326,9 @@ const styles = StyleSheet.create({
     lineHeight: RF(3),
   },
   btnContainer: {
-    flex: 1,
-    alignItems: 'stretch',
-    justifyContent: 'flex-end',
     width: '100%',
+    flex: 1.25,
+    marginTop: '2.5%', 
   },
   button: {
     width: '82%',
