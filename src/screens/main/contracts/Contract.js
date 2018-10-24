@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View, Text, StyleSheet, ScrollView, Dimensions, TouchableWithoutFeedback, Keyboard, SafeAreaView,
+  View, Text, StyleSheet, ScrollView, Dimensions, TouchableWithoutFeedback, Keyboard, SafeAreaView, TextInput,
 } from 'react-native';
 import { FormInput } from 'react-native-elements';
 import Toast from 'react-native-simple-toast';
@@ -167,13 +167,15 @@ class Contract extends Component {
                     <View style={styles.topFormInput}>
                       <Text style={styles.textHeader}>Contract Interaction</Text>
                       <Text style={styles.textDescription}>Load contract address</Text>
-                      <FormInput
-                        placeholder={'Contract Address'}
-                        onChangeText={(add) => { return this.setState({ address: add }); }}
-                        inputStyle={styles.inputContactName}
-                        placeholderTextColor={'#b3b3b3'}
-                        value={this.state.address}
-                      />
+                      <View style={styles.addressField}>
+                        <TextInput
+                          placeholder={'Contract Address'}
+                          onChangeText={(add) => { return this.setState({ address: add }); }}
+                          inputStyle={styles.inputContactName}
+                          placeholderTextColor={'#b3b3b3'}
+                          value={this.state.address}
+                        />
+                      </View>
                     </View>
                     :
                     <View style={styles.scrollViewContainer} >
@@ -278,6 +280,10 @@ const styles = StyleSheet.create({
     color: '#1a1f3e',
     paddingTop: '2.5%',
     marginBottom: '5%',
+  },
+  addressField: {
+    marginLeft: '9%',
+    marginTop: '5%',
   },
   inputContactName: {
     fontSize: RF(2.5),
