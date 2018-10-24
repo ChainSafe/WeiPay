@@ -69,8 +69,6 @@ class Portfolio extends Component {
 
   balanceCalculations = async () => {
     const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data);
-    console.log('hey');
-    console.log({tokenBalances, tokenSymbolString});
     this.props.saveAllTokenQuantities(tokenBalances);
     await this.props.fetchCoinData(tokenSymbolString);
     await this.props.calculateWalletBalance(tokenBalances, this.props.tokenConversions); //amount of tokens and symbol -> token balance, conversions -> matrix of prices
@@ -80,7 +78,7 @@ class Portfolio extends Component {
       tokenPrices: this.props.tokenBalances,
       tokenAmounts: tokenBalances,
     });
-    // this.showTokens();
+    this.showTokens();
   }
   /**
    * tokens are passed into the function where their symbols and addresses are parsed out and stored in an array,
@@ -127,15 +125,12 @@ class Portfolio extends Component {
   };
 
   renderRow = (token) => {
-    const { tokenInfo, tokenPriceInfo, tokenAmounts, selected } = token;
-    //console.log({tokenInfo, tokenPriceInfo, tokenAmounts, selected});
-    
+    const { tokenInfo, tokenPriceInfo, tokenAmounts, selected } = token;    
     if (tokenInfo.selected) {
       return (
         <TouchableOpacity
           onPress={() => {      
-            //this.props.saveTokenDataForTransaction(tokenAmounts.amount, tokenInfo.symbol, tokenInfo.address);
-            // tokenBalance, symbol, address,     
+            this.props.saveTokenDataForTransaction(tokenAmounts.amount, tokenInfo.symbol, tokenInfo.address);
             this.props.navigation.navigate('TokenFunctionality');
           }}
           style={styles.listItemParentContainer}
