@@ -7,7 +7,7 @@ import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from 'react-navigation';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import { setWalletTokenBalances, fetchCoinData, calculateWalletBalance } from '../../../actions/FetchCoinData';
-import { saveTokenDataForTransaction } from '../../../actions/AppConfig';
+import { saveTokenDataForTransaction, saveAllTokenQuantities } from '../../../actions/AppConfig';
 import processAllTokenBalances from '../../../scripts/tokenBalances';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
@@ -61,7 +61,7 @@ class Portfolio extends Component {
       await this.setState({
         walletBalance: this.props.walletBalance,
         tokenPrices: this.props.tokenBalances,
-        tokenAmounts: this.props.tokenBalances,
+        tokenAmounts: this.props.tokenQuantities,
       });
       this.showTokens();
     }
@@ -69,6 +69,9 @@ class Portfolio extends Component {
 
   balanceCalculations = async () => {
     const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data);
+    console.log('hey');
+    console.log({tokenBalances, tokenSymbolString});
+    this.props.saveAllTokenQuantities(tokenBalances);
     await this.props.fetchCoinData(tokenSymbolString);
     await this.props.calculateWalletBalance(tokenBalances, this.props.tokenConversions); //amount of tokens and symbol -> token balance, conversions -> matrix of prices
     await this.setState({
@@ -77,7 +80,7 @@ class Portfolio extends Component {
       tokenPrices: this.props.tokenBalances,
       tokenAmounts: tokenBalances,
     });
-    this.showTokens();
+    // this.showTokens();
   }
   /**
    * tokens are passed into the function where their symbols and addresses are parsed out and stored in an array,
@@ -124,14 +127,15 @@ class Portfolio extends Component {
   };
 
   renderRow = (token) => {
-
     const { tokenInfo, tokenPriceInfo, tokenAmounts, selected } = token;
-       
+    //console.log({tokenInfo, tokenPriceInfo, tokenAmounts, selected});
+    
     if (tokenInfo.selected) {
       return (
-        
         <TouchableOpacity
-          onPress={() => {           
+          onPress={() => {      
+            //this.props.saveTokenDataForTransaction(tokenAmounts.amount, tokenInfo.symbol, tokenInfo.address);
+            // tokenBalance, symbol, address,     
             this.props.navigation.navigate('TokenFunctionality');
           }}
           style={styles.listItemParentContainer}
@@ -437,7 +441,7 @@ const styles = StyleSheet.create({
 function mapStateToProps({ Wallet, Debug, HotWallet }) {
   const { hotWallet } = HotWallet;
   const {
-    currencyOptions, tokens, wallets, tokenConversions, tokenBalances, walletBalance,
+    currencyOptions, tokens, wallets, tokenConversions, tokenBalances, walletBalance, tokenQuantities,
   } = Wallet;
   const {
     debugMode, testWalletName,
@@ -452,6 +456,7 @@ function mapStateToProps({ Wallet, Debug, HotWallet }) {
     tokenConversions,
     walletBalance,
     tokenBalances,
+    tokenQuantities,
   };
 }
 
@@ -460,4 +465,5 @@ export default connect(mapStateToProps, {
   fetchCoinData,
   calculateWalletBalance,
   saveTokenDataForTransaction,
+  saveAllTokenQuantities,
 })(Portfolio);
