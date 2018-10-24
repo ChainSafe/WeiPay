@@ -27,14 +27,24 @@ class CoinActivity extends Component {
     this.getData(this.state.address);
   }
 
+  /*
+  http://api-ropsten.etherscan.io/api?module=account&action=txlist&address=0xFc02F8B4309fFF99F3C0BA3e8Bbb7399572EEf51&startblock=0&endblock=99999999&sort=asc&apikey=YJ1TRXBKAH9QZWINVFT83JMFBQI15X7UPR
+
+  */
+
   getData = async (address) => {
-    const url = `https://api.etherscan.io/api?module=account&action=txlist&address=${  address  }&page=1&offset=10&sort=asc&apikey=YJ1TRXBKAH9QZWINVFT83JMFBQI15X7UPR`;
+    const url = `http://api-ropsten.etherscan.io/api?module=account&action=txlist&address=${  address  }&sort=asc&apikey=YJ1TRXBKAH9QZWINVFT83JMFBQI15X7UPR`;
     axios.get(url).then((response) => {
+      console.log(response);
+
+      
       this.parseData(response.data.result);
     });
   }
 
   parseData = (json) => {
+    console.log(json);
+    
     const transactions = [];
     for (let i = 0; i < json.length; i++) {
       const transObj = {};
@@ -63,6 +73,8 @@ class CoinActivity extends Component {
    * Returns a component holding a list of transactions that have been occured
    */
   render() {
+    console.log(this.props.address);
+    
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>
