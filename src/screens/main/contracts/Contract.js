@@ -39,11 +39,10 @@ class Contract extends Component {
   }
 
   getContract = async () => {
-    console.log('contract add', this.state.hardCodedAddress);
     this.setState({ contractFunctions: null });
-    const {
-      contractFunctions, contractEvents, contract, withInputs,
-    } = await processContractByAddress(this.state.wallet, this.state.hardCodedAddress);
+    const {contractFunctions
+      , contractEvents, contract, withInputs,
+    } = await processContractByAddress(this.state.wallet, this.state.address);
     this.setState({ contractEvents, contractFunctions, contract, withInputs });
   }
 
