@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {
-  View, StyleSheet, Dimensions, Text, SafeAreaView, RefreshControl,
+  View, StyleSheet, Dimensions, Text, SafeAreaView, RefreshControl, TextInput,
 } from 'react-native';
-import { FormLabel, FormInput } from 'react-native-elements';
+import { FormLabel } from 'react-native-elements';
 import SearchBar from 'react-native-material-design-searchbar';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
@@ -102,9 +102,14 @@ class Coins extends Component {
               ?
                 <View style={styles.inputContainer}>
                   <FormLabel style={styles.displayText}>Name</FormLabel>
-                  <FormInput style={styles.displayText} value={this.state.searchedTokenName} editable={false} />
+
+                  <View style={styles.formInputContainer}>
+                    <TextInput style={styles.textInput} value={this.state.searchedTokenName} editable={false} />
+                  </View>
                   <FormLabel style={styles.displayText}>Contract Address</FormLabel>
-                  <FormInput style={styles.displayText} value={this.state.searchedTokenNameAdd} editable={false} />
+                  <View style={styles.formInputContainer}>
+                    <TextInput style={styles.textInput} value={this.state.searchedTokenNameAdd} editable={true} />
+                  </View>
               </View>
               : null
             }          
@@ -138,6 +143,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fafbfe',
   },
+  formInputContainer: {
+    width: '92%',
+    marginLeft: '5%',
+  },
   inputContainer: {
     marginTop: '5%',
   },
@@ -147,10 +156,20 @@ const styles = StyleSheet.create({
     marginRight: '9%',
     marginTop: '5%',
   },
+  textInput: {
+    width: '100%',
+    flexDirection: 'column',
+    fontSize: RF(2.4),
+    flexWrap: 'wrap',
+    color: '#12c1a2',
+    letterSpacing: 0.4,
+    fontFamily: 'WorkSans-Regular',  
+    borderBottomWidth: 0.0001,
+  },
   displayText: {
     fontSize: RF(4),
     color: '#000000',
-    fontFamily: 'Cairo-Regular'
+    fontFamily: 'Cairo-Regular',
   },
   btnContainer: {
     flex: 1,
