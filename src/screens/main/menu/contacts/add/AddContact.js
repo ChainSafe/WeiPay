@@ -143,13 +143,7 @@ class AddContact extends Component {
    * Returns the form required to add a contact
    */
   render() {
-    console.log("888888888888");
     
-    console.log(this.props.newTokens);
-    
-    console.log("888888888888");
-    
-
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>
