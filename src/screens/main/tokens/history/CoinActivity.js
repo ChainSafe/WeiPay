@@ -35,15 +35,11 @@ class CoinActivity extends Component {
   getData = async (address) => {
     const url = `http://api-ropsten.etherscan.io/api?module=account&action=txlist&address=${  address  }&sort=asc&apikey=YJ1TRXBKAH9QZWINVFT83JMFBQI15X7UPR`;
     axios.get(url).then((response) => {
-      console.log(response);
-
-      
       this.parseData(response.data.result);
     });
   }
 
   parseData = (json) => {
-    console.log(json);
     
     const transactions = [];
     for (let i = 0; i < json.length; i++) {
