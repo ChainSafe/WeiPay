@@ -20,6 +20,8 @@ import {
   SET_APP_PASSWORD_ROOT,
   SAVE_TOKEN_QUANTITIES,
 } from '../../actions/ActionTypes';
+import * as actions from '../../actions/ActionCreator';
+
 
 const initialState = {
   hashedPassword: null,
@@ -118,6 +120,17 @@ export default function (state = initialState, action) {
       return {
         ...state, tokenQuantities: action.payload,
       };
+    case actions.ADD_TOKEN_SETUP:
+      const current = state.tokens;
+      const selectedToken = { ...action.payload, balance: 0}
+      let newTokens = [];
+      const index = current.map(token => token.id).indexOf(action.payload.id);
+      if (index === -1) {      
+        newTokens = [...current, selectedToken];
+      } else { 
+        newTokens = [...current.slice(0, index), ...current.slice(index + 1)];     
+      }
+      return { ...state, tokens: newTokens };
     default:
       return state;
   }

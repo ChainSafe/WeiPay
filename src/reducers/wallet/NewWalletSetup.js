@@ -77,17 +77,7 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, newWallet: true, wallet: action.payload };
     case actions.NEW_WALLET_NAME:
       return { ...state, walletName: action.payload };
-    case actions.ADD_TOKEN_SETUP:
-      const current = state.tokens;
-      const selectedToken = { ...action.payload, balance: 0}
-      let newTokens = [];
-      const index = current.map(token => token.id).indexOf(action.payload.id);
-      if (index === -1) {      
-        newTokens = [...current, selectedToken];
-      } else { 
-        newTokens = [...current.slice(0, index), ...current.slice(index + 1)];     
-      }
-      return { ...state, tokens: newTokens };
+    
     case actions.ADD_TOKEN_INFO:
       return { ...state, current_token: action.payload };
     case actions.UPDATE_TOKEN_BALANCE:      
@@ -216,3 +206,17 @@ export default (state = INITIAL_STATE, action) => {
       return state;
   }
 };
+
+/*
+case actions.ADD_TOKEN_SETUP:
+      const current = state.tokens;
+      const selectedToken = { ...action.payload, balance: 0}
+      let newTokens = [];
+      const index = current.map(token => token.id).indexOf(action.payload.id);
+      if (index === -1) {      
+        newTokens = [...current, selectedToken];
+      } else { 
+        newTokens = [...current.slice(0, index), ...current.slice(index + 1)];     
+      }
+      return { ...state, tokens: newTokens };
+      */

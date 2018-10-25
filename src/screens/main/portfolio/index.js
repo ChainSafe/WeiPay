@@ -200,6 +200,8 @@ class Portfolio extends Component {
    */
 
   render() {
+    console.log(this.props.tokens);
+    
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer} >

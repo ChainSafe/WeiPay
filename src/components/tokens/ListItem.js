@@ -21,6 +21,7 @@ class CoinListItem extends Component {
     this.state = {
       totalTaps: (this.props.coin.selected ? 1 : 0),
       checked: false,
+      tokens: this.props.tokens
     };
   }
 
@@ -31,7 +32,8 @@ class CoinListItem extends Component {
    * @param {Object} coin
    */
   renderPress(coin) {
-    if (this.state.totalTaps == 0) {      
+    console.log(coin);
+    if (this.state.totalTaps == 0) {
       this.props.addTokenToSetup(coin);
       this.setState({ checked: !(this.state.checked), totalTaps: 1 });
     } else if (this.state.totalTaps == 1) {
@@ -73,6 +75,8 @@ class CoinListItem extends Component {
    * prop and it can be selected or unselected by the user
    */
   render() {
+    //console.log(this.props.tokens);
+    
     const { coin } = this.props;
     let statePictureStyle = {
       height: Dimensions.get('window').height * 0.035,
@@ -194,6 +198,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
   return {
     tokenList: state.newWallet.tokens,
+    tokens: state.Wallet.tokens,
   };
 };
 
