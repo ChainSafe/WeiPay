@@ -13,6 +13,7 @@ import * as actions from '../../../actions/ActionCreator';
 import { getQRCodeData } from '../../../actions/ActionCreator';
 import { updateSavedContactInputs } from '../../../actions/ActionCreator';
 import ContactAddresses from '../menu/contacts/SelectedContact';
+import BackupPhrase from '../menu/settings/BackupPhrase';
 
 /**
  * React Component
@@ -34,6 +35,7 @@ class QrCodeScanner extends Component {
       invoker: this.props.invoker,
       coinInvoker: this.props.coinInvoker,
       previousInputs: this.props.currentContact,
+      scanned: true,
     };
   }
 
@@ -53,8 +55,8 @@ class QrCodeScanner extends Component {
      * order to update the global state variable
      */
     onBarCodeRead = (e) => {
-      this.setState({ qrcode: e.data });
-      Toast.show('Scanned!');
+      this.setState({ qrcode: e.data, scanned: !this.state.scanned });
+      
       if (this.state.invoker === 'TokenFunctionality') { // Coin Send page
         this.props.getQRCodeData(e.data);
       } else if (this.state.invoker === 'AddTokenFunctionality') {
@@ -74,8 +76,9 @@ class QrCodeScanner extends Component {
      *  - a button to go back to the invoking screen and fill in the input field
      */
     render() {
+      
       return (
-            <View style={styles.container}>
+            <View style={[styles.container, this.state.scanned ? {borderColor: 'green'} : {borderTopColor: 'black'}  ]}>
               <View style={{flex: 1}}>
                   <Camera
                       style={styles.preview}
@@ -107,26 +110,6 @@ class QrCodeScanner extends Component {
     }
 }
 
-
-
-///* <View style={{flex: 0.2, backgroundColor: '#fafbfe'}}>
-                  /* <Text style={{ backgroundColor: 'white' }}>
-                      {this.state.qrcode}
-                  </Text> */
-                  // <LinearButton
-                  //   onClickFunction={this.navigate}
-                  //   buttonText='Next'
-                    
-                  //   customStyles={styles.button} />
-                  // {/* <Button
-                  //     title='Next'
-                  //     style={styles.buttonStyle}
-                  //     // onPress={() => this.props.navigation.goBack()}
-                  //     onPress={ () => { return this.navigate(); } }
-                  // /> */}
-                //</View>
-                
-
 /**
  * Styles for QrCode Scanner component
  */
@@ -157,7 +140,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
+    borderWidth: 3,
+    
   },
+ 
   preview: {
     flex: 1,
     justifyContent: 'flex-end',
