@@ -26,6 +26,7 @@ class Coins extends Component {
       searchedTokenNameAdd: '',
       refreshing: false,
       tokenLoaded: false,
+      buttonEnabled: false,
     };
   }
 
@@ -45,12 +46,12 @@ class Coins extends Component {
     try {
       this.setState({ searchedTokenSym: inputUpperCase });
       if (this.state.tokens[inputUpperCase] != null) {
-        this.setState({ searchedTokenName: 'NA', searchedTokenNameAdd: this.state.tokens[inputUpperCase]['contract_address'] });
+        this.setState({  buttonEnabled: true , searchedTokenName: 'NA', searchedTokenNameAdd: this.state.tokens[inputUpperCase]['contract_address'] });
         if (this.state.tokens[inputUpperCase]['name'] != null) {
           this.setState({ searchedTokenName: this.state.tokens[inputUpperCase]['name'], tokenLoaded: true});       
         }
       } else {
-        this.setState({ searchedTokenName: '', searchedTokenNameAdd: '' });
+        this.setState({ buttonEnabled: false, searchedTokenName: '', searchedTokenNameAdd: '' });
       }
     } catch (error) {
       console.log('DNE');
@@ -75,7 +76,7 @@ class Coins extends Component {
           "decimals": token['decimals'],
         });
         this.props.addNewToken(newTokenObj, this.props.tokens);
-        this.setState({ searchedTokenSym: '', searchedTokenName: '', searchedTokenNameAdd: ''});
+        this.setState({ buttonEnabled: false ,searchedTokenSym: '', searchedTokenName: '', searchedTokenNameAdd: ''});
       }
     } catch (error) {
       console.log('DNE');
@@ -113,6 +114,7 @@ class Coins extends Component {
             <LinearButton
               onClickFunction={this.addCustomToken}
               buttonText='Add this token'
+              disabled={this.state.buttonEnabled}
               customStyles={styles.button} />
             <View style={styles.footerGrandparentContainer}>
                 <View style={styles.footerParentContainer} >

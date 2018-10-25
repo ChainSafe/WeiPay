@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import {
-  View, Text, StyleSheet,
+  View, Text, StyleSheet, Dimensions
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
 import Camera from 'react-native-camera';
+import LinearButton from '../../../components/LinearGradient/LinearButton';
 import { NavigationActions } from 'react-navigation';
+import Toast from 'react-native-simple-toast';
 import RF from 'react-native-responsive-fontsize';
 import * as actions from '../../../actions/ActionCreator';
 import { getQRCodeData } from '../../../actions/ActionCreator';
@@ -51,6 +53,7 @@ class QrCodeScanner extends Component {
      */
     onBarCodeRead = (e) => {
       this.setState({ qrcode: e.data });
+      Toast.show('Scanned!');
       if (this.state.invoker === 'TokenFunctionality') { // Coin Send page
         this.props.getQRCodeData(e.data);
       } else if (this.state.invoker === 'AddTokenFunctionality') {
@@ -72,27 +75,56 @@ class QrCodeScanner extends Component {
     render() {
       return (
             <View style={styles.container}>
-                <Camera
-                    style={styles.preview}
-                    onBarCodeRead={this.onBarCodeRead}
-                    ref={(cam) => { return this.camera = cam; }}
-                    aspect={Camera.constants.Aspect.fill}
-                    showMarker={true}
-                >
-                    <Text style={{ backgroundColor: 'white' }}>
-                        {this.state.qrcode}
-                    </Text>
-                    <Button
-                        title='Next'
-                        style={styles.buttonStyle}
-                        // onPress={() => this.props.navigation.goBack()}
-                        onPress={ () => { return this.navigate(); } }
-                    />
-                </Camera>
+              <View style={{flex: 1}}>
+                  <Camera
+                      style={styles.preview}
+                      onBarCodeRead={this.onBarCodeRead}
+                      ref={(cam) => { return this.camera = cam; }}
+                      aspect={Camera.constants.Aspect.fill}
+                      showMarker={true}
+                  >
+                    <View style={styles.btnContainer}>
+                      <LinearButton
+                        onClickFunction={this.navigate}
+                        buttonText='Next'
+                        customStyles={styles.button} />
+                      <View style={styles.footerGrandparentContainer}>
+                          <View style={styles.footerParentContainer} >
+                              <Text style={styles.textFooter} >Powered by ChainSafe </Text>
+                          </View>
+                      </View>
+                    </View>
+                  
+                  
+                  </Camera>
+
+                </View>
+                
+                
             </View>
       );
     }
 }
+
+
+
+///* <View style={{flex: 0.2, backgroundColor: '#fafbfe'}}>
+                  /* <Text style={{ backgroundColor: 'white' }}>
+                      {this.state.qrcode}
+                  </Text> */
+                  // <LinearButton
+                  //   onClickFunction={this.navigate}
+                  //   buttonText='Next'
+                    
+                  //   customStyles={styles.button} />
+                  // {/* <Button
+                  //     title='Next'
+                  //     style={styles.buttonStyle}
+                  //     // onPress={() => this.props.navigation.goBack()}
+                  //     onPress={ () => { return this.navigate(); } }
+                  // /> */}
+                //</View>
+                
 
 /**
  * Styles for QrCode Scanner component
@@ -102,6 +134,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
+  },
+  button: {
+    width: '82%',
+    height: Dimensions.get('window').height * 0.082,
   },
   contentContainer: {
     marginTop: 25,
@@ -119,12 +155,26 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
   },
   preview: {
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
+  },
+  footerGrandparentContainer: {
+    alignItems: 'center',
+    marginBottom: '3%',
+    marginTop: '3%',
+  },
+  footerParentContainer: {
+    alignItems: 'center',
+  },
+  textFooter: {
+    fontFamily: 'WorkSans-Regular',
+    fontSize: RF(1.7),
+    color: '#c0c0c0',
+    letterSpacing: 0.5,
   },
 });
 

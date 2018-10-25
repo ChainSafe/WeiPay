@@ -39,12 +39,20 @@ class EditContact extends Component {
     const contactAddress = current.contactAddress;
     const tokens = [];
 
-    this.props.tokens.map((token) => {
+   
+    this.inputRefs = this.props.newTokens.map((token) => {
       const tokenName = {};
-      tokenName.value = token.name;
-      tokenName.label = token.name;
-      tokens.push(tokenName);
+      if (token.selected) {
+        tokenName.value = token.name;
+        tokenName.label = token.name;
+        tokenName.img = token.logo.src;
+        tokens.push(tokenName);
+        
+      }
+      
     });
+
+
     this.state = {
       disabled: true,
       clear: false,
@@ -356,9 +364,10 @@ const pickerStyle = {
  * @param {Object} state
  */
 
-const mapStateToProps = ({ contacts, newWallet }) => {
+const mapStateToProps = ({ contacts, newWallet, Wallet }) => {
   return {
     tokens: newWallet.tokens,
+    newTokens: Wallet.tokens,
     currentContact: contacts.incompleteContactInputs,
   };
 };

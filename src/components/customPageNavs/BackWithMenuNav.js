@@ -45,7 +45,7 @@ class BackWithMenuNav extends Component {
                 </TouchableOpacity>
             </View> : null}
             { this.props.showMenu ?
-            <View style={[styles.boxContainer, styles.boxTwo]} >
+            <View style={[styles.boxContainer, styles.boxTwo , styles.extraSpace]} >
                 <TouchableOpacity
                 onPress={this.navigateMenu} >
                 <Image
@@ -86,6 +86,9 @@ const styles = StyleSheet.create({
   boxTwo: {
     alignItems: 'flex-end',
     zIndex: 100,
+  },
+  extraSpace: {
+    padding: 10,
   },
   btnBack: {
     height: Dimensions.get('window').height * 0.03,  
