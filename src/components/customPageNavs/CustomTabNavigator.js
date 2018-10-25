@@ -4,7 +4,8 @@ import {
 } from 'react-native';
 import RF from 'react-native-responsive-fontsize';
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
+//import { unwatchFile } from 'fs';
 
 
 /**
@@ -18,8 +19,26 @@ import { connect } from 'react-redux';
 
 export default class Tabs extends Component {
     state = {
-      activeTab: 0,
+      activeTab: this.getActiveTab(),
       totalTabs: (this.props.tabs - 1),
+    }
+
+    getActiveTab() {
+      if (this.props.activeTab != undefined) {
+        console.log("In here");
+        
+        const tab = this.props.activeTab - 1;
+        console.log(this.props.activeTab);
+        
+        if (this.props.activeTab == 0) {
+          return 0;
+        }else {
+          return tab;
+        }
+        
+      }else {
+        return 0;
+      }
     }
 
     onSwipe(gestureName) {
@@ -46,6 +65,8 @@ export default class Tabs extends Component {
         velocityThreshold: 0.3,
         directionalOffsetThreshold: 80,
       };
+      console.log("this is the active tab" + this.state.activeTab);
+      
       return (
         <GestureRecognizer
           onSwipe={(direction, state) => { return this.onSwipe(direction, state); }}
