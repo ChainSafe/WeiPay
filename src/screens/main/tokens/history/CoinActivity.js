@@ -23,7 +23,7 @@ class CoinActivity extends Component {
   }
 
   componentDidMount() {
-    console.log(this.state.address);
+    // console.log(this.state.address);
     this.getData(this.state.address);
   }
 
