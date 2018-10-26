@@ -22,16 +22,13 @@ import ClearButton from '../../../components/LinearGradient/ClearButton';
 
 /**
  * Screen is used to display the passphrase (mnemonic) of the wallet
- *
- * 0xcD361f7173C439BB76F3E1206446e9D183B82787
- *
  */
 class Contract extends Component {
   constructor(props) {
     super(props);
     this.state = {
       contractLoaded: false,
-      address: '0xcD361f7173C439BB76F3E1206446e9D183B82787',
+      address: '',
       hardCodedAddress: '',
       wallet: this.props.hotWallet.wallet,
       contractEvents: null,
@@ -44,16 +41,12 @@ class Contract extends Component {
     };
   }
 
-  /**
-   * with inputs
-   */
+
   getContract = async () => {
     this.setState({ contractFunctions: null });
     const { contractFunctions
       , contractEvents, contract, withInputs,
     } = await processContractByAddress(this.state.wallet, this.state.address);
-    console.log({ withInputs });
-
     this.setState({ contractEvents, contractFunctions, contract, withInputs });
   }
 
@@ -70,20 +63,6 @@ class Contract extends Component {
     this.setState({ currentInput: c });
   }
 
-  // processFunctionWithParams = (fName, inputs) => {
-  //   const allFunctionDetails = this.state.withInputs;
-  //   console.log('process constant functions');
-  //   console.log({ fName, inputs, allFunctionDetails });
-  // }
-
-  // processConstantFunctions = async (fName, inputs) => {
-  //   console.log('process constant functions');
-  //   //console.log({ fName, inputs });
-    
-  //   // await processFunctionCall2(this.state.wallet, fName, inputs, this.state.contract);
-  //   // Toast.show('Success', Toast.LONG);
-  // }
-
   /**
    * Need to check if contract method has no parameters, if it has paramaters, if is payable.
    */
@@ -92,32 +71,36 @@ class Contract extends Component {
     const hasFunctionParameters = Object.prototype.hasOwnProperty.call(name, 'property');
     const allFunctionDetails = this.state.withInputs;
     let functionName;
+    let functionNameForContract;
     let inputs;
     if (hasFunctionParameters) {
       functionName = name.property;
+      functionNameForContract = name.property;
       inputs = this.state.currentInput[name.functionSignature];
     } else {
       functionName = name.split("(")[0];
+      functionNameForContract = name;
+      inputs = {};
     }
     
     if (!isFunctionPayable && !hasFunctionParameters) {
       if (executeNonPayableNoParams(functionName, {})) {
-        await processFunctionCall2(this.state.wallet, functionName, inputs, this.state.contract);
+        await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract);
         Toast.show('Success', Toast.LONG);
       }
     } else if (!isFunctionPayable && hasFunctionParameters) {
       if (executeNonPayableWithParams(functionName, inputs, allFunctionDetails, isFunctionPayable)) {
-        await processFunctionCall2(this.state.wallet, functionName, inputs, this.state.contract);
+        await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract);
         Toast.show('Success', Toast.LONG);
       }
     } else if (isFunctionPayable && !hasFunctionParameters) {
       if (executePayableNoParams(functionName, {}, allFunctionDetails, isFunctionPayable)) {
-        await processFunctionCall2(this.state.wallet, functionName, inputs, this.state.contract);
+        await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract);
         Toast.show('Success', Toast.LONG);
       }
     } else if (isFunctionPayable && hasFunctionParameters) {
       if (executePayableWithParams(functionName, inputs, allFunctionDetails, isFunctionPayable)) {
-        await processFunctionCall2(this.state.wallet, functionName, inputs, this.state.contract);
+        await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract);
         Toast.show('Success', Toast.LONG);
       }
     }

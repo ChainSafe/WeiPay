@@ -12,6 +12,9 @@ const checkPayableInputs = (uiInputs) => {
   }
 };
 
+/**
+ * Checks regular inputs that are not marked Payable and compares lengths respectively
+ */
 const checkNonPayableInputs = (uiInputs, neededInputs, isFunctionPayable) => {
   if (typeof uiInputs === 'undefined') {
     return false;
@@ -69,32 +72,20 @@ const verifyNeededInputs = (fName, uiInputs, allFunctionData, isFunctionPayable)
 };
 
 export const executeNonPayableNoParams = (fName, inputs) => {
-  console.log('executeNonPayableNoParams');
-  console.log({ fName, inputs });
-  console.log('simlualte contract call');
   return true;
 };
 
 export const executeNonPayableWithParams = (fName, inputs, extraFunctionInfo, isFunctionPayable) => {
-  console.log('executeNonPayableWithParams');
-  console.log({ fName, inputs, extraFunctionInfo });
   const result = verifyNeededInputs(fName, inputs, extraFunctionInfo, isFunctionPayable);
-  console.log({result});
   return result;
 };
 
 export const executePayableNoParams = (fName, inputs, extraFunctionInfo, isFunctionPayable) => {
-  console.log('executePayableNoParams');
-  console.log({ fName, inputs, extraFunctionInfo });
   const result = verifyNeededInputs(fName, inputs, extraFunctionInfo, isFunctionPayable);
-  console.log({result});
   return result;
 };
 
 export const executePayableWithParams = (fName, inputs, extraFunctionInfo, isFunctionPayable) => {
-  console.log('executePayableWithParams');
-  console.log({ fName, inputs, extraFunctionInfo });
   const result = verifyNeededInputs(fName, inputs, extraFunctionInfo, isFunctionPayable);
-  console.log({result});
   return result;
 };

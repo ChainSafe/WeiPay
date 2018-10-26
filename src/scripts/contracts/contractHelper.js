@@ -164,10 +164,6 @@ const executeMethod = async (wallet, functionName, inputs, contract) => {
 };
 
 export const processFunctionCall2 = async (wallet, functionName, inputs, contract) => {
-  console.log({wallet, functionName, inputs, contract});
-  
-  console.log('in process function call 2');
-  
   const isPayable = Object.prototype.hasOwnProperty.call(inputs, 'payable');
   if (isPayable) {
     executePayableMethod(wallet, functionName, inputs, contract);
