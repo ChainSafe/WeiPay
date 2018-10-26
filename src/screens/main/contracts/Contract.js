@@ -16,9 +16,9 @@ import ClearButton from '../../../components/LinearGradient/ClearButton';
 
 /**
  * Screen is used to display the passphrase (mnemonic) of the wallet
- * 
+ *
  * 0xcD361f7173C439BB76F3E1206446e9D183B82787
- * 
+ *
  */
 class Contract extends Component {
   constructor(props) {
@@ -43,11 +43,11 @@ class Contract extends Component {
    */
   getContract = async () => {
     this.setState({ contractFunctions: null });
-    const {contractFunctions
+    const { contractFunctions
       , contractEvents, contract, withInputs,
     } = await processContractByAddress(this.state.wallet, this.state.address);
-    console.log({withInputs});
-    
+    console.log({ withInputs });
+
     this.setState({ contractEvents, contractFunctions, contract, withInputs });
   }
 
@@ -64,77 +64,88 @@ class Contract extends Component {
     this.setState({ currentInput: c });
   }
 
-  contractFuncCheck = async (name) => {    
-    var functionName;
-    var inputs;
-    const allFunctionDetails = this.state.withInputs;
-    if (name.property == null) {
-      functionName = name;
-      inputs = {};
-    } else {
-      functionName = name.property;
-      inputs = this.state.currentInput[name.functionSignature];
-      for (let i = 0; i < allFunctionDetails.length; i++) {
-        if(allFunctionDetails[i].payable) {
-          // console.log(allFunctionDetails[i].signature);
-          // console.log( ( allFunctionDetails[i].split("(") )[0] );
-          
-          // const comparison = allFunctionsWithInputs[i];
-          // const trimmedComparison = comparison.split('(')[0];
-          // console.log({trimmedComparison,name});
-          //const comparison = allFunctionsWithInputs[i].signature;
-          // const trimmedComparison = comparison.split('(')[0];
-          //console.log(comparison);
-        }
+  // processFunctionWithParams = (fName, inputs) => {
+  //   const allFunctionDetails = this.state.withInputs;
+  //   console.log('process constant functions');
+  //   console.log({ fName, inputs, allFunctionDetails });
+  // }
+
+  // processConstantFunctions = async (fName, inputs) => {
+  //   console.log('process constant functions');
+  //   //console.log({ fName, inputs });
+    
+  //   // await processFunctionCall2(this.state.wallet, fName, inputs, this.state.contract);
+  //   // Toast.show('Success', Toast.LONG);
+  // }
+
+  /**
+   * Loop through all functions, check if the current function being executed has the needed inputs 
+   * to pass in as params, if it is payable there must be a payable input, else this function will 
+   * return false and you cannot execute contract method.
+   */
+  verifyNeededInputs = (fName, uiInputs, allFunctionData, isFunctionPayable) => {
+    console.log('in verify');
+    for (func in allFunctionData) {
+      const trimmedSearchMethod = (allFunctionData[func].signature).split("(")[0];
+      if (trimmedSearchMethod === fName) {
+        console.log({trimmedSearchMethod});
+        //check inputs 
+        const neededInputs = allFunctionData[func].inputs;
+        console.log({neededInputs});
+        console.log({isFunctionPayable});
       }
     }
-
-  
-
-    //loop through withinputs and compare with name
-    //check if signature in withinputs that matches with name has a payable 
-    //check if inputs has a key payable if so
-
-    // const allFunctionDetails = this.state.withInputs;
-    // console.log({allFunctionDetails});
-    
-    // console.log({name});
-    
-    // const trimmedName = name.split('(')[0];
-    // console.log({trimmedName});
-    
-
-
-    // for (let i = 0; i < allFunctionDetails.length; i++) {
-    //   console.log({i});
-      
-    //   const comparison = allFunctionsWithInputs[i];
-    //   console.log({comparison});
-      
-      //const trimmedComparison = comparison.split('(')[0];
-
-      //console.log({comparison});
-      
-    //   if(trimmedSearch === trimmedName) {
-    //     console.log('\n');
-    //     console.log(allFunctionDetails[i].payable);
-    //     console.log(allFunctionDetails[i].signature);
-    //     console.log({name});
-    //     console.log('\n');
-    //  }
- 
-      // if(name === allFunctionDetails[i].signature && allFunctionDetails[i].payable) {
-      //     console.log('\n bingo', name);
-      //     // console.log(allFunctionDetails[i].signature);
-      //   //  return;
-      // } 
-  //  }
-
-    //check with withInputs
-    //await processFunctionCall2(this.state.wallet, functionName, inputs, this.state.contract);
-    //Toast.show('Success', Toast.LONG);
   }
-  
+
+  executeNonPayableNoParams = (fName, inputs) => {
+    console.log('executeNonPayableNoParams');
+    console.log({ fName, inputs });
+    console.log('simlualte contract call');
+  }
+
+  executeNonPayableWithParams = (fName, inputs, extraFunctionInfo) => {
+    console.log('executeNonPayableWithParams');
+    console.log({ fName, inputs, extraFunctionInfo });
+  }
+
+  executePayableNoParams = (fName, inputs, extraFunctionInfo) => {
+    console.log('executePayableNoParams');
+    console.log({ fName, inputs, extraFunctionInfo });
+  }
+
+  executePayableWithParams = (fName, inputs, extraFunctionInfo, isFunctionPayable) => {
+    console.log('executePayableWithParams');
+    console.log({ fName, inputs, extraFunctionInfo });
+    this.verifyNeededInputs(fName, inputs, extraFunctionInfo, isFunctionPayable);
+  }
+
+  /**
+   * Need to check if contract method has no parameters, if it has paramaters, if is payable.
+   */
+  contractFuncCheck = async (name) => {
+    const isFunctionPayable = Object.prototype.hasOwnProperty.call(name, 'payable');
+    const hasFunctionParameters = Object.prototype.hasOwnProperty.call(name, 'property');
+    const allFunctionDetails = this.state.withInputs;
+    let functionName;
+    let inputs;
+    if (hasFunctionParameters) {
+      functionName = name.property;
+      inputs = this.state.currentInput[name.functionSignature];
+    } else {
+      functionName = name.split("(")[0];
+    }
+    
+    if (!isFunctionPayable && !hasFunctionParameters) {
+      this.executeNonPayableNoParams(functionName, {});
+    } else if (!isFunctionPayable && hasFunctionParameters) {
+      this.executeNonPayableWithParams(functionName, inputs, allFunctionDetails);
+    } else if (isFunctionPayable && !hasFunctionParameters) {
+      this.executePayableNoParams(functionName, {}, allFunctionDetails);
+    } else if (isFunctionPayable && hasFunctionParameters) {
+      this.executePayableWithParams(functionName, inputs, allFunctionDetails, isFunctionPayable);
+    }
+  }
+
   parseFunctions = () => {
     let contractFunctionsFormatted = [];
     const allFunctionsWithInputs = this.state.withInputs;
@@ -158,8 +169,8 @@ class Contract extends Component {
                 </View>
 
                 {
-                  item.payable 
-                  ?  
+                  item.payable
+                  ?
                     <View style={styles.functionInputContainer}>
                       <FormInput
                         placeholder= { this.state.payable ? this.state.payable.text : "Ether Value (Payable)" }
@@ -399,7 +410,7 @@ const styles = StyleSheet.create({
   btnContainer: {
     width: '100%',
     flex: 1.25,
-    marginTop: '2.5%', 
+    marginTop: '2.5%',
   },
   button: {
     width: '82%',
@@ -424,6 +435,6 @@ const styles = StyleSheet.create({
 const mapStateToProps = ({ HotWallet }) => {
   const { hotWallet } = HotWallet;
   return { hotWallet };
-}
+};
 
 export default connect(mapStateToProps, null)(Contract);
