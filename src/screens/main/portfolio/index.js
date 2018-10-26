@@ -125,7 +125,8 @@ class Portfolio extends Component {
   };
 
   renderRow = (token) => {
-    const { tokenInfo, tokenPriceInfo, tokenAmounts, selected } = token;    
+    const { tokenInfo, tokenPriceInfo, tokenAmounts } = token;
+        
     if (tokenInfo.selected) {
       return (
         <TouchableOpacity
@@ -200,7 +201,7 @@ class Portfolio extends Component {
    */
 
   render() {
-    console.log(this.props.tokens);
+    console.log(this.props.tokens[0].selected);
     
     return (
       <SafeAreaView style={styles.safeAreaView}>

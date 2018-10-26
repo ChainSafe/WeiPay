@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Dimensions, Text, SafeAreaView, ScrollView } from 'react-native';
 import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux';
 import CoinList from '../../../../components/tokens/CoinList';
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
 
@@ -10,6 +11,7 @@ class Coins extends Component {
    * Allows you to navigate to the navigation drawer
    */
   navigate = () => {
+    debugger
     const navigateToMain= NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'portfolioScreen' })],
@@ -18,6 +20,11 @@ class Coins extends Component {
   };
 
   render() {
+    console.log("aaaaaaa");
+    
+    console.log(this.props.tokens);
+    console.log("aaaaaaa");
+    
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>
@@ -99,4 +106,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Coins;
+const mapStateToProps = (state) => {
+  return {
+    tokenList: state.newWallet.tokens,
+    tokens: state.Wallet.tokens,
+  };
+};
+
+export default connect(mapStateToProps, null)(Coins);
