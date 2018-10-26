@@ -11,6 +11,12 @@ import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 import {
   processContractByAddress, processFunctionCall2,
 } from '../../../scripts/contracts/contractHelper';
+import {
+  executeNonPayableNoParams, 
+  executeNonPayableWithParams,
+  executePayableNoParams,
+  executePayableWithParams,
+} from '../../../scripts/contracts/contractValidation';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import ClearButton from '../../../components/LinearGradient/ClearButton';
 
@@ -78,46 +84,58 @@ class Contract extends Component {
   //   // Toast.show('Success', Toast.LONG);
   // }
 
+
+  /**
+   * The user's inputs will be passed in along with the required inputs and these will be verified.
+   * Return true or false depending on whether the inputs are valid.
+   */
+  // analyzeUsersFunctionInputs = () => {
+
+  // }
+
   /**
    * Loop through all functions, check if the current function being executed has the needed inputs 
    * to pass in as params, if it is payable there must be a payable input, else this function will 
    * return false and you cannot execute contract method.
    */
-  verifyNeededInputs = (fName, uiInputs, allFunctionData, isFunctionPayable) => {
-    console.log('in verify');
-    for (func in allFunctionData) {
-      const trimmedSearchMethod = (allFunctionData[func].signature).split("(")[0];
-      if (trimmedSearchMethod === fName) {
-        console.log({trimmedSearchMethod});
-        //check inputs 
-        const neededInputs = allFunctionData[func].inputs;
-        console.log({neededInputs});
-        console.log({isFunctionPayable});
-      }
-    }
-  }
+  // verifyNeededInputs = (fName, uiInputs, allFunctionData, isFunctionPayable) => {
+  //   console.log('in verify');
+  //   for (func in allFunctionData) {
+  //     const trimmedSearchMethod = (allFunctionData[func].signature).split("(")[0];
+  //     if (trimmedSearchMethod === fName) {
+  //       console.log({trimmedSearchMethod});
+  //       //check inputs 
+  //       const neededInputs = allFunctionData[func].inputs;
+  //       const neededInputLength = neededInputs.length;
+  //       //analyzeUsersFunctionInputs
 
-  executeNonPayableNoParams = (fName, inputs) => {
-    console.log('executeNonPayableNoParams');
-    console.log({ fName, inputs });
-    console.log('simlualte contract call');
-  }
+  //       console.log({neededInputs});
+  //       console.log({isFunctionPayable});
+  //     }
+  //   }
+  // }
 
-  executeNonPayableWithParams = (fName, inputs, extraFunctionInfo) => {
-    console.log('executeNonPayableWithParams');
-    console.log({ fName, inputs, extraFunctionInfo });
-  }
+  // executeNonPayableNoParams = (fName, inputs) => {
+  //   console.log('executeNonPayableNoParams');
+  //   console.log({ fName, inputs });
+  //   console.log('simlualte contract call');
+  // }
 
-  executePayableNoParams = (fName, inputs, extraFunctionInfo) => {
-    console.log('executePayableNoParams');
-    console.log({ fName, inputs, extraFunctionInfo });
-  }
+  // executeNonPayableWithParams = (fName, inputs, extraFunctionInfo) => {
+  //   console.log('executeNonPayableWithParams');
+  //   console.log({ fName, inputs, extraFunctionInfo });
+  // }
 
-  executePayableWithParams = (fName, inputs, extraFunctionInfo, isFunctionPayable) => {
-    console.log('executePayableWithParams');
-    console.log({ fName, inputs, extraFunctionInfo });
-    this.verifyNeededInputs(fName, inputs, extraFunctionInfo, isFunctionPayable);
-  }
+  // executePayableNoParams = (fName, inputs, extraFunctionInfo) => {
+  //   console.log('executePayableNoParams');
+  //   console.log({ fName, inputs, extraFunctionInfo });
+  // }
+
+  // executePayableWithParams = (fName, inputs, extraFunctionInfo, isFunctionPayable) => {
+  //   console.log('executePayableWithParams');
+  //   console.log({ fName, inputs, extraFunctionInfo });
+  //   this.verifyNeededInputs(fName, inputs, extraFunctionInfo, isFunctionPayable);
+  // }
 
   /**
    * Need to check if contract method has no parameters, if it has paramaters, if is payable.
@@ -136,13 +154,13 @@ class Contract extends Component {
     }
     
     if (!isFunctionPayable && !hasFunctionParameters) {
-      this.executeNonPayableNoParams(functionName, {});
+      executeNonPayableNoParams(functionName, {});
     } else if (!isFunctionPayable && hasFunctionParameters) {
-      this.executeNonPayableWithParams(functionName, inputs, allFunctionDetails);
+      executeNonPayableWithParams(functionName, inputs, allFunctionDetails);
     } else if (isFunctionPayable && !hasFunctionParameters) {
-      this.executePayableNoParams(functionName, {}, allFunctionDetails);
+      executePayableNoParams(functionName, {}, allFunctionDetails);
     } else if (isFunctionPayable && hasFunctionParameters) {
-      this.executePayableWithParams(functionName, inputs, allFunctionDetails, isFunctionPayable);
+      executePayableWithParams(functionName, inputs, allFunctionDetails, isFunctionPayable);
     }
   }
 
