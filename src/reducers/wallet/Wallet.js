@@ -19,7 +19,10 @@ import {
   SET_SECURITY_FLAG,
   SET_APP_PASSWORD_ROOT,
   SAVE_TOKEN_QUANTITIES,
+  ADD_TOKEN_SETUP,
 } from '../../actions/ActionTypes';
+import * as actions from '../../actions/ActionCreator';
+
 
 const initialState = {
   hashedPassword: null,
@@ -45,6 +48,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    
     case SET_APP_PASSWORD_ROOT:
       return {
         ...state, hashedPassword: action.payload,
@@ -118,6 +122,9 @@ export default function (state = initialState, action) {
       return {
         ...state, tokenQuantities: action.payload,
       };
+    case ADD_TOKEN_SETUP:
+      
+      return { ...state, tokens: action.payload };
     default:
       return state;
   }

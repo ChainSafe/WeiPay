@@ -5,10 +5,16 @@ import * as actionTypes from './ActionTypes';
  * returns a dispatch => which invokes all the reducers to handle this action
  * @param {String} coin
  */
-export function addTokenToSetup(coin) {
+export function addTokenToSetup(coin, tokenList) {
   return (dispatch) => {
     coin.selected = !coin.selected;
-    dispatch({ type: actionTypes.ADD_TOKEN_SETUP, payload: coin });
+    var i = 0;
+    while (tokenList[i] != coin) {
+      i++;
+    }
+    tokenList[i] = coin;
+    const newTokens = [...tokenList];
+    dispatch({ type: actionTypes.ADD_TOKEN_SETUP, payload: newTokens });
   };
 }
 
