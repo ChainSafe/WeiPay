@@ -74,8 +74,6 @@ class CoinListItem extends Component {
    * prop and it can be selected or unselected by the user
    */
   render() {
-    //console.log(this.props.tokens);
-    
     const { coin } = this.props;
     let statePictureStyle = {
       height: Dimensions.get('window').height * 0.035,
