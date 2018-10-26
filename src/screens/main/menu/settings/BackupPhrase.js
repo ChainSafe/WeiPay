@@ -29,6 +29,7 @@ class BackupPhrase extends Component {
       isPhraseSelected: false,
       phrase: this.props.wallet.wallet.mnemonic,
       phraseInDebug: this.props.wallet.wallet.privateKey, //TODO: Delete this and replace every call to phrase
+      mnemonic: this.props.wallet.wallet.mnemonic,
     };
   }
 
@@ -68,7 +69,7 @@ class BackupPhrase extends Component {
                         ? 
                         <View> 
                             <Text style={styles.cardText} >Please save this passphrase somewhere safe!</Text>
-                            <Text style={styles.mnemonicText} >{this.state.phraseInDebug}</Text>
+                            <Text style={styles.mnemonicText} >{this.state.mnemonic}</Text>
                         </View>                      
                         : <Text style={styles.cardText} >To view your recovery passphrase, select the button below</Text>
                       }
