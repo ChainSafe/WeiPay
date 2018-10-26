@@ -23,7 +23,6 @@ class CoinSend extends Component {
   constructor(props) {
     super(props);
     const addressFromQRCode = this.props.addressData;
-    console.log(this.props.token);
     this.state = {
       toAddress: addressFromQRCode,
       value: 0,
@@ -41,7 +40,6 @@ class CoinSend extends Component {
    */
   renderAddress(addressInput) {
     let add = addressInput.trim();
-    console.log(add);
     this.setState({ inputValue: add, toAddress: add });
     this.props.getQRCodeData(addressInput);
   }

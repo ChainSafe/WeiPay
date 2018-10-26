@@ -35,12 +35,16 @@ class AddContact extends Component {
     let contactAddress = current.contactAddress;
     let tokens = [];
 
-    this.inputRefs = this.props.tokens.map((token) => {
+    this.inputRefs = this.props.newTokens.map((token) => {
       const tokenName = {};
-      tokenName.value = token.name;
-      tokenName.label = token.name;
-      tokenName.img = token.logo.src;
-      tokens.push(tokenName);
+      if (token.selected) {
+        tokenName.value = token.name;
+        tokenName.label = token.name;
+        tokenName.img = token.logo.src;
+        tokens.push(tokenName);
+        
+      }
+      
     });
 
     this.state = {
@@ -139,7 +143,7 @@ class AddContact extends Component {
    * Returns the form required to add a contact
    */
   render() {
-
+    
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>
@@ -386,10 +390,11 @@ const pickerStyle = {
  * @param {Object} state
  */
 
-const mapStateToProps = ({ contacts, newWallet }) => {
+const mapStateToProps = ({ contacts, newWallet, Wallet }) => {
 
   return {
     tokens: newWallet.tokens,
+    newTokens: Wallet.tokens,
     currentContact: contacts.incompleteContactInputs,
   };
 };

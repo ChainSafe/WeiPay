@@ -70,7 +70,7 @@ class Contacts extends Component {
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.mainContainer}>
               <ContactBackWithMenuNav
-                showMenu={false}
+                showMenu={true}
                 showBack={this.state.selectedContact}
                 navigation={this.props.navigation}
                 backPage={'mainStack'}
@@ -176,7 +176,6 @@ const styles = StyleSheet.create({
  * @param {Object} param0
  */
 function mapStateToProps({ contacts }) {
-  console.log("herrooooooo", )
   return {
     contacts: contacts.contacts,
     activeTab: contacts.activeTab,

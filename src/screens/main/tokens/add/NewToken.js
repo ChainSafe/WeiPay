@@ -7,6 +7,7 @@ import { FormInput } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import RF from 'react-native-responsive-fontsize';
 import * as actions from '../../../../actions/ActionCreator';
+import { qrScannerInvoker } from '../../../../actions/ActionCreator';
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
 import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard';
 import TokenConfig from '../../../../scripts/tokenConfig';
@@ -42,6 +43,7 @@ class NewToken extends Component {
   }
 
   navigate = () => {
+    //this.props.actions.qrScannerInvoker('AddTokenFunctionality');
     this.props.qrScannerInvoker('AddTokenFunctionality');
     const navigateToQRScanner = NavigationActions.navigate({
       routeName: 'QCodeScanner',
@@ -244,6 +246,4 @@ const mapStateToProps = ({ newWallet, Wallet }) => {
   };
 };
 
-export default connect(mapStateToProps, {
-  actions, addNewToken,
-})(NewToken);
+export default connect(mapStateToProps, { qrScannerInvoker, addNewToken })(NewToken);
