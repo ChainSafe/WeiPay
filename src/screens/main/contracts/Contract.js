@@ -11,14 +11,17 @@ import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 import {
   processContractByAddress, processFunctionCall2,
 } from '../../../scripts/contracts/contractHelper';
+import {
+  executeNonPayableNoParams, 
+  executeNonPayableWithParams,
+  executePayableNoParams,
+  executePayableWithParams,
+} from '../../../scripts/contracts/contractValidation';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import ClearButton from '../../../components/LinearGradient/ClearButton';
 
 /**
  * Screen is used to display the passphrase (mnemonic) of the wallet
- * 
- * 0xcD361f7173C439BB76F3E1206446e9D183B82787
- * 
  */
 class Contract extends Component {
   constructor(props) {
@@ -38,9 +41,10 @@ class Contract extends Component {
     };
   }
 
+
   getContract = async () => {
     this.setState({ contractFunctions: null });
-    const {contractFunctions
+    const { contractFunctions
       , contractEvents, contract, withInputs,
     } = await processContractByAddress(this.state.wallet, this.state.address);
     this.setState({ contractEvents, contractFunctions, contract, withInputs });
@@ -59,20 +63,49 @@ class Contract extends Component {
     this.setState({ currentInput: c });
   }
 
+  /**
+   * Need to check if contract method has no parameters, if it has paramaters, if is payable.
+   */
   contractFuncCheck = async (name) => {
-    var functionName;
-    var inputs;
-    if (name.property == null) {
-      functionName = name;
-      inputs = {};
-    } else {
+    const isFunctionPayable = Object.prototype.hasOwnProperty.call(name, 'payable');
+    const hasFunctionParameters = Object.prototype.hasOwnProperty.call(name, 'property');
+    const allFunctionDetails = this.state.withInputs;
+    let functionName;
+    let functionNameForContract;
+    let inputs;
+    if (hasFunctionParameters) {
       functionName = name.property;
+      functionNameForContract = name.property;
       inputs = this.state.currentInput[name.functionSignature];
+    } else {
+      functionName = name.split("(")[0];
+      functionNameForContract = name;
+      inputs = {};
     }
-    await processFunctionCall2(this.state.wallet, functionName, inputs, this.state.contract);
-    Toast.show('Success', Toast.LONG);
+    
+    if (!isFunctionPayable && !hasFunctionParameters) {
+      if (executeNonPayableNoParams(functionName, {})) {
+        await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract);
+        Toast.show('Success', Toast.LONG);
+      }
+    } else if (!isFunctionPayable && hasFunctionParameters) {
+      if (executeNonPayableWithParams(functionName, inputs, allFunctionDetails, isFunctionPayable)) {
+        await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract);
+        Toast.show('Success', Toast.LONG);
+      }
+    } else if (isFunctionPayable && !hasFunctionParameters) {
+      if (executePayableNoParams(functionName, {}, allFunctionDetails, isFunctionPayable)) {
+        await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract);
+        Toast.show('Success', Toast.LONG);
+      }
+    } else if (isFunctionPayable && hasFunctionParameters) {
+      if (executePayableWithParams(functionName, inputs, allFunctionDetails, isFunctionPayable)) {
+        await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract);
+        Toast.show('Success', Toast.LONG);
+      }
+    }
   }
-  
+
   parseFunctions = () => {
     let contractFunctionsFormatted = [];
     const allFunctionsWithInputs = this.state.withInputs;
@@ -96,8 +129,8 @@ class Contract extends Component {
                 </View>
 
                 {
-                  item.payable 
-                  ?  
+                  item.payable
+                  ?
                     <View style={styles.functionInputContainer}>
                       <FormInput
                         placeholder= { this.state.payable ? this.state.payable.text : "Ether Value (Payable)" }
@@ -337,7 +370,7 @@ const styles = StyleSheet.create({
   btnContainer: {
     width: '100%',
     flex: 1.25,
-    marginTop: '2.5%', 
+    marginTop: '2.5%',
   },
   button: {
     width: '82%',
@@ -362,6 +395,6 @@ const styles = StyleSheet.create({
 const mapStateToProps = ({ HotWallet }) => {
   const { hotWallet } = HotWallet;
   return { hotWallet };
-}
+};
 
 export default connect(mapStateToProps, null)(Contract);
