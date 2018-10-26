@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
- View, Text, StyleSheet, Alert, TouchableOpacity, Image, SafeAreaView, TouchableWithoutFeedback, Dimensions, Keyboard, ActivityIndicator 
+  View, Text, StyleSheet, Alert, TouchableOpacity, Image, SafeAreaView, TouchableWithoutFeedback, Dimensions, Keyboard, ActivityIndicator
 } from 'react-native';
 import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
@@ -21,7 +21,7 @@ const utils = ethers.utils;
 
 class CoinSend extends Component {
   constructor(props) {
-    super(props);   
+    super(props);
     const addressFromQRCode = this.props.addressData;
     console.log(this.props.token);
     this.state = {
@@ -82,20 +82,20 @@ class CoinSend extends Component {
    * Conducts the transction between the two addresses
    */
   sendTransaction = async () => {
-    this.setState({maliciousCheck: false});
-    var response = await this.checkMaliciousAddresses(this.state.toAddress);
-    if(response.flag) {
-      this.setState({maliciousCheck: true});
+    this.setState({ maliciousCheck: false });
+    const response = await this.checkMaliciousAddresses(this.state.toAddress);
+    if (response.flag) {
+      this.setState({ maliciousCheck: true });
     } else {
+      this.setState({ maliciousCheck: true });
       const amountString = this.state.value.toString();
       const receivingAddress = this.state.toAddress;
       const amount = ethers.utils.parseEther(amountString);
-      const currentWallet = this.props.wallet;
-      currentWallet.provider = provider;
-      const sendPromise = currentWallet.send(receivingAddress, amount);
+      const initializedWallet = new ethers.Wallet(this.props.wallet.privateKey, provider);
+      const sendPromise = initializedWallet.send(receivingAddress, amount);
       sendPromise.then((transactionHash) => {
         console.log(transactionHash);
-        provider.getBalance(currentWallet.address).then(function (balance) {
+        provider.getBalance(initializedWallet.address).then(function (balance) {
           const etherString = utils.formatEther(balance);
           console.log('currentWallet Balance: ' + etherString);
         });
@@ -108,21 +108,24 @@ class CoinSend extends Component {
   }
 
   sendERC20Transaction = async () => {
-    this.setState({maliciousCheck: false});
-    var response = await this.checkMaliciousAddresses(this.state.toAddress);
-    if(response.flag) {
-      this.setState({maliciousCheck: true});
+    this.setState({ maliciousCheck: false });
+    const response = await this.checkMaliciousAddresses(this.state.toAddress);
+    if (response.flag) {
+      this.setState({ maliciousCheck: true });
     } else {
-      const val = this.state.value;    
+      this.setState({ maliciousCheck: true });
+      const initializedWallet = new ethers.Wallet(this.props.wallet.privateKey, provider);
+      const transactionCountPromise = initializedWallet.getTransactionCount();
+      const count = await transactionCountPromise;
+      const val = this.state.value;
       const toAddr = this.state.toAddress;
-      const currentWallet = this.props.wallet;
-      const contract = new ethers.Contract(this.props.token.address, ERC20ABI, currentWallet);
-      let overrideOptions = {
+      const contract = new ethers.Contract(this.props.token.address, ERC20ABI, initializedWallet);
+      const overrideOptions = {
         gasLimit: 150000,
         gasPrice: 9000000000,
-        nonce: 0,
+        nonce: count,
       };
-      let sendPromise = contract.functions.transfer(this.state.toAddress, val, overrideOptions);
+      const sendPromise = contract.functions.transfer(toAddr, val, overrideOptions);
       sendPromise.then((transaction) => {
         console.log(transaction.hash);
         this.setState({ txHash: transaction.hash });
@@ -132,12 +135,11 @@ class CoinSend extends Component {
   }
 
   checkMaliciousAddresses = (address) => {
-    for(var i = 0; i < MaliciousAddresses.length; i++) {
-      if(address === MaliciousAddresses[i].address) {
-        console.log(MaliciousAddresses[i].address);
-        this.setState({maliciousComment:  MaliciousAddresses[i].comment})  
+    for (var i = 0; i < MaliciousAddresses.length; i++) {
+      if (address === MaliciousAddresses[i].address) {
+        this.setState({ maliciousComment:  MaliciousAddresses[i].comment })
         return { flag: true, "address" : MaliciousAddresses[i].address, 'comment' : MaliciousAddresses[i].comment };
-      }     
+      }
     }
     return { flag: false };
   }
@@ -151,7 +153,7 @@ class CoinSend extends Component {
         return txnFee;
       });
       await this.props.updateTxnFee(gasPriceString);
-      await this.setState({txnFee: gasPriceString})
+      await this.setState({ txnFee: gasPriceString })
     } catch (error) {
       console.log(error);
     }
@@ -187,11 +189,11 @@ class CoinSend extends Component {
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={[styles.mainContainer,  this.state.maliciousCheck ? {backgroundColor: '#fafbfe'} : {backgroundColor: 'black'}]}>
-            <View style={[styles.boxShadowContainer, this.state.maliciousCheck ? null : {backgroundColor: 'black'}]}>
-              <View style={[styles.contentContainer, this.state.maliciousCheck ? null : {backgroundColor: 'black'}]}>
+          <View style={[styles.mainContainer,  this.state.maliciousCheck ? { backgroundColor: '#fafbfe' } : { backgroundColor: 'black' }]}>
+            <View style={[styles.boxShadowContainer, this.state.maliciousCheck ? null : { backgroundColor: 'black' }]}>
+              <View style={[styles.contentContainer, this.state.maliciousCheck ? null : { backgroundColor: 'black' }]}>
                 {
-                   this.state.maliciousCheck ? 
+                   this.state.maliciousCheck ?
                    <BoxShadowCard>
                       <Text style={styles.cardText}>
                         Send Ether by scanning someone's QR code or public address.
@@ -207,9 +209,9 @@ class CoinSend extends Component {
                       </View>
                       <View style={styles.inputContainer}>
                         {
-                          this.state.maliciousComment != "" ? 
+                          this.state.maliciousComment != "" ?
                             <Text style={styles.maliciousCommentText}>Malicious - {this.state.maliciousComment} </Text>
-                          : null
+                            : null
                         }
                         <View style={styles.formInputContainer}>
                             <FormInput
@@ -233,18 +235,18 @@ class CoinSend extends Component {
                           </Text>
                       </View>
                     </BoxShadowCard>
-                  : 
-                  <View style={styles.activityContainer}>   
-                    <View style={styles.activityHorizontal}>                                 
+                     :
+                  <View style={styles.activityContainer}>
+                    <View style={styles.activityHorizontal}>
                       <Text style={styles.warningText}>Checking value for known malicious addresses. </Text>
                       <ActivityIndicator size="large" color="#12c1a2" />
-                    </View>                 
-                  </View>    
+                    </View>
+                  </View>
                 }
               </View>
             </View>
             {
-               this.state.maliciousCheck ? 
+               this.state.maliciousCheck ?
                <View style={styles.btnContainer}>
                   <View style={{ flexDirection: 'row' }}>
                     <View style={{ flex: 1 }}>
@@ -258,7 +260,7 @@ class CoinSend extends Component {
                     <View style={{ flex: 1 }}>
                       <LinearButton
                         onClickFunction={
-                          this.props.token.type === 'ERC20' ? this.sendERC20Transaction : this.sendTransaction
+                          this.props.token.address !== '' ? this.sendERC20Transaction : this.sendTransaction
                         }
                         buttonText="Send"
                         customStyles={{ marginLeft: '0%', marginLeft: '1.75%', height: Dimensions.get('window').height * 0.082 }}
@@ -272,7 +274,7 @@ class CoinSend extends Component {
                     </View>
                   </View>
                 </View>
-               : null
+                 : null
             }
           </View>
         </TouchableWithoutFeedback>
@@ -313,7 +315,7 @@ const styles = StyleSheet.create({
     fontSize: RF(2.8),
     fontFamily: 'Cairo-Light',
     letterSpacing: 0.4,
-    paddingBottom: '10%', 
+    paddingBottom: '10%',
     paddingLeft: '10%',
     paddingRight: '10%',
   },
@@ -409,7 +411,7 @@ const styles = StyleSheet.create({
 
 });
 
-const mapStateToProps = ({Wallet, HotWallet, newWallet, contacts}) => {
+const mapStateToProps = ({ Wallet, HotWallet, newWallet, contacts }) => {
   return {
     tokenData: Wallet.activeTokenData,
     wallet: HotWallet.hotWallet.wallet,

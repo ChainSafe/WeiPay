@@ -34,7 +34,7 @@ const processAllTokenBalances = async (privateKey, dataSet) => {
         });
     } else {
       let contractAddress = dataSet[i].contractAddress;
-      await this.getERC20Balance(contractAddress)
+      await this.getERC20Balance(contractAddress, dataSet[i].decimals)
         .then((response) => {
           tokenObj.amount = Number(response).toFixed(4);
           allBalances.push(tokenObj);
@@ -50,17 +50,26 @@ const processAllTokenBalances = async (privateKey, dataSet) => {
   return { 'tokenSymbolString' : tokenApiRequestString, 'tokenBalances' : allBalances };
 };
 
+formatBalance = (balance, decimals) => {
+  const x = Math.pow(10, decimals);
+  if(decimals === 0) {
+    return balance;
+  }
+  return (balance / x);
+};
+
 getEthereumBalance = async () => {
   const balance = await provider.getBalance(wallet.address);
   const parsedEtherBalance = String(ethers.utils.formatEther(balance));
   return parsedEtherBalance;
 };
 
-getERC20Balance = async (contractAdd) => {
+getERC20Balance = async (contractAdd, decimals) => {
   const contract = new ethers.Contract(contractAdd, ERC20ABI, provider);
-  const tokenBalance = await contract.balanceOf(wallet.address);
-  const parsedTokenBalance = String(tokenBalance / 100);
-  return parsedTokenBalance;
+  const tokenBalance = await contract.balanceOf(wallet.address);  
+  const parsedTokenBalance = String(tokenBalance);
+  const adjustedTokenValue = formatBalance(parsedTokenBalance, decimals);  
+  return adjustedTokenValue;
 };
 
 export default processAllTokenBalances;
