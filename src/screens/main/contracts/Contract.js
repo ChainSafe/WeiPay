@@ -101,13 +101,25 @@ class Contract extends Component {
     }
     
     if (!isFunctionPayable && !hasFunctionParameters) {
-      executeNonPayableNoParams(functionName, {});
+      if (executeNonPayableNoParams(functionName, {})) {
+        await processFunctionCall2(this.state.wallet, functionName, inputs, this.state.contract);
+        Toast.show('Success', Toast.LONG);
+      }
     } else if (!isFunctionPayable && hasFunctionParameters) {
-      executeNonPayableWithParams(functionName, inputs, allFunctionDetails);
+      if (executeNonPayableWithParams(functionName, inputs, allFunctionDetails, isFunctionPayable)) {
+        await processFunctionCall2(this.state.wallet, functionName, inputs, this.state.contract);
+        Toast.show('Success', Toast.LONG);
+      }
     } else if (isFunctionPayable && !hasFunctionParameters) {
-      executePayableNoParams(functionName, {}, allFunctionDetails);
+      if (executePayableNoParams(functionName, {}, allFunctionDetails, isFunctionPayable)) {
+        await processFunctionCall2(this.state.wallet, functionName, inputs, this.state.contract);
+        Toast.show('Success', Toast.LONG);
+      }
     } else if (isFunctionPayable && hasFunctionParameters) {
-      executePayableWithParams(functionName, inputs, allFunctionDetails, isFunctionPayable);
+      if (executePayableWithParams(functionName, inputs, allFunctionDetails, isFunctionPayable)) {
+        await processFunctionCall2(this.state.wallet, functionName, inputs, this.state.contract);
+        Toast.show('Success', Toast.LONG);
+      }
     }
   }
 
