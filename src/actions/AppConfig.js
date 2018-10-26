@@ -9,7 +9,6 @@ import {
   ADD_NEW_SINGLE_TOKEN,
   SAVE_TOKEN_DATA_FOR_TRANSACTION,
   SET_UNENCRYPTED_WALLET,
-  SET_SECURITY_FLAG,
   SET_APP_PASSWORD_ROOT,
   SAVE_TOKEN_QUANTITIES,
 } from './ActionTypes';
@@ -125,12 +124,6 @@ export function setUnencryptedWallet(walletObj) {
   const pKey = wallet.address;
   return (dispatch) => {
     dispatch({ type: SET_UNENCRYPTED_WALLET, payload: { wallet, 'publicKey': pKey, name} });
-  };
-}
-
-export function setSecurityFlag(securityFlag) {
-  return (dispatch) => {
-    dispatch({ type: SET_SECURITY_FLAG, payload: securityFlag });
   };
 }
 

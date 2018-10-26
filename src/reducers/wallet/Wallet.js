@@ -16,7 +16,6 @@ import {
   CALCULATE_WALLET_BALANCE,
   SAVE_TOKEN_DATA_FOR_TRANSACTION,
   SET_UNENCRYPTED_WALLET,
-  SET_SECURITY_FLAG,
   SET_APP_PASSWORD_ROOT,
   SAVE_TOKEN_QUANTITIES,
   ADD_TOKEN_SETUP,
@@ -29,7 +28,6 @@ const initialState = {
   isInSetupScreens: true,
   wallets: [],
   walletUnencyrpted: null,
-  isWalletEncrypted: null,
   tempWalletName: null,
   tokens: [],
   walletBalance: null,
@@ -108,10 +106,6 @@ export default function (state = initialState, action) {
     case SAVE_TOKEN_DATA_FOR_TRANSACTION:
       return {
         ...state, activeTokenData: action.payload,
-      };
-    case SET_SECURITY_FLAG:
-      return {
-        ...state, isWalletEncrypted: action.payload,
       };
     case SET_UNENCRYPTED_WALLET:
       const { wallet, publicKey, name } = action.payload;
