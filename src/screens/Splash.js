@@ -11,17 +11,8 @@ class Splash extends Component {
 
   checkLoggedIn() {
     if(this.props.wallets.length > 0) {
-      if(!this.props.isWalletEncrypted) {
-        const nonEncyrptedWallet = this.props.wallets[0].hdWallet;
-        const nonEncrytpedName = this.props.wallets[0].name;
-        const walletNotEncrypted = { wallet: nonEncyrptedWallet, name: nonEncrytpedName };
-        this.props.setHotWallet(walletNotEncrypted);
-        const navigateToAddToMain = NavigationActions.navigate({ routeName: 'mainStack' });
-        this.props.navigation.dispatch(navigateToAddToMain);
-      } else {
-        const navigateToAddToken = NavigationActions.navigate({ routeName: 'password' });
-        this.props.navigation.dispatch(navigateToAddToken);
-      }
+      const navigateToAddToken = NavigationActions.navigate({ routeName: 'password' });
+      this.props.navigation.dispatch(navigateToAddToken);
     } else {
       const navigateToAddToken = NavigationActions.navigate({ routeName: 'terms' });
       this.props.navigation.dispatch(navigateToAddToken);
@@ -36,8 +27,8 @@ class Splash extends Component {
 }
 
 const mapStateToProps = ({ Wallet }) => {
-  const { wallets, isWalletEncrypted } = Wallet;
-  return { wallets, isWalletEncrypted };
+  const { wallets } = Wallet;
+  return { wallets };
 };
 
 export default connect(mapStateToProps, actions)(Splash);

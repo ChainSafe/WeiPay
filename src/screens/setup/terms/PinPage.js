@@ -66,7 +66,7 @@ setPin = async () => {
         this.props.setHotWallet(walletInHotReducer);
         this.props.initializeAppWallet(wallet, walletNameCheck, userWallets);
         this.props.exitSetup(false);
-        this.props.setSecurityFlag(true);
+        // this.props.setSecurityFlag(true);
         const navigateToNextScreen = NavigationActions.navigate({
           routeName: nextScreenToNavigate,
         });
@@ -85,39 +85,6 @@ setPin = async () => {
       } 
     } 
   };
-
-  skipEncryption = async () => {
-    const userWallets = this.props.wallets;
-    let walletNameCheck;
-    if (this.props.debugMode) {
-      walletNameCheck = this.props.testWalletName;
-    } else {
-      walletNameCheck = this.props.tempWalletName;
-    }    
-    if (this.props.isInSetupScreens) {
-      const { nextScreenToNavigate, wallet } = this.props.navigation.state.params;
-      const walletInHotReducer = { wallet, name: walletNameCheck };
-      this.props.setHotWallet(walletInHotReducer);
-      this.props.initializeAppWallet(wallet, walletNameCheck, userWallets);
-      this.props.exitSetup(false);
-      this.props.setSecurityFlag(false);
-      const navigateToNextScreen = NavigationActions.navigate({
-        routeName: nextScreenToNavigate,
-      });
-      this.props.navigation.dispatch(navigateToNextScreen);
-    }
-  }
-
-  navigateWithoutEncryption = () => {
-    const nonEncyrptedWallet = this.props.wallets[0].hdWallet;
-    const nonEncrytpedName = this.props.wallets[0].name;
-    const walletNotEncrypted = { wallet: nonEncyrptedWallet, name: nonEncrytpedName };
-    this.props.setHotWallet(walletNotEncrypted);
-    const navigateToMain = NavigationActions.navigate({
-      routeName: 'mainStack',
-    });
-    this.props.navigation.dispatch(navigateToMain);
-  }
 
   /**
    * The wallet name is stored in a temporary state.
@@ -169,20 +136,6 @@ setPin = async () => {
                               buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
                             />
                           </View>
-                          <Text style={styles.option}>
-                          Option 2: Skip Wallet Encryption
-                          </Text>
-                          <Text style={styles.cardText}>
-                            Keeps your wallet light weight and faster to access.
-                          </Text>
-                          <View style={styles.btnNextContainer}>
-                            <LinearButton
-                                onClickFunction={this.skipEncryption}
-                                buttonText="Skip"
-                                customStyles={styles.btnNext}
-                                buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
-                            />
-                          </View>
                         </BoxShadowCard>
                       </View>
                     </View>
@@ -190,7 +143,7 @@ setPin = async () => {
                 : null
               }
               {
-                this.props.isInSetupScreens === false && this.props.isWalletEncrypted === true
+                this.props.isInSetupScreens === false
                 ?  
                 <View style={{flex:1.5}}> 
                   <Text style={[styles.textHeader, {marginBottom:'2.5%'}]}>Wallet Password</Text>
@@ -336,7 +289,7 @@ const styles = StyleSheet.create({
   defaultGreenColor: {
     color: '#12c1a2',
   },
-})
+});
 
 /**
  * This method is not being used here
@@ -344,8 +297,8 @@ const styles = StyleSheet.create({
  */
 const mapStateToProps = ({ Debug, Wallet }) => {
   const { debugMode, testWalletName } = Debug;
-  const { wallets, tempWalletName, isInSetupScreens, isWalletEncrypted, hashedPassword } = Wallet;
-  return { debugMode, wallets, tempWalletName, testWalletName, isInSetupScreens, isWalletEncrypted, hashedPassword };
+  const { wallets, tempWalletName, isInSetupScreens, hashedPassword } = Wallet;
+  return { debugMode, wallets, tempWalletName, testWalletName, isInSetupScreens, hashedPassword };
 };
 
 export default connect(mapStateToProps, actions)(PinPage);
