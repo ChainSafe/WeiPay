@@ -115,7 +115,7 @@ setPin = async () => {
                       <View style={styles.contentContainer}>
                         <BoxShadowCard>
                           <Text style={styles.option}>
-                          Option 1: Max Security - 10x longer to unlock wallet
+                          App Security
                           </Text>
                           <Text style={styles.cardText}>
                             Create a password for wallet, minimum length of 4.
