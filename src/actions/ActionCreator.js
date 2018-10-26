@@ -13,15 +13,6 @@ export function addTokenToSetup(coin, tokenList) {
       i++;
     }
     tokenList[i] = coin;
-    // const current = tokenList;
-    // const selectedToken = { ...coin, balance: 0}
-    // let newTokens = [];
-    // const index = current.map(token => token.id).indexOf(coin.id);
-    // if (index === -1) {      
-    //   newTokens = [...current, selectedToken];
-    // } else { 
-    //   newTokens = [...current.slice(0, index), ...current.slice(index + 1)];     
-    // }
     const newTokens = [...tokenList];
     dispatch({ type: actionTypes.ADD_TOKEN_SETUP, payload: newTokens });
   };

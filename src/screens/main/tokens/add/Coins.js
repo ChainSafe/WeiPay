@@ -20,10 +20,6 @@ class Coins extends Component {
   };
 
   render() {
-    console.log("aaaaaaa");
-    
-    console.log(this.props.tokens);
-    console.log("aaaaaaa");
     
     return (
       <SafeAreaView style={styles.safeAreaView}>

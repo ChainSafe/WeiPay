@@ -200,9 +200,7 @@ class Portfolio extends Component {
    * The component also provides the option to add/delete tokens
    */
 
-  render() {
-    console.log(this.props.tokens[0].selected);
-    
+  render() {    
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer} >
