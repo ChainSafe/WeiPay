@@ -11,7 +11,6 @@ class Coins extends Component {
    * Allows you to navigate to the navigation drawer
    */
   navigate = () => {
-    debugger
     const navigateToMain= NavigationActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'portfolioScreen' })],
