@@ -91,6 +91,8 @@ class Portfolio extends Component {
       let tokenObj = {};
       tokenObj.symbol = tokenList[i].symbol;
       tokenObj.contractAddress = tokenList[i].address;
+      console.log(tokenList[i].decimals);
+      tokenObj.decimals = tokenList[i].decimals;
       tokenObjectList.push(tokenObj);
     }
     const privateKey =  this.state.currentWallet.privateKey;

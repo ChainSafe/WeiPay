@@ -27,7 +27,7 @@ class NewToken extends Component {
         "address": this.state.tokenAddress,
         "symbol": this.state.tokenName,
         "id": this.props.tokens.length,
-        "decimals": "NA",
+        "decimals": 18,
       });
       this.props.addNewToken(newTokenObj, this.props.tokens);
     }
