@@ -25,7 +25,7 @@ class Contract extends Component {
     super(props);
     this.state = {
       contractLoaded: false,
-      address: '',
+      address: '0xcD361f7173C439BB76F3E1206446e9D183B82787',
       hardCodedAddress: '',
       wallet: this.props.hotWallet.wallet,
       contractEvents: null,
@@ -38,11 +38,16 @@ class Contract extends Component {
     };
   }
 
+  /**
+   * with inputs
+   */
   getContract = async () => {
     this.setState({ contractFunctions: null });
     const {contractFunctions
       , contractEvents, contract, withInputs,
     } = await processContractByAddress(this.state.wallet, this.state.address);
+    console.log({withInputs});
+    
     this.setState({ contractEvents, contractFunctions, contract, withInputs });
   }
 
@@ -59,18 +64,75 @@ class Contract extends Component {
     this.setState({ currentInput: c });
   }
 
-  contractFuncCheck = async (name) => {
+  contractFuncCheck = async (name) => {    
     var functionName;
     var inputs;
+    const allFunctionDetails = this.state.withInputs;
     if (name.property == null) {
       functionName = name;
       inputs = {};
     } else {
       functionName = name.property;
       inputs = this.state.currentInput[name.functionSignature];
+      for (let i = 0; i < allFunctionDetails.length; i++) {
+        if(allFunctionDetails[i].payable) {
+          // console.log(allFunctionDetails[i].signature);
+          // console.log( ( allFunctionDetails[i].split("(") )[0] );
+          
+          // const comparison = allFunctionsWithInputs[i];
+          // const trimmedComparison = comparison.split('(')[0];
+          // console.log({trimmedComparison,name});
+          //const comparison = allFunctionsWithInputs[i].signature;
+          // const trimmedComparison = comparison.split('(')[0];
+          //console.log(comparison);
+        }
+      }
     }
-    await processFunctionCall2(this.state.wallet, functionName, inputs, this.state.contract);
-    Toast.show('Success', Toast.LONG);
+
+  
+
+    //loop through withinputs and compare with name
+    //check if signature in withinputs that matches with name has a payable 
+    //check if inputs has a key payable if so
+
+    // const allFunctionDetails = this.state.withInputs;
+    // console.log({allFunctionDetails});
+    
+    // console.log({name});
+    
+    // const trimmedName = name.split('(')[0];
+    // console.log({trimmedName});
+    
+
+
+    // for (let i = 0; i < allFunctionDetails.length; i++) {
+    //   console.log({i});
+      
+    //   const comparison = allFunctionsWithInputs[i];
+    //   console.log({comparison});
+      
+      //const trimmedComparison = comparison.split('(')[0];
+
+      //console.log({comparison});
+      
+    //   if(trimmedSearch === trimmedName) {
+    //     console.log('\n');
+    //     console.log(allFunctionDetails[i].payable);
+    //     console.log(allFunctionDetails[i].signature);
+    //     console.log({name});
+    //     console.log('\n');
+    //  }
+ 
+      // if(name === allFunctionDetails[i].signature && allFunctionDetails[i].payable) {
+      //     console.log('\n bingo', name);
+      //     // console.log(allFunctionDetails[i].signature);
+      //   //  return;
+      // } 
+  //  }
+
+    //check with withInputs
+    //await processFunctionCall2(this.state.wallet, functionName, inputs, this.state.contract);
+    //Toast.show('Success', Toast.LONG);
   }
   
   parseFunctions = () => {
