@@ -45,7 +45,6 @@ class CoinSend extends Component {
     this.setState({ inputValue: add, toAddress: add });
     this.props.getQRCodeData(addressInput);
     if (this.state.validAddress.exec(addressInput) == null){
-      console.log("Not a valid address");
       this.setState({valid: false})
     }else {
       this.setState({valid: true})
@@ -99,7 +98,6 @@ class CoinSend extends Component {
       const amountString = this.state.value.toString();
       const receivingAddress = this.state.toAddress;
       if (this.state.validAddress.exec(receivingAddress) == null){
-        console.log("Not a valid address");
         return 1;
         
       }
@@ -134,7 +132,6 @@ class CoinSend extends Component {
       const val = this.state.value;
       const toAddr = this.state.toAddress;
       if (this.state.validAddress.exec(toAddr) == null){
-        console.log("Not a valid address");
         return 1;
         
       }
