@@ -10,7 +10,7 @@ import * as actions from '../../../../actions/ActionCreator';
 import { qrScannerInvoker } from '../../../../actions/ActionCreator';
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
 import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard';
-import TokenConfig from '../../../../scripts/tokenConfig';
+import TokenConfig from '../../../../scripts/tokens/tokenConfig';
 import { addNewToken } from '../../../../actions/AppConfig'
 
 class NewToken extends Component {
