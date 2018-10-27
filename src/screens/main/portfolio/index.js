@@ -8,7 +8,7 @@ import { NavigationActions } from 'react-navigation';
 import LinearButton from '../../../components/LinearGradient/LinearButton';
 import { setWalletTokenBalances, fetchCoinData, calculateWalletBalance } from '../../../actions/FetchCoinData';
 import { saveTokenDataForTransaction, saveAllTokenQuantities } from '../../../actions/AppConfig';
-import processAllTokenBalances from '../../../scripts/tokenBalances';
+import processAllTokenBalances from '../../../scripts/tokens/tokenBalances';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
 
