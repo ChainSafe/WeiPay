@@ -8,7 +8,6 @@ import { NavigationActions } from 'react-navigation';
 import RF from "react-native-responsive-fontsize"
 import * as action from '../../../../actions/ActionCreator';
 import provider from '../../../../constants/Providers';
-import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator';
 import ERC20ABI from '../../../../constants/data/json/ERC20ABI.json';
 import LinearButton from '../../../../components/LinearGradient/LinearButton';
 import ClearButton from '../../../../components/LinearGradient/ClearButton';
@@ -30,7 +29,10 @@ class CoinSend extends Component {
       inputValue: addressFromQRCode,
       txnFee: this.props.txnFee,
       maliciousCheck: true,
-      maliciousComment: ''
+      maliciousComment: '',
+      sendButtonEnabled: false,
+      validAddress: new RegExp("0x[0-9a-fA-F]{40}"),
+      valid: false,
     };
   }
 
@@ -42,6 +44,13 @@ class CoinSend extends Component {
     let add = addressInput.trim();
     this.setState({ inputValue: add, toAddress: add });
     this.props.getQRCodeData(addressInput);
+    if (this.state.validAddress.exec(addressInput) == null){
+      console.log("Not a valid address");
+      this.setState({valid: false})
+    }else {
+      this.setState({valid: true})
+
+    }
   }
 
   /**
@@ -86,10 +95,17 @@ class CoinSend extends Component {
       this.setState({ maliciousCheck: true });
     } else {
       this.setState({ maliciousCheck: true });
+      const initializedWallet = new ethers.Wallet(this.props.wallet.privateKey, provider);
       const amountString = this.state.value.toString();
       const receivingAddress = this.state.toAddress;
+      if (this.state.validAddress.exec(receivingAddress) == null){
+        console.log("Not a valid address");
+        return 1;
+        
+      }
+
       const amount = ethers.utils.parseEther(amountString);
-      const initializedWallet = new ethers.Wallet(this.props.wallet.privateKey, provider);
+    
       const sendPromise = initializedWallet.send(receivingAddress, amount);
       sendPromise.then((transactionHash) => {
         console.log(transactionHash);
@@ -117,18 +133,29 @@ class CoinSend extends Component {
       const count = await transactionCountPromise;
       const val = this.state.value;
       const toAddr = this.state.toAddress;
+      if (this.state.validAddress.exec(toAddr) == null){
+        console.log("Not a valid address");
+        return 1;
+        
+      }
       const contract = new ethers.Contract(this.props.token.address, ERC20ABI, initializedWallet);
       const overrideOptions = {
         gasLimit: 150000,
         gasPrice: 9000000000,
         nonce: count,
       };
-      const sendPromise = contract.functions.transfer(toAddr, val, overrideOptions);
-      sendPromise.then((transaction) => {
-        console.log(transaction.hash);
-        this.setState({ txHash: transaction.hash });
-        this.openModal();
-      });
+      try {
+        const sendPromise = contract.functions.transfer(toAddr, val, overrideOptions);
+        sendPromise.then((transaction) => {
+          console.log(transaction.hash);
+          this.setState({ txHash: transaction.hash });
+          this.openModal();
+        });  
+      } catch (error) {
+        console.log("Didnt Go through");
+        
+      }
+      
     }
   }
 
@@ -211,12 +238,12 @@ class CoinSend extends Component {
                             <Text style={styles.maliciousCommentText}>Malicious - {this.state.maliciousComment} </Text>
                             : null
                         }
-                        <View style={styles.formInputContainer}>
+                        <View style={[styles.formInputContainer]}>
                             <FormInput
                               placeholder={'Public Address'}
                               onChangeText={this.renderAddress.bind(this)}
                               ref={ref => {return this.inputAddress = ref}}
-                              inputStyle={styles.formAddress}
+                              inputStyle={[styles.formAddress,this.state.valid? {color: 'green'} : {color: 'red'}] }
                               value={this.state.inputValue}
                             />
                           </View>
@@ -262,7 +289,7 @@ class CoinSend extends Component {
                         }
                         buttonText="Send"
                         customStyles={{ marginLeft: '0%', marginLeft: '1.75%', height: Dimensions.get('window').height * 0.082 }}
-                        // buttonStateEnabled={this.state.buttonDisabled}
+                        buttonStateEnabled={this.state.sendButtonEnabled}
                       />
                     </View>
                   </View>
