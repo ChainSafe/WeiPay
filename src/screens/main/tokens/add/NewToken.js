@@ -6,12 +6,11 @@ import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import RF from 'react-native-responsive-fontsize';
-import * as actions from '../../../../actions/ActionCreator';
-import { qrScannerInvoker } from '../../../../actions/ActionCreator';
-import LinearButton from '../../../../components/LinearGradient/LinearButton';
-import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard';
 import TokenConfig from '../../../../scripts/tokens/tokenConfig';
-import { addNewToken } from '../../../../actions/AppConfig'
+import { qrScannerInvoker } from '../../../../actions/ActionCreator';
+import { addNewToken } from '../../../../actions/AppConfig';
+import LinearButton from '../../../../components/linearGradient/LinearButton';
+import BoxShadowCard from '../../../../components/shadowCards/BoxShadowCard';
 
 class NewToken extends Component {
   state = {
@@ -43,7 +42,6 @@ class NewToken extends Component {
   }
 
   navigate = () => {
-    //this.props.actions.qrScannerInvoker('AddTokenFunctionality');
     this.props.qrScannerInvoker('AddTokenFunctionality');
     const navigateToQRScanner = NavigationActions.navigate({
       routeName: 'QCodeScanner',

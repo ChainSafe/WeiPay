@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, SafeAreaView, TouchableOpacity } from 'react-native';
+import {
+  View, Text, StyleSheet, Dimensions, SafeAreaView,
+} from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import LinearButton from '../../../components/LinearGradient/LinearButton';
+import RF from 'react-native-responsive-fontsize';
+import LinearButton from '../../../components/linearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
-import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard'
-import RF from "react-native-responsive-fontsize"
+import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard'
 
 /**
  * Screen used to display the passphrase (mnemonic)

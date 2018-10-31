@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TextInput, ListView, ScrollView, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
-import { List, ListItem, Button } from 'react-native-elements'
+import { List, ListItem, Button } from 'react-native-elements';
+import { NavigationActions } from "react-navigation";
 import _ from 'lodash'
 import { CardSection } from '../common/CardSection';
 import { Card } from '../common/Card';
+
 import addContactAction from '../../actions/ActionCreator';
 import *  as actions from '../../actions/ActionCreator.js';
 import AddContactListItem from './AddContactListItem';
+
 import { qrScannerInvoker } from '../../actions/ActionCreator';
 import { saveAddContactInputs } from '../../actions/ActionCreator'
-import { NavigationActions } from "react-navigation";
+
 
 /**
  * AddContactList is a component class which is used to display

@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, Dimensions, TouchableWithoutFeedback, Keyboard, SafeAreaView } from 'react-native';
+import {
+  View, StyleSheet, Text, Dimensions, TouchableWithoutFeedback, Keyboard, SafeAreaView,
+} from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
+import RF from 'react-native-responsive-fontsize';
 import { setTempWalletName } from '../../../actions/AppConfig';
-import LinearButton from '../../../components/LinearGradient/LinearButton';
+import LinearButton from '../../../components/linearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
-import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
-import RF from "react-native-responsive-fontsize"
+import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
+
 
 /**
  * Initial setup screen used to allow the user to give their wallet a name after

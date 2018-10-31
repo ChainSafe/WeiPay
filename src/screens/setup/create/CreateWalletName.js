@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { View, TouchableWithoutFeedback, StyleSheet, Text, Keyboard, Dimensions, SafeAreaView } from 'react-native';
+import {
+  View, TouchableWithoutFeedback, StyleSheet, Text, Keyboard, Dimensions, SafeAreaView,
+} from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import { FormInput, Card } from 'react-native-elements';
+import { FormInput } from 'react-native-elements';
+import RF from 'react-native-responsive-fontsize';
 import { setTempWalletName, initializeAppWallet } from '../../../actions/AppConfig';
-import LinearButton   from '../../../components/LinearGradient/LinearButton';
-import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
+import LinearButton from '../../../components/linearGradient/LinearButton';
+import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
-import RF from "react-native-responsive-fontsize"
 
 const ethers = require('ethers');
 

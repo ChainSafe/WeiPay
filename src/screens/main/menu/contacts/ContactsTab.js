@@ -3,13 +3,13 @@ import { View, Text, StyleSheet, ListView, Dimensions } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { Icon, Button, FormLabel, FormInput, FormValidationMessage, List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
+import RF from 'react-native-responsive-fontsize';
 import _ from 'lodash';
 import AddFirstContact from './add/AddFirstContact';
-import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
-import ContactTabNavigator from '../../../../components/customPageNavs/ContactTabNavigator'
-import SelectedContact from './SelectedContact'
-import RF from "react-native-responsive-fontsize"
-import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard';
+import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
+import ContactTabNavigator from '../../../../components/customPageNavs/ContactTabNavigator';
+import SelectedContact from './SelectedContact';
+import BoxShadowCard from '../../../../components/shadowCards/BoxShadowCard';
 
 /**
  * Screen that displays all the contacts that have been added to

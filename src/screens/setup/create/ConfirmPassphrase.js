@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Dimensions, SafeAreaView, Alert } from 'react-native';
+import {
+  View, TouchableOpacity, Text, StyleSheet, Dimensions, SafeAreaView, Alert,
+} from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import LinearButton from '../../../components/LinearGradient/LinearButton';
-import ClearButton from '../../../components/LinearGradient/ClearButton';
+import RF from 'react-native-responsive-fontsize';
+import LinearButton from '../../../components/linearGradient/LinearButton';
+import ClearButton from '../../../components/linearGradient/ClearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
-import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard'
-import RF from "react-native-responsive-fontsize"
+import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
+
 
 const shuffle = require('shuffle-array');
 

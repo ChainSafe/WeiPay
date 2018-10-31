@@ -8,10 +8,10 @@ import { NavigationActions } from 'react-navigation';
 import RNPickerSelect from 'react-native-picker-select';
 import RF from 'react-native-responsive-fontsize';
 import * as actions from '../../../../../actions/ActionCreator';
-import LinearButton from '../../../../../components/LinearGradient/LinearButton';
-import ClearButton from '../../../../../components/LinearGradient/ClearButton';
-import BoxShadowCard from '../../../../../components/ShadowCards/BoxShadowCard';
-import barcode from '../../../../../assets/icons/barcode.png';
+import LinearButton from '../../../../../components/linearGradient/LinearButton';
+import ClearButton from '../../../../../components/linearGradient/ClearButton';
+import BoxShadowCard from '../../../../../components/shadowCards/BoxShadowCard';
+
 /**
  * Is a full screen react component
  * This screen is used to add a new contact to the wallet contact list.
@@ -31,8 +31,8 @@ class AddContact extends Component {
     super(props);
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => { return r1 !== r2 ;} });
     const current = this.props.currentContact;
-    let contactName = current.name;
-    let contactAddress = current.contactAddress;
+    const contactName = current.name;
+    const contactAddress = current.contactAddress;
     let tokens = [];
 
     this.inputRefs = this.props.newTokens.map((token) => {
@@ -42,9 +42,7 @@ class AddContact extends Component {
         tokenName.label = token.name;
         tokenName.img = token.logo.src;
         tokens.push(tokenName);
-        
       }
-      
     });
 
     this.state = {
@@ -143,7 +141,6 @@ class AddContact extends Component {
    * Returns the form required to add a contact
    */
   render() {
-    
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>
@@ -225,7 +222,6 @@ class AddContact extends Component {
         </View>
       </SafeAreaView>
     );
-
   }
 }
 
@@ -391,7 +387,6 @@ const pickerStyle = {
  */
 
 const mapStateToProps = ({ contacts, newWallet, Wallet }) => {
-
   return {
     tokens: newWallet.tokens,
     newTokens: Wallet.tokens,

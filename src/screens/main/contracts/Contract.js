@@ -7,18 +7,18 @@ import Toast from 'react-native-simple-toast';
 import RF from 'react-native-responsive-fontsize';
 import { connect } from 'react-redux';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
-import BoxShadowCard from '../../../components/ShadowCards/BoxShadowCard';
+import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
 import {
   processContractByAddress, processFunctionCall2,
 } from '../../../scripts/contracts/contractHelper';
 import {
-  executeNonPayableNoParams, 
+  executeNonPayableNoParams,
   executeNonPayableWithParams,
   executePayableNoParams,
   executePayableWithParams,
 } from '../../../scripts/contracts/contractValidation';
-import LinearButton from '../../../components/LinearGradient/LinearButton';
-import ClearButton from '../../../components/LinearGradient/ClearButton';
+import LinearButton from '../../../components/linearGradient/LinearButton';
+import ClearButton from '../../../components/linearGradient/ClearButton';
 
 /**
  * Screen is used to display the passphrase (mnemonic) of the wallet
@@ -44,10 +44,12 @@ class Contract extends Component {
 
   getContract = async () => {
     this.setState({ contractFunctions: null });
-    const { contractFunctions
-      , contractEvents, contract, withInputs,
+    const {
+      contractFunctions, contractEvents, contract, withInputs,
     } = await processContractByAddress(this.state.wallet, this.state.address);
-    this.setState({ contractEvents, contractFunctions, contract, withInputs });
+    this.setState({
+      contractEvents, contractFunctions, contract, withInputs,
+    });
   }
 
   processFunctionInput = (x, inputName, inputType, funcName) => {

@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, Dimensions, TouchableWithoutFeedback, Keyboard, SafeAreaView } from 'react-native';
+import {
+  View, Text, StyleSheet, Dimensions, TouchableWithoutFeedback, Keyboard, SafeAreaView,
+} from 'react-native';
 import { NavigationActions } from 'react-navigation';
-import { Icon, Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import { connect } from 'react-redux';
-import BackWithMenuNav from "../../../../components/customPageNavs/BackWithMenuNav"
-import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard'
-import LinearButton from '../../../../components/LinearGradient/LinearButton'
-import RF from "react-native-responsive-fontsize"
-const ethers = require('ethers');
-const utils = ethers.utils;
+import RF from 'react-native-responsive-fontsize';
+import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
+import BoxShadowCard from '../../../../components/shadowCards/BoxShadowCard';
+import LinearButton from '../../../../components/linearGradient/LinearButton';
 
+const ethers = require('ethers');
+
+const utils = ethers.utils;
 
 const navigate = () => {
   const navigateToMenu = NavigationActions.reset({
     index: 0,
-    actions: [NavigationActions.navigate({ routeName: 'Drawer' })]
+    actions: [NavigationActions.navigate({ routeName: 'Drawer' })],
   });
   this.props.navigation.dispatch(navigateToMenu);
 };
@@ -25,7 +27,7 @@ const navigate = () => {
 class BackupPhrase extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       isPhraseSelected: false,
       phrase: this.props.wallet.wallet.mnemonic,
       phraseInDebug: this.props.wallet.wallet.privateKey, //TODO: Delete this and replace every call to phrase
@@ -47,13 +49,13 @@ class BackupPhrase extends Component {
    * Returns a component that allows the user to view the passphrase
    */
   render() {
-    
-    
+
+
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.mainContainer}>
-              <View style={styles.navContainer}>        
+              <View style={styles.navContainer}>
                 <BackWithMenuNav
                     showMenu={false}
                     showBack={true}
@@ -65,21 +67,21 @@ class BackupPhrase extends Component {
                 <View style={styles.contentContainer}>
                     <BoxShadowCard>
                       {
-                        this.state.isPhraseSelected 
-                        ? 
-                        <View> 
+                        this.state.isPhraseSelected
+                        ?
+                        <View>
                             <Text style={styles.cardText} >Please save this passphrase somewhere safe!</Text>
                             <Text style={styles.mnemonicText} >{this.state.mnemonic}</Text>
-                        </View>                      
+                        </View>
                         : <Text style={styles.cardText} >To view your recovery passphrase, select the button below</Text>
                       }
-                      
+
                     </BoxShadowCard>
                 </View>
               </View>
             <View style={styles.btnContainer}>
                 {
-                    this.state.isPhraseSelected 
+                    this.state.isPhraseSelected
                     ? null
                     : <LinearButton
                           onClickFunction={this.displayPassphrase.bind(this)}
@@ -93,11 +95,11 @@ class BackupPhrase extends Component {
                         <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                     </View>
                 </View>
-            </View>            
+            </View>
         </View>
       </TouchableWithoutFeedback>
     </SafeAreaView>
-    )
+    );
   }
 }
 
@@ -106,8 +108,8 @@ class BackupPhrase extends Component {
  */
 const styles = StyleSheet.create({
   safeAreaView: {
-    flex: 1, 
-    backgroundColor: '#fafbfe'
+    flex: 1,
+    backgroundColor: '#fafbfe',
   },
   mainContainer: {
     flex: 1,
@@ -119,8 +121,8 @@ const styles = StyleSheet.create({
     flex: 0.75,
   },
   boxShadowContainer: {
-    alignItems: 'center', 
-    flex: 3
+    alignItems: 'center',
+    flex: 3,
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
@@ -128,7 +130,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
     paddingLeft: '9%',
     color: '#1a1f3e',
-    flex: 0.75, 
+    flex: 0.75,
   },
   contentContainer: {
     width: '82%',
@@ -163,7 +165,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '82%',
-    height: Dimensions.get('window').height * 0.082,  
+    height: Dimensions.get('window').height * 0.082,
   },
   footerGrandparentContainer: {
     alignItems: 'center',
@@ -177,14 +179,14 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Regular',
     fontSize: RF(1.7),
     color: '#c0c0c0',
-    letterSpacing: 0.5
+    letterSpacing: 0.5,
   },
-})
+});
 
 const mapStateToProps = ({ newWallet, HotWallet }) => {
   const wallet = HotWallet.hotWallet;
   const debugMode = newWallet.debugMode;
-  return { wallet, debugMode }
-}
+  return { wallet, debugMode };
+};
 
-export default connect(mapStateToProps, null)(BackupPhrase)
+export default connect(mapStateToProps, null)(BackupPhrase);

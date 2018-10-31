@@ -6,8 +6,8 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import * as actions from '../../actions/ActionCreator';
-import LinearButton from '../../components/LinearGradient/LinearButton';
-import ClearButton from '../../components/LinearGradient/ClearButton';
+import LinearButton from '../../components/linearGradient/LinearButton';
+import ClearButton from '../../components/linearGradient/ClearButton';
 
 const erc20 = require('erc20_tokens');
 

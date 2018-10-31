@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import {
-  View, Text, StyleSheet, Dimensions
+  View, Text, StyleSheet, Dimensions,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { Button } from 'react-native-elements';
 import Camera from 'react-native-camera';
-import LinearButton from '../../../components/LinearGradient/LinearButton';
 import { NavigationActions } from 'react-navigation';
 import Toast from 'react-native-simple-toast';
 import RF from 'react-native-responsive-fontsize';
+
 import * as actions from '../../../actions/ActionCreator';
-import { getQRCodeData } from '../../../actions/ActionCreator';
-import { updateSavedContactInputs } from '../../../actions/ActionCreator';
-import ContactAddresses from '../menu/contacts/SelectedContact';
-import BackupPhrase from '../menu/settings/BackupPhrase';
+import LinearButton from '../../../components/linearGradient/LinearButton';
+// import { getQRCodeData } from '../../../actions/ActionCreator';
+// import { updateSavedContactInputs } from '../../../actions/ActionCreator';
+// import ContactAddresses from '../menu/contacts/SelectedContact';
+// import BackupPhrase from '../menu/settings/BackupPhrase';
 
 /**
  * React Component
@@ -40,7 +40,6 @@ class QrCodeScanner extends Component {
   }
 
     navigate = () => {
-  
       const navigateToCreateOrRestore = NavigationActions.navigate({
         routeName: this.state.invoker,
         params: { activeTab: 3 }
@@ -56,7 +55,6 @@ class QrCodeScanner extends Component {
      */
     onBarCodeRead = (e) => {
       this.setState({ qrcode: e.data, scanned: !this.state.scanned });
-      
       if (this.state.invoker === 'TokenFunctionality') { // Coin Send page
         this.props.getQRCodeData(e.data);
       } else if (this.state.invoker === 'AddTokenFunctionality') {
@@ -69,43 +67,35 @@ class QrCodeScanner extends Component {
       }
     };
 
-
     /**
      * Returns a screen with the react-native-camera component as the background
      *  - a text box to  see the text that was scanned
      *  - a button to go back to the invoking screen and fill in the input field
      */
     render() {
-      
       return (
-            <View style={[styles.container, this.state.scanned ? {borderColor: 'green'} : {borderTopColor: 'black'}  ]}>
-              <View style={{flex: 1}}>
-                  <Camera
-                      style={styles.preview}
-                      onBarCodeRead={this.onBarCodeRead}
-                      ref={(cam) => { return this.camera = cam; }}
-                      aspect={Camera.constants.Aspect.fill}
-                      showMarker={true}
-                  >
-                    <View style={styles.btnContainer}>
-                      <LinearButton
-                        onClickFunction={this.navigate}
-                        buttonText='Next'
-                        customStyles={styles.button} />
-                      <View style={styles.footerGrandparentContainer}>
-                          <View style={styles.footerParentContainer} >
-                              <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-                          </View>
+        <View style={[styles.container, this.state.scanned ? {borderColor: 'green'} : {borderTopColor: 'black'}  ]}>
+          <View style={{flex: 1}}>
+              <Camera
+                  style={styles.preview}
+                  onBarCodeRead={this.onBarCodeRead}
+                  ref={(cam) => { return this.camera = cam; }}
+                  aspect={Camera.constants.Aspect.fill}
+                  showMarker={true}>
+                <View style={styles.btnContainer}>
+                  <LinearButton
+                    onClickFunction={this.navigate}
+                    buttonText='Next'
+                    customStyles={styles.button} />
+                  <View style={styles.footerGrandparentContainer}>
+                      <View style={styles.footerParentContainer} >
+                          <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                       </View>
-                    </View>
-                  
-                  
-                  </Camera>
-
-                </View>
-                
-                
+                  </View>
+                </View>                  
+              </Camera>
             </View>
+        </View>
       );
     }
 }
@@ -141,9 +131,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     borderWidth: 3,
-    
   },
- 
   preview: {
     flex: 1,
     justifyContent: 'flex-end',
