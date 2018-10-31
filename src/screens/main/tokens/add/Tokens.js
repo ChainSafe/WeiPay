@@ -8,8 +8,8 @@ import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import RF from 'react-native-responsive-fontsize';
 import * as actions from '../../../../actions/ActionCreator';
-import LinearButton from '../../../../components/LinearGradient/LinearButton';
-import TokenConfig from '../../../../scripts/tokenConfig';
+import LinearButton from '../../../../components/linearGradient/LinearButton';
+import TokenConfig from '../../../../scripts/tokens/tokenConfig';
 import { addNewToken } from '../../../../actions/AppConfig';
 
 /**

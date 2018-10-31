@@ -1,22 +1,16 @@
 import React, { Component } from 'react';
 import {
- ListView, View, Text, StyleSheet, TextInput, ScrollView, Dimensions, TouchableOpacity, Picker, SafeAreaView, Image
+  View, Text, StyleSheet, Dimensions, TouchableOpacity, SafeAreaView, Image,
 } from 'react-native';
-import {
- Button, List, ListItem, Card, FormLabel, FormInput, FormValidationMessage
-} from 'react-native-elements';
+import { FormInput } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import RNPickerSelect from 'react-native-picker-select';
-import AddContactList from '../../../../../components/contacts/AddContactList';
-import * as actions from '../../../../../actions/ActionCreator';
-import BackWithMenuNav from '../../../../../components/customPageNavs/BackWithMenuNav'
-import ContactTabNavigator from '../../../../../components/customPageNavs/ContactTabNavigator'
-import LinearButton from '../../../../../components/LinearGradient/LinearButton'
-import ClearButton from '../../../../../components/LinearGradient/ClearButton'
-import BoxShadowCard from '../../../../../components/ShadowCards/BoxShadowCard'
-import barcode from '../../../../../assets/icons/barcode.png'
 import RF from 'react-native-responsive-fontsize';
+import * as actions from '../../../../../actions/ActionCreator';
+import LinearButton from '../../../../../components/linearGradient/LinearButton';
+import BoxShadowCard from '../../../../../components/shadowCards/BoxShadowCard';
+
 
 /**
  * Is a full screen react component
@@ -37,21 +31,16 @@ class EditContact extends Component {
     const current = this.props.currentContact;
     const contactName = current.name;
     const contactAddress = current.contactAddress;
-    const tokens = [];
-
-   
+    const tokens = [];   
     this.inputRefs = this.props.newTokens.map((token) => {
       const tokenName = {};
       if (token.selected) {
         tokenName.value = token.name;
         tokenName.label = token.name;
         tokenName.img = token.logo.src;
-        tokens.push(tokenName);
-        
+        tokens.push(tokenName); 
       }
-      
     });
-
 
     this.state = {
       disabled: true,

@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, TouchableOpacity, Dimensions, Image, Platform }
 import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import { addTokenToSetup } from '../../actions/ActionCreator';
-import BoxShadowCard from '../ShadowCards/BoxShadowCard';
+import BoxShadowCard from '../shadowCards/BoxShadowCard';
 
 /**
  * React Component

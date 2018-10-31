@@ -1,5 +1,5 @@
-import tokenListJson from '../constants/data/json/coins.json';
-import Token from './classes/Token';
+import tokenListJson from '../../constants/data/json/coins.json';
+import Token from '../classes/Token';
 
 const tokenConfiguration = (configFlag, tokenObject) => {
   let tokenList;

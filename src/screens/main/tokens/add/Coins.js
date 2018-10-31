@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Dimensions, Text, SafeAreaView, ScrollView } from 'react-native';
+import {
+  View, StyleSheet, Dimensions, Text, SafeAreaView, ScrollView,
+} from 'react-native';
 import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import CoinList from '../../../../components/tokens/CoinList';
-import LinearButton from '../../../../components/LinearGradient/LinearButton';
+import LinearButton from '../../../../components/linearGradient/LinearButton';
 
 class Coins extends Component {
   /**

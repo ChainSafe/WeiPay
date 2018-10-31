@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Dimensions } from 'react-native';
-import { Button, Card } from 'react-native-elements';
-import LinearButton from '../../../../../components/LinearGradient/LinearButton'
-import BoxShadowCard from '../../../../../components/ShadowCards/BoxShadowCard'
-import RF from "react-native-responsive-fontsize"
+import {
+  Text, View, StyleSheet, Dimensions,
+} from 'react-native';
+import RF from 'react-native-responsive-fontsize';
+import LinearButton from '../../../../../components/linearGradient/LinearButton';
+import BoxShadowCard from '../../../../../components/shadowCards/BoxShadowCard';
+
 
 /**
  * React-Native
@@ -46,16 +48,16 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     paddingTop: '5%',
-    backgroundColor: "#fafbfe",
+    backgroundColor: '#fafbfe',
     width: '100%',
     height: '100%',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
-  contentContainer : {
+  contentContainer: {
     width: '82%',
     flex: 1.3,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   emptyView: {
     flex: 1,
@@ -75,12 +77,12 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     width: '100%',
     justifyContent: 'flex-end',
-    marginBottom: '2%'
+    marginBottom: '2%',
   },
   button: {
     width: '82%',
-    height: Dimensions.get('window').height * 0.082
-  }
-})
+    height: Dimensions.get('window').height * 0.082,
+  },
+});
 
-export default AddFirstContact
+export default AddFirstContact;

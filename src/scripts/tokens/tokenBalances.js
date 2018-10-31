@@ -6,8 +6,8 @@
  * This use case will be address in a subsequent branch.
  */
 
-import provider from '../constants/Providers';
-import ERC20ABI from '../constants/data/json/ERC20ABI.json';
+import provider from '../../constants/Providers';
+import ERC20ABI from '../../constants/data/json/ERC20ABI.json';
 
 const ethers = require('ethers');
 let wallet;

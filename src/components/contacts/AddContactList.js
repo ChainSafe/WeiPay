@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TextInput, ListView, ScrollView, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
-import { List, ListItem, Button } from 'react-native-elements'
+import { List, ListItem, Button } from 'react-native-elements';
+import { NavigationActions } from "react-navigation";
 import _ from 'lodash'
 import { CardSection } from '../common/CardSection';
 import { Card } from '../common/Card';
+
 import addContactAction from '../../actions/ActionCreator';
 import *  as actions from '../../actions/ActionCreator.js';
 import AddContactListItem from './AddContactListItem';
+
 import { qrScannerInvoker } from '../../actions/ActionCreator';
 import { saveAddContactInputs } from '../../actions/ActionCreator'
-import { NavigationActions } from "react-navigation";
+
 
 /**
  * AddContactList is a component class which is used to display
@@ -164,17 +167,6 @@ const styles = StyleSheet.create({
   },
 });
 
-/**
- * Redux-thunk function
- * Returns an object that contains information that currently exists within the
- * global state variable.
- * 
- * Points to:
- *  - Current list of tokens that the used has selected for thier porfolio
- *  - currentContact is not used in this class
- *  - current is not used in this class
- * @param {Object} state 
- */
 const mapStateToProps = ({ newWallet, contacts }) => {
   return {
     tokens: newWallet.tokens,

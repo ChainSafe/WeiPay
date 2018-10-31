@@ -21,7 +21,6 @@ const middleware = applyMiddleware(thunk, promise, logger);
 const store = createStore(
     persistedReducer,
     middleware,
-   
 );
 
 let persistor = persistStore(store)

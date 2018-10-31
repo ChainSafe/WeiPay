@@ -5,17 +5,17 @@ import {
 import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
-import RF from "react-native-responsive-fontsize"
+import RF from 'react-native-responsive-fontsize';
 import * as action from '../../../../actions/ActionCreator';
 import provider from '../../../../constants/Providers';
 import ERC20ABI from '../../../../constants/data/json/ERC20ABI.json';
-import LinearButton from '../../../../components/LinearGradient/LinearButton';
-import ClearButton from '../../../../components/LinearGradient/ClearButton';
-import BoxShadowCard from '../../../../components/ShadowCards/BoxShadowCard';
-import Provider from '../../../../constants/Providers';
+import LinearButton from '../../../../components/linearGradient/LinearButton';
+import ClearButton from '../../../../components/linearGradient/ClearButton';
+import BoxShadowCard from '../../../../components/shadowCards/BoxShadowCard';
 import MaliciousAddresses from '../../../../constants/data/json/addresses_darklist.json';
 
 const ethers = require('ethers');
+
 const utils = ethers.utils;
 
 class CoinSend extends Component {
@@ -31,7 +31,7 @@ class CoinSend extends Component {
       maliciousCheck: true,
       maliciousComment: '',
       sendButtonEnabled: false,
-      validAddress: new RegExp("0x[0-9a-fA-F]{40}"),
+      validAddress: new RegExp('0x[0-9a-fA-F]{40}'),
       valid: false,
     };
   }
@@ -99,11 +99,8 @@ class CoinSend extends Component {
       const receivingAddress = this.state.toAddress;
       if (this.state.validAddress.exec(receivingAddress) == null){
         return 1;
-        
       }
-
       const amount = ethers.utils.parseEther(amountString);
-    
       const sendPromise = initializedWallet.send(receivingAddress, amount);
       sendPromise.then((transactionHash) => {
         console.log(transactionHash);
@@ -149,7 +146,7 @@ class CoinSend extends Component {
           this.openModal();
         });  
       } catch (error) {
-        console.log("Didnt Go through");
+        console.log('Didnt Go through');
         
       }
       
@@ -160,7 +157,7 @@ class CoinSend extends Component {
     for (var i = 0; i < MaliciousAddresses.length; i++) {
       if (address === MaliciousAddresses[i].address) {
         this.setState({ maliciousComment:  MaliciousAddresses[i].comment })
-        return { flag: true, "address" : MaliciousAddresses[i].address, 'comment' : MaliciousAddresses[i].comment };
+        return { flag: true, 'address' : MaliciousAddresses[i].address, 'comment' : MaliciousAddresses[i].comment };
       }
     }
     return { flag: false };
@@ -231,7 +228,7 @@ class CoinSend extends Component {
                       </View>
                       <View style={styles.inputContainer}>
                         {
-                          this.state.maliciousComment != "" ?
+                          this.state.maliciousComment != '' ?
                             <Text style={styles.maliciousCommentText}>Malicious - {this.state.maliciousComment} </Text>
                             : null
                         }
