@@ -164,17 +164,6 @@ const styles = StyleSheet.create({
   },
 });
 
-/**
- * Redux-thunk function
- * Returns an object that contains information that currently exists within the
- * global state variable.
- * 
- * Points to:
- *  - Current list of tokens that the used has selected for thier porfolio
- *  - currentContact is not used in this class
- *  - current is not used in this class
- * @param {Object} state 
- */
 const mapStateToProps = ({ newWallet, contacts }) => {
   return {
     tokens: newWallet.tokens,
