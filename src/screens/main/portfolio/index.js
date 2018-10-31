@@ -263,7 +263,9 @@ class Portfolio extends Component {
               onClickFunction={this.navigate}
               buttonText="Add Token or Coin"
               customStyles={styles.button}
+              buttonStateEnabled={!this.state.pricesLoaded}
             />
+
             <View style={styles.footerGrandparentContainer}>
               <View style={styles.footerParentContainer} >
                 <Text style={styles.textFooter} >Powered by ChainSafe </Text>

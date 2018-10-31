@@ -119,7 +119,7 @@ class Coins extends Component {
             <LinearButton
               onClickFunction={this.addCustomToken}
               buttonText='Add this token'
-              disabled={this.state.buttonEnabled}
+              buttonStateEnabled={!this.state.buttonEnabled}
               customStyles={styles.button} />
             <View style={styles.footerGrandparentContainer}>
                 <View style={styles.footerParentContainer} >
