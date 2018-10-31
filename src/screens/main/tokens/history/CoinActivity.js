@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native';
-import { CardSection } from '../../../../components/common/CardSection';
 import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 import { connect } from 'react-redux';
@@ -69,8 +68,6 @@ class CoinActivity extends Component {
    * Returns a component holding a list of transactions that have been occured
    */
   render() {
-    console.log(this.props.address);
-    
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>

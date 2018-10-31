@@ -6,7 +6,7 @@ import RF from 'react-native-responsive-fontsize';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import { initializeAppTokenState, enterDebug } from '../../../actions/AppConfig';
-import { Terms } from '../../../constants/Terms';
+import { Terms } from '../../../constants/data/Terms';
 import LinearButton from '../../../components/linearGradient/LinearButton';
 import TokenConfig from '../../../scripts/tokens/tokenConfig';
 
