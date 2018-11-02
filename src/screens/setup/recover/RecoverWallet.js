@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
 import RF from 'react-native-responsive-fontsize';
 import { initializeAppWallet } from '../../../actions/AppConfig';
-import provider from '../../../constants/Providers';
+import getNetworkProvider from '../../../constants/Providers';
 import LinearButton from '../../../components/linearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
@@ -39,6 +39,7 @@ class RecoverWallet extends Component {
         } else {
           const mnemonic = this.state.mnemonic.trim();  
           currentWalletName = this.props.tempWalletName;
+          const provider = await getNetworkProvider(this.props.network);
           const wallet = ethers.Wallet.fromMnemonic(mnemonic);
           wallet.provider = provider;
           const navigateToCreateWalletName = NavigationActions.navigate({
@@ -215,8 +216,8 @@ const styles = StyleSheet.create({
  */
 const mapStateToProps = ({ Debug, Wallet }) => {
   const { debugMode, testWalletName } = Debug;
-  const { wallets, tempWalletName, appPassword } = Wallet;
-  return { debugMode, testWalletName, wallets, tempWalletName, appPassword };
+  const { wallets, tempWalletName, appPassword, network, } = Wallet;
+  return { debugMode, testWalletName, wallets, tempWalletName, appPassword, network };
 };
 
 export default connect(mapStateToProps, { initializeAppWallet })(RecoverWallet);

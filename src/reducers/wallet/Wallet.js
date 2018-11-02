@@ -23,7 +23,7 @@ import {
 } from '../../actions/ActionTypes';
 
 const initialState = {
-  network: null,
+  network: 'ropsten',
   hashedPassword: null,
   isInSetupScreens: true,
   wallets: [],

@@ -6,13 +6,19 @@
  * This use case will be address in a subsequent branch.
  */
 
-import provider from '../../constants/Providers';
+// import provider from '../../constants/Providers';
 import ERC20ABI from '../../constants/data/json/ERC20ABI.json';
 
+let provider;
 const ethers = require('ethers');
 let wallet;
 
-const processAllTokenBalances = async (privateKey, dataSet) => {
+const processAllTokenBalances = async (privateKey, dataSet, providerObj) => {
+
+  console.log('in process all balance', { providerObj});
+  provider = providerObj;
+  
+
   let allBalances = [];
   let tokenApiRequestString = '';
   wallet = new ethers.Wallet(privateKey);
@@ -58,7 +64,7 @@ formatBalance = (balance, decimals) => {
   return (balance / x);
 };
 
-getEthereumBalance = async () => {
+getEthereumBalance = async () => {  
   const balance = await provider.getBalance(wallet.address);
   const parsedEtherBalance = String(ethers.utils.formatEther(balance));
   return parsedEtherBalance;

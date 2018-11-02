@@ -8,9 +8,10 @@ import { NavigationActions } from 'react-navigation';
 import LinearButton from '../../../components/linearGradient/LinearButton';
 import { setWalletTokenBalances, fetchCoinData, calculateWalletBalance } from '../../../actions/FetchCoinData';
 import { saveTokenDataForTransaction, saveAllTokenQuantities } from '../../../actions/AppConfig';
-import processAllTokenBalances from '../../../scripts/tokens/tokenBalances';
+import processAllTokenBalances from '../../../scripts/tokens/tokenBalances'; //here
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
+import getNetworkProvider from '../../../constants/Providers';
 
 /**
  * Screen is used to display the wallet portfolio of the user, which contains the
@@ -96,7 +97,8 @@ class Portfolio extends Component {
       tokenObjectList.push(tokenObj);
     }
     const privateKey =  this.state.currentWallet.privateKey;
-    return { tokenSymbolString, tokenBalances } = await processAllTokenBalances(privateKey, tokenObjectList);
+    const provider = await getNetworkProvider(this.props.network);    
+    return { tokenSymbolString, tokenBalances } = await processAllTokenBalances(privateKey, tokenObjectList, provider);
   }
 
   /**
@@ -441,7 +443,14 @@ const styles = StyleSheet.create({
 function mapStateToProps({ Wallet, Debug, HotWallet }) {
   const { hotWallet } = HotWallet;
   const {
-    currencyOptions, tokens, wallets, tokenConversions, tokenBalances, walletBalance, tokenQuantities,
+    currencyOptions,
+    tokens,
+    wallets,
+    tokenConversions,
+    tokenBalances,
+    walletBalance,
+    tokenQuantities,
+    network,
   } = Wallet;
   const {
     debugMode, testWalletName,
@@ -457,6 +466,7 @@ function mapStateToProps({ Wallet, Debug, HotWallet }) {
     walletBalance,
     tokenBalances,
     tokenQuantities,
+    network,
   };
 }
 
