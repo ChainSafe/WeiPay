@@ -5,7 +5,7 @@ let abi;
 
 getContractAbi = async (contractAddress, network) => {
   let url;
-  if (network === 'homestead') {
+  if (network === 'mainnet') {
     url = `https://api.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&apikey=YJ1TRXBKAH9QZWINVFT83JMFBQI15X7UPR`;
   } else if (network === 'ropsten') {
     url = `https://api-ropsten.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&apikey=YJ1TRXBKAH9QZWINVFT83JMFBQI15X7UPR`;
@@ -23,7 +23,6 @@ getContractAbi = async (contractAddress, network) => {
       console.log(err);
     });
 };
-
 
 const getUniqueFunctionSignatures = (interfaceFunctions) => {
   let functionNames = [];

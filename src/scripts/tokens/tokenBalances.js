@@ -9,25 +9,28 @@
 // import provider from '../../constants/Providers';
 import ERC20ABI from '../../constants/data/json/ERC20ABI.json';
 
-let provider;
+// let provider;
 const ethers = require('ethers');
 let wallet;
 
-const processAllTokenBalances = async (privateKey, dataSet, providerObj) => {
-
-  console.log('in process all balance', { providerObj});
-  provider = providerObj;
+const processAllTokenBalances = async (privateKey, dataSet, provider) => {
+  console.log('in process all token balances');
+  
+  console.log('in process all balance', { provider });
+  //provider = providerObj;
   
 
   let allBalances = [];
   let tokenApiRequestString = '';
   wallet = new ethers.Wallet(privateKey);
+  console.log({wallet});
+  
   wallet.provider = provider;
   for (let i = 0; i < dataSet.length; i++) {
     let tokenObj = {};
     tokenObj.symbol = dataSet[i].symbol;
     if (dataSet[i].contractAddress === '') {
-      await this.getEthereumBalance(wallet.address)
+      await this.getEthereumBalance(wallet.address, provider)
         .then((response) => {
           tokenObj.amount = Number(response).toFixed(4);
           allBalances.push(tokenObj);
@@ -40,7 +43,7 @@ const processAllTokenBalances = async (privateKey, dataSet, providerObj) => {
         });
     } else {
       let contractAddress = dataSet[i].contractAddress;
-      await this.getERC20Balance(contractAddress, dataSet[i].decimals)
+      await this.getERC20Balance(contractAddress, dataSet[i].decimals, provider)
         .then((response) => {
           tokenObj.amount = Number(response).toFixed(4);
           allBalances.push(tokenObj);
@@ -58,19 +61,22 @@ const processAllTokenBalances = async (privateKey, dataSet, providerObj) => {
 
 formatBalance = (balance, decimals) => {
   const x = Math.pow(10, decimals);
-  if(decimals === 0) {
+  if (decimals === 0) {
     return balance;
   }
   return (balance / x);
 };
 
-getEthereumBalance = async () => {  
+getEthereumBalance = async (add, provider) => {  
+  console.log('in get ether balance', { provider } );
+  
   const balance = await provider.getBalance(wallet.address);
   const parsedEtherBalance = String(ethers.utils.formatEther(balance));
   return parsedEtherBalance;
 };
 
-getERC20Balance = async (contractAdd, decimals) => {
+getERC20Balance = async (contractAdd, decimals, provider) => {
+  console.log('in get erc20 balance', { provider } );
   const contract = new ethers.Contract(contractAdd, ERC20ABI, provider);
   const tokenBalance = await contract.balanceOf(wallet.address);  
   const parsedTokenBalance = String(tokenBalance);

@@ -42,6 +42,8 @@ class RecoverWallet extends Component {
           const provider = await getNetworkProvider(this.props.network);
           const wallet = ethers.Wallet.fromMnemonic(mnemonic);
           wallet.provider = provider;
+          console.log({wallet});
+          
           const navigateToCreateWalletName = NavigationActions.navigate({
             routeName: 'createWalletNameRecovered',
             params: { 'wallet': wallet },

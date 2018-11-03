@@ -56,6 +56,13 @@ class Portfolio extends Component {
    * The Balance (soon to be Wallet) reducer then updates state -> { ...state, walletBalance: walletBalanceObject, tokenBalances: individualTokens };
    */
   async componentDidMount() {
+    console.log('compon did mount');
+    console.log(this.props.network);
+    const network = this.props.network;
+    const provider = await getNetworkProvider(this.props.network); 
+    console.log({provider});
+    
+    
     if (this.props.walletBalance == null) {
       await this.balanceCalculations();
     } else {
@@ -97,7 +104,9 @@ class Portfolio extends Component {
       tokenObjectList.push(tokenObj);
     }
     const privateKey =  this.state.currentWallet.privateKey;
-    const provider = await getNetworkProvider(this.props.network);    
+    const provider = await getNetworkProvider(this.props.network);  
+    console.log('in format tokens', {provider});
+      
     return { tokenSymbolString, tokenBalances } = await processAllTokenBalances(privateKey, tokenObjectList, provider);
   }
 

@@ -35,6 +35,7 @@ class Network extends Component {
 
   selectNetwork = (network) => {
     this.props.setNetwork(network);
+    this.setState({ chosenNetork: network });
   }
 
   render() {
@@ -55,9 +56,9 @@ class Network extends Component {
                 <View style={styles.contentContainer}>
                     <BoxShadowCard>
                         <View style={{ justifyContent: 'space-around', flex:1 }}> 
-                        <Text style={styles.mnemonicText}> Current Network: __ </Text> 
+                        <Text style={styles.mnemonicText}> Current Network: { this.props.network } </Text> 
                             <ClearButton
-                                onClickFunction={() => this.selectNetwork('homestead') }
+                                onClickFunction={() => this.selectNetwork('mainnet') }
                                 buttonText= 'Switch to Mainet'
                                 customStyles={styles.button}
                                 buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
@@ -178,10 +179,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ newWallet, HotWallet }) => {
+const mapStateToProps = ({ newWallet, HotWallet, Wallet }) => {
   const wallet = HotWallet.hotWallet;
   const debugMode = newWallet.debugMode;
-  return { wallet, debugMode };
+  const { network } = Wallet;
+  return { wallet, debugMode, network };
 };
 
 export default connect(mapStateToProps, { setNetwork })(Network);
