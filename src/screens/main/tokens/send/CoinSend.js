@@ -7,7 +7,6 @@ import { FormInput } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import RF from 'react-native-responsive-fontsize';
 import * as action from '../../../../actions/ActionCreator';
-//import provider from '../../../../constants/Providers';
 import getNetworkProvider from '../../../../constants/Providers';
 import ERC20ABI from '../../../../constants/data/json/ERC20ABI.json';
 import LinearButton from '../../../../components/linearGradient/LinearButton';

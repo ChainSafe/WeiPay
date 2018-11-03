@@ -1,27 +1,29 @@
 const ethers = require('ethers');
 const axios = require('axios');
 
-const provider = ethers.providers.getDefaultProvider('ropsten');
 let abi;
 
-getContractAbi = async (contractAddress) => {
-  // await axios.get(`https://api.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&apikey=YJ1TRXBKAH9QZWINVFT83JMFBQI15X7UPR`)
-  //   .then((res) => {
-  //     abi = res.data.result;
-  //     console.log(abi);
-
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-  await axios.get(`https://api-ropsten.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&apikey=YJ1TRXBKAH9QZWINVFT83JMFBQI15X7UPR`)
+getContractAbi = async (contractAddress, network) => {
+  let url;
+  if (network === 'homestead') {
+    url = `https://api.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&apikey=YJ1TRXBKAH9QZWINVFT83JMFBQI15X7UPR`;
+  } else if (network === 'ropsten') {
+    url = `https://api-ropsten.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&apikey=YJ1TRXBKAH9QZWINVFT83JMFBQI15X7UPR`;
+  } else if (network === 'kovan') {
+    url = `https://api-kovan.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&apikey=YJ1TRXBKAH9QZWINVFT83JMFBQI15X7UPR`;
+  } else {
+    url = `https://api-rinkeby.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&apikey=YJ1TRXBKAH9QZWINVFT83JMFBQI15X7UPR`;
+  }
+  await axios.get(url)
     .then((res) => {
       abi = res.data.result;
+      console.log(abi);
     })
     .catch((err) => {
       console.log(err);
     });
 };
+
 
 const getUniqueFunctionSignatures = (interfaceFunctions) => {
   let functionNames = [];
@@ -74,8 +76,8 @@ const getFunctionInputs = (interfaceFunctions, formattedFunctions) => {
   return functionsWithInputs;
 };
 
-export const processContractByAddress = async (wallet, address) => {
-  await this.getContractAbi(address);
+export const processContractByAddress = async (wallet, address, provider, network) => {
+  await this.getContractAbi(address, network);
   const abiParsed = JSON.parse(abi);
   const initializedWallet = new ethers.Wallet(wallet.privateKey, provider);
   try {
@@ -98,7 +100,7 @@ export const processContractByAddress = async (wallet, address) => {
   }
 };
 
-const executePayableMethod = async (wallet, functionName, inputs, contract) => {
+const executePayableMethod = async (wallet, functionName, inputs, contract, provider) => {
   const initializedWallet = new ethers.Wallet(wallet.privateKey, provider);
   const { payable } = inputs;
   const trimmedValue = payable.trim();
@@ -141,7 +143,7 @@ const executePayableMethod = async (wallet, functionName, inputs, contract) => {
   }
 };
 
-const executeMethod = async (wallet, functionName, inputs, contract) => {
+const executeMethod = async (wallet, functionName, inputs, contract, provider) => {
   const initializedWallet = new ethers.Wallet(wallet.privateKey, provider);
   try {
     const args = Object.values(inputs);
@@ -163,12 +165,12 @@ const executeMethod = async (wallet, functionName, inputs, contract) => {
   }
 };
 
-export const processFunctionCall2 = async (wallet, functionName, inputs, contract) => {
+export const processFunctionCall2 = async (wallet, functionName, inputs, contract, provider) => {
   const isPayable = Object.prototype.hasOwnProperty.call(inputs, 'payable');
   if (isPayable) {
-    executePayableMethod(wallet, functionName, inputs, contract);
+    executePayableMethod(wallet, functionName, inputs, contract, provider);
   } else {
-    executeMethod(wallet, functionName, inputs, contract);
+    executeMethod(wallet, functionName, inputs, contract, provider);
   }
 };
 
