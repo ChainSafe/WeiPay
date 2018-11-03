@@ -22,15 +22,15 @@ import ClearButton from '../../../components/linearGradient/ClearButton';
 import getNetworkProvider from '../../../constants/Providers';
 
 /**
- * Screen is used to display the passphrase (mnemonic) of the wallet
+ * Screen is used to display the passphrase (mnemonic) of the wallet - 0xcD361f7173C439BB76F3E1206446e9D183B82787
  */
 class Contract extends Component {
   constructor(props) {
     super(props);
     this.state = {
       contractLoaded: false,
-      // address: '',
-      address: '0xcD361f7173C439BB76F3E1206446e9D183B82787',
+      provider: null,
+      address: '',
       wallet: this.props.hotWallet.wallet,
       contractEvents: null,
       contractFunctions: null,
@@ -42,13 +42,15 @@ class Contract extends Component {
     };
   }
 
+  componentDidMount = async () => {
+    const provider = await getNetworkProvider(this.props.network);  
+    this.setState({ provider }); 
+  }
 
-  getContract = async () => {
-    this.setState({ contractFunctions: null });
-    const provider = await getNetworkProvider(this.props.network);   
+  getContract = async () => {  
     const {
       contractFunctions, contractEvents, contract, withInputs,
-    } = await processContractByAddress(this.state.wallet, this.state.address, provider, this.props.network);
+    } = await processContractByAddress(this.state.wallet, this.state.address, this.state.provider, this.props.network);
     this.setState({
       contractEvents, contractFunctions, contract, withInputs,
     });
@@ -74,7 +76,6 @@ class Contract extends Component {
     const isFunctionPayable = Object.prototype.hasOwnProperty.call(name, 'payable');
     const hasFunctionParameters = Object.prototype.hasOwnProperty.call(name, 'property');
     const allFunctionDetails = this.state.withInputs;
-    const provider = await getNetworkProvider(this.props.network);  
     let functionName;
     let functionNameForContract;
     let inputs;
@@ -90,22 +91,22 @@ class Contract extends Component {
     
     if (!isFunctionPayable && !hasFunctionParameters) {
       if (executeNonPayableNoParams(functionName, {})) {
-        await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, provider);
+        await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
         Toast.show('Success', Toast.LONG);
       }
     } else if (!isFunctionPayable && hasFunctionParameters) {
       if (executeNonPayableWithParams(functionName, inputs, allFunctionDetails, isFunctionPayable)) {
-        await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, provider);
+        await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
         Toast.show('Success', Toast.LONG);
       }
     } else if (isFunctionPayable && !hasFunctionParameters) {
       if (executePayableNoParams(functionName, {}, allFunctionDetails, isFunctionPayable)) {
-        await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, provider);
+        await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
         Toast.show('Success', Toast.LONG);
       }
     } else if (isFunctionPayable && hasFunctionParameters) {
       if (executePayableWithParams(functionName, inputs, allFunctionDetails, isFunctionPayable)) {
-        await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, provider);
+        await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
         Toast.show('Success', Toast.LONG);
       }
     }

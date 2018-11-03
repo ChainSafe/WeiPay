@@ -17,7 +17,6 @@ getContractAbi = async (contractAddress, network) => {
   await axios.get(url)
     .then((res) => {
       abi = res.data.result;
-      console.log(abi);
     })
     .catch((err) => {
       console.log(err);

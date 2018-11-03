@@ -19,6 +19,7 @@ import getNetworkProvider from '../../../constants/Providers';
  */
 class Portfolio extends Component {
   state = {
+    provider: null,
     data: this.props.tokens,
     pricesLoaded: false,
     refresh: false,
@@ -56,13 +57,8 @@ class Portfolio extends Component {
    * The Balance (soon to be Wallet) reducer then updates state -> { ...state, walletBalance: walletBalanceObject, tokenBalances: individualTokens };
    */
   async componentDidMount() {
-    console.log('compon did mount');
-    console.log(this.props.network);
-    const network = this.props.network;
-    const provider = await getNetworkProvider(this.props.network); 
-    console.log({provider});
-    
-    
+    const provider = await getNetworkProvider(this.props.network);
+    this.setState({ provider });
     if (this.props.walletBalance == null) {
       await this.balanceCalculations();
     } else {
@@ -79,7 +75,7 @@ class Portfolio extends Component {
     const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data);
     this.props.saveAllTokenQuantities(tokenBalances);
     await this.props.fetchCoinData(tokenSymbolString);
-    await this.props.calculateWalletBalance(tokenBalances, this.props.tokenConversions); //amount of tokens and symbol -> token balance, conversions -> matrix of prices
+    await this.props.calculateWalletBalance(tokenBalances, this.props.tokenConversions);
     await this.setState({
       apiRequestString: tokenSymbolString,
       walletBalance: this.props.walletBalance,
@@ -99,15 +95,11 @@ class Portfolio extends Component {
       let tokenObj = {};
       tokenObj.symbol = tokenList[i].symbol;
       tokenObj.contractAddress = tokenList[i].address;
-      console.log(tokenList[i].decimals);
       tokenObj.decimals = tokenList[i].decimals;
       tokenObjectList.push(tokenObj);
     }
     const privateKey =  this.state.currentWallet.privateKey;
-    const provider = await getNetworkProvider(this.props.network);  
-    console.log('in format tokens', {provider});
-      
-    return { tokenSymbolString, tokenBalances } = await processAllTokenBalances(privateKey, tokenObjectList, provider);
+    return { tokenSymbolString, tokenBalances } = await processAllTokenBalances(privateKey, tokenObjectList, this.state.provider);
   }
 
   /**
@@ -139,11 +131,11 @@ class Portfolio extends Component {
 
   renderRow = (token) => {
     const { tokenInfo, tokenPriceInfo, tokenAmounts } = token;
-        
+
     if (tokenInfo.selected) {
       return (
         <TouchableOpacity
-          onPress={() => {      
+          onPress={() => {
             this.props.saveTokenDataForTransaction(tokenAmounts.amount, tokenInfo.symbol, tokenInfo.address);
             this.props.navigation.navigate('TokenFunctionality');
           }}
@@ -173,14 +165,14 @@ class Portfolio extends Component {
                 </View>
                 <View style={ styles.listItemValueContainer }>
                   <View style={ styles.listItemValueComponent }>
-                    <Text style={styles.listItemCryptoValue}>                 
+                    <Text style={styles.listItemCryptoValue}>
                       {
-                        tokenAmounts == null ? 0 : tokenAmounts.amount               
-                      }                   
+                        tokenAmounts == null ? 0 : tokenAmounts.amount
+                      }
                     </Text>
                     <Text style={styles.listItemFiatValue}>
-                      { 
-                        tokenAmounts == null ? 'NA' : (tokenPriceInfo)[this.props.currencyOptions[this.state.currencyIndex]]                       
+                      {
+                        tokenAmounts == null ? 'NA' : (tokenPriceInfo)[this.props.currencyOptions[this.state.currencyIndex]]
                       }
                     </Text>
                   </View>
@@ -213,7 +205,7 @@ class Portfolio extends Component {
    * The component also provides the option to add/delete tokens
    */
 
-  render() {    
+  render() {
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer} >
@@ -244,7 +236,7 @@ class Portfolio extends Component {
                   <Text style={styles.headerValueCurrency}>
                   {
                     this.state.pricesLoaded
-                      ? ' ' + this.state.currency[this.state.currencyIndex]
+                      ? ' ' + this.state.currency[this.state.currencyIndex] + " (" + this.props.network + ")"
                       : null
                   }
                   </Text>
