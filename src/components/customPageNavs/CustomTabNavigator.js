@@ -21,10 +21,10 @@ export default class Tabs extends Component {
 
     getActiveTab() {
       if (this.props.activeTab != undefined) {
-        const tab = this.props.activeTab - 1;
+        const tab = this.props.activeTab - 1; 
         if (this.props.activeTab == 0) {
           return 0;
-        }else {
+        } else {
           return tab;
         }
       } else {
