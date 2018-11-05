@@ -90,10 +90,7 @@ class CoinSend extends Component {
    * Conducts the transction between the two addresses
    */
   sendTransaction = async () => {
-    console.log('in send trans');
-    
     const provider = await getNetworkProvider(this.props.network);
-    log
     executeEtherTransaction(
       provider,
       this.state.toAddress,
