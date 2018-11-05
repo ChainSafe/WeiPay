@@ -13,16 +13,7 @@ import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav'
 
 const ethers = require('ethers');
 
-/**
- * Initial pin screen. encrypts a new wallet
- *
- * By default the hotWallet will reference this wallet
- */
 class PinPage extends Component {
-  /**
-   * A new wallet is created, the wallet name is passed in along with usersWallets, which will be an
-   * empty array when user initially creates a wallet in setup.
-   */
   constructor(props) {
     super(props);
     this.state = {
@@ -33,88 +24,67 @@ class PinPage extends Component {
     };
   }
 
-  /**
- * this.props.isInSetupScreens will be false if the user has not entered the main page and completed
- * the app setup. This will be an indication on whether we are going to be decrypting wallet from the
- * state or will be passed a unencrypted wallet from the previous page.
- *
- * After the user initializes the app, set isInSetupScreen to false - this will persist
- *
- * If true -> take wallet from nav param & encrypt with password from state, initiali wallets with this
- *  - setHotWallet with unencrypted wallet, public key in action creator, and wallet name
- *  - set isInSetupScreens to false so we dont repeat this process when app loads again
- *
- * If false -> need to get wallet & decrypt & save to hot wallet
- */
+  navigate = (route) => {
+    const navigateToNextScreen = NavigationActions.navigate({
+      routeName: route,
+    });
+    this.props.navigation.dispatch(navigateToNextScreen);
+  }
 
-
-/**
- * Ensure minimum password length
- */
- checkPasswordLength = () => {
-  return this.state.password.length >= 4;
- };
-
- /**
-  * Return wallet name
-  */
- getWalletName = () => {
-   return this.props.debugMode ? this.props.testWalletName : this.props.tempWalletName;
- }
-
-
-setPin = async () => {
-  const isPasswordValid = this.checkPasswordLength();
-  console.log({ isPasswordValid });
-  const walletName = this.getWalletName();
-  console.log({ walletName });
-    
-
-    // if (this.state.password.length >= 4) {
-    //   const userWallets = this.props.wallets;
-    //   let walletNameCheck;
-
-    //   if(this.props.debugMode) {
-    //     walletNameCheck = this.props.testWalletName;
-    //   } else {
-    //     walletNameCheck = this.props.tempWalletName;
-    //   }
-
-
-    //   if(this.props.isInSetupScreens) {
-    //     const { nextScreenToNavigate, wallet } = this.props.navigation.state.params;
-    //     await this.setState({ walletObjecet: wallet });
-    //     var utf8BytesPassword = ethers.utils.toUtf8Bytes(this.state.password);
-    //     var hashed = ethers.utils.keccak256(utf8BytesPassword);
-    //     this.props.setAppPassword(hashed);
-    //     const walletInHotReducer = { wallet, name: walletNameCheck };
-    //     this.props.setHotWallet(walletInHotReducer);
-    //     this.props.initializeAppWallet(wallet, walletNameCheck, userWallets);
-    //     this.props.exitSetup(false);
-    //     const navigateToNextScreen = NavigationActions.navigate({
-    //       routeName: nextScreenToNavigate,
-    //     });
-    //     this.props.navigation.dispatch(navigateToNextScreen);
-    //   } else {
-    //     var utf8BytesPasswordToDecrypt = ethers.utils.toUtf8Bytes(this.state.password);
-    //     var hashedInput = ethers.utils.keccak256(utf8BytesPasswordToDecrypt);
-    //     if(this.props.hashedPassword === hashedInput) {
-    //       const walletInHotReducerDecrypted = { wallet: this.props.wallets[0].hdWallet, name: walletNameCheck };
-    //       this.props.setHotWallet(walletInHotReducerDecrypted);
-    //       const navigateToMain = NavigationActions.navigate({
-    //         routeName: 'mainStack',
-    //       });
-    //       this.props.navigation.dispatch(navigateToMain);
-    //     }
-    //   }
-    // }
+  checkPasswordLength = () => {
+    return this.state.password.length >= 4;
   };
 
-  /**
-   * The wallet name is stored in a temporary state.
-   */
+  getWalletName = () => {
+    return this.props.debugMode ? this.props.testWalletName : this.props.tempWalletName;
+  }
+
+  checkProcess = () => {
+    return this.props.isInSetupScreens;
+  }
+
+  hashInput = () => {
+    const utf8BytesPassword = ethers.utils.toUtf8Bytes(this.state.password);
+    const hashed = ethers.utils.keccak256(utf8BytesPassword);
+    this.props.setAppPassword(hashed);
+    return hashed;
+  }
+
+  setupEncyrptionProcess = async (walletName, userWallets) => { 
+    const { nextScreenToNavigate, wallet } = this.props.navigation.state.params;
+    this.hashInput();
+    const hotWalletObj = { wallet, name: walletName };
+    this.props.setHotWallet(hotWalletObj);
+    this.props.initializeAppWallet(wallet, walletName, userWallets);
+    this.props.exitSetup(false);
+    this.navigate(nextScreenToNavigate);
+  }
+
+  appDecyprtionProcess = (walletName) => {
+    const hash = this.hashInput();
+    if(this.props.hashedPassword === hash) {
+      const hotWalletObj = { wallet: this.props.wallets[0].hdWallet, name: walletName };
+      this.props.setHotWallet(hotWalletObj);
+      this.navigate('mainStack');
+    }
+  }
+
+  setPin = async () => {
+    const isPasswordValid = this.checkPasswordLength();
+    const walletName = this.getWalletName();
+    const inSetup = this.checkProcess();
+    const userWallets = this.props.wallets;
+    if (isPasswordValid) {
+      if (inSetup) {
+        this.setupEncyrptionProcess(walletName, userWallets);
+      } else {
+        this.appDecyprtionProcess(walletName);
+      }
+    }
+  };
+
   setPassword(password) {
-    this.setState({ password: password });
+    this.setState({ password });
   }
 
   render() {
