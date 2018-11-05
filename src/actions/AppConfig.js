@@ -11,6 +11,7 @@ import {
   SET_UNENCRYPTED_WALLET,
   SET_APP_PASSWORD_ROOT,
   SAVE_TOKEN_QUANTITIES,
+  SET_NETWORK,
 } from './ActionTypes';
 
 export function enterDebug() {
@@ -23,6 +24,12 @@ export function enterDebug() {
 export function setAppPassword(hashedPassword) {
   return (dispatch) => {
     dispatch({ type: SET_APP_PASSWORD_ROOT, payload: hashedPassword });
+  };
+}
+
+export function setNetwork(network) {
+  return (dispatch) => {
+    dispatch({ type: SET_NETWORK, payload: network });
   };
 }
 

@@ -1,27 +1,18 @@
-/**
- * All tokens/coins the user has will be passed in and an array of balances will be returned.
- * Delegate Ethereum and ERC20 token balance lookup here. 
- * The 0 index will be the user's eth -> corresponds to index in the tokens array in the wallet reducer.
- * Any subsequent coins will have an index of 1 or greater, unless they have removed ether from their wallet.
- * This use case will be address in a subsequent branch.
- */
-
-import provider from '../../constants/Providers';
 import ERC20ABI from '../../constants/data/json/ERC20ABI.json';
 
 const ethers = require('ethers');
 let wallet;
 
-const processAllTokenBalances = async (privateKey, dataSet) => {
+const processAllTokenBalances = async (privateKey, dataSet, provider) => {
   let allBalances = [];
   let tokenApiRequestString = '';
-  wallet = new ethers.Wallet(privateKey);
+  wallet = new ethers.Wallet(privateKey);  
   wallet.provider = provider;
   for (let i = 0; i < dataSet.length; i++) {
     let tokenObj = {};
     tokenObj.symbol = dataSet[i].symbol;
     if (dataSet[i].contractAddress === '') {
-      await this.getEthereumBalance(wallet.address)
+      await this.getEthereumBalance(wallet.address, provider)
         .then((response) => {
           tokenObj.amount = Number(response).toFixed(4);
           allBalances.push(tokenObj);
@@ -34,7 +25,7 @@ const processAllTokenBalances = async (privateKey, dataSet) => {
         });
     } else {
       let contractAddress = dataSet[i].contractAddress;
-      await this.getERC20Balance(contractAddress, dataSet[i].decimals)
+      await this.getERC20Balance(contractAddress, dataSet[i].decimals, provider)
         .then((response) => {
           tokenObj.amount = Number(response).toFixed(4);
           allBalances.push(tokenObj);
@@ -52,19 +43,19 @@ const processAllTokenBalances = async (privateKey, dataSet) => {
 
 formatBalance = (balance, decimals) => {
   const x = Math.pow(10, decimals);
-  if(decimals === 0) {
+  if (decimals === 0) {
     return balance;
   }
   return (balance / x);
 };
 
-getEthereumBalance = async () => {
+getEthereumBalance = async (add, provider) => {  
   const balance = await provider.getBalance(wallet.address);
   const parsedEtherBalance = String(ethers.utils.formatEther(balance));
   return parsedEtherBalance;
 };
 
-getERC20Balance = async (contractAdd, decimals) => {
+getERC20Balance = async (contractAdd, decimals, provider) => {
   const contract = new ethers.Contract(contractAdd, ERC20ABI, provider);
   const tokenBalance = await contract.balanceOf(wallet.address);  
   const parsedTokenBalance = String(tokenBalance);

@@ -19,11 +19,11 @@ import {
   SET_APP_PASSWORD_ROOT,
   SAVE_TOKEN_QUANTITIES,
   ADD_TOKEN_SETUP,
+  SET_NETWORK,
 } from '../../actions/ActionTypes';
-import * as actions from '../../actions/ActionCreator';
-
 
 const initialState = {
+  network: 'ropsten',
   hashedPassword: null,
   isInSetupScreens: true,
   wallets: [],
@@ -46,24 +46,27 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    
+    case SET_NETWORK:
+      return {
+        ...state, network: action.payload,
+      };
     case SET_APP_PASSWORD_ROOT:
       return {
         ...state, hashedPassword: action.payload,
       };
     case EXIT_SETUP_SCREEN:
-    return {
-      ...state, isInSetupScreens: action.payload,
-    };
+      return {
+        ...state, isInSetupScreens: action.payload,
+      };
     case INITIALIZE_APP_TOKEN_SETUP:
       return {
         ...state,
         tokens: action.payload,
-    };
+      };
     case ADD_NEW_SINGLE_TOKEN:
-    return {
-      ...state, tokens: action.payload,
-    };
+      return {
+        ...state, tokens: action.payload,
+      };
     case TEMP_WALLET_NAME:
       return {
         ...state, tempWalletName: action.payload,

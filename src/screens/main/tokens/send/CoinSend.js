@@ -7,7 +7,7 @@ import { FormInput } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import RF from 'react-native-responsive-fontsize';
 import * as action from '../../../../actions/ActionCreator';
-import provider from '../../../../constants/Providers';
+import getNetworkProvider from '../../../../constants/Providers';
 import ERC20ABI from '../../../../constants/data/json/ERC20ABI.json';
 import LinearButton from '../../../../components/linearGradient/LinearButton';
 import ClearButton from '../../../../components/linearGradient/ClearButton';
@@ -90,6 +90,7 @@ class CoinSend extends Component {
   sendTransaction = async () => {
     this.setState({ maliciousCheck: false });
     const response = await this.checkMaliciousAddresses(this.state.toAddress);
+    const provider = await getNetworkProvider(this.props.network);    
     if (response.flag) {
       this.setState({ maliciousCheck: true });
     } else {
@@ -119,6 +120,7 @@ class CoinSend extends Component {
   sendERC20Transaction = async () => {
     this.setState({ maliciousCheck: false });
     const response = await this.checkMaliciousAddresses(this.state.toAddress);
+    const provider = await getNetworkProvider(this.props.network);  
     if (response.flag) {
       this.setState({ maliciousCheck: true });
     } else {
@@ -130,7 +132,6 @@ class CoinSend extends Component {
       const toAddr = this.state.toAddress;
       if (this.state.validAddress.exec(toAddr) == null){
         return 1;
-        
       }
       const contract = new ethers.Contract(this.props.token.address, ERC20ABI, initializedWallet);
       const overrideOptions = {
@@ -144,12 +145,10 @@ class CoinSend extends Component {
           console.log(transaction.hash);
           this.setState({ txHash: transaction.hash });
           this.openModal();
-        });  
+        });
       } catch (error) {
         console.log('Didnt Go through');
-        
       }
-      
     }
   }
 
@@ -164,11 +163,12 @@ class CoinSend extends Component {
   }
 
   getTxnFee = async () => {
+    const provider = await getNetworkProvider(this.props.network);  
     try {
-      let gasPriceString = await Provider.getGasPrice().then((gasPrice) => {
+      let gasPriceString = await provider.getGasPrice().then((gasPrice) => {
         gasPriceString = gasPrice.toString();
-        const gasPriceEth = utils.formatEther(gasPrice)
-        const txnFee = 21000 * gasPriceEth
+        const gasPriceEth = utils.formatEther(gasPrice);
+        const txnFee = 21000 * gasPriceEth;
         return txnFee;
       });
       await this.props.updateTxnFee(gasPriceString);
@@ -438,6 +438,7 @@ const mapStateToProps = ({ Wallet, HotWallet, newWallet, contacts }) => {
     token: Wallet.activeTokenData,
     txnFee: newWallet.txnFee,
     contactAddress: contacts.contactDataforCoinSend,
+    network: Wallet.network,
   };
 };
 export default connect(mapStateToProps, action)(CoinSend);
