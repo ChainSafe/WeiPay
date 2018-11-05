@@ -12,13 +12,28 @@ class Index extends Component {
   constructor(props){
     super(props);
     var active = 0;
+    let refreshRoute = null;
     try {
-      active = this.props.navigation.state.params.activeTab;
-    } catch (error) {
-      active = 0;
+      refreshRoute = this.props.navigation.state.params.tab;
+      console.log({refreshRoute});
+    } catch (err) {
+      console.log({err});
     }
-    this.state = {
-      setActiveTab: active,
+
+    if (refreshRoute !== null) {
+      this.state = {
+        setActiveTab: refreshRoute,
+      }
+    } else {
+      console.log('do we hit else?');
+      try {
+        active = this.props.navigation.state.params.activeTab;
+      } catch (error) {
+        active = 0;
+      }
+      this.state = {
+        setActiveTab: active,
+      }
     }
   }
 
