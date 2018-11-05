@@ -51,6 +51,7 @@ const navigator = DrawerNavigator({
       navigationOptions: {
         backgroundColor: '#fafbfe',
         borderBottomWidth: 0,
+        gesturesEnabled: false,
       },
     }),
   },

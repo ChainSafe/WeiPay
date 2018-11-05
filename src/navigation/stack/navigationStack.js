@@ -9,7 +9,6 @@ import RecoverWallet from '../../screens/setup/recover/RecoverWallet';
 import mainBucketNavigation from './mainBucketStack';
 import addContact from '../../screens/main/menu/contacts/add/AddContact';
 import contacts from '../../screens/main/menu/contacts/index';
-// import ContactAddresses from '../../screens/main/menu/contacts/SelectedContact';
 import Splash from '../../screens/Splash';
 import PinPage from '../../screens/setup/terms/PinPage';
 
@@ -59,6 +58,7 @@ const navigator = StackNavigator({
   navigationOptions: {
     backgroundColor: '#fafbfe',
     borderBottomWidth: 0,
+    gesturesEnabled: false,
   },
   lazy: true,
 });
