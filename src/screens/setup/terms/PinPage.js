@@ -8,7 +8,6 @@ import RF from 'react-native-responsive-fontsize';
 import { FormInput } from 'react-native-elements';
 import * as actions from '../../../actions/AppConfig';
 import LinearButton from '../../../components/linearGradient/LinearButton';
-import ClearButton from '../../../components/linearGradient/ClearButton';
 import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 
@@ -17,18 +16,18 @@ const ethers = require('ethers');
 
 /**
  * Initial pin screen. encrypts a new wallet
- * 
+ *
  * By default the hotWallet will reference this wallet
  */
 class PinPage extends Component {
   /**
-   * A new wallet is created, the wallet name is passed in along with usersWallets, which will be an 
+   * A new wallet is created, the wallet name is passed in along with usersWallets, which will be an
    * empty array when user initially creates a wallet in setup.
    */
   constructor(props) {
     super(props);
     this.state = {
-      walletObjecet: {},     
+      walletObjecet: {},
       password: "",
       isValidLength: false,
     }
@@ -36,15 +35,15 @@ class PinPage extends Component {
 
   /**
  * this.props.isInSetupScreens will be false if the user has not entered the main page and completed
- * the app setup. This will be an indication on whether we are going to be decrypting wallet from the 
+ * the app setup. This will be an indication on whether we are going to be decrypting wallet from the
  * state or will be passed a unencrypted wallet from the previous page.
- * 
+ *
  * After the user initializes the app, set isInSetupScreen to false - this will persist
- * 
+ *
  * If true -> take wallet from nav param & encrypt with password from state, initiali wallets with this
  *  - setHotWallet with unencrypted wallet, public key in action creator, and wallet name
- *  - set isInSetupScreens to false so we dont repeat this process when app loads again 
- * 
+ *  - set isInSetupScreens to false so we dont repeat this process when app loads again
+ *
  * If false -> need to get wallet & decrypt & save to hot wallet
  */
 setPin = async () => {
@@ -55,7 +54,7 @@ setPin = async () => {
         walletNameCheck = this.props.testWalletName;
       } else {
         walletNameCheck = this.props.tempWalletName;
-      }    
+      }
       if(this.props.isInSetupScreens) {
         const { nextScreenToNavigate, wallet } = this.props.navigation.state.params;
         await this.setState({ walletObjecet: wallet });
@@ -66,7 +65,6 @@ setPin = async () => {
         this.props.setHotWallet(walletInHotReducer);
         this.props.initializeAppWallet(wallet, walletNameCheck, userWallets);
         this.props.exitSetup(false);
-        // this.props.setSecurityFlag(true);
         const navigateToNextScreen = NavigationActions.navigate({
           routeName: nextScreenToNavigate,
         });
@@ -76,14 +74,14 @@ setPin = async () => {
         var hashedInput = ethers.utils.keccak256(utf8BytesPasswordToDecrypt);
         if(this.props.hashedPassword === hashedInput) {
           const walletInHotReducerDecrypted = { wallet: this.props.wallets[0].hdWallet, name: walletNameCheck };
-          this.props.setHotWallet(walletInHotReducerDecrypted);          
+          this.props.setHotWallet(walletInHotReducerDecrypted);
           const navigateToMain = NavigationActions.navigate({
             routeName: 'mainStack',
           });
           this.props.navigation.dispatch(navigateToMain);
         }
-      } 
-    } 
+      }
+    }
   };
 
   /**
@@ -108,8 +106,8 @@ setPin = async () => {
               </View>
               {
                 this.props.isInSetupScreens
-                ? 
-                <View style={{flex:3.5}}> 
+                ?
+                <View style={{flex:5.65}} >
                   <Text style={styles.textHeader}>Choose Wallet Security</Text>
                     <View style={styles.boxShadowContainer}>
                       <View style={styles.contentContainer}>
@@ -128,24 +126,24 @@ setPin = async () => {
                               secureTextEntry={true}
                             />
                           </View>
-                          <View style={styles.btnNextContainer}>
-                            <ClearButton
-                              onClickFunction={this.setPin}
-                              buttonText="Set Pin"
-                              customStyles={styles.btnNext}
-                              buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
-                            />
-                          </View>
                         </BoxShadowCard>
                       </View>
+                    </View>
+                    <View style={styles.btnNextContainer}>
+                        <LinearButton
+                          onClickFunction={this.setPin}
+                          buttonText="Set Pin"
+                          customStyles={styles.btnNext}
+                          buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
+                        />
                     </View>
                   </View>
                 : null
               }
               {
                 this.props.isInSetupScreens === false
-                ?  
-                <View style={{flex:1.5}}> 
+                ?
+                <View style={{flex:5.65}}>
                   <Text style={[styles.textHeader, {marginBottom:'2.5%'}]}>Wallet Password</Text>
                     <View style={styles.boxShadowContainer}>
                       <View style={styles.contentContainer}>
@@ -161,17 +159,17 @@ setPin = async () => {
                               secureTextEntry={true}
                             />
                           </View>
-                          <View style={styles.btnNextContainer}>
-                            <LinearButton
-                                onClickFunction={this.setPin}
-                                buttonText="Enter"
-                                customStyles={styles.btnNext}
-                                buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
-                            />
-                          </View>
                         </BoxShadowCard>
                       </View>
                     </View>
+                     <View style={styles.btnNextContainer}>
+                        <LinearButton
+                            onClickFunction={this.setPin}
+                            buttonText="Enter"
+                            customStyles={styles.btnNext}
+                            buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
+                        />
+                      </View>
                   </View>
                 : null
               }
@@ -201,19 +199,20 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   navContainer: {
-    flex: 0.3,
+    flex: 0.65,
   },
   boxShadowContainer: {
     alignItems: 'center',
-    flex: 3.5,
+    flex: 0.44,
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
+    paddingBottom: '5%',
     fontSize: RF(4),
     letterSpacing: 0.8,
     paddingLeft: '9%',
     color: '#1a1f3e',
-    flex: 0.5,
+    flex: 0.11,
   },
   contentContainer: {
     flex: 1,
@@ -232,8 +231,6 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   cardText: {
-    // paddingBottom: '15%',
-    // paddingTop: '10%',
     paddingLeft: '10%',
     paddingRight: '10%',
     fontFamily: 'WorkSans-Light',
@@ -262,13 +259,12 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   btnNextContainer: {
-    paddingTop: '5%',
+    flex: 0.44,
+    alignItems: 'stretch',
+    justifyContent: 'flex-end',
+    width: '100%',
   },
   btnNext: {
-    width: '82%',
-    height: Dimensions.get('window').height * 0.05,
-  },
-  button: {
     width: '82%',
     height: Dimensions.get('window').height * 0.082,
   },
