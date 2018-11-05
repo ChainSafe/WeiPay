@@ -14,6 +14,9 @@ import ClearButton from '../../../../components/linearGradient/ClearButton';
 import BoxShadowCard from '../../../../components/shadowCards/BoxShadowCard';
 import MaliciousAddresses from '../../../../constants/data/json/addresses_darklist.json';
 
+import executeEtherTransaction from '../../../../scripts/tokens/transactions/transactionsEther';
+
+
 const ethers = require('ethers');
 
 const utils = ethers.utils;
@@ -46,9 +49,8 @@ class CoinSend extends Component {
     this.props.getQRCodeData(addressInput);
     if (this.state.validAddress.exec(addressInput) == null){
       this.setState({valid: false})
-    }else {
+    } else {
       this.setState({valid: true})
-
     }
   }
 
@@ -88,6 +90,20 @@ class CoinSend extends Component {
    * Conducts the transction between the two addresses
    */
   sendTransaction = async () => {
+    console.log('in send trans');
+    
+    const provider = await getNetworkProvider(this.props.network);
+    log
+    executeEtherTransaction(
+      provider,
+      this.state.toAddress,
+      this.props.wallet.privateKey,
+      this.state.value,
+      this.state.toAddress,
+    );
+  };
+
+  sendEther = async () => {
     this.setState({ maliciousCheck: false });
     const response = await this.checkMaliciousAddresses(this.state.toAddress);
     const provider = await getNetworkProvider(this.props.network);    
