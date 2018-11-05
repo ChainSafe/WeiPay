@@ -41,12 +41,20 @@ class Coins extends Component {
     this.props.navigation.dispatch(navigateToMain);
   };
 
+  refresh = () => {
+    const refreshPage = NavigationActions.navigate({
+      routeName: 'AddTokenFunctionality',
+      params: { tab: 1 },
+    });
+    this.props.navigation.dispatch(refreshPage);
+  }
+
   handleChangeText(input) {
     const inputUpperCase = input.toUpperCase();
     try {
       this.setState({ searchedTokenSym: inputUpperCase });
       if (this.state.tokens[inputUpperCase] != null) {
-        this.setState({  buttonEnabled: true , searchedTokenName: 'NA', searchedTokenNameAdd: this.state.tokens[inputUpperCase]['contract_address'] });
+        this.setState({  buttonEnabled: true, searchedTokenName: 'NA', searchedTokenNameAdd: this.state.tokens[inputUpperCase]['contract_address'] });
         if (this.state.tokens[inputUpperCase]['name'] != null) {
           this.setState({ searchedTokenName: this.state.tokens[inputUpperCase]['name'], tokenLoaded: true});       
         }
@@ -97,6 +105,12 @@ class Coins extends Component {
               autoCorrect={false}
               padding={5}
               returnKeyType={'search'}
+              onClose={ ()=> {
+                this.refresh();
+              }}
+              onBackPress= { () => {
+                this.refresh();
+              }}
             />
             {
               this.state.tokenLoaded 

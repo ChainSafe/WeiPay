@@ -4,9 +4,6 @@ import {
 } from 'react-native';
 import RF from 'react-native-responsive-fontsize';
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
-// import { connect } from 'react-redux';
-//import { unwatchFile } from 'fs';
-
 
 /**
  * Custom Tab Navigator Component
@@ -25,18 +22,13 @@ export default class Tabs extends Component {
 
     getActiveTab() {
       if (this.props.activeTab != undefined) {
-        console.log("In here");
-        
-        const tab = this.props.activeTab - 1;
-        console.log(this.props.activeTab);
-        
+        const tab = this.props.activeTab - 1;        
         if (this.props.activeTab == 0) {
           return 0;
-        }else {
+        } else {
           return tab;
         }
-        
-      }else {
+      } else {
         return 0;
       }
     }
