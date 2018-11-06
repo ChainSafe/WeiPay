@@ -1,23 +1,31 @@
 import React, { Component } from 'react';
 import {
-  View, Text, StyleSheet, Alert, TouchableOpacity, Image, SafeAreaView, TouchableWithoutFeedback, Dimensions, Keyboard, ActivityIndicator
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+  TouchableOpacity,
+  Image,
+  SafeAreaView,
+  TouchableWithoutFeedback,
+  Dimensions,
+  Keyboard,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import RF from 'react-native-responsive-fontsize';
 import * as action from '../../../../actions/ActionCreator';
-import getNetworkProvider from '../../../../constants/Providers';
-import ERC20ABI from '../../../../constants/data/json/ERC20ABI.json';
 import LinearButton from '../../../../components/linearGradient/LinearButton';
 import ClearButton from '../../../../components/linearGradient/ClearButton';
 import BoxShadowCard from '../../../../components/shadowCards/BoxShadowCard';
+import getNetworkProvider from '../../../../constants/Providers';
 import MaliciousAddresses from '../../../../constants/data/json/addresses_darklist.json';
-
 import executeEtherTransaction from '../../../../scripts/tokens/transactions/transactionsEther';
 import executeERC20Transaction from '../../../../scripts/tokens/transactions/transactionsERC20';
 
 const ethers = require('ethers');
+const img = require('../../../../assets/icons/barcode.png');
 
 const utils = ethers.utils;
 
@@ -27,7 +35,7 @@ class CoinSend extends Component {
     const addressFromQRCode = this.props.addressData;
     this.state = {
       toAddress: addressFromQRCode,
-      value: 0,
+      value: null,
       resetInput: false,
       inputValue: addressFromQRCode,
       txnFee: this.props.txnFee,
@@ -39,115 +47,6 @@ class CoinSend extends Component {
     };
   }
 
-  /**
-   * Sets the address to which the coin/tokens are being sent to
-   * @param {String} addressInput
-   */
-  renderAddress(addressInput) {
-    let add = addressInput.trim();
-    this.setState({ inputValue: add, toAddress: add });
-    this.props.getQRCodeData(addressInput);
-    if (this.state.validAddress.exec(addressInput) == null){
-      this.setState({valid: false})
-    } else {
-      this.setState({valid: true})
-    }
-  }
-
-  /**
-   * Error checks the value inputted to be sent. Sets the Value to 0 if the value input is
-   * either lower than 0 or is not a number
-   * @param {String} valueInput
-   */
-  renderValue(valueInput) {
-    if (!isNaN(valueInput)) {
-      if (valueInput < 0) {
-        Alert.alert(
-          'Invalid Ether Amount',
-          'Please enter an amount greater than 0.',
-          [
-            { text: 'OK', onPress: () => { return console.log('OK Pressed')} },
-          ],
-          { cancelable: false },
-        );
-      } else {
-        console.log(`is a number ${valueInput}`);
-        this.setState({ value: valueInput });
-      }
-    } else {
-      console.log(`not a number ${valueInput}`);
-      this.setState({ value: 0 });
-    }
-  }
-
-  /*
-     this.props.wallet is either the recovered wallet or new wallet, in either case we have sent 5 ether in the constructor
-     to this wallet by using a testrpc private key. If we are recvoering a wallet, this does nothing, but if we are creating
-     a new wallet, we will never have funds in our test environemnt, so this is just a test setup.
-   */
-
-  /**
-   * Conducts the transction between the two addresses
-   */
-  sendTransaction = async () => {
-    const provider = await getNetworkProvider(this.props.network);
-    executeEtherTransaction(
-      provider,
-      this.state.toAddress,
-      this.props.wallet.privateKey,
-      this.state.value,
-    );
-  };
-
-  sendERC20Transaction = async () => {
-    const provider = await getNetworkProvider(this.props.network);
-    executeERC20Transaction(
-      provider,
-      this.state.toAddress,
-      this.props.wallet.privateKey,
-      this.state.value,
-      this.props.token.address,
-    );
-  }
-
-  checkMaliciousAddresses = (address) => {
-    for (var i = 0; i < MaliciousAddresses.length; i++) {
-      if (address === MaliciousAddresses[i].address) {
-        this.setState({ maliciousComment:  MaliciousAddresses[i].comment })
-        return { flag: true, 'address' : MaliciousAddresses[i].address, 'comment' : MaliciousAddresses[i].comment };
-      }
-    }
-    return { flag: false };
-  }
-
-  getTxnFee = async () => {
-    const provider = await getNetworkProvider(this.props.network);  
-    try {
-      let gasPriceString = await provider.getGasPrice().then((gasPrice) => {
-        gasPriceString = gasPrice.toString();
-        const gasPriceEth = utils.formatEther(gasPrice);
-        const txnFee = 21000 * gasPriceEth;
-        return txnFee;
-      });
-      await this.props.updateTxnFee(gasPriceString);
-      await this.setState({ txnFee: gasPriceString })
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  /**
-   * Is used to reset the input fields
-   */
-  resetFields = () => {
-    this.inputAddress.clearText();
-    this.inputAmount.clearText();
-  }
-
-  /**
-   * Navigator
-   * Is used to navigate to the Qr-Code scanner
-   */
   navigate = () => {
     this.props.qrScannerInvoker('TokenFunctionality');
     this.props.qrScannerCoinInvoker(this.props.token.symbol);
@@ -159,100 +58,204 @@ class CoinSend extends Component {
   };
 
   /**
+   * Sets the address to which the coin/tokens are being sent to
+   * @param {String} addressInput
+   */
+  renderAddress(addressInput) {
+    const add = addressInput.trim();
+    this.setState({ inputValue: add, toAddress: add });
+    this.props.getQRCodeData(addressInput);
+    if (this.state.validAddress.exec(addressInput) == null) {
+      this.setState({ valid: false });
+    } else {
+      this.setState({ valid: true });
+    }
+  }
+
+  /**
+   * Error checks the value inputted to be sent. Sets the Value to 0 if the value input is
+   * either lower than 0 or is not a number
+   */
+  renderValue(valueInput) {
+    if (!isNaN(valueInput)) {
+      if (valueInput < 0) {
+        Alert.alert(
+          'Invalid Ether Amount',
+          'Please enter an amount greater than 0.',
+          [
+            { text: 'OK', onPress: () => { return console.log('OK Pressed');} },
+          ],
+          { cancelable: false },
+        );
+      } else {
+        console.log(`is a number ${valueInput}`);
+        this.setState({ value: valueInput });
+      }
+    } else {
+      console.log(`not a number ${valueInput}`);
+      this.setState({ value: null });
+    }
+  }
+
+  getTxnFee = async () => {
+    console.log('in get tx');
+    const provider = await getNetworkProvider(this.props.network);
+    try {
+      let gasPriceString = await provider.getGasPrice().then((gasPrice) => {
+        gasPriceString = gasPrice.toString();
+        console.log({gasPriceString});
+        
+        const gasPriceEth = utils.formatEther(gasPrice);
+        const txnFee = 21000 * gasPriceEth;
+        return txnFee;
+      });
+      await this.props.updateTxnFee(gasPriceString);
+      await this.setState({ txnFee: gasPriceString });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  processEtherTx = async () => {
+    this.getTxnFee();
+    const validAddress = this.state.valid;
+    const maliciousResponse = await this.checkMaliciousAddresses(this.state.toAddress);
+    const { flag } = maliciousResponse;
+    if (validAddress && !flag) {
+      const provider = await getNetworkProvider(this.props.network);
+      executeEtherTransaction(
+        provider,
+        this.state.toAddress,
+        this.props.wallet.privateKey,
+        this.state.value,
+      );
+    } else {
+      console.log('bad');
+    }
+  };
+
+  processERC20Tx = async () => {
+    const validAddress = this.state.valid;
+    const maliciousResponse = await this.checkMaliciousAddresses(this.state.toAddress);
+    const { flag } = maliciousResponse;
+    if (validAddress && !flag) {
+      const provider = await getNetworkProvider(this.props.network);
+      executeERC20Transaction(
+        provider,
+        this.state.toAddress,
+        this.props.wallet.privateKey,
+        this.state.value,
+        this.props.token.address,
+      );
+    } else {
+      console.log('bad');
+    }
+  }
+
+  checkMaliciousAddresses = (address) => {
+    for (let i = 0; i < MaliciousAddresses.length; i++) {
+      if (address === MaliciousAddresses[i].address) {
+        this.setState({ maliciousComment:  MaliciousAddresses[i].comment });
+        return { flag: true, 'address' : MaliciousAddresses[i].address, 'comment' : MaliciousAddresses[i].comment };
+      }
+    }
+    return { flag: false };
+  }
+
+
+
+  resetFields = () => {
+    this.inputAddress.clearText();
+    this.inputAmount.clearText();
+  }
+
+
+
+  /**
    * Main Component Function
    * Returns the complete form required to send a transaction
    */
   render() {
+    const {
+      valid, value, maliciousComment, inputValue,
+    } = this.state;
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={[styles.mainContainer,  this.state.maliciousCheck ? { backgroundColor: '#fafbfe' } : { backgroundColor: 'black' }]}>
-            <View style={[styles.boxShadowContainer, this.state.maliciousCheck ? null : { backgroundColor: 'black' }]}>
-              <View style={[styles.contentContainer, this.state.maliciousCheck ? null : { backgroundColor: 'black' }]}>
-                {
-                   this.state.maliciousCheck ?
-                   <BoxShadowCard>
-                      <Text style={styles.cardText}>
-                        Send Ether by scanning someone's QR code or public address.
-                      </Text>
-                      <View style= {styles.barcodeImageContainer}>
-                        <TouchableOpacity
-                          onPress= {() => {return this.navigate()}} >
-                          <Image
-                            source={require('../../../../assets/icons/barcode.png')}
-                            style={styles.barcodeImage}
-                          />
-                        </TouchableOpacity>
-                      </View>
-                      <View style={styles.inputContainer}>
-                        {
-                          this.state.maliciousComment != '' ?
-                            <Text style={styles.maliciousCommentText}>Malicious - {this.state.maliciousComment} </Text>
-                            : null
-                        }
-                        <View style={[styles.formInputContainer]}>
-                            <FormInput
-                              placeholder={'Public Address'}
-                              onChangeText={this.renderAddress.bind(this)}
-                              ref={ref => {return this.inputAddress = ref}}
-                              inputStyle={[styles.formAddress,this.state.valid? {color: 'green'} : {color: 'red'}] }
-                              value={this.state.inputValue}
-                            />
-                          </View>
-                          <View style={styles.formInputContainer}>
-                            <FormInput
-                              placeholder={'Amount'}
-                              onChangeText={this.renderValue.bind(this)}
-                              ref={ref => {return this.inputAmount = ref}}
-                              inputStyle={styles.formAmount}
-                            />
-                          </View>
-                          <Text style={styles.displayFeeText} >
-                            Transaction Fee Total {this.state.txnFee} Eth
-                          </Text>
-                      </View>
-                    </BoxShadowCard>
-                     :
-                  <View style={styles.activityContainer}>
-                    <View style={styles.activityHorizontal}>
-                      <Text style={styles.warningText}>Checking value for known malicious addresses. </Text>
-                      <ActivityIndicator size="large" color="#12c1a2" />
-                    </View>
+          <View style={ styles.mainContainer }>
+            <View style={styles.boxShadowContainer}>
+              <View style={styles.contentContainer}>
+                <BoxShadowCard>
+                  <Text style={styles.cardText}>
+                    Send Ether by scanning someone's QR code or public address.
+                  </Text>
+                  <View style= {styles.barcodeImageContainer}>
+                    <TouchableOpacity
+                      onPress= {() => { return this.navigate(); }} >
+                      <Image
+                        source={img}
+                        style={styles.barcodeImage}
+                      />
+                    </TouchableOpacity>
                   </View>
-                }
+                  <View style={styles.inputContainer}>
+                    {
+                      maliciousComment !== ''
+                        ? <Text style={styles.maliciousCommentText}>Malicious - {maliciousComment} </Text>
+                        : null
+                    }
+                    <View style={styles.formInputContainer}>
+                      <FormInput
+                        placeholder={'Public Address'}
+                        onChangeText={this.renderAddress.bind(this)}
+                        ref={(ref) => { return this.inputAddress = ref; }}
+                        inputStyle={[styles.formAddress, valid ? styles.colorValid : styles.colorError] }
+                        value={inputValue}
+                      />
+                    </View>
+                    <View style={styles.formInputContainer}>
+                      <FormInput
+                        placeholder={'Amount'}
+                        onChangeText={this.renderValue.bind(this)}
+                        ref={(ref) => { return this.inputAmount = ref; }}
+                        inputStyle={styles.formAmount}
+                      />
+                    </View>
+                    {
+                      !valid || !value
+                        ? null
+                        : <Text style={styles.displayFeeText}> {this.state.txnFee} </Text>
+                    }
+                  </View>
+                </BoxShadowCard>
               </View>
             </View>
-            {
-               this.state.maliciousCheck ?
-               <View style={styles.btnContainer}>
-                  <View style={{ flexDirection: 'row' }}>
-                    <View style={{ flex: 1 }}>
-                      <ClearButton
-                        onClickFunction={this.resetFields}
-                        buttonText="Reset"
-                        customStyles={{ marginLeft: '0%', marginRight: '1.75%', height: Dimensions.get('window').height * 0.082 }}
-                        // buttonStateEnabled={this.state.buttonDisabled}
-                      />
-                    </View>
-                    <View style={{ flex: 1 }}>
-                      <LinearButton
-                        onClickFunction={
-                          this.props.token.address !== '' ? this.sendERC20Transaction : this.sendTransaction
-                        }
-                        buttonText="Send"
-                        customStyles={{ marginLeft: '0%', marginLeft: '1.75%', height: Dimensions.get('window').height * 0.082 }}
-                        buttonStateEnabled={this.state.sendButtonEnabled}
-                      />
-                    </View>
-                  </View>
-                  <View style={styles.footerGrandparentContainer}>
-                    <View style={styles.footerParentContainer} >
-                      <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-                    </View>
-                  </View>
+            <View style={styles.btnContainer}>
+              <View style={styles.btnRow}>
+                <View style={styles.btnFlex}>
+                  <ClearButton
+                    onClickFunction={this.resetFields}
+                    buttonText="Reset"
+                    customStyles={styles.btnReset}
+                  />
                 </View>
-                 : null
-            }
+                <View style={styles.btnFlex}>
+                  <LinearButton
+                    onClickFunction={
+                      this.props.token.address !== '' ? this.processERC20Tx : this.processEtherTx
+                    }
+                    buttonText="Send"
+                    customStyles={styles.btnSend}
+                    buttonStateEnabled={!valid || !value}
+                  />
+                </View>
+              </View>
+              <View style={styles.footerGrandparentContainer}>
+                <View style={styles.footerParentContainer} >
+                  <Text style={styles.textFooter} >Powered by ChainSafe </Text>
+                </View>
+              </View>
+            </View>
           </View>
         </TouchableWithoutFeedback>
        </SafeAreaView>
@@ -265,41 +268,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fafbfe',
   },
-  navContainer: {
-    flex: 0.65,
-  },
-  navHeaderContainer: {
-    flex: 0.3,
-  },
   mainContainer: {
     flex: 1,
     backgroundColor: '#fafbfe',
     justifyContent: 'center',
     width: '100%',
-  },
-  activityContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignContent: 'center',
-  },
-  activityHorizontal: {
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
-  warningText: {
-    color: 'white',
-    fontSize: RF(2.8),
-    fontFamily: 'Cairo-Light',
-    letterSpacing: 0.4,
-    paddingBottom: '10%',
-    paddingLeft: '10%',
-    paddingRight: '10%',
-  },
-  maliciousCommentText: {
-    color: 'red',
-    fontSize: RF(2.1),
-    marginLeft: '5%',
   },
   boxShadowContainer: {
     alignItems: 'center',
@@ -330,13 +303,16 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height * 0.1,
     width: Dimensions.get('window').width * 0.18,
   },
-  formAmount: {
-    width: '90%',
-    fontSize: RF(2.2),
-    color: '#12c1a2',
-    flexWrap: 'wrap',
-    fontFamily: 'WorkSans-Light',
-    letterSpacing: 0.4,
+  inputContainer: {
+    // add
+  },
+  maliciousCommentText: {
+    color: 'red',
+    fontSize: RF(2.1),
+    marginLeft: '5%',
+  },
+  formInputContainer: {
+    marginLeft: '4.5%',
   },
   formAddress: {
     width: '90%',
@@ -347,16 +323,27 @@ const styles = StyleSheet.create({
     letterSpacing: 0.4,
     paddingBottom: '3%',
   },
+  colorValid: {
+    color: 'green',
+  },
+  colorError: {
+    color: 'red',
+  },
+  formAmount: {
+    width: '90%',
+    fontSize: RF(2.2),
+    color: 'black',
+    flexWrap: 'wrap',
+    fontFamily: 'WorkSans-Light',
+    letterSpacing: 0.4,
+  },
   displayFeeText: {
     width: '90%',
     marginLeft: '10.5%',
-    fontSize: RF(1.4),
+    fontSize: RF(1.6),
     letterSpacing: 0.3,
     fontFamily: 'WorkSans-Light',
-    marginTop: '2%',
-  },
-  formInputContainer: {
-    marginLeft: '4.5%',
+    marginTop: '5%',
   },
   btnContainer: {
     flex: 1.25,
@@ -367,8 +354,19 @@ const styles = StyleSheet.create({
     marginLeft: '9%',
     marginRight: '9%',
   },
-  button: {
-    width: '82%',
+  btnRow: {
+    flexDirection: 'row',
+  },
+  btnFlex: {
+    flex: 1,
+  },
+  btnReset: {
+    marginLeft: '0%',
+    marginRight: '1.75%',
+    height: Dimensions.get('window').height * 0.082,
+  },
+  btnSend: {
+    marginLeft: '1.75%',
     height: Dimensions.get('window').height * 0.082,
   },
   footerGrandparentContainer: {
@@ -399,4 +397,5 @@ const mapStateToProps = ({ Wallet, HotWallet, newWallet, contacts }) => {
     network: Wallet.network,
   };
 };
+
 export default connect(mapStateToProps, action)(CoinSend);
