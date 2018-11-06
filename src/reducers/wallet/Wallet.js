@@ -24,7 +24,7 @@ import {
 
 const initialState = {
   network: 'ropsten',
-  hashedPassword: null,
+  encryptedWallet: null,
   isInSetupScreens: true,
   wallets: [],
   walletUnencyrpted: null,
@@ -52,7 +52,7 @@ export default function (state = initialState, action) {
       };
     case SET_APP_PASSWORD_ROOT:
       return {
-        ...state, hashedPassword: action.payload,
+        ...state, encryptedWallet: action.payload,
       };
     case EXIT_SETUP_SCREEN:
       return {
