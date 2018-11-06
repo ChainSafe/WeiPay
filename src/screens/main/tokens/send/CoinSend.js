@@ -98,17 +98,14 @@ class CoinSend extends Component {
   }
 
   getTxnFee = async () => {
-    console.log('in get tx');
     const provider = await getNetworkProvider(this.props.network);
     try {
       let gasPriceString = await provider.getGasPrice().then((gasPrice) => {
         gasPriceString = gasPrice.toString();
-        console.log({ gasPriceString });
         const gasPriceEth = utils.formatEther(gasPrice);
         const txnFee = 21000 * gasPriceEth;
         const formatted = txnFee.toFixed(8);
-        console.log({ formatted });
-        return txnFee;
+        return formatted;
       });
       await this.props.updateTxnFee(gasPriceString);
       await this.setState({ txnFee: gasPriceString });
