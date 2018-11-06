@@ -12,10 +12,11 @@ import {
   SET_APP_PASSWORD_ROOT,
   SAVE_TOKEN_QUANTITIES,
   SET_NETWORK,
+  QRSCANNER_DATA,
 } from './ActionTypes';
 
 export function enterDebug() {
-  let testData = { 'walletName': 'My Test Wallet Name' };
+  const testData = { 'walletName': 'My Test Wallet Name' };
   return (dispatch) => {
     dispatch({ type: DEBUG_MODE, payload: testData });
   };

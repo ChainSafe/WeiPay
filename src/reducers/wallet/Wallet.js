@@ -120,7 +120,6 @@ export default function (state = initialState, action) {
         ...state, tokenQuantities: action.payload,
       };
     case ADD_TOKEN_SETUP:
-      
       return { ...state, tokens: action.payload };
     default:
       return state;

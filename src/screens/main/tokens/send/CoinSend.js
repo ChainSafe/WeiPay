@@ -103,10 +103,11 @@ class CoinSend extends Component {
     try {
       let gasPriceString = await provider.getGasPrice().then((gasPrice) => {
         gasPriceString = gasPrice.toString();
-        console.log({gasPriceString});
-        
+        console.log({ gasPriceString });
         const gasPriceEth = utils.formatEther(gasPrice);
         const txnFee = 21000 * gasPriceEth;
+        const formatted = txnFee.toFixed(8);
+        console.log({ formatted });
         return txnFee;
       });
       await this.props.updateTxnFee(gasPriceString);
@@ -116,40 +117,9 @@ class CoinSend extends Component {
     }
   }
 
-  processEtherTx = async () => {
-    this.getTxnFee();
-    const validAddress = this.state.valid;
-    const maliciousResponse = await this.checkMaliciousAddresses(this.state.toAddress);
-    const { flag } = maliciousResponse;
-    if (validAddress && !flag) {
-      const provider = await getNetworkProvider(this.props.network);
-      executeEtherTransaction(
-        provider,
-        this.state.toAddress,
-        this.props.wallet.privateKey,
-        this.state.value,
-      );
-    } else {
-      console.log('bad');
-    }
-  };
-
-  processERC20Tx = async () => {
-    const validAddress = this.state.valid;
-    const maliciousResponse = await this.checkMaliciousAddresses(this.state.toAddress);
-    const { flag } = maliciousResponse;
-    if (validAddress && !flag) {
-      const provider = await getNetworkProvider(this.props.network);
-      executeERC20Transaction(
-        provider,
-        this.state.toAddress,
-        this.props.wallet.privateKey,
-        this.state.value,
-        this.props.token.address,
-      );
-    } else {
-      console.log('bad');
-    }
+  resetFields = () => {
+    this.inputAddress.clearText();
+    this.inputAmount.clearText();
   }
 
   checkMaliciousAddresses = (address) => {
@@ -162,19 +132,35 @@ class CoinSend extends Component {
     return { flag: false };
   }
 
-
-
-  resetFields = () => {
-    this.inputAddress.clearText();
-    this.inputAmount.clearText();
+  processTX = async () => {
+    this.getTxnFee();
+    const validAddress = this.state.valid;
+    const maliciousResponse = await this.checkMaliciousAddresses(this.state.toAddress);
+    const { flag } = maliciousResponse;
+    const isEtherTX = this.props.token.address === '';
+    if (validAddress && !flag) {
+      const provider = await getNetworkProvider(this.props.network);
+      if (isEtherTX) {
+        executeEtherTransaction(
+          provider,
+          this.state.toAddress,
+          this.props.wallet.privateKey,
+          this.state.value,
+        );
+      } else {
+        executeERC20Transaction(
+          provider,
+          this.state.toAddress,
+          this.props.wallet.privateKey,
+          this.state.value,
+          this.props.token.address,
+        );
+      }
+    } else {
+      console.log('bad');
+    }
   }
 
-
-
-  /**
-   * Main Component Function
-   * Returns the complete form required to send a transaction
-   */
   render() {
     const {
       valid, value, maliciousComment, inputValue,
@@ -241,9 +227,7 @@ class CoinSend extends Component {
                 </View>
                 <View style={styles.btnFlex}>
                   <LinearButton
-                    onClickFunction={
-                      this.props.token.address !== '' ? this.processERC20Tx : this.processEtherTx
-                    }
+                    onClickFunction={this.processTX}
                     buttonText="Send"
                     customStyles={styles.btnSend}
                     buttonStateEnabled={!valid || !value}

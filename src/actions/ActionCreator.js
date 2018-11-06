@@ -249,7 +249,7 @@ export function completeNewToken() {
 }
 
 export function clearStore() {
-  return { type: actionTypes.CLEAR_STORE }
+  return { type: actionTypes.CLEAR_STORE };
 }
 
 export function addTokenFromList(tokenname, tokenSym, tokenAdd) {
