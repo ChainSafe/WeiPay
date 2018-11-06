@@ -23,6 +23,6 @@ const executeEtherTransaction = async (provider, to, privateKey, value) => {
   });
 }
 
-  export default executeEtherTransaction;
+export default executeEtherTransaction;
 
 

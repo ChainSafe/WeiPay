@@ -15,7 +15,7 @@ import BoxShadowCard from '../../../../components/shadowCards/BoxShadowCard';
 import MaliciousAddresses from '../../../../constants/data/json/addresses_darklist.json';
 
 import executeEtherTransaction from '../../../../scripts/tokens/transactions/transactionsEther';
-
+import executeERC20Transaction from '../../../../scripts/tokens/transactions/transactionsERC20';
 
 const ethers = require('ethers');
 
@@ -96,73 +96,18 @@ class CoinSend extends Component {
       this.state.toAddress,
       this.props.wallet.privateKey,
       this.state.value,
-      this.state.toAddress,
     );
   };
 
-  sendEther = async () => {
-    this.setState({ maliciousCheck: false });
-    const response = await this.checkMaliciousAddresses(this.state.toAddress);
-    const provider = await getNetworkProvider(this.props.network);    
-    if (response.flag) {
-      this.setState({ maliciousCheck: true });
-    } else {
-      this.setState({ maliciousCheck: true });
-      const initializedWallet = new ethers.Wallet(this.props.wallet.privateKey, provider);
-      const amountString = this.state.value.toString();
-      const receivingAddress = this.state.toAddress;
-      if (this.state.validAddress.exec(receivingAddress) == null){
-        return 1;
-      }
-      const amount = ethers.utils.parseEther(amountString);
-      const sendPromise = initializedWallet.send(receivingAddress, amount);
-      sendPromise.then((transactionHash) => {
-        console.log(transactionHash);
-        provider.getBalance(initializedWallet.address).then(function (balance) {
-          const etherString = utils.formatEther(balance);
-          console.log('currentWallet Balance: ' + etherString);
-        });
-        provider.getBalance(receivingAddress).then(function (balance) {
-          const etherString = utils.formatEther(balance);
-          console.log('receiving account Balance: ' + etherString);
-        });
-      });
-    }
-  }
-
   sendERC20Transaction = async () => {
-    this.setState({ maliciousCheck: false });
-    const response = await this.checkMaliciousAddresses(this.state.toAddress);
-    const provider = await getNetworkProvider(this.props.network);  
-    if (response.flag) {
-      this.setState({ maliciousCheck: true });
-    } else {
-      this.setState({ maliciousCheck: true });
-      const initializedWallet = new ethers.Wallet(this.props.wallet.privateKey, provider);
-      const transactionCountPromise = initializedWallet.getTransactionCount();
-      const count = await transactionCountPromise;
-      const val = this.state.value;
-      const toAddr = this.state.toAddress;
-      if (this.state.validAddress.exec(toAddr) == null){
-        return 1;
-      }
-      const contract = new ethers.Contract(this.props.token.address, ERC20ABI, initializedWallet);
-      const overrideOptions = {
-        gasLimit: 150000,
-        gasPrice: 9000000000,
-        nonce: count,
-      };
-      try {
-        const sendPromise = contract.functions.transfer(toAddr, val, overrideOptions);
-        sendPromise.then((transaction) => {
-          console.log(transaction.hash);
-          this.setState({ txHash: transaction.hash });
-          this.openModal();
-        });
-      } catch (error) {
-        console.log('Didnt Go through');
-      }
-    }
+    const provider = await getNetworkProvider(this.props.network);
+    executeERC20Transaction(
+      provider,
+      this.state.toAddress,
+      this.props.wallet.privateKey,
+      this.state.value,
+      this.props.token.address,
+    );
   }
 
   checkMaliciousAddresses = (address) => {

@@ -1,37 +1,35 @@
-const executeERC20Transaction = async () => {
+// import { checkMaliciousAddresses } from '../../maliciousCheck/';
+import ERC20ABI from '../../../constants/data/json/ERC20ABI.json';
+const ethers = require('ethers');
 
-    this.setState({ maliciousCheck: false });
-    const response = await this.checkMaliciousAddresses(this.state.toAddress);
-const provider = await getNetworkProvider(this.props.network);  
-if (response.flag) {
-    this.setState({ maliciousCheck: true });
-} else {
-    this.setState({ maliciousCheck: true });
-    const initializedWallet = new ethers.Wallet(this.props.wallet.privateKey, provider);
+const utils = ethers.utils;
+
+/**
+ * TODO 1)malicious check 2) regex expression check
+ */
+const executeERC20Transaction = async (provider, to, privateKey, value, contractAddress) => {
+  const initializedWallet = new ethers.Wallet(privateKey, provider);
+  const amountString = value.toString();
+  const testTo = '0x03B96bd08E820fE853339fa84F8F25818ce7346a';
+  try {
+    const amount = ethers.utils.parseEther(amountString);
     const transactionCountPromise = initializedWallet.getTransactionCount();
     const count = await transactionCountPromise;
-    const val = this.state.value;
-    const toAddr = this.state.toAddress;
-    if (this.state.validAddress.exec(toAddr) == null){
-    return 1;
-    }
-    const contract = new ethers.Contract(this.props.token.address, ERC20ABI, initializedWallet);
+    const contract = new ethers.Contract('0x6Ac15feFB151bC0742d40A13B3d8c1848229d939', ERC20ABI, initializedWallet);
     const overrideOptions = {
-    gasLimit: 150000,
-    gasPrice: 9000000000,
-    nonce: count,
+      gasLimit: 150000,
+      gasPrice: 9000000000,
+      nonce: count,
     };
-    try {
-    const sendPromise = contract.functions.transfer(toAddr, val, overrideOptions);
+    const sendPromise = contract.functions.transfer(testTo, amount, overrideOptions);
     sendPromise.then((transaction) => {
-        console.log(transaction.hash);
-        this.setState({ txHash: transaction.hash });
-        this.openModal();
+      console.log(transaction.hash);
     });
-    } catch (error) {
+  } catch (error) {
     console.log('Didnt Go through');
-    }
   }
-}
+};
 
-  export default 
+export default executeERC20Transaction;
+
+
