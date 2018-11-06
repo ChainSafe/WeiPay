@@ -15,7 +15,15 @@ import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import RF from 'react-native-responsive-fontsize';
-import * as action from '../../../../actions/ActionCreator';
+import {
+  updateTxnFee,
+  qrScannerInvoker,
+  qrScannerCoinInvoker,
+  getQRCodeData,
+} from '../../../../actions/ActionCreator';
+import {
+  setGlobalAddress,
+} from '../../../../actions/AppConfig';
 import LinearButton from '../../../../components/linearGradient/LinearButton';
 import ClearButton from '../../../../components/linearGradient/ClearButton';
 import BoxShadowCard from '../../../../components/shadowCards/BoxShadowCard';
@@ -32,16 +40,12 @@ const utils = ethers.utils;
 class CoinSend extends Component {
   constructor(props) {
     super(props);
-    const addressFromQRCode = this.props.addressData;
     this.state = {
-      toAddress: addressFromQRCode,
+      toAddress: this.props.gloablPublicAddress,
       value: null,
-      resetInput: false,
-      inputValue: addressFromQRCode,
-      txnFee: this.props.txnFee,
-      maliciousCheck: true,
+      inputValue: null,
+      txnFee: null,
       maliciousComment: '',
-      sendButtonEnabled: false,
       validAddress: new RegExp('0x[0-9a-fA-F]{40}'),
       valid: false,
     };
@@ -49,22 +53,18 @@ class CoinSend extends Component {
 
   navigate = () => {
     this.props.qrScannerInvoker('TokenFunctionality');
-    this.props.qrScannerCoinInvoker(this.props.token.symbol);
+    this.props.qrScannerCoinInvoker(this.props.activeTokenData.symbol);
     const navigateToQRScanner = NavigationActions.navigate({
       routeName: 'QCodeScanner',
-      params: { name: 'Shubhnik', invoker: 'CoinSend' },
+      params: { invoker: 'CoinSend' },
     });
     this.props.navigation.dispatch(navigateToQRScanner);
   };
 
-  /**
-   * Sets the address to which the coin/tokens are being sent to
-   * @param {String} addressInput
-   */
   renderAddress(addressInput) {
-    const add = addressInput.trim();
-    this.setState({ inputValue: add, toAddress: add });
-    this.props.getQRCodeData(addressInput);
+    const trimmed = addressInput.trim();
+    this.setState({ toAddress: trimmed });
+    this.props.setGlobalAddress(trimmed);
     if (this.state.validAddress.exec(addressInput) == null) {
       this.setState({ valid: false });
     } else {
@@ -72,10 +72,6 @@ class CoinSend extends Component {
     }
   }
 
-  /**
-   * Error checks the value inputted to be sent. Sets the Value to 0 if the value input is
-   * either lower than 0 or is not a number
-   */
   renderValue(valueInput) {
     if (!isNaN(valueInput)) {
       if (valueInput < 0) {
@@ -88,27 +84,25 @@ class CoinSend extends Component {
           { cancelable: false },
         );
       } else {
-        console.log(`is a number ${valueInput}`);
         this.setState({ value: valueInput });
       }
     } else {
-      console.log(`not a number ${valueInput}`);
       this.setState({ value: null });
     }
   }
 
   getTxnFee = async () => {
     const provider = await getNetworkProvider(this.props.network);
+    let formattedFee;
     try {
       let gasPriceString = await provider.getGasPrice().then((gasPrice) => {
         gasPriceString = gasPrice.toString();
         const gasPriceEth = utils.formatEther(gasPrice);
         const txnFee = 21000 * gasPriceEth;
-        const formatted = txnFee.toFixed(8);
-        return formatted;
+        formattedFee = txnFee.toFixed(8);
+        return formattedFee;
       });
-      await this.props.updateTxnFee(gasPriceString);
-      await this.setState({ txnFee: gasPriceString });
+      await this.setState({ txnFee: formattedFee });
     } catch (error) {
       console.log(error);
     }
@@ -117,6 +111,8 @@ class CoinSend extends Component {
   resetFields = () => {
     this.inputAddress.clearText();
     this.inputAmount.clearText();
+    this.props.setGlobalAddress('');
+    this.setState({ maliciousComment: '', inputValue: '0' });
   }
 
   checkMaliciousAddresses = (address) => {
@@ -134,7 +130,7 @@ class CoinSend extends Component {
     const validAddress = this.state.valid;
     const maliciousResponse = await this.checkMaliciousAddresses(this.state.toAddress);
     const { flag } = maliciousResponse;
-    const isEtherTX = this.props.token.address === '';
+    const isEtherTX = this.props.activeTokenData.address === '';
     if (validAddress && !flag) {
       const provider = await getNetworkProvider(this.props.network);
       if (isEtherTX) {
@@ -160,7 +156,7 @@ class CoinSend extends Component {
 
   render() {
     const {
-      valid, value, maliciousComment, inputValue,
+      valid, value, maliciousComment, inputValue, toAddress,
     } = this.state;
     return (
       <SafeAreaView style={styles.safeAreaView}>
@@ -193,7 +189,7 @@ class CoinSend extends Component {
                         onChangeText={this.renderAddress.bind(this)}
                         ref={(ref) => { return this.inputAddress = ref; }}
                         inputStyle={[styles.formAddress, valid ? styles.colorValid : styles.colorError] }
-                        value={inputValue}
+                        value={toAddress}
                       />
                     </View>
                     <View style={styles.formInputContainer}>
@@ -202,6 +198,7 @@ class CoinSend extends Component {
                         onChangeText={this.renderValue.bind(this)}
                         ref={(ref) => { return this.inputAmount = ref; }}
                         inputStyle={styles.formAmount}
+                        value={inputValue}
                       />
                     </View>
                     {
@@ -284,13 +281,10 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height * 0.1,
     width: Dimensions.get('window').width * 0.18,
   },
-  inputContainer: {
-    // add
-  },
   maliciousCommentText: {
     color: 'red',
     fontSize: RF(2.1),
-    marginLeft: '5%',
+    marginLeft: '11%',
   },
   formInputContainer: {
     marginLeft: '4.5%',
@@ -367,16 +361,25 @@ const styles = StyleSheet.create({
 
 });
 
-const mapStateToProps = ({ Wallet, HotWallet, newWallet, contacts }) => {
+const mapStateToProps = ({
+  Wallet, HotWallet, newWallet, contacts,
+}) => {
+  const { gloablPublicAddress, activeTokenData, network } = Wallet;
+  const { wallet } = HotWallet.hotWallet;
   return {
-    tokenData: Wallet.activeTokenData,
-    wallet: HotWallet.hotWallet.wallet,
-    addressData: newWallet.QrData,
-    token: Wallet.activeTokenData,
+    wallet,
+    gloablPublicAddress,
+    activeTokenData,
     txnFee: newWallet.txnFee,
     contactAddress: contacts.contactDataforCoinSend,
-    network: Wallet.network,
+    network,
   };
 };
 
-export default connect(mapStateToProps, action)(CoinSend);
+export default connect(mapStateToProps, {
+  updateTxnFee,
+  qrScannerInvoker,
+  qrScannerCoinInvoker,
+  getQRCodeData,
+  setGlobalAddress,
+})(CoinSend);
