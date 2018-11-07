@@ -30,7 +30,7 @@ class Contract extends Component {
     this.state = {
       contractLoaded: false,
       provider: null,
-      address: '',
+      address: '0x12480E24eb5bec1a9D4369CaB6a80caD3c0A377A',
       wallet: this.props.hotWallet.wallet,
       contractEvents: null,
       contractFunctions: null,
@@ -51,6 +51,8 @@ class Contract extends Component {
     const {
       contractFunctions, contractEvents, contract, withInputs,
     } = await processContractByAddress(this.state.wallet, this.state.address, this.state.provider, this.props.network);
+    console.log({ contractFunctions, contractEvents, contract, withInputs });
+    
     this.setState({
       contractEvents, contractFunctions, contract, withInputs,
     });
@@ -121,19 +123,18 @@ class Contract extends Component {
       const property = functionSignature.split('(')[0];
       const fInputs = allFunctionsWithInputs[i].inputs;
       const payable = allFunctionsWithInputs[i].payable;
-      contractFunctionsFormatted.push({ arrayLength, property, functionSignature, fInputs, payable });
+      contractFunctionsFormatted.push({ arrayLength, i, property, functionSignature, fInputs, payable });
     }
 
     return (
       <View>
         {
           contractFunctionsFormatted.map((item) =>
-            <View key={`${item.arrayLength}${item.functionSignature}`} style={styles.functionContainer }>
+            <View key={`${item.arrayLength}${item.functionSignature}${item.i}`} style={styles.functionContainer }>
               <BoxShadowCard>
                 <View style={styles.functionInputContainer}>
                   <Text>Signature: {item.functionSignature} </Text>
                 </View>
-
                 {
                   item.payable
                   ?
