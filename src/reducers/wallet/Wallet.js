@@ -20,6 +20,7 @@ import {
   SAVE_TOKEN_QUANTITIES,
   ADD_TOKEN_SETUP,
   SET_NETWORK,
+  SET_GLOBAL_PUBLIC_ADDRESS,
 } from '../../actions/ActionTypes';
 
 const initialState = {
@@ -42,6 +43,7 @@ const initialState = {
   allTokens: tokenData[0],
   activeTokenData: null,
   tokenQuantities: null,
+  gloablPublicAddress: null,
 };
 
 export default function (state = initialState, action) {
@@ -120,8 +122,11 @@ export default function (state = initialState, action) {
         ...state, tokenQuantities: action.payload,
       };
     case ADD_TOKEN_SETUP:
-      
       return { ...state, tokens: action.payload };
+    case SET_GLOBAL_PUBLIC_ADDRESS:
+      return {
+        ...state, gloablPublicAddress: action.payload,
+      };
     default:
       return state;
   }

@@ -12,10 +12,11 @@ import {
   SET_APP_PASSWORD_ROOT,
   SAVE_TOKEN_QUANTITIES,
   SET_NETWORK,
+  SET_GLOBAL_PUBLIC_ADDRESS,
 } from './ActionTypes';
 
 export function enterDebug() {
-  let testData = { 'walletName': 'My Test Wallet Name' };
+  const testData = { 'walletName': 'My Test Wallet Name' };
   return (dispatch) => {
     dispatch({ type: DEBUG_MODE, payload: testData });
   };
@@ -62,7 +63,6 @@ export function addNewToken(tokenObject, usersTokens) {
     dispatch({ type: ADD_NEW_SINGLE_TOKEN, payload: tokenCopy });
   };
 }
-
 
 /**
  * Set temporary state wallet name until wallet is created/saved to async
@@ -139,4 +139,11 @@ export function saveAllTokenQuantities(list) {
     dispatch({ type: SAVE_TOKEN_QUANTITIES, payload: list });
   };
 }
+
+export function setGlobalAddress(address) {
+  return (dispatch) => {
+    dispatch({ type: SET_GLOBAL_PUBLIC_ADDRESS, payload: address });
+  };
+}
+
 
