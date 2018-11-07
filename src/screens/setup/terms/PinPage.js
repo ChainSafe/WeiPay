@@ -72,10 +72,8 @@ class PinPage extends Component {
   }
 
   appDecyprtionProcess = (walletName) => {
-    const plaintext = this.decryptKey();
-    const wallet = JSON.parse(plaintext);
-    const key = 'privateKey';
-    if (Object.prototype.hasOwnProperty.call(wallet, key)) {
+    const wallet = JSON.parse(this.decryptKey());
+    if (Object.prototype.hasOwnProperty.call(wallet, 'privateKey')) {
       const hotWalletObj = { wallet, name: walletName };
       this.props.setHotWallet(hotWalletObj);
       this.navigate('mainStack');
