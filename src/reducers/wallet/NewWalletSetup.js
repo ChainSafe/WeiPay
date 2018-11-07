@@ -77,7 +77,6 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, newWallet: true, wallet: action.payload };
     case actions.NEW_WALLET_NAME:
       return { ...state, walletName: action.payload };
-    
     case actions.ADD_TOKEN_INFO:
       return { ...state, current_token: action.payload };
     case actions.UPDATE_TOKEN_BALANCE:      
