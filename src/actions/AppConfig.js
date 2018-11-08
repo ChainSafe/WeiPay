@@ -22,7 +22,7 @@ export function enterDebug() {
   };
 }
 
-export function setAppPassword(hashedPassword) {
+export function encryptSerializedWallet(hashedPassword) {
   return (dispatch) => {
     dispatch({ type: SET_APP_PASSWORD_ROOT, payload: hashedPassword });
   };
