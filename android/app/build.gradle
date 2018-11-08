@@ -113,10 +113,21 @@ android {
             include "armeabi-v7a", "x86"
         }
     }
+    signingConfigs {
+        release {
+            if (project.hasProperty('WEIPAY_RELEASE_STORE_FILE')) {
+               storeFile file(WEIPAY_RELEASE_STORE_FILE)
+               storePassword WEIPAY_RELEASE_STORE_PASSWORD
+               keyAlias WEIPAY_RELEASE_KEY_ALIAS
+               keyPassword WEIPAY_RELEASE_KEY_PASSWORD
+           }
+        }
+    }
     buildTypes {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
@@ -162,7 +173,6 @@ task copyDownloadableDepsToLibs(type: Copy) {
 allprojects {
     repositories {
         mavenLocal()
-        jcenter()
         maven {
             url 'https://maven.google.com'
         }
@@ -170,5 +180,6 @@ allprojects {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url "$rootDir/../node_modules/react-native/android"
         }
+        jcenter()
     }
 }

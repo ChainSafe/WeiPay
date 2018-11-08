@@ -4,13 +4,14 @@ import {
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
+import CryptoJS from 'crypto-js';
 import RF from 'react-native-responsive-fontsize';
 import { FormInput } from 'react-native-elements';
 import * as actions from '../../../actions/AppConfig';
 import LinearButton from '../../../components/linearGradient/LinearButton';
 import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
-
+ 
 const ethers = require('ethers');
 
 class PinPage extends Component {
@@ -43,27 +44,37 @@ class PinPage extends Component {
     return this.props.isInSetupScreens;
   }
 
-  hashInput = () => {
-    const utf8BytesPassword = ethers.utils.toUtf8Bytes(this.state.password);
-    const hashed = ethers.utils.keccak256(utf8BytesPassword);
-    this.props.setAppPassword(hashed);
-    return hashed;
+  encryptSerializedWallet = (wallet) => {
+    const { password } = this.state;
+    const ciphertext = CryptoJS.AES.encrypt(wallet, password);
+    const ciphertextString = ciphertext.toString();
+    this.props.encryptSerializedWallet(ciphertextString);
+    return ciphertextString;
+  }
+
+  decryptKey = () => {
+    const ciphertext = this.props.encryptedWallet;
+    const { password } = this.state;
+    var bytes  = CryptoJS.AES.decrypt(ciphertext, password);
+    var plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    return plaintext;
   }
 
   setupEncyrptionProcess = async (walletName, userWallets) => { 
     const { nextScreenToNavigate, wallet } = this.props.navigation.state.params;
-    this.hashInput();
+    const serialialedWallet =  JSON.stringify(wallet);
+    const encrypted = this.encryptSerializedWallet(serialialedWallet);
     const hotWalletObj = { wallet, name: walletName };
     this.props.setHotWallet(hotWalletObj);
-    this.props.initializeAppWallet(wallet, walletName, userWallets);
+    this.props.initializeAppWallet(encrypted, walletName, userWallets);
     this.props.exitSetup(false);
     this.navigate(nextScreenToNavigate);
   }
 
   appDecyprtionProcess = (walletName) => {
-    const hash = this.hashInput();
-    if(this.props.hashedPassword === hash) {
-      const hotWalletObj = { wallet: this.props.wallets[0].hdWallet, name: walletName };
+    const wallet = JSON.parse(this.decryptKey());
+    if (Object.prototype.hasOwnProperty.call(wallet, 'privateKey')) {
+      const hotWalletObj = { wallet, name: walletName };
       this.props.setHotWallet(hotWalletObj);
       this.navigate('mainStack');
     }
@@ -283,14 +294,14 @@ const styles = StyleSheet.create({
   },
 });
 
-/**
- * This method is not being used here
- * @param {Object} param
- */
 const mapStateToProps = ({ Debug, Wallet }) => {
   const { debugMode, testWalletName } = Debug;
-  const { wallets, tempWalletName, isInSetupScreens, hashedPassword } = Wallet;
-  return { debugMode, wallets, tempWalletName, testWalletName, isInSetupScreens, hashedPassword };
+  const {
+    wallets, tempWalletName, isInSetupScreens, encryptedWallet,
+  } = Wallet;
+  return {
+    debugMode, wallets, tempWalletName, testWalletName, isInSetupScreens, encryptedWallet,
+  };
 };
 
 export default connect(mapStateToProps, actions)(PinPage);
