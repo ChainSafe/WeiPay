@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import {
   View, Text, StyleSheet, ScrollView, Dimensions, TouchableWithoutFeedback, Keyboard, SafeAreaView, TextInput,
 } from 'react-native';
-import { FormInput } from 'react-native-elements';
+import { FormInput, Card } from 'react-native-elements';
 import Toast from 'react-native-simple-toast';
 import RF from 'react-native-responsive-fontsize';
 import { connect } from 'react-redux';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
-import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
 import {
   processContractByAddress, processFunctionCall2,
 } from '../../../scripts/contracts/contractHelper';
@@ -20,6 +19,7 @@ import {
 import LinearButton from '../../../components/linearGradient/LinearButton';
 import ClearButton from '../../../components/linearGradient/ClearButton';
 import getNetworkProvider from '../../../constants/Providers';
+import ContractInputContainer from '../../../components/contracts/ContractInputContainer';
 
 /**
  * Screen is used to display the passphrase (mnemonic) of the wallet - 0xcD361f7173C439BB76F3E1206446e9D183B82787
@@ -73,6 +73,8 @@ class Contract extends Component {
    * Need to check if contract method has no parameters, if it has paramaters, if is payable.
    */
   contractFuncCheck = async (name) => {
+    console.log('did we get in func check', {name});
+    
     const isFunctionPayable = Object.prototype.hasOwnProperty.call(name, 'payable');
     const hasFunctionParameters = Object.prototype.hasOwnProperty.call(name, 'property');
     const allFunctionDetails = this.state.withInputs;
@@ -88,7 +90,6 @@ class Contract extends Component {
       functionNameForContract = name;
       inputs = {};
     }
-    
     if (!isFunctionPayable && !hasFunctionParameters) {
       if (executeNonPayableNoParams(functionName, {})) {
         await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
@@ -124,15 +125,21 @@ class Contract extends Component {
       contractFunctionsFormatted.push({ arrayLength, i, property, functionSignature, fInputs, payable });
     }
 
+    console.log({contractFunctionsFormatted});
+    
+
     return (
-      <View>
+      <View style={styles.contractInputContainer}>
         {
           contractFunctionsFormatted.map((item, i) =>
             <View key={i} style={styles.functionContainer} >
-              <BoxShadowCard>
+              <Card>
+
+
                 <View style={styles.functionInputContainer}>
                   <Text>Signature: {item.functionSignature} </Text>
                 </View>
+
                 {
                   item.payable
                   ?
@@ -145,32 +152,37 @@ class Contract extends Component {
                     </View>
                   : null
                 }
+
                 {
                   (item.fInputs.length != 0)
-                  ? <View>
-                    {
+                  ? 
+                  <View style={styles.topInputContainer}>
+                    <ContractInputContainer 
+                        signature={item.functionSignature}
+                        inputs={item.fInputs}
+                        item={item}
+                        processInput={this.processFunctionInput}
+                        contractExecution={this.contractFuncCheck}
+                    />
+                    {/* {
                       item.fInputs.map((inputObject, x) =>
-                        <View key={x}>
-                          <View style={styles.functionInputContainer}>
-                            <Text>input name: {inputObject.inputName} </Text>
-                          </View>
-                          <View style={styles.functionInputContainer}>
-                            <FormInput
-                              placeholder={inputObject.type}
-                              onChangeText={(text)=> this.processFunctionInput(text, inputObject.inputName, inputObject.type, item.functionSignature)}
-                              inputStyle={styles.functionInputStyle}
-                            />
-                          </View>
-                      </View>,)
+
+                        <ContractInput 
+                          key={x}
+                          inputItem={inputObject}      
+                          processInput={this.processFunctionInput} 
+                          signature={item.functionSignature}
+                          inputs={item.fInputs}
+                        />)
                   }
                     <ClearButton
                       buttonText= {`Call ${item.property}`}
                       onClickFunction={() => this.contractFuncCheck(item) }
                       customStyles={styles.btnFunctionInput}
-                    />
+                    /> */}
                 </View>
-              :
-                <View>
+              : 
+                <View style={{padding:'5%'}}>
                   <ClearButton
                       buttonText= {`Call ${item.functionSignature}`}
                       onClickFunction={() => this.contractFuncCheck(item.functionSignature) }
@@ -178,9 +190,8 @@ class Contract extends Component {
                     />
                 </View>
               }
-              </BoxShadowCard>
-            </View>,
-          )
+              </Card>
+            </View>,)
         }
       </View>
     );
@@ -270,47 +281,11 @@ const styles = StyleSheet.create({
   navContainer: {
     flex: 0.75,
   },
-  boxShadowContainer: {
-    alignItems: 'center',
-    flex: 3,
-  },
-  functionContainer: {
-    flex: 1,
-  },
-  functionInputContainer: {
-    width: '92%',
-    marginLeft: '9%',
-  },
-  btnFunctionInput: {
-    height: Dimensions.get('window').height * 0.05,
-    width: Dimensions.get('window').width * 0.82,
-  },
-  functionInputStyle: {
-    width: '80%',
-    fontSize: RF(2.4),
-    flexWrap: 'wrap',
-    color: '#12c1a2',
-    letterSpacing: 0.4,
-    fontFamily: 'WorkSans-Regular',
-    borderBottomWidth: 0.0001,
-  },
   topFormInput: {
     flex: 5,
     paddingLeft: '5%',
     paddingRight: '5%',
     paddingTop: '5%',
-  },
-  scrollViewContainer: {
-    flex: 5,
-    paddingBottom: '2.5%',
-    paddingTop: '2.5%',
-  },
-  scrollView: {
-    height: '100%',
-  },
-  loadButton: {
-    width: '82%',
-    height: Dimensions.get('window').height * 0.082,
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
@@ -320,6 +295,13 @@ const styles = StyleSheet.create({
     color: '#1a1f3e',
     paddingTop: '2.5%',
     marginBottom: '5%',
+  },
+  textDescription: {
+    fontFamily: 'Cairo-Light',
+    fontSize: RF(3),
+    letterSpacing: 0.8,
+    paddingLeft: '9%',
+    color: '#1a1f3e',
   },
   addressField: {
     marginLeft: '9%',
@@ -333,18 +315,61 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Light',
     borderBottomWidth: 0.0001,
   },
+  scrollViewContainer: {
+    flex: 5,
+    paddingBottom: '2.5%',
+    paddingTop: '2.5%',
+  },
+  scrollView: {
+    height: '100%',
+  },
+  /** Parse Functions CSS */
+  contractInputContainer: {
+    flex: 1,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'yellow',
+    width: '90%',
+  },
+  functionContainer: {
+    flex: 1,
+    backgroundColor: 'green',
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  functionInputContainer: {
+    width: '92%',
+    marginLeft: '9%',
+  },
+  functionInputStyle: {
+    width: '80%',
+    fontSize: RF(2.4),
+    flexWrap: 'wrap',
+    color: '#12c1a2',
+    letterSpacing: 0.4,
+    fontFamily: 'WorkSans-Regular',
+    borderBottomWidth: 0.0001,
+  },
+  topInputContainer: {
+    padding: '5%',
+  },
+  btnFunctionInput: {
+    height: Dimensions.get('window').height * 0.05,
+    width: Dimensions.get('window').width * 0.82,
+  },
+
+
+  loadButton: {
+    width: '82%',
+    height: Dimensions.get('window').height * 0.082,
+  },
   btnFlex: {
     marginTop: '5%',
     paddingRight: '5%',
     justifyContent: 'center',
     alignContent: 'center',
-  },
-  textDescription: {
-    fontFamily: 'Cairo-Light',
-    fontSize: RF(3),
-    letterSpacing: 0.8,
-    paddingLeft: '9%',
-    color: '#1a1f3e',
   },
   contentContainer: {
     width: '82%',
