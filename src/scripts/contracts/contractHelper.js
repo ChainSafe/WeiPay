@@ -138,25 +138,29 @@ const executePayableMethod = async (wallet, functionName, inputs, contract, prov
   }
 };
 
-const executeMethod = async (wallet, functionName, inputs, contract, provider) => {
+const executeMethod = async (wallet, functionName, inputs, contract, provider) => {  
   const initializedWallet = new ethers.Wallet(wallet.privateKey, provider);
   try {
     const args = Object.values(inputs);
     const contractWithSigner = contract.connect(initializedWallet);
     if (args.length == 0) {
-      const tx = await contract['functions'][functionName]();
-      console.log('Call went through');
-      console.log(tx);
+      const methodResponse = await contract['functions'][functionName]();
+      console.log('Call went through x');
+      console.log(methodResponse);
+      
+      return methodResponse;
       console.log('---------000---------------');
     } else {
       const call = "contractWithSigner['functions'][functionName](" + args.toString() + ')';
       console.log(call);
       await eval(call);
+      return 'success method execution with inputs';
       console.log('Call went through');
       console.log('---------000---------------');
     }
   } catch (err) {
     console.log(err);
+    return 'Error processing contract method execution';
   }
 };
 
@@ -165,7 +169,8 @@ export const processFunctionCall2 = async (wallet, functionName, inputs, contrac
   if (isPayable) {
     executePayableMethod(wallet, functionName, inputs, contract, provider);
   } else {
-    executeMethod(wallet, functionName, inputs, contract, provider);
+    const result = await executeMethod(wallet, functionName, inputs, contract, provider);
+    return result;
   }
 };
 

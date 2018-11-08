@@ -20,7 +20,7 @@ import LinearButton from '../../../components/linearGradient/LinearButton';
 import ClearButton from '../../../components/linearGradient/ClearButton';
 import getNetworkProvider from '../../../constants/Providers';
 import ContractInputContainer from '../../../components/contracts/ContractInputContainer';
-
+import ContractInputConstant from '../../../components/contracts/ContractInputConstant';
 /**
  * Screen is used to display the passphrase (mnemonic) of the wallet - 0xcD361f7173C439BB76F3E1206446e9D183B82787
  */
@@ -90,25 +90,34 @@ class Contract extends Component {
       functionNameForContract = name;
       inputs = {};
     }
+    console.log('in contractFuncCheck');
     if (!isFunctionPayable && !hasFunctionParameters) {
       if (executeNonPayableNoParams(functionName, {})) {
-        await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
         Toast.show('Success', Toast.LONG);
+        const result = await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
+        console.log({result});
+        return result;
       }
     } else if (!isFunctionPayable && hasFunctionParameters) {
       if (executeNonPayableWithParams(functionName, inputs, allFunctionDetails, isFunctionPayable)) {
-        await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
         Toast.show('Success', Toast.LONG);
+        const result = await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
+        console.log({result});
+        return result;
       }
     } else if (isFunctionPayable && !hasFunctionParameters) {
       if (executePayableNoParams(functionName, {}, allFunctionDetails, isFunctionPayable)) {
-        await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
         Toast.show('Success', Toast.LONG);
+        const result = await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
+        console.log({result});
+        return result;
       }
     } else if (isFunctionPayable && hasFunctionParameters) {
       if (executePayableWithParams(functionName, inputs, allFunctionDetails, isFunctionPayable)) {
-        await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
         Toast.show('Success', Toast.LONG);
+        const result = await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
+        console.log({result});
+        return result;
       }
     }
   }
@@ -124,22 +133,15 @@ class Contract extends Component {
       const payable = allFunctionsWithInputs[i].payable;
       contractFunctionsFormatted.push({ arrayLength, i, property, functionSignature, fInputs, payable });
     }
-
-    console.log({contractFunctionsFormatted});
-    
-
     return (
       <View style={styles.contractInputContainer}>
         {
           contractFunctionsFormatted.map((item, i) =>
             <View key={i} style={styles.functionContainer} >
               <Card>
-
-
                 <View style={styles.functionInputContainer}>
                   <Text>Signature: {item.functionSignature} </Text>
                 </View>
-
                 {
                   item.payable
                   ?
@@ -183,11 +185,15 @@ class Contract extends Component {
                 </View>
               : 
                 <View style={{padding:'5%'}}>
-                  <ClearButton
+                  <ContractInputConstant 
+                     contractExecution={this.contractFuncCheck}
+                     item={item}
+                  />
+                  {/* <ClearButton
                       buttonText= {`Call ${item.functionSignature}`}
                       onClickFunction={() => this.contractFuncCheck(item.functionSignature) }
                       customStyles={styles.btnFunctionInput}
-                    />
+                    /> */}
                 </View>
               }
               </Card>

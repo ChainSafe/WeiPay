@@ -5,7 +5,6 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-// import { FormInput } from 'react-native-elements';
 import ContractInput from './ContractInput';
 import ClearButton from '../linearGradient/ClearButton';
 
@@ -19,11 +18,11 @@ class ContractInputContainer extends Component {
           {
             inputs.map((inputObject, x) =>
               <ContractInput
-              key={x}
-              inputItem={inputObject}
-              processContractInput={this.props.processInput}
-              signature={signature}
-            />)
+                 key={x}
+                inputItem={inputObject}
+                processContractInput={this.props.processInput}
+                signature={signature}
+              />)
           }
         </View>
         <View style={styles.btnContainer}>
