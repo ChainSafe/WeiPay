@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import CryptoJS from "crypto-js";
+import CryptoJS from 'crypto-js';
 import RF from 'react-native-responsive-fontsize';
 import { FormInput } from 'react-native-elements';
 import * as actions from '../../../actions/AppConfig';

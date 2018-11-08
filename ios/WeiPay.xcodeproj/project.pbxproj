@@ -65,6 +65,7 @@
 		B5141B862F0F4294823B2BBB /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7FA48B62917B4EF0AEB29487 /* Octicons.ttf */; };
 		B5EC2C02E3AC4C99BE9D97EE /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C11B53B3FA4547468491BC8A /* Zocial.ttf */; };
 		BC3D0DA8FD32458288DF67D0 /* WorkSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85806980C65A4E39A3F2EF7B /* WorkSans-Bold.ttf */; };
+		C2C46B99152944B7862444C4 /* libRNFastCrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 427A2139BFE14C4BB132A251 /* libRNFastCrypto.a */; };
 		C5AE65B4C6F14FA988B17571 /* libLRDRCTSimpleToast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EC224C5921149E087BD60E2 /* libLRDRCTSimpleToast.a */; };
 		C8988E202BDA4E69811198DC /* Cairo-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DFFCF974EF40409391292441 /* Cairo-ExtraLight.ttf */; };
 		CCAAAF2308E849F2A41376E4 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FEAAFFBEACCB4A7CAB2AF738 /* SimpleLineIcons.ttf */; };
@@ -72,7 +73,6 @@
 		DFD374ABD8AE4C67986E9372 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A87AA81A7A4A4DB5A3327359 /* libBVLinearGradient.a */; };
 		E0B3933C68954739B22C715A /* WorkSans-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B9585DA25EB40119A026C85 /* WorkSans-Thin.ttf */; };
 		E3B0BAB4D5824D8ABE95F982 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AAB8D6AC0284DA4962924B9 /* MaterialCommunityIcons.ttf */; };
-		C2C46B99152944B7862444C4 /* libRNFastCrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 427A2139BFE14C4BB132A251 /* libRNFastCrypto.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -448,6 +448,7 @@
 		2D02E47B1E0B4A5D006451C7 /* WeiPay-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WeiPay-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* WeiPay-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WeiPay-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		427A2139BFE14C4BB132A251 /* libRNFastCrypto.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFastCrypto.a; sourceTree = "<group>"; };
 		4A02CE9D2EB443E2BAE27E97 /* libRNCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCamera.a; sourceTree = "<group>"; };
 		560B938820F8F14E0080F8FA /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
@@ -465,6 +466,7 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		85806980C65A4E39A3F2EF7B /* WorkSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "WorkSans-Bold.ttf"; path = "../src/assets/fonts/Work_Sans/WorkSans-Bold.ttf"; sourceTree = "<group>"; };
 		87A9F06AC41947FC8721D5C0 /* ReactNativePermissions.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativePermissions.xcodeproj; path = "../node_modules/react-native-permissions/ios/ReactNativePermissions.xcodeproj"; sourceTree = "<group>"; };
+		8FD3D14E4C714B259C7FD254 /* RNFastCrypto.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFastCrypto.xcodeproj; path = "../node_modules/react-native-fast-crypto/ios/RNFastCrypto.xcodeproj"; sourceTree = "<group>"; };
 		91793F28DA2D49E2818178BC /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 		A87AA81A7A4A4DB5A3327359 /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
 		A88100E72876493F9AC22CA7 /* WorkSans-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "WorkSans-ExtraLight.ttf"; path = "../src/assets/fonts/Work_Sans/WorkSans-ExtraLight.ttf"; sourceTree = "<group>"; };
@@ -482,8 +484,6 @@
 		EA310D6C24F14A63B27C2088 /* ReactNativeConfig.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeConfig.xcodeproj; path = "../node_modules/react-native-config/ios/ReactNativeConfig.xcodeproj"; sourceTree = "<group>"; };
 		F446EF44CCB24BB89AD1B0B0 /* Cairo-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Cairo-SemiBold.ttf"; path = "../src/assets/fonts/Cairo/Cairo-SemiBold.ttf"; sourceTree = "<group>"; };
 		FEAAFFBEACCB4A7CAB2AF738 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
-		8FD3D14E4C714B259C7FD254 /* RNFastCrypto.xcodeproj */ = {isa = PBXFileReference; name = "RNFastCrypto.xcodeproj"; path = "../node_modules/react-native-fast-crypto/ios/RNFastCrypto.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		427A2139BFE14C4BB132A251 /* libRNFastCrypto.a */ = {isa = PBXFileReference; name = "libRNFastCrypto.a"; path = "libRNFastCrypto.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -710,6 +710,7 @@
 				8066F08E11C3411A959469FC /* libRNSVG.a */,
 				024BC64A5CBB4A319E5D6136 /* libReactNativeConfig.a */,
 				0EC224C5921149E087BD60E2 /* libLRDRCTSimpleToast.a */,
+				427A2139BFE14C4BB132A251 /* libRNFastCrypto.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1646,7 +1647,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 28;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 34N25G38Q7;
 				HEADER_SEARCH_PATHS = (
@@ -1681,7 +1682,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = 34N25G38Q7;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

@@ -3,7 +3,7 @@ package com.chainsafe.weipay;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import co.airbitz.fastcrypto.RNFastCryptoPackage;
+// import co.airbitz.fastcrypto.RNFastCryptoPackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import org.reactnative.camera.RNCameraPackage;
@@ -29,7 +29,6 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNFastCryptoPackage(),
             new ReactNativeConfigPackage(),
             new VectorIconsPackage(),
             new RNCameraPackage(),
