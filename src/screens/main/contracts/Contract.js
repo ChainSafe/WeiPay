@@ -51,8 +51,6 @@ class Contract extends Component {
     const {
       contractFunctions, contractEvents, contract, withInputs,
     } = await processContractByAddress(this.state.wallet, this.state.address, this.state.provider, this.props.network);
-    console.log({ contractFunctions, contractEvents, contract, withInputs });
-    
     this.setState({
       contractEvents, contractFunctions, contract, withInputs,
     });
@@ -129,8 +127,8 @@ class Contract extends Component {
     return (
       <View>
         {
-          contractFunctionsFormatted.map((item) =>
-            <View key={`${item.arrayLength}${item.functionSignature}${item.i}`} style={styles.functionContainer }>
+          contractFunctionsFormatted.map((item, i) =>
+            <View key={i} style={styles.functionContainer} >
               <BoxShadowCard>
                 <View style={styles.functionInputContainer}>
                   <Text>Signature: {item.functionSignature} </Text>
@@ -147,13 +145,12 @@ class Contract extends Component {
                     </View>
                   : null
                 }
-
                 {
                   (item.fInputs.length != 0)
                   ? <View>
                     {
-                      item.fInputs.map((inputObject) =>
-                        <View key={`${item.arrayLength}${inputObject.uniquekey}${inputObject.inputName}`}>
+                      item.fInputs.map((inputObject, x) =>
+                        <View key={x}>
                           <View style={styles.functionInputContainer}>
                             <Text>input name: {inputObject.inputName} </Text>
                           </View>
