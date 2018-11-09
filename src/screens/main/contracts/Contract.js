@@ -17,7 +17,6 @@ import {
   executePayableWithParams,
 } from '../../../scripts/contracts/contractValidation';
 import LinearButton from '../../../components/linearGradient/LinearButton';
-// import ClearButton from '../../../components/linearGradient/ClearButton';
 import getNetworkProvider from '../../../constants/Providers';
 import ContractInputContainer from '../../../components/contracts/ContractInputContainer';
 import ContractInputConstant from '../../../components/contracts/ContractInputConstant';
@@ -31,7 +30,7 @@ class Contract extends Component {
     this.state = {
       contractLoaded: false,
       provider: null,
-      address: '0xcD361f7173C439BB76F3E1206446e9D183B82787',
+      address: '',
       wallet: this.props.hotWallet.wallet,
       contractEvents: null,
       contractFunctions: null,
