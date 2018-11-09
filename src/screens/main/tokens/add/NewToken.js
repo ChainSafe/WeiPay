@@ -11,6 +11,8 @@ import { qrScannerInvoker } from '../../../../actions/ActionCreator';
 import { addNewToken } from '../../../../actions/AppConfig';
 import LinearButton from '../../../../components/linearGradient/LinearButton';
 import BoxShadowCard from '../../../../components/shadowCards/BoxShadowCard';
+import TokenTabNavigator from '../../../../components/customPageNavs/TokenTabNavigator';
+import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 
 class NewToken extends Component {
   state = {
@@ -53,6 +55,15 @@ class NewToken extends Component {
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>
+          <View style={styles.navBar}>
+            <BackWithMenuNav
+                  showMenu={false}
+                  showBack={true}
+                  navigation={this.props.navigation}
+                  backPage={'mainStack'}
+              />
+               <TokenTabNavigator navigation={this.props.navigation} />
+          </View>
           <View style={styles.boxShadowContainer}>
             <BoxShadowCard>
               <Text style={styles.cardText}>
@@ -112,6 +123,10 @@ const styles = StyleSheet.create({
   },
   navContainer: {
     flex: 0.65,
+  },
+  navBar: {
+    flex: 0.75,
+    paddingBottom: '2%',
   },
   navHeaderContainer: {
     flex: 0.3,
@@ -211,11 +226,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     width: '82%',
     alignContent: 'center',
-    marginLeft: '9%',
-    marginRight: '9%',
   },
   button: {
-    width: '82%',
+    width: '100%',
     height: Dimensions.get('window').height * 0.082,
   },
   footerGrandparentContainer: {

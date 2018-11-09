@@ -11,6 +11,8 @@ import * as actions from '../../../../actions/ActionCreator';
 import LinearButton from '../../../../components/linearGradient/LinearButton';
 import TokenConfig from '../../../../scripts/tokens/tokenConfig';
 import { addNewToken } from '../../../../actions/AppConfig';
+import TokenTabNavigator from '../../../../components/customPageNavs/TokenTabNavigator';
+import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 
 /**
  * React Screen Component
@@ -43,7 +45,7 @@ class Coins extends Component {
 
   refresh = () => {
     const refreshPage = NavigationActions.navigate({
-      routeName: 'AddTokenFunctionality',
+      routeName: 'searchToken',
       params: { tab: 1 },
     });
     this.props.navigation.dispatch(refreshPage);
@@ -95,6 +97,15 @@ class Coins extends Component {
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>
+        <View style={styles.navBar}>
+          <BackWithMenuNav
+                showMenu={false}
+                showBack={true}
+                navigation={this.props.navigation}
+                backPage={'mainStack'}
+            />
+             <TokenTabNavigator navigation={this.props.navigation}/>
+          </View>
           <View style={styles.searchComponent}>
             <SearchBar
               onSearchChange={(text) => { this.handleChangeText(text); }}
@@ -128,7 +139,7 @@ class Coins extends Component {
               </View>
               : null
             }          
-          </View>       
+          </View>      
           <View style={styles.btnContainer}>
             <LinearButton
               onClickFunction={this.addCustomToken}
@@ -154,6 +165,10 @@ const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
     backgroundColor: '#fafbfe',
+  },
+  navBar: {
+    flex: 0.75,
+    paddingBottom: '2%',
   },
   mainContainer: {
     flex: 1,
