@@ -24,6 +24,7 @@ addNewToken = (tokenObj) => {
   token.index = id;
   token.selected = true;
   token.type = "ERC20";
+  token.initialWalletToken = false;
   token.decimals = decimals;
   token.name = name;
   token.ens_address = null;
@@ -55,6 +56,7 @@ initialSetup = () => {
     let token = new Token(tokenObject.symbol, tokenObject.address);
     token.index = tokenObject.id;
     token.type = tokenObject.type;
+    token.initialWalletToken = true;
     token.selected = tokenObject.selected;
     token.decimals = tokenObject.decimals;
     token.name = tokenObject.name;

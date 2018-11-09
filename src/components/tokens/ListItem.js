@@ -38,6 +38,7 @@ class CoinListItem extends Component {
     } else if (this.state.totalTaps == 1) {
       this.setState({ totalTaps: 2 })
     } else if (this.state.totalTaps == 2) {
+      //This is where is token is being initialized
       this.props.addTokenToSetup(coin, this.props.tokens);
       this.setState({ checked: !(this.state.checked), totalTaps: 0 })
     }

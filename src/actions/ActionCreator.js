@@ -12,11 +12,19 @@ export function addTokenToSetup(coin, tokenList) {
     while (tokenList[i] != coin) {
       i++;
     }
-    tokenList[i] = coin;
+    console.log("This is a custom token: " + coin.initialWalletToken);
+    if (coin.selected == false) {
+      tokenList.splice(i,1);
+    }else {
+      tokenList[i] = coin;
+
+    }
     const newTokens = [...tokenList];
     dispatch({ type: actionTypes.ADD_TOKEN_SETUP, payload: newTokens });
   };
 }
+
+
 
 /**
  * returns an action with a new crypto wallet create using
