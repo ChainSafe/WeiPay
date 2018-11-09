@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, Dimensions, View, StyleSheet, TouchableOpacity, TouchableHighlight, TextInput } from 'react-native';
-import { CheckBox, Button } from 'react-native-elements';
+import { Text, Dimensions, View, StyleSheet } from 'react-native';
+import RF from 'react-native-responsive-fontsize';
 import ClearButton from '../linearGradient/ClearButton';
 
 class ContractInputConstant extends Component {
@@ -9,14 +9,13 @@ class ContractInputConstant extends Component {
   };
   render() {
     const { item } = this.props;
-    const { result } = this.state; 
-    console.log({item});
-    
+    const { result } = this.state;     
     return (
-       <View>
+       <View style={{marginTop: 15}}>
          <View style={styles.callResult}>
+          <Text style={styles.text}>Constant Method Call</Text>
           {
-            result !== null ? <Text> {result} </Text> : null
+            result !== null ? <Text style={styles.text}>{result} </Text> : null
           }
          </View>
          <View style={styles.btnContainer}>
@@ -24,13 +23,7 @@ class ContractInputConstant extends Component {
               buttonText= {`Call ${item.functionSignature}`}
               onClickFunction={async () => {
                 const methodResult = await this.props.contractExecution(item.functionSignature);
-                // con
-                console.log(methodResult);
                 await this.setState({ result: methodResult});
-                console.log('after set');
-                
-                console.log(this.state);
-                
               }}
               customStyles={styles.btnFunctionInput}
           />
@@ -44,8 +37,17 @@ const styles = StyleSheet.create({
   callResult: {
     flex: 1,
   },
+  text: {
+    fontFamily: 'Cairo-Light',
+    fontSize: RF(2.2),
+    letterSpacing: 0.8,
+    paddingLeft: '5%',
+    color: '#1a1f3e',
+  },
   btnContainer: {
+    marginTop: '5%',
     flex: 2,
+    marginRight: '5%',
   },
   btnFunctionInput: {
     height: Dimensions.get('window').height * 0.05,

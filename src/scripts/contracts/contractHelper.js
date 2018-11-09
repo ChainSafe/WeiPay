@@ -144,12 +144,8 @@ const executeMethod = async (wallet, functionName, inputs, contract, provider) =
     const args = Object.values(inputs);
     const contractWithSigner = contract.connect(initializedWallet);
     if (args.length == 0) {
-      const methodResponse = await contract['functions'][functionName]();
-      console.log('Call went through x');
-      console.log(methodResponse);
-      
+      const methodResponse = await contract['functions'][functionName]();    
       return methodResponse;
-      console.log('---------000---------------');
     } else {
       const call = "contractWithSigner['functions'][functionName](" + args.toString() + ')';
       console.log(call);

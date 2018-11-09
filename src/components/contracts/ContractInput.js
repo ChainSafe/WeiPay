@@ -5,6 +5,7 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
+import RF from 'react-native-responsive-fontsize';
 import { FormInput } from 'react-native-elements'
 
 class ContractInput extends Component {
@@ -14,12 +15,12 @@ class ContractInput extends Component {
 
     return (
        <View>
-         <Text> {name} </Text>
+         <Text style={styles.text}> {name} </Text>
          <FormInput
             placeholder={type}
             onChangeText={
               (text) => {
-                return this.props.processInput(text, inputName, type, signature);
+                return this.props.processContractInput(text, inputName, type, signature);
               }}
             inputStyle={styles.functionInputStyle}
             />
@@ -29,7 +30,14 @@ class ContractInput extends Component {
 }
 
 const styles = StyleSheet.create({
-  btn: {
+  text: {
+    fontFamily: 'Cairo-Light',
+    fontSize: RF(2.2),
+    letterSpacing: 0.8,
+    paddingLeft: '5%',
+    color: '#1a1f3e',
+  },
+  functionInputStyle: {
     height: Dimensions.get('window').height * 0.05,
     width: Dimensions.get('window').width * 0.82,
   },

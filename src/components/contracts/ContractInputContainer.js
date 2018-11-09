@@ -27,8 +27,8 @@ class ContractInputContainer extends Component {
         </View>
         <View style={styles.btnContainer}>
           <ClearButton
-            buttonText= {`Callx ${item.property}`}
-            onClickFunction={() => this.contractExecution(item) }
+            buttonText= {`Call ${item.property}`}
+            onClickFunction={() => this.props.contractExecution(item) }
             customStyles={styles.btnFunctionInput}
           />
         </View>
@@ -44,6 +44,10 @@ const styles = StyleSheet.create({
   btnContainer: {
     flex: 1,
     paddingTop: '5%',
+    alignItems: 'center',
+    alignContent: 'center',
+    justifyContent: 'center',
+    marginRight: '5%',
   },
   btnFunctionInput: {
     height: Dimensions.get('window').height * 0.05,

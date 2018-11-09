@@ -17,10 +17,11 @@ import {
   executePayableWithParams,
 } from '../../../scripts/contracts/contractValidation';
 import LinearButton from '../../../components/linearGradient/LinearButton';
-import ClearButton from '../../../components/linearGradient/ClearButton';
+// import ClearButton from '../../../components/linearGradient/ClearButton';
 import getNetworkProvider from '../../../constants/Providers';
 import ContractInputContainer from '../../../components/contracts/ContractInputContainer';
 import ContractInputConstant from '../../../components/contracts/ContractInputConstant';
+
 /**
  * Screen is used to display the passphrase (mnemonic) of the wallet - 0xcD361f7173C439BB76F3E1206446e9D183B82787
  */
@@ -30,7 +31,7 @@ class Contract extends Component {
     this.state = {
       contractLoaded: false,
       provider: null,
-      address: '0x12480E24eb5bec1a9D4369CaB6a80caD3c0A377A',
+      address: '0xcD361f7173C439BB76F3E1206446e9D183B82787',
       wallet: this.props.hotWallet.wallet,
       contractEvents: null,
       contractFunctions: null,
@@ -73,8 +74,6 @@ class Contract extends Component {
    * Need to check if contract method has no parameters, if it has paramaters, if is payable.
    */
   contractFuncCheck = async (name) => {
-    console.log('did we get in func check', {name});
-    
     const isFunctionPayable = Object.prototype.hasOwnProperty.call(name, 'payable');
     const hasFunctionParameters = Object.prototype.hasOwnProperty.call(name, 'property');
     const allFunctionDetails = this.state.withInputs;
@@ -90,33 +89,28 @@ class Contract extends Component {
       functionNameForContract = name;
       inputs = {};
     }
-    console.log('in contractFuncCheck');
     if (!isFunctionPayable && !hasFunctionParameters) {
       if (executeNonPayableNoParams(functionName, {})) {
         Toast.show('Success', Toast.LONG);
         const result = await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
-        console.log({result});
         return result;
       }
     } else if (!isFunctionPayable && hasFunctionParameters) {
       if (executeNonPayableWithParams(functionName, inputs, allFunctionDetails, isFunctionPayable)) {
         Toast.show('Success', Toast.LONG);
         const result = await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
-        console.log({result});
         return result;
       }
     } else if (isFunctionPayable && !hasFunctionParameters) {
       if (executePayableNoParams(functionName, {}, allFunctionDetails, isFunctionPayable)) {
         Toast.show('Success', Toast.LONG);
         const result = await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
-        console.log({result});
         return result;
       }
     } else if (isFunctionPayable && hasFunctionParameters) {
       if (executePayableWithParams(functionName, inputs, allFunctionDetails, isFunctionPayable)) {
         Toast.show('Success', Toast.LONG);
         const result = await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
-        console.log({result});
         return result;
       }
     }
@@ -154,7 +148,6 @@ class Contract extends Component {
                     </View>
                   : null
                 }
-
                 {
                   (item.fInputs.length != 0)
                   ? 
@@ -166,34 +159,13 @@ class Contract extends Component {
                         processInput={this.processFunctionInput}
                         contractExecution={this.contractFuncCheck}
                     />
-                    {/* {
-                      item.fInputs.map((inputObject, x) =>
-
-                        <ContractInput 
-                          key={x}
-                          inputItem={inputObject}      
-                          processInput={this.processFunctionInput} 
-                          signature={item.functionSignature}
-                          inputs={item.fInputs}
-                        />)
-                  }
-                    <ClearButton
-                      buttonText= {`Call ${item.property}`}
-                      onClickFunction={() => this.contractFuncCheck(item) }
-                      customStyles={styles.btnFunctionInput}
-                    /> */}
                 </View>
               : 
-                <View style={{padding:'5%'}}>
+                <View style={styles.topInputContainer}>
                   <ContractInputConstant 
                      contractExecution={this.contractFuncCheck}
                      item={item}
                   />
-                  {/* <ClearButton
-                      buttonText= {`Call ${item.functionSignature}`}
-                      onClickFunction={() => this.contractFuncCheck(item.functionSignature) }
-                      customStyles={styles.btnFunctionInput}
-                    /> */}
                 </View>
               }
               </Card>
@@ -329,25 +301,21 @@ const styles = StyleSheet.create({
   scrollView: {
     height: '100%',
   },
-  /** Parse Functions CSS */
   contractInputContainer: {
     flex: 1,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'yellow',
     width: '90%',
   },
   functionContainer: {
     flex: 1,
-    backgroundColor: 'green',
     alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'stretch',
+    justifyContent: 'space-around',
   },
   functionInputContainer: {
-    width: '92%',
-    marginLeft: '9%',
+    marginTop: '5%',
   },
   functionInputStyle: {
     width: '80%',
@@ -359,48 +327,15 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.0001,
   },
   topInputContainer: {
-    padding: '5%',
+    flex: 1,
   },
   btnFunctionInput: {
     height: Dimensions.get('window').height * 0.05,
     width: Dimensions.get('window').width * 0.82,
   },
-
-
   loadButton: {
     width: '82%',
     height: Dimensions.get('window').height * 0.082,
-  },
-  btnFlex: {
-    marginTop: '5%',
-    paddingRight: '5%',
-    justifyContent: 'center',
-    alignContent: 'center',
-  },
-  contentContainer: {
-    width: '82%',
-    flex: 1,
-  },
-  cardText: {
-    paddingBottom: '7.5%',
-    paddingTop: '7.5%',
-    paddingLeft: '7.5%',
-    paddingRight: '7.55%',
-    fontFamily: 'WorkSans-Light',
-    color: '#000000',
-    letterSpacing: 0.4,
-    fontSize: RF(2.4),
-    lineHeight: RF(2.8),
-  },
-  mnemonicText: {
-    paddingTop: '2.5%',
-    paddingLeft: '7.5%',
-    paddingRight: '7.55%',
-    fontFamily: 'WorkSans-Light',
-    letterSpacing: 0.4,
-    color: '#12c1a2',
-    fontSize: RF(2.2),
-    lineHeight: RF(3),
   },
   btnContainer: {
     width: '100%',
