@@ -19,6 +19,7 @@ export const INITIALIZE_NEW_APP_WALLET = 'INITIALIZE_NEW_APP_WALLET';
 export const TEMP_WALLET_NAME = 'TEMP_WALLET_NAME';
 export const ADD_NEW_SINGLE_TOKEN = 'ADD_NEW_SINGLE_TOKEN';
 export const ADD_TOKEN_SETUP = "add_token_setup"; //good
+// export const DELETE_NEW_ADDED_TOKEN = "delete_new_added_token";
 export const CREATING_NEW_WALLET = 'creating_new_wallet'; //good
 export const NEW_WALLET_NAME = 'new_wallet_name'; //good
 export const RESTORE_WALLET = 'restore_wallet'; //good
