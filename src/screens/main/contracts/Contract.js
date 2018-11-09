@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import {
   View, Text, StyleSheet, ScrollView, Dimensions, TouchableWithoutFeedback, Keyboard, SafeAreaView, TextInput,
 } from 'react-native';
-import { FormInput } from 'react-native-elements';
+import { FormInput, Card } from 'react-native-elements';
 import Toast from 'react-native-simple-toast';
 import RF from 'react-native-responsive-fontsize';
 import { connect } from 'react-redux';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
-import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
 import {
   processContractByAddress, processFunctionCall2,
 } from '../../../scripts/contracts/contractHelper';
@@ -18,8 +17,9 @@ import {
   executePayableWithParams,
 } from '../../../scripts/contracts/contractValidation';
 import LinearButton from '../../../components/linearGradient/LinearButton';
-import ClearButton from '../../../components/linearGradient/ClearButton';
 import getNetworkProvider from '../../../constants/Providers';
+import ContractInputContainer from '../../../components/contracts/ContractInputContainer';
+import ContractInputConstant from '../../../components/contracts/ContractInputConstant';
 
 /**
  * Screen is used to display the passphrase (mnemonic) of the wallet - 0xcD361f7173C439BB76F3E1206446e9D183B82787
@@ -88,26 +88,29 @@ class Contract extends Component {
       functionNameForContract = name;
       inputs = {};
     }
-    
     if (!isFunctionPayable && !hasFunctionParameters) {
       if (executeNonPayableNoParams(functionName, {})) {
-        await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
         Toast.show('Success', Toast.LONG);
+        const result = await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
+        return result;
       }
     } else if (!isFunctionPayable && hasFunctionParameters) {
       if (executeNonPayableWithParams(functionName, inputs, allFunctionDetails, isFunctionPayable)) {
-        await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
         Toast.show('Success', Toast.LONG);
+        const result = await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
+        return result;
       }
     } else if (isFunctionPayable && !hasFunctionParameters) {
       if (executePayableNoParams(functionName, {}, allFunctionDetails, isFunctionPayable)) {
-        await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
         Toast.show('Success', Toast.LONG);
+        const result = await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
+        return result;
       }
     } else if (isFunctionPayable && hasFunctionParameters) {
       if (executePayableWithParams(functionName, inputs, allFunctionDetails, isFunctionPayable)) {
-        await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
         Toast.show('Success', Toast.LONG);
+        const result = await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
+        return result;
       }
     }
   }
@@ -121,19 +124,17 @@ class Contract extends Component {
       const property = functionSignature.split('(')[0];
       const fInputs = allFunctionsWithInputs[i].inputs;
       const payable = allFunctionsWithInputs[i].payable;
-      contractFunctionsFormatted.push({ arrayLength, property, functionSignature, fInputs, payable });
+      contractFunctionsFormatted.push({ arrayLength, i, property, functionSignature, fInputs, payable });
     }
-
     return (
-      <View>
+      <View style={styles.contractInputContainer}>
         {
-          contractFunctionsFormatted.map((item) =>
-            <View key={`${item.arrayLength}${item.functionSignature}`} style={styles.functionContainer }>
-              <BoxShadowCard>
+          contractFunctionsFormatted.map((item, i) =>
+            <View key={i} style={styles.functionContainer} >
+              <Card>
                 <View style={styles.functionInputContainer}>
                   <Text>Signature: {item.functionSignature} </Text>
                 </View>
-
                 {
                   item.payable
                   ?
@@ -146,43 +147,28 @@ class Contract extends Component {
                     </View>
                   : null
                 }
-
                 {
                   (item.fInputs.length != 0)
-                  ? <View>
-                    {
-                      item.fInputs.map((inputObject) =>
-                        <View key={`${item.arrayLength}${inputObject.uniquekey}${inputObject.inputName}`}>
-                          <View style={styles.functionInputContainer}>
-                            <Text>input name: {inputObject.inputName} </Text>
-                          </View>
-                          <View style={styles.functionInputContainer}>
-                            <FormInput
-                              placeholder={inputObject.type}
-                              onChangeText={(text)=> this.processFunctionInput(text, inputObject.inputName, inputObject.type, item.functionSignature)}
-                              inputStyle={styles.functionInputStyle}
-                            />
-                          </View>
-                      </View>,)
-                  }
-                    <ClearButton
-                      buttonText= {`Call ${item.property}`}
-                      onClickFunction={() => this.contractFuncCheck(item) }
-                      customStyles={styles.btnFunctionInput}
+                  ? 
+                  <View style={styles.topInputContainer}>
+                    <ContractInputContainer 
+                        signature={item.functionSignature}
+                        inputs={item.fInputs}
+                        item={item}
+                        processInput={this.processFunctionInput}
+                        contractExecution={this.contractFuncCheck}
                     />
                 </View>
-              :
-                <View>
-                  <ClearButton
-                      buttonText= {`Call ${item.functionSignature}`}
-                      onClickFunction={() => this.contractFuncCheck(item.functionSignature) }
-                      customStyles={styles.btnFunctionInput}
-                    />
+              : 
+                <View style={styles.topInputContainer}>
+                  <ContractInputConstant 
+                     contractExecution={this.contractFuncCheck}
+                     item={item}
+                  />
                 </View>
               }
-              </BoxShadowCard>
-            </View>,
-          )
+              </Card>
+            </View>,)
         }
       </View>
     );
@@ -272,47 +258,11 @@ const styles = StyleSheet.create({
   navContainer: {
     flex: 0.75,
   },
-  boxShadowContainer: {
-    alignItems: 'center',
-    flex: 3,
-  },
-  functionContainer: {
-    flex: 1,
-  },
-  functionInputContainer: {
-    width: '92%',
-    marginLeft: '9%',
-  },
-  btnFunctionInput: {
-    height: Dimensions.get('window').height * 0.05,
-    width: Dimensions.get('window').width * 0.82,
-  },
-  functionInputStyle: {
-    width: '80%',
-    fontSize: RF(2.4),
-    flexWrap: 'wrap',
-    color: '#12c1a2',
-    letterSpacing: 0.4,
-    fontFamily: 'WorkSans-Regular',
-    borderBottomWidth: 0.0001,
-  },
   topFormInput: {
     flex: 5,
     paddingLeft: '5%',
     paddingRight: '5%',
     paddingTop: '5%',
-  },
-  scrollViewContainer: {
-    flex: 5,
-    paddingBottom: '2.5%',
-    paddingTop: '2.5%',
-  },
-  scrollView: {
-    height: '100%',
-  },
-  loadButton: {
-    width: '82%',
-    height: Dimensions.get('window').height * 0.082,
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
@@ -322,6 +272,13 @@ const styles = StyleSheet.create({
     color: '#1a1f3e',
     paddingTop: '2.5%',
     marginBottom: '5%',
+  },
+  textDescription: {
+    fontFamily: 'Cairo-Light',
+    fontSize: RF(3),
+    letterSpacing: 0.8,
+    paddingLeft: '9%',
+    color: '#1a1f3e',
   },
   addressField: {
     marginLeft: '9%',
@@ -335,43 +292,49 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Light',
     borderBottomWidth: 0.0001,
   },
-  btnFlex: {
-    marginTop: '5%',
-    paddingRight: '5%',
+  scrollViewContainer: {
+    flex: 5,
+    paddingBottom: '2.5%',
+    paddingTop: '2.5%',
+  },
+  scrollView: {
+    height: '100%',
+  },
+  contractInputContainer: {
+    flex: 1,
+    alignSelf: 'center',
+    alignItems: 'center',
     justifyContent: 'center',
-    alignContent: 'center',
+    width: '90%',
   },
-  textDescription: {
-    fontFamily: 'Cairo-Light',
-    fontSize: RF(3),
-    letterSpacing: 0.8,
-    paddingLeft: '9%',
-    color: '#1a1f3e',
+  functionContainer: {
+    flex: 1,
+    alignSelf: 'center',
+    alignItems: 'stretch',
+    justifyContent: 'space-around',
   },
-  contentContainer: {
-    width: '82%',
+  functionInputContainer: {
+    marginTop: '5%',
+  },
+  functionInputStyle: {
+    width: '80%',
+    fontSize: RF(2.4),
+    flexWrap: 'wrap',
+    color: '#12c1a2',
+    letterSpacing: 0.4,
+    fontFamily: 'WorkSans-Regular',
+    borderBottomWidth: 0.0001,
+  },
+  topInputContainer: {
     flex: 1,
   },
-  cardText: {
-    paddingBottom: '7.5%',
-    paddingTop: '7.5%',
-    paddingLeft: '7.5%',
-    paddingRight: '7.55%',
-    fontFamily: 'WorkSans-Light',
-    color: '#000000',
-    letterSpacing: 0.4,
-    fontSize: RF(2.4),
-    lineHeight: RF(2.8),
+  btnFunctionInput: {
+    height: Dimensions.get('window').height * 0.05,
+    width: Dimensions.get('window').width * 0.82,
   },
-  mnemonicText: {
-    paddingTop: '2.5%',
-    paddingLeft: '7.5%',
-    paddingRight: '7.55%',
-    fontFamily: 'WorkSans-Light',
-    letterSpacing: 0.4,
-    color: '#12c1a2',
-    fontSize: RF(2.2),
-    lineHeight: RF(3),
+  loadButton: {
+    width: '82%',
+    height: Dimensions.get('window').height * 0.082,
   },
   btnContainer: {
     width: '100%',
