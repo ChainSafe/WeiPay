@@ -3,7 +3,6 @@ import {
   StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import RF from 'react-native-responsive-fontsize';
-import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
 
 /**
  * Custom Tab Navigator Component
@@ -32,58 +31,29 @@ export default class Tabs extends Component {
       }
     }
 
-    onSwipe(gestureName) {
-      const { SWIPE_LEFT, SWIPE_RIGHT } = swipeDirections;
-      switch (gestureName) {
-        case SWIPE_LEFT:
-          if (this.state.activeTab < this.state.totalTabs) {
-            this.setState({ activeTab: (this.state.activeTab + 1) });
-          }
-          break;
-        case SWIPE_RIGHT:
-          if (this.state.activeTab > 0) {
-            this.setState({ activeTab: (this.state.activeTab - 1) });
-          }
-          break;
-        default:
-          break;
-      }
-    }
-
     render({ children } = this.props) {
-      const config = {
-        velocityThreshold: 0.3,
-        directionalOffsetThreshold: 80,
-      };
-
       return (
-        <GestureRecognizer
-          onSwipe={(direction, state) => { return this.onSwipe(direction, state); }}
-          config={config}
-          style={{ flex: 1 }}
-          >
-          <View style={styles.container}>
-            <View style={styles.tabsContainer}>
-              {children.map(({ props: { title } }, index) => {
-                return <TouchableOpacity
-                  style={[
-                    styles.tabContainer,
-                    index === this.state.activeTab ? styles.tabContainerActive : { borderBottomColor: '#bcbcbc', borderBottomWidth: 1 },
-                  ]}
-                  onPress={() => { return this.setState({ activeTab: index }); } }
-                  key={index}
-                >
-                  <Text style={ index === this.state.activeTab ? styles.tabTextActive : styles.tabText}>
-                    {title}
-                  </Text>
-                </TouchableOpacity>;
-              })}
-            </View>
-            <View style={styles.contentContainer}>
-              {children[this.state.activeTab]}
-            </View>
+        <View style={styles.container}>
+          <View style={styles.tabsContainer}>
+            {children.map(({ props: { title } }, index) => {
+              return <TouchableOpacity
+                style={[
+                  styles.tabContainer,
+                  index === this.state.activeTab ? styles.tabContainerActive : { borderBottomColor: '#bcbcbc', borderBottomWidth: 1 },
+                ]}
+                onPress={() => { return this.setState({ activeTab: index }); } }
+                key={index}
+              >
+                <Text style={ index === this.state.activeTab ? styles.tabTextActive : styles.tabText}>
+                  {title}
+                </Text>
+              </TouchableOpacity>;
+            })}
           </View>
-        </GestureRecognizer>
+          <View style={styles.contentContainer}>
+            {children[this.state.activeTab]}
+          </View>
+        </View>
       );
     }
 }

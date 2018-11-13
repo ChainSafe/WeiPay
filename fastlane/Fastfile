@@ -77,4 +77,13 @@ platform :android do
     push_to_git_remote
     slack_playstore
   end
+
+  desc 'Ship to Playstore Beta.'
+  lane :beta do
+    build
+    supply(track: 'alpha')
+    git_commit(path: ['./android/gradle.properties'], message: 'Bump versionCode')
+    push_to_git_remote
+    slack_playstore
+  end
 end

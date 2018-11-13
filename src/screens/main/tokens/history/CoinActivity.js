@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native';
-import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator';
-import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 import { connect } from 'react-redux';
-import RF from "react-native-responsive-fontsize"
+import Config from 'react-native-config';
+import RF from 'react-native-responsive-fontsize';
 
 const axios = require('axios');
 const ethers = require('ethers');
@@ -18,65 +17,88 @@ class CoinActivity extends Component {
       loaded: false,
       data: [],
       address: this.props.wallet.pubKey,
+      noTransactions: null,
+      loading: false,
+      error: null,
+      feedback: null,
     };
   }
 
-  componentDidMount() {
-    // console.log(this.state.address);
+  async componentDidMount() {
+    await this.setState({ loading: true });
     this.getData(this.state.address);
   }
 
-  /*
-  http://api-ropsten.etherscan.io/api?module=account&action=txlist&address=0xFc02F8B4309fFF99F3C0BA3e8Bbb7399572EEf51&startblock=0&endblock=99999999&sort=asc&apikey=YJ1TRXBKAH9QZWINVFT83JMFBQI15X7UPR
-
-  */
-
   getData = async (address) => {
-    const url = `http://api-ropsten.etherscan.io/api?module=account&action=txlist&address=${  address  }&sort=asc&apikey=YJ1TRXBKAH9QZWINVFT83JMFBQI15X7UPR`;
-    axios.get(url).then((response) => {
-      this.parseData(response.data.result);
+    const network = this.props.network;
+    let url;
+    if (network === 'mainnet') {
+      url = `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${Config.ETHERSCAN_API_KEY}`;
+    } else if (network === 'ropsten') {
+      url = `https://api-ropsten.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${Config.ETHERSCAN_API_KEY}`;
+    } else if (network === 'kovan') {
+      url = `https://api-kovan.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${Config.ETHERSCAN_API_KEY}`;
+    } else {
+      url = `https://api-rinkeby.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${Config.ETHERSCAN_API_KEY}`;
+    }
+    axios.get(url)
+    .then((res) => {
+      this.parseData(res.data.result, network, address);
+    })
+    .catch((err) => {
+      this.setState({ error: err });
     });
   }
 
-  parseData = (json) => {
-    
-    const transactions = [];
-    for (let i = 0; i < json.length; i++) {
-      const transObj = {};
-      if (json[i].from == this.state.address) {
-        transObj.type = 'Sent'; // enum should be implemented
-        transObj.address = json[i].to;
-        transObj.uri = 'require(../../../assets/images/sent.png)';
-      } else {
-        transObj.type = 'Received'; // enum should be implemented
-        transObj.address = json[i].from;
-        transObj.uri = 'require(../../../assets/images/receive.png)';
+  parseData = async (json, network, address) => {
+    if (json.length === 0) {
+      this.setState({ feedback: `No transactions for public address - ${address} on the ${network} network.` });
+    } else {
+      const transactions = [];
+      for (let i = 0; i < json.length; i++) {
+        const transObj = {};
+        if (json[i].from == this.state.address) {
+          transObj.type = 'Sent';
+          transObj.address = json[i].to;
+          transObj.uri = 'require(../../../assets/images/sent.png)';
+        } else {
+          transObj.type = 'Received';
+          transObj.address = json[i].from;
+          transObj.uri = 'require(../../../assets/images/receive.png)';
+        }
+        transObj.value = utils.formatEther(json[i].value);
+        transObj.blockNumber = json[i].blockNumber;
+        transObj.timeStamp = moment.unix(json[i].timeStamp).format('MMMM Do YYYY, h:mm:ss a');
+        transObj.hash = json[i].hash;
+        transObj.blockHash = json[i].blockHash;
+        transactions.push(transObj);
       }
-      transObj.value = utils.formatEther(json[i].value);
-      transObj.blockNumber = json[i].blockNumber;
-      transObj.timeStamp = moment.unix(json[i].timeStamp).format('MMMM Do YYYY, h:mm:ss a');
-      transObj.hash = json[i].hash;
-      transObj.blockHash = json[i].blockHash;
-      transactions.push(transObj);
+      await this.setState({
+        data: transactions,
+        loading: false,
+      });
     }
-    this.setState({
-      data: transactions,
-    });
   }
 
   /**
    * Returns a component holding a list of transactions that have been occured
    */
   render() {
+    const { data, feedback } = this.state;
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>
           <View style={styles.listContainer}>
-            <FlatList
-              data={this.state.data}
+            {
+              feedback !== null ? <View style={styles.feedbackContainer}> <Text style={styles.addressTitle}> {feedback} </Text> </View> : null
+            }
+            {
+              data.length > 0
+              ? <FlatList
+              data={data}
               keyExtractor={(x, i) => i.toString()}
               style={styles.flatListStyle}
-              renderItem={({ item }) =>              
+              renderItem={({ item }) =>
                 <View style={styles.itemStyle}>
                   <View>
                     <View>
@@ -98,6 +120,12 @@ class CoinActivity extends Component {
                   </View>
                 </View>
               } />
+              : <View style={{ flex: 1 }}>
+                  <View style={styles.loadingBlock}> </View>
+                  <View style={styles.loadingBlock}> </View>
+                  <View style={styles.loadingBlock}> </View>
+                </View>
+            }
           </View>
         </View >
       </SafeAreaView>
@@ -107,33 +135,22 @@ class CoinActivity extends Component {
 
 const styles = StyleSheet.create({
   safeAreaView: {
-    flex: 1, 
-    backgroundColor: '#fafbfe'
+    flex: 1,
+    backgroundColor: '#fafbfe',
   },
   mainContainer: {
     flex: 1,
     backgroundColor: '#fafbfe',
     width: '100%',
   },
-  navContainer: {
-    flex: 0.65,
-  },
-  navHeaderContainer: {
-    flex: 0.3,
-  },
-  flatListStyle: {
-    flex: 1, 
-    width: '100%', 
-    backgroundColor: '#fafbfe'
-  },
   listContainer: {
     flex: 5.25,
     marginTop: '12%',
   },
-  addressContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    paddingBottom: '1.5%',
+  feedbackContainer: {
+    width: '80%',
+    flex: 1,
+    marginLeft: '10%',
   },
   addressTitle: {
     fontFamily: 'Cairo-Regular',
@@ -141,6 +158,62 @@ const styles = StyleSheet.create({
     fontSize: RF(2.1),
     lineHeight: RF(3),
     letterSpacing: 0.4,
+  },
+  flatListStyle: {
+    flex: 1,
+    width: '100%',
+    backgroundColor: '#fafbfe',
+  },
+  itemStyle: {
+    paddingBottom: '5%',
+    paddingLeft: '2.5%',
+    paddingRight: '2.5%',
+    marginBottom: '5%',
+    marginLeft: '7.5%',
+    marginRight: '7.5%',
+    flex: 1,
+    width: '82%',
+    borderBottomWidth: 1,
+    borderBottomColor: '#b3b3b3',
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingBottom: '1.5%',
+  },
+  type: {
+    fontSize: RF(2.4),
+    letterSpacing: 0.5,
+    fontFamily: 'Cairo-Regular',
+    alignItems: 'flex-start',
+    flex: 1,
+    width: '60%',
+    top: 0,
+  },
+  date: {
+    fontSize: RF(1.7),
+    letterSpacing: 0.4,
+    fontFamily: 'Cairo-Light',
+    top: '1.75%',
+    color: '#141f25',
+  },
+  addressContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingBottom: '1.5%',
+  },
+  loadingBlock: {
+    height: 200,
+    marginTop: '2.5%',
+    backgroundColor: '#F5F5F5',
+    paddingBottom: '2.5%',
+    paddingLeft: '2.5%',
+    paddingRight: '2.5%',
+    marginBottom: '2.5%',
+    marginLeft: '7.5%',
+    marginRight: '7.5%',
+    flex: 1,
+    width: '82%',
   },
   addressValue: {
     fontSize: RF(2.1),
@@ -169,44 +242,14 @@ const styles = StyleSheet.create({
     lineHeight: RF(2.9),
     letterSpacing: 0.4,
   },
-  headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    paddingBottom: '1.5%',
-  },
-  itemStyle: {  
-    paddingBottom: '5%',
-    paddingLeft: '2.5%',
-    paddingRight: '2.5%',
-    marginBottom: '5%',
-    marginLeft: '7.5%',
-    marginRight: '7.5%',
-    flex: 1,
-    width: '82%',
-    borderBottomWidth: 1, 
-    borderBottomColor: '#b3b3b3'
-  },
-  type: {
-    fontSize: RF(2.4),
-    letterSpacing: 0.5,
-    fontFamily: 'Cairo-Regular',
-    alignItems: 'flex-start',
-    flex: 1,
-    width: '60%',
-    top: 0,
-  },
-  date: {
-    fontSize: RF(1.7),
-    letterSpacing: 0.4,
-    fontFamily: 'Cairo-Light',
-    top: '1.75%',
-    color: '#141f25',
-  },
 });
 
-const mapStateToProps = ({HotWallet}) => {
+const mapStateToProps = ({ HotWallet, Wallet }) => {
+  const { hotWallet } = HotWallet;
+  const { network } = Wallet;
   return {
-    wallet: HotWallet.hotWallet,
+    wallet: hotWallet,
+    network,
   };
 };
 
