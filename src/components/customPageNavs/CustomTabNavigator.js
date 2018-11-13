@@ -57,11 +57,11 @@ export default class Tabs extends Component {
       };
 
       return (
-        <GestureRecognizer
-          onSwipe={(direction, state) => { return this.onSwipe(direction, state); }}
-          config={config}
-          style={{ flex: 1 }}
-          >
+        // <GestureRecognizer
+        //   onSwipe={(direction, state) => { return this.onSwipe(direction, state); }}
+        //   config={config}
+        //   style={{ flex: 1 }}
+        //   >
           <View style={styles.container}>
             <View style={styles.tabsContainer}>
               {children.map(({ props: { title } }, index) => {
@@ -83,7 +83,7 @@ export default class Tabs extends Component {
               {children[this.state.activeTab]}
             </View>
           </View>
-        </GestureRecognizer>
+        // </GestureRecognizer>
       );
     }
 }
