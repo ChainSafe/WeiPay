@@ -21,6 +21,8 @@ class AppNavigation extends Component {
     const { navigation, dispatch } = this.props;
     if (this.props.navigationState.index === 2) {
       return false;
+    }else if (this.props.navigationState.index == 1) {
+      return false;
     }
 
     dispatch(NavigationActions.back());
