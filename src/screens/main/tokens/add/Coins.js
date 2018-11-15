@@ -22,6 +22,8 @@ class Coins extends Component {
     this.props.navigation.dispatch(navigateToMain);
   };
 
+  
+
   render() {
     
     return (

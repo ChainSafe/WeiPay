@@ -1,5 +1,5 @@
 import { StackNavigator, DrawerNavigator, DrawerItems } from 'react-navigation';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, BackHandler } from 'react-native';
 import React from 'react';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import Contacts from '../../screens/main/menu/contacts/index';
@@ -21,6 +21,8 @@ import Coins from '../../screens/main/tokens/add/Coins';
 import NewToken from '../../screens/main/tokens/add/NewToken';
 import Tokens from '../../screens/main/tokens/add/Tokens';
 
+
+
 const CustomDrawerContentComponent = props => (
   <View style={styles.customContainer}>
     <View>
@@ -32,12 +34,23 @@ const CustomDrawerContentComponent = props => (
     </View>
   </View>
 );
+BackHandler.addEventListener('hardwareBackPress', function() {
+  // this.onMainScreen and this.goBack are just examples, you need to use your own implementation here
+  // Typically you would use the navigator here to go to the last state.
 
+  if (!this.navigator()) {
+    this.goBack();
+    return true;
+  }
+  return false;
+});
 /**
  * Constant contains all the screens that can be navigated to using the
  * navigate method from any class
  */
 const navigator = DrawerNavigator({
+
+  
   Portfolio: {
     screen: StackNavigator({
       portfolioScreen: { screen: Portfolio },
