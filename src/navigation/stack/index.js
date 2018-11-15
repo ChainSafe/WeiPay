@@ -18,7 +18,7 @@ class AppNavigation extends Component {
   }
 
   onBackPress = () => {
-    const { navigation, dispatch } = this.props;
+    const { dispatch } = this.props;
     if (this.props.navigationState.index === 2) {
       return false;
     }else if (this.props.navigationState.index == 1) {
@@ -31,7 +31,7 @@ class AppNavigation extends Component {
 
   
   render() {
-    const { navigationState, dispatch } = this.props;
+    const { navigationState, dispatch } = this.props  ;
     return (
       <NavigationStack
         navigation={addNavigationHelpers({ dispatch, state: navigationState, })}
