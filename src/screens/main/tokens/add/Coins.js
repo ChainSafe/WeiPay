@@ -20,9 +20,7 @@ class Coins extends Component {
       actions: [NavigationActions.navigate({ routeName: 'portfolioScreen' })],
     });
     this.props.navigation.dispatch(navigateToMain);
-  };
-
-  
+  }; 
 
   render() {
     
