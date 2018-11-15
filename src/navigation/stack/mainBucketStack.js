@@ -34,20 +34,7 @@ const CustomDrawerContentComponent = props => (
     </View>
   </View>
 );
-// BackHandler.addEventListener('hardwareBackPress', function() {
-//   // this.onMainScreen and this.goBack are just examples, you need to use your own implementation here
-//   // Typically you would use the navigator here to go to the last state.
 
-//   if (!this.navigator()) {
-//     this.goBack();
-//     return true;
-//   }
-//   return false;
-// });
-/**
- * Constant contains all the screens that can be navigated to using the
- * navigate method from any class
- */
 const navigator = DrawerNavigator({
 
   
