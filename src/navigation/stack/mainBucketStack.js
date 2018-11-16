@@ -1,5 +1,5 @@
 import { StackNavigator, DrawerNavigator, DrawerItems } from 'react-navigation';
-import { View, StyleSheet, BackHandler } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import React from 'react';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import Contacts from '../../screens/main/menu/contacts/index';
