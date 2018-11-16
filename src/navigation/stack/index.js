@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addNavigationHelpers } from 'react-navigation';
-import { BackHandler } from "react-native";
 import { NavigationActions } from "react-navigation";
 
 import NavigationStack from './navigationStack';
@@ -21,7 +20,7 @@ class AppNavigation extends Component {
     const { dispatch } = this.props;
     if (this.props.navigationState.index === 2) {
       return false;
-    }else if (this.props.navigationState.index == 1) {
+    } else if (this.props.navigationState.index == 1) {
       return false;
     }
 
