@@ -207,12 +207,6 @@ class Portfolio extends Component {
 
   render() {
 
-    console.log("---------Navigation INdex-------------");
-    console.log(this.props.navigation.index);
-    
-    
-
-
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer} >
