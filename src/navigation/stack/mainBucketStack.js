@@ -21,6 +21,8 @@ import Coins from '../../screens/main/tokens/add/Coins';
 import NewToken from '../../screens/main/tokens/add/NewToken';
 import Tokens from '../../screens/main/tokens/add/Tokens';
 
+
+
 const CustomDrawerContentComponent = props => (
   <View style={styles.customContainer}>
     <View>
@@ -33,11 +35,9 @@ const CustomDrawerContentComponent = props => (
   </View>
 );
 
-/**
- * Constant contains all the screens that can be navigated to using the
- * navigate method from any class
- */
 const navigator = DrawerNavigator({
+
+  
   Portfolio: {
     screen: StackNavigator({
       portfolioScreen: { screen: Portfolio },

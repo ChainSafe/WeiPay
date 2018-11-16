@@ -206,6 +206,7 @@ class Portfolio extends Component {
    */
 
   render() {
+
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer} >

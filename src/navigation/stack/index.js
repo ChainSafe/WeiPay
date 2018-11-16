@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addNavigationHelpers } from 'react-navigation';
+import { NavigationActions } from "react-navigation";
+
 import NavigationStack from './navigationStack';
 
 /**
@@ -8,11 +10,30 @@ import NavigationStack from './navigationStack';
  * Global Navigation Component used to navigate to different screens within the app
  */
 class AppNavigation extends Component {
+
+  constructor(props) {
+    super(props)
+    BackHandler.addEventListener("hardwareBackPress", this.onBackPress  );
+  }
+
+  onBackPress = () => {
+    const { dispatch } = this.props;
+    if (this.props.navigationState.index === 2) {
+      return false;
+    } else if (this.props.navigationState.index == 1) {
+      return false;
+    }
+
+    dispatch(NavigationActions.back());
+    return true;
+  };
+
+  
   render() {
-    const { navigationState, dispatch } = this.props;
+    const { navigationState, dispatch } = this.props  ;
     return (
       <NavigationStack
-        navigation={addNavigationHelpers({ dispatch, state: navigationState })}
+        navigation={addNavigationHelpers({ dispatch, state: navigationState, })}
       />
     );
   }
