@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { BackHandler } from 'react-native';
 import { addNavigationHelpers } from 'react-navigation';
 import { NavigationActions } from "react-navigation";
 
