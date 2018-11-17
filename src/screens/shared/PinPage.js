@@ -23,6 +23,8 @@ class PinPage extends Component {
       password: '',
       isValidLength: false,
       error: null,
+      resetInitiated: false,
+      resetConfirmed: false,
     };
   }
 
@@ -56,14 +58,14 @@ class PinPage extends Component {
   decryptKey = () => {
     const ciphertext = this.props.encryptedWallet;
     const { password } = this.state;
-    var bytes  = CryptoJS.AES.decrypt(ciphertext, password);
-    var plaintext = bytes.toString(CryptoJS.enc.Utf8);
+    const bytes = CryptoJS.AES.decrypt(ciphertext, password);
+    const plaintext = bytes.toString(CryptoJS.enc.Utf8);
     return plaintext;
   }
 
   setupEncyrptionProcess = async (walletName, userWallets) => {
     const { nextScreenToNavigate, wallet } = this.props.navigation.state.params;
-    const serialialedWallet =  JSON.stringify(wallet);
+    const serialialedWallet = JSON.stringify(wallet);
     const encrypted = this.encryptSerializedWallet(serialialedWallet);
     const hotWalletObj = { wallet, name: walletName };
     this.props.setHotWallet(hotWalletObj);
@@ -100,13 +102,11 @@ class PinPage extends Component {
   }
 
   resetApp = () => {
-
+    
   }
 
   render() {
-
-
-
+    const { resetInitiated } = this.state;
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -124,45 +124,64 @@ class PinPage extends Component {
                 <View style={styles.boxShadowContainer}>
                   <View style={styles.contentContainer}>
                     <BoxShadowCard>
-                    <View style={{flex: 1}}>
-                      <View style={{flex: 3}}>
-                        <Text style={styles.option}>
-                        App Security
-                        </Text>
-                        <Text style={styles.cardText}>
-                          { this.props.isInSetupScreens
-                            ? 'Create a password for wallet, minimum length of 4.'
-                            : 'Enter Password'
-                          }
-                        </Text>
-                        <View style={styles.formInputContainer}>
-                          <FormInput
-                            placeholder={'1234'}
-                            onChangeText={this.setPassword.bind(this)}
-                            inputStyle={styles.txtWalletName}
-                            secureTextEntry={true}
-                          />
-                        </View>
-                      </View>
-                      {
-                        this.props.isInSetupScreens
-                          ? null
-                          : <View style={{flex: 0.75}}>
-                            <TouchableWithoutFeedback onPress={this.resetApp}>
-                              <View>
-                                  <Text style={styles.forgotText}>Forgot Password </Text>
+                      <View style={styles.formFlexContainer}>
+                        <View style={styles.inputFlexContainer}>
+                          <Text style={styles.option}>
+                            { resetInitiated ? 'Are you sure you want to reset' : 'App Security' }
+                          </Text>
+                          {
+                            resetInitiated
+                              ? null
+                              : <View>
+                                <Text style={styles.cardText}>
+                                  { this.props.isInSetupScreens
+                                    ? 'Create a password for wallet, minimum length of 4.'
+                                    : 'Enter Password'
+                                  }
+                                </Text>
+                                <View style={styles.formInputContainer}>
+                                  <FormInput
+                                    placeholder={'1234'}
+                                    onChangeText={this.setPassword.bind(this)}
+                                    inputStyle={styles.txtWalletName}
+                                    secureTextEntry={true}
+                                  />
+                                </View>
                               </View>
-                            </TouchableWithoutFeedback>
-                          </View>
-                      }
+                          }
+                        </View>
+                        {
+                          this.props.isInSetupScreens
+                            ? null
+                            : <View style={styles.forgotContainer}>
+                              <TouchableWithoutFeedback onPress={() => {
+                                return this.setState({ resetInitiated: true });
+                              }}>
+                                <View>
+                                { resetInitiated ? null : <Text style={styles.forgotText}>Forgot Password </Text> }
+                                </View>
+                              </TouchableWithoutFeedback>
+                            </View>
+                        }
+                        {
+                          resetInitiated
+                            ? <View style={styles.forgotContainer}> <TouchableWithoutFeedback onPress={() => {
+                              return this.setState({ resetInitiated: false });
+                            }}>
+                              <View>
+                                <Text style={styles.forgotText}> No </Text>
+                              </View>
+                            </TouchableWithoutFeedback> </View>
+                            : null
+                        }
                       </View>
                     </BoxShadowCard>
                   </View>
                 </View>
                 <View style={styles.btnNextContainer}>
                     <LinearButton
-                      onClickFunction={this.setPin}
-                      buttonText="Set Pin"
+                      onClickFunction={ resetInitiated ? this.resetApp : this.setPin }
+                      buttonText= {resetInitiated ? 'Reset Wallet' : 'Set Pin' }
                       customStyles={styles.btnNext}
                       buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
                     />
@@ -199,10 +218,6 @@ const styles = StyleSheet.create({
   pinContainer: {
     flex: 5.65,
   },
-  boxShadowContainer: {
-    alignItems: 'center',
-    flex: 0.44,
-  },
   textHeader: {
     fontFamily: 'Cairo-Light',
     paddingBottom: '5%',
@@ -212,9 +227,19 @@ const styles = StyleSheet.create({
     color: '#1a1f3e',
     flex: 0.11,
   },
+  boxShadowContainer: {
+    alignItems: 'center',
+    flex: 0.44,
+  },
   contentContainer: {
     flex: 1,
     width: '82%',
+  },
+  formFlexContainer: {
+    flex: 1,
+  },
+  inputFlexContainer: {
+    flex: 3,
   },
   option: {
     paddingBottom: '5%',
@@ -227,17 +252,6 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontSize: RF(2.5),
     fontWeight: '500',
-  },
-  forgotText: {
-    paddingLeft: '10%',
-    paddingRight: '10%',
-    fontFamily: 'WorkSans-Light',
-    letterSpacing: 0.4,
-    lineHeight: RF(2.1),
-    color: '#000000',
-    fontSize: RF(2.1),
-    justifyContent: 'flex-end',
-    display: 'flex',
   },
   cardText: {
     paddingLeft: '10%',
@@ -257,10 +271,23 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Regular',
     borderBottomWidth: 0.001,
   },
+  forgotContainer: {
+    flex: 0.75,
+  },
+  forgotText: {
+    paddingLeft: '10%',
+    paddingRight: '10%',
+    fontFamily: 'WorkSans-Light',
+    letterSpacing: 0.4,
+    lineHeight: RF(2.1),
+    color: '#000000',
+    fontSize: RF(2.1),
+    justifyContent: 'flex-end',
+    display: 'flex',
+  },
   formInputContainer: {
     width: '90%',
     marginLeft: '5%',
-    // paddingBottom: '5%',
   },
   btnContainer: {
     flex: 0.5,
