@@ -200,22 +200,12 @@ export default (state = INITIAL_STATE, action) => {
       OldTokens.push(NewcoinObj);
       const OldcoinData = state.coinData
       OldcoinData.push(NewcoinObj); 
-      return { ...state, coinData: OldcoinData, tokens: OldTokens };
+      return { ...state, coinData: OldcoinData, tokens: OldTokens }
+    case actions.NUKE_NEW_WALLET:
+    return {
+      ...INITIAL_STATE,
+    };
     default:
       return state;
   }
 };
-
-/*
-case actions.ADD_TOKEN_SETUP:
-      const current = state.tokens;
-      const selectedToken = { ...action.payload, balance: 0}
-      let newTokens = [];
-      const index = current.map(token => token.id).indexOf(action.payload.id);
-      if (index === -1) {      
-        newTokens = [...current, selectedToken];
-      } else { 
-        newTokens = [...current.slice(0, index), ...current.slice(index + 1)];     
-      }
-      return { ...state, tokens: newTokens };
-      */

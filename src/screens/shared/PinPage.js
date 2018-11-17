@@ -9,11 +9,8 @@ import RF from 'react-native-responsive-fontsize';
 import { FormInput } from 'react-native-elements';
 import * as actions from '../../actions/AppConfig';
 import LinearButton from '../../components/linearGradient/LinearButton';
-import ClearButton from '../../components/linearGradient/ClearButton';
 import BoxShadowCard from '../../components/shadowCards/BoxShadowCard';
 import BackWithMenuNav from '../../components/customPageNavs/BackWithMenuNav';
-
-const ethers = require('ethers');
 
 class PinPage extends Component {
   constructor(props) {
@@ -33,6 +30,13 @@ class PinPage extends Component {
       routeName: route,
     });
     this.props.navigation.dispatch(navigateToNextScreen);
+  }
+
+  navigateReset = () => {
+    const navigateToStart = NavigationActions.navigate({
+      routeName: 'terms',
+    });
+    this.props.navigation.dispatch(navigateToStart);
   }
 
   checkPasswordLength = () => {
@@ -102,7 +106,12 @@ class PinPage extends Component {
   }
 
   resetApp = () => {
-    
+    this.props.nukeHotWallet();
+    this.props.nukeNewWallet();
+    this.props.nukeWallet();
+    this.props.nukeContacts();
+    this.props.nukeQr();
+    this.navigateReset();
   }
 
   render() {
@@ -169,7 +178,7 @@ class PinPage extends Component {
                               return this.setState({ resetInitiated: false });
                             }}>
                               <View>
-                                <Text style={styles.forgotText}> No </Text>
+                                <Text style={styles.forgotText}> Cancell Reset </Text>
                               </View>
                             </TouchableWithoutFeedback> </View>
                             : null

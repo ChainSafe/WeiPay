@@ -21,6 +21,7 @@ import {
   ADD_TOKEN_SETUP,
   SET_NETWORK,
   SET_GLOBAL_PUBLIC_ADDRESS,
+  NUKE_WALLET,
 } from '../../actions/ActionTypes';
 
 const initialState = {
@@ -126,6 +127,10 @@ export default function (state = initialState, action) {
     case SET_GLOBAL_PUBLIC_ADDRESS:
       return {
         ...state, gloablPublicAddress: action.payload,
+      };
+    case NUKE_WALLET:
+      return {
+        ...initialState,
       };
     default:
       return state;
