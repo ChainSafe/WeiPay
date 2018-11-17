@@ -7,11 +7,12 @@ import { connect } from 'react-redux';
 import CryptoJS from 'crypto-js';
 import RF from 'react-native-responsive-fontsize';
 import { FormInput } from 'react-native-elements';
-import * as actions from '../../../actions/AppConfig';
-import LinearButton from '../../../components/linearGradient/LinearButton';
-import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
-import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
- 
+import * as actions from '../../actions/AppConfig';
+import LinearButton from '../../components/linearGradient/LinearButton';
+import ClearButton from '../../components/linearGradient/ClearButton';
+import BoxShadowCard from '../../components/shadowCards/BoxShadowCard';
+import BackWithMenuNav from '../../components/customPageNavs/BackWithMenuNav';
+
 const ethers = require('ethers');
 
 class PinPage extends Component {
@@ -60,7 +61,7 @@ class PinPage extends Component {
     return plaintext;
   }
 
-  setupEncyrptionProcess = async (walletName, userWallets) => { 
+  setupEncyrptionProcess = async (walletName, userWallets) => {
     const { nextScreenToNavigate, wallet } = this.props.navigation.state.params;
     const serialialedWallet =  JSON.stringify(wallet);
     const encrypted = this.encryptSerializedWallet(serialialedWallet);
@@ -94,102 +95,89 @@ class PinPage extends Component {
     }
   };
 
-  setPassword(password) {
+  setPassword = (password) => {
     this.setState({ password });
   }
 
+  resetApp = () => {
+
+  }
+
   render() {
+
+
+
     return (
-        <SafeAreaView style={styles.safeAreaView}>
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={styles.mainContainer} >
-              <View style={styles.navContainer}>
-                <BackWithMenuNav
-                  showMenu={false}
-                  showBack={false}
-                  navigation={this.props.navigation}
-                  backPage={'createOrRestore'}
-                />
+      <SafeAreaView style={styles.safeAreaView}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.mainContainer} >
+            <View style={styles.navContainer}>
+              <BackWithMenuNav
+                showMenu={false}
+                showBack={false}
+                navigation={this.props.navigation}
+                backPage={'createOrRestore'}
+              />
+            </View>
+            <View style={styles.pinContainer} >
+              <Text style={styles.textHeader}> { this.props.isInSetupScreens ? 'Choose Wallet Security' : 'Wallet Password' }</Text>
+                <View style={styles.boxShadowContainer}>
+                  <View style={styles.contentContainer}>
+                    <BoxShadowCard>
+                    <View style={{flex: 1}}>
+                      <View style={{flex: 3}}>
+                        <Text style={styles.option}>
+                        App Security
+                        </Text>
+                        <Text style={styles.cardText}>
+                          { this.props.isInSetupScreens
+                            ? 'Create a password for wallet, minimum length of 4.'
+                            : 'Enter Password'
+                          }
+                        </Text>
+                        <View style={styles.formInputContainer}>
+                          <FormInput
+                            placeholder={'1234'}
+                            onChangeText={this.setPassword.bind(this)}
+                            inputStyle={styles.txtWalletName}
+                            secureTextEntry={true}
+                          />
+                        </View>
+                      </View>
+                      {
+                        this.props.isInSetupScreens
+                          ? null
+                          : <View style={{flex: 0.75}}>
+                            <TouchableWithoutFeedback onPress={this.resetApp}>
+                              <View>
+                                  <Text style={styles.forgotText}>Forgot Password </Text>
+                              </View>
+                            </TouchableWithoutFeedback>
+                          </View>
+                      }
+                      </View>
+                    </BoxShadowCard>
+                  </View>
+                </View>
+                <View style={styles.btnNextContainer}>
+                    <LinearButton
+                      onClickFunction={this.setPin}
+                      buttonText="Set Pin"
+                      customStyles={styles.btnNext}
+                      buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
+                    />
+                </View>
               </View>
-              {
-                this.props.isInSetupScreens
-                ?
-                <View style={{flex:5.65}} >
-                  <Text style={styles.textHeader}>Choose Wallet Security</Text>
-                    <View style={styles.boxShadowContainer}>
-                      <View style={styles.contentContainer}>
-                        <BoxShadowCard>
-                          <Text style={styles.option}>
-                          App Security
-                          </Text>
-                          <Text style={styles.cardText}>
-                            Create a password for wallet, minimum length of 4.
-                          </Text>
-                          <View style={styles.formInputContainer}>
-                            <FormInput
-                              placeholder={'1234'}
-                              onChangeText={this.setPassword.bind(this)}
-                              inputStyle={styles.txtWalletName}
-                              secureTextEntry={true}
-                            />
-                          </View>
-                        </BoxShadowCard>
-                      </View>
-                    </View>
-                    <View style={styles.btnNextContainer}>
-                        <LinearButton
-                          onClickFunction={this.setPin}
-                          buttonText="Set Pin"
-                          customStyles={styles.btnNext}
-                          buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
-                        />
-                    </View>
-                  </View>
-                : null
-              }
-              {
-                this.props.isInSetupScreens === false
-                ?
-                <View style={{flex:5.65}}>
-                  <Text style={[styles.textHeader, {marginBottom:'2.5%'}]}>Wallet Password</Text>
-                    <View style={styles.boxShadowContainer}>
-                      <View style={styles.contentContainer}>
-                        <BoxShadowCard>
-                          <Text style={[styles.cardText, { marginTop:'10%' }]}>
-                            Enter Pin
-                          </Text>
-                          <View style={styles.formInputContainer}>
-                            <FormInput
-                              placeholder={'1234'}
-                              onChangeText={this.setPassword.bind(this)}
-                              inputStyle={styles.txtWalletName}
-                              secureTextEntry={true}
-                            />
-                          </View>
-                        </BoxShadowCard>
-                      </View>
-                    </View>
-                     <View style={styles.btnNextContainer}>
-                        <LinearButton
-                            onClickFunction={this.setPin}
-                            buttonText="Enter"
-                            customStyles={styles.btnNext}
-                            buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
-                        />
-                      </View>
-                  </View>
-                : null
-              }
-              <View style={styles.btnContainer}>
-                <View style={styles.footerGrandparentContainer} >
-                  <View style={styles.footerParentContainer} >
-                    <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-                  </View>
+            <View style={styles.btnContainer}>
+              <View style={styles.footerGrandparentContainer} >
+                <View style={styles.footerParentContainer} >
+                  <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                 </View>
               </View>
             </View>
-          </TouchableWithoutFeedback>
-        </SafeAreaView>
+          </View>
+        </TouchableWithoutFeedback>
+      </SafeAreaView>
     );
   }
 }
@@ -207,6 +195,9 @@ const styles = StyleSheet.create({
   },
   navContainer: {
     flex: 0.65,
+  },
+  pinContainer: {
+    flex: 5.65,
   },
   boxShadowContainer: {
     alignItems: 'center',
@@ -237,6 +228,17 @@ const styles = StyleSheet.create({
     fontSize: RF(2.5),
     fontWeight: '500',
   },
+  forgotText: {
+    paddingLeft: '10%',
+    paddingRight: '10%',
+    fontFamily: 'WorkSans-Light',
+    letterSpacing: 0.4,
+    lineHeight: RF(2.1),
+    color: '#000000',
+    fontSize: RF(2.1),
+    justifyContent: 'flex-end',
+    display: 'flex',
+  },
   cardText: {
     paddingLeft: '10%',
     paddingRight: '10%',
@@ -258,6 +260,7 @@ const styles = StyleSheet.create({
   formInputContainer: {
     width: '90%',
     marginLeft: '5%',
+    // paddingBottom: '5%',
   },
   btnContainer: {
     flex: 0.5,
