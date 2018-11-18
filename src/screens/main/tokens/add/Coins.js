@@ -7,7 +7,7 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import CoinList from '../../../../components/tokens/CoinList';
 import LinearButton from '../../../../components/linearGradient/LinearButton';
-import TokenTabNavigator from '../../../../components/customPageNavs/TokenTabNavigator';
+//import TokenTabNavigator from '../../../../components/customPageNavs/TokenTabNavigator';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 
 class Coins extends Component {
@@ -27,7 +27,7 @@ class Coins extends Component {
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>
-        <View style={styles.navBar}>
+        {/* <View style={styles.navBar}>
           <BackWithMenuNav
                 showMenu={false}
                 showBack={true}
@@ -35,7 +35,8 @@ class Coins extends Component {
                 backPage={'mainStack'}
             />
             <TokenTabNavigator navigation={this.props.navigation} />
-          </View> 
+
+          </View>  */}
           <View style={styles.coinListContainer}>
             <ScrollView>
                 <CoinList type={'coins'} />

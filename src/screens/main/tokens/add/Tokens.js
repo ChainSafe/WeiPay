@@ -11,7 +11,7 @@ import * as actions from '../../../../actions/ActionCreator';
 import LinearButton from '../../../../components/linearGradient/LinearButton';
 import TokenConfig from '../../../../scripts/tokens/tokenConfig';
 import { addNewToken } from '../../../../actions/AppConfig';
-import TokenTabNavigator from '../../../../components/customPageNavs/TokenTabNavigator';
+//import TokenTabNavigator from '../../../../components/customPageNavs/TokenTabNavigator';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 
 /**
@@ -97,7 +97,7 @@ class Coins extends Component {
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>
-        <View style={styles.navBar}>
+        {/* <View style={styles.navBar}>
           <BackWithMenuNav
                 showMenu={false}
                 showBack={true}
@@ -105,7 +105,7 @@ class Coins extends Component {
                 backPage={'mainStack'}
             />
              <TokenTabNavigator navigation={this.props.navigation}/>
-          </View>
+          </View> */}
           <View style={styles.searchComponent}>
             <SearchBar
               onSearchChange={(text) => { this.handleChangeText(text); }}
