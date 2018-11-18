@@ -27,16 +27,7 @@ class Coins extends Component {
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>
-        {/* <View style={styles.navBar}>
-          <BackWithMenuNav
-                showMenu={false}
-                showBack={true}
-                navigation={this.props.navigation}
-                backPage={'mainStack'}
-            />
-            <TokenTabNavigator navigation={this.props.navigation} />
-
-          </View>  */}
+        
           <View style={styles.coinListContainer}>
             <ScrollView>
                 <CoinList type={'coins'} />
