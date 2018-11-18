@@ -158,6 +158,7 @@ class AddContact extends Component {
                   inputStyle={styles.inputContactName}
                   placeholderTextColor={'#b3b3b3'}
                   value={this.state.contactName}
+                  selectionColor={'#12c1a2'}
                 />
               </View>
               <View style={styles.barcodeContainer}>
@@ -193,6 +194,7 @@ class AddContact extends Component {
                   placeholderTextColor={'#b3b3b3'}
                   value={this.state.contactAddress[this.state.tokenName]}
                   editable={!!this.state.tokenName}
+                  selectionColor={'#12c1a2'}
                 />
               </View>
               <TouchableOpacity

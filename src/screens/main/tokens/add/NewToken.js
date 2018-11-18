@@ -83,6 +83,7 @@ class NewToken extends Component {
                   onChangeText={this.updateAddress.bind(this)}               
                   inputStyle={styles.formAddress}
                   value={this.state.tokenAddress}
+                  selectionColor={'#12c1a2'}
                 />
               </View>
               <View style={styles.formInputContainer}>
@@ -91,6 +92,7 @@ class NewToken extends Component {
                   onChangeText={this.updateName.bind(this)}                
                   inputStyle={styles.formAddress}
                   value={this.state.tokenName}
+                  selectionColor={'#12c1a2'}
                 />
               </View>
             </BoxShadowCard>
@@ -119,7 +121,7 @@ class NewToken extends Component {
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
-    backgroundColor: '#fafbfe',
+    backgroundColor: '#f4f7f9',
   },
   navContainer: {
     flex: 0.65,
@@ -133,7 +135,7 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    backgroundColor: '#fafbfe',
+    backgroundColor: '#f4f7f9',
     justifyContent: 'center',
     width: '100%',
   },

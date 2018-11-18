@@ -59,11 +59,11 @@ class TermsAndConditions extends Component {
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
-    backgroundColor: '#fafbfe',
+    backgroundColor: '#f4f7f9',
   },
   mainContainer: {
     flex: 1,
-    backgroundColor: '#fafbfe',
+    backgroundColor: '#f4f7f9',
     width: '100%',
     height: '100%',
   },
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     fontSize: RF(4),
     paddingLeft: '9%',
     letterSpacing: 0.8,
-    color: '#1a1f3e',
+    color: '#000000',
     fontWeight: '200',
   },
   scrollViewContainer: {

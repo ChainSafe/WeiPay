@@ -69,11 +69,11 @@ class GeneratePassphrase extends Component {
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
-    backgroundColor: '#fafbfe'
+    backgroundColor: '#f4f7f9'
   },
   mainContainer: {
     flex: 1,
-    backgroundColor: '#fafbfe',
+    backgroundColor: '#f4f7f9',
     width: '100%',
   },
   navContainer: {
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Cairo-Light',
     fontSize: RF(4),
     paddingLeft: '9%',
-    color: '#1a1f3e',
+    color: '#000000',
     flex:0.65,
   },
   contentContainer: {

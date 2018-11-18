@@ -135,8 +135,8 @@ class PinPage extends Component {
                     <BoxShadowCard>
                       <View style={styles.formFlexContainer}>
                         <View style={styles.inputFlexContainer}>
-                          <Text style={styles.option}>
-                            { resetInitiated ? 'Are you sure you want to reset' : 'App Security' }
+                          <Text style={resetInitiated ? styles.option : null}>
+                            { resetInitiated ? 'Are you sure you want to reset' : null }
                           </Text>
                           {
                             resetInitiated
@@ -154,6 +154,7 @@ class PinPage extends Component {
                                     onChangeText={this.setPassword.bind(this)}
                                     inputStyle={styles.txtWalletName}
                                     secureTextEntry={true}
+                                    selectionColor={'#12c1a2'}
                                   />
                                 </View>
                               </View>
@@ -213,12 +214,12 @@ class PinPage extends Component {
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
-    backgroundColor: '#fafbfe',
+    backgroundColor: '#f4f7f9',
   },
   mainContainer: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#fafbfe',
+    backgroundColor: '#f4f7f9',
     width: '100%',
   },
   navContainer: {
@@ -255,21 +256,20 @@ const styles = StyleSheet.create({
     paddingTop: '10%',
     paddingLeft: '10%',
     paddingRight: '10%',
-    fontFamily: 'WorkSans-Light',
+    fontFamily: 'Cairo-Light',
     letterSpacing: 0.4,
-    lineHeight: RF(3.9),
+    fontSize: RF(2.4),
     color: '#000000',
-    fontSize: RF(2.5),
-    fontWeight: '500',
   },
   cardText: {
     paddingLeft: '10%',
     paddingRight: '10%',
+    paddingBottom: '5%',
+    paddingTop: '10%',
     fontFamily: 'WorkSans-Light',
     letterSpacing: 0.4,
-    lineHeight: RF(3.9),
-    color: '#000000',
     fontSize: RF(2.4),
+    color: '#000000',
   },
   txtWalletName: {
     width: '100%',
@@ -289,7 +289,7 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Light',
     letterSpacing: 0.4,
     lineHeight: RF(2.1),
-    color: '#000000',
+    color: '#12c1a2',
     fontSize: RF(2.1),
     justifyContent: 'flex-end',
     display: 'flex',

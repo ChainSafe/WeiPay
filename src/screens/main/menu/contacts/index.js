@@ -100,7 +100,7 @@ class Contacts extends Component {
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
-    backgroundColor: '#fafbfe',
+    backgroundColor: '#f4f7f9',
   },
   rowContainer: {
     marginTop: '3%',
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'flex-start',
     paddingTop: '2.5%',
-    backgroundColor: '#fafbfe',
+    backgroundColor: '#f4f7f9',
   },
   contentContainer: {
     marginTop: 25,

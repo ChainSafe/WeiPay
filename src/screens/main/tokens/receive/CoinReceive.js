@@ -49,12 +49,12 @@ class CoinReceive extends Component {
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1, 
-    backgroundColor: '#fafbfe'
+    backgroundColor: '#f4f7f9',
   },
   mainContainer: {
     flex: 1,
     justifyContent: 'flex-start',
-    backgroundColor: '#fafbfe',
+    backgroundColor: '#f4f7f9',
   },
   navContainer: {
     flex: 0.65,

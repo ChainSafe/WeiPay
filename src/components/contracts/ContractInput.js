@@ -23,6 +23,7 @@ class ContractInput extends Component {
                 return this.props.processContractInput(text, inputName, type, signature);
               }}
             inputStyle={styles.functionInputStyle}
+            selectionColor={'#12c1a2'}
             />
       </ View>
     );
