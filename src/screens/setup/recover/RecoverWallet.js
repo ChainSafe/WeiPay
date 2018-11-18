@@ -99,29 +99,29 @@ class RecoverWallet extends Component {
               <Text style={styles.textHeader} >Recover Passphrase</Text>
               <View style={styles.boxShadowContainer}>
                 <View style={styles.contentContainer} >
-                    <BoxShadowCard>
-                      {
-                        walletProcessing
-                          ? <View>
-                              <Text style={styles.cardText}>
-                                Please wait while your wallet is being created..
-                              </Text>
-                              <View style={[styles.container, styles.horizontal]}>
-                                <ActivityIndicator size="large" color="#12c1a2" />
-                              </View>
-                           </View>
-                          : <View>
-                              <Text style={styles.cardText}>
-                                Enter your 12 word recovery passphrase to recover your wallet.
-                              </Text>
-                              <View style={styles.formInputContainer}>
-                                <FormInput
-                                    placeholder={'Ex. man friend love long phrase ... '}
-                                    onChangeText={this.renderRecoveryKey.bind(this)}
-                                    inputStyle={styles.txtMnemonic}
-                                />
-                              </View>
+                  <BoxShadowCard>
+                    {
+                      walletProcessing
+                        ? <View>
+                            <Text style={styles.cardText}>
+                              Please wait while your wallet is being created..
+                            </Text>
+                            <View style={[styles.container, styles.horizontal]}>
+                              <ActivityIndicator size="large" color="#12c1a2" />
+                            </View>
                           </View>
+                        : <View>
+                            <Text style={styles.cardText}>
+                              Enter your 12 word recovery passphrase to recover your wallet.
+                            </Text>
+                            <View style={styles.formInputContainer}>
+                              <FormInput
+                                  placeholder={'Ex. man friend love long phrase ... '}
+                                  onChangeText={this.renderRecoveryKey.bind(this)}
+                                  inputStyle={styles.txtMnemonic}
+                              />
+                            </View>
+                        </View>
                       }
                     </BoxShadowCard>
                 </View>
