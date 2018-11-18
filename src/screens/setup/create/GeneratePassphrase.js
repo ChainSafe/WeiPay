@@ -28,7 +28,7 @@ class GeneratePassphrase extends Component {
             <View style={styles.navContainer}>
               <BackWithMenuNav
                   showMenu={false}
-                  showBack={true}
+                  showBack={false}
                   showSkip={true}
                   navigation={this.props.navigation}
                   backPage={'createWalletName'}

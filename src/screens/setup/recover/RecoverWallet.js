@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import {
-  View, Text, StyleSheet, Alert, Dimensions, Keyboard, TouchableWithoutFeedback, SafeAreaView,
+  View, Text, StyleSheet, Alert, Dimensions, Keyboard, TouchableWithoutFeedback, SafeAreaView, ActivityIndicator,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
 import RF from 'react-native-responsive-fontsize';
 import { initializeAppWallet } from '../../../actions/AppConfig';
-import getNetworkProvider from '../../../constants/Providers';
 import LinearButton from '../../../components/linearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
@@ -21,113 +20,130 @@ class RecoverWallet extends Component {
       mnemonic: '',
       value: '',
       buttonDisabled: true,
+      walletProcessing: false,
     };
   }
 
-    /**
-     * A new wallet is initialized and created with a wallet name.
-     */
-    navigate = async () => {
-      try {       
-        if (this.props.debugMode === true) {        
-          const wallet = new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');        
-          const navigateToCreateWalletName = NavigationActions.navigate({
-            routeName: 'createWalletNameRecovered',
-            params: { 'wallet': wallet },
-          });
-          this.props.navigation.dispatch(navigateToCreateWalletName);
-        } else {
-          const mnemonic = this.state.mnemonic.trim();  
-          currentWalletName = this.props.tempWalletName;
-          const provider = await getNetworkProvider(this.props.network);
-          const wallet = ethers.Wallet.fromMnemonic(mnemonic);
-          wallet.provider = provider;
-          console.log({wallet});
-          
-          const navigateToCreateWalletName = NavigationActions.navigate({
-            routeName: 'createWalletNameRecovered',
-            params: { 'wallet': wallet },
-          });
-          this.props.navigation.dispatch(navigateToCreateWalletName);
-        }     
-      } catch (err) {
-        Alert.alert(
-          'Mnemonic Error',
-          'Your mnemonic was invalid, please re-enter.',
-          [ 
-            { text: 'OK', onPress: () => console.log('error')},           
-          ],
-          { cancelable: false },
-        );
-      }
-    };
+  navigate = async (wallet) => {
+    await this.setState({ walletProcessing: false });
+    const navigateToCreateWalletName = NavigationActions.navigate({
+      routeName: 'createWalletNameRecovered',
+      params: { wallet },
+    });
+    this.props.navigation.dispatch(navigateToCreateWalletName);
+  }
 
-    /**
-     * Updates the local state with the latest mnemonic that was inputted in the input field
-     * @param {String} mnemonicInput
-     */
-    renderRecoveryKey(mnemonicInput) {
-      const totalWords = mnemonicInput.split(' ');
-      if (totalWords.length == 12) {
-        this.setState({ value: mnemonicInput.toLowerCase() });
-        this.setState({ mnemonic: mnemonicInput.toLowerCase() });
-        this.setState({ buttonDisabled: false });
+  recoverMnemonic = async () => {
+    await this.setState({ walletProcessing: true });
+    let wallet;
+    const inDebug = this.props.debugMode;
+    try {
+      if (!inDebug) {
+        const mnemonic = this.state.mnemonic.trim();
+        wallet = await ethers.Wallet.fromMnemonic(mnemonic);
       } else {
-        this.setState({ buttonDisabled: true });
+        wallet = await new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
       }
-    }
-
-    /**
-     * Returns the form required to recover the wallet
-     */
-    render() {
-      return (
-        <SafeAreaView style={styles.safeAreaView}>
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-              <View style={styles.mainContainer}>
-                <View style={styles.navContainer}>        
-                  <BackWithMenuNav
-                      showMenu={false}
-                      showBack={true}
-                      navigation={this.props.navigation}
-                      backPage={'createWalletNameRecovered'}
-                  />
-                </View>
-                <Text style={styles.textHeader} >Recovery Passphrase</Text>
-                <View style={styles.boxShadowContainer}>
-                  <View style={styles.contentContainer} >
-                      <BoxShadowCard>
-                          <Text style={styles.cardText}>
-                              Enter your 12 word recovery passphrase to recover your wallet.
-                          </Text>
-                          <View style={styles.formInputContainer}>
-                            <FormInput
-                                placeholder={'Ex. man friend love long phrase ... '}
-                                onChangeText={this.renderRecoveryKey.bind(this)}
-                                inputStyle={styles.txtMnemonic}
-                            />
-                          </View>
-                      </BoxShadowCard>
-                  </View>
-                </View>
-                <View style={styles.btnContainer}>
-                  <LinearButton
-                      onClickFunction={this.navigate }
-                      buttonText= 'Recover'
-                      customStyles={styles.button}
-                      buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
-                  />
-                  <View style={styles.footerGrandparentContainer}>
-                      <View style={styles.footerParentContainer}>
-                          <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-                      </View>
-                  </View>
-                </View>              
-              </View>
-          </TouchableWithoutFeedback>
-        </SafeAreaView>
+      this.navigate(wallet);
+    } catch (err) {
+      Alert.alert(
+        'Mnemonic Error',
+        'Your mnemonic was invalid, please re-enter.',
+        [
+          {
+            text: 'OK',
+            onPress: () => {
+              this.setState({ walletProcessing: false });
+              return console.log('error');
+            },
+          },
+        ],
+        { cancelable: false },
       );
     }
+  };
+
+  /**
+   * Updates the local state with the latest mnemonic that was inputted in the input field
+   * @param {String} mnemonicInput
+   */
+  renderRecoveryKey(mnemonicInput) {
+    const totalWords = mnemonicInput.split(' ');
+    if (totalWords.length === 12) {
+      this.setState({ value: mnemonicInput.toLowerCase() });
+      this.setState({ mnemonic: mnemonicInput.toLowerCase() });
+      this.setState({ buttonDisabled: false });
+    } else {
+      this.setState({ buttonDisabled: true });
+    }
+  }
+
+  /**
+   * Returns the form required to recover the wallet
+   */
+  render() {
+    const { walletProcessing, buttonDisabled } = this.state;
+    const { debugMode } = this.props;
+    return (
+      <SafeAreaView style={styles.safeAreaView}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.mainContainer}>
+              <View style={styles.navContainer}>
+                <BackWithMenuNav
+                    showMenu={false}
+                    showBack={true}
+                    navigation={this.props.navigation}
+                    backPage={'createWalletNameRecovered'}
+                />
+              </View>
+              <Text style={styles.textHeader} >Recover Passphrase</Text>
+              <View style={styles.boxShadowContainer}>
+                <View style={styles.contentContainer} >
+                    <BoxShadowCard>
+                      {
+                        walletProcessing
+                          ? <View>
+                              <Text style={styles.cardText}>
+                                Please wait while your wallet is being created..
+                              </Text>
+                              <View style={[styles.container, styles.horizontal]}>
+                                <ActivityIndicator size="large" color="#12c1a2" />
+                              </View>
+                           </View>
+                          : <View>
+                              <Text style={styles.cardText}>
+                                Enter your 12 word recovery passphrase to recover your wallet.
+                              </Text>
+                              <View style={styles.formInputContainer}>
+                                <FormInput
+                                    placeholder={'Ex. man friend love long phrase ... '}
+                                    onChangeText={this.renderRecoveryKey.bind(this)}
+                                    inputStyle={styles.txtMnemonic}
+                                />
+                              </View>
+                          </View>
+                      }
+                    </BoxShadowCard>
+                </View>
+              </View>
+              <View style={styles.btnContainer}>
+                <LinearButton
+                    onClickFunction={ this.recoverMnemonic }
+                    buttonText= 'Recover'
+                    customStyles={styles.button}
+                    buttonStateEnabled={ debugMode ? false : buttonDisabled}
+                />
+                <View style={styles.footerGrandparentContainer}>
+                    <View style={styles.footerParentContainer}>
+                        <Text style={styles.textFooter} >Powered by ChainSafe </Text>
+                    </View>
+                </View>
+              </View>
+            </View>
+        </TouchableWithoutFeedback>
+      </SafeAreaView>
+    );
+  }
 }
 
 /**
@@ -135,13 +151,22 @@ class RecoverWallet extends Component {
  */
 const styles = StyleSheet.create({
   safeAreaView: {
-    flex: 1, 
-    backgroundColor: '#fafbfe'
+    flex: 1,
+    backgroundColor: '#fafbfe',
   },
   mainContainer: {
     flex: 1,
     backgroundColor: '#fafbfe',
     width: '100%',
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
   },
   navContainer: {
     flex: 0.65,
@@ -194,7 +219,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '82%',
-    height: Dimensions.get('window').height * 0.082,  
+    height: Dimensions.get('window').height * 0.082,
   },
   footerGrandparentContainer: {
     alignItems: 'center',
@@ -212,14 +237,14 @@ const styles = StyleSheet.create({
   },
 });
 
-/**
- * This method is not being used here
- * @param {Object} param
- */
 const mapStateToProps = ({ Debug, Wallet }) => {
   const { debugMode, testWalletName } = Debug;
-  const { wallets, tempWalletName, appPassword, network, } = Wallet;
-  return { debugMode, testWalletName, wallets, tempWalletName, appPassword, network };
+  const {
+    wallets, tempWalletName, appPassword, network,
+  } = Wallet;
+  return {
+    debugMode, testWalletName, wallets, tempWalletName, appPassword, network,
+  };
 };
 
 export default connect(mapStateToProps, { initializeAppWallet })(RecoverWallet);
