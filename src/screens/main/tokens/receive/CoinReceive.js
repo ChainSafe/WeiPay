@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, Dimensions } from 'react-native';
 import QRCode from 'react-native-qrcode';
 import { connect } from 'react-redux';
-import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator';
+//import CoinSendTabNavigator from '../../../../components/customPageNavs/CoinSendTabNavigator';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 import RF from "react-native-responsive-fontsize"
 
