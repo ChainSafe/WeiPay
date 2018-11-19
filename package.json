@@ -25,7 +25,7 @@
     "react-native-keyboard-aware-scroll-view": "^0.6.0",
     "react-native-keyboard-aware-view": "0.0.14",
     "react-native-linear-gradient": "^2.4.0",
-    "react-native-material-design-searchbar": "^1.8.0",
+    "react-native-material-design-searchbar": "git+https://github.com/peacechen/react-native-material-design-searchbar.git",
     "react-native-modal": "^6.5.0",
     "react-native-modal-dropdown": "^0.6.2",
     "react-native-permissions": "^1.1.1",

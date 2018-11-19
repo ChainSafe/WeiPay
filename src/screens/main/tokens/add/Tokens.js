@@ -11,7 +11,6 @@ import * as actions from '../../../../actions/ActionCreator';
 import LinearButton from '../../../../components/linearGradient/LinearButton';
 import TokenConfig from '../../../../scripts/tokens/tokenConfig';
 import { addNewToken } from '../../../../actions/AppConfig';
-import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 
 /**
  * React Screen Component
@@ -55,9 +54,9 @@ class Coins extends Component {
     try {
       this.setState({ searchedTokenSym: inputUpperCase });
       if (this.state.tokens[inputUpperCase] != null) {
-        this.setState({  buttonEnabled: true, searchedTokenName: 'NA', searchedTokenNameAdd: this.state.tokens[inputUpperCase]['contract_address'] });
+        this.setState({ buttonEnabled: true, searchedTokenName: 'NA', searchedTokenNameAdd: this.state.tokens[inputUpperCase]['contract_address'] });
         if (this.state.tokens[inputUpperCase]['name'] != null) {
-          this.setState({ searchedTokenName: this.state.tokens[inputUpperCase]['name'], tokenLoaded: true});       
+          this.setState({ searchedTokenName: this.state.tokens[inputUpperCase]['name'], tokenLoaded: true});
         }
       } else {
         this.setState({ buttonEnabled: false, searchedTokenName: '', searchedTokenNameAdd: '' });
@@ -96,7 +95,6 @@ class Coins extends Component {
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>
-        
           <View style={styles.searchComponent}>
             <SearchBar
               onSearchChange={(text) => { this.handleChangeText(text); }}
@@ -115,7 +113,7 @@ class Coins extends Component {
               }}
             />
             {
-              this.state.tokenLoaded 
+              this.state.tokenLoaded
               ?
                 <View style={styles.inputContainer}>
                   <FormLabel style={styles.displayText}>Name</FormLabel>
@@ -129,8 +127,8 @@ class Coins extends Component {
                   </View>
               </View>
               : null
-            }          
-          </View>      
+            }
+          </View>
           <View style={styles.btnContainer}>
             <LinearButton
               onClickFunction={this.addCustomToken}
@@ -185,7 +183,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     color: '#12c1a2',
     letterSpacing: 0.4,
-    fontFamily: 'WorkSans-Regular',  
+    fontFamily: 'WorkSans-Regular',
     borderBottomWidth: 0.0001,
   },
   displayText: {
