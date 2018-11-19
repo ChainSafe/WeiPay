@@ -11,7 +11,6 @@ import LinearButton from '../../../components/linearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
 
-
 /**
  * Initial setup screen used to allow the user to give their wallet a name after
  * the wallet has been recovered
@@ -21,9 +20,9 @@ class CreateWalletName extends Component {
      * Method is used to navigate back to the recoverWallet screen.
      */
     navigate = () => {
-      const navigateToPassphrase = NavigationActions.navigate({ 
+      const navigateToPassphrase = NavigationActions.navigate({
         routeName: 'password',
-        params: { 'nextScreenToNavigate' : 'mainStack', 'wallet': this.props.navigation.state.params.wallet },
+        params: { 'nextScreenToNavigate': 'mainStack', 'wallet': this.props.navigation.state.params.wallet },
       });
       this.props.navigation.dispatch(navigateToPassphrase);
     };
@@ -32,12 +31,12 @@ class CreateWalletName extends Component {
       this.props.setTempWalletName(name);
     }
 
-    render() {     
+    render() {
       return (
         <SafeAreaView style={styles.safeAreaView}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.mainContainer}>
-                <View style={styles.navContainer}>        
+                <View style={styles.navContainer}>
                   <BackWithMenuNav
                       showMenu={false}
                       showBack={true}
@@ -50,7 +49,7 @@ class CreateWalletName extends Component {
                   <View style={styles.contentContainer}>
                       <BoxShadowCard>
                           <Text style={styles.cardText}>
-                              Create a name for your wallet, for example: My Wallet                              
+                              Create a name for your wallet, for example: My Wallet
                           </Text>
                           <View style={styles.formInputContainer}>
                             <FormInput
@@ -58,7 +57,7 @@ class CreateWalletName extends Component {
                                 onChangeText={this.getWalletName.bind(this)}
                                 inputStyle={styles.txtWalletName}
                                 selectionColor={'#12c1a2'}
-                                
+
                             />
                           </View>
                       </BoxShadowCard>
@@ -76,7 +75,7 @@ class CreateWalletName extends Component {
                             <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                         </View>
                     </View>
-                </View>            
+                </View>
             </View>
           </TouchableWithoutFeedback>
         </SafeAreaView>
@@ -89,7 +88,7 @@ class CreateWalletName extends Component {
  */
 const styles = StyleSheet.create({
   safeAreaView: {
-    flex: 1, 
+    flex: 1,
     backgroundColor: '#f4f7f9',
   },
   mainContainer: {
@@ -102,8 +101,8 @@ const styles = StyleSheet.create({
     flex: 0.65,
   },
   boxShadowContainer: {
-    alignItems: 'center', 
-    flex: 2.5
+    alignItems: 'center',
+    flex: 2.5,
   },
   textHeader: {
     fontFamily: 'Cairo-Light',
@@ -111,7 +110,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
     paddingLeft: '9%',
     color: 'black',
-    flex: 0.65, 
+    flex: 0.65,
   },
   contentContainer: {
     width: '82%',
@@ -134,7 +133,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     color: '#12c1a2',
     letterSpacing: 0.4,
-    fontFamily: 'WorkSans-Regular',  
+    fontFamily: 'WorkSans-Regular',
     borderBottomWidth: 0.0001,
   },
   formInputContainer: {
@@ -142,14 +141,14 @@ const styles = StyleSheet.create({
     marginLeft: '5%',
   },
   btnContainer: {
-    flex:2.5,
+    flex: 2.5,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     width: '100%',
   },
   button: {
     width: '82%',
-    height: Dimensions.get('window').height * 0.082,  
+    height: Dimensions.get('window').height * 0.082,
   },
   footerGrandparentContainer: {
     alignItems: 'center',
@@ -163,18 +162,20 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Regular',
     fontSize: RF(1.7),
     color: '#c0c0c0',
-    letterSpacing: 0.5
+    letterSpacing: 0.5,
   },
   defaultGreenColor: {
     color: '#12c1a2',
-    marginLeft: 50
+    marginLeft: 50,
   },
 });
 
 const mapStateToProps = ({ Debug, Wallet }) => {
   const { debugMode, testWalletName } = Debug;
   const { wallets, tempWalletName } = Wallet;
-  return { debugMode, wallets, tempWalletName, testWalletName };
+  return {
+    debugMode, wallets, tempWalletName, testWalletName,
+  };
 };
 
 export default connect(mapStateToProps, { setTempWalletName })(CreateWalletName);
