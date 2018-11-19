@@ -57,6 +57,8 @@ class CreateWalletName extends Component {
                                 placeholder={'Ex. My Wallet'}
                                 onChangeText={this.getWalletName.bind(this)}
                                 inputStyle={styles.txtWalletName}
+                                selectionColor={'#12c1a2'}
+                                
                             />
                           </View>
                       </BoxShadowCard>
@@ -88,11 +90,11 @@ class CreateWalletName extends Component {
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1, 
-    backgroundColor: '#fafbfe'
+    backgroundColor: '#f4f7f9',
   },
   mainContainer: {
     flex: 1,
-    backgroundColor: '#fafbfe',
+    backgroundColor: '#f4f7f9',
     justifyContent: 'center',
     width: '100%',
   },

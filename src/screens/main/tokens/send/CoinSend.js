@@ -190,6 +190,7 @@ class CoinSend extends Component {
                         ref={(ref) => { return this.inputAddress = ref; }}
                         inputStyle={[styles.formAddress, valid ? styles.colorValid : styles.colorError] }
                         value={toAddress}
+                        selectionColor={'#12c1a2'}
                       />
                     </View>
                     <View style={styles.formInputContainer}>
@@ -199,6 +200,7 @@ class CoinSend extends Component {
                         ref={(ref) => { return this.inputAmount = ref; }}
                         inputStyle={styles.formAmount}
                         value={inputValue}
+                        selectionColor={'#12c1a2'}
                       />
                     </View>
                     {
@@ -244,11 +246,11 @@ class CoinSend extends Component {
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
-    backgroundColor: '#fafbfe',
+    backgroundColor: '#f4f7f9',
   },
   mainContainer: {
     flex: 1,
-    backgroundColor: '#fafbfe',
+    backgroundColor: '#f4f7f9',
     justifyContent: 'center',
     width: '100%',
   },

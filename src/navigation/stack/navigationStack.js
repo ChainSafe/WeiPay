@@ -10,7 +10,7 @@ import mainBucketNavigation from './mainBucketStack';
 import addContact from '../../screens/main/menu/contacts/add/AddContact';
 import contacts from '../../screens/main/menu/contacts/index';
 import Splash from '../../screens/Splash';
-import PinPage from '../../screens/setup/terms/PinPage';
+import PinPage from '../../screens/shared/PinPage';
 
 /**
  * Constant contains all the screens that can be navigated to using the

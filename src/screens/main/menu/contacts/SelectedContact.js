@@ -139,7 +139,8 @@ class ContactAddresses extends Component {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 0.95,
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#f4f7f9',
   },
   scrollViewContainer: {
     marginTop: '5%',

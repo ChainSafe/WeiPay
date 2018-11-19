@@ -13,9 +13,10 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case actions.QRSCANNER_PAGE_INVOKER:
       return { ...state, invoker: action.payload };
-
     case actions.QRSCANNER_COIN_INVOKER:
       return { ...state, coinInvoker: action.payload };
+    case actions.NUKE_QR:
+      return { ...INITIAL_STATE };
     default:
       return state;
   }

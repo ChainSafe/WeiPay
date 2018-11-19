@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'flex-start',
     paddingTop: '2.5%',
-    backgroundColor: "#fafbfe",
+    backgroundColor: "#f4f7f9",
   },
   mainListItemContainer: {
     marginTop:'3%', 
