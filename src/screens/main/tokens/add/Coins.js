@@ -7,8 +7,6 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import CoinList from '../../../../components/tokens/CoinList';
 import LinearButton from '../../../../components/linearGradient/LinearButton';
-import TokenTabNavigator from '../../../../components/customPageNavs/TokenTabNavigator';
-import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 
 class Coins extends Component {
   /**
@@ -20,22 +18,12 @@ class Coins extends Component {
       actions: [NavigationActions.navigate({ routeName: 'portfolioScreen' })],
     });
     this.props.navigation.dispatch(navigateToMain);
-  }; 
+  };
 
   render() {
-    
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>
-        <View style={styles.navBar}>
-          <BackWithMenuNav
-                showMenu={false}
-                showBack={true}
-                navigation={this.props.navigation}
-                backPage={'mainStack'}
-            />
-            <TokenTabNavigator navigation={this.props.navigation} />
-          </View> 
           <View style={styles.coinListContainer}>
             <ScrollView>
                 <CoinList type={'coins'} />
@@ -53,8 +41,6 @@ class Coins extends Component {
                 </View>
             </View>
           </View>
-
-
         </View>
       </SafeAreaView>
     );
