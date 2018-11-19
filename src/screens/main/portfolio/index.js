@@ -422,7 +422,7 @@ const styles = StyleSheet.create({
     paddingLeft: '9%',
     paddingRight: '9%',
     paddingBottom: '2.5%',
-    flex: 6,
+    flex: 5.5,
   },
   btnContainer: {
     flex: 1.5,
