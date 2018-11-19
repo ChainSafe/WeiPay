@@ -13,6 +13,11 @@ import {
   SAVE_TOKEN_QUANTITIES,
   SET_NETWORK,
   SET_GLOBAL_PUBLIC_ADDRESS,
+  NUKE_HOT_WALLET,
+  NUKE_NEW_WALLET,
+  NUKE_WALLET,
+  NUKE_CONTACTS,
+  NUKE_QR,
 } from './ActionTypes';
 
 export function enterDebug() {
@@ -146,4 +151,34 @@ export function setGlobalAddress(address) {
   };
 }
 
+
+export function nukeHotWallet() {
+  return (dispatch) => {
+    dispatch({ type: NUKE_HOT_WALLET, payload: {} });
+  };
+}
+
+export function nukeNewWallet() {
+  return (dispatch) => {
+    dispatch({ type: NUKE_NEW_WALLET, payload: {} });
+  };
+}
+
+export function nukeWallet() {
+  return (dispatch) => {
+    dispatch({ type: NUKE_WALLET, payload: {} });
+  };
+}
+
+export function nukeContacts() {
+  return (dispatch) => {
+    dispatch({ type: NUKE_CONTACTS, payload: {} });
+  };
+}
+
+export function nukeQr() {
+  return (dispatch) => {
+    dispatch({ type: NUKE_QR, payload: {} });
+  };
+}
 

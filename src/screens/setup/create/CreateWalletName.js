@@ -118,12 +118,12 @@ class CreateWalletName extends Component {
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
-    backgroundColor: '#fafbfe',
+    backgroundColor: '#f4f7f9',
   },
   mainContainer: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#fafbfe',
+    backgroundColor: '#f4f7f9',
     width: '100%',
   },
   navContainer: {
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     fontSize: RF(4),
     letterSpacing: 0.8,
     paddingLeft: '9%',
-    color: '#1a1f3e',
+    color: '#000000',
     flex: 0.75,
   },
   contentContainer: {

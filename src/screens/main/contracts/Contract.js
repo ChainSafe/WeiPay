@@ -146,6 +146,7 @@ class Contract extends Component {
                         placeholder= { this.state.payable ? this.state.payable.text : "Ether Value (Payable)" }
                         onChangeText={(text) => this.processFunctionInput(text, 'payable', 'payable', item.functionSignature)}
                         inputStyle={styles.functionInputStyle}
+                        selectionColor={'#12c1a2'}
                       />
                     </View>
                   : null
@@ -250,11 +251,11 @@ class Contract extends Component {
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
-    backgroundColor: '#fafbfe',
+    backgroundColor: '#f4f7f9',
   },
   mainContainer: {
     flex: 1,
-    backgroundColor: '#fafbfe',
+    backgroundColor: '#f4f7f9',
     justifyContent: 'center',
     width: '100%',
   },

@@ -15,6 +15,10 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state, hotWallet: { wallet, pubKey: publicKey, name },
       };
+    case actions.NUKE_HOT_WALLET:
+      return {
+        ...INITIAL_STATE,
+      };
     default:
       return state;
   }

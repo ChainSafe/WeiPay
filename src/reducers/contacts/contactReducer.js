@@ -62,7 +62,10 @@ export default (state = INITIAL_STATE, action) => {
       ]
 
       return { ...state, contacts: deletedContactList }
-
+    case actions.NUKE_CONTACTS:
+      return {
+        ...INITIAL_STATE,
+      };
     default:
       return state;
   }

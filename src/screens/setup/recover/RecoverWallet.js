@@ -152,11 +152,11 @@ class RecoverWallet extends Component {
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
-    backgroundColor: '#fafbfe',
+    backgroundColor: '#f4f7f9',
   },
   mainContainer: {
     flex: 1,
-    backgroundColor: '#fafbfe',
+    backgroundColor: '#f4f7f9',
     width: '100%',
   },
   container: {
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     fontSize: RF(4),
     letterSpacing: 0.8,
     paddingLeft: '9%',
-    color: '#1a1f3e',
+    color: '#000000',
     flex: 0.65,
   },
   boxShadowContainer: {
@@ -194,14 +194,16 @@ const styles = StyleSheet.create({
     paddingRight: '10%',
     fontFamily: 'WorkSans-Light',
     letterSpacing: 0.4,
-    lineHeight: RF(3.9),
+    lineHeight: RF(3.8),
     color: '#000000',
     fontSize: RF(2.4),
+    fontWeight: '300',
   },
   txtMnemonic: {
     width: '100%',
     flexWrap: 'wrap',
     color: '#12c1a2',
+
     letterSpacing: 0.4,
     fontSize: RF(2.4),
     fontFamily: 'WorkSans-Regular',

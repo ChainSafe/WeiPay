@@ -6,9 +6,10 @@ import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from 'react-navigation';
 import LinearButton from '../../../components/linearGradient/LinearButton';
+import ClearButton from '../../../components/linearGradient/ClearButton';
 import { setWalletTokenBalances, fetchCoinData, calculateWalletBalance } from '../../../actions/FetchCoinData';
 import { saveTokenDataForTransaction, saveAllTokenQuantities } from '../../../actions/AppConfig';
-import processAllTokenBalances from '../../../scripts/tokens/tokenBalances'; //here
+import processAllTokenBalances from '../../../scripts/tokens/tokenBalances';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
 import getNetworkProvider from '../../../constants/Providers';
@@ -131,7 +132,6 @@ class Portfolio extends Component {
 
   renderRow = (token) => {
     const { tokenInfo, tokenPriceInfo, tokenAmounts } = token;
-
     if (tokenInfo.selected) {
       return (
         <TouchableOpacity
@@ -263,13 +263,18 @@ class Portfolio extends Component {
             }
           </View>
           <View style={styles.btnContainer}>
-            <LinearButton
-              onClickFunction={this.navigate}
-              buttonText="Add Token or Coin"
-              customStyles={styles.button}
-              buttonStateEnabled={!this.state.pricesLoaded}
-            />
-
+            { !this.state.pricesLoaded
+            ? <ClearButton 
+                buttonText="Add Token or Coin"
+                customStyles={styles.button}
+                />
+            : <LinearButton
+                onClickFunction={this.navigate}
+                buttonText="Add Token or Coin"
+                customStyles={styles.button}
+                buttonStateEnabled={!this.state.pricesLoaded}
+              />
+            }
             <View style={styles.footerGrandparentContainer}>
               <View style={styles.footerParentContainer} >
                 <Text style={styles.textFooter} >Powered by ChainSafe </Text>
@@ -372,11 +377,11 @@ const styles = StyleSheet.create({
   },
   safeAreaView: {
     flex: 1,
-    backgroundColor: '#fafbfe',
+    backgroundColor: '#f4f7f9',
   },
   mainContainer: {
     flex: 1,
-    backgroundColor: '#fafbfe',
+    backgroundColor: '#f4f7f9',
     width: '100%',
   },
   navBar: {
@@ -416,6 +421,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingLeft: '9%',
     paddingRight: '9%',
+    paddingBottom: '2.5%',
     flex: 6,
   },
   btnContainer: {
