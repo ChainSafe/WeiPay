@@ -90,10 +90,7 @@ class CoinActivity extends Component {
         <View style={styles.mainContainer}>
           <View style={styles.listContainer}>
             {
-              feedback !== null ? <View style={styles.feedbackContainer}> <Text style={styles.addressTitle}> {feedback} </Text> </View> : null
-            }
-            {
-              data.length > 0
+              data.length > 0 && feedback === null
               ? <FlatList
               data={data}
               keyExtractor={(x, i) => i.toString()}
@@ -120,11 +117,21 @@ class CoinActivity extends Component {
                   </View>
                 </View>
               } />
-              : <View style={{ flex: 1 }}>
-                  <View style={styles.loadingBlock}> </View>
-                  <View style={styles.loadingBlock}> </View>
-                  <View style={styles.loadingBlock}> </View>
-                </View>
+              : null            
+            }
+            {
+              data.length === 0 && feedback === null
+              ? <View style={styles.textContainer}> 
+                  <Text > Loading... </Text>
+              </View>
+              : null
+            }
+             {
+              data.length === 0 && feedback !== null
+              ? <View style={styles.textContainer}> 
+                  <Text > No Results... </Text>
+              </View>
+              : null
             }
           </View>
         </View >
@@ -180,6 +187,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     paddingBottom: '1.5%',
+  },
+  textContainer: {
+    alignContent: 'center',
+    flex: 1,
+    justifyContent: 'center',
+    alignSelf: 'center',
   },
   type: {
     fontSize: RF(2.4),
