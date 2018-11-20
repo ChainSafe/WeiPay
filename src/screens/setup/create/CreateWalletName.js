@@ -30,7 +30,7 @@ class CreateWalletName extends Component {
     this.setState({ walletProcessing: false }, () => {
       const navigateToPassword = NavigationActions.navigate({
         routeName: 'password',
-        params: { 'nextScreenToNavigate' : 'generatePassphrase', wallet },
+        params: { nextScreenToNavigate: 'generatePassphrase', wallet },
       });
       this.props.navigation.dispatch(navigateToPassword);
     });
@@ -192,9 +192,6 @@ const styles = StyleSheet.create({
     fontSize: RF(1.7),
     color: '#c0c0c0',
     letterSpacing: 0.5,
-  },
-  defaultGreenColor: {
-    color: '#12c1a2',
   },
 });
 
