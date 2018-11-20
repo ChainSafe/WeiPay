@@ -110,7 +110,7 @@ class Portfolio extends Component {
   showTokens = () => {
     if (Object.prototype.hasOwnProperty.call(this.state.walletBalance, 'USD')) this.setState({ pricesLoaded: true });
     let cTokenObjectList = [];
-    for(let i = 0; i < this.props.tokens.length; i++) {
+    for (let i = 0; i < this.props.tokens.length; i++) {
       let cto = {};
       cto.tokenInfo = this.props.tokens[i];
       cto.tokenPriceInfo = this.props.tokenBalances[i];
@@ -157,8 +157,6 @@ class Portfolio extends Component {
                   <View style={ styles.listItemTextComponent }>
                     <View style={styles.mainTitleContainer}>
                       <Text style={styles.mainTitleText}> {tokenInfo.symbol} </Text>
-                    </View>
-                    <View style={styles.subtitleContainer}>
                       <Text style={styles.subTitleText}> {tokenInfo.name} </Text>
                     </View>
                   </View>
@@ -172,7 +170,7 @@ class Portfolio extends Component {
                     </Text>
                     <Text style={styles.listItemFiatValue}>
                       {
-                        tokenAmounts == null ? 'NA' : (tokenPriceInfo)[this.props.currencyOptions[this.state.currencyIndex]]
+                        tokenAmounts == null ? 'NA' : ((tokenPriceInfo)[this.props.currencyOptions[this.state.currencyIndex]]).toFixed(5)
                       }
                     </Text>
                   </View>
@@ -195,18 +193,12 @@ class Portfolio extends Component {
     if (currentIndex === 4) {
       await this.setState({ currencyIndex: 0 });
     } else {
-      let index = currentIndex += 1;
+      const index = currentIndex += 1;
       await this.setState({ currencyIndex: index });
     }
   }
 
-  /**
-   * Returns a component that displays all the tokens that the user had selected.
-   * The component also provides the option to add/delete tokens
-   */
-
   render() {
-
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer} >
@@ -230,14 +222,14 @@ class Portfolio extends Component {
                   <Text style={styles.headerValue}>
                     {
                       this.state.pricesLoaded
-                        ? (this.state.walletBalance)[this.props.currencyOptions[this.state.currencyIndex]]
+                        ? ((this.state.walletBalance)[this.props.currencyOptions[this.state.currencyIndex]]).toFixed(5)
                         : 'Balance Loading ...'
                     }
                   </Text>
                   <Text style={styles.headerValueCurrency}>
                   {
                     this.state.pricesLoaded
-                      ? ' ' + this.state.currency[this.state.currencyIndex] + " (" + this.props.network + ")"
+                      ? `${this.state.currency[this.state.currencyIndex]} (${this.props.network})`
                       : null
                   }
                   </Text>
@@ -248,23 +240,22 @@ class Portfolio extends Component {
             {
               this.state.completeTokenObject == null
                 ? null
-                :
-                <FlatList
-                  data={this.state.completeTokenObject}
-                  showsVerticalScrollIndicator={false}
-                  renderItem= {({ item }) => { return this.renderRow(item); }}
-                  keyExtractor= {(item) => {
-                    return `${item.tokenInfo.address}${item.tokenInfo.name}`
-                  }}
-                  refreshing={this.state.refresh}
-                  onRefresh={this.handleListRefresh}
-                  extraData={this.props}
-                />
+                : <FlatList
+                    data={this.state.completeTokenObject}
+                    showsVerticalScrollIndicator={false}
+                    renderItem= {({ item }) => { return this.renderRow(item); }}
+                    keyExtractor= {(item) => {
+                      return `${item.tokenInfo.address}${item.tokenInfo.name}`;
+                    }}
+                    refreshing={this.state.refresh}
+                    onRefresh={this.handleListRefresh}
+                    extraData={this.props}
+                  />
             }
           </View>
           <View style={styles.btnContainer}>
             { !this.state.pricesLoaded
-            ? <ClearButton 
+            ? <ClearButton
                 buttonText="Add Token or Coin"
                 customStyles={styles.button}
                 />
@@ -292,36 +283,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
   },
-  containerSelected: {
-    borderWidth: 1,
-    borderColor: 'black',
-    width: '84%',
-  },
-  containerDeselect: {
-    width: '84%',
-  },
   boxShadowContainer: {
     flex: 1,
-  },
-  listItemParentContainer: {
-    height: Dimensions.get('window').height * 0.1,
-    flex: 1,
-  },
-  listItemTextComponent: {
-    justifyContent: 'center',
-    flex: 1,
-  },
-  listItemValueContainer: {
-    flex: 3,
-    justifyContent: 'center',
-    paddingBottom: '1.5%',
-    paddingTop: '1.5%',
-    paddingRight: '5%',
-  },
-  listItemValueComponent: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-end',
   },
   imgMainContainer: {
     flex: 1.25,
@@ -336,24 +299,37 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 0.093,
     justifyContent: 'center',
   },
+  listItemParentContainer: {
+    height: Dimensions.get('window').height * 0.1,
+    flex: 1,
+  },
+  listItemValueContainer: {
+    flex: 3,
+    paddingRight: '10%',
+  },
+  listItemValueComponent: {
+    flex: 1,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+  },
   listItemTextComponentContainer: {
     flex: 3,
+    marginLeft: '2.5%',
+  },
+  listItemTextComponent: {
+    flex: 1,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
   },
   mainTitleContainer: {
-    flex: 0.5,
-    justifyContent: 'flex-end',
-    paddingTop: '2.5%',
+    justifyContent: 'space-around',
+    flex: 0.7,
   },
   mainTitleText: {
-    fontSize: RF(3),
+    fontSize: RF(2.6),
     fontFamily: 'Cairo-Regular',
     letterSpacing: 0.5,
     color: 'black',
-  },
-  subtitleContainer: {
-    flex: 0.5,
-    justifyContent: 'flex-start',
-    paddingBottom: '1.5%',
   },
   subTitleText: {
     fontSize: RF(2),
@@ -369,7 +345,7 @@ const styles = StyleSheet.create({
   },
   listItemCryptoValue: {
     alignItems: 'flex-end',
-    fontSize: RF(1.5),
+    fontSize: RF(2),
     fontFamily: 'Cairo-Regular',
     letterSpacing: 0.5,
     color: 'black',
