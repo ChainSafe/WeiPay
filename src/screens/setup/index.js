@@ -3,95 +3,57 @@ import {
   Text, View, StyleSheet, Dimensions, SafeAreaView,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
-import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
-import * as actions from '../../actions/ActionCreator';
 import LinearButton from '../../components/linearGradient/LinearButton';
 import ClearButton from '../../components/linearGradient/ClearButton';
 
-const erc20 = require('erc20_tokens');
-
-/**
- * Initial setup screen used to allow the user to either restore a previously
- * generated wallet or to create a new one.
- */
 class CreateOrRestore extends Component {
-    /**
-     * Method is used to navigate to the "createWalletName" if and only if the
-     * user decides to create a new wallet
-     */
-    navigateCreate = () => {
-      const navigateToCreate = NavigationActions.navigate({
-        routeName: 'createWalletName',
-      });
-      this.props.navigation.dispatch(navigateToCreate);
-    };
+  navigateCreate = () => {
+    const navigateToCreate = NavigationActions.navigate({
+      routeName: 'createWalletName',
+    });
+    this.props.navigation.dispatch(navigateToCreate);
+  };
 
-    /**
-     * Method is used to navigate to the "createWalletNameRecovered" if and only if the
-     * user decides to recover thier wallet
-     */
-    navigateRestore = () => {
-      const navigateToMenmonic = NavigationActions.navigate({
-        routeName: 'recoverWallet',
-      });
-      this.props.restoreWallet();
-      this.props.navigation.dispatch(navigateToMenmonic);
-    };
+  navigateRestore = () => {
+    const navigateToMenmonic = NavigationActions.navigate({
+      routeName: 'recoverWallet',
+    });
+    this.props.navigation.dispatch(navigateToMenmonic);
+  };
 
-    /**
-     * Returns a full screen component which presents the user with the choices in the form of
-     * buttons
-     */
-    render() {
-      const {
-        safeAreaView,
-        mainContainer,
-        textHeader,
-        textHeaderDescription,
-        btnContainer,
-        btnCreate,
-        button,
-        footerContainer,
-        textFooter,
-        footerGrandparentContainer,
-        footerParentContainer,
-      } = styles;      
-
-      return (
-        <SafeAreaView style={safeAreaView}>
-          <View style={mainContainer}>
-            <Text style={textHeader}>WeiPay</Text>
-            <Text style={textHeaderDescription}>ERC20 Token Wallet </Text>
-            <View style={btnContainer} >
-              <View style={btnCreate}>
-                <LinearButton
-                  onClickFunction={this.navigateCreate}
-                  buttonText= 'Create Wallet'
-                  customStyles={button}
-                />
-              </View>
-              <ClearButton
-                onClickFunction={this.navigateRestore}
-                buttonText= 'Restore Wallet'
-                customStyles={button}
-                unlockButton={true}
+  render() {
+    return (
+      <SafeAreaView style={styles.safeAreaView}>
+        <View style={styles.mainContainer}>
+          <Text style={styles.textHeader}>WeiPay</Text>
+          <Text style={styles.textHeaderDescription}>ERC20 Token Wallet </Text>
+          <View style={styles.btnContainer} >
+            <View style={styles.btnCreate}>
+              <LinearButton
+                onClickFunction={this.navigateCreate}
+                buttonText= 'Create Wallet'
+                customStyles={styles.button}
               />
             </View>
-            <View style={footerGrandparentContainer}>
-                  <View style={footerParentContainer} >
-                    <Text style={textFooter} >Powered by ChainSafe </Text>
-                  </View>
-              </View>
+            <ClearButton
+              onClickFunction={this.navigateRestore}
+              buttonText= 'Restore Wallet'
+              customStyles={styles.button}
+              unlockButton={true}
+            />
           </View>
-        </SafeAreaView>
-      );
-    }
+          <View style={styles.footerGrandparentContainer}>
+            <View style={styles.footerParentContainer} >
+              <Text style={styles.textFooter} >Powered by ChainSafe </Text>
+            </View>
+          </View>
+        </View>
+      </SafeAreaView>
+    );
+  }
 }
 
-/**
- * Styles used in the "CreateOrRestore" setup screen
- */
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
@@ -149,4 +111,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null, actions)(CreateOrRestore);
+export default CreateOrRestore;

@@ -53,11 +53,11 @@ export function newWalletNameEntry(name) {
 /**
  * returns an action that enables the state to restore a wallet
  */
-export function restoreWallet() {
-  return (dispatch) => {
-    dispatch({ type: actionTypes.RESTORE_WALLET });
-  };
-}
+// export function restoreWallet() {
+//   return (dispatch) => {
+//     dispatch({ type: actionTypes.RESTORE_WALLET });
+//   };
+// }
 
 /**
  * returns an action that contains the fiat currency that the user
