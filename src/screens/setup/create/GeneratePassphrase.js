@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import LinearButton from '../../../components/linearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
-import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard'
+import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
 
 class GeneratePassphrase extends Component {
   navigate = () => {

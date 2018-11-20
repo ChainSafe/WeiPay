@@ -11,81 +11,70 @@ import LinearButton from '../../../components/linearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
 
-/**
- * Initial setup screen used to allow the user to give their wallet a name after
- * the wallet has been recovered
- */
 class CreateWalletName extends Component {
-    /**
-     * Method is used to navigate back to the recoverWallet screen.
-     */
-    navigate = () => {
-      const navigateToPassphrase = NavigationActions.navigate({
-        routeName: 'password',
-        params: { 'nextScreenToNavigate': 'mainStack', 'wallet': this.props.navigation.state.params.wallet },
-      });
-      this.props.navigation.dispatch(navigateToPassphrase);
-    };
+  navigate = () => {
+    const navigateToPassphrase = NavigationActions.navigate({
+      routeName: 'password',
+      params: { nextScreenToNavigate: 'mainStack', wallet: this.props.navigation.state.params.wallet },
+    });
+    this.props.navigation.dispatch(navigateToPassphrase);
+  };
 
-    getWalletName(name) {
-      this.props.setTempWalletName(name);
-    }
+  getWalletName(name) {
+    this.props.setTempWalletName(name);
+  }
 
-    render() {
-      return (
-        <SafeAreaView style={styles.safeAreaView}>
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={styles.mainContainer}>
-                <View style={styles.navContainer}>
-                  <BackWithMenuNav
-                      showMenu={false}
-                      showBack={true}
-                      navigation={this.props.navigation}
-                      backPage={'createOrRestore'}
-                    />
-                </View>
-                <Text style={styles.textHeader}>Wallet Name</Text>
-                <View style={styles.boxShadowContainer}>
-                  <View style={styles.contentContainer}>
-                      <BoxShadowCard>
-                          <Text style={styles.cardText}>
-                              Create a name for your wallet, for example: My Wallet
-                          </Text>
-                          <View style={styles.formInputContainer}>
-                            <FormInput
-                                placeholder={'Ex. My Wallet'}
-                                onChangeText={this.getWalletName.bind(this)}
-                                inputStyle={styles.txtWalletName}
-                                selectionColor={'#12c1a2'}
-
-                            />
-                          </View>
-                      </BoxShadowCard>
-                  </View>
-                </View>
-                <View style={styles.btnContainer}>
-                    <LinearButton
-                        onClickFunction={ this.navigate }
-                        buttonText= 'Next'
-                        customStyles={styles.button}
-                        buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
-                    />
-                    <View style={styles.footerGrandparentContainer}>
-                        <View style={styles.footerParentContainer} >
-                            <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-                        </View>
-                    </View>
-                </View>
+  render() {
+    return (
+      <SafeAreaView style={styles.safeAreaView}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.mainContainer}>
+            <View style={styles.navContainer}>
+              <BackWithMenuNav
+                showMenu={false}
+                showBack={true}
+                navigation={this.props.navigation}
+                backPage={'createOrRestore'}
+              />
             </View>
-          </TouchableWithoutFeedback>
-        </SafeAreaView>
-      );
-    }
+            <Text style={styles.textHeader}>Wallet Name</Text>
+            <View style={styles.boxShadowContainer}>
+              <View style={styles.contentContainer}>
+                <BoxShadowCard>
+                  <Text style={styles.cardText}>
+                      Create a name for your wallet, for example: My Wallet
+                  </Text>
+                  <View style={styles.formInputContainer}>
+                    <FormInput
+                      placeholder={'Ex. My Wallet'}
+                      onChangeText={this.getWalletName.bind(this)}
+                      inputStyle={styles.txtWalletName}
+                      selectionColor={'#12c1a2'}
+                    />
+                  </View>
+                </BoxShadowCard>
+              </View>
+            </View>
+            <View style={styles.btnContainer}>
+              <LinearButton
+                onClickFunction={ this.navigate }
+                buttonText= 'Next'
+                customStyles={styles.button}
+                buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
+              />
+              <View style={styles.footerGrandparentContainer}>
+                <View style={styles.footerParentContainer} >
+                  <Text style={styles.textFooter} >Powered by ChainSafe </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </SafeAreaView>
+    );
+  }
 }
 
-/**
- * Styles used in the "CreateWalletNameRecovery" screen
- */
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
@@ -163,10 +152,6 @@ const styles = StyleSheet.create({
     fontSize: RF(1.7),
     color: '#c0c0c0',
     letterSpacing: 0.5,
-  },
-  defaultGreenColor: {
-    color: '#12c1a2',
-    marginLeft: 50,
   },
 });
 

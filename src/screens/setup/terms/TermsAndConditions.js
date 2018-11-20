@@ -11,9 +11,6 @@ import LinearButton from '../../../components/linearGradient/LinearButton';
 import TokenConfig from '../../../scripts/tokens/tokenConfig';
 
 class TermsAndConditions extends Component {
-  /**
-   * The default tokens are taken from json file and parsed into wallet state.
-   */
   componentDidMount() {
     const tokens = TokenConfig('setup');
     this.props.initializeAppTokenState(tokens);
@@ -25,35 +22,35 @@ class TermsAndConditions extends Component {
     });
     this.props.navigation.dispatch(navigateToCreateOrRestore);
   };
-  
-    render() {      
-      return (
-        <SafeAreaView style={styles.safeAreaView}>
-          <View style={styles.mainContainer}>
-            <View style={styles.headerContainer} >
-              <Text style={styles.textHeader} onPress={this.props.enterDebug} >Terms & Conditions </Text>
-            </View>
-            <View style={styles.scrollViewContainer} >
-              <ScrollView style={styles.scrollView}>
-                <Text style={styles.textBody} >{Terms}</Text>
-              </ScrollView>
-            </View>
-            <View style={styles.btnContainer}>
-              <LinearButton
-                onClickFunction={this.navigate}
-                buttonText='Agree'
-                customStyles={styles.button}
-              />
-              <View style={styles.footerGrandparentContainer}>
-                <View style={styles.footerParentContainer} >
-                  <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-                </View>
+
+  render() {
+    return (
+      <SafeAreaView style={styles.safeAreaView}>
+        <View style={styles.mainContainer}>
+          <View style={styles.headerContainer} >
+            <Text style={styles.textHeader} onPress={this.props.enterDebug}>Terms & Conditions </Text>
+          </View>
+          <View style={styles.scrollViewContainer}>
+            <ScrollView style={styles.scrollView}>
+              <Text style={styles.textBody} >{Terms}</Text>
+            </ScrollView>
+          </View>
+          <View style={styles.btnContainer}>
+            <LinearButton
+              onClickFunction={this.navigate}
+              buttonText='Agree'
+              customStyles={styles.button}
+            />
+            <View style={styles.footerGrandparentContainer}>
+              <View style={styles.footerParentContainer} >
+                <Text style={styles.textFooter} >Powered by ChainSafe </Text>
               </View>
             </View>
           </View>
-        </SafeAreaView>
-      );
-    }
+        </View>
+      </SafeAreaView>
+    );
+  }
 }
 
 const styles = StyleSheet.create({

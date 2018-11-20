@@ -10,7 +10,6 @@ import ClearButton from '../../../components/linearGradient/ClearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
 
-
 const shuffle = require('shuffle-array');
 
 class ConfirmPassphrase extends Component {
@@ -22,168 +21,155 @@ class ConfirmPassphrase extends Component {
     };
   }
 
-  /**
-    * LifeCycle Method
-    * This method is executed after the component has been rendered.
-    * This method add each word of the mnemonic to the local state variable object
-    */
   componentDidMount() {
     const words = this.props.hotWallet.wallet.mnemonic.split(' ');
     let orderArray = [];
     for (let i = 0; i < words.length; i++) {
-      orderArray.push({ 'wordItem' : { 'word': words[i], 'index': i }, 'selected': false });
+      orderArray.push({ 'wordItem': { 'word': words[i], 'index': i }, 'selected': false });
     }
     shuffle(orderArray);
     this.setState({ scrambledTags: orderArray });
   }
 
-    /**
-     * Method is used to navigate to the "enableTokens" screen.
-     */
-    navigate = () => {
-      const navigateToMain = NavigationActions.navigate({
-        routeName: 'mainStack',
-      });
-      this.props.navigation.dispatch(navigateToMain);
-    };
+  navigate = () => {
+    const navigateToMain = NavigationActions.navigate({
+      routeName: 'mainStack',
+    });
+    this.props.navigation.dispatch(navigateToMain);
+  };
 
-    /**
-     * This method is used to when a tag has been selected from either the tag box or the input
-     * box and the tag is transfered either to the state.selectedTags list or to the state.scrambledTags list.
-     *
-     * @param {String} tagItem
-     * @param {String} action
-     * @param {Number} x
-     */
-
-    addWord(wordItem, scrambledListIndex) {
-      this.setState((prevState) => {
-        if(!prevState.scrambledTags[scrambledListIndex].selected) {
-          prevState.scrambledTags[scrambledListIndex].selected = true;
-          prevState.selectedTags.push({ 'wordItem': wordItem, 'scrambledWordIndex': scrambledListIndex });
-          return prevState;
-        }       
-      });
-    }
-
-    removeWord(wordItem, appendedWordIndex) {
-      this.setState((prevState) => {
-        prevState.scrambledTags[wordItem.scrambledWordIndex].selected = false;
-        prevState.selectedTags.splice(appendedWordIndex, 1);
+  /**
+   * This method is used to when a tag has been selected from either the tag box or the input
+   * box and the tag is transfered either to the state.selectedTags list or to the state.scrambledTags list.
+   */
+  addWord(wordItem, scrambledListIndex) {
+    this.setState((prevState) => {
+      if(!prevState.scrambledTags[scrambledListIndex].selected) {
+        prevState.scrambledTags[scrambledListIndex].selected = true;
+        prevState.selectedTags.push({ 'wordItem': wordItem, 'scrambledWordIndex': scrambledListIndex });
         return prevState;
-      });
-    }
-
-    validatePassphrase = () => {
-      const { scrambledTags, selectedTags } = this.state;
-      var passphraseIncomplete = true;
-      var count = 0;
-      if(selectedTags.length == 12) {
-        for(let i = 0; i < selectedTags.length; i++) {       
-          if(selectedTags[i].wordItem.index == i) {
-            count++;
-          }
-        }
-        if(count == 12) {
-          this.navigate();
-        } else {
-          Alert.alert(
-            'Passphrase Error',
-            'You did not enter the right passphrase in the correct order. Please try again.',
-            [
-                { text: 'OK', onPress: () => console.log('OK Pressed') },
-            ],
-            { cancelable: false }
-          )
-        }
-      } else {
-          Alert.alert(
-            'Passphrase Error',
-            'You have no selected all of the words within the passphrase. Please complete ordering all words',
-            [
-                { text: 'OK', onPress: () => console.log('OK Pressed') },
-            ],
-            { cancelable: false }
-        )
       }
-    }
+    });
+  }
 
-    /**
-     * Returns the screen required for the user to go about selecting the tags
-     * in the correct order
-     */
-    render() {
-      const { selectedTags, scrambledTags } = this.state;
-      return (
-        <SafeAreaView style={styles.safeAreaView}>
-          <View style={styles.mainContainer}>
-            <View style={styles.navContainer}>
-              <BackWithMenuNav
-                showMenu={false}
-                showBack={true}
-                showSkip={true}
-                navigation={this.props.navigation}
-                backPage={'generatePassphrase'}
-              />
+  removeWord(wordItem, appendedWordIndex) {
+    this.setState((prevState) => {
+      prevState.scrambledTags[wordItem.scrambledWordIndex].selected = false;
+      prevState.selectedTags.splice(appendedWordIndex, 1);
+      return prevState;
+    });
+  }
+
+  validatePassphrase = () => {
+    const { scrambledTags, selectedTags } = this.state;
+    let passphraseIncomplete = true;
+    let count = 0;
+    if (selectedTags.length == 12) {
+      for (let i = 0; i < selectedTags.length; i++) {
+        if (selectedTags[i].wordItem.index == i) {
+          count++;
+        }
+      }
+      if(count === 12) {
+        this.navigate();
+      } else {
+        Alert.alert(
+          'Passphrase Error',
+          'You did not enter the right passphrase in the correct order. Please try again.',
+          [
+            { text: 'OK', onPress: () => console.log('OK Pressed') },
+          ],
+          { cancelable: false },
+        );
+      }
+    } else {
+      Alert.alert(
+        'Passphrase Error',
+        'You have no selected all of the words within the passphrase. Please complete ordering all words',
+        [
+          { text: 'OK', onPress: () => console.log('OK Pressed') },
+        ],
+        { cancelable: false },
+      );
+    }
+  }
+
+  /**
+   * Returns the screen required for the user to go about selecting the tags
+   * in the correct order
+   */
+  render() {
+    const { selectedTags, scrambledTags } = this.state;
+    return (
+      <SafeAreaView style={styles.safeAreaView}>
+        <View style={styles.mainContainer}>
+          <View style={styles.navContainer}>
+            <BackWithMenuNav
+              showMenu={false}
+              showBack={true}
+              showSkip={true}
+              navigation={this.props.navigation}
+              backPage={'generatePassphrase'}
+            />
           </View>
           <Text style={styles.textHeader}>Confirm Passphrase</Text>
           <View style={styles.boxShadowContainer}>
             <View style={styles.contentContainer} >
-                <BoxShadowCard>
-                    <Text style={styles.cardText}>Select the correct order.</Text>
-                    <View style={styles.tagContainer} >
-                        {
-                            scrambledTags.map((item, index) => {
-                              return (
-                                <View key={item.wordItem.index} style={styles.cardButtonContainer}>
-                                    <ClearButton
-                                        buttonText={item.wordItem.word}
-                                        key={item.wordItem.index}
-                                        onClickFunction={() => this.addWord(item.wordItem, index)}
-                                        customStyles={styles.cardButton}
-                                        unlockButton={this.state.scrambledTags[index].selected}
-                                        />
-                                </View>
-                              );
-                            })
-                        }
-                    </View>
-                    <View style={styles.selectedTextContainer} >
-                        {
-                            selectedTags.map((item, index) => {
-                              return (
-                                <View key={item.wordItem.index} style={styles.cardSelectedButtonContainer}>
-                                    <TouchableOpacity
-                                        onPress={() => this.removeWord(item, index)}>
-                                        <Text style={styles.selectedWordText}>
-                                            {item.wordItem.word}
-                                        </Text>
-                                    </TouchableOpacity>
-                                </View>
-                              );
-                            })
-                        }
-                    </View>
-                </BoxShadowCard>
+              <BoxShadowCard>
+                <Text style={styles.cardText}>Select the correct order.</Text>
+                <View style={styles.tagContainer} >
+                  {
+                    scrambledTags.map((item, index) => {
+                      return (
+                        <View key={item.wordItem.index} style={styles.cardButtonContainer}>
+                          <ClearButton
+                            buttonText={item.wordItem.word}
+                            key={item.wordItem.index}
+                            onClickFunction={() => this.addWord(item.wordItem, index)}
+                            customStyles={styles.cardButton}
+                            unlockButton={this.state.scrambledTags[index].selected}
+                            />
+                        </View>
+                      );
+                    })
+                  }
+                </View>
+                <View style={styles.selectedTextContainer} >
+                  {
+                    selectedTags.map((item, index) => {
+                      return (
+                        <View key={item.wordItem.index} style={styles.cardSelectedButtonContainer}>
+                          <TouchableOpacity
+                            onPress={() => this.removeWord(item, index)}>
+                            <Text style={styles.selectedWordText}>
+                                {item.wordItem.word}
+                            </Text>
+                          </TouchableOpacity>
+                        </View>
+                      );
+                    })
+                  }
+                </View>
+              </BoxShadowCard>
+            </View>
+          </View>
+          <View style={styles.btnContainer}>
+            <LinearButton
+              onClickFunction={this.validatePassphrase}
+              buttonText= 'Next'
+              customStyles={styles.button}
+              // buttonStateEnabled={this.state.buttonDisabled}
+            />
+            <View style={styles.footerGrandparentContainer}>
+              <View style={styles.footerParentContainer}>
+                <Text style={styles.textFooter} >Powered by ChainSafe </Text>
               </View>
             </View>
-            <View style={styles.btnContainer}>
-                <LinearButton
-                    onClickFunction={this.validatePassphrase}
-                    buttonText= 'Next'
-                    customStyles={styles.button}
-                    // buttonStateEnabled={this.state.buttonDisabled}
-                />
-                <View style={styles.footerGrandparentContainer}>
-                    <View style={styles.footerParentContainer}>
-                        <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-                    </View>
-                </View>
-            </View>
+          </View>
         </View>
-         </SafeAreaView>
-      );
-    }
+      </SafeAreaView>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -204,14 +190,14 @@ const styles = StyleSheet.create({
     fontSize: RF(4),
     paddingLeft: '9%',
     color: '#1a1f3e',
-    flex:0.65,
+    flex: 0.65,
   },
   boxShadowContainer: {
-    alignItems:"center",
-    flex: 4
+    alignItems: 'center',
+    flex: 4,
   },
   contentContainer: {
-    width: '82%'
+    width: '82%',
   },
   cardText: {
     paddingBottom: '5%',
@@ -237,8 +223,8 @@ const styles = StyleSheet.create({
   cardButton: {
     height: Dimensions.get('window').height * 0.05,
     justifyContent: 'center',
-    alignContent: "center",
-    alignItems: "center",
+    alignContent: 'center',
+    alignItems: 'center',
   },
   cardContainer: {
     width: '80%',
@@ -269,12 +255,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'stretch',
     alignContent: 'flex-end',
-    flex:1.25
+    flex: 1.25,
   },
   footerGrandparentContainer: {
     alignItems: 'center',
     marginBottom: '5%',
-    marginTop: '5%'
+    marginTop: '5%',
   },
   footerParentContainer: {
     alignItems: 'center',
@@ -283,7 +269,7 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Regular',
     fontSize: RF(1.7),
     color: '#c0c0c0',
-    letterSpacing: 0.5
+    letterSpacing: 0.5,
   },
 });
 

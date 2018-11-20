@@ -146,9 +146,6 @@ class RecoverWallet extends Component {
   }
 }
 
-/**
- * Styles used in the RecoverWallet screen
- */
 const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
