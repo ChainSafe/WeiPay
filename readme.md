@@ -1,8 +1,5 @@
 ## WeiPay ERC20 Wallet
-WeiPay is a open source cryptocurrency wallet available for both IOS and Android mobile devices. 
-WeiPay will support Ethereum out of the box with added support for ERC20 tokens and Bitcoin. 
-An api will be created to host token details on IPFS in order for any fork of the wallet to provide 
-uniform data to its users with the added benefits of reduced app storage space. 
+WeiPay is a open source Ethereum and ERC20 wallet available for both IOS and Android mobile devices. WeiPay allows for multiple network and wallet configurations, contract interactions, and contact key management. 
 
 ## How To:
 + ```git clone https://github.com/ChainSafe/WeiPay.git```
