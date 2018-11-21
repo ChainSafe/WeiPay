@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './src/store/store';
+import { store, persistor } from './src/containers/store/store';
 import AppNavigation from './src/navigation/stack';
 
 export default class App extends Component {

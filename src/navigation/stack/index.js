@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { BackHandler } from 'react-native';
-import { addNavigationHelpers } from 'react-navigation';
-import { NavigationActions } from "react-navigation";
-
+import { addNavigationHelpers, NavigationActions } from 'react-navigation';
 import NavigationStack from './navigationStack';
 
 /**
@@ -11,7 +9,6 @@ import NavigationStack from './navigationStack';
  * Global Navigation Component used to navigate to different screens within the app
  */
 class AppNavigation extends Component {
-
   constructor(props) {
     super(props)
     BackHandler.addEventListener("hardwareBackPress", this.onBackPress  );

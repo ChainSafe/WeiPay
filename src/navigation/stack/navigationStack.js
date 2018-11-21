@@ -1,21 +1,17 @@
 import { StackNavigator } from 'react-navigation';
-import TermsScreen from '../../screens/setup/terms/TermsAndConditions';
-import CreateOrRestore from '../../screens/setup/index';
-import CreateWalletName from '../../screens/setup/create/CreateWalletName';
-import GeneratePassphrase from '../../screens/setup/create/GeneratePassphrase';
-import ConfirmPassphrase from '../../screens/setup/create/ConfirmPassphrase';
-import CreateWalletNameRecovered from '../../screens/setup/recover/CreateWalletName';
-import RecoverWallet from '../../screens/setup/recover/RecoverWallet';
+import TermsScreen from '../../containers/screens/setup/terms/TermsAndConditions';
+import CreateOrRestore from '../../containers/screens/setup/index';
+import CreateWalletName from '../../containers/screens/setup/create/CreateWalletName';
+import GeneratePassphrase from '../../containers/screens/setup/create/GeneratePassphrase';
+import ConfirmPassphrase from '../../containers/screens/setup/create/ConfirmPassphrase';
+import CreateWalletNameRecovered from '../../containers/screens/setup/recover/CreateWalletName';
+import RecoverWallet from '../../containers/screens/setup/recover/RecoverWallet';
 import mainBucketNavigation from './mainBucketStack';
-import addContact from '../../screens/main/menu/contacts/add/AddContact';
-import contacts from '../../screens/main/menu/contacts/index';
-import Splash from '../../screens/Splash';
-import PinPage from '../../screens/shared/PinPage';
+import addContact from '../../containers/screens/main/menu/contacts/add/AddContact';
+import contacts from '../../containers/screens/main/menu/contacts/index';
+import Splash from '../../containers/screens/Splash';
+import PinPage from '../../containers/screens/shared/PinPage';
 
-/**
- * Constant contains all the screens that can be navigated to using the
- * navigate method from any class
- */
 const navigator = StackNavigator({
   splash: {
     screen: Splash,
