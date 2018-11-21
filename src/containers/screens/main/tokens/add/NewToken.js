@@ -8,7 +8,7 @@ import { NavigationActions } from 'react-navigation';
 import RF from 'react-native-responsive-fontsize';
 import TokenConfig from '../../../../../scripts/tokens/tokenConfig';
 import { qrScannerInvoker } from '../../../../store/actions/ActionCreator';
-import { addNewToken } from '../../../../store/actions/AppConfig';
+import { addNewToken } from '../../../../store/actions/creators/AppConfig';
 import LinearButton from '../../../../components/linearGradient/LinearButton';
 import BoxShadowCard from '../../../../components/shadowCards/BoxShadowCard';
 

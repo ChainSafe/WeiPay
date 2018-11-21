@@ -13,7 +13,7 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
 import RF from 'react-native-responsive-fontsize';
-import { setTempWalletName, initializeAppWallet } from '../../../store/actions/AppConfig';
+import { setTempWalletName, initializeAppWallet } from '../../../store/actions/creators/AppConfig';
 import LinearButton from '../../../components/linearGradient/LinearButton';
 import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';

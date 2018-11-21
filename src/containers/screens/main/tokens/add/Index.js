@@ -8,7 +8,6 @@ import Tokens from './Tokens';
 import NewToken from './NewToken';
 
 class Index extends Component {
-
   constructor(props){
     super(props);
     var active = 0;

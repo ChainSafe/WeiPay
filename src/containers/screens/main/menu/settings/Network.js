@@ -8,7 +8,7 @@ import RF from 'react-native-responsive-fontsize';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../../components/shadowCards/BoxShadowCard';
 import ClearButton from '../../../../components/linearGradient/ClearButton';
-import { setNetwork } from '../../../../store/actions/AppConfig';
+import { setNetwork } from '../../../../store/actions/creators/AppConfig';
 
 const ethers = require('ethers');
 

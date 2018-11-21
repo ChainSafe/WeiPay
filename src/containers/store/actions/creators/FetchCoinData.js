@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import {
   apiBaseUrl, apiCurrencyResponseUrl, apiMultipleCurrencyBaseUrl, apiMulitpleResponseUrl,
-} from '../../../constants/Api';
+} from '../../../../constants/Api';
 
 import {
   FETCHING_COIN_DATA,
@@ -13,7 +13,7 @@ import {
   FETCHING_ETH_PRICE_DATA_FAIL,
   SET_WALLET_TOKENS_BALANCES,
   CALCULATE_WALLET_BALANCE,
-} from './ActionTypes';
+} from '../types/FetchCoinData';
 
 /**
  * Pass in Array of symbol and amount of tokens

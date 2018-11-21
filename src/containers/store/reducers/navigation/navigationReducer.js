@@ -1,4 +1,4 @@
-import AppNavigator from '../../../../navigation/stack/navigationStack';
+import AppNavigator from '../../../navigation/stack/navigationStack';
 /**
  * Reducer used to handle all actions invoked by the NavigationActions when navigating
  * to different screens

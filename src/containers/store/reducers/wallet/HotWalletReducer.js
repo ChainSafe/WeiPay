@@ -1,4 +1,7 @@
-import * as actions from '../../actions/ActionTypes';
+import {
+  CONFIG_HOT_WALLET, 
+  NUKE_HOT_WALLET,
+} from '../../actions/types/AppConfig';
 
 const INITIAL_STATE = {
   hotWallet: null,
@@ -10,12 +13,12 @@ const INITIAL_STATE = {
  */
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case actions.CONFIG_HOT_WALLET:
+    case CONFIG_HOT_WALLET:
       const { wallet, publicKey, name } = action.payload;
       return {
         ...state, hotWallet: { wallet, pubKey: publicKey, name },
       };
-    case actions.NUKE_HOT_WALLET:
+    case NUKE_HOT_WALLET:
       return {
         ...INITIAL_STATE,
       };

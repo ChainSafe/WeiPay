@@ -18,7 +18,7 @@ import {
   NUKE_WALLET,
   NUKE_CONTACTS,
   NUKE_QR,
-} from './ActionTypes';
+} from '../types/AppConfig';
 
 export function enterDebug() {
   const testData = { 'walletName': 'My Test Wallet Name' };

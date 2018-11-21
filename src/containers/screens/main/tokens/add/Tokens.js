@@ -10,7 +10,7 @@ import RF from 'react-native-responsive-fontsize';
 import * as actions from '../../../../store/actions/ActionCreator';
 import LinearButton from '../../../../components/linearGradient/LinearButton';
 import TokenConfig from '../../../../../scripts/tokens/tokenConfig';
-import { addNewToken } from '../../../../store/actions/AppConfig';
+import { addNewToken } from '../../../../store/actions/creators/AppConfig';
 
 /**
  * React Screen Component

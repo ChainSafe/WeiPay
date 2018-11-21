@@ -23,7 +23,7 @@ import {
 } from '../../../../store/actions/ActionCreator';
 import {
   setGlobalAddress,
-} from '../../../../store/actions/AppConfig';
+} from '../../../../store/actions/creators/AppConfig';
 import LinearButton from '../../../../components/linearGradient/LinearButton';
 import ClearButton from '../../../../components/linearGradient/ClearButton';
 import BoxShadowCard from '../../../../components/shadowCards/BoxShadowCard';

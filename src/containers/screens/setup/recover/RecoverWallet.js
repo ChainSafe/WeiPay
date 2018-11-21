@@ -6,7 +6,7 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
 import RF from 'react-native-responsive-fontsize';
-import { initializeAppWallet } from '../../../store/actions/AppConfig';
+import { initializeAppWallet } from '../../../store/actions/creators/AppConfig';
 import LinearButton from '../../../components/linearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
