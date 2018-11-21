@@ -9,7 +9,7 @@ import {
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import RF from "react-native-responsive-fontsize"
-import * as actions from '../.././../../actions/ActionCreator';
+import * as actions from '../.././../../store/actions/ActionCreator';
 import AddFirstContact from './add/AddFirstContact';
 import ContactBackWithMenuNav from "../../../../components/customPageNavs/ContactBackWithMenuNav"
 import ContactTabNavigator from '../../../../components/customPageNavs/ContactTabNavigator'

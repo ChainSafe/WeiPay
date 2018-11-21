@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import RNPickerSelect from 'react-native-picker-select';
 import RF from 'react-native-responsive-fontsize';
-import * as actions from '../../../../../actions/ActionCreator';
+import * as actions from '../../../../../store/actions/ActionCreator';
 import LinearButton from '../../../../../components/linearGradient/LinearButton';
 import ClearButton from '../../../../../components/linearGradient/ClearButton';
 import BoxShadowCard from '../../../../../components/shadowCards/BoxShadowCard';

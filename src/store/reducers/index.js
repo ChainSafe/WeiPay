@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import storage from 'redux-persist/lib/storage';
 import NavigationReducer from './navigation/navigationReducer';
 import NewWalletSetup from './wallet/NewWalletSetup';
 import ContactsReducer from './contacts/contactReducer';
@@ -6,7 +7,6 @@ import QrScannerReducer from './wallet/QrScannerReducer';
 import * as actionTypes from '../actions/ActionTypes';
 import WalletReducer from './wallet/Wallet';
 import DebugReducer from './wallet/Debug';
-import storage from 'redux-persist/lib/storage';
 import hotreducer from './wallet/HotWalletReducer';
 
 /**

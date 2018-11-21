@@ -7,10 +7,10 @@ import SearchBar from 'react-native-material-design-searchbar';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import RF from 'react-native-responsive-fontsize';
-import * as actions from '../../../../actions/ActionCreator';
+import * as actions from '../../../../store/actions/ActionCreator';
 import LinearButton from '../../../../components/linearGradient/LinearButton';
 import TokenConfig from '../../../../scripts/tokens/tokenConfig';
-import { addNewToken } from '../../../../actions/AppConfig';
+import { addNewToken } from '../../../../store/actions/AppConfig';
 
 /**
  * React Screen Component

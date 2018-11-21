@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, Dimensions } from 'react-native';
+import {
+  View, Text, StyleSheet, SafeAreaView,
+} from 'react-native';
 import QRCode from 'react-native-qrcode';
 import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 
-/**
- * React Component
- * Screen containing a QrCode which can be used to conduct a positive transction (receiving coins/tokens)
- */
 class CoinReceive extends Component {
-  /**
-   * Returns a component that be used to display the Wallet public key in a form of text
-   * and QrCode
-   */
   render() {
     return (
       <SafeAreaView style={styles.safeAreaView}>
@@ -28,7 +22,7 @@ class CoinReceive extends Component {
             <View style={styles.addressContainer}>
                 <Text style={styles.addressTitle}>Address: </Text>
                 <Text style={styles.addressValue}>{this.props.walletAddress}</Text>
-            </View>            
+            </View>
           </View>
           <View style={styles.footerGrandparentContainer}>
             <View style={styles.footerParentContainer}>
@@ -41,12 +35,9 @@ class CoinReceive extends Component {
   }
 }
 
-/**
- * Styles
- */
 const styles = StyleSheet.create({
   safeAreaView: {
-    flex: 1, 
+    flex: 1,
     backgroundColor: '#f4f7f9',
   },
   mainContainer: {
@@ -111,7 +102,7 @@ const styles = StyleSheet.create({
     marginBottom: '5%',
     color: '#c0c0c0',
     fontSize: RF(1.7),
-    letterSpacing: 0.5
+    letterSpacing: 0.5,
   },
 });
 

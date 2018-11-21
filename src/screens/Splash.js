@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import * as actions from '../actions/AppConfig';
+import * as actions from '../store/actions/AppConfig';
 
 class Splash extends Component {
   componentDidMount() {
@@ -10,7 +10,7 @@ class Splash extends Component {
   }
 
   checkLoggedIn() {
-    if(this.props.wallets.length > 0) {
+    if (this.props.wallets.length > 0) {
       const navigateToAddToken = NavigationActions.navigate({ routeName: 'password' });
       this.props.navigation.dispatch(navigateToAddToken);
     } else {

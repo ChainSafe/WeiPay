@@ -7,8 +7,7 @@ import Camera from 'react-native-camera';
 import { NavigationActions } from 'react-navigation';
 import Toast from 'react-native-simple-toast';
 import RF from 'react-native-responsive-fontsize';
-
-import * as actions from '../../../actions/ActionCreator';
+import * as actions from '../../../store/actions/ActionCreator';
 import LinearButton from '../../../components/linearGradient/LinearButton';
 // import { getQRCodeData } from '../../../actions/ActionCreator';
 // import { updateSavedContactInputs } from '../../../actions/ActionCreator';

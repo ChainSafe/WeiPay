@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import CryptoJS from 'crypto-js';
 import RF from 'react-native-responsive-fontsize';
 import { FormInput } from 'react-native-elements';
-import * as actions from '../../actions/AppConfig';
+import * as actions from '../../store/actions/AppConfig';
 import LinearButton from '../../components/linearGradient/LinearButton';
 import BoxShadowCard from '../../components/shadowCards/BoxShadowCard';
 import BackWithMenuNav from '../../components/customPageNavs/BackWithMenuNav';

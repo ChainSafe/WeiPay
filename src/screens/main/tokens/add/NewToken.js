@@ -7,11 +7,10 @@ import { FormInput } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import RF from 'react-native-responsive-fontsize';
 import TokenConfig from '../../../../scripts/tokens/tokenConfig';
-import { qrScannerInvoker } from '../../../../actions/ActionCreator';
-import { addNewToken } from '../../../../actions/AppConfig';
+import { qrScannerInvoker } from '../../../../store/actions/ActionCreator';
+import { addNewToken } from '../../../../store/actions/AppConfig';
 import LinearButton from '../../../../components/linearGradient/LinearButton';
 import BoxShadowCard from '../../../../components/shadowCards/BoxShadowCard';
-import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
 
 class NewToken extends Component {
   state = {

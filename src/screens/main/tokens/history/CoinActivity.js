@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native';
+import {
+  View, Text, StyleSheet, FlatList, SafeAreaView,
+} from 'react-native';
 import { connect } from 'react-redux';
 import Config from 'react-native-config';
 import RF from 'react-native-responsive-fontsize';

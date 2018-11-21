@@ -1,4 +1,4 @@
-import AppNavigator from '../../navigation/stack/navigationStack';
+import AppNavigator from '../../../navigation/stack/navigationStack';
 
 
 /**

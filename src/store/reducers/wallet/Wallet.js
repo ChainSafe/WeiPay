@@ -1,4 +1,4 @@
-import tokenData from '../../constants/data/json/tokens.json';
+import tokenData from '../../../constants/data/json/tokens.json';
 
 import {
   EXIT_SETUP_SCREEN,

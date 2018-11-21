@@ -20,10 +20,10 @@ import {
   qrScannerInvoker,
   qrScannerCoinInvoker,
   getQRCodeData,
-} from '../../../../actions/ActionCreator';
+} from '../../../../store/actions/ActionCreator';
 import {
   setGlobalAddress,
-} from '../../../../actions/AppConfig';
+} from '../../../../store/actions/AppConfig';
 import LinearButton from '../../../../components/linearGradient/LinearButton';
 import ClearButton from '../../../../components/linearGradient/ClearButton';
 import BoxShadowCard from '../../../../components/shadowCards/BoxShadowCard';

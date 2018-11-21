@@ -1,7 +1,6 @@
-import { AsyncStorage } from 'react-native';
 import * as actions from '../../actions/ActionTypes';
-import data from '../../constants/data/json/coins.json';
-import tokenData from '../../constants/data/json/tokens.json';
+import data from '../../../constants/data/json/coins.json';
+import tokenData from '../../../constants/data/json/tokens.json';
 
 const INITIAL_STATE = {
   newWallet: false,
