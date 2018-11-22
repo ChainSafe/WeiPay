@@ -10,10 +10,6 @@ import RF from 'react-native-responsive-fontsize';
 import * as actions from '../../../store/actions/ActionCreator';
 import * as configActions from '../../../store/actions/creators/AppConfig'
 import LinearButton from '../../../components/linearGradient/LinearButton';
-// import { getQRCodeData } from '../../../actions/ActionCreator';
-// import { updateSavedContactInputs } from '../../../actions/ActionCreator';
-// import ContactAddresses from '../menu/contacts/SelectedContact';
-// import BackupPhrase from '../menu/settings/BackupPhrase';
 
 /**
  * React Component
@@ -61,36 +57,18 @@ class QrCodeScanner extends Component {
         if (this.state.invoker === "TokenFunctionality") {
           this.props.setGlobalAddress(e.data);
           this.navigate();
-        }else if (this.state.invoker === 'AddTokenFunctionality') {
-          // this.props.updateNewTokenAddress(e.data);
+        } else if (this.state.invoker === 'AddTokenFunctionality') {
           this.props.setQRData(e.data);
           this.navigate();
-        }else {
+        } else {
           const oldInputs = this.state.previousInputs;
           oldInputs.contactAddress[this.state.coinInvoker] = e.data;
           const contactInputs = oldInputs;
           this.props.updateSavedContactInputs(contactInputs);
           this.navigate();
+        
         }
-
       }
-      // this.setState({ qrcode: e.data, scanned: !this.state.scanned });
-      // if (this.state.invoker === "TokenFunctionality") {
-      //   this.props.setGlobalAddress(e.data);
-      //   //this.navigate();
-      // }
-      
-      // if (this.state.invoker === 'TokenFunctionality') { // Coin Send page
-      //   this.props.getQRCodeData(e.data);
-      // } else if (this.state.invoker === 'AddTokenFunctionality') {
-      //   this.props.updateNewTokenAddress(e.data);
-      // } else {
-      //   const oldInputs = this.state.previousInputs;
-      //   oldInputs.contactAddress[this.state.coinInvoker] = e.data;
-      //   const contactInputs = oldInputs;
-      //   this.props.updateSavedContactInputs(contactInputs);
-      // }
-
     };
 
     /**

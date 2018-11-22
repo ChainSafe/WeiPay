@@ -25,6 +25,8 @@ import {
   setGlobalAddress,
   setQrInvoker,
 } from '../../../../store/actions/creators/AppConfig';
+import * as actions from '../../../../store/actions/ActionCreator';
+import * as configActions from '../../../../store/actions/creators/AppConfig';
 import LinearButton from '../../../../components/linearGradient/LinearButton';
 import ClearButton from '../../../../components/linearGradient/ClearButton';
 import BoxShadowCard from '../../../../components/shadowCards/BoxShadowCard';
@@ -379,11 +381,13 @@ const mapStateToProps = ({
   };
 };
 
-export default connect(mapStateToProps, {
-  updateTxnFee,
-  qrScannerInvoker,
-  qrScannerCoinInvoker,
-  getQRCodeData,
-  setGlobalAddress,
-  setQrInvoker,
-})(CoinSend);
+export default connect(mapStateToProps, { ... actions, ... configActions })(CoinSend);
+
+// export default connect(mapStateToProps, {
+//   updateTxnFee,
+//   qrScannerInvoker,
+//   qrScannerCoinInvoker,
+//   getQRCodeData,
+//   setGlobalAddress,
+//   setQrInvoker,
+// })(CoinSend);
