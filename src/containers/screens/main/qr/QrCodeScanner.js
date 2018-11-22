@@ -8,6 +8,7 @@ import { NavigationActions } from 'react-navigation';
 import Toast from 'react-native-simple-toast';
 import RF from 'react-native-responsive-fontsize';
 import * as actions from '../../../store/actions/ActionCreator';
+import * as configActions from '../../../store/actions/creators/AppConfig'
 import LinearButton from '../../../components/linearGradient/LinearButton';
 // import { getQRCodeData } from '../../../actions/ActionCreator';
 // import { updateSavedContactInputs } from '../../../actions/ActionCreator';
@@ -29,12 +30,14 @@ class QrCodeScanner extends Component {
      */
   constructor(props) {
     super(props);
+    console.log({invoker: this.props.invoker });
+    
     this.state = {
       qrcode: '',
       invoker: this.props.invoker,
       coinInvoker: this.props.coinInvoker,
       previousInputs: this.props.currentContact,
-      scanned: true,
+      scanned: false,
     };
   }
 
@@ -53,17 +56,35 @@ class QrCodeScanner extends Component {
      * order to update the global state variable
      */
     onBarCodeRead = (e) => {
-      this.setState({ qrcode: e.data, scanned: !this.state.scanned });
-      if (this.state.invoker === 'TokenFunctionality') { // Coin Send page
-        this.props.getQRCodeData(e.data);
-      } else if (this.state.invoker === 'AddTokenFunctionality') {
-        this.props.updateNewTokenAddress(e.data);
-      } else {
-        const oldInputs = this.state.previousInputs;
-        oldInputs.contactAddress[this.state.coinInvoker] = e.data;
-        const contactInputs = oldInputs;
-        this.props.updateSavedContactInputs(contactInputs);
+      if (this.state.scanned == false) {
+        this.setState({ qrcode: e.data, scanned: !this.state.scanned });
+        if (this.state.invoker === "TokenFunctionality") {
+          this.props.setGlobalAddress(e.data);
+          this.navigate();
+        }else if (this.state.invoker === 'AddTokenFunctionality') {
+          // this.props.updateNewTokenAddress(e.data);
+          this.props.setQRData(e.data);
+          this.navigate();
+        }
+
       }
+      // this.setState({ qrcode: e.data, scanned: !this.state.scanned });
+      // if (this.state.invoker === "TokenFunctionality") {
+      //   this.props.setGlobalAddress(e.data);
+      //   //this.navigate();
+      // }
+      
+      // if (this.state.invoker === 'TokenFunctionality') { // Coin Send page
+      //   this.props.getQRCodeData(e.data);
+      // } else if (this.state.invoker === 'AddTokenFunctionality') {
+      //   this.props.updateNewTokenAddress(e.data);
+      // } else {
+      //   const oldInputs = this.state.previousInputs;
+      //   oldInputs.contactAddress[this.state.coinInvoker] = e.data;
+      //   const contactInputs = oldInputs;
+      //   this.props.updateSavedContactInputs(contactInputs);
+      // }
+
     };
 
     /**
@@ -77,7 +98,7 @@ class QrCodeScanner extends Component {
           <View style={{flex: 1}}>
               <Camera
                   style={styles.preview}
-                  onBarCodeRead={this.onBarCodeRead}
+                  onBarCodeRead={this.state.scanned? null : this.onBarCodeRead}
                   ref={(cam) => { return this.camera = cam; }}
                   aspect={Camera.constants.Aspect.fill}
                   showMarker={true}>
@@ -164,4 +185,4 @@ const mapStateToProps = ({ QrScanner, contacts }) => {
   };
 };
 
-export default connect(mapStateToProps, actions)(QrCodeScanner);
+export default connect(mapStateToProps, configActions)(QrCodeScanner);

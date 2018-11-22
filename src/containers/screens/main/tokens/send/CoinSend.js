@@ -23,6 +23,7 @@ import {
 } from '../../../../store/actions/ActionCreator';
 import {
   setGlobalAddress,
+  setQrInvoker,
 } from '../../../../store/actions/creators/AppConfig';
 import LinearButton from '../../../../components/linearGradient/LinearButton';
 import ClearButton from '../../../../components/linearGradient/ClearButton';
@@ -52,8 +53,8 @@ class CoinSend extends Component {
   }
 
   navigate = () => {
-    this.props.qrScannerInvoker('TokenFunctionality');
-    this.props.qrScannerCoinInvoker(this.props.activeTokenData.symbol);
+    this.props.setQrInvoker("TokenFunctionality");
+
     const navigateToQRScanner = NavigationActions.navigate({
       routeName: 'QCodeScanner',
       params: { invoker: 'CoinSend' },
@@ -384,4 +385,5 @@ export default connect(mapStateToProps, {
   qrScannerCoinInvoker,
   getQRCodeData,
   setGlobalAddress,
+  setQrInvoker,
 })(CoinSend);

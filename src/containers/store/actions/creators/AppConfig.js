@@ -1,41 +1,22 @@
-import {
-  EXIT_SETUP_SCREEN,
-  INITIALIZE_APP_TOKEN_SETUP,
-  INITIALIZE_NEW_APP_WALLET,
-  TEMP_WALLET_NAME,
-  DEBUG_MODE,
-  SET_APP_PASSWORD,
-  CONFIG_HOT_WALLET,
-  ADD_NEW_SINGLE_TOKEN,
-  SAVE_TOKEN_DATA_FOR_TRANSACTION,
-  SET_UNENCRYPTED_WALLET,
-  SET_APP_PASSWORD_ROOT,
-  SAVE_TOKEN_QUANTITIES,
-  SET_NETWORK,
-  SET_GLOBAL_PUBLIC_ADDRESS,
-  NUKE_HOT_WALLET,
-  NUKE_NEW_WALLET,
-  NUKE_WALLET,
-  NUKE_CONTACTS,
-  NUKE_QR,
-} from '../types/AppConfig';
+
+import * as actionType from '../types/AppConfig';
 
 export function enterDebug() {
   const testData = { 'walletName': 'My Test Wallet Name' };
   return (dispatch) => {
-    dispatch({ type: DEBUG_MODE, payload: testData });
+    dispatch({ type: actionType.DEBUG_MODE, payload: testData });
   };
 }
 
 export function encryptSerializedWallet(hashedPassword) {
   return (dispatch) => {
-    dispatch({ type: SET_APP_PASSWORD_ROOT, payload: hashedPassword });
+    dispatch({ type: actionType.SET_APP_PASSWORD_ROOT, payload: hashedPassword });
   };
 }
 
 export function setNetwork(network) {
   return (dispatch) => {
-    dispatch({ type: SET_NETWORK, payload: network });
+    dispatch({ type: actionType.SET_NETWORK, payload: network });
   };
 }
 
@@ -44,7 +25,7 @@ export function setNetwork(network) {
  */
 export function exitSetup(flag) {
   return (dispatch) => {
-    dispatch({ type: EXIT_SETUP_SCREEN, payload: flag });
+    dispatch({ type: actionType.EXIT_SETUP_SCREEN, payload: flag });
   };
 }
 
@@ -53,7 +34,7 @@ export function exitSetup(flag) {
  */
 export function initializeAppTokenState(initTokenData) {
   return (dispatch) => {
-    dispatch({ type: INITIALIZE_APP_TOKEN_SETUP, payload: initTokenData });
+    dispatch({ type: actionType.INITIALIZE_APP_TOKEN_SETUP, payload: initTokenData });
   };
 }
 
@@ -65,7 +46,7 @@ export function addNewToken(tokenObject, usersTokens) {
   tokenCopy.push(tokenObject);
   console.log(tokenCopy);
   return (dispatch) => {
-    dispatch({ type: ADD_NEW_SINGLE_TOKEN, payload: tokenCopy });
+    dispatch({ type: actionType.ADD_NEW_SINGLE_TOKEN, payload: tokenCopy });
   };
 }
 
@@ -74,7 +55,7 @@ export function addNewToken(tokenObject, usersTokens) {
  */
 export function setTempWalletName(walletName) {
   return (dispatch) => {
-    dispatch({ type: TEMP_WALLET_NAME, payload: walletName });
+    dispatch({ type: actionType.TEMP_WALLET_NAME, payload: walletName });
   };
 }
 
@@ -99,7 +80,7 @@ export function initializeAppWallet(currentWallet, walletName, previousWalletSta
   walletObject.publicKey = currentWallet.address;
   appWallets.push(walletObject);
   return (dispatch) => {
-    dispatch({ type: INITIALIZE_NEW_APP_WALLET, payload: appWallets });
+    dispatch({ type: actionType.INITIALIZE_NEW_APP_WALLET, payload: appWallets });
   };
 }
 
@@ -108,7 +89,7 @@ export function initializeAppWallet(currentWallet, walletName, previousWalletSta
  */
 export function setWalletPassword(password) {
   return (dispatch) => {
-    dispatch({ type: SET_APP_PASSWORD, payload: password });
+    dispatch({ type: actionType.SET_APP_PASSWORD, payload: password });
   };
 }
 
@@ -116,14 +97,14 @@ export function setHotWallet(walletObj) {
   const { name, wallet } = walletObj;
   const pKey = wallet.address;
   return (dispatch) => {
-    dispatch({ type: CONFIG_HOT_WALLET, payload: { 'wallet': wallet, 'publicKey': pKey,'name': name} });
+    dispatch({ type: actionType.CONFIG_HOT_WALLET, payload: { 'wallet': wallet, 'publicKey': pKey,'name': name} });
   };
 }
 
 export function saveTokenDataForTransaction(tokenBalance, symbol, address) {
   return (dispatch) => {
     dispatch({
-      type: SAVE_TOKEN_DATA_FOR_TRANSACTION,
+      type: actionType.SAVE_TOKEN_DATA_FOR_TRANSACTION,
       payload: {
         tokenBalance, symbol, address,
       },
@@ -135,50 +116,62 @@ export function setUnencryptedWallet(walletObj) {
   const { name, wallet } = walletObj;
   const pKey = wallet.address;
   return (dispatch) => {
-    dispatch({ type: SET_UNENCRYPTED_WALLET, payload: { wallet, 'publicKey': pKey, name} });
+    dispatch({ type: actionType.SET_UNENCRYPTED_WALLET, payload: { wallet, 'publicKey': pKey, name} });
   };
 }
 
 export function saveAllTokenQuantities(list) {
   return (dispatch) => {
-    dispatch({ type: SAVE_TOKEN_QUANTITIES, payload: list });
+    dispatch({ type: actionType.SAVE_TOKEN_QUANTITIES, payload: list });
   };
 }
 
 export function setGlobalAddress(address) {
   return (dispatch) => {
-    dispatch({ type: SET_GLOBAL_PUBLIC_ADDRESS, payload: address });
+    dispatch({ type: actionType.SET_GLOBAL_PUBLIC_ADDRESS, payload: address });
   };
 }
 
 
 export function nukeHotWallet() {
   return (dispatch) => {
-    dispatch({ type: NUKE_HOT_WALLET, payload: {} });
+    dispatch({ type: actionType.NUKE_HOT_WALLET, payload: {} });
   };
 }
 
 export function nukeNewWallet() {
   return (dispatch) => {
-    dispatch({ type: NUKE_NEW_WALLET, payload: {} });
+    dispatch({ type: actionType.NUKE_NEW_WALLET, payload: {} });
   };
 }
 
 export function nukeWallet() {
   return (dispatch) => {
-    dispatch({ type: NUKE_WALLET, payload: {} });
+    dispatch({ type: actionType.NUKE_WALLET, payload: {} });
   };
 }
 
 export function nukeContacts() {
   return (dispatch) => {
-    dispatch({ type: NUKE_CONTACTS, payload: {} });
+    dispatch({ type: actionType.NUKE_CONTACTS, payload: {} });
   };
 }
 
 export function nukeQr() {
   return (dispatch) => {
-    dispatch({ type: NUKE_QR, payload: {} });
+    dispatch({ type: actionType.NUKE_QR, payload: {} });
   };
 }
 
+export function setQrInvoker(pageName) {
+  return (dispatch) => {
+    dispatch({type: actionType.QR_SCANNER_INVOKER, payload: pageName });
+  }
+}
+
+
+export function setQRData(data) {
+  return (dispatch) => {
+    dispatch({type: actionType.SAVE_QR_SCANNER_DATA, payload: data});
+  }
+}
