@@ -65,6 +65,12 @@ class QrCodeScanner extends Component {
           // this.props.updateNewTokenAddress(e.data);
           this.props.setQRData(e.data);
           this.navigate();
+        }else {
+          const oldInputs = this.state.previousInputs;
+          oldInputs.contactAddress[this.state.coinInvoker] = e.data;
+          const contactInputs = oldInputs;
+          this.props.updateSavedContactInputs(contactInputs);
+          this.navigate();
         }
 
       }
@@ -185,4 +191,4 @@ const mapStateToProps = ({ QrScanner, contacts }) => {
   };
 };
 
-export default connect(mapStateToProps, configActions)(QrCodeScanner);
+export default connect(mapStateToProps, {... configActions, ... actions})(QrCodeScanner);
