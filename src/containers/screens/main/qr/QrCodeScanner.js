@@ -10,7 +10,6 @@ import RF from 'react-native-responsive-fontsize';
 import * as actions from '../../../store/actions/ActionCreator';
 import * as configActions from '../../../store/actions/creators/AppConfig';
 
-
 /**
  * React Component
  * Full Screen component used to scan QrCodes and save the Qr-data in
@@ -50,7 +49,7 @@ class QrCodeScanner extends Component {
      * order to update the global state variable
      */
     onBarCodeRead = (e) => {
-      if (this.state.scanned == false) {
+      if (this.state.scanned === false) {
         this.setState({ qrcode: e.data, scanned: !this.state.scanned });
         if (this.state.invoker === 'TokenFunctionality') {
           this.props.setGlobalAddress(e.data);
