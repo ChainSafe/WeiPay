@@ -22,7 +22,7 @@ import ContractInputContainer from '../../../components/contracts/ContractInputC
 import ContractInputConstant from '../../../components/contracts/ContractInputConstant';
 
 /**
- * Screen is used to display the passphrase (mnemonic) of the wallet - 0xcD361f7173C439BB76F3E1206446e9D183B82787
+ * Screen is used to display the passphrase (mnemonic) of the wallet
  */
 class Contract extends Component {
   constructor(props) {
