@@ -59,6 +59,7 @@ export function newWalletNameEntry(name) {
 //   };
 // }
 
+
 /**
  * returns an action that contains the fiat currency that the user
  * wishes to view thier the wallet balance with

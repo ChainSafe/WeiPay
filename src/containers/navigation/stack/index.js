@@ -10,15 +10,14 @@ import NavigationStack from './navigationStack';
  */
 class AppNavigation extends Component {
   constructor(props) {
-    super(props)
-    BackHandler.addEventListener("hardwareBackPress", this.onBackPress  );
+    super(props);
+    BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
   }
 
   onBackPress = () => {
     const { dispatch } = this.props;
-    if (this.props.navigationState.index === 2) {
-      return false;
-    } else if (this.props.navigationState.index == 1) {
+
+    if (this.props.navigationState.index > 0) {
       return false;
     }
 
@@ -26,12 +25,12 @@ class AppNavigation extends Component {
     return true;
   };
 
-  
+
   render() {
-    const { navigationState, dispatch } = this.props  ;
+    const { navigationState, dispatch } = this.props;
     return (
       <NavigationStack
-        navigation={addNavigationHelpers({ dispatch, state: navigationState, })}
+        navigation={addNavigationHelpers({ dispatch, state: navigationState })}
       />
     );
   }
@@ -41,8 +40,10 @@ class AppNavigation extends Component {
  * Returns the current screen the state is pointing to
  * @param {Object} state
  */
-const mapStateToProps = state => ({
-  navigationState: state.NavigationReducer,
-});
+const mapStateToProps = (state) => {
+  return {
+    navigationState: state.NavigationReducer,
+  };
+};
 
 export default connect(mapStateToProps)(AppNavigation);

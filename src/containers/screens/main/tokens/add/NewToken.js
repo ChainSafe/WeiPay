@@ -8,26 +8,35 @@ import { NavigationActions } from 'react-navigation';
 import RF from 'react-native-responsive-fontsize';
 import TokenConfig from '../../../../../scripts/tokens/tokenConfig';
 import { qrScannerInvoker } from '../../../../store/actions/ActionCreator';
-import { addNewToken } from '../../../../store/actions/creators/AppConfig';
+import { addNewToken, setQrInvoker } from '../../../../store/actions/creators/AppConfig';
 import LinearButton from '../../../../components/linearGradient/LinearButton';
 import BoxShadowCard from '../../../../components/shadowCards/BoxShadowCard';
 
 class NewToken extends Component {
-  state = {
-    tokenName: '',
-    tokenAddress: '',
+  constructor(props) {
+    super(props);
+    let addr = '';
+    if (this.props.qrInvoker === 'AddTokenFunctionality') {
+      addr = this.props.qrData;
+    }
+
+    this.state = {
+      tokenName: '',
+      tokenAddress: addr,
+    };
   }
+
 
   complete = () => {
     if (this.state.tokenAddress !== '' && this.state.tokenName !== '') {
       this.setState({ tokenAddress: '' });
       this.setState({ tokenName: '' });
       const newTokenObj = TokenConfig('addNew', {
-        "name": "NA",
-        "address": this.state.tokenAddress,
-        "symbol": this.state.tokenName,
-        "id": this.props.tokens.length,
-        "decimals": 18,
+        'name': 'NA',
+        'address': this.state.tokenAddress,
+        symbol: this.state.tokenName,
+        id: this.props.tokens.length,
+        'decimals': 18,
       });
       this.props.addNewToken(newTokenObj, this.props.tokens);
     }
@@ -42,7 +51,7 @@ class NewToken extends Component {
   }
 
   navigate = () => {
-    this.props.qrScannerInvoker('AddTokenFunctionality');
+    this.props.setQrInvoker('AddTokenFunctionality');
     const navigateToQRScanner = NavigationActions.navigate({
       routeName: 'QCodeScanner',
     });
@@ -53,7 +62,7 @@ class NewToken extends Component {
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>
-          
+
           <View style={styles.boxShadowContainer}>
             <BoxShadowCard>
               <Text style={styles.cardText}>
@@ -70,7 +79,7 @@ class NewToken extends Component {
               <View style={styles.formInputContainer}>
                 <FormInput
                   placeholder={'Token Address'}
-                  onChangeText={this.updateAddress.bind(this)}               
+                  onChangeText={this.updateAddress.bind(this)}
                   inputStyle={styles.formAddress}
                   value={this.state.tokenAddress}
                   selectionColor={'#12c1a2'}
@@ -79,7 +88,7 @@ class NewToken extends Component {
               <View style={styles.formInputContainer}>
                 <FormInput
                   placeholder={'Token Symbol'}
-                  onChangeText={this.updateName.bind(this)}                
+                  onChangeText={this.updateName.bind(this)}
                   inputStyle={styles.formAddress}
                   value={this.state.tokenName}
                   selectionColor={'#12c1a2'}
@@ -240,13 +249,15 @@ const styles = StyleSheet.create({
 
 });
 
-const mapStateToProps = ({ newWallet, Wallet }) => {
+const mapStateToProps = ({ newWallet, Wallet, QrScanner }) => {
   return {
     newTokenAddress: newWallet.newTokenAddress,
     newTokenName: newWallet.newTokenName,
     tokens: Wallet.tokens,
     QrCodeData: newWallet.QrData,
+    qrData: QrScanner.data,
+    qrInvoker: QrScanner.invoker,
   };
 };
 
-export default connect(mapStateToProps, { qrScannerInvoker, addNewToken })(NewToken);
+export default connect(mapStateToProps, { qrScannerInvoker, addNewToken, setQrInvoker })(NewToken);

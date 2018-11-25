@@ -8,11 +8,7 @@ import { NavigationActions } from 'react-navigation';
 import Toast from 'react-native-simple-toast';
 import RF from 'react-native-responsive-fontsize';
 import * as actions from '../../../store/actions/ActionCreator';
-import LinearButton from '../../../components/linearGradient/LinearButton';
-// import { getQRCodeData } from '../../../actions/ActionCreator';
-// import { updateSavedContactInputs } from '../../../actions/ActionCreator';
-// import ContactAddresses from '../menu/contacts/SelectedContact';
-// import BackupPhrase from '../menu/settings/BackupPhrase';
+import * as configActions from '../../../store/actions/creators/AppConfig';
 
 /**
  * React Component
@@ -34,14 +30,14 @@ class QrCodeScanner extends Component {
       invoker: this.props.invoker,
       coinInvoker: this.props.coinInvoker,
       previousInputs: this.props.currentContact,
-      scanned: true,
+      scanned: false,
     };
   }
 
     navigate = () => {
       const navigateToCreateOrRestore = NavigationActions.navigate({
         routeName: this.state.invoker,
-        params: { activeTab: 3 }
+        params: { activeTab: 3 },
       });
       this.props.navigation.dispatch(navigateToCreateOrRestore);
     };
@@ -53,16 +49,21 @@ class QrCodeScanner extends Component {
      * order to update the global state variable
      */
     onBarCodeRead = (e) => {
-      this.setState({ qrcode: e.data, scanned: !this.state.scanned });
-      if (this.state.invoker === 'TokenFunctionality') { // Coin Send page
-        this.props.getQRCodeData(e.data);
-      } else if (this.state.invoker === 'AddTokenFunctionality') {
-        this.props.updateNewTokenAddress(e.data);
-      } else {
-        const oldInputs = this.state.previousInputs;
-        oldInputs.contactAddress[this.state.coinInvoker] = e.data;
-        const contactInputs = oldInputs;
-        this.props.updateSavedContactInputs(contactInputs);
+      if (this.state.scanned === false) {
+        this.setState({ qrcode: e.data, scanned: !this.state.scanned });
+        if (this.state.invoker === 'TokenFunctionality') {
+          this.props.setGlobalAddress(e.data);
+          this.navigate();
+        } else if (this.state.invoker === 'AddTokenFunctionality') {
+          this.props.setQRData(e.data);
+          this.navigate();
+        } else {
+          const oldInputs = this.state.previousInputs;
+          oldInputs.contactAddress[this.state.coinInvoker] = e.data;
+          const contactInputs = oldInputs;
+          this.props.updateSavedContactInputs(contactInputs);
+          this.navigate();
+        }
       }
     };
 
@@ -73,25 +74,22 @@ class QrCodeScanner extends Component {
      */
     render() {
       return (
-        <View style={[styles.container, this.state.scanned ? {borderColor: 'green'} : {borderTopColor: 'black'}  ]}>
-          <View style={{flex: 1}}>
+        <View style={styles.container}>
+          <View style={{ flex: 1 }}>
               <Camera
                   style={styles.preview}
-                  onBarCodeRead={this.onBarCodeRead}
+                  onBarCodeRead={this.state.scanned ? null : this.onBarCodeRead}
                   ref={(cam) => { return this.camera = cam; }}
                   aspect={Camera.constants.Aspect.fill}
                   showMarker={true}>
                 <View style={styles.btnContainer}>
-                  <LinearButton
-                    onClickFunction={this.navigate}
-                    buttonText='Next'
-                    customStyles={styles.button} />
+                  <Text style={styles.msgText}>Wiill Navigate back to the original screen</Text>
                   <View style={styles.footerGrandparentContainer}>
                       <View style={styles.footerParentContainer} >
                           <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                       </View>
                   </View>
-                </View>                  
+                </View>
               </Camera>
             </View>
         </View>
@@ -150,6 +148,12 @@ const styles = StyleSheet.create({
     color: '#c0c0c0',
     letterSpacing: 0.5,
   },
+  msgText: {
+    backgroundColor: '#f4f7f9',
+    borderRadius: 5,
+    color: 'black',
+    padding: '2%',
+  },
 });
 
 /**
@@ -164,4 +168,4 @@ const mapStateToProps = ({ QrScanner, contacts }) => {
   };
 };
 
-export default connect(mapStateToProps, actions)(QrCodeScanner);
+export default connect(mapStateToProps, { ...configActions, ...actions })(QrCodeScanner);
