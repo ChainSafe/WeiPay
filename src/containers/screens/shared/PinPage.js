@@ -164,9 +164,9 @@ class PinPage extends Component {
                           this.props.isInSetupScreens
                             ? null
                             : <View style={styles.forgotContainer}>
-                              <TouchableWithoutFeedback onPress={() => {
-                                return this.setState({ resetInitiated: true });
-                              }}>
+                                <TouchableWithoutFeedback onPress={() => {
+                                  return this.setState({ resetInitiated: true });
+                                }}>
                                 <View>
                                 { resetInitiated ? null : <Text style={styles.forgotText}>Forgot Password </Text> }
                                 </View>
@@ -175,13 +175,15 @@ class PinPage extends Component {
                         }
                         {
                           resetInitiated
-                            ? <View style={styles.forgotContainer}> <TouchableWithoutFeedback onPress={() => {
-                              return this.setState({ resetInitiated: false });
-                            }}>
+                            ? <View style={styles.forgotContainer}>
+                              <TouchableWithoutFeedback onPress={() => {
+                                return this.setState({ resetInitiated: false });
+                              }}>
                               <View>
                                 <Text style={styles.forgotText}> Cancell Reset </Text>
                               </View>
-                            </TouchableWithoutFeedback> </View>
+                            </TouchableWithoutFeedback>
+                            </View>
                             : null
                         }
                       </View>
