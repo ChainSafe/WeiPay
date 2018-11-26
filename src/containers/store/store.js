@@ -15,12 +15,17 @@ const persistConfig = {
   stateReconciler: autoMergeLevel2,
 };
 
+let middleware = [thunk, promise]
+
+if (__DEV__) {
+  middleware = [...middleware, logger]
+}
+
 const persistedReducer = persistReducer(persistConfig, AppReducer);
-const middleware = applyMiddleware(thunk, promise, logger);
 
 const store = createStore(
   persistedReducer,
-  middleware,
+  applyMiddleware(...middleware)
 );
 
 const persistor = persistStore(store);
