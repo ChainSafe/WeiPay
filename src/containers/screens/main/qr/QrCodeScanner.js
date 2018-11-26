@@ -83,7 +83,7 @@ class QrCodeScanner extends Component {
                   aspect={Camera.constants.Aspect.fill}
                   showMarker={true}>
                 <View style={styles.btnContainer}>
-                  <Text style={styles.msgText}>Wiill Navigate back to the original screen</Text>
+                  <Text style={styles.msgText}>Will Navigate back to the original screen when QR is scanned.</Text>
                   <View style={styles.footerGrandparentContainer}>
                       <View style={styles.footerParentContainer} >
                           <Text style={styles.textFooter} >Powered by ChainSafe </Text>

@@ -15,16 +15,6 @@ import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import RF from 'react-native-responsive-fontsize';
-// import {
-//   updateTxnFee,
-//   qrScannerInvoker,
-//   qrScannerCoinInvoker,
-//   getQRCodeData,
-// } from '../../../../store/actions/ActionCreator';
-// import {
-//   setGlobalAddress,
-//   setQrInvoker,
-// } from '../../../../store/actions/creators/AppConfig';
 import * as actions from '../../../../store/actions/ActionCreator';
 import * as configActions from '../../../../store/actions/creators/AppConfig';
 import LinearButton from '../../../../components/linearGradient/LinearButton';

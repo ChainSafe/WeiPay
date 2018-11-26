@@ -22,10 +22,7 @@ import ContractInputContainer from '../../../components/contracts/ContractInputC
 import ContractInputConstant from '../../../components/contracts/ContractInputConstant';
 
 /**
- * Screen is used to display the passphrase (mnemonic) of the wallet - 0xcD361f7173C4
- * 39BB76F3
- * E1206446e9D183
- * B82787
+ * Screen is used to display the passphrase (mnemonic) of the wallet
  */
 class Contract extends Component {
   constructor(props) {
@@ -200,7 +197,7 @@ class Contract extends Component {
                       <Text style={styles.textHeader}>Contract Interaction</Text>
                       <Text style={styles.textDescription}>Load contract address</Text>
                       <View style={styles.addressField}>
-                        <TextInput
+                        <FormInput
                           placeholder={'Contract Address'}
                           onChangeText={(add) => { return this.setState({ address: add }); }}
                           inputStyle={styles.inputContactName}
@@ -285,8 +282,9 @@ const styles = StyleSheet.create({
     color: '#1a1f3e',
   },
   addressField: {
-    marginLeft: '9%',
+    marginLeft: '5dsa%',
     marginTop: '5%',
+    width: '90%',
   },
   inputContactName: {
     fontSize: RF(2.5),

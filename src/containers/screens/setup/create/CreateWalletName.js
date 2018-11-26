@@ -87,6 +87,7 @@ class CreateWalletName extends Component {
                             placeholder={'Ex. My Wallet'}
                             onChangeText={this.getWalletName.bind(this)}
                             inputStyle={styles.txtWalletName}
+                            selectionColor={'#12c1a2'}
                           />
                         </View>
                       </View>

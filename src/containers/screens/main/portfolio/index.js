@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
   },
   imgMainContainer: {
     flex: 1.25,
-    alignItems: 'center',
+    alignItems: 'flex-end',
   },
   imageContainer: {
     flex: 1,
@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
   },
   listItemValueContainer: {
     flex: 3,
-    paddingRight: '10%',
+    paddingRight: '5%',
   },
   listItemValueComponent: {
     flex: 1,
