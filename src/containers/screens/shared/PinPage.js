@@ -68,7 +68,8 @@ class PinPage extends Component {
   }
 
   setupEncyrptionProcess = async (walletName, userWallets) => {
-    const { nextScreenToNavigate, wallet } = this.props.navigation.state.params;
+    const { nextScreenToNavigate } = this.props.navigation.state.params;
+    const wallet = await ethers.Wallet.createRandom();
     const serialialedWallet = JSON.stringify(wallet);
     const encrypted = this.encryptSerializedWallet(serialialedWallet);
     const hotWalletObj = { wallet, name: walletName };

@@ -17,9 +17,9 @@ const persistConfig = {
 
 let middleware = [thunk, promise]
 
-if (__DEV__) {
-  middleware = [...middleware, logger]
-}
+// if (__DEV__) {
+//   middleware = [...middleware, logger]
+// }
 
 const persistedReducer = persistReducer(persistConfig, AppReducer);
 
