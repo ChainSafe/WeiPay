@@ -5,6 +5,7 @@ import {
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import CryptoJS from 'crypto-js';
+import ethers from 'ethers';
 import RF from 'react-native-responsive-fontsize';
 import { FormInput } from 'react-native-elements';
 import * as actions from '../../store/actions/creators/AppConfig';
@@ -194,7 +195,7 @@ class PinPage extends Component {
                 <View style={styles.btnNextContainer}>
                     <LinearButton
                       onClickFunction={ resetInitiated ? this.resetApp : this.setPin }
-                      buttonText= {resetInitiated ? 'Reset Wallet' : 'Set Pin' }
+                      buttonText= {resetInitiated ? 'Reset Wallet' : 'Enter Pin' }
                       customStyles={styles.btnNext}
                       buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
                     />
