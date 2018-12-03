@@ -102,11 +102,11 @@ class CreateWalletName extends Component {
                 customStyles={styles.button}
                 buttonStateEnabled= { debugMode ? false : !isNameExist }
               />
-              <View style={styles.footerGrandparentContainer} >
+              {/* <View style={styles.footerGrandparentContainer} >
                 <View style={styles.footerParentContainer} >
                   <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                 </View>
-              </View>
+              </View> */}
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -174,6 +174,8 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     width: '100%',
+    marginBottom: '2.5%',
+    marginTop: '2.5%',
   },
   button: {
     width: '82%',

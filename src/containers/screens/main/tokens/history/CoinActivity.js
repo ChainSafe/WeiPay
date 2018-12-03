@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   flatListStyle: {
     flex: 1,
     width: '100%',
-    backgroundColor: '#fafbfe',
+    backgroundColor: '#f4f7f9',
   },
   itemStyle: {
     paddingBottom: '5%',
