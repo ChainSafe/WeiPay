@@ -147,10 +147,6 @@ jobs:
       - save-cache: *save-fastlane
 
       - run:
-          name: version patch
-          command: npm version patch
-       
-      - run:
           name: Build and Deploy
           command: |
             cd android
