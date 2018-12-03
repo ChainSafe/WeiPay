@@ -1,2 +1,4 @@
-json_key_file ENV["PLAYSTORE_API_KEY"]
+json_key_file "./playstore-api-key.json"
 package_name "com.chainsafe.weipay"
+
+
