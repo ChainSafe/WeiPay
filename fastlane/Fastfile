@@ -51,7 +51,7 @@ platform :android do
     slack(
       message: "A new build has been uploaded to the PlayStore",
       success: true,
-      slack_url: "https://hooks.slack.com/services/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",
+      slack_url: ENV["SLACK_WEBHOOK"],
       attachment_properties: {
         fields: [
           {

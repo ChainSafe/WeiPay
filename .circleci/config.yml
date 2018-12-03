@@ -2,9 +2,6 @@ version: 2
 jobs:
   build:
     working_directory: ~/weipay-android
-    # environment:
-    #     GRADLE_PROPERTIES_URL: https://www.dropbox.com/s/2bt0u7ox1763o02/gradle.properties?dl=0
-    #     KEYSTORE_DOWNLOAD_URL: https://www.dropbox.com/s/73e3l3h47xzbmkl/wei-pay-android.keystore?dl=0
 
     docker:
       - image: circleci/android:api-28-node8-alpha
