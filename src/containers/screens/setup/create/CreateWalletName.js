@@ -7,7 +7,6 @@ import {
   Keyboard,
   Dimensions,
   SafeAreaView,
-  ActivityIndicator,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -17,8 +16,6 @@ import { setTempWalletName, initializeAppWallet } from '../../../store/actions/c
 import LinearButton from '../../../components/linearGradient/LinearButton';
 import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
-
-const ethers = require('ethers');
 
 class CreateWalletName extends Component {
   state = {
@@ -36,22 +33,13 @@ class CreateWalletName extends Component {
     });
   };
 
-  // createWallet = () => {
-  //   this.setState({ walletProcessing: true }, async () => {
-  //     const wallet = await ethers.Wallet.createRandom();
-  //     this.navigateToPin(wallet);
-  //   });
-  // }
-
   getWalletName(name) {
     this.props.setTempWalletName(name);
-    // this.setState({ walletName: name });
   }
 
   render() {
-    const { walletProcessing } = this.state;
     const { debugMode } = this.props;
-    const isNameExist = this.props.tempWalletName !== "";
+    const isNameExist = this.props.tempWalletName !== null;
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -81,37 +69,11 @@ class CreateWalletName extends Component {
                             />
                         </View>
                     </View>
-                  {/*{*/}
-                    {/*walletProcessing*/}
-                      {/*? <View>*/}
-                        {/*<Text style={styles.cardText}>*/}
-                          {/*Please wait while your wallet is being created..*/}
-                        {/*</Text>*/}
-                        {/*<View style={[styles.container, styles.horizontal]}>*/}
-                          {/*<ActivityIndicator size="large" color="#12c1a2" />*/}
-                        {/*</View>*/}
-                      {/*</View>*/}
-                      {/*: <View>*/}
-                       {/*<Text style={styles.cardText}>*/}
-                          {/*Create a name for your wallet, for example: My Wallet*/}
-                        {/*</Text>*/}
-                        {/*<View style={styles.formInputContainer}>*/}
-                          {/*<FormInput*/}
-                            {/*placeholder={'Ex. My Wallet'}*/}
-                            {/*onChangeText={this.getWalletName.bind(this)}*/}
-                            {/*inputStyle={styles.txtWalletName}*/}
-                            {/*selectionColor={'#12c1a2'}*/}
-                          {/*/>*/}
-                        {/*</View>*/}
-                      {/*</View>*/}
-                  {/*}*/}
-                 
                 </BoxShadowCard>
               </View>
             </View>
             <View style={styles.btnContainer}>
               <LinearButton
-                // onClickFunction={ this.createWallet }
                 onClickFunction={ this.navigateToPin }
                 buttonText="Next"
                 customStyles={styles.button}
