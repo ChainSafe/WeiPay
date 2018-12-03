@@ -99,7 +99,7 @@ android {
         applicationId "com.chainsafe.weipay"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 13
+        versionCode 23
         versionName "1.0"
         ndk {
             abiFilters "armeabi-v7a", "x86"
