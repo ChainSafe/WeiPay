@@ -68,9 +68,20 @@ class PinPage extends Component {
     return plaintext;
   }
 
+  /**
+   * If the next route is not generatePassphrase, you must obtain the wallet from
+   * the recoverMnemonic page. You need to create the wallet in that page in order
+   * to enforce a valid mnemonic entry.
+   */
   setupEncyrptionProcess = async (walletName, userWallets) => {
     const { nextScreenToNavigate } = this.props.navigation.state.params;
-    const wallet = await ethers.Wallet.createRandom();
+    const isCreateStream = nextScreenToNavigate === 'generatePassphrase';
+    let wallet;
+    if (isCreateStream) {
+      wallet = await ethers.Wallet.createRandom();
+    } else {
+      wallet = this.props.navigation.state.params.wallet;
+    }
     const serialialedWallet = JSON.stringify(wallet);
     const encrypted = this.encryptSerializedWallet(serialialedWallet);
     const hotWalletObj = { wallet, name: walletName };
