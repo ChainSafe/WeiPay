@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  android:
+  build:
     working_directory: ~/weipay-android
     # environment:
     #     GRADLE_PROPERTIES_URL: https://www.dropbox.com/s/2bt0u7ox1763o02/gradle.properties?dl=0
