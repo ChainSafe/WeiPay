@@ -146,6 +146,7 @@ jobs:
       - run: *install-fastlane-android
       - save-cache: *save-fastlane
 
+     - run: mkdir -p ~/.gradle && cp gradle.properties ~/.gradle && cp wei-pay-android.keystore ./android/app
       - run:
           name: Build and Deploy
           command: |
