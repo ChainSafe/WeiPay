@@ -81,13 +81,13 @@ aliases:
    
   - &install-fastlane-android
     name: Install fastlane
-    command: gem install fastlane
+    command: gem install fastlane -NV
  
   - &yarn
     name: Install Node Dependencies
     command: |
       # rm -rf node_modules
-      yarn install --non-interactive --cache-folder ~/.cache/yarn
+      yarn install --non-interactive --cache-folder ~/.cache/yar0n
    
   - &install-gem-android
     name: Install Gemfile
@@ -149,8 +149,7 @@ jobs:
       - run:
           name: Build and Deploy
           command: |
-            cd android
-            bundle exec fastlane android beta
+            fastlane android beta
 
     #   - run:
     #       name: Set Ruby Version
