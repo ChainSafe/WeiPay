@@ -15,16 +15,7 @@ import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import RF from 'react-native-responsive-fontsize';
-// import {
-//   updateTxnFee,
-//   qrScannerInvoker,
-//   qrScannerCoinInvoker,
-//   getQRCodeData,
-// } from '../../../../store/actions/ActionCreator';
-// import {
-//   setGlobalAddress,
-//   setQrInvoker,
-// } from '../../../../store/actions/creators/AppConfig';
+import Toast from 'react-native-simple-toast';
 import * as actions from '../../../../store/actions/ActionCreator';
 import * as configActions from '../../../../store/actions/creators/AppConfig';
 import LinearButton from '../../../../components/linearGradient/LinearButton';
@@ -52,6 +43,10 @@ class CoinSend extends Component {
       validAddress: new RegExp('0x[0-9a-fA-F]{40}'),
       valid: false,
     };
+  }
+
+  componentDidMount() {
+    console.log(this.props.wallet);
   }
 
   navigate = () => {
@@ -128,6 +123,7 @@ class CoinSend extends Component {
     return { flag: false };
   }
 
+  // etherTx.hash 
   processTX = async () => {
     this.getTxnFee();
     const validAddress = this.state.valid;
@@ -136,21 +132,34 @@ class CoinSend extends Component {
     const isEtherTX = this.props.activeTokenData.address === '';
     if (validAddress && !flag) {
       const provider = await getNetworkProvider(this.props.network);
+      let txResponse;
       if (isEtherTX) {
-        executeEtherTransaction(
+        txResponse = await executeEtherTransaction(
           provider,
           this.state.toAddress,
           this.props.wallet.privateKey,
           this.state.value,
         );
       } else {
-        executeERC20Transaction(
+        console.log('did something happen');
+        console.log('provider', provider);
+        console.log('to', this.state.toAddress);
+        console.log('pkey', this.props.wallet.privateKey);
+        console.log('value', this.state.value);
+        console.log('token add', this.props.activeTokenData.address);
+        txResponse = await executeERC20Transaction(
           provider,
           this.state.toAddress,
           this.props.wallet.privateKey,
           this.state.value,
-          this.props.token.address,
+          this.props.activeTokenData.address,
         );
+        console.log('after call');
+        console.log({ txResponse });
+      }
+      if (Object.prototype.hasOwnProperty.call(txResponse, 'hash')) {
+        Toast.show('Success, check etherscan', Toast.LONG);
+        this.resetFields();
       }
     } else {
       console.log('bad');
@@ -381,7 +390,7 @@ const mapStateToProps = ({
   };
 };
 
-export default connect(mapStateToProps, { ... actions, ... configActions })(CoinSend);
+export default connect(mapStateToProps, { ...actions, ...configActions })(CoinSend);
 
 // export default connect(mapStateToProps, {
 //   updateTxnFee,

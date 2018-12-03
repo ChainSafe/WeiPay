@@ -137,6 +137,7 @@ class Portfolio extends Component {
         <TouchableOpacity
           onPress={() => {
             this.props.saveTokenDataForTransaction(tokenAmounts.amount, tokenInfo.symbol, tokenInfo.address);
+            console.log('select a token', tokenAmounts.amount, tokenInfo.symbol, tokenInfo.address);
             this.props.navigation.navigate('TokenFunctionality');
           }}
           style={styles.listItemParentContainer}
