@@ -1,25 +1,190 @@
+aliases:
+  # Cache Management
+  - &restore-yarn-cache
+    keys:
+      - yarn-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}
+      # Fallback in case checksum fails
+      - yarn-{{ arch }}-{{ .Branch }}-
+      # Fallback in case this is a first-time run on a fork
+      - yarn-{{ arch }}-master-
+  - &save-yarn-cache
+    paths:
+      - node_modules
+      - ~/.cache/yarn
+    key: yarn-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}
+ 
+  - &restore-react-native-cli
+    keys:
+      - react-native-cli-{{ arch }}
+  - &save-react-native-cli
+    paths:
+      - node_modules
+    key: react-native-cli-{{ arch }}
+ 
+  - &restore-fastlane
+    keys:
+      - fastlane-{{ arch }}
+  - &save-fastlane
+    paths:
+      - ~/.fastlane
+    key: fastlane-{{ arch }}
+ 
+  - &restore-gem-android
+    keys:
+      - gem-{{ arch }}-{{ .Branch }}-{{ checksum "android/Gemfile.lock" }}
+      # Fallback in case checksum fails
+      - gem-{{ arch }}-{{ .Branch }}-
+      # Fallback in case this is a first-time run on a fork
+      - gem-{{ arch }}-master-
+  - &save-gem-android
+    paths:
+      - android/vendor/bundle
+    key: gem-{{ arch }}-{{ .Branch }}-{{ checksum "android/Gemfile.lock" }}
+   
+  - &restore-gem-ios
+    keys:
+      - gem-{{ arch }}-{{ .Branch }}-{{ checksum "ios/Gemfile.lock" }}
+      # Fallback in case checksum fails
+      - gem-{{ arch }}-{{ .Branch }}-
+      # Fallback in case this is a first-time run on a fork
+      - gem-{{ arch }}-master-
+  - &save-gem-ios
+    paths:
+      - ios/vendor/bundle
+    key: gem-{{ arch }}-{{ .Branch }}-{{ checksum "ios/Gemfile.lock" }}
+ 
+  - &restore-cocoapods
+    keys:
+      - cocoapods-{{ arch }}-{{ .Branch }}-{{ checksum "ios/Podfile.lock" }}
+      # Fallback in case checksum fails
+      - cocoapods-{{ arch }}-{{ .Branch }}-
+      # Fallback in case this is a first-time run on a fork
+      - cocoapods-{{ arch }}-master-
+  - &save-cocoapods
+    paths:
+      - ~/.cocoapods
+      - ios/Pods
+    key: cocoapods-{{ arch }}-{{ .Branch }}-{{ checksum "ios/Podfile.lock" }}
+ 
+ 
+  # Dependency Management
+  - &install-react-native-cli
+    name: Install react-native-cli
+    command: npm install react-native-cli
+ 
+  - &install-fastlane-ios
+    name: Install fastlane
+    command: |
+      brew update
+      brew install ruby
+      brew cask install fastlane
+   
+  - &install-fastlane-android
+    name: Install fastlane
+    command: gem install fastlane
+ 
+  - &yarn
+    name: Install Node Dependencies
+    command: |
+      # rm -rf node_modules
+      yarn install --non-interactive --cache-folder ~/.cache/yarn
+   
+  - &install-gem-android
+    name: Install Gemfile
+    command: |
+      cd android
+      bundle update
+      gem install json
+      bundle install --path vendor/bundle
+ 
+  - &install-gem-ios
+    name: Install Gemfile
+    command: |
+      cd ios
+      bundle update
+      gem install json
+      bundle install --path vendor/bundle
+ 
+  - &install-cocoapods
+    name: Install CocoaPods
+    command: |
+      cd ios
+      bundle exec pod update
+ 
 version: 2
 jobs:
   build:
-    working_directory: ~/weipay-android
+    working_directory: ~/weipay
+    docker:
+      - image: circleci/node:8
+ 
+    steps:
+      - checkout
+ 
+      - restore-cache: *restore-yarn-cache
+      - run: *yarn
+      - save-cache: *save-yarn-cache
+ 
+      - run:
+          name: Run unit tests
+          command: yarn test
+ 
+      - persist_to_workspace:
+          root: ~/weipay
+          paths:
+            - node_modules
+
+  android:
+    working_directory: ~/weipay
 
     docker:
       - image: circleci/android:api-28-node8-alpha
 
     steps:
       - checkout:
-          path: ~/weipay-android
+          path: ~/weipay
       - attach_workspace:
-          at: ~/weipay-android
-      - run: npm i
+          at: ~/weipay
+
+      - restore-cache: *restore-fastlane
+      - run: *install-fastlane-android
+      - save-cache: *save-fastlane
+
       - run:
-          name: Set Ruby Version
-          command: echo "ruby-2.4" > ~/.ruby-version
-      - run: sh .circleci/download.sh
-      - run: mkdir -p ~/.gradle && cp gradle.properties ~/.gradle && cp wei-pay-android.keystore ./android/app
-      - run: gem install fastlane -NV
-      - run: fastlane android alpha
-      - persist_to_workspace:
-          root: ~/weipay-android
-          paths:
-            - node_modules
+          name: version patch
+          command: npm version patch
+       
+      - run:
+          name: Build and Deploy
+          command: |
+            cd android
+            bundle exec fastlane android beta
+
+    #   - run:
+    #       name: Set Ruby Version
+    #       command: echo "ruby-2.4" > ~/.ruby-version
+    #   - run: sh .circleci/download.sh
+    #   - run: mkdir -p ~/.gradle && cp gradle.properties ~/.gradle && cp wei-pay-android.keystore ./android/app
+    #   - run: gem install fastlane -NV
+    #   - run: fastlane android alpha
+    #   - persist_to_workspace:
+    #       root: ~/weipay
+    #       paths:
+    #         - node_modules
+
+workflows:
+  version: 2
+  node-android-ios:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - staging
+      - android:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - staging
