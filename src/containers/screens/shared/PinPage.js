@@ -208,7 +208,7 @@ class PinPage extends Component {
                       onClickFunction={ resetInitiated ? this.resetApp : this.setPin }
                       buttonText= {resetInitiated ? 'Reset Wallet' : 'Enter Pin' }
                       customStyles={styles.btnNext}
-                      buttonStateEnabled= { !this.checkPasswordLength() }
+                      buttonStateEnabled= { !resetInitiated ? !this.checkPasswordLength() : false }
                     />
                 </View>
               </View>
