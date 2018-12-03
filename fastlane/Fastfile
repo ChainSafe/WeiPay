@@ -40,7 +40,7 @@ platform :ios do
   desc 'Ship to Testflight.'
     lane :beta do
       build
-      pilot(username: 'superadmin@chainsafe.io')
+      pilot(username: ENV['CHAINSAFE_ADMIN_EMAIL'])
       slack_testflight
     end
 end
