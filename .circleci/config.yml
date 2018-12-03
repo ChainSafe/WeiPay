@@ -14,6 +14,7 @@ jobs:
           path: ~/weipay-android
       - attach_workspace:
           at: ~/weipay-android
+      - run: npm i
       - run:
           name: Set Ruby Version
           command: echo "ruby-2.4" > ~/.ruby-version
