@@ -72,18 +72,18 @@ platform :android do
   desc 'Ship to Playstore Beta.'
   lane :beta do
     build
-    supply(track: 'beta', track_promote_to: 'beta')
-    git_commit(path: ['./android/gradle.properties'], message: 'Bump versionCode')
-    push_to_git_remote
+    supply(track: 'alpha', track_promote_to: 'beta')
+#    git_commit(path: ['./android/gradle.properties'], message: 'Bump versionCode')
+#    push_to_git_remote
     slack_playstore
   end
 
   desc 'Ship to Playstore Beta.'
-  lane :beta do
+  lane :alpha do
     build
     supply(track: 'alpha')
-    git_commit(path: ['./android/gradle.properties'], message: 'Bump versionCode')
-    push_to_git_remote
+    # git_commit(path: ['./android/gradle.properties'], message: 'Bump versionCode')
+    # push_to_git_remote
     slack_playstore
   end
 end
