@@ -90,11 +90,11 @@ class BackupPhrase extends Component {
                           buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
                       />
                 }
-                <View style={styles.footerGrandparentContainer}>
+                {/* <View style={styles.footerGrandparentContainer}>
                     <View style={styles.footerParentContainer} >
                         <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                     </View>
-                </View>
+                </View> */}
             </View>
         </View>
       </TouchableWithoutFeedback>
@@ -158,10 +158,12 @@ const styles = StyleSheet.create({
     lineHeight: RF(3),
   },
   btnContainer: {
-    flex:2,
+    flex: 2,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     width: '100%',
+    marginBottom: '2.5%',
+    marginTop: '2.5%',
   },
   button: {
     width: '82%',
