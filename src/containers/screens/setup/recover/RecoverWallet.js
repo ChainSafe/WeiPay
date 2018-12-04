@@ -134,11 +134,6 @@ class RecoverWallet extends Component {
                     customStyles={styles.button}
                     buttonStateEnabled={ debugMode ? false : buttonDisabled}
                 />
-                <View style={styles.footerGrandparentContainer}>
-                    <View style={styles.footerParentContainer}>
-                        <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-                    </View>
-                </View>
               </View>
             </View>
         </TouchableWithoutFeedback>
@@ -201,7 +196,6 @@ const styles = StyleSheet.create({
     width: '100%',
     flexWrap: 'wrap',
     color: '#12c1a2',
-
     letterSpacing: 0.4,
     fontSize: RF(2.4),
     fontFamily: 'WorkSans-Regular',
@@ -216,24 +210,12 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     width: '100%',
+    marginBottom: '2.5%',
+    marginTop: '2.5%',
   },
   button: {
     width: '82%',
     height: Dimensions.get('window').height * 0.082,
-  },
-  footerGrandparentContainer: {
-    alignItems: 'center',
-    marginBottom: '5%',
-    marginTop: '5%',
-  },
-  footerParentContainer: {
-    alignItems: 'center',
-  },
-  textFooter: {
-    fontFamily: 'WorkSans-Regular',
-    fontSize: RF(1.7),
-    color: '#c0c0c0',
-    letterSpacing: 0.5,
   },
 });
 

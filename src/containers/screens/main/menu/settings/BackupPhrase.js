@@ -49,8 +49,6 @@ class BackupPhrase extends Component {
    * Returns a component that allows the user to view the passphrase
    */
   render() {
-
-
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -90,11 +88,6 @@ class BackupPhrase extends Component {
                           buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
                       />
                 }
-                <View style={styles.footerGrandparentContainer}>
-                    <View style={styles.footerParentContainer} >
-                        <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-                    </View>
-                </View>
             </View>
         </View>
       </TouchableWithoutFeedback>
@@ -158,28 +151,16 @@ const styles = StyleSheet.create({
     lineHeight: RF(3),
   },
   btnContainer: {
-    flex:2,
+    flex: 2,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     width: '100%',
+    marginBottom: '2.5%',
+    marginTop: '2.5%',
   },
   button: {
     width: '82%',
     height: Dimensions.get('window').height * 0.082,
-  },
-  footerGrandparentContainer: {
-    alignItems: 'center',
-    marginBottom: '5%',
-    marginTop: '5%',
-  },
-  footerParentContainer: {
-    alignItems: 'center',
-  },
-  textFooter: {
-    fontFamily: 'WorkSans-Regular',
-    fontSize: RF(1.7),
-    color: '#c0c0c0',
-    letterSpacing: 0.5,
   },
 });
 

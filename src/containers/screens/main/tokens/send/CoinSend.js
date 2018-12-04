@@ -223,11 +223,6 @@ class CoinSend extends Component {
                   />
                 </View>
               </View>
-              <View style={styles.footerGrandparentContainer}>
-                <View style={styles.footerParentContainer} >
-                  <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-                </View>
-              </View>
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -316,9 +311,9 @@ const styles = StyleSheet.create({
     marginTop: '5%',
   },
   btnContainer: {
-    flex: 1.25,
+    flex: 1,
     alignItems: 'stretch',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     width: '82%',
     alignContent: 'center',
     marginLeft: '9%',
@@ -339,21 +334,6 @@ const styles = StyleSheet.create({
     marginLeft: '1.75%',
     height: Dimensions.get('window').height * 0.082,
   },
-  footerGrandparentContainer: {
-    alignItems: 'center',
-    marginBottom: '5%',
-    marginTop: '5%',
-  },
-  footerParentContainer: {
-    alignItems: 'center',
-  },
-  textFooter: {
-    fontFamily: 'WorkSans-Regular',
-    fontSize: RF(1.7),
-    color: '#c0c0c0',
-    letterSpacing: 0.5,
-  },
-
 });
 
 const mapStateToProps = ({

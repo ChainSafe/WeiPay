@@ -207,6 +207,7 @@ class Portfolio extends Component {
               showMenu={true}
               showBack={false}
               navigation={this.props.navigation}
+              title={this.props.debugMode ? this.props.testWalletName : this.state.currentWalletName}
             />
           </View>
           <Text style={styles.textHeader}>
@@ -266,11 +267,6 @@ class Portfolio extends Component {
                 buttonStateEnabled={!this.state.pricesLoaded}
               />
             }
-            <View style={styles.footerGrandparentContainer}>
-              <View style={styles.footerParentContainer} >
-                <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-              </View>
-              </View>
             </View>
         </View>
       </SafeAreaView>
@@ -397,30 +393,17 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingLeft: '9%',
     paddingRight: '9%',
-    paddingBottom: '2.5%',
-    flex: 5.5,
+    paddingBottom: '1.5%',
+    flex: 6,
   },
   btnContainer: {
-    flex: 1.5,
+    flex: 1,
     paddingTop: '3%',
+    marginBottom: '2.5%',
   },
   button: {
     width: '82%',
     height: Dimensions.get('window').height * 0.082,
-  },
-  footerGrandparentContainer: {
-    alignItems: 'center',
-    marginBottom: '5%',
-    marginTop: '5%',
-  },
-  footerParentContainer: {
-    alignItems: 'center',
-  },
-  textFooter: {
-    fontFamily: 'WorkSans-Regular',
-    fontSize: RF(1.7),
-    color: '#c0c0c0',
-    letterSpacing: 0.5,
   },
 });
 
