@@ -45,10 +45,6 @@ class CoinSend extends Component {
     };
   }
 
-  componentDidMount() {
-    console.log('x', this.props.activeTokenData);
-  }
-
   navigate = () => {
     this.props.setQrInvoker("TokenFunctionality");
     const navigateToQRScanner = NavigationActions.navigate({
@@ -122,7 +118,6 @@ class CoinSend extends Component {
     return { flag: false };
   }
 
-  // etherTx.hash 
   processTX = async () => {
     this.getTxnFee();
     const validAddress = this.state.valid;
@@ -148,8 +143,6 @@ class CoinSend extends Component {
           this.props.activeTokenData.address,
           this.props.activeTokenData.decimals,
         );
-        console.log('after call');
-        console.log({ txResponse });
       }
       if (Object.prototype.hasOwnProperty.call(txResponse, 'hash')) {
         Toast.show('Success, check etherscan', Toast.LONG);
@@ -195,8 +188,7 @@ class CoinSend extends Component {
                         onChangeText={this.renderAddress.bind(this)}
                         ref={(ref) => { return this.inputAddress = ref; }}
                         inputStyle={[styles.formAddress, valid ? styles.colorValid : styles.colorError] }
-                        // value={toAddress}
-                        value='0xb9a7d8BcFa271733a057352cA743a79eC4714823'
+                        value={toAddress}
                         selectionColor={'#12c1a2'}
                       />
                     </View>
