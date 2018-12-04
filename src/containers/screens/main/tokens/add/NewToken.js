@@ -82,6 +82,7 @@ class NewToken extends Component {
                   onChangeText={this.updateAddress.bind(this)}
                   inputStyle={styles.formAddress}
                   value={this.state.tokenAddress}
+                  // value='0x6Ac15feFB151bC0742d40A13B3d8c1848229d939'
                   selectionColor={'#12c1a2'}
                 />
               </View>

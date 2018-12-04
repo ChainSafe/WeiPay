@@ -46,12 +46,11 @@ class CoinSend extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.wallet);
+    console.log('x', this.props.activeTokenData);
   }
 
   navigate = () => {
     this.props.setQrInvoker("TokenFunctionality");
-
     const navigateToQRScanner = NavigationActions.navigate({
       routeName: 'QCodeScanner',
       params: { invoker: 'CoinSend' },
@@ -141,18 +140,13 @@ class CoinSend extends Component {
           this.state.value,
         );
       } else {
-        console.log('did something happen');
-        console.log('provider', provider);
-        console.log('to', this.state.toAddress);
-        console.log('pkey', this.props.wallet.privateKey);
-        console.log('value', this.state.value);
-        console.log('token add', this.props.activeTokenData.address);
         txResponse = await executeERC20Transaction(
           provider,
           this.state.toAddress,
           this.props.wallet.privateKey,
           this.state.value,
           this.props.activeTokenData.address,
+          this.props.activeTokenData.decimals,
         );
         console.log('after call');
         console.log({ txResponse });
@@ -201,7 +195,8 @@ class CoinSend extends Component {
                         onChangeText={this.renderAddress.bind(this)}
                         ref={(ref) => { return this.inputAddress = ref; }}
                         inputStyle={[styles.formAddress, valid ? styles.colorValid : styles.colorError] }
-                        value={toAddress}
+                        // value={toAddress}
+                        value='0xb9a7d8BcFa271733a057352cA743a79eC4714823'
                         selectionColor={'#12c1a2'}
                       />
                     </View>
@@ -391,12 +386,3 @@ const mapStateToProps = ({
 };
 
 export default connect(mapStateToProps, { ...actions, ...configActions })(CoinSend);
-
-// export default connect(mapStateToProps, {
-//   updateTxnFee,
-//   qrScannerInvoker,
-//   qrScannerCoinInvoker,
-//   getQRCodeData,
-//   setGlobalAddress,
-//   setQrInvoker,
-// })(CoinSend);

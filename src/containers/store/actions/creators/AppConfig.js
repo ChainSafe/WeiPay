@@ -101,12 +101,12 @@ export function setHotWallet(walletObj) {
   };
 }
 
-export function saveTokenDataForTransaction(tokenBalance, symbol, address) {
+export function saveTokenDataForTransaction(tokenBalance, symbol, address, decimals) {
   return (dispatch) => {
     dispatch({
       type: actionType.SAVE_TOKEN_DATA_FOR_TRANSACTION,
       payload: {
-        tokenBalance, symbol, address,
+        tokenBalance, symbol, address, decimals,
       },
     });
   };
