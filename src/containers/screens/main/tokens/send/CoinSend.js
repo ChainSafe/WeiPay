@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import RF from 'react-native-responsive-fontsize';
+import Toast from 'react-native-simple-toast';
 import * as actions from '../../../../store/actions/ActionCreator';
 import * as configActions from '../../../../store/actions/creators/AppConfig';
 import LinearButton from '../../../../components/linearGradient/LinearButton';
@@ -46,7 +47,6 @@ class CoinSend extends Component {
 
   navigate = () => {
     this.props.setQrInvoker("TokenFunctionality");
-
     const navigateToQRScanner = NavigationActions.navigate({
       routeName: 'QCodeScanner',
       params: { invoker: 'CoinSend' },
@@ -126,21 +126,27 @@ class CoinSend extends Component {
     const isEtherTX = this.props.activeTokenData.address === '';
     if (validAddress && !flag) {
       const provider = await getNetworkProvider(this.props.network);
+      let txResponse;
       if (isEtherTX) {
-        executeEtherTransaction(
+        txResponse = await executeEtherTransaction(
           provider,
           this.state.toAddress,
           this.props.wallet.privateKey,
           this.state.value,
         );
       } else {
-        executeERC20Transaction(
+        txResponse = await executeERC20Transaction(
           provider,
           this.state.toAddress,
           this.props.wallet.privateKey,
           this.state.value,
-          this.props.token.address,
+          this.props.activeTokenData.address,
+          this.props.activeTokenData.decimals,
         );
+      }
+      if (Object.prototype.hasOwnProperty.call(txResponse, 'hash')) {
+        Toast.show('Success, check etherscan', Toast.LONG);
+        this.resetFields();
       }
     } else {
       console.log('bad');
@@ -351,13 +357,4 @@ const mapStateToProps = ({
   };
 };
 
-export default connect(mapStateToProps, { ... actions, ... configActions })(CoinSend);
-
-// export default connect(mapStateToProps, {
-//   updateTxnFee,
-//   qrScannerInvoker,
-//   qrScannerCoinInvoker,
-//   getQRCodeData,
-//   setGlobalAddress,
-//   setQrInvoker,
-// })(CoinSend);
+export default connect(mapStateToProps, { ...actions, ...configActions })(CoinSend);

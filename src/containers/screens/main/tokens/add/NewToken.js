@@ -81,7 +81,7 @@ class NewToken extends Component {
                   placeholder={'Token Address'}
                   onChangeText={this.updateAddress.bind(this)}
                   inputStyle={styles.formAddress}
-                  value={this.state.tokenAddress}
+                  value={this.state.tokenAddress}                 
                   selectionColor={'#12c1a2'}
                 />
               </View>

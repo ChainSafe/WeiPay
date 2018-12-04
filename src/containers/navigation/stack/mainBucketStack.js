@@ -42,7 +42,7 @@ const navigator = DrawerNavigator({
       TokenFunctionality: { screen: TokenFunctionality },
       AddTokenFunctionality: { screen: AddingTokensOrCoins },
       QCodeScanner: { screen: QrCodeScanner },
-      contactAddresses: { screen: ContactAddresses },
+      // contactAddresses: { screen: ContactAddresses },
       tokenList: { screen: Coins },
       customToken: { screen: NewToken },
       searchToken: { screen: Tokens },
@@ -58,16 +58,16 @@ const navigator = DrawerNavigator({
     }),
   },
   Backup: { screen: BackupPhrase },
-  Contacts: {
-    screen: StackNavigator({
-      contacts: { screen: Contacts },
-      editContact: { screen: EditContact },
-      addContact: { screen: AddContact },
-    },
-    {
-      headerMode: 'none',
-    }),
-  },
+  // Contacts: {
+  //   screen: StackNavigator({
+  //     contacts: { screen: Contacts },
+  //     editContact: { screen: EditContact },
+  //     addContact: { screen: AddContact },
+  //   },
+  //   {
+  //     headerMode: 'none',
+  //   }),
+  // },
   Contracts: { screen: Contract },
   Networks: { screen: Network },
 }, {

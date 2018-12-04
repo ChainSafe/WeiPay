@@ -4,11 +4,11 @@ const ethers = require('ethers');
 
 const utils = ethers.utils;
 
-const executeERC20Transaction = async (provider, to, privateKey, value, contractAddress) => {
-  const initializedWallet = new ethers.Wallet(privateKey, provider);
-  const amountString = value.toString();
+const executeERC20Transaction = async (provider, to, privateKey, value, contractAddress, decimals) => {
   try {
-    const amount = ethers.utils.parseEther(amountString);
+    const initializedWallet = new ethers.Wallet(privateKey, provider);
+    const amountString = value.toString();
+    const numberOfTokens = ethers.utils.parseUnits(amountString, decimals);
     const transactionCountPromise = initializedWallet.getTransactionCount();
     const count = await transactionCountPromise;
     const contract = new ethers.Contract(contractAddress, ERC20ABI, initializedWallet);
@@ -17,12 +17,13 @@ const executeERC20Transaction = async (provider, to, privateKey, value, contract
       gasPrice: 9000000000,
       nonce: count,
     };
-    const sendPromise = contract.functions.transfer(to, amount, overrideOptions);
-    sendPromise.then((transaction) => {
+    const sendPromise = contract.functions.transfer(to, numberOfTokens, overrideOptions);
+    return sendPromise.then((transaction) => {
       console.log(transaction.hash);
+      return transaction;
     });
   } catch (error) {
-    console.log('Didnt Go through');
+    console.log('Didnt Go through', error);
   }
 };
 
