@@ -70,7 +70,7 @@ class NewToken extends Component {
               <View style= {styles.barcodeImageContainer}>
                 <TouchableOpacity onPress={() => { return this.navigate(); }}>
                   <Image
-                    source={require('../../../../../assets/icons/barcode.png')}
+                    source={require('../../../../../assets/icons/barcode2.png')}
                     style={styles.barcodeImage}
                   />
                 </TouchableOpacity>
