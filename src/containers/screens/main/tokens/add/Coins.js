@@ -35,11 +35,6 @@ class Coins extends Component {
               buttonText='Update Portfolio'
               customStyles={styles.button}
             />
-            <View style={styles.footerGrandparentContainer}>
-                <View style={styles.footerParentContainer} >
-                    <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-                </View>
-            </View>
           </View>
         </View>
       </SafeAreaView>
@@ -77,7 +72,7 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     marginLeft: '9%',
     marginRight: '9%',
-    flex: 4,
+    flex: 6.5,
     paddingBottom: '2.5%',
     paddingTop: '2.5%',
   },
@@ -85,6 +80,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
+    marginBottom: '2.5%',
   },
   button: {
     width: '82%',

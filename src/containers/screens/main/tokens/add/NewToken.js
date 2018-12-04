@@ -62,11 +62,10 @@ class NewToken extends Component {
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>
-
           <View style={styles.boxShadowContainer}>
             <BoxShadowCard>
               <Text style={styles.cardText}>
-                  Enter ERC20 Token Address with it's name
+                  {`Enter ERC20 Token Address with it's name`}
               </Text>
               <View style= {styles.barcodeImageContainer}>
                 <TouchableOpacity onPress={() => { return this.navigate(); }}>
@@ -81,7 +80,7 @@ class NewToken extends Component {
                   placeholder={'Token Address'}
                   onChangeText={this.updateAddress.bind(this)}
                   inputStyle={styles.formAddress}
-                  value={this.state.tokenAddress}                 
+                  value={this.state.tokenAddress}
                   selectionColor={'#12c1a2'}
                 />
               </View>
@@ -102,11 +101,6 @@ class NewToken extends Component {
               buttonText='Add New Token'
               customStyles={styles.button}
             />
-            <View style={styles.footerGrandparentContainer}>
-              <View style={styles.footerParentContainer} >
-                <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-              </View>
-            </View>
           </View>
         </View>
       </SafeAreaView>
@@ -163,7 +157,7 @@ const styles = StyleSheet.create({
     marginLeft: '5%',
   },
   boxShadowContainer: {
-    flex: 2.25,
+    flex: 2.5,
     marginLeft: '9%',
     marginRight: '9%',
     marginTop: '10%',
@@ -225,11 +219,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
-    width: '82%',
-    alignContent: 'center',
+    marginBottom: '2.5%',
   },
   button: {
-    width: '100%',
+    width: '82%',
     height: Dimensions.get('window').height * 0.082,
   },
   footerGrandparentContainer: {
