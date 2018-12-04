@@ -1,25 +1,38 @@
 version: 2
 jobs:
-  build:
-    working_directory: ~/weipay-android
-
+  android:
+    working_directory: ~/weipay
     docker:
-      - image: circleci/android:api-28-node8-alpha
+        - image: circleci/android:api-28-node8-alpha
 
     steps:
       - checkout:
-          path: ~/weipay-android
+          path: ~/weipay
       - attach_workspace:
-          at: ~/weipay-android
-      - run: npm i
+          at: ~/weipay
+
       - run:
           name: Set Ruby Version
           command: echo "ruby-2.4" > ~/.ruby-version
+      - run:
+          name: Install NPM packages
+          command: npm i
       - run: sh .circleci/download.sh
       - run: mkdir -p ~/.gradle && cp gradle.properties ~/.gradle && cp wei-pay-android.keystore ./android/app
       - run: gem install fastlane -NV
-      - run: fastlane android alpha
+      - run: fastlane android beta
+
       - persist_to_workspace:
-          root: ~/weipay-android
+          root: ~/weipay
           paths:
             - node_modules
+
+workflows:
+  version: 2
+  react-native:
+    jobs:
+      - android:
+          filters:
+            branches:
+              only:
+                - staging
