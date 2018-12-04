@@ -1,66 +1,38 @@
 version: 2
 jobs:
-  beta-ios:
-    build:
-      macos:
-        xcode: "9.4.1"
-      working_directory: /Users/distiller/project
-      environment:
-        FL_OUTPUT_DIR: output
-        FASTLANE_LANE: ios beta
-      shell: /bin/bash --login -o pipefail
-      steps:
-        - checkout
-        - restore_cache:
-            key: 1-gems-{{ checksum "Gemfile.lock" }}
-        - run: bundle check || bundle install --path vendor/bundle
-        - save_cache:
-            key: 1-gems-{{ checksum "Gemfile.lock" }}
-            paths:
-              - vendor/bundle
-        - run:
-            name: fastlane
-            command: bundle exec fastlane $FASTLANE_LANE --verbose
-        - store_artifacts:
-            path: output
-        - store_test_results:
-            path: output/scan
+  android:
+    working_directory: ~/weipay
+    docker:
+        - image: circleci/android:api-28-node8-alpha
 
-  alpha-android:
-    build:
-      macos:
-        xcode: "9.4.1"
-      working_directory: /Users/distiller/project
-      environment:
-        FL_OUTPUT_DIR: output
-        FASTLANE_LANE: ios beta
-      shell: /bin/bash --login -o pipefail
-      steps:
-        - checkout
-        - restore_cache:
-            key: 1-gems-{{ checksum "Gemfile.lock" }}
-        - run: bundle check || bundle install --path vendor/bundle
-        - save_cache:
-            key: 1-gems-{{ checksum "Gemfile.lock" }}
-            paths:
-              - vendor/bundle
-        - run:
-            name: fastlane
-            command: bundle exec fastlane $FASTLANE_LANE --verbose
-        - store_artifacts:
-            path: output
-        - store_test_results:
-            path: output/scan
+    steps:
+      - checkout:
+          path: ~/weipay
+      - attach_workspace:
+          at: ~/weipay
+
+      - run:
+          name: Set Ruby Version
+          command: echo "ruby-2.4" > ~/.ruby-version
+      - run:
+          name: Install NPM packages
+          command: npm i
+      - run: sh .circleci/download.sh
+      - run: mkdir -p ~/.gradle && cp gradle.properties ~/.gradle && cp wei-pay-android.keystore ./android/app
+      - run: gem install fastlane -NV
+      - run: fastlane android beta
+
+      - persist_to_workspace:
+          root: ~/weipay
+          paths:
+            - node_modules
 
 workflows:
   version: 2
-  android-ios-beta:
+  react-native:
     jobs:
-      -beta-ios:
-        filters:
-          branches:
-            only: staging
-      -alpha-android:
-        filters:
-          branches:
-            only: staging
+      - android:
+          filters:
+            branches:
+              only:
+                - staging

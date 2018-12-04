@@ -43,11 +43,6 @@ class CreateOrRestore extends Component {
               unlockButton={true}
             />
           </View>
-          <View style={styles.footerGrandparentContainer}>
-            <View style={styles.footerParentContainer} >
-              <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-            </View>
-          </View>
         </View>
       </SafeAreaView>
     );
@@ -92,22 +87,6 @@ const styles = StyleSheet.create({
   btnCreate: {
     marginBottom: '3.5%',
     marginTop: '7.5%',
-  },
-  footerGrandparentContainer: {
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    position: 'absolute',
-    bottom: '5%',
-    flex: 1.25,
-  },
-  footerParentContainer: {
-    alignItems: 'center',
-  },
-  textFooter: {
-    fontFamily: 'WorkSans-Regular',
-    fontSize: RF(1.7),
-    color: '#c0c0c0',
-    letterSpacing: 0.5,
   },
 });
 

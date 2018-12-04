@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     flex: 5.25,
-    marginTop: '12%',
+    paddingTop: '5%',
   },
   feedbackContainer: {
     width: '80%',
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   flatListStyle: {
     flex: 1,
     width: '100%',
-    backgroundColor: '#fafbfe',
+    backgroundColor: '#f4f7f9',
   },
   itemStyle: {
     paddingBottom: '5%',
@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Cairo-Light',
     color: 'black',
     justifyContent: 'center',
-    lineHeight: RF(2.9),
+    lineHeight: RF(2.6),
     letterSpacing: 0.4,
   },
 });

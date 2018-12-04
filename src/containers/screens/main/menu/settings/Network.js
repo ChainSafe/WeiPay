@@ -85,13 +85,7 @@ class Network extends Component {
                     </BoxShadowCard>
                 </View>
               </View>
-            <View style={styles.btnContainer}>
-                <View style={styles.footerGrandparentContainer}>
-                    <View style={styles.footerParentContainer} >
-                        <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-                    </View>
-                </View>
-            </View>
+            <View style={styles.btnContainer}></View>
         </View>
       </TouchableWithoutFeedback>
     </SafeAreaView>
@@ -154,7 +148,7 @@ const styles = StyleSheet.create({
     lineHeight: RF(3),
   },
   btnContainer: {
-    flex:2,
+    flex: 2,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     width: '100%',
@@ -162,20 +156,6 @@ const styles = StyleSheet.create({
   button: {
     width: '82%',
     height: Dimensions.get('window').height * 0.082,
-  },
-  footerGrandparentContainer: {
-    alignItems: 'center',
-    marginBottom: '5%',
-    marginTop: '5%',
-  },
-  footerParentContainer: {
-    alignItems: 'center',
-  },
-  textFooter: {
-    fontFamily: 'WorkSans-Regular',
-    fontSize: RF(1.7),
-    color: '#c0c0c0',
-    letterSpacing: 0.5,
   },
 });
 

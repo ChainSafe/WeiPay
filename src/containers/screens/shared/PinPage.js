@@ -5,6 +5,7 @@ import {
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import CryptoJS from 'crypto-js';
+import ethers from 'ethers';
 import RF from 'react-native-responsive-fontsize';
 import { FormInput } from 'react-native-elements';
 import * as actions from '../../store/actions/creators/AppConfig';
@@ -67,8 +68,20 @@ class PinPage extends Component {
     return plaintext;
   }
 
+  /**
+   * If the next route is not generatePassphrase, you must obtain the wallet from
+   * the recoverMnemonic page. You need to create the wallet in that page in order
+   * to enforce a valid mnemonic entry.
+   */
   setupEncyrptionProcess = async (walletName, userWallets) => {
-    const { nextScreenToNavigate, wallet } = this.props.navigation.state.params;
+    const { nextScreenToNavigate } = this.props.navigation.state.params;
+    const isCreateStream = nextScreenToNavigate === 'generatePassphrase';
+    let wallet;
+    if (isCreateStream) {
+      wallet = await ethers.Wallet.createRandom();
+    } else {
+      wallet = this.props.navigation.state.params.wallet;
+    }
     const serialialedWallet = JSON.stringify(wallet);
     const encrypted = this.encryptSerializedWallet(serialialedWallet);
     const hotWalletObj = { wallet, name: walletName };
@@ -164,9 +177,9 @@ class PinPage extends Component {
                           this.props.isInSetupScreens
                             ? null
                             : <View style={styles.forgotContainer}>
-                              <TouchableWithoutFeedback onPress={() => {
-                                return this.setState({ resetInitiated: true });
-                              }}>
+                                <TouchableWithoutFeedback onPress={() => {
+                                  return this.setState({ resetInitiated: true });
+                                }}>
                                 <View>
                                 { resetInitiated ? null : <Text style={styles.forgotText}>Forgot Password </Text> }
                                 </View>
@@ -175,13 +188,15 @@ class PinPage extends Component {
                         }
                         {
                           resetInitiated
-                            ? <View style={styles.forgotContainer}> <TouchableWithoutFeedback onPress={() => {
-                              return this.setState({ resetInitiated: false });
-                            }}>
+                            ? <View style={styles.forgotContainer}>
+                              <TouchableWithoutFeedback onPress={() => {
+                                return this.setState({ resetInitiated: false });
+                              }}>
                               <View>
                                 <Text style={styles.forgotText}> Cancell Reset </Text>
                               </View>
-                            </TouchableWithoutFeedback> </View>
+                            </TouchableWithoutFeedback>
+                            </View>
                             : null
                         }
                       </View>
@@ -191,9 +206,9 @@ class PinPage extends Component {
                 <View style={styles.btnNextContainer}>
                     <LinearButton
                       onClickFunction={ resetInitiated ? this.resetApp : this.setPin }
-                      buttonText= {resetInitiated ? 'Reset Wallet' : 'Set Pin' }
+                      buttonText= {resetInitiated ? 'Reset Wallet' : 'Enter Pin' }
                       customStyles={styles.btnNext}
-                      buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
+                      buttonStateEnabled= { !resetInitiated ? !this.checkPasswordLength() : false }
                     />
                 </View>
               </View>

@@ -84,9 +84,6 @@ class Contacts extends Component {
                 tab={this.state.tab}
               />
               {this.displayContactTab()}
-              <View style={styles.footerContainer} >
-                <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-              </View>
             </View>
           </TouchableWithoutFeedback>
         </SafeAreaView>
@@ -156,17 +153,6 @@ const styles = StyleSheet.create({
   },
   list: {
     marginLeft: '9%',
-  },
-  textFooter: {
-    fontFamily: 'WorkSans-Regular',
-    fontSize: 11,
-    marginTop: '3.5%',
-    color: '#c0c0c0',
-  },
-  footerContainer: {
-    alignItems: 'center',
-    marginTop: '-5%',
-    flex: 0.08,
   },
 });
 
