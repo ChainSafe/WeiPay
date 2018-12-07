@@ -180,7 +180,7 @@ class PinPage extends Component {
                                 return this.setState({ resetInitiated: false });
                               }}>
                               <View>
-                                <Text style={styles.forgotText}> Cancell Reset </Text>
+                                <Text style={styles.forgotText}> Cancel Reset </Text>
                               </View>
                             </TouchableWithoutFeedback>
                             </View>

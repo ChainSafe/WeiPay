@@ -15,11 +15,14 @@ class AppNavigation extends Component {
   }
 
   onBackPress = () => {
-    const { dispatch } = this.props;
+    // const { dispatch } = this.props;
 
-    if (this.props.navigationState.index > 0) {
-      return false;
-    }
+    // if (this.props.navigationState.index > 0) {
+    //   return false;
+    // }
+
+    const { dispatch, navigationState} = this.props;
+    if(navigationState.index > 0) return false;
 
     dispatch(NavigationActions.back());
     return true;

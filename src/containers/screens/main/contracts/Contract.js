@@ -179,6 +179,7 @@ class Contract extends Component {
    * Returns a component that allows the user to view the passphrase
    */
   render() {
+    console.log("error in contracts")
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

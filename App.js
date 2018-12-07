@@ -6,6 +6,7 @@ import AppNavigation from './src/containers/navigation/stack';
 
 export default class App extends Component {
   render() {
+
     return (
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>

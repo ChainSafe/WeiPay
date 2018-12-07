@@ -59,7 +59,10 @@ class Portfolio extends Component {
    */
   async componentDidMount() {
     const provider = await getNetworkProvider(this.props.network);
+    console.log("provider", provider);
     this.setState({ provider });
+    console.log("provider", provider);
+    console.log(this.props);
     if (this.props.walletBalance == null) {
       await this.balanceCalculations();
     } else {
@@ -108,6 +111,7 @@ class Portfolio extends Component {
    * and token info. This will be the data source for the flat list.
    */
   showTokens = () => {
+    console.log("states", this.state);
     if (Object.prototype.hasOwnProperty.call(this.state.walletBalance, 'USD')) this.setState({ pricesLoaded: true });
     let cTokenObjectList = [];
     for (let i = 0; i < this.props.tokens.length; i++) {
@@ -199,6 +203,7 @@ class Portfolio extends Component {
   }
 
   render() {
+    console.log("portfolio page");
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer} >
