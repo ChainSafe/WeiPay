@@ -12,7 +12,13 @@ import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav'
 import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
 
 class CreateWalletName extends Component {
-  navigate = () => {
+  // state to store temp wallet name
+  state = {
+    tempWalletName: ''
+  }
+
+  navigateAndSetWalletName = () => {
+    this.props.setTempWalletName(this.state.tempWalletName);
     const navigateToPassphrase = NavigationActions.navigate({
       routeName: 'password',
       params: { nextScreenToNavigate: 'mainStack', wallet: this.props.navigation.state.params.wallet },
@@ -20,8 +26,8 @@ class CreateWalletName extends Component {
     this.props.navigation.dispatch(navigateToPassphrase);
   };
 
-  getWalletName(name) {
-    this.props.setTempWalletName(name);
+  setWalletName = (name) => {
+    this.setState({tempWalletName: name});
   }
 
   render() {
@@ -47,7 +53,7 @@ class CreateWalletName extends Component {
                   <View style={styles.formInputContainer}>
                     <FormInput
                       placeholder={'Ex. My Wallet'}
-                      onChangeText={this.getWalletName.bind(this)}
+                      onChangeText={this.setWalletName}
                       inputStyle={styles.txtWalletName}
                       selectionColor={'#12c1a2'}
                     />
@@ -57,10 +63,10 @@ class CreateWalletName extends Component {
             </View>
             <View style={styles.btnContainer}>
               <LinearButton
-                onClickFunction={ this.navigate }
+                onClickFunction={ this.navigateAndSetWalletName }
                 buttonText= 'Next'
                 customStyles={styles.button}
-                buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
+                buttonStateEnabled= { !this.state.tempWalletName }
               />
               <View style={styles.footerGrandparentContainer}>
                 <View style={styles.footerParentContainer} >
@@ -156,11 +162,9 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = ({ Debug, Wallet }) => {
-  const { debugMode, testWalletName } = Debug;
-  const { wallets, tempWalletName } = Wallet;
-  return {
-    debugMode, wallets, tempWalletName, testWalletName,
-  };
+  // removed un necessary props
+  const { debugMode } = Debug;
+  return { debugMode };
 };
 
 export default connect(mapStateToProps, { setTempWalletName })(CreateWalletName);

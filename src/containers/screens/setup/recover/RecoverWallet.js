@@ -18,7 +18,7 @@ class RecoverWallet extends Component {
     super(props);
     this.state = {
       mnemonic: '',
-      value: '',
+      // value: '', unnecessary state
       buttonDisabled: true,
       walletProcessing: false,
     };
@@ -67,14 +67,23 @@ class RecoverWallet extends Component {
    * Updates the local state with the latest mnemonic that was inputted in the input field
    * @param {String} mnemonicInput
    */
-  renderRecoveryKey(mnemonicInput) {
+  renderRecoveryKey = (mnemonicInput) => {
     const totalWords = mnemonicInput.split(' ');
     if (totalWords.length === 12) {
-      this.setState({ value: mnemonicInput.toLowerCase() });
-      this.setState({ mnemonic: mnemonicInput.toLowerCase() });
-      this.setState({ buttonDisabled: false });
+      // this.setState({ value: mnemonicInput.toLowerCase() });
+      // this.setState({ mnemonic: mnemonicInput.toLowerCase() });
+      // this.setState({ buttonDisabled: false });
+
+      // set in one setState
+      this.setState({ 
+        // value: mnemonicInput.toLowerCase(), 
+        mnemonic: mnemonicInput.toLowerCase(),
+        buttonDisabled: false 
+      });
+
     } else {
-      this.setState({ buttonDisabled: true });
+      // reduce number of renders
+      if(!this.state.buttonDisabled) this.setState({ buttonDisabled: true });
     }
   }
 
@@ -93,7 +102,8 @@ class RecoverWallet extends Component {
                     showMenu={false}
                     showBack={true}
                     navigation={this.props.navigation}
-                    backPage={'createWalletNameRecovered'}
+                    // backPage={'createWalletNameRecovered'} wrong route
+                    backPage={'createOrRestore'}
                 />
               </View>
               <Text style={styles.textHeader} >Recover Passphrase</Text>
@@ -117,7 +127,7 @@ class RecoverWallet extends Component {
                             <View style={styles.formInputContainer}>
                               <FormInput
                                   placeholder={'Ex. man friend love long phrase ... '}
-                                  onChangeText={this.renderRecoveryKey.bind(this)}
+                                  onChangeText={this.renderRecoveryKey}
                                   inputStyle={styles.txtMnemonic}
                                   selectionColor={'#12c1a2'}
                               />
@@ -237,14 +247,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ Debug, Wallet }) => {
-  const { debugMode, testWalletName } = Debug;
-  const {
-    wallets, tempWalletName, appPassword, network,
-  } = Wallet;
-  return {
-    debugMode, testWalletName, wallets, tempWalletName, appPassword, network,
-  };
+const mapStateToProps = ({ Debug }) => {
+  // removed unused props
+  const { debugMode } = Debug;
+  return { debugMode };
 };
 
 export default connect(mapStateToProps, { initializeAppWallet })(RecoverWallet);

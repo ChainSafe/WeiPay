@@ -18,6 +18,7 @@ class PinPage extends Component {
     this.state = {
       walletObjecet: {},
       password: '',
+      buttonEnabled: false, // set pin button
       isValidLength: false,
       error: null,
       resetInitiated: false,
@@ -102,7 +103,12 @@ class PinPage extends Component {
   };
 
   setPassword = (password) => {
-    this.setState({ password });
+    if(password.length >= 4) {
+      this.setState({ password, buttonEnabled: true });
+    }
+    else {
+      this.setState({password, buttonEnabled: false});
+    }
   }
 
   resetApp = () => {
@@ -116,6 +122,7 @@ class PinPage extends Component {
 
   render() {
     const { resetInitiated } = this.state;
+    console.log("in pin page");
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -195,7 +202,7 @@ class PinPage extends Component {
                       onClickFunction={ resetInitiated ? this.resetApp : this.setPin }
                       buttonText= {resetInitiated ? 'Reset Wallet' : 'Set Pin' }
                       customStyles={styles.btnNext}
-                      buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
+                      buttonStateEnabled= { !this.state.buttonEnabled }
                     />
                 </View>
               </View>

@@ -32,8 +32,8 @@ class Portfolio extends Component {
     tokenAmounts: null,
     tokenPrices: [],
     completeTokenObject: null,
-    currentWallet: this.props.hotWallet.wallet,
-    currentWalletName: this.props.wallets[0].name,
+    // currentWallet: this.props.hotWallet.wallet,
+    // currentWalletName: this.props.wallets[0].name,
   }
 
   /**
@@ -58,17 +58,18 @@ class Portfolio extends Component {
    * The Balance (soon to be Wallet) reducer then updates state -> { ...state, walletBalance: walletBalanceObject, tokenBalances: individualTokens };
    */
   async componentDidMount() {
-    const provider = await getNetworkProvider(this.props.network);
-    console.log("provider", provider);
-    this.setState({ provider });
-    console.log("provider", provider);
-    console.log(this.props);
+    // unnecessary provider fetch here
+    // setting in single setState
+    // const provider = await getNetworkProvider(this.props.network);
+
     if (this.props.walletBalance == null) {
       await this.balanceCalculations();
     } else {
+      // setting states from props 
+
       await this.setState({
-        walletBalance: this.props.walletBalance,
-        tokenPrices: this.props.tokenBalances,
+        // walletBalance: this.props.walletBalance,
+        // tokenPrices: this.props.tokenBalances,
         tokenAmounts: this.props.tokenQuantities,
       });
       this.showTokens();
@@ -76,14 +77,17 @@ class Portfolio extends Component {
   }
 
   balanceCalculations = async () => {
-    const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data);
+    // unused state calls from props
+    const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.props.tokens);
     this.props.saveAllTokenQuantities(tokenBalances);
     await this.props.fetchCoinData(tokenSymbolString);
     await this.props.calculateWalletBalance(tokenBalances, this.props.tokenConversions);
+    // not setting states from props
+    console.log("tokenBalances in", tokenBalances);
     await this.setState({
       apiRequestString: tokenSymbolString,
-      walletBalance: this.props.walletBalance,
-      tokenPrices: this.props.tokenBalances,
+      // walletBalance: this.props.walletBalance,
+      // tokenPrices: this.props.tokenBalances,
       tokenAmounts: tokenBalances,
     });
     this.showTokens();
@@ -94,16 +98,18 @@ class Portfolio extends Component {
    * of each token the user has for a given private key.
    */
   formatTokens = async (tokenList) => {
+    // removing unnecessary state variables calls, using props in stead
+    const provider = await getNetworkProvider(this.props.network);
     let tokenObjectList = [];
-    for (let i = 0; i < tokenList.length; i++) {
-      let tokenObj = {};
-      tokenObj.symbol = tokenList[i].symbol;
-      tokenObj.contractAddress = tokenList[i].address;
-      tokenObj.decimals = tokenList[i].decimals;
+    tokenList.forEach(token => {
+      let tokenObj;
+      tokenObj.symbol = token.symbol;
+      tokenObj.contractAddress = token.address;
+      tokenObj.decimals = token.decimals;
       tokenObjectList.push(tokenObj);
-    }
-    const privateKey =  this.state.currentWallet.privateKey;
-    return { tokenSymbolString, tokenBalances } = await processAllTokenBalances(privateKey, tokenObjectList, this.state.provider);
+    })
+    const privateKey = this.props.hotWallet.wallet.privateKey;
+    return { tokenSymbolString, tokenBalances } = await processAllTokenBalances(privateKey, tokenObjectList, provider);
   }
 
   /**
@@ -111,17 +117,21 @@ class Portfolio extends Component {
    * and token info. This will be the data source for the flat list.
    */
   showTokens = () => {
-    console.log("states", this.state);
-    if (Object.prototype.hasOwnProperty.call(this.state.walletBalance, 'USD')) this.setState({ pricesLoaded: true });
+    console.log("states in show tokens", this.state);
+    if (Object.prototype.hasOwnProperty.call(this.props.walletBalance, 'USD')) this.setState({ pricesLoaded: true });
     let cTokenObjectList = [];
+    console.log("here1");
     for (let i = 0; i < this.props.tokens.length; i++) {
       let cto = {};
       cto.tokenInfo = this.props.tokens[i];
       cto.tokenPriceInfo = this.props.tokenBalances[i];
+      console.log("here mid");
       cto.tokenAmounts = this.state.tokenAmounts[i];
       cTokenObjectList.push(cto);
     }
+    console.log("here2");
     this.setState({ completeTokenObject: cTokenObjectList });
+    console.log("states after show token", this.state);
   }
 
   navigate = () => {
@@ -144,7 +154,7 @@ class Portfolio extends Component {
             this.props.navigation.navigate('TokenFunctionality');
           }}
           style={styles.listItemParentContainer}
-          key={ `${tokenInfo.address}${tokenInfo.symbol}` }
+          key={`${tokenInfo.address}${tokenInfo.symbol}`}
         >
           <View>
             <BoxShadowCard customStyles={styles.boxShadowContainer}>
@@ -153,20 +163,20 @@ class Portfolio extends Component {
                   <View style={styles.imageContainer} >
                     <Image
                       style={styles.img}
-                      source={ { uri: tokenInfo.logo } }
+                      source={{ uri: tokenInfo.logo }}
                     />
                   </View>
                 </View>
                 <View style={styles.listItemTextComponentContainer}>
-                  <View style={ styles.listItemTextComponent }>
+                  <View style={styles.listItemTextComponent}>
                     <View style={styles.mainTitleContainer}>
                       <Text style={styles.mainTitleText}> {tokenInfo.symbol} </Text>
                       <Text style={styles.subTitleText}> {tokenInfo.name} </Text>
                     </View>
                   </View>
                 </View>
-                <View style={ styles.listItemValueContainer }>
-                  <View style={ styles.listItemValueComponent }>
+                <View style={styles.listItemValueContainer}>
+                  <View style={styles.listItemValueComponent}>
                     <Text style={styles.listItemCryptoValue}>
                       {
                         tokenAmounts == null ? 0 : tokenAmounts.amount
@@ -204,6 +214,8 @@ class Portfolio extends Component {
 
   render() {
     console.log("portfolio page");
+    console.log("props in render", this.props);
+    console.log("states in render", this.state);
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer} >
@@ -218,26 +230,26 @@ class Portfolio extends Component {
             {
               this.props.debugMode
                 ? this.props.testWalletName
-                : this.state.currentWalletName
+                : this.props.wallets[0].name
             }
           </Text>
           <View style={styles.touchableCurrencyContainer}>
             <TouchableOpacity onPress={this.handleCurrencyTouch}>
               <View style={styles.accountValueHeader}>
-                  <Text style={styles.headerValue}>
-                    {
-                      this.state.pricesLoaded
-                        ? ((this.state.walletBalance)[this.props.currencyOptions[this.state.currencyIndex]]).toFixed(5)
-                        : 'Balance Loading ...'
-                    }
-                  </Text>
-                  <Text style={styles.headerValueCurrency}>
+                <Text style={styles.headerValue}>
+                  {
+                    this.state.pricesLoaded
+                      ? ((this.props.walletBalance)[this.props.currencyOptions[this.state.currencyIndex]]).toFixed(5)
+                      : 'Balance Loading ...'
+                  }
+                </Text>
+                <Text style={styles.headerValueCurrency}>
                   {
                     this.state.pricesLoaded
                       ? `${this.state.currency[this.state.currencyIndex]} (${this.props.network})`
                       : null
                   }
-                  </Text>
+                </Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -246,25 +258,25 @@ class Portfolio extends Component {
               this.state.completeTokenObject == null
                 ? null
                 : <FlatList
-                    data={this.state.completeTokenObject}
-                    showsVerticalScrollIndicator={false}
-                    renderItem= {({ item }) => { return this.renderRow(item); }}
-                    keyExtractor= {(item) => {
-                      return `${item.tokenInfo.address}${item.tokenInfo.name}`;
-                    }}
-                    refreshing={this.state.refresh}
-                    onRefresh={this.handleListRefresh}
-                    extraData={this.props}
-                  />
+                  data={this.state.completeTokenObject}
+                  showsVerticalScrollIndicator={false}
+                  renderItem={({ item }) => { return this.renderRow(item); }}
+                  keyExtractor={(item) => {
+                    return `${item.tokenInfo.address}${item.tokenInfo.name}`;
+                  }}
+                  refreshing={this.state.refresh}
+                  onRefresh={this.handleListRefresh}
+                  extraData={this.props}
+                />
             }
           </View>
           <View style={styles.btnContainer}>
-            { !this.state.pricesLoaded
-            ? <ClearButton
+            {!this.state.pricesLoaded
+              ? <ClearButton
                 buttonText="Add Token or Coin"
                 customStyles={styles.button}
-                />
-            : <LinearButton
+              />
+              : <LinearButton
                 onClickFunction={this.navigate}
                 buttonText="Add Token or Coin"
                 customStyles={styles.button}
@@ -275,8 +287,8 @@ class Portfolio extends Component {
               <View style={styles.footerParentContainer} >
                 <Text style={styles.textFooter} >Powered by ChainSafe </Text>
               </View>
-              </View>
             </View>
+          </View>
         </View>
       </SafeAreaView>
     );
