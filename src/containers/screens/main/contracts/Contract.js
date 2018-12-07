@@ -179,7 +179,6 @@ class Contract extends Component {
    * Returns a component that allows the user to view the passphrase
    */
   render() {
-    console.log("error in contracts")
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -283,7 +282,7 @@ const styles = StyleSheet.create({
     color: '#1a1f3e',
   },
   addressField: {
-    marginLeft: '5dsa%',
+    //marginLeft: '5dsa%', causing crash
     marginTop: '5%',
     width: '90%',
   },
