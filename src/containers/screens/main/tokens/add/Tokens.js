@@ -108,9 +108,9 @@ class Coins extends Component {
               onClose={ ()=> {
                 this.refresh();
               }}
-              onBackPress= { () => {
-                this.refresh();
-              }}
+              // onBackPress= { () => {
+              //   this.refresh();
+              // }}
             />
             {
               this.state.tokenLoaded
