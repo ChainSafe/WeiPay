@@ -27,7 +27,7 @@ import executeEtherTransaction from '../../../../../scripts/tokens/transactions/
 import executeERC20Transaction from '../../../../../scripts/tokens/transactions/transactionsERC20';
 
 const ethers = require('ethers');
-const img = require('../../../../../assets/icons/barcode.png');
+const img = require('../../../../../assets/icons/barcode2.png');
 
 const utils = ethers.utils;
 
