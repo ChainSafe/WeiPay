@@ -31,7 +31,7 @@ class Contract extends Component {
       contractLoaded: false,
       provider: null,
       address: '',
-      wallet: this.props.hotWallet.wallet,
+      // wallet: this.props.hotWallet.wallet,
       contractEvents: null,
       contractFunctions: null,
       contract: null,
@@ -43,14 +43,14 @@ class Contract extends Component {
   }
 
   componentDidMount = async () => {
-    const provider = await getNetworkProvider(this.props.network);  
-    this.setState({ provider }); 
+    const provider = await getNetworkProvider(this.props.network);
+    this.setState({ provider });
   }
 
-  getContract = async () => {  
+  getContract = async () => {
     const {
       contractFunctions, contractEvents, contract, withInputs,
-    } = await processContractByAddress(this.state.wallet, this.state.address, this.state.provider, this.props.network);
+    } = await processContractByAddress(this.props.hotWallet.wallet, this.state.address, this.state.provider, this.props.network);
     this.setState({
       contractEvents, contractFunctions, contract, withInputs,
     });
@@ -91,25 +91,25 @@ class Contract extends Component {
     if (!isFunctionPayable && !hasFunctionParameters) {
       if (executeNonPayableNoParams(functionName, {})) {
         Toast.show('Success', Toast.LONG);
-        const result = await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
+        const result = await processFunctionCall2(this.props.hotWallet.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
         return result;
       }
     } else if (!isFunctionPayable && hasFunctionParameters) {
       if (executeNonPayableWithParams(functionName, inputs, allFunctionDetails, isFunctionPayable)) {
         Toast.show('Success', Toast.LONG);
-        const result = await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
+        const result = await processFunctionCall2(this.props.hotWallet.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
         return result;
       }
     } else if (isFunctionPayable && !hasFunctionParameters) {
       if (executePayableNoParams(functionName, {}, allFunctionDetails, isFunctionPayable)) {
         Toast.show('Success', Toast.LONG);
-        const result = await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
+        const result = await processFunctionCall2(this.props.hotWallet.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
         return result;
       }
     } else if (isFunctionPayable && hasFunctionParameters) {
       if (executePayableWithParams(functionName, inputs, allFunctionDetails, isFunctionPayable)) {
         Toast.show('Success', Toast.LONG);
-        const result = await processFunctionCall2(this.state.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
+        const result = await processFunctionCall2(this.props.hotWallet.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
         return result;
       }
     }
@@ -137,39 +137,39 @@ class Contract extends Component {
                 </View>
                 {
                   item.payable
-                  ?
+                    ?
                     <View style={styles.functionInputContainer}>
                       <FormInput
-                        placeholder= { this.state.payable ? this.state.payable.text : "Ether Value (Payable)" }
+                        placeholder={this.state.payable ? this.state.payable.text : "Ether Value (Payable)"}
                         onChangeText={(text) => this.processFunctionInput(text, 'payable', 'payable', item.functionSignature)}
                         inputStyle={styles.functionInputStyle}
                         selectionColor={'#12c1a2'}
                       />
                     </View>
-                  : null
+                    : null
                 }
                 {
                   (item.fInputs.length != 0)
-                  ? 
-                  <View style={styles.topInputContainer}>
-                    <ContractInputContainer 
+                    ?
+                    <View style={styles.topInputContainer}>
+                      <ContractInputContainer
                         signature={item.functionSignature}
                         inputs={item.fInputs}
                         item={item}
                         processInput={this.processFunctionInput}
                         contractExecution={this.contractFuncCheck}
-                    />
-                </View>
-              : 
-                <View style={styles.topInputContainer}>
-                  <ContractInputConstant 
-                     contractExecution={this.contractFuncCheck}
-                     item={item}
-                  />
-                </View>
-              }
+                      />
+                    </View>
+                    :
+                    <View style={styles.topInputContainer}>
+                      <ContractInputConstant
+                        contractExecution={this.contractFuncCheck}
+                        item={item}
+                      />
+                    </View>
+                }
               </Card>
-            </View>,)
+            </View>)
         }
       </View>
     );
@@ -183,61 +183,53 @@ class Contract extends Component {
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.mainContainer}>
-              <View style={styles.navContainer}>
-                <BackWithMenuNav
-                    showMenu={false}
-                    showBack={true}
-                    navigation={this.props.navigation}
-                  />
-              </View>
-                {
-                  this.state.contractFunctions === null
-                    ?
-                    <View style={styles.topFormInput}>
-                      <Text style={styles.textHeader}>Contract Interaction</Text>
-                      <Text style={styles.textDescription}>Load contract address</Text>
-                      <View style={styles.addressField}>
-                        <FormInput
-                          placeholder={'Contract Address'}
-                          onChangeText={(add) => { return this.setState({ address: add }); }}
-                          inputStyle={styles.inputContactName}
-                          placeholderTextColor={'#b3b3b3'}
-                          value={this.state.address}
-                        />
-                      </View>
-                    </View>
-                    :
-                    <View style={styles.scrollViewContainer} >
-                      <ScrollView style={styles.scrollView}>
-                         { this.parseFunctions() }
-                       </ScrollView>
-                    </View>
-                }
+            <View style={styles.navContainer}>
+              <BackWithMenuNav
+                showMenu={false}
+                showBack={true}
+                navigation={this.props.navigation}
+              />
+            </View>
+            {
+              this.state.contractFunctions === null
+                ?
+                <View style={styles.topFormInput}>
+                  <Text style={styles.textHeader}>Contract Interaction</Text>
+                  <Text style={styles.textDescription}>Load contract address</Text>
+                  <View style={styles.addressField}>
+                    <FormInput
+                      placeholder={'Contract Address'}
+                      onChangeText={(add) => { return this.setState({ address: add }); }}
+                      inputStyle={styles.inputContactName}
+                      placeholderTextColor={'#b3b3b3'}
+                      value={this.state.address}
+                    />
+                  </View>
+                </View>
+                :
+                <View style={styles.scrollViewContainer} >
+                  <ScrollView style={styles.scrollView}>
+                    {this.parseFunctions()}
+                  </ScrollView>
+                </View>
+            }
 
             <View style={styles.btnContainer}>
-                {
-                   this.state.contractFunctions === null
-                   ?
-                    <LinearButton
-                      buttonText='Load Contract'
-                      onClickFunction={() => this.getContract(this)}
-                      customStyles={styles.loadButton}
-                    />
-                 :  <LinearButton
-                      buttonText='Reset Contract'
-                      onClickFunction={() => this.getContract(this)}
-                      customStyles={styles.loadButton}
-                    />
-                }
-                <View style={styles.footerGrandparentContainer}>
-                    <View style={styles.footerParentContainer} >
-                        <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-                    </View>
+
+              <LinearButton
+                buttonText={this.state.contractFunctions === null ? 'Load Contract' : 'Reset Contract'}
+                onClickFunction={() => this.getContract(this)}
+                customStyles={styles.loadButton}
+              />
+              <View style={styles.footerGrandparentContainer}>
+                <View style={styles.footerParentContainer} >
+                  <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                 </View>
+              </View>
             </View>
-        </View>
-      </TouchableWithoutFeedback>
-    </SafeAreaView>
+          </View>
+        </TouchableWithoutFeedback>
+      </SafeAreaView>
     );
   }
 }
