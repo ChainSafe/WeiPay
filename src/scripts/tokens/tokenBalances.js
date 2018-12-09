@@ -8,6 +8,7 @@ const processAllTokenBalances = async (privateKey, dataSet, provider) => {
   let tokenApiRequestString = '';
   wallet = new ethers.Wallet(privateKey);  
   wallet.provider = provider;
+  console.log(wallet);
   for (let i = 0; i < dataSet.length; i++) {
     let tokenObj = {};
     tokenObj.symbol = dataSet[i].symbol;

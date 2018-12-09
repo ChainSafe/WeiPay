@@ -110,6 +110,7 @@ export default function (state = initialState, action) {
       return { ...state, walletTokens: action.payload };
     case CALCULATE_WALLET_BALANCE:
       const { walletBalanceObject, individualTokens } = action.payload;
+      console.log("indi tokens", individualTokens);
       return {
         ...state, walletBalance: walletBalanceObject, tokenBalances: individualTokens,
       };
@@ -124,7 +125,7 @@ export default function (state = initialState, action) {
       };
     case SAVE_TOKEN_QUANTITIES:
       return {
-        ...state, tokenQuantities: action.payload
+        ...state, tokenQuantities: action.payload,
       };
     case ADD_TOKEN_SETUP:
       return { ...state, tokens: action.payload };

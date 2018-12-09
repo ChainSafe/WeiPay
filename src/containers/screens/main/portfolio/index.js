@@ -20,20 +20,23 @@ import getNetworkProvider from '../../../../constants/Providers';
  */
 class Portfolio extends Component {
   state = {
-    provider: null,
-    data: this.props.tokens,
+
+    // removing unecassary states 
+
+    // provider: null,
+    // data: this.props.tokens,
     pricesLoaded: false,
     refresh: false,
     currencyIndex: 0,
-    walletBalance: {},
-    currency: this.props.currencyOptions,
+    // walletBalance: {},
+    // currency: this.props.currencyOptions,
     apiRequestString: '',
     tokenBalances: {},
     tokenAmounts: null,
     tokenPrices: [],
     completeTokenObject: null,
-    currentWallet: this.props.hotWallet.wallet,
-    currentWalletName: this.props.wallets[0].name,
+    // currentWallet: this.props.hotWallet.wallet,
+    // currentWalletName: this.props.wallets[0].name,
   }
 
   /**
@@ -58,13 +61,12 @@ class Portfolio extends Component {
    * The Balance (soon to be Wallet) reducer then updates state -> { ...state, walletBalance: walletBalanceObject, tokenBalances: individualTokens };
    */
   async componentDidMount() {
-    const provider = await getNetworkProvider(this.props.network);
-    this.setState({ provider });
+    
     if (this.props.walletBalance == null) {
       await this.balanceCalculations();
     } else {
       await this.setState({
-        walletBalance: this.props.walletBalance,
+        // walletBalance: this.props.walletBalance,
         tokenPrices: this.props.tokenBalances,
         tokenAmounts: this.props.tokenQuantities,
       });
@@ -73,13 +75,20 @@ class Portfolio extends Component {
   }
 
   balanceCalculations = async () => {
-    const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data);
+    const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.props.tokens);
+
+    console.log(tokenSymbolString);
+
     this.props.saveAllTokenQuantities(tokenBalances);
+
     await this.props.fetchCoinData(tokenSymbolString);
+
+    console.log("tokenBalances", tokenBalances, 'tokenConversions in props', this.props.tokenConversions);
+    
     await this.props.calculateWalletBalance(tokenBalances, this.props.tokenConversions);
     await this.setState({
       apiRequestString: tokenSymbolString,
-      walletBalance: this.props.walletBalance,
+      // walletBalance: this.props.walletBalance,
       tokenPrices: this.props.tokenBalances,
       tokenAmounts: tokenBalances,
     });
@@ -99,8 +108,11 @@ class Portfolio extends Component {
       tokenObj.decimals = tokenList[i].decimals;
       tokenObjectList.push(tokenObj);
     }
-    const privateKey =  this.state.currentWallet.privateKey;
-    return { tokenSymbolString, tokenBalances } = await processAllTokenBalances(privateKey, tokenObjectList, this.state.provider);
+    const privateKey =  this.props.hotWallet.wallet.privateKey;
+
+    // single use case of provider
+    const provider = await getNetworkProvider(this.props.network);
+    return { tokenSymbolString, tokenBalances } = await processAllTokenBalances(privateKey, tokenObjectList, provider);
   }
 
   /**
@@ -108,7 +120,7 @@ class Portfolio extends Component {
    * and token info. This will be the data source for the flat list.
    */
   showTokens = () => {
-    if (Object.prototype.hasOwnProperty.call(this.state.walletBalance, 'USD')) this.setState({ pricesLoaded: true });
+    if (Object.prototype.hasOwnProperty.call(this.props.walletBalance, 'USD')) this.setState({ pricesLoaded: true });
     let cTokenObjectList = [];
     for (let i = 0; i < this.props.tokens.length; i++) {
       let cto = {};
@@ -208,14 +220,14 @@ class Portfolio extends Component {
               showMenu={true}
               showBack={false}
               navigation={this.props.navigation}
-              title={this.props.debugMode ? this.props.testWalletName : this.state.currentWalletName}
+              title={this.props.debugMode ? this.props.testWalletName : this.props.wallets[0].name}
             />
           </View>
           <Text style={styles.textHeader}>
             {
               this.props.debugMode
                 ? this.props.testWalletName
-                : this.state.currentWalletName
+                : this.props.wallets[0].name
             }
           </Text>
           <View style={styles.touchableCurrencyContainer}>
@@ -224,14 +236,14 @@ class Portfolio extends Component {
                   <Text style={styles.headerValue}>
                     {
                       this.state.pricesLoaded
-                        ? ((this.state.walletBalance)[this.props.currencyOptions[this.state.currencyIndex]]).toFixed(5)
+                        ? ((this.props.walletBalance)[this.props.currencyOptions[this.state.currencyIndex]]).toFixed(5)
                         : 'Balance Loading ...'
                     }
                   </Text>
                   <Text style={styles.headerValueCurrency}>
                   {
                     this.state.pricesLoaded
-                      ? `${this.state.currency[this.state.currencyIndex]} (${this.props.network})`
+                      ? `${this.props.currencyOptions[this.state.currencyIndex]} (${this.props.network})`
                       : null
                   }
                   </Text>
