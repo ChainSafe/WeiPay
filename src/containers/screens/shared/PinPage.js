@@ -16,13 +16,13 @@ class PinPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      walletObjecet: {},
+      // walletObjecet: {},
       password: '',
       buttonEnabled: false, // set pin button
-      isValidLength: false,
-      error: null,
+      // isValidLength: false, unnecessary
+      // error: null, unnecassary
       resetInitiated: false,
-      resetConfirmed: false,
+      // resetConfirmed: false, unnecessary
     };
   }
 
@@ -93,6 +93,7 @@ class PinPage extends Component {
     const walletName = this.getWalletName();
     const inSetup = this.checkProcess();
     const userWallets = this.props.wallets;
+    console.log("wallet name", walletName);
     if (isPasswordValid) {
       if (inSetup) {
         this.setupEncyrptionProcess(walletName, userWallets);
@@ -122,7 +123,7 @@ class PinPage extends Component {
 
   render() {
     const { resetInitiated } = this.state;
-    console.log("in pin page");
+    console.log("in pin page", this.state);
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -172,7 +173,7 @@ class PinPage extends Component {
                             ? null
                             : <View style={styles.forgotContainer}>
                                 <TouchableWithoutFeedback onPress={() => {
-                                  return this.setState({ resetInitiated: true });
+                                  return this.setState({ resetInitiated: true, buttonEnabled: true });
                                 }}>
                                 <View>
                                 { resetInitiated ? null : <Text style={styles.forgotText}>Forgot Password </Text> }
@@ -184,7 +185,7 @@ class PinPage extends Component {
                           resetInitiated
                             ? <View style={styles.forgotContainer}>
                               <TouchableWithoutFeedback onPress={() => {
-                                return this.setState({ resetInitiated: false });
+                                return this.setState({ resetInitiated: false, password: '', buttonEnabled: false });
                               }}>
                               <View>
                                 <Text style={styles.forgotText}> Cancel Reset </Text>

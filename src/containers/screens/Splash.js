@@ -10,7 +10,7 @@ class Splash extends Component {
   }
 
   checkLoggedIn() {
-    if (this.props.wallets.length > 0) {
+    if (this.props.wallets.length) {
       const navigateToAddToken = NavigationActions.navigate({ routeName: 'password' });
       this.props.navigation.dispatch(navigateToAddToken);
     } else {

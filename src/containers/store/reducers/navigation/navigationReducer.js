@@ -8,9 +8,7 @@ const initialState = AppNavigator.router.getStateForAction(
 );
 
 const navigationReducer = (state = initialState, action) => {
-  console.log("nav", "action", action,"state", state);
   const newState = AppNavigator.router.getStateForAction(action, state);
-  console.log("nav", "action", action," new state", newState);
   return newState || state;
 };
 

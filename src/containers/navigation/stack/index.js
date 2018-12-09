@@ -31,6 +31,7 @@ class AppNavigation extends Component {
 
   render() {
     const { navigationState, dispatch } = this.props;
+    console.log("app state", this.props.state);
     console.log("navigation state", navigationState);    
     return (
       <NavigationStack
@@ -46,6 +47,7 @@ class AppNavigation extends Component {
  */
 const mapStateToProps = (state) => {
   return {
+    state: state,
     navigationState: state.NavigationReducer,
   };
 };

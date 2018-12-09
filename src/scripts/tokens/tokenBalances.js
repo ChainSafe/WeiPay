@@ -11,8 +11,8 @@ const processAllTokenBalances = async (privateKey, dataSet, provider) => {
   for (let i = 0; i < dataSet.length; i++) {
     let tokenObj = {};
     tokenObj.symbol = dataSet[i].symbol;
-    if (!dataSet[i].contractAddress) {
-      await this.getEthereumBalance(provider)
+    if (dataSet[i].contractAddress === '') {
+      await this.getEthereumBalance(wallet.address, provider)
         .then((response) => {
           tokenObj.amount = Number(response).toFixed(4);
           allBalances.push(tokenObj);
@@ -49,8 +49,7 @@ formatBalance = (balance, decimals) => {
   return (balance / x);
 };
 
-// unused parameter add
-getEthereumBalance = async (provider) => {  
+getEthereumBalance = async (add, provider) => {  
   const balance = await provider.getBalance(wallet.address);
   const parsedEtherBalance = String(ethers.utils.formatEther(balance));
   return parsedEtherBalance;

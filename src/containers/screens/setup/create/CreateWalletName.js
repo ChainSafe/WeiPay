@@ -13,7 +13,7 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
 import RF from 'react-native-responsive-fontsize';
-import { setTempWalletName, initializeAppWallet } from '../../../store/actions/creators/AppConfig';
+import { setTempWalletName } from '../../../store/actions/creators/AppConfig';
 import LinearButton from '../../../components/linearGradient/LinearButton';
 import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
@@ -23,35 +23,40 @@ const ethers = require('ethers');
 class CreateWalletName extends Component {
   state = {
     walletProcessing: false,
-    walletName: null,
+    walletName: '',
   };
 
-  navigateToPin = (wallet) => {
-    this.setState({ walletProcessing: false }, () => {
-      const navigateToPassword = NavigationActions.navigate({
-        routeName: 'password',
-        params: { nextScreenToNavigate: 'generatePassphrase', wallet },
-      });
-      this.props.navigation.dispatch(navigateToPassword);
+  // readable code
+  navigateToPin = async (wallet) => {
+    await this.setState({ walletProcessing: false });
+
+    const navigateToPassword = NavigationActions.navigate({
+      routeName: 'password',
+      params: { nextScreenToNavigate: 'generatePassphrase', wallet },
     });
+    this.props.navigation.dispatch(navigateToPassword);
+
   };
 
-  createWallet = () => {
-    this.setState({ walletProcessing: true }, async () => {
-      const wallet = await ethers.Wallet.createRandom();
-      this.navigateToPin(wallet);
-    });
+  // readable code
+  createWallet = async () => {
+    await this.setState({ walletProcessing: true });
+    // setting temp wallet name 
+    this.props.setTempWalletName(this.state.walletName);
+
+    const wallet = await ethers.Wallet.createRandom();
+    this.navigateToPin(wallet);
   }
 
-  getWalletName(name) {
-    this.props.setTempWalletName(name);
+  setWalletName(name) {
+    // this.props.setTempWalletName(name); unnecessary action call
     this.setState({ walletName: name });
   }
 
   render() {
-    const { walletProcessing, walletName } = this.state;
+    const { walletProcessing } = this.state;
     const { debugMode } = this.props;
-    const isNameExist = walletName !== null;
+    // const isNameExist = walletName !== null; unnecessary
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -59,7 +64,7 @@ class CreateWalletName extends Component {
             <View style={styles.navContainer}>
               <BackWithMenuNav
                 showMenu={false}
-                showBack={true}
+                showBack={true} //enables showBack
                 navigation={this.props.navigation}
                 backPage={'createOrRestore'}
               />
@@ -79,29 +84,29 @@ class CreateWalletName extends Component {
                         </View>
                       </View>
                       : <View>
-                       <Text style={styles.cardText}>
+                        <Text style={styles.cardText}>
                           Create a name for your wallet, for example: My Wallet
                         </Text>
                         <View style={styles.formInputContainer}>
                           <FormInput
                             placeholder={'Ex. My Wallet'}
-                            onChangeText={this.getWalletName.bind(this)}
+                            onChangeText={this.setWalletName.bind(this)}
                             inputStyle={styles.txtWalletName}
                             selectionColor={'#12c1a2'}
                           />
                         </View>
                       </View>
                   }
-                 
+
                 </BoxShadowCard>
               </View>
             </View>
             <View style={styles.btnContainer}>
               <LinearButton
-                onClickFunction={ this.createWallet }
+                onClickFunction={this.createWallet}
                 buttonText="Next"
                 customStyles={styles.button}
-                buttonStateEnabled= { debugMode ? false : !isNameExist }
+                buttonStateEnabled={debugMode ? false : !this.state.walletName}
               />
               <View style={styles.footerGrandparentContainer} >
                 <View style={styles.footerParentContainer} >
@@ -196,14 +201,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ Debug, Wallet }) => {
-  const { debugMode, testWalletName } = Debug;
-  const { wallets, tempWalletName } = Wallet;
+const mapStateToProps = ({ Debug }) => {
+  // removing unnecessary props
+  const { debugMode } = Debug;
   return {
-    debugMode, wallets, tempWalletName, testWalletName,
+    debugMode
   };
 };
 
-export default connect(mapStateToProps, {
-  setTempWalletName, initializeAppWallet,
-})(CreateWalletName);
+export default connect(mapStateToProps, {setTempWalletName})(CreateWalletName);

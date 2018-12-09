@@ -64,6 +64,7 @@ export function setTempWalletName(walletName) {
  * If previosWalletState.length = 0 means its the users first wallet in the app.
  */
 export function initializeAppWallet(currentWallet, walletName, previousWalletState) {
+  // not sure why address is mapped to publicKey??
   let appWallets = [];  
   if (previousWalletState.length > 0) { 
     for (let i = 0; i < previousWalletState.length; i++) {
