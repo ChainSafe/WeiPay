@@ -37,7 +37,7 @@ const initialState = {
   tempWalletName: null,
   tokens: [],
   walletBalance: null,
-  tokenBalances: {},
+  tokenPrices: {},
   walletTokens: [],
   isFetching: null,
   hasError: false,
@@ -111,7 +111,7 @@ export default function (state = initialState, action) {
     case CALCULATE_WALLET_BALANCE:
       const { walletBalanceObject, individualTokens } = action.payload;
       return {
-        ...state, walletBalance: walletBalanceObject, tokenBalances: individualTokens,
+        ...state, walletBalance: walletBalanceObject, tokenPrices: individualTokens,
       };
     case SAVE_TOKEN_DATA_FOR_TRANSACTION:
       return {
