@@ -38,7 +38,7 @@ const processAllTokenBalances = async (privateKey, dataSet, provider) => {
         });
     }
   }
-  return { 'tokenSymbolString' : tokenApiRequestString, 'tokenBalances' : allBalances };
+  return { 'tokenSymbolString' : tokenApiRequestString, 'tokenQuantities' : allBalances };
 };
 
 formatBalance = (balance, decimals) => {

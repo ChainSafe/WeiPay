@@ -73,15 +73,15 @@ class Portfolio extends Component {
   }
 
   balanceCalculations = async () => {
-    const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data);
-    this.props.saveAllTokenQuantities(tokenBalances);
+    const { tokenSymbolString, tokenQuantities } = await this.formatTokens(this.state.data);
+    this.props.saveAllTokenQuantities(tokenQuantities);
     await this.props.fetchCoinData(tokenSymbolString);
-    await this.props.calculateWalletBalance(tokenBalances, this.props.tokenConversions);
+    await this.props.calculateWalletBalance(tokenQuantities, this.props.tokenConversions);
     await this.setState({
       apiRequestString: tokenSymbolString,
       walletBalance: this.props.walletBalance,
       tokenPrices: this.props.tokenBalances,
-      tokenAmounts: tokenBalances,
+      tokenAmounts: tokenQuantities,
     });
     this.showTokens();
   }
@@ -100,7 +100,7 @@ class Portfolio extends Component {
       tokenObjectList.push(tokenObj);
     }
     const privateKey =  this.state.currentWallet.privateKey;
-    return { tokenSymbolString, tokenBalances } = await processAllTokenBalances(privateKey, tokenObjectList, this.state.provider);
+    return { tokenSymbolString, tokenQuantities } = await processAllTokenBalances(privateKey, tokenObjectList, this.state.provider);
   }
 
   /**
