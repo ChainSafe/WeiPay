@@ -7,7 +7,6 @@ import {
   Keyboard,
   Dimensions,
   SafeAreaView,
-  ActivityIndicator,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -18,21 +17,19 @@ import LinearButton from '../../../components/linearGradient/LinearButton';
 import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 
-const ethers = require('ethers');
-
 class CreateWalletName extends Component {
   state = {
     walletProcessing: false,
     walletName: '',
   };
 
-  // readable code
-  navigateToPin = async (wallet) => {
-    await this.setState({ walletProcessing: false });
-
-    const navigateToPassword = NavigationActions.navigate({
-      routeName: 'password',
-      params: { nextScreenToNavigate: 'generatePassphrase', wallet },
+  navigateToPin = () => {
+    this.setState({ walletProcessing: false }, () => {
+      const navigateToPassword = NavigationActions.navigate({
+        routeName: 'password',
+        params: { nextScreenToNavigate: 'generatePassphrase' },
+      });
+      this.props.navigation.dispatch(navigateToPassword);
     });
     this.props.navigation.dispatch(navigateToPassword);
 
@@ -73,9 +70,7 @@ class CreateWalletName extends Component {
             <View style={styles.boxShadowContainer}>
               <View style={styles.contentContainer}>
                 <BoxShadowCard>
-                  {
-                    walletProcessing
-                      ? <View>
+                    <View>
                         <Text style={styles.cardText}>
                           Please wait while your wallet is being created..
                         </Text>
@@ -108,11 +103,6 @@ class CreateWalletName extends Component {
                 customStyles={styles.button}
                 buttonStateEnabled={debugMode ? false : !this.state.walletName}
               />
-              <View style={styles.footerGrandparentContainer} >
-                <View style={styles.footerParentContainer} >
-                  <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-                </View>
-              </View>
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -180,24 +170,12 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     width: '100%',
+    marginBottom: '2.5%',
+    marginTop: '2.5%',
   },
   button: {
     width: '82%',
     height: Dimensions.get('window').height * 0.082,
-  },
-  footerGrandparentContainer: {
-    alignItems: 'center',
-    marginBottom: '5%',
-    marginTop: '5%',
-  },
-  footerParentContainer: {
-    alignItems: 'center',
-  },
-  textFooter: {
-    fontFamily: 'WorkSans-Regular',
-    fontSize: RF(1.7),
-    color: '#c0c0c0',
-    letterSpacing: 0.5,
   },
 });
 

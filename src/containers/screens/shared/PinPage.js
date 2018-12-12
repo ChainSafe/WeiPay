@@ -5,6 +5,7 @@ import {
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import CryptoJS from 'crypto-js';
+import ethers from 'ethers';
 import RF from 'react-native-responsive-fontsize';
 import { FormInput } from 'react-native-elements';
 import * as actions from '../../store/actions/creators/AppConfig';
@@ -68,8 +69,20 @@ class PinPage extends Component {
     return plaintext;
   }
 
+  /**
+   * If the next route is not generatePassphrase, you must obtain the wallet from
+   * the recoverMnemonic page. You need to create the wallet in that page in order
+   * to enforce a valid mnemonic entry.
+   */
   setupEncyrptionProcess = async (walletName, userWallets) => {
-    const { nextScreenToNavigate, wallet } = this.props.navigation.state.params;
+    const { nextScreenToNavigate } = this.props.navigation.state.params;
+    const isCreateStream = nextScreenToNavigate === 'generatePassphrase';
+    let wallet;
+    if (isCreateStream) {
+      wallet = await ethers.Wallet.createRandom();
+    } else {
+      wallet = this.props.navigation.state.params.wallet;
+    }
     const serialialedWallet = JSON.stringify(wallet);
     const encrypted = this.encryptSerializedWallet(serialialedWallet);
     const hotWalletObj = { wallet, name: walletName };
@@ -201,7 +214,7 @@ class PinPage extends Component {
                 <View style={styles.btnNextContainer}>
                     <LinearButton
                       onClickFunction={ resetInitiated ? this.resetApp : this.setPin }
-                      buttonText= {resetInitiated ? 'Reset Wallet' : 'Set Pin' }
+                      buttonText= {resetInitiated ? 'Reset Wallet' : 'Enter Pin' }
                       customStyles={styles.btnNext}
                       buttonStateEnabled= { !this.state.buttonEnabled }
                     />

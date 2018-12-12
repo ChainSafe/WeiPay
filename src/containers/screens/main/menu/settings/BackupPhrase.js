@@ -11,15 +11,15 @@ import LinearButton from '../../../../components/linearGradient/LinearButton';
 
 const ethers = require('ethers');
 
-const utils = ethers.utils;
+// const utils = ethers.utils;
 
-const navigate = () => {
-  const navigateToMenu = NavigationActions.reset({
-    index: 0,
-    actions: [NavigationActions.navigate({ routeName: 'Drawer' })],
-  });
-  this.props.navigation.dispatch(navigateToMenu);
-};
+// const navigate = () => {
+//   const navigateToMenu = NavigationActions.reset({
+//     index: 0,
+//     actions: [NavigationActions.navigate({ routeName: 'Drawer' })],
+//   });
+//   this.props.navigation.dispatch(navigateToMenu);
+// };
 
 /**
  * Screen is used to display the passphrase (mnemonic) of the wallet
@@ -29,9 +29,9 @@ class BackupPhrase extends Component {
     super(props);
     this.state = {
       isPhraseSelected: false,
-      phrase: this.props.wallet.wallet.mnemonic,
-      phraseInDebug: this.props.wallet.wallet.privateKey, //TODO: Delete this and replace every call to phrase
-      mnemonic: this.props.wallet.wallet.mnemonic,
+      // phrase: this.props.wallet.wallet.mnemonic,
+      // phraseInDebug: this.props.wallet.wallet.privateKey, //TODO: Delete this and replace every call to phrase
+      // mnemonic: this.props.wallet.wallet.mnemonic,
     };
   }
 
@@ -49,8 +49,6 @@ class BackupPhrase extends Component {
    * Returns a component that allows the user to view the passphrase
    */
   render() {
-
-
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -71,7 +69,7 @@ class BackupPhrase extends Component {
                         ?
                         <View>
                             <Text style={styles.cardText} >Please save this passphrase somewhere safe!</Text>
-                            <Text style={styles.mnemonicText} >{this.state.mnemonic}</Text>
+                            <Text style={styles.mnemonicText} >{this.props.wallet.wallet.mnemonic}</Text>
                         </View>
                         : <Text style={styles.cardText} >To view your recovery passphrase, select the button below</Text>
                       }
@@ -90,11 +88,6 @@ class BackupPhrase extends Component {
                           buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
                       />
                 }
-                <View style={styles.footerGrandparentContainer}>
-                    <View style={styles.footerParentContainer} >
-                        <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-                    </View>
-                </View>
             </View>
         </View>
       </TouchableWithoutFeedback>
@@ -158,28 +151,16 @@ const styles = StyleSheet.create({
     lineHeight: RF(3),
   },
   btnContainer: {
-    flex:2,
+    flex: 2,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     width: '100%',
+    marginBottom: '2.5%',
+    marginTop: '2.5%',
   },
   button: {
     width: '82%',
     height: Dimensions.get('window').height * 0.082,
-  },
-  footerGrandparentContainer: {
-    alignItems: 'center',
-    marginBottom: '5%',
-    marginTop: '5%',
-  },
-  footerParentContainer: {
-    alignItems: 'center',
-  },
-  textFooter: {
-    fontFamily: 'WorkSans-Regular',
-    fontSize: RF(1.7),
-    color: '#c0c0c0',
-    letterSpacing: 0.5,
   },
 });
 

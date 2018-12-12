@@ -24,11 +24,6 @@ class CoinReceive extends Component {
                 <Text style={styles.addressValue}>{this.props.walletAddress}</Text>
             </View>
           </View>
-          <View style={styles.footerGrandparentContainer}>
-            <View style={styles.footerParentContainer}>
-                <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-            </View>
-          </View>
         </View>
       </SafeAreaView>
     );
@@ -88,21 +83,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: '30%',
     paddingBottom: '5%',
-  },
-  footerGrandparentContainer: {
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    flex: 1,
-  },
-  footerParentContainer: {
-    alignItems: 'center',
-  },
-  textFooter: {
-    fontFamily: 'WorkSans-Regular',
-    marginBottom: '5%',
-    color: '#c0c0c0',
-    fontSize: RF(1.7),
-    letterSpacing: 0.5,
   },
 });
 

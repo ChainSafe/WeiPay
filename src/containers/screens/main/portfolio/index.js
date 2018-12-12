@@ -30,10 +30,10 @@ class Portfolio extends Component {
     currencyIndex: 0,
     // walletBalance: {},
     // currency: this.props.currencyOptions,
-    apiRequestString: '',
-    tokenBalances: {},
-    tokenAmounts: null,
-    tokenPrices: [],
+    // apiRequestString: '',
+    // tokenBalances: {},
+    // tokenAmounts: null,
+    // tokenPrices: [],
     completeTokenObject: null,
     // currentWallet: this.props.hotWallet.wallet,
     // currentWalletName: this.props.wallets[0].name,
@@ -65,32 +65,25 @@ class Portfolio extends Component {
     if (this.props.walletBalance == null) {
       await this.balanceCalculations();
     } else {
-      await this.setState({
-        // walletBalance: this.props.walletBalance,
-        tokenPrices: this.props.tokenBalances,
-        tokenAmounts: this.props.tokenQuantities,
-      });
+      // await this.setState({
+      //   // walletBalance: this.props.walletBalance,
+      //   // tokenPrices: this.props.tokenBalances,
+      //   // tokenAmounts: this.props.tokenQuantities,
+      // });
       this.showTokens();
     }
   }
 
   balanceCalculations = async () => {
-    const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.props.tokens);
-
-    console.log(tokenSymbolString);
-
-    this.props.saveAllTokenQuantities(tokenBalances);
-
+    const { tokenSymbolString, tokenQuantities } = await this.formatTokens(this.state.data);
+    this.props.saveAllTokenQuantities(tokenQuantities);
     await this.props.fetchCoinData(tokenSymbolString);
-
-    console.log("tokenBalances", tokenBalances, 'tokenConversions in props', this.props.tokenConversions);
-    
-    await this.props.calculateWalletBalance(tokenBalances, this.props.tokenConversions);
+    await this.props.calculateWalletBalance(tokenQuantities, this.props.tokenConversions);
     await this.setState({
       apiRequestString: tokenSymbolString,
-      // walletBalance: this.props.walletBalance,
-      tokenPrices: this.props.tokenBalances,
-      tokenAmounts: tokenBalances,
+      walletBalance: this.props.walletBalance,
+      tokenPrices: this.props.tokenPrices,
+      tokenQuantities,
     });
     this.showTokens();
   }
@@ -108,11 +101,8 @@ class Portfolio extends Component {
       tokenObj.decimals = tokenList[i].decimals;
       tokenObjectList.push(tokenObj);
     }
-    const privateKey =  this.props.hotWallet.wallet.privateKey;
-
-    // single use case of provider
-    const provider = await getNetworkProvider(this.props.network);
-    return { tokenSymbolString, tokenBalances } = await processAllTokenBalances(privateKey, tokenObjectList, provider);
+    const privateKey =  this.state.currentWallet.privateKey;
+    return { tokenSymbolString, tokenQuantities } = await processAllTokenBalances(privateKey, tokenObjectList, this.state.provider);
   }
 
   /**
@@ -120,16 +110,19 @@ class Portfolio extends Component {
    * and token info. This will be the data source for the flat list.
    */
   showTokens = () => {
-    if (Object.prototype.hasOwnProperty.call(this.props.walletBalance, 'USD')) this.setState({ pricesLoaded: true });
+    
     let cTokenObjectList = [];
     for (let i = 0; i < this.props.tokens.length; i++) {
       let cto = {};
       cto.tokenInfo = this.props.tokens[i];
-      cto.tokenPriceInfo = this.state.tokenPrices[i];
-      cto.tokenAmounts = this.state.tokenAmounts[i];
+      cto.tokenPriceInfo = this.props.tokenPrices[i];
+      cto.tokenQuantities = this.state.tokenQuantities[i];
       cTokenObjectList.push(cto);
     }
-    this.setState({ completeTokenObject: cTokenObjectList });
+		// in single setState
+		if (Object.prototype.hasOwnProperty.call(this.props.walletBalance, 'USD')) {
+			this.setState({ pricesLoaded: true, completeTokenObject: cTokenObjectList });
+		}
   }
 
   navigate = () => {
@@ -143,13 +136,12 @@ class Portfolio extends Component {
   };
 
   renderRow = (token) => {
-    console.log(token);
-    const { tokenInfo, tokenPriceInfo, tokenAmounts } = token;    
+    const { tokenInfo, tokenPriceInfo, tokenQuantities } = token;    
     if (tokenInfo.selected) {
       return (
         <TouchableOpacity
           onPress={() => {
-            this.props.saveTokenDataForTransaction(tokenAmounts.amount, tokenInfo.symbol, tokenInfo.address, tokenInfo.decimals);
+            this.props.saveTokenDataForTransaction(tokenQuantities.amount, tokenInfo.symbol, tokenInfo.address, tokenInfo.decimals);
             this.props.navigation.navigate('TokenFunctionality');
           }}
           style={styles.listItemParentContainer}
@@ -178,12 +170,12 @@ class Portfolio extends Component {
                   <View style={ styles.listItemValueComponent }>
                     <Text style={styles.listItemCryptoValue}>
                       {
-                        tokenAmounts == null ? 0 : tokenAmounts.amount
+                        tokenQuantities == null ? 0 : tokenQuantities.amount
                       }
                     </Text>
                     <Text style={styles.listItemFiatValue}>
                       {
-                        tokenAmounts == null ? 'NA' : ((tokenPriceInfo)[this.props.currencyOptions[this.state.currencyIndex]]).toFixed(5)
+                        tokenQuantities == null ? 'NA' : ((tokenPriceInfo)[this.props.currencyOptions[this.state.currencyIndex]]).toFixed(5)
                       }
                     </Text>
                   </View>
@@ -212,6 +204,7 @@ class Portfolio extends Component {
   }
 
   render() {
+		console.log("my state", this.state);
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer} >
@@ -220,7 +213,7 @@ class Portfolio extends Component {
               showMenu={true}
               showBack={false}
               navigation={this.props.navigation}
-              title={this.props.debugMode ? this.props.testWalletName : this.props.wallets[0].name}
+              title={this.props.debugMode ? this.props.testWalletName : this.state.currentWalletName}
             />
           </View>
           <Text style={styles.textHeader}>
@@ -235,14 +228,18 @@ class Portfolio extends Component {
               <View style={styles.accountValueHeader}>
                   <Text style={styles.headerValue}>
                     {
-                      this.state.pricesLoaded
-                        ? ((this.props.walletBalance)[this.props.currencyOptions[this.state.currencyIndex]]).toFixed(5)
-                        : 'Balance Loading ...'
+											// handing fetching coin error
+                      !this.state.pricesLoaded 
+												? 'Balance loading'
+												: this.props.hasError
+												? 'Error fetching balance'
+                        : ((this.props.walletBalance)[this.props.currencyOptions[this.state.currencyIndex]]).toFixed(5) 
                     }
                   </Text>
                   <Text style={styles.headerValueCurrency}>
                   {
-                    this.state.pricesLoaded
+										// handing fetching coin error
+                    this.state.pricesLoaded && !this.props.hasError
                       ? `${this.props.currencyOptions[this.state.currencyIndex]} (${this.props.network})`
                       : null
                   }
@@ -252,7 +249,8 @@ class Portfolio extends Component {
           </View>
           <View style={styles.scrollViewContainer}>
             {
-              this.state.completeTokenObject == null
+							// handing fetching coin error
+              this.state.completeTokenObject === null || this.props.hasError
                 ? null
                 : <FlatList
                     data={this.state.completeTokenObject}
@@ -268,7 +266,7 @@ class Portfolio extends Component {
             }
           </View>
           <View style={styles.btnContainer}>
-            { !this.state.pricesLoaded
+            { !this.state.pricesLoaded && !this.props.hasError
             ? <ClearButton
                 buttonText="Add Token or Coin"
                 customStyles={styles.button}
@@ -427,10 +425,11 @@ function mapStateToProps({ Wallet, Debug, HotWallet }) {
     tokens,
     wallets,
     tokenConversions,
-    tokenBalances,
+    tokenPrices,
     walletBalance,
     tokenQuantities,
     network,
+		hasError
   } = Wallet;
   const {
     debugMode, testWalletName,
@@ -444,8 +443,9 @@ function mapStateToProps({ Wallet, Debug, HotWallet }) {
     wallets,
     tokenConversions,
     walletBalance,
-    tokenBalances,
+    tokenPrices,
     tokenQuantities,
+		hasError,
     network,
   };
 }

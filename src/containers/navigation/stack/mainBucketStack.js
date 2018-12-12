@@ -1,5 +1,5 @@
 import { StackNavigator, DrawerNavigator, DrawerItems } from 'react-navigation';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import React from 'react';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import Contacts from '../../screens/main/menu/contacts/index';
@@ -32,7 +32,7 @@ const CustomDrawerContentComponent = props => (
   </View>
 );
 
-const navigator = DrawerNavigator({  
+const navigator = DrawerNavigator({
   Portfolio: {
     screen: StackNavigator({
       portfolioScreen: { screen: Portfolio },
@@ -42,7 +42,7 @@ const navigator = DrawerNavigator({
       TokenFunctionality: { screen: TokenFunctionality },
       AddTokenFunctionality: { screen: AddingTokensOrCoins },
       QCodeScanner: { screen: QrCodeScanner },
-      contactAddresses: { screen: ContactAddresses },
+      // contactAddresses: { screen: ContactAddresses },
       tokenList: { screen: Coins },
       customToken: { screen: NewToken },
       searchToken: { screen: Tokens },
@@ -58,16 +58,16 @@ const navigator = DrawerNavigator({
     }),
   },
   Backup: { screen: BackupPhrase },
-  Contacts: {
-    screen: StackNavigator({
-      contacts: { screen: Contacts },
-      editContact: { screen: EditContact },
-      addContact: { screen: AddContact },
-    },
-    {
-      headerMode: 'none',
-    }),
-  },
+  // Contacts: {
+  //   screen: StackNavigator({
+  //     contacts: { screen: Contacts },
+  //     editContact: { screen: EditContact },
+  //     addContact: { screen: AddContact },
+  //   },
+  //   {
+  //     headerMode: 'none',
+  //   }),
+  // },
   Contracts: { screen: Contract },
   Networks: { screen: Network },
 }, {
@@ -75,6 +75,7 @@ const navigator = DrawerNavigator({
   lazy: true,
   contentComponent: CustomDrawerContentComponent,
   drawerPosition: 'right',
+  drawerWidth: Dimensions.get('window').width / 2.2,
 });
 
 export default navigator;

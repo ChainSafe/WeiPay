@@ -37,7 +37,7 @@ const initialState = {
   tempWalletName: null,
   tokens: [],
   walletBalance: null,
-  tokenBalances: {},
+  tokenPrices: {},
   walletTokens: [],
   isFetching: null,
   hasError: false,
@@ -112,7 +112,7 @@ export default function (state = initialState, action) {
       const { walletBalanceObject, individualTokens } = action.payload;
       console.log("indi tokens", individualTokens);
       return {
-        ...state, walletBalance: walletBalanceObject, tokenBalances: individualTokens,
+        ...state, walletBalance: walletBalanceObject, tokenPrices: individualTokens,
       };
     case SAVE_TOKEN_DATA_FOR_TRANSACTION:
       return {

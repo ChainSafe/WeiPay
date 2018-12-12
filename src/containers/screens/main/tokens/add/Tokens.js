@@ -108,9 +108,9 @@ class Coins extends Component {
               onClose={ ()=> {
                 this.refresh();
               }}
-              onBackPress= { () => {
-                this.refresh();
-              }}
+              // onBackPress= { () => {
+              //   this.refresh();
+              // }}
             />
             {
               this.state.tokenLoaded
@@ -135,11 +135,6 @@ class Coins extends Component {
               buttonText='Add this token'
               buttonStateEnabled={!this.state.buttonEnabled}
               customStyles={styles.button} />
-            <View style={styles.footerGrandparentContainer}>
-                <View style={styles.footerParentContainer} >
-                    <Text style={styles.textFooter} >Powered by ChainSafe </Text>
-                </View>
-            </View>
           </View>
         </View>
       </SafeAreaView>
@@ -195,6 +190,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
+    marginBottom: '2.5%',
   },
   button: {
     width: '82%',

@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
+import RF from 'react-native-responsive-fontsize';
 
 class BackWithMenuNav extends Component {
   navigateBack = () => {
@@ -45,7 +46,7 @@ class BackWithMenuNav extends Component {
                 </TouchableOpacity>
             </View> : null}
             { this.props.showMenu ?
-            <View style={[styles.boxContainer, styles.boxTwo , styles.extraSpace]} >
+            <View style={[styles.boxContainer, styles.boxTwo, styles.extraSpace]} >
                 <TouchableOpacity
                 onPress={this.navigateMenu} >
                 <Image

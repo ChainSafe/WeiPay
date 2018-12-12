@@ -22,12 +22,12 @@ const navigator = StackNavigator({
   password: {
     screen: PinPage,
   },
-  addContact: {
-    screen: addContact,
-  },
-  contacts: {
-    screen: contacts,
-  },
+  // addContact: {
+  //   screen: addContact,
+  // },
+  // contacts: {
+  //   screen: contacts,
+  // },
   createOrRestore: {
     screen: CreateOrRestore,
   },

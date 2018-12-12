@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
 import RF from 'react-native-responsive-fontsize';
+import Toast from 'react-native-simple-toast';
 import * as actions from '../../../../store/actions/ActionCreator';
 import * as configActions from '../../../../store/actions/creators/AppConfig';
 import LinearButton from '../../../../components/linearGradient/LinearButton';
@@ -26,7 +27,7 @@ import executeEtherTransaction from '../../../../../scripts/tokens/transactions/
 import executeERC20Transaction from '../../../../../scripts/tokens/transactions/transactionsERC20';
 
 const ethers = require('ethers');
-const img = require('../../../../../assets/icons/barcode.png');
+const img = require('../../../../../assets/icons/barcode2.png');
 
 const utils = ethers.utils;
 
@@ -46,7 +47,6 @@ class CoinSend extends Component {
 
   navigate = () => {
     this.props.setQrInvoker("TokenFunctionality");
-
     const navigateToQRScanner = NavigationActions.navigate({
       routeName: 'QCodeScanner',
       params: { invoker: 'CoinSend' },
@@ -126,21 +126,27 @@ class CoinSend extends Component {
     const isEtherTX = this.props.activeTokenData.address === '';
     if (validAddress && !flag) {
       const provider = await getNetworkProvider(this.props.network);
+      let txResponse;
       if (isEtherTX) {
-        executeEtherTransaction(
+        txResponse = await executeEtherTransaction(
           provider,
           this.state.toAddress,
           this.props.wallet.privateKey,
           this.state.value,
         );
       } else {
-        executeERC20Transaction(
+        txResponse = await executeERC20Transaction(
           provider,
           this.state.toAddress,
           this.props.wallet.privateKey,
           this.state.value,
-          this.props.token.address,
+          this.props.activeTokenData.address,
+          this.props.activeTokenData.decimals,
         );
+      }
+      if (Object.prototype.hasOwnProperty.call(txResponse, 'hash')) {
+        Toast.show('Success, check etherscan', Toast.LONG);
+        this.resetFields();
       }
     } else {
       console.log('bad');
@@ -221,11 +227,6 @@ class CoinSend extends Component {
                     customStyles={styles.btnSend}
                     buttonStateEnabled={!valid || !value}
                   />
-                </View>
-              </View>
-              <View style={styles.footerGrandparentContainer}>
-                <View style={styles.footerParentContainer} >
-                  <Text style={styles.textFooter} >Powered by ChainSafe </Text>
                 </View>
               </View>
             </View>
@@ -316,9 +317,9 @@ const styles = StyleSheet.create({
     marginTop: '5%',
   },
   btnContainer: {
-    flex: 1.25,
+    flex: 1,
     alignItems: 'stretch',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     width: '82%',
     alignContent: 'center',
     marginLeft: '9%',
@@ -339,21 +340,6 @@ const styles = StyleSheet.create({
     marginLeft: '1.75%',
     height: Dimensions.get('window').height * 0.082,
   },
-  footerGrandparentContainer: {
-    alignItems: 'center',
-    marginBottom: '5%',
-    marginTop: '5%',
-  },
-  footerParentContainer: {
-    alignItems: 'center',
-  },
-  textFooter: {
-    fontFamily: 'WorkSans-Regular',
-    fontSize: RF(1.7),
-    color: '#c0c0c0',
-    letterSpacing: 0.5,
-  },
-
 });
 
 const mapStateToProps = ({
@@ -371,13 +357,4 @@ const mapStateToProps = ({
   };
 };
 
-export default connect(mapStateToProps, { ... actions, ... configActions })(CoinSend);
-
-// export default connect(mapStateToProps, {
-//   updateTxnFee,
-//   qrScannerInvoker,
-//   qrScannerCoinInvoker,
-//   getQRCodeData,
-//   setGlobalAddress,
-//   setQrInvoker,
-// })(CoinSend);
+export default connect(mapStateToProps, { ...actions, ...configActions })(CoinSend);
