@@ -24,7 +24,7 @@ export function fetchCoinData(tokensString) {
     dispatch({ type: FETCHING_COIN_DATA });
     return axios.get(`${apiMultipleCurrencyBaseUrl}${tokensString}${apiMulitpleResponseUrl}`)
       .then((res) => {
-				console.log("conversion matrix", res.data);
+				console.log("conversion matrix", res.data, tokensString);
         dispatch({ type: FETCHING_COIN_DATA_SUCCESS, payload: res.data });
       })
       .catch((err) => {
