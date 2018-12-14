@@ -7,8 +7,11 @@ import RF from 'react-native-responsive-fontsize';
 import { NavigationActions } from 'react-navigation';
 import LinearButton from '../../../components/linearGradient/LinearButton';
 import ClearButton from '../../../components/linearGradient/ClearButton';
-import { setWalletTokenBalances, fetchCoinData, calculateWalletBalance } from '../../../store/actions/creators/FetchCoinData';
-import { saveTokenDataForTransaction, saveAllTokenQuantities } from '../../../store/actions/creators/AppConfig';
+import { fetchCoinData, calculateWalletBalance } from '../../../store/actions/creators/FetchCoinData';
+import { saveTokenDataForTransaction, 
+					saveAllTokenQuantities,
+					quantityFetchAndBalance
+				} from '../../../store/actions/creators/AppConfig';
 import processAllTokenBalances from '../../../../scripts/tokens/tokenBalances';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
@@ -62,7 +65,7 @@ class Portfolio extends Component {
    */
   async componentDidMount() {
     
-    if (this.props.walletBalance == null) {
+    if (this.props.walletBalance === null || this.props.hasError) {
       await this.balanceCalculations();
     } else {
       // await this.setState({
@@ -75,16 +78,19 @@ class Portfolio extends Component {
   }
 
   balanceCalculations = async () => {
-    const { tokenSymbolString, tokenQuantities } = await this.formatTokens(this.state.data);
+		console.log("in balance calculations");
+    const { tokenSymbolString, tokenQuantities } = await this.formatTokens(this.props.tokens);
+		
+		// await this.props.quantityFetchAndBalance(tokenSymbolString, tokenQuantities);
     this.props.saveAllTokenQuantities(tokenQuantities);
     await this.props.fetchCoinData(tokenSymbolString);
     await this.props.calculateWalletBalance(tokenQuantities, this.props.tokenConversions);
-    await this.setState({
-      apiRequestString: tokenSymbolString,
-      walletBalance: this.props.walletBalance,
-      tokenPrices: this.props.tokenPrices,
-      tokenQuantities,
-    });
+    // await this.setState({
+    //   apiRequestString: tokenSymbolString,
+    //   walletBalance: this.props.walletBalance,
+    //   tokenPrices: this.props.tokenPrices,
+    //   tokenQuantities,
+    // });
     this.showTokens();
   }
   /**
@@ -93,6 +99,7 @@ class Portfolio extends Component {
    * of each token the user has for a given private key.
    */
   formatTokens = async (tokenList) => {
+		console.log("in format token");
     let tokenObjectList = [];
     for (let i = 0; i < tokenList.length; i++) {
       let tokenObj = {};
@@ -101,8 +108,9 @@ class Portfolio extends Component {
       tokenObj.decimals = tokenList[i].decimals;
       tokenObjectList.push(tokenObj);
     }
-    const privateKey =  this.state.currentWallet.privateKey;
-    return { tokenSymbolString, tokenQuantities } = await processAllTokenBalances(privateKey, tokenObjectList, this.state.provider);
+    const privateKey =  this.props.hotWallet.wallet.privateKey;
+		const provider = await getNetworkProvider(this.props.network);
+    return { tokenSymbolString, tokenQuantities } = await processAllTokenBalances(privateKey, tokenObjectList, provider);
   }
 
   /**
@@ -110,17 +118,19 @@ class Portfolio extends Component {
    * and token info. This will be the data source for the flat list.
    */
   showTokens = () => {
-    
+		console.log("in show token token");
     let cTokenObjectList = [];
     for (let i = 0; i < this.props.tokens.length; i++) {
       let cto = {};
       cto.tokenInfo = this.props.tokens[i];
       cto.tokenPriceInfo = this.props.tokenPrices[i];
-      cto.tokenQuantities = this.state.tokenQuantities[i];
+      cto.tokenQuantities = this.props.tokenQuantities[i];
       cTokenObjectList.push(cto);
     }
 		// in single setState
+		console.log("walletBalance", this.props.walletBalance);
 		if (Object.prototype.hasOwnProperty.call(this.props.walletBalance, 'USD')) {
+			console.log(cTokenObjectList, "setting pricesLoaded");
 			this.setState({ pricesLoaded: true, completeTokenObject: cTokenObjectList });
 		}
   }
@@ -451,9 +461,9 @@ function mapStateToProps({ Wallet, Debug, HotWallet }) {
 }
 
 export default connect(mapStateToProps, {
-  setWalletTokenBalances,
   fetchCoinData,
   calculateWalletBalance,
   saveTokenDataForTransaction,
   saveAllTokenQuantities,
+	quantityFetchAndBalance
 })(Portfolio);

@@ -8,12 +8,11 @@ const processAllTokenBalances = async (privateKey, dataSet, provider) => {
   let tokenApiRequestString = '';
   wallet = new ethers.Wallet(privateKey);  
   wallet.provider = provider;
-  console.log(wallet);
   for (let i = 0; i < dataSet.length; i++) {
     let tokenObj = {};
     tokenObj.symbol = dataSet[i].symbol;
     if (dataSet[i].contractAddress === '') {
-      await this.getEthereumBalance(wallet.address, provider)
+      this.getEthereumBalance(wallet.address, provider)
         .then((response) => {
           tokenObj.amount = Number(response).toFixed(4);
           allBalances.push(tokenObj);
@@ -26,7 +25,7 @@ const processAllTokenBalances = async (privateKey, dataSet, provider) => {
         });
     } else {
       let contractAddress = dataSet[i].contractAddress;
-      await this.getERC20Balance(contractAddress, dataSet[i].decimals, provider)
+      this.getERC20Balance(contractAddress, dataSet[i].decimals, provider)
         .then((response) => {
           tokenObj.amount = Number(response).toFixed(4);
           allBalances.push(tokenObj);
