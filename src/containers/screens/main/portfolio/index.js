@@ -182,15 +182,15 @@ class Portfolio extends Component {
 								<View style={styles.listItemValueContainer}>
 									<View style={styles.listItemValueComponent}>
 										<Text style={styles.listItemCryptoValue}>
-											{
-												tokenQuantities ? 0 : tokenQuantities.amount
-											}
-										</Text>
-										<Text style={styles.listItemFiatValue}>
-											{
-												tokenQuantities ? 'NA' : ((tokenPriceInfo)[this.props.currencyOptions[this.state.currencyIndex]]).toFixed(5)
-											}
-										</Text>
+                      {
+                        tokenQuantities == null ? 0 : tokenQuantities.amount
+                      }
+                    </Text>
+                    <Text style={styles.listItemFiatValue}>
+                      {
+                        tokenQuantities == null ? 'NA' : ((tokenPriceInfo)[this.props.currencyOptions[this.state.currencyIndex]]).toFixed(5)
+                      }
+                    </Text>
 									</View>
 								</View>
 							</View>
