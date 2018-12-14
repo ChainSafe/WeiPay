@@ -11,7 +11,7 @@ const persistConfig = {
   key: 'root',
   storage,
   persist: (...options) => persistNative(...options),
-  whitelist: [ 'contacts', 'Debug', 'newWallet'],
+  whitelist: ['Wallet', 'contacts', 'Debug', 'newWallet'],
   stateReconciler: autoMergeLevel2,
 };
 
