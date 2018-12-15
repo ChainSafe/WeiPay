@@ -20,7 +20,7 @@ class PinPage extends Component {
 			// unnecessary states
 			// walletObjecet: {},
 			password: '',
-			isValidLength: false,
+			// isValidLength: false,
 			// error: null,
 			resetInitiated: false,
 			// resetConfirmed: false,
