@@ -137,7 +137,6 @@ class PinPage extends Component {
 
 	render() {
 		const { resetInitiated } = this.state;
-		console.log(this.state);
 		return (
 			<SafeAreaView style={styles.safeAreaView}>
 				<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
