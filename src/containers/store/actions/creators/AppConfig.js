@@ -8,24 +8,9 @@ export function enterDebug() {
   };
 }
 
-export function encryptSerializedWallet(hashedPassword) {
-  return (dispatch) => {
-    dispatch({ type: actionType.SET_APP_PASSWORD_ROOT, payload: hashedPassword });
-  };
-}
-
 export function setNetwork(network) {
   return (dispatch) => {
     dispatch({ type: actionType.SET_NETWORK, payload: network });
-  };
-}
-
-/**
- * This action is used to track if the user is in the setup screens.
- */
-export function exitSetup(flag) {
-  return (dispatch) => {
-    dispatch({ type: actionType.EXIT_SETUP_SCREEN, payload: flag });
   };
 }
 
@@ -59,6 +44,14 @@ export function setTempWalletName(walletName) {
   };
 }
 
+export function setHotWallet(walletObj) {
+  const { name, wallet } = walletObj;
+  const pKey = wallet.address;
+  return (dispatch) => {
+    dispatch({ type: actionType.CONFIG_HOT_WALLET, payload: { 'wallet': wallet, 'publicKey': pKey,'name': name} });
+  };
+}
+
 /**
  * Initializes a wallet within the app.
  * If previosWalletState.length = 0 means its the users first wallet in the app.
@@ -85,19 +78,61 @@ export function initializeAppWallet(currentWallet, walletName, previousWalletSta
 }
 
 /**
+ * This action is used to track if the user is in the setup screens.
+ */
+export function exitSetup(flag) {
+  return (dispatch) => {
+    dispatch({ type: actionType.EXIT_SETUP_SCREEN, payload: flag });
+  };
+}
+
+/**
+ * merging 2 dispatches into one
+ * initializeAppWallet, exitSetup
+ */
+export function encryptSerializedWallet(hashedPassword) {
+  return (dispatch) => {
+    dispatch({ type: actionType.SET_APP_PASSWORD_ROOT, payload: hashedPassword });
+  };
+}
+
+export function initWalletExitSetupEncryptWallet(currentWallet, walletName, previousWalletState, flag) {
+	// initialize
+	let appWallets = [];  
+  if (previousWalletState.length > 0) { 
+    for (let i = 0; i < previousWalletState.length; i++) {
+      let previousWallet = {};
+      previousWallet.name = previousWalletState[i].name;
+      previousWallet.hdWallet = previousWalletState[i].hdWallet;
+      previousWallet.publicKey = previousWalletState[i].hdWallet.address;
+      appWallets.push(previousWallet);
+    }
+  }
+  let walletObject = {};
+  walletObject.name = walletName;
+  walletObject.hdWallet = currentWallet;
+  walletObject.publicKey = currentWallet.address;
+	// currentWallet is the encrypted string, currentWallet.address always undefined
+  appWallets.push(walletObject);
+
+	return (dispatch) => {
+    dispatch({ 
+			type: actionType.INIT_WALLET_EXIT_SETUP_ENCRYPT_WALLET, 
+			payload: {
+				appWallets,
+				flag,
+				hashedPassword: currentWallet
+			} 
+		});
+  };
+}
+
+/**
  * Set temporary state wallet name until wallet is created/saved to async
  */
 export function setWalletPassword(password) {
   return (dispatch) => {
     dispatch({ type: actionType.SET_APP_PASSWORD, payload: password });
-  };
-}
-
-export function setHotWallet(walletObj) {
-  const { name, wallet } = walletObj;
-  const pKey = wallet.address;
-  return (dispatch) => {
-    dispatch({ type: actionType.CONFIG_HOT_WALLET, payload: { 'wallet': wallet, 'publicKey': pKey,'name': name} });
   };
 }
 

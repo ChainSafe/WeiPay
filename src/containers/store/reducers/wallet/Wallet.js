@@ -13,6 +13,7 @@ import {
   SET_NETWORK,
   SET_GLOBAL_PUBLIC_ADDRESS,
   NUKE_WALLET,
+	INIT_WALLET_EXIT_SETUP_ENCRYPT_WALLET
 } from '../../actions/types/AppConfig';
 
 import {
@@ -82,6 +83,12 @@ export default function (state = initialState, action) {
       return {
         ...state, wallets: action.payload,
       };
+		// merging 3 actions init new app wallet, exit setup, set app password root
+		case INIT_WALLET_EXIT_SETUP_ENCRYPT_WALLET:
+			return {
+				...state, wallets: action.payload.appWallets, isInSetupScreens: action.payload.flag, 
+				encryptedWallet: action.payload.hashedPassword
+			}
     case FETCHING_COIN_DATA:
       return {
         ...state, isFetching: true, hasError: false, errorMessage: null,
