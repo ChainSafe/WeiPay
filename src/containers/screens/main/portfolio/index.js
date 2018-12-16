@@ -29,7 +29,7 @@ class Portfolio extends Component {
     currency: this.props.currencyOptions,
     apiRequestString: '',
     tokenBalances: {},
-    tokenAmounts: null,
+    tokenQuantities: null,
     tokenPrices: [],
     completeTokenObject: null,
     currentWallet: this.props.hotWallet.wallet,
@@ -65,23 +65,23 @@ class Portfolio extends Component {
     } else {
       await this.setState({
         walletBalance: this.props.walletBalance,
-        tokenPrices: this.props.tokenBalances,
-        tokenAmounts: this.props.tokenQuantities,
+        tokenPrices: this.props.tokenPrices,
+        tokenQuantities: this.props.tokenQuantities,
       });
       this.showTokens();
     }
   }
 
   balanceCalculations = async () => {
-    const { tokenSymbolString, tokenBalances } = await this.formatTokens(this.state.data);
-    this.props.saveAllTokenQuantities(tokenBalances);
+    const { tokenSymbolString, tokenQuantities } = await this.formatTokens(this.state.data);
+    this.props.saveAllTokenQuantities(tokenQuantities);
     await this.props.fetchCoinData(tokenSymbolString);
-    await this.props.calculateWalletBalance(tokenBalances, this.props.tokenConversions);
+    await this.props.calculateWalletBalance(tokenQuantities, this.props.tokenConversions);
     await this.setState({
       apiRequestString: tokenSymbolString,
       walletBalance: this.props.walletBalance,
-      tokenPrices: this.props.tokenBalances,
-      tokenAmounts: tokenBalances,
+      tokenPrices: this.props.tokenPrices,
+      tokenQuantities,
     });
     this.showTokens();
   }
@@ -100,7 +100,7 @@ class Portfolio extends Component {
       tokenObjectList.push(tokenObj);
     }
     const privateKey =  this.state.currentWallet.privateKey;
-    return { tokenSymbolString, tokenBalances } = await processAllTokenBalances(privateKey, tokenObjectList, this.state.provider);
+    return { tokenSymbolString, tokenQuantities } = await processAllTokenBalances(privateKey, tokenObjectList, this.state.provider);
   }
 
   /**
@@ -113,8 +113,8 @@ class Portfolio extends Component {
     for (let i = 0; i < this.props.tokens.length; i++) {
       let cto = {};
       cto.tokenInfo = this.props.tokens[i];
-      cto.tokenPriceInfo = this.props.tokenBalances[i];
-      cto.tokenAmounts = this.state.tokenAmounts[i];
+      cto.tokenPriceInfo = this.props.tokenPrices[i];
+      cto.tokenQuantities = this.state.tokenQuantities[i];
       cTokenObjectList.push(cto);
     }
     this.setState({ completeTokenObject: cTokenObjectList });
@@ -131,12 +131,12 @@ class Portfolio extends Component {
   };
 
   renderRow = (token) => {
-    const { tokenInfo, tokenPriceInfo, tokenAmounts } = token;    
+    const { tokenInfo, tokenPriceInfo, tokenQuantities } = token;    
     if (tokenInfo.selected) {
       return (
         <TouchableOpacity
           onPress={() => {
-            this.props.saveTokenDataForTransaction(tokenAmounts.amount, tokenInfo.symbol, tokenInfo.address, tokenInfo.decimals);
+            this.props.saveTokenDataForTransaction(tokenQuantities.amount, tokenInfo.symbol, tokenInfo.address, tokenInfo.decimals);
             this.props.navigation.navigate('TokenFunctionality');
           }}
           style={styles.listItemParentContainer}
@@ -165,12 +165,12 @@ class Portfolio extends Component {
                   <View style={ styles.listItemValueComponent }>
                     <Text style={styles.listItemCryptoValue}>
                       {
-                        tokenAmounts == null ? 0 : tokenAmounts.amount
+                        tokenQuantities == null ? 0 : tokenQuantities.amount
                       }
                     </Text>
                     <Text style={styles.listItemFiatValue}>
                       {
-                        tokenAmounts == null ? 'NA' : ((tokenPriceInfo)[this.props.currencyOptions[this.state.currencyIndex]]).toFixed(5)
+                        tokenQuantities == null ? 'NA' : ((tokenPriceInfo)[this.props.currencyOptions[this.state.currencyIndex]]).toFixed(5)
                       }
                     </Text>
                   </View>
@@ -414,7 +414,7 @@ function mapStateToProps({ Wallet, Debug, HotWallet }) {
     tokens,
     wallets,
     tokenConversions,
-    tokenBalances,
+    tokenPrices,
     walletBalance,
     tokenQuantities,
     network,
@@ -431,7 +431,7 @@ function mapStateToProps({ Wallet, Debug, HotWallet }) {
     wallets,
     tokenConversions,
     walletBalance,
-    tokenBalances,
+    tokenPrices,
     tokenQuantities,
     network,
   };
