@@ -1,5 +1,9 @@
 
 import * as actionType from '../types/AppConfig';
+import axios from 'axios';
+import {
+  apiMultipleCurrencyBaseUrl, apiMulitpleResponseUrl,
+} from '../../../../constants/Api';
 
 export function enterDebug() {
   const testData = { 'walletName': 'My Test Wallet Name' };
@@ -161,6 +165,48 @@ export function saveAllTokenQuantities(list) {
   };
 }
 
+// saveAllTokenQuantities(tokenQuantities);
+// fetchCoinData(tokenSymbolString);
+// calculateWalletBalance(tokenQuantities, tokenConversions);
+// 3 dispatches converted into one
+
+export function quantityFetchAndBalance(tokenSymbolString, tokenQuantities) {
+	return (dispatch) => {
+		console.log("in dispatch");
+		return axios.get(`${apiMultipleCurrencyBaseUrl}${tokenSymbolString}${apiMulitpleResponseUrl}`)
+			.then(res => {
+				console.log("in success dispatch", res.data);
+				const tokenConversionMatrix = res.data;
+				const { walletBalanceObject, tokenPrices } = calculateBalances(tokenQuantities, tokenConversionMatrix);
+
+				dispatch({
+					type: actionType.FETCHING_COIN_DATA_SUCCESS_WITH_TOKEN_QUANTITIES_BALANCES,
+					payload: {
+						tokenConversions: tokenConversionMatrix,
+						tokenQuantities,
+						tokenPrices,
+						walletBalance: walletBalanceObject
+					}
+				})
+			})
+			.catch(err => {
+				console.log("in dispatch fail", err);
+				const tokenConversionMatrix = [];
+				const { walletBalanceObject, tokenPrices } = calculateBalances(tokenQuantities, tokenConversionMatrix);
+				console.log("no dispatching");
+				dispatch({
+					type: actionType.FETCHING_COIN_DATA_FAIL_WITH_TOKENQUANTITIES,
+					payload: {
+						err: err.data,
+						tokenPrices,
+						walletBalance: walletBalanceObject,
+						tokenQuantities
+					}
+				})
+			})
+	}
+}
+
 export function setGlobalAddress(address) {
   return (dispatch) => {
     dispatch({ type: actionType.SET_GLOBAL_PUBLIC_ADDRESS, payload: address });
@@ -209,4 +255,61 @@ export function setQRData(data) {
   return (dispatch) => {
     dispatch({type: actionType.SAVE_QR_SCANNER_DATA, payload: data});
   }
+}
+
+// balance calculating function brought from fetchCoinData file for dispatch combination
+function calculateBalances(tokenQuantities, tokenConversionMatrix) {
+	const tokenKeys = Object.keys(tokenConversionMatrix);
+	let walletBalanceObject = {
+		USD: 0,
+		CAD: 0,
+		EUR: 0,
+		BTC: 0,
+		ETH: 0,
+	};
+	let tokenPrices = [];
+	for (let i = 0; i < tokenQuantities.length; i++) {
+		let keyTracker = 0;
+		for (let matrixKey = 0; matrixKey < tokenKeys.length; matrixKey++) {
+			const currentTokenKey = tokenKeys[matrixKey];
+			if (currentTokenKey === tokenQuantities[i].symbol) {
+				let tokenPriceObject = {
+					USD: 0,
+					CAD: 0,
+					EUR: 0,
+					BTC: 0,
+					ETH: 0,
+				};
+				walletBalanceObject.USD += tokenQuantities[i].amount * tokenConversionMatrix[currentTokenKey].USD;
+				walletBalanceObject.CAD += tokenQuantities[i].amount * tokenConversionMatrix[currentTokenKey].CAD;
+				walletBalanceObject.EUR += tokenQuantities[i].amount * tokenConversionMatrix[currentTokenKey].EUR;
+				walletBalanceObject.BTC += tokenQuantities[i].amount * tokenConversionMatrix[currentTokenKey].BTC;
+				walletBalanceObject.ETH += tokenQuantities[i].amount * tokenConversionMatrix[currentTokenKey].ETH;
+				tokenPriceObject.USD = tokenQuantities[i].amount * tokenConversionMatrix[currentTokenKey].USD;
+				tokenPriceObject.CAD = tokenQuantities[i].amount * tokenConversionMatrix[currentTokenKey].CAD;
+				tokenPriceObject.EUR = tokenQuantities[i].amount * tokenConversionMatrix[currentTokenKey].EUR;
+				tokenPriceObject.BTC = tokenQuantities[i].amount * tokenConversionMatrix[currentTokenKey].BTC;
+				tokenPriceObject.ETH = tokenQuantities[i].amount * tokenConversionMatrix[currentTokenKey].ETH;
+				tokenPriceObject.symbol = currentTokenKey;
+				tokenPrices.push(tokenPriceObject);
+				break;
+			} else {
+				keyTracker++;
+			}
+			if (keyTracker < (matrixKey.length)) {
+				console.log('you good', tokenQuantities[i].symbol);
+			} else {
+				let tokenPriceObject = {
+					USD: 0,
+					CAD: 0,
+					EUR: 0,
+					BTC: 0,
+					ETH: 0,
+				};
+				tokenPriceObject.symbol = tokenQuantities[i].symbol;
+				tokenPrices.push(tokenPriceObject);
+			}
+		}
+	}
+	return { walletBalanceObject, tokenPrices }
 }
