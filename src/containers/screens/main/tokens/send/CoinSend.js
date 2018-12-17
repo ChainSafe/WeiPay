@@ -161,7 +161,7 @@ class CoinSend extends Component {
           this.props.wallet.privateKey,
           this.state.inputAmount,
         );
-				console.log("here 1");
+				console.log("here 2", txResponse);
       } else {
 				console.log("here 2");
         txResponse = await executeERC20Transaction(
