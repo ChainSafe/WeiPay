@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
   View, Text, StyleSheet, Dimensions, TouchableWithoutFeedback, Keyboard, SafeAreaView,
 } from 'react-native';
-import { NavigationActions } from 'react-navigation';
+// import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import RF from 'react-native-responsive-fontsize';
 import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuNav';
@@ -12,15 +12,15 @@ import { setNetwork } from '../../../../store/actions/creators/AppConfig';
 
 const ethers = require('ethers');
 
-const utils = ethers.utils;
+// const utils = ethers.utils;
 
-const navigate = () => {
-  const navigateToMenu = NavigationActions.reset({
-    index: 0,
-    actions: [NavigationActions.navigate({ routeName: 'Drawer' })],
-  });
-  this.props.navigation.dispatch(navigateToMenu);
-};
+// const navigate = () => {
+//   const navigateToMenu = NavigationActions.reset({
+//     index: 0,
+//     actions: [NavigationActions.navigate({ routeName: 'Drawer' })],
+//   });
+//   this.props.navigation.dispatch(navigateToMenu);
+// };
 
 /**
  * Screen is used to display the passphrase (mnemonic) of the wallet
@@ -61,25 +61,25 @@ class Network extends Component {
                                 onClickFunction={() => this.selectNetwork('mainnet') }
                                 buttonText= 'Switch to Mainet'
                                 customStyles={styles.button}
-                                buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
+                                // buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
                             />
                             <ClearButton
                                 onClickFunction={() => this.selectNetwork('ropsten') }
                                 buttonText= 'Switch to Ropsten'
                                 customStyles={styles.button}
-                                buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
+                                // buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
                             />
                             <ClearButton
                                 onClickFunction={() => this.selectNetwork('kovan') }
                                 buttonText= 'Switch to Kovan'
                                 customStyles={styles.button}
-                                buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
+                                // buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
                             />
                              <ClearButton
                                 onClickFunction={() => this.selectNetwork('rinkeby') }
                                 buttonText= 'Switch to Rinkeby'
                                 customStyles={styles.button}
-                                buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
+                                // buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
                             />
                         </View>
                     </BoxShadowCard>
@@ -159,11 +159,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ newWallet, HotWallet, Wallet }) => {
-  const wallet = HotWallet.hotWallet;
-  const debugMode = newWallet.debugMode;
+const mapStateToProps = ({ Debug, Wallet }) => {
+  // unnecessary props
+	// const wallet = HotWallet.hotWallet;
+  const debugMode = Debug.debugMode;
   const { network } = Wallet;
-  return { wallet, debugMode, network };
+  return { debugMode, network };
 };
 
 export default connect(mapStateToProps, { setNetwork })(Network);

@@ -5,8 +5,9 @@ const executeEtherTransaction = async (provider, to, privateKey, value) => {
   const amountString = value.toString();
   const amount = ethers.utils.parseEther(amountString);
   const sendPromise = initializedWallet.send(to, amount);
-  return sendPromise.then((transactionHash) => {
+  return sendPromise.then((transactionHash, err) => {
     console.log(transactionHash);
+		console.log(err);
     return transactionHash;
   });
 };

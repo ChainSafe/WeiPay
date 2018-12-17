@@ -79,7 +79,7 @@ class CoinSend extends Component {
 	// direct onchange method
   renderAmount(amount) {
 		console.log("render value", amount);
-    if (!isNaN(amount)) {
+    if (!isNaN(amount) || amount === '.') {
       // if (amount < 0) {
       //   Alert.alert(
       //     'Invalid Ether Amount',
