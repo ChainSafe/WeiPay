@@ -5,7 +5,7 @@ import {
 import { connect } from 'react-redux';
 import Camera from 'react-native-camera';
 import { NavigationActions } from 'react-navigation';
-import Toast from 'react-native-simple-toast';
+// import Toast from 'react-native-simple-toast';
 import RF from 'react-native-responsive-fontsize';
 import * as actions from '../../../store/actions/ActionCreator';
 import * as configActions from '../../../store/actions/creators/AppConfig';
@@ -37,7 +37,7 @@ class QrCodeScanner extends Component {
     navigate = () => {
       const navigateToCreateOrRestore = NavigationActions.navigate({
         routeName: this.state.invoker,
-        params: { activeTab: 3 },
+        params: { activeTab: 1 },
       });
       this.props.navigation.dispatch(navigateToCreateOrRestore);
     };
@@ -73,6 +73,7 @@ class QrCodeScanner extends Component {
      *  - a button to go back to the invoking screen and fill in the input field
      */
     render() {
+			console.log(this.props);
       return (
         <View style={styles.container}>
           <View style={{ flex: 1 }}>

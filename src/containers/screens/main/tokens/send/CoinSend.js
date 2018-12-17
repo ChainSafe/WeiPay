@@ -34,14 +34,21 @@ const utils = ethers.utils;
 class CoinSend extends Component {
   constructor(props) {
     super(props);
+		let validAddress= new RegExp('0x[0-9a-fA-F]{40}');
+		let valid = false;
+		console.log(validAddress.exec(this.props.gloablPublicAddress));
+		if (validAddress.exec(this.props.gloablPublicAddress) != null) {
+      valid = true;
+    } 
     this.state = {
       toAddress: this.props.gloablPublicAddress,
-      value: null,
-      inputValue: null,
-      txnFee: null,
+      // value: null,
+			// better name
+      inputAmount: '',
+      txnFee: '',
       maliciousComment: '',
-      validAddress: new RegExp('0x[0-9a-fA-F]{40}'),
-      valid: false,
+      
+      isAddressValid: valid,
     };
   }
 
@@ -55,99 +62,125 @@ class CoinSend extends Component {
   };
 
   renderAddress(addressInput) {
-    const trimmed = addressInput.trim();
+    let trimmed = addressInput.trim();
     this.setState({ toAddress: trimmed });
-    this.props.setGlobalAddress(trimmed);
-    if (this.state.validAddress.exec(addressInput) == null) {
-      this.setState({ valid: false });
+		
+		// avoiding dispatches 
+    // this.props.setGlobalAddress(trimmed);
+
+		let validAddress= new RegExp('0x[0-9a-fA-F]{40}');
+    if (validAddress.exec(addressInput) === null) {
+      this.setState({ isAddressValid: false });
     } else {
-      this.setState({ valid: true });
+      this.setState({ isAddressValid: true });
     }
   }
 
-  renderValue(valueInput) {
-    if (!isNaN(valueInput)) {
-      if (valueInput < 0) {
-        Alert.alert(
-          'Invalid Ether Amount',
-          'Please enter an amount greater than 0.',
-          [
-            { text: 'OK', onPress: () => { return console.log('OK Pressed');} },
-          ],
-          { cancelable: false },
-        );
-      } else {
-        this.setState({ value: valueInput });
-      }
-    } else {
-      this.setState({ value: null });
-    }
+	// direct onchange method
+  renderAmount(amount) {
+		console.log("render value", amount);
+    if (!isNaN(amount)) {
+      // if (amount < 0) {
+      //   Alert.alert(
+      //     'Invalid Ether Amount',
+      //     'Please enter an amount greater than 0.',
+      //     [
+      //       { text: 'OK', onPress: () => { return console.log('OK Pressed');} },
+      //     ],
+      //     { cancelable: false },
+      //   );
+      // } else {
+      //   this.setState({ inputAmount: amount });
+      // }
+			this.setState({ inputAmount: amount });
+    } 
   }
 
-  getTxnFee = async () => {
-    const provider = await getNetworkProvider(this.props.network);
-    let formattedFee;
+  getTxnFee = async (provider) => {
+    // let provider = await getNetworkProvider(this.props.network);
     try {
-      let gasPriceString = await provider.getGasPrice().then((gasPrice) => {
+			// structured code
+      // let gasPriceString = 
+			await provider.getGasPrice().then((gasPrice) => {
         gasPriceString = gasPrice.toString();
-        const gasPriceEth = utils.formatEther(gasPrice);
-        const txnFee = 21000 * gasPriceEth;
-        formattedFee = txnFee.toFixed(8);
+        let gasPriceEth = utils.formatEther(gasPrice);
+        let txnFee = 21000 * gasPriceEth;
+        let formattedFee = txnFee.toFixed(8);
+				this.setState({ txnFee: formattedFee });
         return formattedFee;
       });
-      await this.setState({ txnFee: formattedFee });
+      
     } catch (error) {
+			// necessary error checks
+			return null;
       console.log(error);
     }
   }
 
   resetFields = () => {
-    this.inputAddress.clearText();
-    this.inputAmount.clearText();
-    this.props.setGlobalAddress('');
-    this.setState({ maliciousComment: '', inputValue: '0' });
+    // this.props.setGlobalAddress('');
+		// not using actions
+    this.setState({ maliciousComment: '', inputAmount: '', toAddress: '' });
   }
 
   checkMaliciousAddresses = (address) => {
     for (let i = 0; i < MaliciousAddresses.length; i++) {
       if (address === MaliciousAddresses[i].address) {
         this.setState({ maliciousComment:  MaliciousAddresses[i].comment });
-        return { flag: true, 'address' : MaliciousAddresses[i].address, 'comment' : MaliciousAddresses[i].comment };
-      }
+        // return { flag: true, 'address' : MaliciousAddresses[i].address, 'comment' : MaliciousAddresses[i].comment };
+				return { flag: true };
+			}
     }
     return { flag: false };
   }
 
   processTX = async () => {
-    this.getTxnFee();
-    const validAddress = this.state.valid;
-    const maliciousResponse = await this.checkMaliciousAddresses(this.state.toAddress);
-    const { flag } = maliciousResponse;
+		// one provider call
+		let provider = await getNetworkProvider(this.props.network);
+    this.getTxnFee(provider);
+    const validAddress = this.state.isAddressValid;
+    const { flag } = this.checkMaliciousAddresses(this.state.toAddress);
+
     const isEtherTX = this.props.activeTokenData.address === '';
+
     if (validAddress && !flag) {
-      const provider = await getNetworkProvider(this.props.network);
+      // const provider = await getNetworkProvider(this.props.network);
+			console.log(validAddress, flag, isEtherTX);
       let txResponse;
       if (isEtherTX) {
+				console.log("here 1");
+				console.log(provider,
+          this.state.toAddress,
+          this.props.wallet.privateKey,
+          this.state.inputAmount);
+					
         txResponse = await executeEtherTransaction(
           provider,
           this.state.toAddress,
           this.props.wallet.privateKey,
-          this.state.value,
+          this.state.inputAmount,
         );
+				console.log("here 1");
       } else {
+				console.log("here 2");
         txResponse = await executeERC20Transaction(
           provider,
           this.state.toAddress,
           this.props.wallet.privateKey,
-          this.state.value,
+          this.state.inputAmount,
           this.props.activeTokenData.address,
           this.props.activeTokenData.decimals,
         );
+				console.log("here 2");
       }
+			console.log("txResponse", txResponse);
       if (Object.prototype.hasOwnProperty.call(txResponse, 'hash')) {
         Toast.show('Success, check etherscan', Toast.LONG);
         this.resetFields();
       }
+			else {
+				console.log("fail");
+			}
     } else {
       console.log('bad');
     }
@@ -155,8 +188,9 @@ class CoinSend extends Component {
 
   render() {
     const {
-      valid, value, maliciousComment, inputValue, toAddress,
+      isAddressValid, maliciousComment, inputAmount, toAddress, txnFee
     } = this.state;
+		console.log(this.state, this.props);
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -178,16 +212,16 @@ class CoinSend extends Component {
                   </View>
                   <View style={styles.inputContainer}>
                     {
-                      maliciousComment !== ''
+											// simpler 
+                      maliciousComment 
                         ? <Text style={styles.maliciousCommentText}>Malicious - {maliciousComment} </Text>
                         : null
                     }
                     <View style={styles.formInputContainer}>
                       <FormInput
                         placeholder={'Public Address'}
-                        onChangeText={this.renderAddress.bind(this)}
-                        ref={(ref) => { return this.inputAddress = ref; }}
-                        inputStyle={[styles.formAddress, valid ? styles.colorValid : styles.colorError] }
+                        onChangeText={(text) => this.renderAddress(text)}
+                        inputStyle={[styles.formAddress, isAddressValid ? styles.colorValid : styles.colorError] }
                         value={toAddress}
                         selectionColor={'#12c1a2'}
                       />
@@ -195,17 +229,16 @@ class CoinSend extends Component {
                     <View style={styles.formInputContainer}>
                       <FormInput
                         placeholder={'Amount'}
-                        onChangeText={this.renderValue.bind(this)}
-                        ref={(ref) => { return this.inputAmount = ref; }}
+                        onChangeText={(text) => this.renderAmount(text)}
                         inputStyle={styles.formAmount}
-                        value={inputValue}
+                        value={inputAmount}
                         selectionColor={'#12c1a2'}
                       />
                     </View>
                     {
-                      !valid || !value
+                      !isAddressValid || !inputAmount
                         ? null
-                        : <Text style={styles.displayFeeText}> {this.state.txnFee} </Text>
+                        : <Text style={styles.displayFeeText}> {txnFee} </Text>
                     }
                   </View>
                 </BoxShadowCard>
@@ -225,7 +258,7 @@ class CoinSend extends Component {
                     onClickFunction={this.processTX}
                     buttonText="Send"
                     customStyles={styles.btnSend}
-                    buttonStateEnabled={!valid || !value}
+                    buttonStateEnabled={!isAddressValid || !inputAmount}
                   />
                 </View>
               </View>
@@ -351,8 +384,8 @@ const mapStateToProps = ({
     wallet,
     gloablPublicAddress,
     activeTokenData,
-    txnFee: newWallet.txnFee,
-    contactAddress: contacts.contactDataforCoinSend,
+    // txnFee: newWallet.txnFee,
+    // contactAddress: contacts.contactDataforCoinSend,
     network,
   };
 };
