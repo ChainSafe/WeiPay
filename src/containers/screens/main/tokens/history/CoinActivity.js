@@ -28,6 +28,7 @@ class CoinActivity extends Component {
 
 	// async not required
 	componentDidMount() {
+		console.log("mounting");
 		this.setState({ loading: true });
 		this.getData(this.props.wallet.pubKey);
 	}
@@ -63,7 +64,8 @@ class CoinActivity extends Component {
 			const transactions = [];
 			for (let i = 0; i < json.length; i++) {
 				const transObj = {};
-				if (json[i].from == this.props.wallet.pubKey) {
+				// was getting wrong results due to case sensitivity 
+				if (json[i].from.toLowerCase() == this.props.wallet.pubKey.toLowerCase()) {
 					transObj.type = 'Sent';
 					transObj.address = json[i].to;
 					transObj.uri = 'require(../../../assets/images/sent.png)';
@@ -92,6 +94,7 @@ class CoinActivity extends Component {
 	render() {
 		// use the unused loading state
 		const { data, loading } = this.state;
+		console.log(data);
 		return (
 			<SafeAreaView style={styles.safeAreaView}>
 				<View style={styles.mainContainer}>

@@ -149,11 +149,6 @@ class CoinSend extends Component {
 			console.log(validAddress, flag, isEtherTX);
       let txResponse;
       if (isEtherTX) {
-				console.log("here 1");
-				console.log(provider,
-          this.state.toAddress,
-          this.props.wallet.privateKey,
-          this.state.inputAmount);
 					
         txResponse = await executeEtherTransaction(
           provider,
@@ -161,9 +156,7 @@ class CoinSend extends Component {
           this.props.wallet.privateKey,
           this.state.inputAmount,
         );
-				console.log("here 2", txResponse);
       } else {
-				console.log("here 2");
         txResponse = await executeERC20Transaction(
           provider,
           this.state.toAddress,
@@ -172,14 +165,16 @@ class CoinSend extends Component {
           this.props.activeTokenData.address,
           this.props.activeTokenData.decimals,
         );
-				console.log("here 2");
       }
 			console.log("txResponse", txResponse);
-      if (Object.prototype.hasOwnProperty.call(txResponse, 'hash')) {
+      // if (Object.prototype.hasOwnProperty.call(txResponse, 'hash')) {
+			// script is blocked if non existent hash field is checked on fail
+			if(txResponse){
         Toast.show('Success, check etherscan', Toast.LONG);
         this.resetFields();
       }
 			else {
+				Toast.show('Fail', Toast.LONG);
 				console.log("fail");
 			}
     } else {
