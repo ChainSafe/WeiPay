@@ -112,8 +112,9 @@ class CoinSend extends Component {
       
     } catch (error) {
 			// necessary error checks
+			console.log(error);
 			return null;
-      console.log(error);
+      
     }
   }
 
