@@ -1,6 +1,8 @@
 ## WeiPay ERC20 Wallet
 WeiPay is a open source Ethereum and ERC20 wallet available for both IOS and Android mobile devices. WeiPay allows for multiple network and wallet configurations, contract interactions, and contact key management. 
 
+[![CircleCI](https://circleci.com/gh/ChainSafeSystems/WeiPay/tree/staging.svg?style=svg)](https://circleci.com/gh/ChainSafeSystems/WeiPay/tree/staging)
+
 ## How To:
 + ```git clone https://github.com/ChainSafe/WeiPay.git```
 + ```npm install, sudo npm install``` (if on linux)
