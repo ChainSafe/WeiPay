@@ -9,17 +9,18 @@ import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuN
 import BoxShadowCard from '../../../../components/shadowCards/BoxShadowCard';
 import LinearButton from '../../../../components/linearGradient/LinearButton';
 
-const ethers = require('ethers');
+// const ethers = require('ethers');
 
-const utils = ethers.utils;
+// unused
+// const utils = ethers.utils;
 
-const navigate = () => {
-  const navigateToMenu = NavigationActions.reset({
-    index: 0,
-    actions: [NavigationActions.navigate({ routeName: 'Drawer' })],
-  });
-  this.props.navigation.dispatch(navigateToMenu);
-};
+// const navigate = () => {
+//   const navigateToMenu = NavigationActions.reset({
+//     index: 0,
+//     actions: [NavigationActions.navigate({ routeName: 'Drawer' })],
+//   });
+//   this.props.navigation.dispatch(navigateToMenu);
+// };
 
 /**
  * Screen is used to display the passphrase (mnemonic) of the wallet
@@ -29,9 +30,9 @@ class BackupPhrase extends Component {
     super(props);
     this.state = {
       isPhraseSelected: false,
-      phrase: this.props.wallet.wallet.mnemonic,
-      phraseInDebug: this.props.wallet.wallet.privateKey, //TODO: Delete this and replace every call to phrase
-      mnemonic: this.props.wallet.wallet.mnemonic,
+      // phrase: this.props.wallet.wallet.mnemonic,
+      // phraseInDebug: this.props.wallet.wallet.privateKey, //TODO: Delete this and replace every call to phrase
+      // mnemonic: this.props.wallet.wallet.mnemonic,
     };
   }
 
@@ -69,7 +70,7 @@ class BackupPhrase extends Component {
                         ?
                         <View>
                             <Text style={styles.cardText} >Please save this passphrase somewhere safe!</Text>
-                            <Text style={styles.mnemonicText} >{this.state.mnemonic}</Text>
+                            <Text style={styles.mnemonicText} >{this.props.wallet.wallet.mnemonic}</Text>
                         </View>
                         : <Text style={styles.cardText} >To view your recovery passphrase, select the button below</Text>
                       }
@@ -85,7 +86,8 @@ class BackupPhrase extends Component {
                           onClickFunction={this.displayPassphrase.bind(this)}
                           buttonText= 'Show Recovery Passphrase'
                           customStyles={styles.button}
-                          buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
+													// unnecessary
+                          // buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
                       />
                 }
             </View>
