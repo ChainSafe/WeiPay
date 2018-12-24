@@ -39,6 +39,7 @@ const getUniqueFunctions = (interfaceFunctions) => {
 		}
 	}
 	var unique = functionNames.filter((v, i, a) => a.indexOf(v) === i);
+	console.log("unique", unique);
 	return unique;
 };
 
@@ -91,14 +92,21 @@ export const processContractByAddress = async (wallet, address, provider, networ
 			const initializedWallet = new ethers.Wallet(wallet.privateKey, provider);
 			try {
 				const contract = await new ethers.Contract(address, abiParsed, initializedWallet);
-				const contractEvents = contract.interface.events;
+				// unused variable
+				// const contractEvents = contract.interface.events;
 				const contractFunctions = contract.interface.functions;
+				
+				console.log(contract);
+				console.log(contractFunctions);
+
 				const uniqueFunctionListX = await getUniqueFunctions(contractFunctions);
 				const formattedFunctions = await markPayableFunctions(contractFunctions, uniqueFunctionListX);
+				console.log("formattedFunctions", formattedFunctions);
 				const withInputs = await getFunctionInputs(contractFunctions, formattedFunctions);
+				console.log("with Inputs", withInputs);
 				return {
 					success: true,
-					objects: { contractFunctions, contractEvents, contract, withInputs }
+					objects: { contractFunctions, contract, withInputs }
 				};
 			} catch (err) {
 				console.log(err);
@@ -171,6 +179,7 @@ const executePayableMethod = async (wallet, functionName, inputs, contract, prov
 };
 
 const executeMethod = async (wallet, functionName, inputs, contract, provider) => {
+	console.log(wallet, functionName, inputs, contract, provider);
 	const initializedWallet = new ethers.Wallet(wallet.privateKey, provider);
 	try {
 		const args = Object.values(inputs);
@@ -183,8 +192,6 @@ const executeMethod = async (wallet, functionName, inputs, contract, provider) =
 			console.log(call);
 			await eval(call);
 			return 'success method execution with inputs';
-			console.log('Call went through');
-			console.log('---------000---------------');
 		}
 	} catch (err) {
 		console.log(err);
@@ -194,9 +201,11 @@ const executeMethod = async (wallet, functionName, inputs, contract, provider) =
 
 export const processFunctionCall2 = async (wallet, functionName, inputs, contract, provider) => {
 	const isPayable = Object.prototype.hasOwnProperty.call(inputs, 'payable');
+	console.log("inputs", inputs);
 	if (isPayable) {
 		executePayableMethod(wallet, functionName, inputs, contract, provider);
 	} else {
+		console.log("executeMethod");
 		const result = await executeMethod(wallet, functionName, inputs, contract, provider);
 		return result;
 	}
