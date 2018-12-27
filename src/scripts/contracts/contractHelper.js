@@ -164,9 +164,11 @@ const executePayableMethod = async (wallet, functionName, inputs, contract, prov
 					nonce: count,
 					value: wei,
 				};
+				console.log(args); 
+				// not sure if this executes
 				const call = "contractWithSigner['functions'][functionName](" + args.toString() + ',' + 'overrideOptions' + ')';
-				await eval(call);
 				console.log(call);
+				await eval(call);
 				console.log('Call went through');
 				console.log('---------000---------------');
 			}
@@ -181,13 +183,21 @@ const executePayableMethod = async (wallet, functionName, inputs, contract, prov
 const executeMethod = async (wallet, functionName, inputs, contract, provider) => {
 	console.log(wallet, functionName, inputs, contract, provider);
 	const initializedWallet = new ethers.Wallet(wallet.privateKey, provider);
+	const args = [];
+	for (var key in inputs) {
+		if (key !== 'payable') {
+			args.push(inputs[key]);
+		}
+	}
 	try {
-		const args = Object.values(inputs);
+		// const args = Object.values(inputs);
 		const contractWithSigner = contract.connect(initializedWallet);
 		if (args.length == 0) {
 			const methodResponse = await contract['functions'][functionName]();
 			return methodResponse;
 		} else {
+			console.log(args);
+			// this does not execute
 			const call = "contractWithSigner['functions'][functionName](" + args.toString() + ')';
 			console.log(call);
 			await eval(call);

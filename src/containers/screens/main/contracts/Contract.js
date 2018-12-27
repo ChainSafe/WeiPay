@@ -92,9 +92,11 @@ class Contract extends Component {
 		console.log(isFunctionPayable, hasFunctionParameters);
 		const allFunctionDetails = this.state.withInputs;
 		
-		let functionName;
-		let functionNameForContract;
+		// let functionName;
+		// let functionNameForContract;
 		let inputs = this.state.currentInput[functionItem.functionSignature];
+
+		console.log(inputs);
 		
 		// if (hasFunctionParameters) {
 		// 	functionName = functionItem.property;
@@ -126,17 +128,21 @@ class Contract extends Component {
 				return result;
 			}
 		} else if (isFunctionPayable && !hasFunctionParameters) {
-			if (executePayableNoParams(functionName, {}, allFunctionDetails, isFunctionPayable)) {
-				Toast.show('Success', Toast.LONG);
+			if (executePayableNoParams(functionItem.property, {}, allFunctionDetails, isFunctionPayable)) {
+				console.log("executePayableNoParams");
 				const result = await processFunctionCall2(this.props.hotWallet.wallet, 
-											functionNameForContract, inputs, this.state.contract, this.state.provider);
+											functionItem.property, {}, this.state.contract, this.state.provider);
+				
+				Toast.show('Success', Toast.LONG);
 				return result;
 			}
 		} else if (isFunctionPayable && hasFunctionParameters) {
-			if (executePayableWithParams(functionName, inputs, allFunctionDetails, isFunctionPayable)) {
-				Toast.show('Success', Toast.LONG);
+			if (executePayableWithParams(functionItem.property, inputs, allFunctionDetails, isFunctionPayable)) {
+				console.log("executePayableWithParams");
 				const result = await processFunctionCall2(this.props.hotWallet.wallet, 
-								functionNameForContract, inputs, this.state.contract, this.state.provider);
+								functionItem.property, inputs, this.state.contract, this.state.provider);
+				
+				Toast.show('Success', Toast.LONG);
 				return result;
 			}
 		}
