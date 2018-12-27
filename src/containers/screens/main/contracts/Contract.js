@@ -67,7 +67,10 @@ class Contract extends Component {
 
 	processFunctionInput = (text, inputName, inputType, funcName) => {
 		let c = Object.assign({}, this.state.currentInput);
-		if (c[funcName] === null) {
+
+		console.log("in input c: ", c);
+
+		if (c[funcName] == null) {
 			c[funcName] = {};
 		}
 		if (inputType === "string") {
@@ -115,8 +118,8 @@ class Contract extends Component {
 
 			}
 		} else if (!isFunctionPayable && hasFunctionParameters) {
-			if (executeNonPayableWithParams(functionName, inputs, allFunctionDetails, isFunctionPayable)) {
-				
+			if (executeNonPayableWithParams(functionItem.property, inputs, allFunctionDetails, isFunctionPayable)) {
+				console.log("executeNonPayablewithparams");
 				const result = await processFunctionCall2(this.props.hotWallet.wallet, 
 										functionItem.property, inputs, this.state.contract, this.state.provider);
 				Toast.show('Success', Toast.LONG);
@@ -125,13 +128,15 @@ class Contract extends Component {
 		} else if (isFunctionPayable && !hasFunctionParameters) {
 			if (executePayableNoParams(functionName, {}, allFunctionDetails, isFunctionPayable)) {
 				Toast.show('Success', Toast.LONG);
-				const result = await processFunctionCall2(this.props.hotWallet.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
+				const result = await processFunctionCall2(this.props.hotWallet.wallet, 
+											functionNameForContract, inputs, this.state.contract, this.state.provider);
 				return result;
 			}
 		} else if (isFunctionPayable && hasFunctionParameters) {
 			if (executePayableWithParams(functionName, inputs, allFunctionDetails, isFunctionPayable)) {
 				Toast.show('Success', Toast.LONG);
-				const result = await processFunctionCall2(this.props.hotWallet.wallet, functionNameForContract, inputs, this.state.contract, this.state.provider);
+				const result = await processFunctionCall2(this.props.hotWallet.wallet, 
+								functionNameForContract, inputs, this.state.contract, this.state.provider);
 				return result;
 			}
 		}
