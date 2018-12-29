@@ -53,7 +53,6 @@ class CoinList extends Component {
      * portfolio
      */
     render() {
-			console.log(this.state);
         return (
             <FlatList 
                 data={this.props.coins}

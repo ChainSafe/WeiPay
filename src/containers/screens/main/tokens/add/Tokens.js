@@ -100,7 +100,6 @@ class Tokens extends Component {
   }
 
   render() {
-		console.log(this.state, this.props);
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>

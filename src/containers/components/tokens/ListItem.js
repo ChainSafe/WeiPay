@@ -92,8 +92,6 @@ class CoinListItem extends Component {
         justifyContent: 'center'
       }
     }
-		console.log(this.state);
-		console.log(this.props);
 
     return (
       <View style={styles.listItemParentContainer}>
