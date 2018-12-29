@@ -16,10 +16,11 @@ class Index extends Component {
       refreshRoute = this.props.navigation.state.params.tab;
       console.log({refreshRoute});
     } catch (err) {
-      console.log({err});
+      // console.log({err});
     }
 
-    if (refreshRoute !== null) {
+		// routing error was getting caught here
+    if (refreshRoute) {
       this.state = {
         setActiveTab: refreshRoute,
       }
@@ -56,15 +57,14 @@ class Index extends Component {
               </View>
               {/* Third tab */}
               <View title="New Token" style={styles.content}>
-                  <NewToken
-                    navigation={this.props.navigation}
-                  />
+                  <NewToken navigation={this.props.navigation} />
               </View>
           </TabNavigator>
       </View>
     );
   }
 }
+
 const styles = StyleSheet.create({
   // App container
   container: {

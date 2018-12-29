@@ -12,20 +12,24 @@ import CoinListItem from './ListItem';
 class CoinList extends Component {
 
     state = {
-       data: this.props.coins,
+			// unused 
+      //  data: this.props.coins,
     }
 
     /**
      * LifeCycle function: Executes before executing the render function 
      * Creates the datasource that is need to generate a list of tokes
      */
-    componentWillMount() {
+    componentDidMount() {
         let data = this.props.coins
         if (this.props.type === 'coins') {
             data = this.props.coins.filter(coin => coin.type === 'PortfolioCoin')
         } else if (this.props.type === 'tokens' ) {
             data = this.props.coins.filter(coin => coin.type === 'ERC20')
         }
+
+				// what is this code for?
+				
         const ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
         });
@@ -49,11 +53,12 @@ class CoinList extends Component {
      * portfolio
      */
     render() {
+			console.log(this.state);
         return (
             <FlatList 
-                data={this.state.data}
-                renderItem={({ item }) => { return this.renderRow(item); }}
-                keyExtractor={( item ) => { return `${item.id}${item.address}`; }}
+                data={this.props.coins}
+                renderItem={({item})  => this.renderRow(item)}
+                keyExtractor={(item, i)  => `${i}`}
             />
         );
     }

@@ -276,8 +276,8 @@ class Portfolio extends Component {
 									data={this.state.completeTokenObject}
 									showsVerticalScrollIndicator={false}
 									renderItem={({ item }) => { return this.renderRow(item); }}
-									keyExtractor={(item) => {
-										return `${item.tokenInfo.address}${item.tokenInfo.name}`;
+									keyExtractor={(item, i) => {
+										return `${i}${item.tokenInfo.address}${item.tokenInfo.name}`;
 									}}
 									refreshing={this.state.refresh}
 									onRefresh={this.handleListRefresh}

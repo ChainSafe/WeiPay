@@ -27,19 +27,20 @@ class QrCodeScanner extends Component {
     super(props);
     this.state = {
       qrcode: '',
-      invoker: this.props.invoker,
-      coinInvoker: this.props.coinInvoker,
-      previousInputs: this.props.currentContact,
+			// unused props
+      // invoker: this.props.invoker,
+      // coinInvoker: this.props.coinInvoker,
+      // previousInputs: this.props.currentContact,
       scanned: false,
     };
   }
 
     navigate = () => {
-      const navigateToCreateOrRestore = NavigationActions.navigate({
-        routeName: this.state.invoker,
-        params: { activeTab: 1 },
+      const navigateToInvoker = NavigationActions.navigate({
+        routeName: this.props.invoker,
+        params: { activeTab: 3 },
       });
-      this.props.navigation.dispatch(navigateToCreateOrRestore);
+      this.props.navigation.dispatch(navigateToInvoker);
     };
 
     /**
@@ -51,15 +52,15 @@ class QrCodeScanner extends Component {
     onBarCodeRead = (e) => {
       if (this.state.scanned === false) {
         this.setState({ qrcode: e.data, scanned: !this.state.scanned });
-        if (this.state.invoker === 'TokenFunctionality') {
+        if (this.props.invoker === 'TokenFunctionality') {
           this.props.setGlobalAddress(e.data);
           this.navigate();
-        } else if (this.state.invoker === 'AddTokenFunctionality') {
+        } else if (this.props.invoker === 'AddTokenFunctionality') {
           this.props.setQRData(e.data);
           this.navigate();
         } else {
-          const oldInputs = this.state.previousInputs;
-          oldInputs.contactAddress[this.state.coinInvoker] = e.data;
+          const oldInputs = this.props.currentContact;
+          oldInputs.contactAddress[this.props.coinInvoker] = e.data;
           const contactInputs = oldInputs;
           this.props.updateSavedContactInputs(contactInputs);
           this.navigate();
