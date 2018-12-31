@@ -33,7 +33,7 @@ export function initializeAppTokenState(initTokenData) {
 export function addNewToken(tokenObject, usersTokens) {
   let tokenCopy = [...usersTokens];
   tokenCopy.push(tokenObject);
-  console.log(tokenCopy);
+  // console.log(tokenCopy);
   return (dispatch) => {
     dispatch({ type: actionType.ADD_NEW_SINGLE_TOKEN, payload: tokenCopy });
   };
@@ -172,10 +172,10 @@ export function saveAllTokenQuantities(list) {
 
 export function quantityFetchAndBalance(tokenSymbolString, tokenQuantities) {
 	return (dispatch) => {
-		console.log("in dispatch");
+		// console.log("in dispatch");
 		return axios.get(`${apiMultipleCurrencyBaseUrl}${tokenSymbolString}${apiMulitpleResponseUrl}`)
 			.then(res => {
-				console.log("in success dispatch", res.data);
+				// console.log("in success dispatch", res.data);
 				const tokenConversionMatrix = res.data;
 				const { walletBalanceObject, tokenPrices } = calculateBalances(tokenQuantities, tokenConversionMatrix);
 
@@ -190,10 +190,10 @@ export function quantityFetchAndBalance(tokenSymbolString, tokenQuantities) {
 				})
 			})
 			.catch(err => {
-				console.log("in dispatch fail", err);
+				// console.log("in dispatch fail", err);
 				const tokenConversionMatrix = [];
 				const { walletBalanceObject, tokenPrices } = calculateBalances(tokenQuantities, tokenConversionMatrix);
-				console.log("no dispatching");
+				// console.log("no dispatching");
 				dispatch({
 					type: actionType.FETCHING_COIN_DATA_FAIL_WITH_TOKENQUANTITIES,
 					payload: {

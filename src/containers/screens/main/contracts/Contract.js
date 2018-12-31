@@ -54,7 +54,7 @@ class Contract extends Component {
 		if (success) {
 			// unused contract events
 			const { contractFunctions, contract, withInputs } = objects;
-			console.log("in getContract success", contractFunctions, contract, withInputs);
+			// console.log("in getContract success", contractFunctions, contract, withInputs);
 			this.setState({contractFunctions, contract, withInputs});
 			Toast.show('Success', Toast.LONG);
 		}
@@ -85,18 +85,17 @@ class Contract extends Component {
    * Need to check if contract method has no parameters, if it has paramaters, if is payable.
    */
 	contractFuncCheck = async (functionItem) => {
-		console.log("function check functionItem", functionItem);
+		// console.log("function check functionItem", functionItem);
 		const isFunctionPayable = functionItem.payable;
 		const hasFunctionParameters = functionItem.fInputs.length > 0;
 		// structural finds
-		console.log(isFunctionPayable, hasFunctionParameters);
+		// console.log(isFunctionPayable, hasFunctionParameters);
+
 		const allFunctionDetails = this.state.withInputs;
 		
 		// let functionName;
 		// let functionNameForContract;
 		let inputs = this.state.currentInput[functionItem.functionSignature];
-
-		console.log(inputs);
 		
 		// if (hasFunctionParameters) {
 		// 	functionName = functionItem.property;
@@ -109,7 +108,7 @@ class Contract extends Component {
 		// }
 		if (!isFunctionPayable && !hasFunctionParameters) {
 			if (executeNonPayableNoParams(functionItem.property, {})) {
-				console.log("executeNonPayable");
+				// console.log("executeNonPayable");
 				const result = await processFunctionCall2(this.props.hotWallet.wallet, 
 										functionItem.property, {}, this.state.contract, this.state.provider);
 				
@@ -121,7 +120,7 @@ class Contract extends Component {
 			}
 		} else if (!isFunctionPayable && hasFunctionParameters) {
 			if (executeNonPayableWithParams(functionItem.property, inputs, allFunctionDetails, isFunctionPayable)) {
-				console.log("executeNonPayablewithparams");
+				// console.log("executeNonPayablewithparams");
 				const result = await processFunctionCall2(this.props.hotWallet.wallet, 
 										functionItem.property, inputs, this.state.contract, this.state.provider);
 				Toast.show('Success', Toast.LONG);
@@ -129,7 +128,7 @@ class Contract extends Component {
 			}
 		} else if (isFunctionPayable && !hasFunctionParameters) {
 			if (executePayableNoParams(functionItem.property, {}, allFunctionDetails, isFunctionPayable)) {
-				console.log("executePayableNoParams");
+				// console.log("executePayableNoParams");
 				const result = await processFunctionCall2(this.props.hotWallet.wallet, 
 											functionItem.property, {}, this.state.contract, this.state.provider);
 				
@@ -138,7 +137,7 @@ class Contract extends Component {
 			}
 		} else if (isFunctionPayable && hasFunctionParameters) {
 			if (executePayableWithParams(functionItem.property, inputs, allFunctionDetails, isFunctionPayable)) {
-				console.log("executePayableWithParams");
+				// console.log("executePayableWithParams");
 				const result = await processFunctionCall2(this.props.hotWallet.wallet, 
 								functionItem.property, inputs, this.state.contract, this.state.provider);
 				
@@ -159,7 +158,6 @@ class Contract extends Component {
 			const payable = allFunctionsWithInputs[i].payable;
 			contractFunctionsFormatted.push({property, functionSignature, fInputs, payable });
 		}
-		console.log("parseFn", contractFunctionsFormatted);
 		return (
 			<View style={styles.contractInputContainer}>
 				{
@@ -215,7 +213,6 @@ class Contract extends Component {
    * Returns a component that allows the user to view the passphrase
    */
 	render() {
-		console.log("rerender*********");
 		return (
 			<SafeAreaView style={styles.safeAreaView}>
 				<TouchableWithoutFeedback onPress={Keyboard.dismiss}>

@@ -16,7 +16,7 @@ const persistConfig = {
 };
 
 // enabling logger
-let middleware = [thunk, promise, logger]
+let middleware = [thunk, promise]
 
 // if (__DEV__) {
 //   middleware = [...middleware, logger]

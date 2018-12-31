@@ -28,7 +28,6 @@ class CoinActivity extends Component {
 
 	// async not required
 	componentDidMount() {
-		console.log("mounting");
 		this.setState({ loading: true });
 		this.getData(this.props.wallet.pubKey);
 	}
@@ -94,7 +93,6 @@ class CoinActivity extends Component {
 	render() {
 		// use the unused loading state
 		const { data, loading } = this.state;
-		console.log(data);
 		return (
 			<SafeAreaView style={styles.safeAreaView}>
 				<View style={styles.mainContainer}>

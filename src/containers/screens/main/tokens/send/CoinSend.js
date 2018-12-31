@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Alert,
   TouchableOpacity,
   Image,
   SafeAreaView,
@@ -36,7 +35,6 @@ class CoinSend extends Component {
     super(props);
 		let validAddress= new RegExp('0x[0-9a-fA-F]{40}');
 		let valid = false;
-		console.log(validAddress.exec(this.props.gloablPublicAddress));
 		if (validAddress.exec(this.props.gloablPublicAddress) != null) {
       valid = true;
     } 
@@ -78,7 +76,6 @@ class CoinSend extends Component {
 
 	// direct onchange method
   renderAmount(amount) {
-		console.log("render value", amount);
     if (!isNaN(amount) || amount === '.') {
       // if (amount < 0) {
       //   Alert.alert(
@@ -146,7 +143,6 @@ class CoinSend extends Component {
 
     if (validAddress && !flag) {
       // const provider = await getNetworkProvider(this.props.network);
-			console.log(validAddress, flag, isEtherTX);
       let txResponse;
       if (isEtherTX) {
 					
@@ -166,7 +162,6 @@ class CoinSend extends Component {
           this.props.activeTokenData.decimals,
         );
       }
-			console.log("txResponse", txResponse);
       // if (Object.prototype.hasOwnProperty.call(txResponse, 'hash')) {
 			// script is blocked if non existent hash field is checked on fail
 			if(txResponse){
@@ -186,7 +181,6 @@ class CoinSend extends Component {
     const {
       isAddressValid, maliciousComment, inputAmount, toAddress, txnFee
     } = this.state;
-		console.log(this.state, this.props);
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -372,7 +366,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = ({
-  Wallet, HotWallet, newWallet, contacts,
+  Wallet, HotWallet
 }) => {
   const { gloablPublicAddress, activeTokenData, network } = Wallet;
   const { wallet } = HotWallet.hotWallet;

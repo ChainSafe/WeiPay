@@ -90,13 +90,11 @@ class PinPage extends Component {
 		
 		this.props.setHotWallet(hotWalletObj);
 
-		console.log("huloo");
 		// merged into one
 		// this.props.initializeAppWallet(encrypted, walletName, userWallets);
 		// this.props.exitSetup(false);
 		// this.props.encryptSerializedWallet(encrypted);
 		this.props.initWalletExitSetupEncryptWallet(encrypted, walletName, userWallets, false);
-		console.log("huloo 2");
 
 		this.navigate(nextScreenToNavigate);
 	}

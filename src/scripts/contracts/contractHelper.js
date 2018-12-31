@@ -17,7 +17,7 @@ getContractAbi = (contractAddress, network) => {
 	return axios.get(url)
 		.then((res) => {
 			abi = res.data.result;
-			console.log({ abi: abi });
+			// console.log({ abi: abi });
 			return { abi: abi };
 			// console.log(res.data.result);
 		})
@@ -39,7 +39,7 @@ const getUniqueFunctions = (interfaceFunctions) => {
 		}
 	}
 	var unique = functionNames.filter((v, i, a) => a.indexOf(v) === i);
-	console.log("unique", unique);
+	// console.log("unique", unique);
 	return unique;
 };
 
@@ -85,10 +85,9 @@ const getFunctionInputs = (interfaceFunctions, formattedFunctions) => {
 export const processContractByAddress = async (wallet, address, provider, network) => {
 	let myAbi = await this.getContractAbi(address, network);
 	if (myAbi) {
-		console.log("after get contract abi", myAbi);
+		// console.log("after get contract abi", myAbi);
 		try {
 			const abiParsed = JSON.parse(myAbi.abi);
-			console.log("abiParsed");
 			const initializedWallet = new ethers.Wallet(wallet.privateKey, provider);
 			try {
 				const contract = await new ethers.Contract(address, abiParsed, initializedWallet);
@@ -96,14 +95,15 @@ export const processContractByAddress = async (wallet, address, provider, networ
 				// const contractEvents = contract.interface.events;
 				const contractFunctions = contract.interface.functions;
 				
-				console.log(contract);
-				console.log(contractFunctions);
+				// console.log(contract);
+				// console.log(contractFunctions);
 
 				const uniqueFunctionListX = await getUniqueFunctions(contractFunctions);
 				const formattedFunctions = await markPayableFunctions(contractFunctions, uniqueFunctionListX);
-				console.log("formattedFunctions", formattedFunctions);
 				const withInputs = await getFunctionInputs(contractFunctions, formattedFunctions);
-				console.log("with Inputs", withInputs);
+
+				// console.log("with Inputs", withInputs);
+
 				return {
 					success: true,
 					objects: { contractFunctions, contract, withInputs }
@@ -151,9 +151,7 @@ const executePayableMethod = async (wallet, functionName, inputs, contract, prov
 			const contractWithSigner = contract.connect(initializedWallet);
 			if (args.length == 0) {
 				const tx = await contract['functions'][functionName]();
-				console.log('Call went through');
 				console.log(tx);
-				console.log('---------000---------------');
 			} else {
 				const transactionCountPromise = initializedWallet.getTransactionCount();
 				const wei = ethers.utils.parseEther(trimmedValue);
@@ -170,7 +168,6 @@ const executePayableMethod = async (wallet, functionName, inputs, contract, prov
 				console.log(call);
 				await eval(call);
 				console.log('Call went through');
-				console.log('---------000---------------');
 			}
 		} catch (err) {
 			console.log(err);
@@ -181,7 +178,7 @@ const executePayableMethod = async (wallet, functionName, inputs, contract, prov
 };
 
 const executeMethod = async (wallet, functionName, inputs, contract, provider) => {
-	console.log(wallet, functionName, inputs, contract, provider);
+	// console.log(wallet, functionName, inputs, contract, provider);
 	const initializedWallet = new ethers.Wallet(wallet.privateKey, provider);
 	const args = [];
 	for (var key in inputs) {
@@ -211,11 +208,10 @@ const executeMethod = async (wallet, functionName, inputs, contract, provider) =
 
 export const processFunctionCall2 = async (wallet, functionName, inputs, contract, provider) => {
 	const isPayable = Object.prototype.hasOwnProperty.call(inputs, 'payable');
-	console.log("inputs", inputs);
+	// console.log("inputs", inputs);
 	if (isPayable) {
 		executePayableMethod(wallet, functionName, inputs, contract, provider);
 	} else {
-		console.log("executeMethod");
 		const result = await executeMethod(wallet, functionName, inputs, contract, provider);
 		return result;
 	}

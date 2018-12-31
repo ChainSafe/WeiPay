@@ -19,15 +19,15 @@ const executeERC20Transaction = async (provider, to, privateKey, value, contract
 		};
 		const sendPromise = contract.functions.transfer(to, numberOfTokens, overrideOptions);
 		return sendPromise.then((transaction) => {
-			console.log(transaction.hash);
+			// console.log(transaction.hash);
 			return transaction;
 		}).catch(err => {
 			console.log(err);
 			return null;
 		});
 	} catch (error) {
+		console.log(error);
 		return null;
-		console.log('Didnt Go through', error);
 	}
 };
 

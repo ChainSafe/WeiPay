@@ -79,10 +79,10 @@ class Portfolio extends Component {
 	}
 
 	balanceCalculations = async () => {
-		console.log("in balance calculations");
+		// console.log("in balance calculations");
 		const { tokenSymbolString, tokenQuantities } = await this.formatTokens(this.props.tokens);
 
-		console.log("in balance", tokenSymbolString);
+		// console.log("in balance", tokenSymbolString);
 		await this.props.quantityFetchAndBalance(tokenSymbolString, tokenQuantities);
 		// this.props.saveAllTokenQuantities(tokenQuantities);
 		// await this.props.fetchCoinData(tokenSymbolString);
@@ -101,7 +101,7 @@ class Portfolio extends Component {
    * of each token the user has for a given private key.
    */
 	formatTokens = async (tokenList) => {
-		console.log("in format token");
+		// console.log("in format token");
 		let tokenObjectList = [];
 		for (let i = 0; i < tokenList.length; i++) {
 			let tokenObj = {};
@@ -120,7 +120,7 @@ class Portfolio extends Component {
    * and token info. This will be the data source for the flat list.
    */
 	showTokens = () => {
-		console.log("in show token token");
+		// console.log("in show token token");
 		let cTokenObjectList = [];
 		for (let i = 0; i < this.props.tokens.length; i++) {
 			let cto = {};
@@ -130,9 +130,9 @@ class Portfolio extends Component {
 			cTokenObjectList.push(cto);
 		}
 		// in single setState
-		console.log("walletBalance", this.props.walletBalance);
+		// console.log("walletBalance", this.props.walletBalance);
 		if (Object.prototype.hasOwnProperty.call(this.props.walletBalance, 'USD')) {
-			console.log(cTokenObjectList, "setting pricesLoaded");
+			// console.log(cTokenObjectList, "setting pricesLoaded");
 			this.setState({ pricesLoaded: true, completeTokenObject: cTokenObjectList });
 		}
 	}
@@ -224,7 +224,7 @@ class Portfolio extends Component {
 	}
 
 	render() {
-		console.log("my state", this.state);
+		// console.log("my state", this.state);
 		return (
 			<SafeAreaView style={styles.safeAreaView}>
 				<View style={styles.mainContainer} >

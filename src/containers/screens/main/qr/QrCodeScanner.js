@@ -74,7 +74,7 @@ class QrCodeScanner extends Component {
      *  - a button to go back to the invoking screen and fill in the input field
      */
     render() {
-			console.log(this.props);
+			
       return (
         <View style={styles.container}>
           <View style={{ flex: 1 }}>
