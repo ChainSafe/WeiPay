@@ -119,6 +119,7 @@ class Portfolio extends Component {
    * After all price data has loaded, a new array will be created with all token info -> amount of tokens, price matrix of tokens,
    * and token info. This will be the data source for the flat list.
    */
+
 	showTokens = () => {
 		// console.log("in show token token");
 		let cTokenObjectList = [];
