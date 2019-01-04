@@ -11,11 +11,6 @@ import CoinListItem from './ListItem';
 
 class CoinList extends Component {
 
-    state = {
-			// unused 
-      //  data: this.props.coins,
-    }
-
     /**
      * LifeCycle function: Executes before executing the render function 
      * Creates the datasource that is need to generate a list of tokes
