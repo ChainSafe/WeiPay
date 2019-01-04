@@ -53,14 +53,13 @@ class Tokens extends Component {
     const inputUpperCase = input.toUpperCase();
     this.setState({ searchedTokenSym: inputUpperCase });
     
-		try {
+    try {
       if (this.props.allTokens[inputUpperCase] != null) {
-        this.setState({ 
-					buttonEnabled: true, tokenLoaded: true, 
-					searchedTokenName: this.props.allTokens[inputUpperCase].name ? 
-															this.props.allTokens[inputUpperCase].name : 'NA', 
-					searchedTokenNameAdd: this.props.allTokens[inputUpperCase]['contract_address'], 
-				});
+	this.setState({ 
+          buttonEnabled: true, tokenLoaded: true, 
+	  searchedTokenName: this.props.allTokens[inputUpperCase].name ? this.props.allTokens[inputUpperCase].name : 'NA', 
+	  searchedTokenNameAdd: this.props.allTokens[inputUpperCase]['contract_address'], 
+	});
 
         // if (this.props.allTokens[inputUpperCase]['name'] != null) {
         //   this.setState({ searchedTokenName: this.props.allTokens[inputUpperCase]['name'], 
