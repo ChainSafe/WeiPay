@@ -119,15 +119,15 @@ export function initWalletExitSetupEncryptWallet(currentWallet, walletName, prev
 	// currentWallet is the encrypted string, currentWallet.address always undefined
   appWallets.push(walletObject);
 
-	return (dispatch) => {
+  return (dispatch) => {
     dispatch({ 
-			type: actionType.INIT_WALLET_EXIT_SETUP_ENCRYPT_WALLET, 
-			payload: {
-				appWallets,
-				flag,
-				hashedPassword: currentWallet
-			} 
-		});
+	type: actionType.INIT_WALLET_EXIT_SETUP_ENCRYPT_WALLET, 
+	payload: {
+	  appWallets,
+	  flag,
+	  hashedPassword: currentWallet
+	} 
+     });
   };
 }
 
