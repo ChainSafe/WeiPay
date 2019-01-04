@@ -10,7 +10,7 @@ class ContractInputConstant extends Component {
   render() {
     const { item } = this.props;
     const { result } = this.state;  
-		// console.log(result);   
+    // console.log(result);   
     return (
        <View style={{marginTop: 5}}>
          <View style={styles.callResult}>
