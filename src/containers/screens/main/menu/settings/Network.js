@@ -12,15 +12,6 @@ import { setNetwork } from '../../../../store/actions/creators/AppConfig';
 
 const ethers = require('ethers');
 
-// const utils = ethers.utils;
-
-// const navigate = () => {
-//   const navigateToMenu = NavigationActions.reset({
-//     index: 0,
-//     actions: [NavigationActions.navigate({ routeName: 'Drawer' })],
-//   });
-//   this.props.navigation.dispatch(navigateToMenu);
-// };
 
 /**
  * Screen is used to display the passphrase (mnemonic) of the wallet
