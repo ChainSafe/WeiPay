@@ -13,7 +13,7 @@ export function addTokenToSetup(coin, tokenList) {
       i++;
     }
     console.log("This is a custom token: " + coin.initialWalletToken);
-    if (coin.selected == false) {
+    if (coin.selected === false) {
       tokenList.splice(i,1);
     }else {
       tokenList[i] = coin;

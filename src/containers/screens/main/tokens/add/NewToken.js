@@ -28,9 +28,9 @@ class NewToken extends Component {
 
 
   complete = () => {
-    if (this.state.tokenAddress !== '' && this.state.tokenName !== '') {
-      this.setState({ tokenAddress: '' });
-      this.setState({ tokenName: '' });
+    if (this.state.tokenAddress && this.state.tokenName) {
+      
+      // this.setState({ tokenName: '' });
       const newTokenObj = TokenConfig('addNew', {
         'name': 'NA',
         'address': this.state.tokenAddress,
@@ -39,6 +39,7 @@ class NewToken extends Component {
         'decimals': 18,
       });
       this.props.addNewToken(newTokenObj, this.props.tokens);
+			this.setState({ tokenAddress: '', tokenName: '' });
     }
   }
 
@@ -242,12 +243,12 @@ const styles = StyleSheet.create({
 
 });
 
-const mapStateToProps = ({ newWallet, Wallet, QrScanner }) => {
+const mapStateToProps = ({ Wallet, QrScanner }) => {
   return {
-    newTokenAddress: newWallet.newTokenAddress,
-    newTokenName: newWallet.newTokenName,
+    // newTokenAddress: newWallet.newTokenAddress,
+    // newTokenName: newWallet.newTokenName,
     tokens: Wallet.tokens,
-    QrCodeData: newWallet.QrData,
+    // QrCodeData: newWallet.QrData,
     qrData: QrScanner.data,
     qrInvoker: QrScanner.invoker,
   };

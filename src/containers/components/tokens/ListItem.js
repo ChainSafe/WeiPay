@@ -20,7 +20,8 @@ class CoinListItem extends Component {
     super(props);
     this.state = {
       totalTaps: (this.props.coin.selected ? 1 : 0),
-      checked: false,
+			//  unused state
+      // checked: false,
       tokens: this.props.tokens
     };
   }
@@ -32,15 +33,18 @@ class CoinListItem extends Component {
    * @param {Object} coin
    */
   renderPress(coin) {
-    if (this.state.totalTaps == 0) {
+    if (this.state.totalTaps === 0) {
       this.props.addTokenToSetup(coin, this.props.tokens);
-      this.setState({ checked: !(this.state.checked), totalTaps: 1 });
-    } else if (this.state.totalTaps == 1) {
+      // this.setState({ checked: !(this.state.checked), totalTaps: 1 });
+			this.setState({totalTaps: 1});
+
+    } else if (this.state.totalTaps === 1) {
       this.setState({ totalTaps: 2 })
-    } else if (this.state.totalTaps == 2) {
+    } else if (this.state.totalTaps === 2) {
       //This is where is token is being initialized
       this.props.addTokenToSetup(coin, this.props.tokens);
-      this.setState({ checked: !(this.state.checked), totalTaps: 0 })
+      // this.setState({ checked: !(this.state.checked), totalTaps: 0 });
+			this.setState({totalTaps: 1});
     }
   }
 
@@ -63,9 +67,9 @@ class CoinListItem extends Component {
    * @param {Object} coin
    */
   renderBoxContainerStyling(coin) {
-    if (this.state.totalTaps == 1 && (coin.selected)) {
+    if (this.state.totalTaps === 1 && (coin.selected)) {
       return { borderColor: '#27c997', borderWidth: 1 }
-    }else if (this.state.totalTaps == 2 && coin.selected) {
+    }else if (this.state.totalTaps === 2 && coin.selected) {
       return {borderColor: 'red', borderWidth: 1}
     }
   }
@@ -195,7 +199,7 @@ const styles = StyleSheet.create({
  */
 const mapStateToProps = (state) => {
   return {
-    tokenList: state.newWallet.tokens,
+    // tokenList: state.newWallet.tokens,
     tokens: state.Wallet.tokens,
   };
 };
