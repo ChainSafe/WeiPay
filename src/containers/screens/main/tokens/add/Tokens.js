@@ -108,7 +108,7 @@ class Tokens extends Component {
               height={50}
               onFocus={() => console.log('On Focus')}
               onBlur={() => console.log('On Blur')}
-              placeholder={'Search...'}
+              placeholder={'Search ticker...'}
               autoCorrect={false}
               padding={5}
               returnKeyType={'search'}

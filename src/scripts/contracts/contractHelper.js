@@ -33,11 +33,11 @@ const getUniqueFunctions = (interfaceFunctions) => {
 	let functions = [];
 	let functionNames = [];
 	for (var key in interfaceFunctions) {
-		
+
 		let functionName = key.split('(')[0];
 
 		if (typeof interfaceFunctions[key] === 'function' && functionNames.indexOf(functionName) === -1) {
-			
+
 			const funcObj = {};
 			console.log(interfaceFunctions[key]);
 			funcObj.signature = interfaceFunctions[key].signature;
@@ -60,6 +60,12 @@ const markPayableFunctions = (interfaceFunctions, uniqueFunctions) => {
 		const funcObj = {};
 		funcObj.signature = interfaceFunctions[element].signature;
 		funcObj.payable = interfaceFunctions[element]['payable'];
+		let funcInputs = [];
+		if (funcObj.inputs && funcObj.inputs.names.length) {
+			for (let i = 0; i < funcObj.inputs.names.length; i++) {
+
+			}
+		}
 		formattedObjects.push(funcObj);
 	});
 	console.log("formatted functions", formattedObjects);
