@@ -82,6 +82,52 @@ const getFunctionInputs = (interfaceFunctions, formattedFunctions) => {
 	return functionsWithInputs;
 };
 
+const getUniqueFunctionsWithInputs = (interfaceFunctions) => {
+	// final array of functions
+	let functions = [];
+
+	// array to check uniqueness
+	let functionNames = [];
+
+	for (let key in interfaceFunctions) {
+		let tempFunction = interfaceFunctions[key];
+		let functionName = key.split('(')[0];
+		if (typeof tempFunction === 'function' && functionNames.indexOf(functionName) === -1) {
+			const funcObj = {}
+			funcObj.signature = tempFunction.signature;
+			funcObj.name = functionName;
+			funcObj.funcKey = key;
+			funcObj.payable = tempFunction.payable;
+			
+			// getting inputs
+			if(tempFunction.inputs && tempFunction.inputs.names && tempFunction.inputs.names.length){
+				let tempInputs = tempFunction.inputs;
+				funcObj.inputs = {names: [], types: []}
+				for(let i=0; i<tempInputs.names.length; i++ ){
+					// function input names are not always defined
+					if(tempInputs.names[i]) {
+						funcObj.inputs.names.push(tempInputs.names[i]);
+						// function input types are not always defined
+						if(tempInputs.types[i]) funcObj.inputs.types.push(tempInputs.types[i]);
+						else funcObj.inputs.types.push("unknown");
+					}
+					else {
+						funcObj.inputs.names.push('input' + i);
+						// function input types are not always defined
+						if(tempInputs.types[i]) funcObj.inputs.types.push(tempInputs.types[i]);
+						else funcObj.inputs.types.push("unknown");
+					}
+				}
+			}
+
+			functions.push(funcObj);
+			functionNames.push(functionName);
+		}
+	}
+	console.log("unique", functions);
+	return functions;
+};
+
 export const processContractByAddress = async (wallet, address, provider, network) => {
 	let myAbi = await this.getContractAbi(address, network);
 	if (myAbi) {
@@ -98,15 +144,18 @@ export const processContractByAddress = async (wallet, address, provider, networ
 				// console.log(contract);
 				// console.log(contractFunctions);
 
-				const uniqueFunctionListX = await getUniqueFunctions(contractFunctions);
-				const formattedFunctions = await markPayableFunctions(contractFunctions, uniqueFunctionListX);
-				const withInputs = await getFunctionInputs(contractFunctions, formattedFunctions);
+				// const uniqueFunctionListX = await getUniqueFunctions(contractFunctions);
+				// const formattedFunctions = await markPayableFunctions(contractFunctions, uniqueFunctionListX);
+				// const withInputs = await getFunctionInputs(contractFunctions, formattedFunctions);
+
+				const functionsWithInputs = getUniqueFunctionsWithInputs(contractFunctions);
+
 
 				// console.log("with Inputs", withInputs);
-
+				console.log(functionsWithInputs);
 				return {
 					success: true,
-					objects: { contractFunctions, contract, withInputs }
+					objects: { contractFunctions, contract, functionsWithInputs }
 				};
 			} catch (err) {
 				console.log(err);

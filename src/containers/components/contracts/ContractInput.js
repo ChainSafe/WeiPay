@@ -10,17 +10,16 @@ import { FormInput } from 'react-native-elements'
 
 class ContractInput extends Component {
   render() {
-    const { inputItem, signature } = this.props;
-    const { name, type, inputName } = inputItem;
+    const { funcName, inputName, inputType } = this.props;
 
     return (
        <View>
-         <Text style={styles.text}> {name} </Text>
+         <Text style={styles.text}> {inputName} </Text>
          <FormInput
-            placeholder={type}
+            placeholder={inputType}
             onChangeText={
               (text) => {
-                return this.props.processContractInput(text, inputName, type, signature);
+                return this.props.processContractInput(text, inputName, inputType, funcName);
               }}
             inputStyle={styles.functionInputStyle}
             selectionColor={'#12c1a2'}
@@ -41,6 +40,8 @@ const styles = StyleSheet.create({
   functionInputStyle: {
     height: Dimensions.get('window').height * 0.05,
     width: Dimensions.get('window').width * 0.82,
+		marginBottom: '5%'
+
   },
 });
 

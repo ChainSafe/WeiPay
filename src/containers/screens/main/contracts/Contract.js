@@ -36,6 +36,7 @@ class Contract extends Component {
 			contractFunctions: null,
 			contract: null,
 			withInputs: null,
+			functionsWithInputs: null,
 			payable: null,
 			// functions: [],
 			currentInput: {},
@@ -53,9 +54,9 @@ class Contract extends Component {
 			this.state.address, this.state.provider, this.props.network);
 		if (success) {
 			// unused contract events
-			const { contractFunctions, contract, withInputs } = objects;
+			const { contractFunctions, contract, functionsWithInputs } = objects;
 			// console.log("in getContract success", contractFunctions, contract, withInputs);
-			this.setState({contractFunctions, contract, withInputs});
+			this.setState({contractFunctions, contract, functionsWithInputs});
 			Toast.show('Success', Toast.LONG);
 		}
 		else {
@@ -66,19 +67,20 @@ class Contract extends Component {
 	}
 
 	processFunctionInput = (text, inputName, inputType, funcName) => {
-		let c = Object.assign({}, this.state.currentInput);
+		let currentInput = this.state.currentInput;
 
-		console.log("in input c: ", c);
+		if (!currentInput[funcName]) {
+			currentInput[funcName] = {};
+		}
+		currentInput[funcName][inputName] = text;
+		// if (inputType === "string") {
+		// 	c[funcName][inputName] = "'" + text + "'";
+		// } else {
+		// 	c[funcName][inputName] = text;
+		// }
 
-		if (c[funcName] == null) {
-			c[funcName] = {};
-		}
-		if (inputType === "string") {
-			c[funcName][inputName] = "'" + text + "'";
-		} else {
-			c[funcName][inputName] = text;
-		}
-		this.setState({ currentInput: c });
+		console.log("in input: ", currentInput);
+		this.setState({ currentInput });
 	}
 
   /**
@@ -148,34 +150,28 @@ class Contract extends Component {
 	}
 
 	parseFunctions = () => {
-		let contractFunctionsFormatted = [];
-		const allFunctionsWithInputs = this.state.withInputs;
-		for (let i = 0; i < allFunctionsWithInputs.length; i++) {
-			// const arrayLength = contractFunctionsFormatted.length;
-			const functionSignature = allFunctionsWithInputs[i].signature;
-			const property = functionSignature.split('(')[0];
-			const fInputs = allFunctionsWithInputs[i].inputs;
-			const payable = allFunctionsWithInputs[i].payable;
-			contractFunctionsFormatted.push({property, functionSignature, fInputs, payable });
-		}
+
+		const allFunctionsWithInputs = this.state.functionsWithInputs;
+
 		return (
 			<View style={styles.contractInputContainer}>
 				{
-					contractFunctionsFormatted.map((item, i) =>
+					allFunctionsWithInputs.map((item, i) =>
 						<View key={i} style={styles.functionContainer} >
 							<Card>
 								<View style={styles.functionInputContainer}>
 									{/* <Text>Signature: {item.functionSignature} </Text> */}
-									<Text>Signature: {item.property} </Text>
+									<Text>Signature: {item.name} </Text>
 								</View>
 								{
 									item.payable
 										?
 										<View style={styles.functionInputContainer}>
+											<Text style={styles.textInput}> Ether value </Text>
 											<FormInput
 												// placeholder={this.state.payable ? this.state.payable.text : "Ether Value (Payable)"}
 												placeholder={"Ether Value (Payable)"}
-												onChangeText={(text) => this.processFunctionInput(text, 'payable', 'payable', item.functionSignature)}
+												onChangeText={(text) => this.processFunctionInput(text, 'payable', 'payable', item.name)}
 												inputStyle={styles.functionInputStyle}
 												selectionColor={'#12c1a2'}
 											/>
@@ -183,12 +179,10 @@ class Contract extends Component {
 										: null
 								}
 								{
-									(item.fInputs.length != 0)
+									(item.inputs && item.inputs.names && item.inputs.names.length)
 										?
 										<View style={styles.topInputContainer}>
 											<ContractInputContainer
-												signature={item.functionSignature}
-												inputs={item.fInputs}
 												item={item}
 												processInput={this.processFunctionInput}
 												contractExecution={this.contractFuncCheck}
@@ -225,7 +219,7 @@ class Contract extends Component {
 							/>
 						</View>
 						{
-							this.state.contractFunctions === null
+							this.state.functionsWithInputs === null
 								?
 								<View style={styles.topFormInput}>
 									<Text style={styles.textHeader}>Contract Interaction</Text>
@@ -348,7 +342,7 @@ const styles = StyleSheet.create({
 		marginBottom: '5%',
 	},
 	functionInputStyle: {
-		width: '80%',
+		width: '100%',
 		fontSize: RF(2.4),
 		flexWrap: 'wrap',
 		color: '#12c1a2',
@@ -376,6 +370,13 @@ const styles = StyleSheet.create({
 		width: '82%',
 		height: Dimensions.get('window').height * 0.082,
 	},
+	textInput: {
+    fontFamily: 'Cairo-Light',
+    fontSize: RF(2.2),
+    letterSpacing: 0.8,
+    paddingLeft: '5%',
+    color: '#1a1f3e',
+  },
 });
 
 const mapStateToProps = ({ HotWallet, Wallet }) => {
