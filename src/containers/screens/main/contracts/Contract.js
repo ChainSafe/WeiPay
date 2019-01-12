@@ -17,6 +17,8 @@ import {
 	executePayableWithParams,
 } from '../../../../scripts/contracts/contractValidation';
 import LinearButton from '../../../components/linearGradient/LinearButton';
+import ClearButton from '../../../components/linearGradient/ClearButton';
+
 import getNetworkProvider from '../../../../constants/Providers';
 import ContractInputContainer from '../../../components/contracts/ContractInputContainer';
 import ContractInputConstant from '../../../components/contracts/ContractInputConstant';
@@ -56,7 +58,7 @@ class Contract extends Component {
 			// unused contract events
 			const { contractFunctions, contract, functionsWithInputs } = objects;
 			// console.log("in getContract success", contractFunctions, contract, withInputs);
-			this.setState({contractFunctions, contract, functionsWithInputs});
+			this.setState({ contractFunctions, contract, functionsWithInputs });
 			Toast.show('Success', Toast.LONG);
 		}
 		else {
@@ -94,11 +96,11 @@ class Contract extends Component {
 		// console.log(isFunctionPayable, hasFunctionParameters);
 
 		const allFunctionDetails = this.state.withInputs;
-		
+
 		// let functionName;
 		// let functionNameForContract;
 		let inputs = this.state.currentInput[functionItem.functionSignature];
-		
+
 		// if (hasFunctionParameters) {
 		// 	functionName = functionItem.property;
 		// 	functionNameForContract = functionItem.property;
@@ -111,9 +113,9 @@ class Contract extends Component {
 		if (!isFunctionPayable && !hasFunctionParameters) {
 			if (executeNonPayableNoParams(functionItem.property, {})) {
 				// console.log("executeNonPayable");
-				const result = await processFunctionCall2(this.props.hotWallet.wallet, 
-										functionItem.property, {}, this.state.contract, this.state.provider);
-				
+				const result = await processFunctionCall2(this.props.hotWallet.wallet,
+					functionItem.property, {}, this.state.contract, this.state.provider);
+
 				// better suited
 				Toast.show('Success', Toast.LONG);
 				// return was causing crashes
@@ -123,26 +125,26 @@ class Contract extends Component {
 		} else if (!isFunctionPayable && hasFunctionParameters) {
 			if (executeNonPayableWithParams(functionItem.property, inputs, allFunctionDetails, isFunctionPayable)) {
 				// console.log("executeNonPayablewithparams");
-				const result = await processFunctionCall2(this.props.hotWallet.wallet, 
-										functionItem.property, inputs, this.state.contract, this.state.provider);
+				const result = await processFunctionCall2(this.props.hotWallet.wallet,
+					functionItem.property, inputs, this.state.contract, this.state.provider);
 				Toast.show('Success', Toast.LONG);
 				return result;
 			}
 		} else if (isFunctionPayable && !hasFunctionParameters) {
 			if (executePayableNoParams(functionItem.property, {}, allFunctionDetails, isFunctionPayable)) {
 				// console.log("executePayableNoParams");
-				const result = await processFunctionCall2(this.props.hotWallet.wallet, 
-											functionItem.property, {}, this.state.contract, this.state.provider);
-				
+				const result = await processFunctionCall2(this.props.hotWallet.wallet,
+					functionItem.property, {}, this.state.contract, this.state.provider);
+
 				Toast.show('Success', Toast.LONG);
 				return result;
 			}
 		} else if (isFunctionPayable && hasFunctionParameters) {
 			if (executePayableWithParams(functionItem.property, inputs, allFunctionDetails, isFunctionPayable)) {
 				// console.log("executePayableWithParams");
-				const result = await processFunctionCall2(this.props.hotWallet.wallet, 
-								functionItem.property, inputs, this.state.contract, this.state.provider);
-				
+				const result = await processFunctionCall2(this.props.hotWallet.wallet,
+					functionItem.property, inputs, this.state.contract, this.state.provider);
+
 				Toast.show('Success', Toast.LONG);
 				return result;
 			}
@@ -181,21 +183,28 @@ class Contract extends Component {
 								{
 									(item.inputs && item.inputs.names && item.inputs.names.length)
 										?
-										<View style={styles.topInputContainer}>
-											<ContractInputContainer
-												item={item}
-												processInput={this.processFunctionInput}
-												contractExecution={this.contractFuncCheck}
-											/>
-										</View>
+										item.inputs.names.map((name, i) => 
+											<View style={styles.functionInputContainer}>
+												<Text style={styles.textInput}> {name} </Text>
+												<FormInput
+													// placeholder={this.state.payable ? this.state.payable.text : "Ether Value (Payable)"}
+													placeholder={item.inputs.types[i]}
+													onChangeText={(text) => this.processFunctionInput(text, name, item.inputs.types[i], item.name)}
+													inputStyle={styles.functionInputStyle}
+													selectionColor={'#12c1a2'}
+												/>
+											</View>
+										)
 										:
 										<View style={styles.topInputContainer}>
-											<ContractInputConstant
-												contractExecution={this.contractFuncCheck}
-												item={item}
-											/>
+											<Text style={styles.textInput}> Constant method call </Text>
 										</View>
 								}
+								<ClearButton
+									buttonText={`Call ${item.name}`}
+									onClickFunction={() => this.contractFuncCheck(item)}
+									customStyles={styles.btnFunctionInput}
+								/>
 							</Card>
 						</View>)
 				}
@@ -371,12 +380,12 @@ const styles = StyleSheet.create({
 		height: Dimensions.get('window').height * 0.082,
 	},
 	textInput: {
-    fontFamily: 'Cairo-Light',
-    fontSize: RF(2.2),
-    letterSpacing: 0.8,
-    paddingLeft: '5%',
-    color: '#1a1f3e',
-  },
+		fontFamily: 'Cairo-Light',
+		fontSize: RF(2.2),
+		letterSpacing: 0.8,
+		paddingLeft: '5%',
+		color: '#1a1f3e',
+	},
 });
 
 const mapStateToProps = ({ HotWallet, Wallet }) => {

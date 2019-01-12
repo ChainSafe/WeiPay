@@ -46,8 +46,7 @@ const styles = StyleSheet.create({
 	},
 	btnFunctionInput: {
 		height: Dimensions.get('window').height * 0.05,
-		width: Dimensions.get('window').width * 0.8,
-		marginLeft: '5%',
+		width: Dimensions.get('window').width * 0.82,
 	},
 });
 
