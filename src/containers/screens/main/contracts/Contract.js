@@ -184,7 +184,7 @@ class Contract extends Component {
 									(item.inputs && item.inputs.names && item.inputs.names.length)
 										?
 										item.inputs.names.map((name, i) => 
-											<View style={styles.functionInputContainer}>
+											<View style={styles.functionInputContainer} key={i}>
 												<Text style={styles.textInput}> {name} </Text>
 												<FormInput
 													// placeholder={this.state.payable ? this.state.payable.text : "Ether Value (Payable)"}
@@ -196,9 +196,7 @@ class Contract extends Component {
 											</View>
 										)
 										:
-										<View style={styles.topInputContainer}>
-											<Text style={styles.textInput}> Constant method call </Text>
-										</View>
+										null
 								}
 								<ClearButton
 									buttonText={`Call ${item.name}`}
@@ -365,6 +363,7 @@ const styles = StyleSheet.create({
 	btnFunctionInput: {
 		height: Dimensions.get('window').height * 0.05,
 		width: Dimensions.get('window').width * 0.82,
+		marginLeft: "0%"
 	},
 	loadButton: {
 		width: '82%',
