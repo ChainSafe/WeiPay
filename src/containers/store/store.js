@@ -15,6 +15,7 @@ const persistConfig = {
   stateReconciler: autoMergeLevel2,
 };
 
+// enabling logger
 let middleware = [thunk, promise]
 
 // if (__DEV__) {

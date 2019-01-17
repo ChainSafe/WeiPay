@@ -9,9 +9,10 @@ class ContractInputConstant extends Component {
   };
   render() {
     const { item } = this.props;
-    const { result } = this.state;     
+    const { result } = this.state;  
+    // console.log(result);   
     return (
-       <View style={{marginTop: 15}}>
+       <View style={{marginTop: 5}}>
          <View style={styles.callResult}>
           <Text style={styles.text}>Constant Method Call</Text>
           {
@@ -20,10 +21,11 @@ class ContractInputConstant extends Component {
          </View>
          <View style={styles.btnContainer}>
           <ClearButton
-              buttonText= {`Call ${item.functionSignature}`}
+              buttonText= {`Call ${item.property}`}
               onClickFunction={async () => {
-                const methodResult = await this.props.contractExecution(item.functionSignature);
-                await this.setState({ result: methodResult});
+                const methodResult = await this.props.contractExecution(item);
+								// result has no string which causes crash
+                await this.setState({ result: "got big number"});
               }}
               customStyles={styles.btnFunctionInput}
           />
@@ -41,17 +43,19 @@ const styles = StyleSheet.create({
     fontFamily: 'Cairo-Light',
     fontSize: RF(2.2),
     letterSpacing: 0.8,
-    paddingLeft: '5%',
+    paddingLeft: '1%',
     color: '#1a1f3e',
   },
   btnContainer: {
-    marginTop: '5%',
-    flex: 2,
-    marginRight: '5%',
+		// fixed broken UI
+    // marginTop: '5%',
+    flex: 1,
+		width: '100%',
+    // marginRight: '5%',
   },
   btnFunctionInput: {
     height: Dimensions.get('window').height * 0.05,
-    width: Dimensions.get('window').width * 0.82,
+    width: Dimensions.get('window').width * 0.8,
   },
 });
 

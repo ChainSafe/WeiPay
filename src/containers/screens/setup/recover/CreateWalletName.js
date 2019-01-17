@@ -12,7 +12,15 @@ import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav'
 import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
 
 class CreateWalletName extends Component {
+	state = {
+    walletName: '',
+  };
+
   navigate = () => {
+
+		// setting walletname in dispatch
+		this.props.setTempWalletName(this.state.walletName);
+
     const navigateToPassphrase = NavigationActions.navigate({
       routeName: 'password',
       params: { nextScreenToNavigate: 'mainStack', wallet: this.props.navigation.state.params.wallet },
@@ -21,10 +29,12 @@ class CreateWalletName extends Component {
   };
 
   getWalletName(name) {
-    this.props.setTempWalletName(name);
+    // this.props.setTempWalletName(name); unnecessary action call
+		this.setState({ walletName: name });
   }
 
   render() {
+		const { debugMode } = this.props;
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -60,7 +70,7 @@ class CreateWalletName extends Component {
                 onClickFunction={ this.navigate }
                 buttonText= 'Next'
                 customStyles={styles.button}
-                buttonStateEnabled= { this.props.testWalletName === null && this.props.tempWalletName === null }
+                buttonStateEnabled= { debugMode ? false : !this.state.walletName }
               />
             </View>
           </View>
@@ -138,11 +148,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ Debug, Wallet }) => {
-  const { debugMode, testWalletName } = Debug;
-  const { wallets, tempWalletName } = Wallet;
+const mapStateToProps = ({ Debug }) => {
+	// removing unnecessary props
+  const { debugMode } = Debug;
   return {
-    debugMode, wallets, tempWalletName, testWalletName,
+    debugMode
   };
 };
 

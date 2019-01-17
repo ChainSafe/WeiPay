@@ -22,6 +22,7 @@ class ConfirmPassphrase extends Component {
   }
 
   componentDidMount() {
+		// console.log(this.props.hotWallet.wallet.mnemonic);
     const words = this.props.hotWallet.wallet.mnemonic.split(' ');
     let orderArray = [];
     for (let i = 0; i < words.length; i++) {
@@ -61,8 +62,8 @@ class ConfirmPassphrase extends Component {
   }
 
   validatePassphrase = () => {
-    const { scrambledTags, selectedTags } = this.state;
-    let passphraseIncomplete = true;
+    const { selectedTags } = this.state;
+    // let passphraseIncomplete = true;
     let count = 0;
     if (selectedTags.length == 12) {
       for (let i = 0; i < selectedTags.length; i++) {
@@ -85,7 +86,7 @@ class ConfirmPassphrase extends Component {
     } else {
       Alert.alert(
         'Passphrase Error',
-        'You have no selected all of the words within the passphrase. Please complete ordering all words',
+        'You have not selected all of the words within the passphrase. Please complete ordering all words',
         [
           { text: 'OK', onPress: () => console.log('OK Pressed') },
         ],

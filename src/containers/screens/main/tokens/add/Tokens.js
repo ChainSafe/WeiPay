@@ -16,15 +16,15 @@ import { addNewToken } from '../../../../store/actions/creators/AppConfig';
  * React Screen Component
  * Screen to add more coins to the portfolio
  */
-class Coins extends Component {
+class Tokens extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tokens: this.props.allTokens,
+      // tokens: this.props.allTokens,
       searchedTokenSym: '',
       searchedTokenName: '',
       searchedTokenNameAdd: '',
-      refreshing: false,
+      // refreshing: false,
       tokenLoaded: false,
       buttonEnabled: false,
     };
@@ -51,13 +51,20 @@ class Coins extends Component {
 
   handleChangeText(input) {
     const inputUpperCase = input.toUpperCase();
+    this.setState({ searchedTokenSym: inputUpperCase });
+    
     try {
-      this.setState({ searchedTokenSym: inputUpperCase });
-      if (this.state.tokens[inputUpperCase] != null) {
-        this.setState({ buttonEnabled: true, searchedTokenName: 'NA', searchedTokenNameAdd: this.state.tokens[inputUpperCase]['contract_address'] });
-        if (this.state.tokens[inputUpperCase]['name'] != null) {
-          this.setState({ searchedTokenName: this.state.tokens[inputUpperCase]['name'], tokenLoaded: true});
-        }
+      if (this.props.allTokens[inputUpperCase] != null) {
+	this.setState({ 
+          buttonEnabled: true, tokenLoaded: true, 
+	  searchedTokenName: this.props.allTokens[inputUpperCase].name ? this.props.allTokens[inputUpperCase].name : 'NA', 
+	  searchedTokenNameAdd: this.props.allTokens[inputUpperCase]['contract_address'], 
+	});
+
+        // if (this.props.allTokens[inputUpperCase]['name'] != null) {
+        //   this.setState({ searchedTokenName: this.props.allTokens[inputUpperCase]['name'], 
+				// 								tokenLoaded: true});
+        // }
       } else {
         this.setState({ buttonEnabled: false, searchedTokenName: '', searchedTokenNameAdd: '' });
       }
@@ -68,7 +75,7 @@ class Coins extends Component {
 
   addCustomToken = () => {
     try {
-      const token = this.state.tokens[this.state.searchedTokenSym];
+      const token = this.props.allTokens[this.state.searchedTokenSym];
       let tokenName;
       if (token != null) {
         if (token['name'] != null) {
@@ -101,7 +108,7 @@ class Coins extends Component {
               height={50}
               onFocus={() => console.log('On Focus')}
               onBlur={() => console.log('On Blur')}
-              placeholder={'Search...'}
+              placeholder={'Search ticker...'}
               autoCorrect={false}
               padding={5}
               returnKeyType={'search'}
@@ -119,11 +126,13 @@ class Coins extends Component {
                   <FormLabel style={styles.displayText}>Name</FormLabel>
 
                   <View style={styles.formInputContainer}>
-                    <TextInput style={styles.textInput} value={this.state.searchedTokenName} editable={false} />
+                    <TextInput style={styles.textInput} value={this.state.searchedTokenName} 
+												editable={false} />
                   </View>
                   <FormLabel style={styles.displayText}>Contract Address</FormLabel>
                   <View style={styles.formInputContainer}>
-                    <TextInput style={styles.textInput} value={this.state.searchedTokenNameAdd} editable={true} />
+                    <TextInput style={styles.textInput} value={this.state.searchedTokenNameAdd} 
+															editable={true} />
                   </View>
               </View>
               : null
@@ -225,4 +234,4 @@ function mapStateToProps({ Wallet }) {
 
 export default connect(mapStateToProps, {
   actions, addNewToken,
-})(Coins);
+})(Tokens);

@@ -19,27 +19,34 @@ import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav'
 
 class CreateWalletName extends Component {
   state = {
-    walletProcessing: false,
-    walletName: null,
+		// unnecessary state
+    // walletProcessing: false,
+		// state used to set wallet name
+    walletName: '',
   };
 
   navigateToPin = () => {
-    this.setState({ walletProcessing: false }, () => {
-      const navigateToPassword = NavigationActions.navigate({
+    // this.setState({ walletProcessing: false }, () => {
+			// unnecessary setState and calling dispatch
+
+			this.props.setTempWalletName(this.state.walletName);
+      
+			const navigateToPassword = NavigationActions.navigate({
         routeName: 'password',
         params: { nextScreenToNavigate: 'generatePassphrase' },
       });
       this.props.navigation.dispatch(navigateToPassword);
-    });
+
+    // });
   };
 
-  getWalletName(name) {
-    this.props.setTempWalletName(name);
+  getWalletName = (name) => {
+    // this.props.setTempWalletName(name); unnecessary action call
+		this.setState({ walletName: name });
   }
 
   render() {
     const { debugMode } = this.props;
-    const isNameExist = this.props.tempWalletName !== null;
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -77,7 +84,7 @@ class CreateWalletName extends Component {
                 onClickFunction={ this.navigateToPin }
                 buttonText="Next"
                 customStyles={styles.button}
-                buttonStateEnabled= { debugMode ? false : !isNameExist }
+                buttonStateEnabled= { debugMode ? false : !this.state.walletName }
               />
             </View>
           </View>
@@ -156,16 +163,17 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = ({ Debug, Wallet }) => {
-  const { debugMode, testWalletName } = Debug;
-  const { wallets, tempWalletName } = Wallet;
+  const { debugMode} = Debug;
+  // const { wallets, tempWalletName } = Wallet;
   return {
-    debugMode, wallets, tempWalletName, testWalletName,
+    debugMode
   };
 };
 
 export default connect(mapStateToProps, {
   setTempWalletName
 })(CreateWalletName);
+
 // export default connect(mapStateToProps, {
 //   setTempWalletName, initializeAppWallet,
 // })(CreateWalletName);

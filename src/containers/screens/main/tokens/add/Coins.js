@@ -104,8 +104,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    tokenList: state.newWallet.tokens,
-    tokens: state.Wallet.tokens,
+		// unused props
+    // tokenList: state.newWallet.tokens,
+    // tokens: state.Wallet.tokens,
   };
 };
 

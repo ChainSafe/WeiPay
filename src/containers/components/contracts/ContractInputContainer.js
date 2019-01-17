@@ -43,15 +43,15 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     flex: 1,
-    paddingTop: '5%',
+    paddingTop: '1%',
     alignItems: 'center',
     alignContent: 'center',
     justifyContent: 'center',
-    marginRight: '5%',
+    marginRight: '2%',
   },
   btnFunctionInput: {
     height: Dimensions.get('window').height * 0.05,
-    width: Dimensions.get('window').width * 0.82,
+    width: Dimensions.get('window').width * 0.8,
   },
 });
 

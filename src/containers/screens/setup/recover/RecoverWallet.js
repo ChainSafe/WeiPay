@@ -6,7 +6,6 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
 import RF from 'react-native-responsive-fontsize';
-import { initializeAppWallet } from '../../../store/actions/creators/AppConfig';
 import LinearButton from '../../../components/linearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
@@ -18,14 +17,14 @@ class RecoverWallet extends Component {
     super(props);
     this.state = {
       mnemonic: '',
-      value: '',
-      buttonDisabled: true,
+      // value: '',
+      buttonEnabled: true,
       walletProcessing: false,
     };
   }
 
-  navigate = async (wallet) => {
-    await this.setState({ walletProcessing: false });
+  navigate = (wallet) => {
+    this.setState({ walletProcessing: false });
     const navigateToCreateWalletName = NavigationActions.navigate({
       routeName: 'createWalletNameRecovered',
       params: { wallet },
@@ -34,7 +33,7 @@ class RecoverWallet extends Component {
   }
 
   recoverMnemonic = async () => {
-    await this.setState({ walletProcessing: true });
+    this.setState({ walletProcessing: true });
     let wallet;
     const inDebug = this.props.debugMode;
     try {
@@ -70,11 +69,19 @@ class RecoverWallet extends Component {
   renderRecoveryKey(mnemonicInput) {
     const totalWords = mnemonicInput.split(' ');
     if (totalWords.length === 12) {
-      this.setState({ value: mnemonicInput.toLowerCase() });
-      this.setState({ mnemonic: mnemonicInput.toLowerCase() });
-      this.setState({ buttonDisabled: false });
+      // this.setState({ value: mnemonicInput.toLowerCase() });
+      // this.setState({ mnemonic: mnemonicInput.toLowerCase() });
+      // this.setState({ buttonEnabled: false });
+
+      // set in one setState
+      this.setState({ 
+        mnemonic: mnemonicInput.toLowerCase(),
+        buttonEnabled: false 
+      });
+
     } else {
-      this.setState({ buttonDisabled: true });
+      // reduce number of renders
+      if(!this.state.buttonEnabled) this.setState({ buttonEnabled: true });
     }
   }
 
@@ -82,7 +89,7 @@ class RecoverWallet extends Component {
    * Returns the form required to recover the wallet
    */
   render() {
-    const { walletProcessing, buttonDisabled } = this.state;
+    const { walletProcessing, buttonEnabled } = this.state;
     const { debugMode } = this.props;
     return (
       <SafeAreaView style={styles.safeAreaView}>
@@ -93,7 +100,8 @@ class RecoverWallet extends Component {
                     showMenu={false}
                     showBack={true}
                     navigation={this.props.navigation}
-                    backPage={'createWalletNameRecovered'}
+                    // backPage={'createWalletNameRecovered'}
+										backPage={'createOrRestore'}
                 />
               </View>
               <Text style={styles.textHeader} >Recover Passphrase</Text>
@@ -132,7 +140,7 @@ class RecoverWallet extends Component {
                     onClickFunction={ this.recoverMnemonic }
                     buttonText= 'Recover'
                     customStyles={styles.button}
-                    buttonStateEnabled={ debugMode ? false : buttonDisabled}
+                    buttonStateEnabled={ debugMode ? false : buttonEnabled}
                 />
               </View>
             </View>
@@ -219,14 +227,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ Debug, Wallet }) => {
-  const { debugMode, testWalletName } = Debug;
-  const {
-    wallets, tempWalletName, appPassword, network,
-  } = Wallet;
-  return {
-    debugMode, testWalletName, wallets, tempWalletName, appPassword, network,
-  };
+const mapStateToProps = ({ Debug }) => {
+  // removed unused props
+  const { debugMode } = Debug;
+  return { debugMode };
 };
 
-export default connect(mapStateToProps, { initializeAppWallet })(RecoverWallet);
+export default connect(mapStateToProps, null)(RecoverWallet);

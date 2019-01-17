@@ -14,17 +14,17 @@ class Index extends Component {
     let refreshRoute = null;
     try {
       refreshRoute = this.props.navigation.state.params.tab;
-      console.log({refreshRoute});
+      // console.log({refreshRoute});
     } catch (err) {
-      console.log({err});
+      // console.log({err});
     }
 
-    if (refreshRoute !== null) {
+		// routing error was getting caught here
+    if (refreshRoute) {
       this.state = {
         setActiveTab: refreshRoute,
       }
     } else {
-      console.log('do we hit else?');
       try {
         active = this.props.navigation.state.params.activeTab;
       } catch (error) {
@@ -56,15 +56,14 @@ class Index extends Component {
               </View>
               {/* Third tab */}
               <View title="New Token" style={styles.content}>
-                  <NewToken
-                    navigation={this.props.navigation}
-                  />
+                  <NewToken navigation={this.props.navigation} />
               </View>
           </TabNavigator>
       </View>
     );
   }
 }
+
 const styles = StyleSheet.create({
   // App container
   container: {
