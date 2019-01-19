@@ -83,15 +83,15 @@ export const checkInputs = (fItem, uiInputs) => {
 			let isInputsValid = true;
 			fItem.inputs.names.forEach(inputName => {
 				let isInputPresent = false;
-				for(let key in uiInputs) {
-					if(inputName === key && uiInputs[key]){
+				for (let key in uiInputs) {
+					if (inputName === key && uiInputs[key]) {
 						isInputPresent = true;
 						break;
 					}
 				}
 				isInputsValid = isInputsValid && isInputPresent;
 			})
-			return isInputsValid ; 
+			return isInputsValid;
 		}
 		else {
 			return false;
@@ -103,7 +103,7 @@ export const checkInputs = (fItem, uiInputs) => {
 };
 
 export const checkPayable = (uiInputs) => {
-	if(uiInputs.payable && !isNaN(uiInputs.payable)) return true;
+	if (uiInputs.payable && !isNaN(uiInputs.payable)) return true;
 	return false;
 };
 

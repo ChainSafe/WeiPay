@@ -4,7 +4,7 @@ import RF from 'react-native-responsive-fontsize';
 import ClearButton from '../linearGradient/ClearButton';
 
 class ContractInputConstant extends Component {
-	
+
 	render() {
 		const { item } = this.props;
 		// console.log(result); t  

@@ -71,7 +71,7 @@ class Contract extends Component {
 		if (!currentInput[funcName]) {
 			currentInput[funcName] = {};
 		}
-		
+
 		if (inputType === "string") {
 			currentInput[funcName][inputName] = "'" + text + "'";
 		} else {
@@ -99,7 +99,7 @@ class Contract extends Component {
 
 			// better suited
 			if (result.success) {
-				if (typeof result.data === "object") result.data =  JSON.stringify(result.data);
+				if (typeof result.data === "object") result.data = JSON.stringify(result.data);
 				Toast.show('Success,result - \n' + result.data, Toast.LONG);
 				console.log(result.data);
 			}
@@ -115,7 +115,7 @@ class Contract extends Component {
 
 				// better suited
 				if (result.success) {
-					if (typeof result.data === "object") result.data =  JSON.stringify(result.data);
+					if (typeof result.data === "object") result.data = JSON.stringify(result.data);
 					Toast.show('Success,result - \n' + result.data, Toast.LONG);
 					console.log(result.data);
 				}
@@ -134,7 +134,7 @@ class Contract extends Component {
 
 				// better suited
 				if (result.success) {
-					if (typeof result.data === "object") result.data =  JSON.stringify(result.data);
+					if (typeof result.data === "object") result.data = JSON.stringify(result.data);
 					Toast.show('Success,result - \n' + result.data, Toast.LONG);
 					console.log(result.data);
 				}
@@ -152,7 +152,7 @@ class Contract extends Component {
 					functionItem, inputs, this.state.contract, this.state.provider);
 
 				if (result.success) {
-					if (typeof result.data === "object") result.data =  JSON.stringify(result.data);
+					if (typeof result.data === "object") result.data = JSON.stringify(result.data);
 					Toast.show('Success,result - \n' + result.data, Toast.LONG);
 					console.log(result.data);
 				}

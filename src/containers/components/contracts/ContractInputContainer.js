@@ -44,17 +44,17 @@ const styles = StyleSheet.create({
 	},
 	btnContainer: {
 		// fixed broken UI
-    // marginTop: '5%',
+		// marginTop: '5%',
 		marginLeft: '1%',
-    flex: 1,
+		flex: 1,
 		width: '100%',
-    // marginRight: '5%',
-  },
+		// marginRight: '5%',
+	},
 	btnFunctionInput: {
-    height: Dimensions.get('window').height * 0.05,
-    width: Dimensions.get('window').width * 0.82,
+		height: Dimensions.get('window').height * 0.05,
+		width: Dimensions.get('window').width * 0.82,
 		marginLeft: '0%',
-  },
+	},
 });
 
 export default ContractInputContainer;
