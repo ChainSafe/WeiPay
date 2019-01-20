@@ -12,6 +12,7 @@ import * as actions from '../../store/actions/creators/AppConfig';
 import LinearButton from '../../components/linearGradient/LinearButton';
 import BoxShadowCard from '../../components/shadowCards/BoxShadowCard';
 import BackWithMenuNav from '../../components/customPageNavs/BackWithMenuNav';
+import Toast from 'react-native-simple-toast';
 
 class PinPage extends Component {
 	constructor(props) {
@@ -20,6 +21,7 @@ class PinPage extends Component {
 			// unnecessary states
 			// walletObjecet: {},
 			password: '',
+			passwordConfirm: '',
 			// isValidLength: false,
 			// error: null,
 			resetInitiated: false,
@@ -65,9 +67,14 @@ class PinPage extends Component {
 	decryptKey = () => {
 		const ciphertext = this.props.encryptedWallet;
 		const { password } = this.state;
-		const bytes = CryptoJS.AES.decrypt(ciphertext, password);
-		const plaintext = bytes.toString(CryptoJS.enc.Utf8);
-		return plaintext;
+		try {
+			const bytes = CryptoJS.AES.decrypt(ciphertext, password);
+			const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+			return { success: true, wallet: plaintext };
+		}
+		catch (err) {
+			return { success: false, msg: "Incorrect pin" };
+		}
 	}
 
   /**
@@ -87,7 +94,7 @@ class PinPage extends Component {
 		const serialialedWallet = JSON.stringify(wallet);
 		const encrypted = this.encryptSerializedWallet(serialialedWallet);
 		const hotWalletObj = { wallet, name: walletName };
-		
+
 		this.props.setHotWallet(hotWalletObj);
 
 		// merged into one
@@ -100,11 +107,17 @@ class PinPage extends Component {
 	}
 
 	appDecyprtionProcess = (walletName) => {
-		const wallet = JSON.parse(this.decryptKey());
-		if (Object.prototype.hasOwnProperty.call(wallet, 'privateKey')) {
-			const hotWalletObj = { wallet, name: walletName };
-			this.props.setHotWallet(hotWalletObj);
-			this.navigate('mainStack');
+		let result = this.decryptKey();
+		if (result.success) {
+			const wallet = JSON.parse(result.wallet);
+			if (Object.prototype.hasOwnProperty.call(wallet, 'privateKey')) {
+				const hotWalletObj = { wallet, name: walletName };
+				this.props.setHotWallet(hotWalletObj);
+				this.navigate('mainStack');
+			}
+		}
+		else {
+			Toast.show(result.msg, Toast.LONG);
 		}
 	}
 
@@ -115,7 +128,12 @@ class PinPage extends Component {
 		const userWallets = this.props.wallets;
 		if (isPasswordValid) {
 			if (inSetup) {
-				this.setupEncyrptionProcess(walletName, userWallets);
+				if (this.state.password === this.state.passwordConfirm) {
+					this.setupEncyrptionProcess(walletName, userWallets);
+				}
+				else {
+					Toast.show("Pins do not match", Toast.LONG);
+				}
 			} else {
 				this.appDecyprtionProcess(walletName);
 			}
@@ -124,6 +142,10 @@ class PinPage extends Component {
 
 	setPassword = (password) => {
 		this.setState({ password });
+	}
+
+	setPasswordConfirm = (passwordConfirm) => {
+		this.setState({ passwordConfirm });
 	}
 
 	resetApp = () => {
@@ -137,6 +159,8 @@ class PinPage extends Component {
 
 	render() {
 		const { resetInitiated } = this.state;
+		console.log("state", this.state);
+		console.log("props", this.props);
 		return (
 			<SafeAreaView style={styles.safeAreaView}>
 				<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -165,18 +189,30 @@ class PinPage extends Component {
 														: <View>
 															<Text style={styles.cardText}>
 																{this.props.isInSetupScreens
-																	? 'Create a password for wallet, minimum length of 4.'
-																	: 'Enter Password'
+																	? 'Create a Pin for wallet, minimum length of 4.'
+																	: 'Enter Pin'
 																}
 															</Text>
 															<View style={styles.formInputContainer}>
 																<FormInput
-																	placeholder={'1234'}
+																	style={{marginBottom: 16}}
+																	placeholder={'Pin Ex: 1234'}
 																	onChangeText={this.setPassword.bind(this)}
 																	inputStyle={styles.txtWalletName}
 																	secureTextEntry={true}
 																	selectionColor={'#12c1a2'}
 																/>
+																{this.props.isInSetupScreens &&
+																	<View>
+																		<FormInput
+																			placeholder={'Confirm Pin'}
+																			onChangeText={this.setPasswordConfirm.bind(this)}
+																			inputStyle={styles.txtWalletName}
+																			secureTextEntry={true}
+																			selectionColor={'#12c1a2'}
+																		/>
+																	</View>
+																}
 															</View>
 														</View>
 												}
@@ -289,6 +325,13 @@ const styles = StyleSheet.create({
 		paddingRight: '10%',
 		paddingBottom: '5%',
 		paddingTop: '10%',
+		fontFamily: 'WorkSans-Light',
+		letterSpacing: 0.4,
+		fontSize: RF(2.4),
+		color: '#000000',
+	},
+	labelText: {
+		paddingLeft: '10%',
 		fontFamily: 'WorkSans-Light',
 		letterSpacing: 0.4,
 		fontSize: RF(2.4),
