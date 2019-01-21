@@ -63,27 +63,28 @@ platform :android do
     )
   end
 
- desc 'Build the Android application.'
-  private_lane :build do
-    gradle(task: 'clean', project_dir: 'android/')
-    gradle(task: 'assemble', build_type: 'Release', project_dir: 'android/')
+  def increment_version_code(gradle_build: 'android/app/build.gradle')
+    sh %Q{cd ../ && echo "$(awk '{sub(/versionCode [[:digit:]]+$/,"versionCode "$2+1)}1' #{gradle_build})" > #{gradle_build} && cd -}
+  end
+
+  desc 'Build the Android application.'
+    private_lane :build do
+      gradle(task: 'clean', project_dir: 'android/')
+      gradle(task: 'assemble', build_type: 'Release', project_dir: 'android/')
+      increment_version_code gradle_build: 'android/app/build.gradle'
   end
 
   desc 'Ship to Playstore Beta.'
-  lane :beta do
-    build
-    supply(track: 'alpha', track_promote_to: 'beta')
-#    git_commit(path: ['./android/gradle.properties'], message: 'Bump versionCode')
-#    push_to_git_remote
-    slack_playstore
+    lane :beta do
+      build
+      supply(track: 'alpha', track_promote_to: 'beta')
+      slack_playstore
   end
 
   desc 'Ship to Playstore Beta.'
   lane :alpha do
     build
     supply(track: 'alpha')
-    # git_commit(path: ['./android/gradle.properties'], message: 'Bump versionCode')
-    # push_to_git_remote
     slack_playstore
   end
 end
