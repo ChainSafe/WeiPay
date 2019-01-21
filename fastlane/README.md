@@ -45,6 +45,11 @@ Slack notification for succesful build to Playstore
 fastlane android bump
 ```
 Create versioned build
+### android build
+```
+fastlane android build
+```
+Build the Android application.
 ### android beta
 ```
 fastlane android beta
