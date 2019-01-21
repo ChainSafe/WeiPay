@@ -13,7 +13,7 @@ jobs:
 
       - run:
           name: Set Ruby Version
-          command: echo "ruby-2.4" > ~/.ruby-version
+          command: echo "ruby-2.5" > ~/.ruby-version
       - run:
           name: Install NPM packages
           command: npm i
