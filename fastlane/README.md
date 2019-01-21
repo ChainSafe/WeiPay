@@ -45,6 +45,11 @@ Slack notification for succesful build to Playstore
 fastlane android beta
 ```
 Ship to Playstore Beta.
+### android alpha
+```
+fastlane android alpha
+```
+Ship to Playstore Beta.
 
 ----
 
