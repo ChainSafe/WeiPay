@@ -231,7 +231,7 @@ class Contract extends Component {
    * Returns a component that allows the user to view the passphrase
    */
 	render() {
-		console.log(this.props.network);
+		// console.log(this.props.network);
 		return (
 			<SafeAreaView style={styles.safeAreaView}>
 				<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
