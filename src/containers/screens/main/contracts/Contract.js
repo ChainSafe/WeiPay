@@ -11,15 +11,14 @@ import {
 	processContractByAddress, processFunctionCall2,
 } from '../../../../scripts/contracts/contractHelper';
 import {
-	executeNonPayableNoParams,
-	executeNonPayableWithParams,
-	executePayableNoParams,
-	executePayableWithParams,
+	checkInputs, checkPayable
 } from '../../../../scripts/contracts/contractValidation';
 import LinearButton from '../../../components/linearGradient/LinearButton';
+import ClearButton from '../../../components/linearGradient/ClearButton';
+
 import getNetworkProvider from '../../../../constants/Providers';
-import ContractInputContainer from '../../../components/contracts/ContractInputContainer';
-import ContractInputConstant from '../../../components/contracts/ContractInputConstant';
+// import ContractInputContainer from '../../../components/contracts/ContractInputContainer';
+// import ContractInputConstant from '../../../components/contracts/ContractInputConstant';
 import { setNetwork } from '../../../store/actions/creators/AppConfig';
 
 /**
@@ -37,6 +36,7 @@ class Contract extends Component {
 			contractFunctions: null,
 			contract: null,
 			withInputs: null,
+			functionsWithInputs: null,
 			payable: null,
 			// functions: [],
 			currentInput: {},
@@ -54,9 +54,9 @@ class Contract extends Component {
 			this.state.address, this.state.provider, this.props.network);
 		if (success) {
 			// unused contract events
-			const { contractFunctions, contract, withInputs } = objects;
+			const { contractFunctions, contract, functionsWithInputs } = objects;
 			// console.log("in getContract success", contractFunctions, contract, withInputs);
-			this.setState({ contractFunctions, contract, withInputs });
+			this.setState({ contractFunctions, contract, functionsWithInputs });
 			Toast.show('Success', Toast.LONG);
 		}
 		else {
@@ -67,116 +67,130 @@ class Contract extends Component {
 	}
 
 	processFunctionInput = (text, inputName, inputType, funcName) => {
-		let c = Object.assign({}, this.state.currentInput);
+		let currentInput = this.state.currentInput;
 
-		console.log("in input c: ", c);
-
-		if (c[funcName] == null) {
-			c[funcName] = {};
+		if (!currentInput[funcName]) {
+			currentInput[funcName] = {};
 		}
+
 		if (inputType === "string") {
-			c[funcName][inputName] = "'" + text + "'";
+			currentInput[funcName][inputName] = "'" + text + "'";
 		} else {
-			c[funcName][inputName] = text;
+			currentInput[funcName][inputName] = text;
 		}
-		this.setState({ currentInput: c });
+		console.log("in input: ", currentInput);
+		this.setState({ currentInput });
 	}
 
   /**
    * Need to check if contract method has no parameters, if it has paramaters, if is payable.
    */
 	contractFuncCheck = async (functionItem) => {
-		// console.log("function check functionItem", functionItem);
+		console.log("function check functionItem", functionItem);
+
 		const isFunctionPayable = functionItem.payable;
-		const hasFunctionParameters = functionItem.fInputs.length > 0;
-		// structural finds
-		// console.log(isFunctionPayable, hasFunctionParameters);
+		const hasFunctionParameters = functionItem.inputs ? functionItem.inputs.names.length > 0 : false;
 
-		const allFunctionDetails = this.state.withInputs;
+		let inputs = this.state.currentInput[functionItem.name];
 
-		// let functionName;
-		// let functionNameForContract;
-		let inputs = this.state.currentInput[functionItem.functionSignature];
 
-		// if (hasFunctionParameters) {
-		// 	functionName = functionItem.property;
-		// 	functionNameForContract = functionItem.property;
-		// 	inputs = this.state.currentInput[functionItem.functionSignature];
-		// } else {
-		// 	functionName = functionItem.split("(")[0];
-		// 	functionNameForContract = functionItem;
-		// 	inputs = {};
-		// }
 		if (!isFunctionPayable && !hasFunctionParameters) {
-			if (executeNonPayableNoParams(functionItem.property, {})) {
-				// console.log("executeNonPayable");
-				const result = await processFunctionCall2(this.props.hotWallet.wallet,
-					functionItem.property, {}, this.state.contract, this.state.provider);
+			const result = await processFunctionCall2(this.props.hotWallet.wallet,
+				functionItem, {}, this.state.contract, this.state.provider);
 
-				// better suited
-				Toast.show('Success', Toast.LONG);
-				// return was causing crashes
-				return result;
-
+			// better suited
+			if (result.success) {
+				if (typeof result.data === "object") result.data = JSON.stringify(result.data);
+				Toast.show('Success,result - \n' + result.data, Toast.LONG);
+				console.log(result.data);
+			}
+			else {
+				Toast.show('Failed - \n' + result.msg, Toast.LONG);
+				console.log(result.msg);
 			}
 		} else if (!isFunctionPayable && hasFunctionParameters) {
-			if (executeNonPayableWithParams(functionItem.property, inputs, allFunctionDetails, isFunctionPayable)) {
-				// console.log("executeNonPayablewithparams");
+			if (checkInputs(functionItem, inputs)) {
+
 				const result = await processFunctionCall2(this.props.hotWallet.wallet,
-					functionItem.property, inputs, this.state.contract, this.state.provider);
-				Toast.show('Success', Toast.LONG);
-				return result;
+					functionItem, inputs, this.state.contract, this.state.provider);
+
+				// better suited
+				if (result.success) {
+					if (typeof result.data === "object") result.data = JSON.stringify(result.data);
+					Toast.show('Success,result - \n' + result.data, Toast.LONG);
+					console.log(result.data);
+				}
+				else {
+					Toast.show('Failed - \n' + result.msg, Toast.LONG);
+					console.log(result.msg);
+				}
+			}
+			else {
+				Toast.show('Please provide all inputs', Toast.LONG);
 			}
 		} else if (isFunctionPayable && !hasFunctionParameters) {
-			if (executePayableNoParams(functionItem.property, {}, allFunctionDetails, isFunctionPayable)) {
-				// console.log("executePayableNoParams");
+			if (checkPayable(inputs)) {
 				const result = await processFunctionCall2(this.props.hotWallet.wallet,
-					functionItem.property, {}, this.state.contract, this.state.provider);
+					functionItem, {}, this.state.contract, this.state.provider);
 
-				Toast.show('Success', Toast.LONG);
-				return result;
+				// better suited
+				if (result.success) {
+					if (typeof result.data === "object") result.data = JSON.stringify(result.data);
+					Toast.show('Success,result - \n' + result.data, Toast.LONG);
+					console.log(result.data);
+				}
+				else {
+					Toast.show('Failed - \n' + result.msg, Toast.LONG);
+					console.log(result.msg);
+				}
+			}
+			else {
+				Toast.show('Please provide all inputs', Toast.LONG);
 			}
 		} else if (isFunctionPayable && hasFunctionParameters) {
-			if (executePayableWithParams(functionItem.property, inputs, allFunctionDetails, isFunctionPayable)) {
-				// console.log("executePayableWithParams");
+			if (checkInputs(functionItem, inputs) && checkPayable(inputs)) {
 				const result = await processFunctionCall2(this.props.hotWallet.wallet,
-					functionItem.property, inputs, this.state.contract, this.state.provider);
+					functionItem, inputs, this.state.contract, this.state.provider);
 
-				Toast.show('Success', Toast.LONG);
-				return result;
+				if (result.success) {
+					if (typeof result.data === "object") result.data = JSON.stringify(result.data);
+					Toast.show('Success,result - \n' + result.data, Toast.LONG);
+					console.log(result.data);
+				}
+				else {
+					Toast.show('Failed - \n' + result.msg, Toast.LONG);
+					console.log(result.msg);
+				}
+			}
+			else {
+				Toast.show('Please provide all inputs', Toast.LONG);
 			}
 		}
 	}
 
 	parseFunctions = () => {
-		let contractFunctionsFormatted = [];
-		const allFunctionsWithInputs = this.state.withInputs;
-		for (let i = 0; i < allFunctionsWithInputs.length; i++) {
-			// const arrayLength = contractFunctionsFormatted.length;
-			const functionSignature = allFunctionsWithInputs[i].signature;
-			const property = functionSignature.split('(')[0];
-			const fInputs = allFunctionsWithInputs[i].inputs;
-			const payable = allFunctionsWithInputs[i].payable;
-			contractFunctionsFormatted.push({ property, functionSignature, fInputs, payable });
-		}
+
+		const allFunctionsWithInputs = this.state.functionsWithInputs;
+
 		return (
 			<View style={styles.contractInputContainer}>
 				{
-					contractFunctionsFormatted.map((item, i) =>
+					allFunctionsWithInputs.map((item, i) =>
 						<View key={i} style={styles.functionContainer} >
 							<Card>
 								<View style={styles.functionInputContainer}>
 									{/* <Text>Signature: {item.functionSignature} </Text> */}
-									<Text>Signature: {item.property} </Text>
+									<Text>Signature: {item.name} </Text>
 								</View>
 								{
 									item.payable
 										?
 										<View style={styles.functionInputContainer}>
+											<Text style={styles.textInput}> Ether value </Text>
 											<FormInput
 												// placeholder={this.state.payable ? this.state.payable.text : "Ether Value (Payable)"}
 												placeholder={"Ether Value (Payable)"}
-												onChangeText={(text) => this.processFunctionInput(text, 'payable', 'payable', item.functionSignature)}
+												onChangeText={(text) => this.processFunctionInput(text, 'payable', 'payable', item.name)}
 												inputStyle={styles.functionInputStyle}
 												selectionColor={'#12c1a2'}
 											/>
@@ -184,25 +198,28 @@ class Contract extends Component {
 										: null
 								}
 								{
-									(item.fInputs.length != 0)
+									(item.inputs && item.inputs.names && item.inputs.names.length)
 										?
-										<View style={styles.topInputContainer}>
-											<ContractInputContainer
-												signature={item.functionSignature}
-												inputs={item.fInputs}
-												item={item}
-												processInput={this.processFunctionInput}
-												contractExecution={this.contractFuncCheck}
-											/>
-										</View>
+										item.inputs.names.map((name, i) =>
+											<View style={styles.functionInputContainer} key={i}>
+												<Text style={styles.textInput}> {name} </Text>
+												<FormInput
+													// placeholder={this.state.payable ? this.state.payable.text : "Ether Value (Payable)"}
+													placeholder={item.inputs.types[i]}
+													onChangeText={(text) => this.processFunctionInput(text, name, item.inputs.types[i], item.name)}
+													inputStyle={styles.functionInputStyle}
+													selectionColor={'#12c1a2'}
+												/>
+											</View>
+										)
 										:
-										<View style={styles.topInputContainer}>
-											<ContractInputConstant
-												contractExecution={this.contractFuncCheck}
-												item={item}
-											/>
-										</View>
+										null
 								}
+								<ClearButton
+									buttonText={`Call ${item.name}`}
+									onClickFunction={() => this.contractFuncCheck(item)}
+									customStyles={styles.btnFunctionInput}
+								/>
 							</Card>
 						</View>)
 				}
@@ -227,7 +244,7 @@ class Contract extends Component {
 							/>
 						</View>
 						{
-							this.state.contractFunctions === null
+							this.state.functionsWithInputs === null
 								?
 								<View style={styles.topFormInput}>
 									<Text style={styles.textHeader}>Contract Interaction</Text>
@@ -327,14 +344,6 @@ const styles = StyleSheet.create({
 		marginTop: '5%',
 		width: '90%',
 	},
-	inputContactName: {
-		fontSize: RF(2.5),
-		flexWrap: 'wrap',
-		color: '#12c1a2',
-		letterSpacing: 0.4,
-		fontFamily: 'WorkSans-Light',
-		borderBottomWidth: 0.0001,
-	},
 	scrollViewContainer: {
 		flex: 5,
 		paddingBottom: '2.5%',
@@ -360,12 +369,20 @@ const styles = StyleSheet.create({
 		marginBottom: '5%',
 	},
 	functionInputStyle: {
-		width: '80%',
+		maxWidth: '100%',
 		fontSize: RF(2.4),
 		flexWrap: 'wrap',
 		color: '#12c1a2',
 		letterSpacing: 0.4,
-		fontFamily: 'WorkSans-Regular',
+		fontFamily: 'WorkSans-Light',
+		borderBottomWidth: 0.0001,
+	},
+	inputContactName: {
+		fontSize: RF(2.4),
+		flexWrap: 'wrap',
+		color: '#12c1a2',
+		letterSpacing: 0.4,
+		fontFamily: 'WorkSans-Light',
 		borderBottomWidth: 0.0001,
 	},
 	topInputContainer: {
@@ -374,6 +391,7 @@ const styles = StyleSheet.create({
 	btnFunctionInput: {
 		height: Dimensions.get('window').height * 0.05,
 		width: Dimensions.get('window').width * 0.82,
+		marginLeft: "0%"
 	},
 	loadButton: {
 		width: '82%',
