@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-	View, Text, StyleSheet, ScrollView, Dimensions, TouchableWithoutFeedback, Keyboard, SafeAreaView, TextInput,
+	Picker, View, Text, StyleSheet, ScrollView, Dimensions, TouchableWithoutFeedback, Keyboard, SafeAreaView, TextInput,
 } from 'react-native';
 import { FormInput, Card } from 'react-native-elements';
 import Toast from 'react-native-simple-toast';
@@ -20,6 +20,7 @@ import LinearButton from '../../../components/linearGradient/LinearButton';
 import getNetworkProvider from '../../../../constants/Providers';
 import ContractInputContainer from '../../../components/contracts/ContractInputContainer';
 import ContractInputConstant from '../../../components/contracts/ContractInputConstant';
+import { setNetwork } from '../../../store/actions/creators/AppConfig';
 
 /**
  * Screen is used to display the passphrase (mnemonic) of the wallet
@@ -55,7 +56,7 @@ class Contract extends Component {
 			// unused contract events
 			const { contractFunctions, contract, withInputs } = objects;
 			// console.log("in getContract success", contractFunctions, contract, withInputs);
-			this.setState({contractFunctions, contract, withInputs});
+			this.setState({ contractFunctions, contract, withInputs });
 			Toast.show('Success', Toast.LONG);
 		}
 		else {
@@ -92,11 +93,11 @@ class Contract extends Component {
 		// console.log(isFunctionPayable, hasFunctionParameters);
 
 		const allFunctionDetails = this.state.withInputs;
-		
+
 		// let functionName;
 		// let functionNameForContract;
 		let inputs = this.state.currentInput[functionItem.functionSignature];
-		
+
 		// if (hasFunctionParameters) {
 		// 	functionName = functionItem.property;
 		// 	functionNameForContract = functionItem.property;
@@ -109,9 +110,9 @@ class Contract extends Component {
 		if (!isFunctionPayable && !hasFunctionParameters) {
 			if (executeNonPayableNoParams(functionItem.property, {})) {
 				// console.log("executeNonPayable");
-				const result = await processFunctionCall2(this.props.hotWallet.wallet, 
-										functionItem.property, {}, this.state.contract, this.state.provider);
-				
+				const result = await processFunctionCall2(this.props.hotWallet.wallet,
+					functionItem.property, {}, this.state.contract, this.state.provider);
+
 				// better suited
 				Toast.show('Success', Toast.LONG);
 				// return was causing crashes
@@ -121,26 +122,26 @@ class Contract extends Component {
 		} else if (!isFunctionPayable && hasFunctionParameters) {
 			if (executeNonPayableWithParams(functionItem.property, inputs, allFunctionDetails, isFunctionPayable)) {
 				// console.log("executeNonPayablewithparams");
-				const result = await processFunctionCall2(this.props.hotWallet.wallet, 
-										functionItem.property, inputs, this.state.contract, this.state.provider);
+				const result = await processFunctionCall2(this.props.hotWallet.wallet,
+					functionItem.property, inputs, this.state.contract, this.state.provider);
 				Toast.show('Success', Toast.LONG);
 				return result;
 			}
 		} else if (isFunctionPayable && !hasFunctionParameters) {
 			if (executePayableNoParams(functionItem.property, {}, allFunctionDetails, isFunctionPayable)) {
 				// console.log("executePayableNoParams");
-				const result = await processFunctionCall2(this.props.hotWallet.wallet, 
-											functionItem.property, {}, this.state.contract, this.state.provider);
-				
+				const result = await processFunctionCall2(this.props.hotWallet.wallet,
+					functionItem.property, {}, this.state.contract, this.state.provider);
+
 				Toast.show('Success', Toast.LONG);
 				return result;
 			}
 		} else if (isFunctionPayable && hasFunctionParameters) {
 			if (executePayableWithParams(functionItem.property, inputs, allFunctionDetails, isFunctionPayable)) {
 				// console.log("executePayableWithParams");
-				const result = await processFunctionCall2(this.props.hotWallet.wallet, 
-								functionItem.property, inputs, this.state.contract, this.state.provider);
-				
+				const result = await processFunctionCall2(this.props.hotWallet.wallet,
+					functionItem.property, inputs, this.state.contract, this.state.provider);
+
 				Toast.show('Success', Toast.LONG);
 				return result;
 			}
@@ -156,7 +157,7 @@ class Contract extends Component {
 			const property = functionSignature.split('(')[0];
 			const fInputs = allFunctionsWithInputs[i].inputs;
 			const payable = allFunctionsWithInputs[i].payable;
-			contractFunctionsFormatted.push({property, functionSignature, fInputs, payable });
+			contractFunctionsFormatted.push({ property, functionSignature, fInputs, payable });
 		}
 		return (
 			<View style={styles.contractInputContainer}>
@@ -213,6 +214,7 @@ class Contract extends Component {
    * Returns a component that allows the user to view the passphrase
    */
 	render() {
+		console.log(this.props.network);
 		return (
 			<SafeAreaView style={styles.safeAreaView}>
 				<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -238,6 +240,16 @@ class Contract extends Component {
 											placeholderTextColor={'#b3b3b3'}
 											value={this.state.address}
 										/>
+										<Picker
+											selectedValue={this.props.network}
+											style={styles.picker}
+											textStyle={styles.pickerItem}
+											onValueChange={(itemValue) => this.props.setNetwork(itemValue)}>
+											<Picker.Item label="mainnet" value="mainnet" />
+											<Picker.Item label="ropsten" value="ropsten" />
+											<Picker.Item label="kovan" value="kovan" />
+											<Picker.Item label="rinkeby" value="rinkeby" />
+										</Picker>
 									</View>
 								</View>
 								:
@@ -376,6 +388,15 @@ const styles = StyleSheet.create({
 		width: '82%',
 		height: Dimensions.get('window').height * 0.082,
 	},
+	picker: {
+		flexWrap: 'wrap',
+		marginLeft: '5%',
+		borderBottomWidth: 0.0001,
+	},
+	pickerItem: {
+		fontFamily: 'WorkSans-Light',
+		fontSize: RF(2.4),
+	}
 });
 
 const mapStateToProps = ({ HotWallet, Wallet }) => {
@@ -384,4 +405,4 @@ const mapStateToProps = ({ HotWallet, Wallet }) => {
 	return { hotWallet, network };
 };
 
-export default connect(mapStateToProps, null)(Contract);
+export default connect(mapStateToProps, { setNetwork })(Contract);
