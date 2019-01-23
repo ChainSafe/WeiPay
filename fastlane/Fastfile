@@ -63,14 +63,14 @@ platform :android do
     )
   end
 
-  def increment_version_code(gradle_build: 'android/app/build.gradle')
-    sh %Q{cd ../ && echo "$(awk '{sub(/versionCode [[:digit:]]+$/,"versionCode "$2+1)}1' #{gradle_build})" > #{gradle_build} && cd -}
-  end
+  # def increment_version_code(gradle_build: 'android/app/build.gradle')
+  #   sh %Q{cd ../ && echo "$(awk '{sub(/versionCode [[:digit:]]+$/,"versionCode "$2+1)}1' #{gradle_build})" > #{gradle_build} && cd -}
+  # end
 
-  desc 'Create versioned build'
-    lane :bump do
-      increment_version_code gradle_build: 'android/app/build.gradle'
-  end
+  # desc 'Create versioned build'
+  #   lane :bump do
+  #     increment_version_code gradle_build: 'android/app/build.gradle'
+  # end
 
   desc 'Build the Android application.'
     private_lane :build do
