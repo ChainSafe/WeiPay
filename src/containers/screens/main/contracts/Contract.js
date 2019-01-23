@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-	View, Text, StyleSheet, ScrollView, Dimensions, TouchableWithoutFeedback, Keyboard, SafeAreaView, TextInput,
+	Picker, View, Text, StyleSheet, ScrollView, Dimensions, TouchableWithoutFeedback, Keyboard, SafeAreaView, TextInput,
 } from 'react-native';
 import { FormInput, Card } from 'react-native-elements';
 import Toast from 'react-native-simple-toast';
@@ -19,6 +19,7 @@ import ClearButton from '../../../components/linearGradient/ClearButton';
 import getNetworkProvider from '../../../../constants/Providers';
 // import ContractInputContainer from '../../../components/contracts/ContractInputContainer';
 // import ContractInputConstant from '../../../components/contracts/ContractInputConstant';
+import { setNetwork } from '../../../store/actions/creators/AppConfig';
 
 /**
  * Screen is used to display the passphrase (mnemonic) of the wallet
@@ -230,6 +231,7 @@ class Contract extends Component {
    * Returns a component that allows the user to view the passphrase
    */
 	render() {
+		// console.log(this.props.network);
 		return (
 			<SafeAreaView style={styles.safeAreaView}>
 				<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -255,6 +257,16 @@ class Contract extends Component {
 											placeholderTextColor={'#b3b3b3'}
 											value={this.state.address}
 										/>
+										<Picker
+											selectedValue={this.props.network}
+											style={styles.picker}
+											textStyle={styles.pickerItem}
+											onValueChange={(itemValue) => this.props.setNetwork(itemValue)}>
+											<Picker.Item label="mainnet" value="mainnet" />
+											<Picker.Item label="ropsten" value="ropsten" />
+											<Picker.Item label="kovan" value="kovan" />
+											<Picker.Item label="rinkeby" value="rinkeby" />
+										</Picker>
 									</View>
 								</View>
 								:
@@ -394,13 +406,15 @@ const styles = StyleSheet.create({
 		width: '82%',
 		height: Dimensions.get('window').height * 0.082,
 	},
-	textInput: {
-		fontFamily: 'Cairo-Light',
-		fontSize: RF(2.2),
-		letterSpacing: 0.8,
-		paddingLeft: '5%',
-		color: '#1a1f3e',
+	picker: {
+		flexWrap: 'wrap',
+		marginLeft: '5%',
+		borderBottomWidth: 0.0001,
 	},
+	pickerItem: {
+		fontFamily: 'WorkSans-Light',
+		fontSize: RF(2.4),
+	}
 });
 
 const mapStateToProps = ({ HotWallet, Wallet }) => {
@@ -409,4 +423,4 @@ const mapStateToProps = ({ HotWallet, Wallet }) => {
 	return { hotWallet, network };
 };
 
-export default connect(mapStateToProps, null)(Contract);
+export default connect(mapStateToProps, { setNetwork })(Contract);

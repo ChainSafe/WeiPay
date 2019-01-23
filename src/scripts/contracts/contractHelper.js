@@ -124,7 +124,7 @@ const getUniqueFunctionsWithInputs = (interfaceFunctions) => {
 			functionNames.push(functionName);
 		}
 	}
-	console.log("unique", functions);
+	// console.log("unique", functions);
 	return functions;
 };
 
@@ -152,7 +152,7 @@ export const processContractByAddress = async (wallet, address, provider, networ
 
 
 				// console.log("with Inputs", withInputs);
-				console.log(functionsWithInputs);
+				// console.log(functionsWithInputs);
 				return {
 					success: true,
 					objects: { contractFunctions, contract, functionsWithInputs }
