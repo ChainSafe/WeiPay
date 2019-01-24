@@ -91,7 +91,7 @@ def enableSeparateBuildPerCPUArchitecture = false
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
-def enableProguardInReleaseBuilds = false
+def enableProguardInReleaseBuilds = truw
 
 android {
     compileSdkVersion 25
@@ -108,7 +108,7 @@ android {
     splits {
         abi {
             reset()
-            enable enableSeparateBuildPerCPUArchitecture
+            enable enableSeparateBuildPerCPUArchitectureÎ
             universalApk false  // If true, also generate a universal APK
             include "armeabi-v7a", "x86"
         }
