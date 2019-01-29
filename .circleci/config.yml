@@ -19,7 +19,7 @@ jobs:
           command: npm i
       - run: sh .circleci/download.sh
       - run: mkdir -p ~/.gradle && cp gradle.properties ~/.gradle && cp wei-pay-android.keystore ./android/app
-      - run: gem install fastlane -NV
+      - run: gem install fastlane:2.113.0 -N --silent
       - run: fastlane android beta
 
       - persist_to_workspace:
