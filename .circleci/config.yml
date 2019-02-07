@@ -4,7 +4,6 @@ jobs:
     working_directory: ~/weipay
     docker:
         - image: circleci/android:api-28-node8-alpha
-        - user: root
 
     steps:
       - checkout:
@@ -12,6 +11,9 @@ jobs:
       - attach_workspace:
           at: ~/weipay
 
+      - run:
+          name: Change user to ROOT
+          command: sudo su
       - run:
           name: Install NPM packages
           command: sudo npm i
