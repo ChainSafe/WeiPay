@@ -10,17 +10,16 @@ jobs:
           path: ~/weipay
       - attach_workspace:
           at: ~/weipay
-
       - run:
           name: Set Ruby Version
-          command: echo "ruby-2.5" > ~/.ruby-version
+          command: echo "ruby-2.6" > ~/.ruby-version
       - run:
           name: Install NPM packages
           command: npm i
       - run: sh .circleci/download.sh
       - run: mkdir -p ~/.gradle && cp gradle.properties ~/.gradle && cp wei-pay-android.keystore ./android/app
-      - run: gem install fastlane:2.113.0 -N --silent
-      - run: fastlane android beta
+      - run: sudo gem install fastlane -N --silent
+      - run: sudo fastlane android beta
 
       - persist_to_workspace:
           root: ~/weipay
@@ -35,4 +34,4 @@ workflows:
           filters:
             branches:
               only:
-                - staging
+                - priom/ci
