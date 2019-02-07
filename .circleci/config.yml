@@ -13,7 +13,7 @@ jobs:
 
       - run:
           name: Install NPM packages
-          command: sudo npm i
+          command: npm i
       - run: sh .circleci/download.sh
       - run: mkdir -p ~/.gradle && mv gradle.properties ~/.gradle && mv wei-pay-android.keystore ./android/app
       - run: gem install fastlane -N --silent
