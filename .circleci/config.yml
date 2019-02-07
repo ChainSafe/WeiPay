@@ -4,20 +4,19 @@ jobs:
     working_directory: ~/weipay
     docker:
         - image: circleci/android:api-28-node8-alpha
+        - user: root
 
     steps:
       - checkout:
           path: ~/weipay
       - attach_workspace:
           at: ~/weipay
-      - run:
-          name: Set Ruby Version
-          command: echo "ruby-2.6" > ~/.ruby-version
+
       - run:
           name: Install NPM packages
-          command: npm i
+          command: sudo npm i
       - run: sh .circleci/download.sh
-      - run: mkdir -p ~/.gradle && cp gradle.properties ~/.gradle && cp wei-pay-android.keystore ./android/app
+      - run: sudo mkdir -p ~/.gradle && mv gradle.properties ~/.gradle && mv wei-pay-android.keystore ./android/app
       - run: sudo gem install fastlane -N --silent
       - run: sudo fastlane android beta
 
