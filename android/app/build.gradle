@@ -91,7 +91,7 @@ def enableSeparateBuildPerCPUArchitecture = false
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
  */
-def enableProguardInReleaseBuilds = false
+def enableProguardInReleaseBuilds = true
 
 android {
     compileSdkVersion 25
@@ -99,7 +99,7 @@ android {
         applicationId "com.chainsafe.weipay"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 49
+        versionCode 50
         versionName "1.0"
         ndk {
             abiFilters "armeabi-v7a", "x86"
