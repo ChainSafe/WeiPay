@@ -40,11 +40,6 @@ Ship to Testflight.
 fastlane android slack_playstore
 ```
 Slack notification for succesful build to Playstore
-### android bump
-```
-fastlane android bump
-```
-Create versioned build
 ### android beta
 ```
 fastlane android beta
