@@ -32,4 +32,4 @@ workflows:
           filters:
             branches:
               only:
-                - priom/ci
+                - staging
