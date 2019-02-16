@@ -79,10 +79,10 @@ class Portfolio extends Component {
 	}
 
 	balanceCalculations = async () => {
-		console.log("in balance calculations");
+		// console.log("in balance calculations");
 		const { tokenSymbolString, tokenQuantities } = await this.formatTokens(this.props.tokens);
 
-		console.log("in balance", tokenSymbolString);
+		// console.log("in balance", tokenSymbolString);
 		await this.props.quantityFetchAndBalance(tokenSymbolString, tokenQuantities);
 		// this.props.saveAllTokenQuantities(tokenQuantities);
 		// await this.props.fetchCoinData(tokenSymbolString);
@@ -101,7 +101,7 @@ class Portfolio extends Component {
    * of each token the user has for a given private key.
    */
 	formatTokens = async (tokenList) => {
-		console.log("in format token");
+		// console.log("in format token");
 		let tokenObjectList = [];
 		for (let i = 0; i < tokenList.length; i++) {
 			let tokenObj = {};
@@ -120,7 +120,7 @@ class Portfolio extends Component {
    * and token info. This will be the data source for the flat list.
    */
 	showTokens = () => {
-		console.log("in show token token");
+		// console.log("in show token token");
 		let cTokenObjectList = [];
 		for (let i = 0; i < this.props.tokens.length; i++) {
 			let cto = {};
@@ -130,9 +130,9 @@ class Portfolio extends Component {
 			cTokenObjectList.push(cto);
 		}
 		// in single setState
-		console.log("walletBalance", this.props.walletBalance);
+		// console.log("walletBalance", this.props.walletBalance);
 		if (Object.prototype.hasOwnProperty.call(this.props.walletBalance, 'USD')) {
-			console.log(cTokenObjectList, "setting pricesLoaded");
+			// console.log(cTokenObjectList, "setting pricesLoaded");
 			this.setState({ pricesLoaded: true, completeTokenObject: cTokenObjectList });
 		}
 	}
@@ -202,11 +202,11 @@ class Portfolio extends Component {
 		return null;
 	}
 
-	handleListRefresh = async () => {
-		await this.balanceCalculations();
+	handleListRefresh = () => {
+		this.balanceCalculations();
 	}
 
-	handleCurrencyTouch = async () => {
+	handleCurrencyTouch = () => {
 		// reload balances if balance fetching error had occurred
 		if (this.props.hasError) {
 			this.setState({ pricesLoaded: false });
@@ -215,16 +215,16 @@ class Portfolio extends Component {
 		else {
 			let currentIndex = this.state.currencyIndex;
 			if (currentIndex === 4) {
-				await this.setState({ currencyIndex: 0 });
+				this.setState({ currencyIndex: 0 });
 			} else {
 				const index = currentIndex += 1;
-				await this.setState({ currencyIndex: index });
+				this.setState({ currencyIndex: index });
 			}
 		}
 	}
 
 	render() {
-		console.log("my state", this.state);
+		// console.log("my state", this.state);
 		return (
 			<SafeAreaView style={styles.safeAreaView}>
 				<View style={styles.mainContainer} >
@@ -233,7 +233,7 @@ class Portfolio extends Component {
 							showMenu={true}
 							showBack={false}
 							navigation={this.props.navigation}
-							title={this.props.debugMode ? this.props.testWalletName : this.state.currentWalletName}
+							title={this.props.debugMode ? this.props.testWalletName : this.props.wallets[0].name}
 						/>
 					</View>
 					<Text style={styles.textHeader}>
@@ -276,8 +276,8 @@ class Portfolio extends Component {
 									data={this.state.completeTokenObject}
 									showsVerticalScrollIndicator={false}
 									renderItem={({ item }) => { return this.renderRow(item); }}
-									keyExtractor={(item) => {
-										return `${item.tokenInfo.address}${item.tokenInfo.name}`;
+									keyExtractor={(item, i) => {
+										return `${i}${item.tokenInfo.address}${item.tokenInfo.name}`;
 									}}
 									refreshing={this.state.refresh}
 									onRefresh={this.handleListRefresh}

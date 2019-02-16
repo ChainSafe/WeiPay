@@ -22,6 +22,7 @@ class ConfirmPassphrase extends Component {
   }
 
   componentDidMount() {
+		// console.log(this.props.hotWallet.wallet.mnemonic);
     const words = this.props.hotWallet.wallet.mnemonic.split(' ');
     let orderArray = [];
     for (let i = 0; i < words.length; i++) {
@@ -62,10 +63,11 @@ class ConfirmPassphrase extends Component {
 
   validatePassphrase = () => {
     const { selectedTags } = this.state;
+    // let passphraseIncomplete = true;
     let count = 0;
-    if (selectedTags.length === 12) {
+    if (selectedTags.length == 12) {
       for (let i = 0; i < selectedTags.length; i++) {
-        if (selectedTags[i].wordItem.index === i) {
+        if (selectedTags[i].wordItem.index == i) {
           count++;
         }
       }
@@ -99,7 +101,6 @@ class ConfirmPassphrase extends Component {
    */
   render() {
     const { selectedTags, scrambledTags } = this.state;
-    console.log(this.state, this.props.hotWallet.wallet.mnemonic);
     return (
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.mainContainer}>

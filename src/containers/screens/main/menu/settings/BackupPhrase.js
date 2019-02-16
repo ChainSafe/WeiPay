@@ -9,8 +9,9 @@ import BackWithMenuNav from '../../../../components/customPageNavs/BackWithMenuN
 import BoxShadowCard from '../../../../components/shadowCards/BoxShadowCard';
 import LinearButton from '../../../../components/linearGradient/LinearButton';
 
-const ethers = require('ethers');
+// const ethers = require('ethers');
 
+// unused
 // const utils = ethers.utils;
 
 // const navigate = () => {
@@ -85,7 +86,8 @@ class BackupPhrase extends Component {
                           onClickFunction={this.displayPassphrase.bind(this)}
                           buttonText= 'Show Recovery Passphrase'
                           customStyles={styles.button}
-                          buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
+													// unnecessary
+                          // buttonStateEnabled={ this.props.debugMode ? false : this.state.buttonDisabled}
                       />
                 }
             </View>

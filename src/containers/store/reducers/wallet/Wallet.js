@@ -13,6 +13,7 @@ import {
 	SET_NETWORK,
 	SET_GLOBAL_PUBLIC_ADDRESS,
 	NUKE_WALLET,
+	INIT_WALLET_EXIT_SETUP_ENCRYPT_WALLET,
 	FETCHING_COIN_DATA_SUCCESS_WITH_TOKEN_QUANTITIES_BALANCES,
 	FETCHING_COIN_DATA_FAIL_WITH_TOKENQUANTITIES
 } from '../../actions/types/AppConfig';
@@ -39,7 +40,7 @@ const initialState = {
 	tempWalletName: null,
 	tokens: [],
 	walletBalance: null,
-	tokenPrices: {},
+	tokenBalances: {},
 	walletTokens: [],
 	isFetching: null,
 	hasError: false,
@@ -84,10 +85,12 @@ export default function (state = initialState, action) {
 			return {
 				...state, wallets: action.payload,
 			};
-		case FETCHING_COIN_DATA:
+		// merging 3 actions init new app wallet, exit setup, set app password root
+		case INIT_WALLET_EXIT_SETUP_ENCRYPT_WALLET:
 			return {
-				...state, isFetching: true, hasError: false, errorMessage: null,
-			};
+				...state, wallets: action.payload.appWallets, isInSetupScreens: action.payload.flag,
+				encryptedWallet: action.payload.hashedPassword
+			}
 		case FETCHING_ETH_PRICE_DATA:
 			return {
 				...state, isFetching: true, data: null, hasError: false, errorMessage: null,
@@ -101,37 +104,9 @@ export default function (state = initialState, action) {
 				...state, isFetching: false, hasError: true, errorMessage: action.err,
 			};
 		case SET_WALLET_TOKENS_BALANCES:
-			return { ...state, walletTokens: action.payload };
-		case SAVE_TOKEN_QUANTITIES:
 			return {
-				...state, tokenQuantities: action.payload,
+				...state, walletTokens: action.payload
 			};
-		case FETCHING_COIN_DATA_SUCCESS:
-			return {
-				...state, isFetching: false, hasError: false, errorMessage: null, tokenConversions: action.payload,
-			};
-		case FETCHING_COIN_DATA_FAIL:
-			return {
-				...state, isFetching: false, hasError: true, errorMessage: action.err,
-			};
-		case CALCULATE_WALLET_BALANCE: {
-			const { walletBalanceObject, tokenPrices } = action.payload;
-			return {
-				...state, walletBalance: walletBalanceObject, tokenPrices: tokenPrices,
-			};
-		}
-		case FETCHING_COIN_DATA_FAIL_WITH_TOKENQUANTITIES: {
-			const {tokenQuantities, tokenPrices, walletBalance} = action.payload;
-			return {
-				...state, tokenQuantities, tokenPrices, walletBalance, hasError: true
-			};
-		}
-		case FETCHING_COIN_DATA_SUCCESS_WITH_TOKEN_QUANTITIES_BALANCES: {
-			const {tokenQuantities, tokenPrices, walletBalance, tokenConversions} = action.payload;
-			return {
-				...state, tokenQuantities, tokenPrices, walletBalance, tokenConversions, hasError: false
-			};
-		}
 		case SAVE_TOKEN_DATA_FOR_TRANSACTION:
 			return {
 				...state, activeTokenData: action.payload,
@@ -141,8 +116,43 @@ export default function (state = initialState, action) {
 			return {
 				...state, walletUnencyrpted: { wallet, pubKey: publicKey, name },
 			};
+		case SAVE_TOKEN_QUANTITIES:
+			return {
+				...state, tokenQuantities: action.payload,
+			};
+		case FETCHING_COIN_DATA:
+			return {
+				...state, isFetching: true, hasError: false, errorMessage: null,
+			};
+		case FETCHING_COIN_DATA_SUCCESS:
+			return {
+				...state, isFetching: false, hasError: false, errorMessage: null, tokenConversions: action.payload,
+			};
+		case FETCHING_COIN_DATA_FAIL:
+			return {
+				...state, isFetching: false, hasError: true, errorMessage: action.err,
+			};
+		case CALCULATE_WALLET_BALANCE:
+			const { walletBalanceObject, individualTokens } = action.payload;
+			return {
+				...state, walletBalance: walletBalanceObject, tokenBalances: individualTokens,
+			};
+		case FETCHING_COIN_DATA_FAIL_WITH_TOKENQUANTITIES: {
+			const { tokenQuantities, tokenPrices, walletBalance } = action.payload;
+			return {
+				...state, tokenQuantities, tokenPrices, walletBalance, hasError: true
+			};
+		};
+		case FETCHING_COIN_DATA_SUCCESS_WITH_TOKEN_QUANTITIES_BALANCES: {
+			const { tokenQuantities, tokenPrices, walletBalance, tokenConversions } = action.payload;
+			return {
+				...state, tokenQuantities, tokenPrices, walletBalance, tokenConversions, hasError: false
+			};
+		};
 		case ADD_TOKEN_SETUP:
-			return { ...state, tokens: action.payload };
+			return {
+				...state, tokens: action.payload
+			};
 		case SET_GLOBAL_PUBLIC_ADDRESS:
 			return {
 				...state, gloablPublicAddress: action.payload,

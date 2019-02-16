@@ -6,7 +6,6 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { FormInput } from 'react-native-elements';
 import RF from 'react-native-responsive-fontsize';
-import { initializeAppWallet } from '../../../store/actions/creators/AppConfig';
 import LinearButton from '../../../components/linearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
@@ -18,14 +17,14 @@ class RecoverWallet extends Component {
     super(props);
     this.state = {
       mnemonic: '',
-      // value: '', unnecessary state
-      buttonDisabled: true,
+      // value: '',
+      buttonEnabled: true,
       walletProcessing: false,
     };
   }
 
-  navigate = async (wallet) => {
-    await this.setState({ walletProcessing: false });
+  navigate = (wallet) => {
+    this.setState({ walletProcessing: false });
     const navigateToCreateWalletName = NavigationActions.navigate({
       routeName: 'createWalletNameRecovered',
       params: { wallet },
@@ -34,17 +33,21 @@ class RecoverWallet extends Component {
   }
 
   recoverMnemonic = async () => {
-    await this.setState({ walletProcessing: true });
+    this.setState({ walletProcessing: true });
     let wallet;
     const inDebug = this.props.debugMode;
     try {
       if (!inDebug) {
         const mnemonic = this.state.mnemonic.trim();
         wallet = await ethers.Wallet.fromMnemonic(mnemonic);
+				console.log(wallet);
+				if(wallet) this.navigate(wallet);
       } else {
         wallet = await new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
-      }
-      this.navigate(wallet);
+				console.log(wallet);
+				if(wallet) this.navigate(wallet);
+			}
+      
     } catch (err) {
       Alert.alert(
         'Mnemonic Error',
@@ -67,23 +70,22 @@ class RecoverWallet extends Component {
    * Updates the local state with the latest mnemonic that was inputted in the input field
    * @param {String} mnemonicInput
    */
-  renderRecoveryKey = (mnemonicInput) => {
+  renderRecoveryKey(mnemonicInput) {
     const totalWords = mnemonicInput.split(' ');
     if (totalWords.length === 12) {
       // this.setState({ value: mnemonicInput.toLowerCase() });
       // this.setState({ mnemonic: mnemonicInput.toLowerCase() });
-      // this.setState({ buttonDisabled: false });
+      // this.setState({ buttonEnabled: false });
 
       // set in one setState
       this.setState({ 
-        // value: mnemonicInput.toLowerCase(), 
         mnemonic: mnemonicInput.toLowerCase(),
-        buttonDisabled: false 
+        buttonEnabled: false 
       });
 
     } else {
       // reduce number of renders
-      if(!this.state.buttonDisabled) this.setState({ buttonDisabled: true });
+      if(!this.state.buttonEnabled) this.setState({ buttonEnabled: true });
     }
   }
 
@@ -91,7 +93,7 @@ class RecoverWallet extends Component {
    * Returns the form required to recover the wallet
    */
   render() {
-    const { walletProcessing, buttonDisabled } = this.state;
+    const { walletProcessing, buttonEnabled } = this.state;
     const { debugMode } = this.props;
     return (
       <SafeAreaView style={styles.safeAreaView}>
@@ -102,8 +104,8 @@ class RecoverWallet extends Component {
                     showMenu={false}
                     showBack={true}
                     navigation={this.props.navigation}
-                    // backPage={'createWalletNameRecovered'} wrong route
-                    backPage={'createOrRestore'}
+                    // backPage={'createWalletNameRecovered'}
+										backPage={'createOrRestore'}
                 />
               </View>
               <Text style={styles.textHeader} >Recover Passphrase</Text>
@@ -127,7 +129,7 @@ class RecoverWallet extends Component {
                             <View style={styles.formInputContainer}>
                               <FormInput
                                   placeholder={'Ex. man friend love long phrase ... '}
-                                  onChangeText={this.renderRecoveryKey}
+                                  onChangeText={this.renderRecoveryKey.bind(this)}
                                   inputStyle={styles.txtMnemonic}
                                   selectionColor={'#12c1a2'}
                               />
@@ -142,7 +144,7 @@ class RecoverWallet extends Component {
                     onClickFunction={ this.recoverMnemonic }
                     buttonText= 'Recover'
                     customStyles={styles.button}
-                    buttonStateEnabled={ debugMode ? false : buttonDisabled}
+                    buttonStateEnabled={ debugMode ? false : buttonEnabled}
                 />
               </View>
             </View>
@@ -235,4 +237,4 @@ const mapStateToProps = ({ Debug }) => {
   return { debugMode };
 };
 
-export default connect(mapStateToProps, { initializeAppWallet })(RecoverWallet);
+export default connect(mapStateToProps, null)(RecoverWallet);

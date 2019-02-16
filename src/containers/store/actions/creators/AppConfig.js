@@ -2,7 +2,7 @@
 import * as actionType from '../types/AppConfig';
 import axios from 'axios';
 import {
-  apiMultipleCurrencyBaseUrl, apiMulitpleResponseUrl,
+	apiMultipleCurrencyBaseUrl, apiMulitpleResponseUrl,
 } from '../../../../constants/Api';
 
 export function enterDebug() {
@@ -12,24 +12,9 @@ export function enterDebug() {
 	};
 }
 
-export function encryptSerializedWallet(hashedPassword) {
-	return (dispatch) => {
-		dispatch({ type: actionType.SET_APP_PASSWORD_ROOT, payload: hashedPassword });
-	};
-}
-
 export function setNetwork(network) {
 	return (dispatch) => {
 		dispatch({ type: actionType.SET_NETWORK, payload: network });
-	};
-}
-
-/**
- * This action is used to track if the user is in the setup screens.
- */
-export function exitSetup(flag) {
-	return (dispatch) => {
-		dispatch({ type: actionType.EXIT_SETUP_SCREEN, payload: flag });
 	};
 }
 
@@ -48,7 +33,7 @@ export function initializeAppTokenState(initTokenData) {
 export function addNewToken(tokenObject, usersTokens) {
 	let tokenCopy = [...usersTokens];
 	tokenCopy.push(tokenObject);
-	console.log(tokenCopy);
+	// console.log(tokenCopy);
 	return (dispatch) => {
 		dispatch({ type: actionType.ADD_NEW_SINGLE_TOKEN, payload: tokenCopy });
 	};
@@ -63,12 +48,19 @@ export function setTempWalletName(walletName) {
 	};
 }
 
+export function setHotWallet(walletObj) {
+	const { name, wallet } = walletObj;
+	const pKey = wallet.address;
+	return (dispatch) => {
+		dispatch({ type: actionType.CONFIG_HOT_WALLET, payload: { 'wallet': wallet, 'publicKey': pKey, 'name': name } });
+	};
+}
+
 /**
  * Initializes a wallet within the app.
  * If previosWalletState.length = 0 means its the users first wallet in the app.
  */
 export function initializeAppWallet(currentWallet, walletName, previousWalletState) {
-	// not sure why address is mapped to publicKey??
 	let appWallets = [];
 	if (previousWalletState.length > 0) {
 		for (let i = 0; i < previousWalletState.length; i++) {
@@ -90,19 +82,61 @@ export function initializeAppWallet(currentWallet, walletName, previousWalletSta
 }
 
 /**
+ * This action is used to track if the user is in the setup screens.
+ */
+export function exitSetup(flag) {
+	return (dispatch) => {
+		dispatch({ type: actionType.EXIT_SETUP_SCREEN, payload: flag });
+	};
+}
+
+/**
+ * merging 2 dispatches into one
+ * initializeAppWallet, exitSetup
+ */
+export function encryptSerializedWallet(hashedPassword) {
+	return (dispatch) => {
+		dispatch({ type: actionType.SET_APP_PASSWORD_ROOT, payload: hashedPassword });
+	};
+}
+
+export function initWalletExitSetupEncryptWallet(currentWallet, walletName, previousWalletState, flag) {
+	// initialize
+	let appWallets = [];
+	if (previousWalletState.length > 0) {
+		for (let i = 0; i < previousWalletState.length; i++) {
+			let previousWallet = {};
+			previousWallet.name = previousWalletState[i].name;
+			previousWallet.hdWallet = previousWalletState[i].hdWallet;
+			previousWallet.publicKey = previousWalletState[i].hdWallet.address;
+			appWallets.push(previousWallet);
+		}
+	}
+	let walletObject = {};
+	walletObject.name = walletName;
+	walletObject.hdWallet = currentWallet;
+	walletObject.publicKey = currentWallet.address;
+	// currentWallet is the encrypted string, currentWallet.address always undefined
+	appWallets.push(walletObject);
+
+	return (dispatch) => {
+		dispatch({
+			type: actionType.INIT_WALLET_EXIT_SETUP_ENCRYPT_WALLET,
+			payload: {
+				appWallets,
+				flag,
+				hashedPassword: currentWallet
+			}
+		});
+	};
+}
+
+/**
  * Set temporary state wallet name until wallet is created/saved to async
  */
 export function setWalletPassword(password) {
 	return (dispatch) => {
 		dispatch({ type: actionType.SET_APP_PASSWORD, payload: password });
-	};
-}
-
-export function setHotWallet(walletObj) {
-	const { name, wallet } = walletObj;
-	const pKey = wallet.address;
-	return (dispatch) => {
-		dispatch({ type: actionType.CONFIG_HOT_WALLET, payload: { 'wallet': wallet, 'publicKey': pKey, 'name': name } });
 	};
 }
 
@@ -125,6 +159,12 @@ export function setUnencryptedWallet(walletObj) {
 	};
 }
 
+export function saveAllTokenQuantities(list) {
+	return (dispatch) => {
+		dispatch({ type: actionType.SAVE_TOKEN_QUANTITIES, payload: list });
+	};
+}
+
 // saveAllTokenQuantities(tokenQuantities);
 // fetchCoinData(tokenSymbolString);
 // calculateWalletBalance(tokenQuantities, tokenConversions);
@@ -132,10 +172,10 @@ export function setUnencryptedWallet(walletObj) {
 
 export function quantityFetchAndBalance(tokenSymbolString, tokenQuantities) {
 	return (dispatch) => {
-		console.log("in dispatch");
+		// console.log("in dispatch");
 		return axios.get(`${apiMultipleCurrencyBaseUrl}${tokenSymbolString}${apiMulitpleResponseUrl}`)
 			.then(res => {
-				console.log("in success dispatch", res.data);
+				// console.log("in success dispatch", res.data);
 				const tokenConversionMatrix = res.data;
 				const { walletBalanceObject, tokenPrices } = calculateBalances(tokenQuantities, tokenConversionMatrix);
 
@@ -150,10 +190,10 @@ export function quantityFetchAndBalance(tokenSymbolString, tokenQuantities) {
 				})
 			})
 			.catch(err => {
-				console.log("in dispatch fail", err);
+				// console.log("in dispatch fail", err);
 				const tokenConversionMatrix = [];
 				const { walletBalanceObject, tokenPrices } = calculateBalances(tokenQuantities, tokenConversionMatrix);
-				console.log("no dispatching");
+				// console.log("no dispatching");
 				dispatch({
 					type: actionType.FETCHING_COIN_DATA_FAIL_WITH_TOKENQUANTITIES,
 					payload: {
@@ -165,12 +205,6 @@ export function quantityFetchAndBalance(tokenSymbolString, tokenQuantities) {
 				})
 			})
 	}
-}
-
-export function saveAllTokenQuantities(tokenQuantities) {
-	return (dispatch) => {
-		dispatch({ type: actionType.SAVE_TOKEN_QUANTITIES, payload: tokenQuantities });
-	};
 }
 
 export function setGlobalAddress(address) {

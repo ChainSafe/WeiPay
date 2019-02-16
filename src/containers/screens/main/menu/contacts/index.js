@@ -2,20 +2,20 @@ import React, { Component } from 'react';
 import {
  View, Text, StyleSheet, ListView, SafeAreaView, TouchableWithoutFeedback, Dimensions, Keyboard
 } from 'react-native';
-// import { NavigationActions } from 'react-navigation';
-// import {
-//  Icon, Button, FormLabel, FormInput, FormValidationMessage, List, ListItem
-// } from 'react-native-elements';
+import { NavigationActions } from 'react-navigation';
+import {
+ Icon, Button, FormLabel, FormInput, FormValidationMessage, List, ListItem
+} from 'react-native-elements';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import RF from 'react-native-responsive-fontsize';
 import * as actions from '../../../../store/actions/ActionCreator';
-// import AddFirstContact from './add/AddFirstContact';
+import AddFirstContact from './add/AddFirstContact';
 import ContactBackWithMenuNav from '../../../../components/customPageNavs/ContactBackWithMenuNav';
 import ContactTabNavigator from '../../../../components/customPageNavs/ContactTabNavigator';
 import ContactsTab from './ContactsTab';
 import AddContact from './add/AddContact';
-// import TabNavigator from '../../../../components/customPageNavs/CustomTabNavigator';
+import TabNavigator from '../../../../components/customPageNavs/CustomTabNavigator';
 
 /**
  * Screen that displays all the contacts that have been added to
@@ -26,7 +26,7 @@ class Contacts extends Component {
     super(props);
     this.state = {
       active: true,
-      tab: 'contacts',
+      tab: this.props.activeTab,
       selectedContact: false,
     };
   }
@@ -49,17 +49,15 @@ class Contacts extends Component {
   }
 
   setAddContactTab = () => {
-		//unnecessary dispatch
-    // this.props.contactsActiveTab('addcontact');
-    this.setState({ tab: 'addcontact', selectedContact: false });
-    // this.setState({ selectedContact: false });
+    this.props.contactsActiveTab('addcontact');
+    this.setState({ tab: 'addcontact' });
+    this.setState({ selectedContact: false });
   }
 
   setContactTab = () => {
-		// unnecessary dispatch
-    // this.props.contactsActiveTab('contacts');
-    this.setState({ tab: 'contacts', selectedContact: false });
-    // this.setState({ selectedContact: false });
+    this.props.contactsActiveTab('contacts');
+    this.setState({ tab: 'contacts' });
+    this.setState({ selectedContact: false });
   }
 
   /**

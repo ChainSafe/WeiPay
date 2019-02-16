@@ -8,7 +8,10 @@ const executeEtherTransaction = async (provider, to, privateKey, value) => {
   return sendPromise.then((transactionHash) => {
     console.log(transactionHash);
     return transactionHash;
-  });
+  }).catch(err => {
+		console.log(err);
+		return null;
+	});
 };
 
 export default executeEtherTransaction;

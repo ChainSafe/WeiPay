@@ -20,77 +20,78 @@ import Coins from '../../screens/main/tokens/add/Coins';
 import NewToken from '../../screens/main/tokens/add/NewToken';
 import Tokens from '../../screens/main/tokens/add/Tokens';
 
-const CustomDrawerContentComponent = props => (
-  <View style={styles.customContainer}>
-    <View>
-      <DrawerItems
-        {...props}
-        activeBackgroundColor={'#f3f3f3'}
-        labelStyle={styles.labelText}
-      />
-    </View>
-  </View>
-);
+const CustomDrawerContentComponent = props => {
+	console.log(props);
+	return <View style={styles.customContainer}>
+		<View>
+			<DrawerItems
+				{...props}
+				activeBackgroundColor={'#f3f3f3'}
+				labelStyle={styles.labelText}
+			/>
+		</View>
+	</View>
+};
 
 const navigator = DrawerNavigator({
-  Portfolio: {
-    screen: StackNavigator({
-      portfolioScreen: { screen: Portfolio },
-      coinReceive: { screen: CoinReceive },
-      coinHistory: { screen: CoinHistory },
-      coinSend: { screen: CoinSend },
-      TokenFunctionality: { screen: TokenFunctionality },
-      AddTokenFunctionality: { screen: AddingTokensOrCoins },
-      QCodeScanner: { screen: QrCodeScanner },
-      // contactAddresses: { screen: ContactAddresses },
-      tokenList: { screen: Coins },
-      customToken: { screen: NewToken },
-      searchToken: { screen: Tokens },
-    },
-    {
-      initialRouteName: 'portfolioScreen',
-      headerMode: 'none',
-      navigationOptions: {
-        backgroundColor: '#fafbfe',
-        borderBottomWidth: 0,
-        gesturesEnabled: false,
-      },
-    }),
-  },
-  Backup: { screen: BackupPhrase },
-  // Contacts: {
-  //   screen: StackNavigator({
-  //     contacts: { screen: Contacts },
-  //     editContact: { screen: EditContact },
-  //     addContact: { screen: AddContact },
-  //   },
-  //   {
-  //     headerMode: 'none',
-  //   }),
-  // },
-  Contracts: { screen: Contract },
-  Networks: { screen: Network },
+	Portfolio: {
+		screen: StackNavigator({
+			portfolioScreen: { screen: Portfolio },
+			coinReceive: { screen: CoinReceive },
+			coinHistory: { screen: CoinHistory },
+			coinSend: { screen: CoinSend },
+			TokenFunctionality: { screen: TokenFunctionality },
+			AddTokenFunctionality: { screen: AddingTokensOrCoins },
+			QCodeScanner: { screen: QrCodeScanner },
+			// contactAddresses: { screen: ContactAddresses },
+			tokenList: { screen: Coins },
+			customToken: { screen: NewToken },
+			searchToken: { screen: Tokens },
+		},
+			{
+				initialRouteName: 'portfolioScreen',
+				headerMode: 'none',
+				navigationOptions: {
+					backgroundColor: '#fafbfe',
+					borderBottomWidth: 0,
+					gesturesEnabled: false,
+				},
+			}),
+	},
+	Backup: { screen: BackupPhrase },
+	// Contacts: {
+	//   screen: StackNavigator({
+	//     contacts: { screen: Contacts },
+	//     editContact: { screen: EditContact },
+	//     addContact: { screen: AddContact },
+	//   },
+	//   {
+	//     headerMode: 'none',
+	//   }),
+	// },
+	"Contracts (beta)": { screen: Contract },
+	Networks: { screen: Network },
 }, {
-  headerMode: 'none',
-  lazy: true,
-  contentComponent: CustomDrawerContentComponent,
-  drawerPosition: 'right',
-  drawerWidth: Dimensions.get('window').width / 2.2,
-});
+		headerMode: 'none',
+		lazy: true,
+		contentComponent: CustomDrawerContentComponent,
+		drawerPosition: 'right',
+		drawerWidth: Dimensions.get('window').width / 2.2,
+	});
 
 export default navigator;
 
 const styles = StyleSheet.create({
-  customContainer: {
-    flex: 1,
-    backgroundColor: 'white',
-    marginTop: getStatusBarHeight(),
-  },
-  labelText: {
-    fontSize: 16,
-    letterSpacing: 0.6,
-    fontFamily: 'Cairo-Light',
-    color: 'black',
-    fontWeight: '200',
-  },
+	customContainer: {
+		flex: 1,
+		backgroundColor: 'white',
+		marginTop: getStatusBarHeight(),
+	},
+	labelText: {
+		fontSize: 16,
+		letterSpacing: 0.6,
+		fontFamily: 'Cairo-Light',
+		color: 'black',
+		fontWeight: '200',
+	},
 });

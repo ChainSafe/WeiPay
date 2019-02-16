@@ -1,76 +1,56 @@
 import React, { Component } from 'react';
 import {
-  View, StyleSheet, Text, Dimensions, TouchableWithoutFeedback, Keyboard, SafeAreaView,
+  View, Text, StyleSheet, Dimensions, SafeAreaView,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import { FormInput } from 'react-native-elements';
 import RF from 'react-native-responsive-fontsize';
-import { setTempWalletName } from '../../../store/actions/creators/AppConfig';
 import LinearButton from '../../../components/linearGradient/LinearButton';
 import BackWithMenuNav from '../../../components/customPageNavs/BackWithMenuNav';
 import BoxShadowCard from '../../../components/shadowCards/BoxShadowCard';
 
-class CreateWalletName extends Component {
-  // state to store temp wallet name
-  state = {
-    tempWalletName: ''
-  }
-
-  navigateAndSetWalletName = () => {
-    this.props.setTempWalletName(this.state.tempWalletName);
-    const navigateToPassphrase = NavigationActions.navigate({
-      routeName: 'password',
-      params: { nextScreenToNavigate: 'mainStack', wallet: this.props.navigation.state.params.wallet },
+class GeneratePassphrase extends Component {
+  navigate = () => {
+    const navigateToConfirmPassphrase = NavigationActions.navigate({
+      routeName: 'confirmPassphrase',
     });
-    this.props.navigation.dispatch(navigateToPassphrase);
+    this.props.navigation.dispatch(navigateToConfirmPassphrase);
   };
-
-  setWalletName = (name) => {
-    this.setState({tempWalletName: name});
-  }
 
   render() {
     return (
       <SafeAreaView style={styles.safeAreaView}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.mainContainer}>
-            <View style={styles.navContainer}>
-              <BackWithMenuNav
-                showMenu={false}
-                showBack={true}
-                navigation={this.props.navigation}
-                backPage={'createOrRestore'}
-              />
-            </View>
-            <Text style={styles.textHeader}>Wallet Name</Text>
+        <View style={styles.mainContainer}>
+          <View style={styles.navContainer}>
+            <BackWithMenuNav
+              showMenu={false}
+              showBack={false}
+              showSkip={true}
+              navigation={this.props.navigation}
+              backPage={'createWalletName'}
+            />
+          </View>
+          <Text style={styles.textHeader} >Your Passphrase</Text>
             <View style={styles.boxShadowContainer}>
-              <View style={styles.contentContainer}>
-                <BoxShadowCard>
+              <View style={styles.contentContainer} >
+                <BoxShadowCard >
                   <Text style={styles.cardText}>
-                      Create a name for your wallet, for example: My Wallet
+                      Please write down your 12 word passphrase. You will need it to verify your wallet.
                   </Text>
-                  <View style={styles.formInputContainer}>
-                    <FormInput
-                      placeholder={'Ex. My Wallet'}
-                      onChangeText={this.setWalletName}
-                      inputStyle={styles.txtWalletName}
-                      selectionColor={'#12c1a2'}
-                    />
-                  </View>
+                  <Text style={styles.textMnemonic}>
+                      {this.props.hotWallet.wallet.mnemonic}
+                  </Text>
                 </BoxShadowCard>
               </View>
             </View>
             <View style={styles.btnContainer}>
               <LinearButton
-                onClickFunction={ this.navigateAndSetWalletName }
-                buttonText= 'Next'
-                customStyles={styles.button}
-                buttonStateEnabled= { !this.state.tempWalletName }
+                onClickFunction={this.navigate}
+                buttonText="Next"
+                customStyles={styles.button}               
               />
             </View>
           </View>
-        </TouchableWithoutFeedback>
       </SafeAreaView>
     );
   }
@@ -84,57 +64,48 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     backgroundColor: '#f4f7f9',
-    justifyContent: 'center',
     width: '100%',
   },
   navContainer: {
     flex: 0.65,
   },
-  boxShadowContainer: {
-    alignItems: 'center',
-    flex: 2.5,
-  },
   textHeader: {
     fontFamily: 'Cairo-Light',
     fontSize: RF(4),
-    letterSpacing: 0.8,
     paddingLeft: '9%',
-    color: 'black',
+    color: '#000000',
     flex: 0.65,
   },
   contentContainer: {
-    width: '82%',
-    flex: 1,
+    width: '83%',
+  },
+  boxShadowContainer: {
+    alignItems: 'center',
+    flex: 3,
   },
   cardText: {
-    paddingBottom: '15%',
+    paddingBottom: '7.5%',
+    lineHeight: RF(3.9),
     paddingTop: '10%',
     paddingLeft: '10%',
     paddingRight: '10%',
     fontFamily: 'WorkSans-Light',
-    letterSpacing: 0.4,
-    lineHeight: RF(3.9),
     color: '#000000',
     fontSize: RF(2.4),
   },
-  txtWalletName: {
-    width: '100%',
-    fontSize: RF(2.4),
-    flexWrap: 'wrap',
+  textMnemonic: {
+    paddingLeft: '10%',
+    paddingRight: '10%',
     color: '#12c1a2',
+    fontSize: RF(2.4),
+    lineHeight: RF(4.1),
     letterSpacing: 0.4,
-    fontFamily: 'WorkSans-Regular',
-    borderBottomWidth: 0.0001,
-  },
-  formInputContainer: {
-    width: '92%',
-    marginLeft: '5%',
   },
   btnContainer: {
-    flex: 2.5,
     alignItems: 'stretch',
     justifyContent: 'flex-end',
-    width: '100%',
+    alignContent: 'flex-end',
+    flex: 2,
     marginBottom: '2.5%',
     marginTop: '2.5%',
   },
@@ -144,10 +115,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ Debug, Wallet }) => {
-  // removed un necessary props
-  const { debugMode } = Debug;
-  return { debugMode };
+const mapStateToProps = ({ HotWallet }) => {
+  const { hotWallet } = HotWallet;
+  return { hotWallet };
 };
 
-export default connect(mapStateToProps, { setTempWalletName })(CreateWalletName);
+export default connect(mapStateToProps, null)(GeneratePassphrase);

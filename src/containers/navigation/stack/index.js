@@ -15,14 +15,11 @@ class AppNavigation extends Component {
   }
 
   onBackPress = () => {
-    // const { dispatch } = this.props;
+    const { dispatch } = this.props;
 
-    // if (this.props.navigationState.index > 0) {
-    //   return false;
-    // }
-
-    const { dispatch, navigationState} = this.props;
-    if(navigationState.index > 0) return false;
+    if (this.props.navigationState.index > 0) {
+      return false;
+    }
 
     dispatch(NavigationActions.back());
     return true;
@@ -31,8 +28,6 @@ class AppNavigation extends Component {
 
   render() {
     const { navigationState, dispatch } = this.props;
-    console.log("app state", this.props.state);
-    console.log("navigation state", navigationState);    
     return (
       <NavigationStack
         navigation={addNavigationHelpers({ dispatch, state: navigationState })}
@@ -47,7 +42,6 @@ class AppNavigation extends Component {
  */
 const mapStateToProps = (state) => {
   return {
-    state: state,
     navigationState: state.NavigationReducer,
   };
 };
