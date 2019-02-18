@@ -38,17 +38,19 @@ class RecoverWallet extends Component {
     const inDebug = this.props.debugMode;
     try {
       if (!inDebug) {
+				console.log("mnem", this.state.mnemonic);
         const mnemonic = this.state.mnemonic.trim();
         wallet = await ethers.Wallet.fromMnemonic(mnemonic);
-				console.log(wallet);
-				if(wallet) this.navigate(wallet);
+				console.log("not in debug", wallet);
+				this.navigate(wallet);
       } else {
         wallet = await new ethers.Wallet('0x923ed0eca1cee12c1c3cf7b8965fef00a2aa106124688a48d925a778315bb0e5');
-				console.log(wallet);
-				if(wallet) this.navigate(wallet);
+				console.log("in debug", wallet);
+				this.navigate(wallet);
 			}
       
     } catch (err) {
+			console.log(err);
       Alert.alert(
         'Mnemonic Error',
         'Your mnemonic was invalid, please re-enter.',
